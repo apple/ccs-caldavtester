@@ -1,0 +1,1180 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test SCHEDULE method in CalDAV</description>
+
+	<start>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/outbox/</ruri>
+		</request>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/inbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/outbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/inbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/outbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/inbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/calendar/</ruri>
+		</request>
+	</start>
+	
+	<test-suite name='SCHEDULE non-recurring without conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Update to previous request - no auto-reply' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>One item in resource01 Inbox (old one deleted)</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Repeat request - no auto-reply' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>One item in resource01 Inbox (old one deleted)</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='SCHEDULE non-recurring with conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='SCHEDULE recurring with conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/10.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/10.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='SCHEDULE recurring without conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/12.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/13.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/13.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='SCHEDULE non-recurring with recurring conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/14.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Two items in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/15.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/15.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='SCHEDULE recurring with recurring conflict' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/16.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/16.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/16.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/16.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Two items in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/17.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/17.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='SCHEDULE cancel non-recurring' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do SCHEDULE</description>
+			<request>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/resource01</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/18.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>One item in user01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/18.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/18.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>One item in resource01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>GETNEW</method>
+				<ruri>/calendars/users/resource01/inbox/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/18.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Two items in resource01 Calendar</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>One item in resource01 Outbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/resource01/outbox/</ruri>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>6</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="admin" pswd="admin" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>6</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/outbox/</ruri>
+		</request>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/inbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/outbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/inbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/outbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/inbox/</ruri>
+		</request>
+		<request user="admin" pswd="admin">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/resource01/calendar/</ruri>
+		</request>
+	</end>
+	
+</caldavtest>

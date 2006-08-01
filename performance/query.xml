@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<start/>
+	
+	<test-suite name='query - summary text' ignore='no'>
+		<test name='1' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for SUMMARY value on calendar with 10 items</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.10/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for SUMMARY value on calendar with 100 items</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.100/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for SUMMARY value on calendar with 1000 items</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.1000/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='query - time-range' ignore='yes'>
+		<test name='1' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for time-range on calendar with 10 items</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.10/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for time-range on calendar with 100 items</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.100/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' details='yes' count='10' stats='yes' ignore='no'>
+			<description>query REPORT for time-range on calendar with 1000 items</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/calendar.1000/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/performance/query/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>

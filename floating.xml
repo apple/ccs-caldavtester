@@ -1,0 +1,500 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test all-day/floating tests for timezone proeprty</description>
+
+	<start>
+		<request end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix:/floating/</ruri>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/floating/calendar-none/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/2.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/3.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/4.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/5.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/6.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/6.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-none/7.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/7.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/floating/calendar-us/</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/8.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/2.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/3.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/4.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/5.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/6.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/6.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/floating/calendar-us/7.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/floating/put/7.txt</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='REPORT floating behaviour - calendar without timezone'>
+		<test name='1' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-none/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-none/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-none/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-none/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-none/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-none/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='REPORT floating behaviour - calendar with timezone'>
+		<test name='1' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: no timezone</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-us/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-us/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-us/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-us/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-us/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/calendar-us/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>3.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='REPORT floating behaviour - collection'>
+		<test name='1' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: no timezone</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>calendar-none/1.ics</value>
+						<value>calendar-none/3.ics</value>
+						<value>calendar-none/5.ics</value>
+						<value>calendar-none/6.ics</value>
+						<value>calendar-us/1.ics</value>
+						<value>calendar-us/3.ics</value>
+						<value>calendar-us/5.ics</value>
+						<value>calendar-us/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>calendar-none/1.ics</value>
+						<value>calendar-none/3.ics</value>
+						<value>calendar-none/5.ics</value>
+						<value>calendar-none/6.ics</value>
+						<value>calendar-us/1.ics</value>
+						<value>calendar-us/3.ics</value>
+						<value>calendar-us/5.ics</value>
+						<value>calendar-us/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
+			<request>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>calendar-none/1.ics</value>
+						<value>calendar-none/3.ics</value>
+						<value>calendar-none/6.ics</value>
+						<value>calendar-us/1.ics</value>
+						<value>calendar-us/3.ics</value>
+						<value>calendar-us/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='REPORT free-busy floating behaviour'>
+		<test name='1' ignore='no'>
+			<description>free-busy on collection without timezone</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/calendar-none/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/5.txt</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20060101T000000Z/20060101T020000Z</value>
+						<value>20060101T050000Z/20060101T060000Z</value>
+						<value>20060101T080000Z/20060101T090000Z</value>
+					</arg>
+					<arg>
+						<name>tentative</name>
+						<value>20060101T000000Z/20060102T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>free-busy on collection with timezone</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/floating/calendar-us/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/5.txt</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20060101T000000Z/20060101T010000Z</value>
+						<value>20060101T050000Z/20060101T070000Z</value>
+						<value>20060101T080000Z/20060101T090000Z</value>
+					</arg>
+					<arg>
+						<name>tentative</name>
+						<value>20060101T050000Z/20060102T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>free-busy on multiple collections with/without timezone</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/5.txt</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20060101T000000Z/20060101T020000Z</value>
+						<value>20060101T050000Z/20060101T070000Z</value>
+						<value>20060101T080000Z/20060101T090000Z</value>
+					</arg>
+					<arg>
+						<name>tentative</name>
+						<value>20060101T000000Z/20060102T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>

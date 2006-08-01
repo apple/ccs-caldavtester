@@ -1,0 +1,436 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test COPY/MOVE methods in CalDAV to ensure proper behaviour
+	of calendar resources wrt UIDs, server indexing etc</description>
+
+	<start>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/1.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/2.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/calendar2/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/calendar2/2_2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/2.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/3.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/calendar2/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/3.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/4.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/calendar2/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/4.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/5.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>6.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/copymove/6.txt</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='COPY'>
+		<test name='1' ignore='no'>
+			<description>COPY within same calendar to new resource</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>COPY within same calendar to existing resource with overwrite</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>COPY within same calendar to existing resource without overwrite</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>F</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>COPY to different calendar, new resource</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>COPY to different calendar, new resource, duplicate UID</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_2.ics</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>COPY to different calendar, existing resource with overwrite</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>COPY to different calendar, existing resource with overwrite, duplicate UID</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>COPY to different calendar, existing resource without overwrite</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>F</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>412</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>COPY to different calendar, existing resource without overwrite, duplicate UID</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/copy2_1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>F</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>412</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='MOVE' ignore='no'>
+		<test name='1'>
+			<description>MOVE within same calendar to new resource</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/move1.ics</value>
+				</header>
+				<ruri>5.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>2xx</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>MOVE within same calendar to existing resource with overwrite</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/move1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>6.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MOVE within same calendar to existing resource without overwrite</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/move1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>F</value>
+				</header>
+				<ruri>3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>412</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>MOVE to different calendar, new resource</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/move2_1.ics</value>
+				</header>
+				<ruri>move1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>2xx</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>MOVE to different calendar, existing resource with overwrite</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/3.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>2xx</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>MOVE to different calendar, existing resource without overwrite</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar2/4.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>F</value>
+				</header>
+				<ruri>4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>412</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end>
+		<request>
+			<method>DELETE</method>
+			<ruri>copy1.ics</ruri>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>move1.ics</ruri>
+		</request>
+	</end>
+	
+</caldavtest>

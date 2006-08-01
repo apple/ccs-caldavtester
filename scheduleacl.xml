@@ -1,0 +1,271 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<start>
+		<request end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix:/top-collection/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/1.xml</filepath>
+			</data>
+		</request>
+		<!--  Calendar with DAV:read only -->
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/top-collection/calendar1/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar1/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar1/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar1/1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar1/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal2.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar1/2.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/2.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar1/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal3.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar1/3.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/3.xml</filepath>
+			</data>
+		</request>
+		<!--  Calendar with no privileges -->
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/top-collection/calendar2/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar2/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/2.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar2/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal4.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar2/1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar2/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal5.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar2/2.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/2.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar2/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal6.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar2/3.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/3.xml</filepath>
+			</data>
+		</request>
+		<!--  Calendar with CALDAV:read-free-busy only -->
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/top-collection/calendar3/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar3/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/3.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar3/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal7.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar3/1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar3/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal8.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar3/2.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/2.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/top-collection/calendar3/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/cal9.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/top-collection/calendar3/3.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/depthreportsacl/3.xml</filepath>
+			</data>
+		</request>
+		<!--  Set calendar-free-busy-set to the calendars only -->
+		<request>
+			<method>PROPPATCH</method>
+			<ruri>$pathprefix:/inbox/</ruri>
+			<data substitutions='yes'>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/scheduleacl/1.xml</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='Schedule free-busy' ignore='no'>
+		<test name='1'>
+			<description>SCHEDULE free busy</description>
+			<request user='user02' pswd='user02' print-response='yes'>
+				<method>SCHEDULE</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user02@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<ruri>/calendars/users/user02/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleacl/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<!--  Set calendar-free-busy-set back to default -->
+		<request>
+			<method>PROPPATCH</method>
+			<ruri>$pathprefix:/inbox/</ruri>
+			<data substitutions='yes'>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/scheduleacl/2.xml</filepath>
+			</data>
+		</request>
+	</end>
+	
+</caldavtest>

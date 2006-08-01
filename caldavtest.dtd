@@ -1,0 +1,62 @@
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<!ELEMENT caldavtest (description?, start, test-suite*, end) >
+	<!ATTLIST caldavtest ignore-all (yes|no) "no">
+
+	<!ELEMENT description (#PCDATA)>
+
+	<!ELEMENT start (request*)>
+	<!ELEMENT end (request*)>
+
+	<!ELEMENT request (method, header*, ruri?, data?, verify*, grablocation?)>
+		<!ATTLIST request auth (yes|no) "yes"
+						 user CDATA ""
+						 pswd CDATA ""
+						 end-delete (yes|no) "no"
+						 print-response (yes|no) "no">
+		
+		<!ELEMENT method (#PCDATA)>
+		<!ELEMENT header (name, value)>
+			<!ELEMENT name (#PCDATA)>
+			<!ELEMENT value (#PCDATA)>
+		<!ELEMENT ruri (#PCDATA)>
+		<!ELEMENT data (content-type, filepath)>
+			<!ATTLIST data substitutions (yes|no) "no">
+			<!ELEMENT content-type (#PCDATA)>
+			<!ELEMENT filepath (#PCDATA)>
+
+		<!ELEMENT verify (callback, arg*)>
+			
+				<!ELEMENT callback (#PCDATA)>
+				<!ELEMENT arg (name, value+)>
+		
+		<!ELEMENT grablocation EMPTY>
+	
+	<!ELEMENT test-suite (test*)>
+		<!ATTLIST test-suite name CDATA #REQUIRED
+							ignore (yes|no) "no">
+	
+		<!ELEMENT test (description?, request+)>
+			<!ATTLIST test name CDATA #REQUIRED
+						  count CDATA "1"
+						  stats (yes|no) "no"
+						  ignore (yes|no) "no">

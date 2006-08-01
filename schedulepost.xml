@@ -1,0 +1,713 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test POST method in CalDAV</description>
+
+	<start>
+		<request user="user02" pswd="user02" end-delete="yes">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/calendar/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/schedule/7.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02" end-delete="yes">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/calendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/schedule/8.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02" end-delete="yes">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/calendar/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/schedule/10.ics</filepath>
+			</data>
+		</request>
+		<request user="user03" pswd="user03" end-delete="yes">
+			<method>PUT</method>
+			<ruri>/calendars/users/user03/calendar/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/schedule/9.ics</filepath>
+			</data>
+		</request>
+		<request user="user03" pswd="user03" end-delete="yes">
+			<method>PUT</method>
+			<ruri>/calendars/users/user03/calendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/schedule/10.ics</filepath>
+			</data>
+		</request>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/outbox/</ruri>
+		</request>
+		<request user="user01" pswd="user01">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user01/inbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/outbox/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user02/inbox/</ruri>
+		</request>
+		<request user="user03" pswd="user03">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user03/outbox/</ruri>
+		</request>
+		<request user="user03" pswd="user03">
+			<method>DELETEALL</method>
+			<ruri>/calendars/users/user03/inbox/</ruri>
+		</request>
+	</start>
+	
+	<test-suite name='POST Errors' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>POST on invalid outbox</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Organizer</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavsupported-collection</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>POST with invalid content</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Organizer</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavsupported-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>POST with invalid calendar data</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>POST without METHOD property</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>POST with invalid iTIP object</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/5.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>POST without Originator:</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavoriginator-specified</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>POST with non-authorized Originator:</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01-bogus@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavoriginator-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>POST without Recipient:</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavrecipient-specified</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>POST with non-authorized Organizer:</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/4.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavorganizer-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>POST reply with too many Attendees:</description>
+			<request user="user02" pswd="user02">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user02@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<ruri>/calendars/users/user02/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/17.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavattendee-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<description>POST reply with non-authorized Attendee:</description>
+			<request user="user02" pswd="user02">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user02@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<ruri>/calendars/users/user02/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/18.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavattendee-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name="POSTs" ignore='no'>
+		<test name='1'>
+			<description>POST which should work</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+					</arg>
+				</verify>
+				<grablocation/>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Make sure resource exists and properties are set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user02@example.com&lt;/href&gt;&lt;href xmlns="DAV:"&gt;mailto:user03@example.com&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Make sure resource exists and properties are set</description>
+			<request user="user02" pswd="user02" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>ignore</name>
+						<value>/calendars/users/user02/inbox/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user02@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Make sure resource exists and properties are set</description>
+			<request  user="user03" pswd="user03" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>/calendars/users/user03/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>ignore</name>
+						<value>/calendars/users/user03/inbox/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user03@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>POST which should work (using relative principal addressing)</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>/principals/users/user02, /principals/users/user03</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+					</arg>
+				</verify>
+				<grablocation/>
+			</request>
+		</test>
+		<test name='6'>
+			<description>POST which should work (using absolute principal addressing)</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$host:/principals/users/user01</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$host:/principals/users/user02, $host:/principals/users/user03</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+					</arg>
+				</verify>
+				<grablocation/>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name="Reports on Inbox/Outbox" ignore='no'>
+		<test name='1'>
+			<description>Simple calendar-query for VEVENTs</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>207</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Simple calendar-query for VEVENTs</description>
+			<request user="user02" pswd="user02" print-response='no'>
+				<method>REPORT</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>207</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Simple calendar-multiget for VEVENTs</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Simple calendar-multiget for VEVENTs</description>
+			<request user="user02" pswd="user02" print-response='no'>
+				<method>REPORT</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>/calendars/users/user01/inbox/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>free-busy-query failure</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:supported-report</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>free-busy-query failure</description>
+			<request user="user02" pswd="user02" print-response='no'>
+				<method>REPORT</method>
+				<ruri>/calendars/users/user02/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedule/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:supported-report</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name="POSTs free busy" ignore='no'>
+		<test name='1'>
+			<description>POST free busy</description>
+			<request print-response='yes'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/6.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST free busy - recipients with failure</description>
+			<request print-response='yes'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>mailto:user01@example.com</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>mailto:broken@example.com, mailto:user03@example.com</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/6.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>

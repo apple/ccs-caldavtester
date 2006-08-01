@@ -1,0 +1,178 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<start/>
+	
+	<test-suite name='MKCALENDAR without body'>
+		<test name='1'>
+			<description>Simple MKCALENDAR</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>MKCALENDAR on existing resource</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest1/</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:resource-must-be-null</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MKCALENDAR inside another calendar</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest1/caltest2/</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-collection-location-ok</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>MKCOL inside a calendar</description>
+			<request>
+				<method>MKCOL</method>
+				<ruri>$pathprefix:/caltest1/collection/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='MKCALENDAR with body'>
+		<test name='1'>
+			<description>MKCALENDAR with correct request body</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/mkcalendar/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>MKCALENDAR with correct request body on existing resource</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/mkcalendar/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:resource-must-be-null</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MKCALENDAR with incorrect request body</description>
+			<request end-delete='yes' print-response='no'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/mkcalendar/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:getetag</value>
+						<value>DAV:displayname</value>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-description</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>MKCALENDAR with incorrect request body on existing resource</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/mkcalendar/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:resource-must-be-null</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+
+</caldavtest>

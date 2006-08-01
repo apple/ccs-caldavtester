@@ -1,0 +1,281 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<start>
+		<request end-delete='yes'>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection%201/</ruri>
+		</request>
+		<request end-delete='yes'>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/calendar%202/</ruri>
+		</request>
+		<request end-delete='yes'>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/calendar%203/</ruri>
+		</request>
+	</start>
+
+	<test-suite name='regular resource'>
+		<test name='1'>
+			<description>PUT</description>
+			<request print-response='no' end-delete='yes'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!Location</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+
+		<test name='2'>
+			<description>COPY</description>
+			<request print-response='no' end-delete='yes'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user01/collection%201/2_2%20a.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$$host:/calendars/users/user01/collection%201/2_2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection%201/2_2%20a.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/propfinds/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>/calendars/users/user01/collection%201/2_2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MOVE</description>
+			<request print-response='no' end-delete='yes'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user01/collection%201/2_3%20a.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$$host:/calendars/users/user01/collection%201/2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection%201/2_2%20a.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/propfinds/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>/calendars/users/user01/collection%201/2_2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='calendar resource'>
+		<test name='1'>
+			<description>PUT</description>
+			<request print-response='no' end-delete='yes'>
+				<method>PUT</method>
+				<ruri>2%20a.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!Location</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>COPY</description>
+			<request print-response='no' end-delete='yes'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+				</header>
+				<ruri>2%20a.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$$host:/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/calendar%202/2_2%20a.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/propfinds/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MOVE</description>
+			<request print-response='no' end-delete='yes'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+				</header>
+				<ruri>2%20a.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Location$$host:/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/calendar%203/2_3%20a.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/propfinds/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>

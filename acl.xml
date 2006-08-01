@@ -1,0 +1,1012 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test ACLs on the server</description>
+
+	<start>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/1.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/2.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>1todo.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/todo/1.txt</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user02/visibletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/visibletouser01/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/3.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/visibletouser01/hidden1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/acls/16.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/visibletouser01/hidden1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/20.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/visibletouser01/visible2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/acls/17.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user02/notvisibletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/notvisibletouser01/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/4.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/notvisibletouser01/hidden1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/acls/16.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user02/writeabletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/writeabletouser01/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/13.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/18.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/calreadtoauth/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/acls/16.ics</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>ACL</method>
+			<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acls/18.xml</filepath>
+			</data>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>PUT</method>
+			<ruri>/calendars/users/user02/colreadtoauth/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/acls/16.ics</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='Read ACLs' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND existing VEVENT</description>
+			<request print-response='no' user='admin' pswd='admin'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontentlength</value>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:resourcetype</value>
+						<value>DAV:getetag</value>
+						<value>DAV:displayname</value>
+						<value>DAV:supported-privilege-set</value>
+						<value>DAV:current-user-privilege-set</value>
+						<value>DAV:acl</value>
+						<value>DAV:acl-restrictions</value>
+						<value>DAV:inherited-acl-set</value>
+						<value>DAV:principal-collection-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:owner</value>
+						<value>DAV:group</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPFIND without DAV:read-acl or DAV:read-current-user-privilege-set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontentlength</value>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:resourcetype</value>
+						<value>DAV:getetag</value>
+						<value>DAV:displayname</value>
+						<value>DAV:supported-privilege-set</value>
+						<value>DAV:acl-restrictions</value>
+						<value>DAV:inherited-acl-set</value>
+						<value>DAV:principal-collection-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:current-user-privilege-set</value>
+						<value>DAV:acl</value>
+						<value>DAV:owner</value>
+						<value>DAV:group</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Check for schedule privilege on iTIP Inbox</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>DAV:read</value>
+						<value>DAV:write</value>
+						<value>DAV:write-acl</value>
+						<value>DAV:read-current-user-privilege-set</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Check for schedule privilege on iTIP Outbox</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/outbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>DAV:read</value>
+						<value>DAV:write</value>
+						<value>DAV:write-acl</value>
+						<value>DAV:read-current-user-privilege-set</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Check for lack of schedule privilege on regular calendar</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>DAV:read</value>
+						<value>DAV:write</value>
+						<value>DAV:write-acl</value>
+						<value>DAV:read-current-user-privilege-set</value>
+					</arg>
+					<arg>
+						<name>denied</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PROPFIND interaction with ACL' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND all calendars</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>/calendars/users/user02/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>/calendars/users/user02/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value/>
+						<value>visibletouser01/</value>
+						<value>writeabletouser01/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPFIND: prinicpal-collection-set test</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:principal-collection-set$&lt;href>/principals/users/&lt;/href></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='ACL method preconditions' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Failure when DAV:write-acl not granted</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>/calendars/users/user02/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>DAV:no-ace-conflict precondition failure - attempt to set protected ACE</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:no-ace-conflict</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>DAV:no-ace-conflict precondition failure - attempt to set inherited ACE</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:no-ace-conflict</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>DAV:no-protected-ace-conflict precondition failure - attempt to change protected ACE</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:no-protected-ace-conflict</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<!-- This error is no longer generated by the server.
+		<test name='5' ignore='no'>
+			<description>DAV:no-inherited-ace-conflict precondition failure - attempt to change inherited ACE</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:no-inherited-ace-conflict</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		-->
+		<test name='6' ignore='no'>
+			<description>DAV:deny-before-grant precondition failure - attempt to deny before grant a set of ACEs</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:deny-before-grant</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>DAV:not-supported-privilege precondition failure - attempt to use unsupported privilege</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:not-supported-privilege</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>DAV:recognized-principal precondition failure - attempt to use unknown principal</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:recognized-principal</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>Valid command</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:recognized-principal</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='COPY/MOVE interaction with ACL' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>COPY to non-writeable shared calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/visibletouser01/copy1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>COPY to non-visible shared calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/notvisibletouser01/copy1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>COPY to non-visible shared calendar with overwrite</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/notvisibletouser01/hidden1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>COPY to visible with no overwrite shared calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/writeabletouser01/1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>COPY to writeable shared calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/writeabletouser01/copy1.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>MOVE to non-writeable shared calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/visibletouser01/move2.ics</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>MOVE to non-visible shared calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/notvisibletouser01/move2.ics</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>MOVE to non-visible shared calendar with overwrite</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/notvisibletouser01/hidden1.ics</value>
+				</header>
+				<header>
+					<name>Overwrite</name>
+					<value>T</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>MOVE to writeable shared calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:/calendars/users/user02/writeabletouser01/move2.ics</value>
+				</header>
+				<ruri>2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Principal Properties' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND principal VEVENT</description>
+			<request print-response='no' user='admin' pswd='admin'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/principals/users/user01</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:alternate-URI-set</value>
+						<value>DAV:principal-URL$&lt;href>/principals/users/user01&lt;/href></value>
+						<value>DAV:group-member-set</value>
+						<value>DAV:group-membership</value>
+						<value>DAV:displayname$User 01</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Directory list access' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Get calendar home collection</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user02/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>inbox</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Get calendar collection</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user02/visibletouser01/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>VTODO</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>VEVENT</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='ACL calendar collection inheritance' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Check that read is not set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Check that read is not inherited</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/calreadtoauth/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Set read on collection only</description>
+			<request user="user02" pswd="user02">
+				<method>ACL</method>
+				<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Check that read is set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Check that read is inherited</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/calreadtoauth/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='ACL regular collection no inheritance' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Check that read is not set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Check that read is not inherited</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/colreadtoauth/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Set read on collection only</description>
+			<request user="user02" pswd="user02">
+				<method>ACL</method>
+				<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Check that read is set</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Check that read is inherited</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user02/colreadtoauth/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<request user="user02" pswd="user02">
+			<method>DELETE</method>
+			<ruri>/calendars/users/user02/visibletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETE</method>
+			<ruri>/calendars/users/user02/notvisibletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETE</method>
+			<ruri>/calendars/users/user02/writeabletouser01/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETE</method>
+			<ruri>/calendars/users/user02/calreadtoauth/</ruri>
+		</request>
+		<request user="user02" pswd="user02">
+			<method>DELETE</method>
+			<ruri>/calendars/users/user02/colreadtoauth/</ruri>
+		</request>
+	</end>
+	
+</caldavtest>

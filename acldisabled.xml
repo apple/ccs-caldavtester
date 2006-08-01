@@ -1,0 +1,338 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ This file contains Original Code and/or Modifications of Original Code
+ as defined in and that are subject to the Apple Public Source License
+ Version 2.0 (the 'License'). You may not use this file except in
+ compliance with the License. Please obtain a copy of the License at
+ http://www.opensource.apple.com/apsl/ and read it before using this
+ file.
+
+ The Original Code and all software distributed under the License are
+ distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ Please see the License for the specific language governing rights and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test ACLs on the server</description>
+
+	<start>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/</ruri>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/collection/disabled/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acldisabled/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/collection/enabled/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/acldisabled/1.xml</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='Read Resource OK' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>GET on disabled ics, user01</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>GET on disabled ics, user02</description>
+			<request print-response='no' user='user02' pswd='user02'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>GET on disabled ics, admin</description>
+			<request print-response='no' user='admin' pswd='admin'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>GET on enabled ics, user01</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='PROPFIND OK' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND on collection, depth infinity</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acldisabled/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>/calendars/users/user01/collection/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value/>
+						<value>enabled/</value>
+						<value>enabled/1.ics</value>
+						<value>disabled/</value>
+						<value>disabled/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPFIND on disabled, depth infinity</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/disabled/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acldisabled/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>/calendars/users/user01/collection/disabled/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value/>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Disable Access' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Disable access</description>
+			<request>
+				<method>ACCESS-DISABLE</method>
+				<ruri>/calendars/users/user01/collection/disabled</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Read Resource Forbidden' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>GET on ics, user01</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>GET on ics, user02</description>
+			<request print-response='no' user='user02' pswd='user02'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>GET on ics, admin</description>
+			<request print-response='no' user='admin' pswd='admin'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>GET on enabled ics, user01</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='PROPFIND FORBIDDEN' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND on collection, depth infinity</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acldisabled/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>/calendars/users/user01/collection/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value/>
+						<value>enabled/</value>
+						<value>enabled/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPFIND on disabled, depth infinity</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/disabled/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acldisabled/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Delete Resource Forbidden, then allowed' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>DELETE on ics, user01</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Enable access</description>
+			<request>
+				<method>ACCESS-ENABLE</method>
+				<ruri>/calendars/users/user01/collection/disabled</ruri>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>DELETE on ics, user01</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end>
+		<request>
+			<method>DELETE</method>
+			<ruri>/calendars/users/user01/collection/</ruri>
+		</request>
+	</end>
+	
+</caldavtest>
