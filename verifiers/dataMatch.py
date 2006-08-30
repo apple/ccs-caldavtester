@@ -26,8 +26,8 @@ class Verifier(object):
         # Get arguments
         files = args.get("filepath", [])
         
-        # status code must be 200
-        if response.status not in (200,):
+        # status code must be 200, 207
+        if response.status not in (200,207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
         
         # look for response data
