@@ -548,7 +548,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>Valid report</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>/principals/users/</ruri>
 				<data>
@@ -558,6 +558,13 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/aclreports/18.xml</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 	</test-suite>
@@ -565,7 +572,7 @@
 	<test-suite name='supported-report-set property' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Regular resource</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
@@ -583,11 +590,18 @@
 						<value>207</value>
 					</arg>
 				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/aclreports/19.xml</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>Regular resource</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
@@ -603,6 +617,13 @@
 					<arg>
 						<name>status</name>
 						<value>207</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/aclreports/20.xml</value>
 					</arg>
 				</verify>
 			</request>
