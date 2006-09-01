@@ -47,6 +47,7 @@
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar1/1.ics</ruri>
@@ -63,6 +64,7 @@
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with no privileges -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar1/2.ics</ruri>
@@ -79,6 +81,7 @@
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read-free-busy only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar1/3.ics</ruri>
@@ -108,6 +111,7 @@
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar2/1.ics</ruri>
@@ -124,6 +128,7 @@
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with no privileges -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar2/2.ics</ruri>
@@ -140,6 +145,7 @@
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read-free-busy only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar2/3.ics</ruri>
@@ -169,6 +175,7 @@
 				<filepath>Resource/depthreportsacl/3.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar3/1.ics</ruri>
@@ -185,6 +192,7 @@
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with no privileges -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar3/2.ics</ruri>
@@ -201,6 +209,7 @@
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
 			</data>
 		</request>
+		<!--  Event with DAV:read-free-busy only -->
 		<request>
 			<method>PUT</method>
 			<ruri>$pathprefix:/top-collection/calendar3/3.ics</ruri>
@@ -249,6 +258,15 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				<!--  This does not work because UID is different each time
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleacl/data1.txt</value>
+					</arg>
+				</verify>
+				-->
 			</request>
 		</test>
 	</test-suite>
