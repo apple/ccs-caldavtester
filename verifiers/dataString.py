@@ -37,10 +37,10 @@ class Verifier(object):
         
         # Check each contains and not-contains (AND operation)
         for item in contains:
-            if respdata.find(item) == -1:
+            if respdata.find(item.replace("\n", "\r\n")) == -1:
                 return False, "        Response data does not contain \"%s\"" % (item,)
         for item in notcontains:
-            if respdata.find(item) != -1:
+            if respdata.find(item.replace("\n", "\r\n")) != -1:
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 
         return True, ""
