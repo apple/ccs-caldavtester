@@ -240,7 +240,7 @@
 	<test-suite name='Schedule free-busy' ignore='no'>
 		<test name='1'>
 			<description>SCHEDULE free busy</description>
-			<request user='user02' pswd='user02' print-response='yes'>
+			<request user='user02' pswd='user02' print-response='no'>
 				<method>SCHEDULE</method>
 				<header>
 					<name>Originator</name>
@@ -258,15 +258,14 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<!--  This does not work because UID is different each time
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>dataString</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleacl/data1.txt</value>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T060000Z/PT1H,20060101T100000Z/PT1H,20060101T1
+ 80000Z/PT1H,20060101T220000Z/PT1H</value>
 					</arg>
 				</verify>
-				-->
 			</request>
 		</test>
 	</test-suite>

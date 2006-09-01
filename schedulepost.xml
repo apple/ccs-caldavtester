@@ -661,7 +661,7 @@
 	<test-suite name="POSTs free busy" ignore='no'>
 		<test name='1'>
 			<description>POST free busy</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -679,11 +679,20 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T170000Z/PT1H,20060101T190000Z/PT1H,20060101T2
+ 20000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 		<test name='2'>
 			<description>POST free busy - recipients with failure</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -700,6 +709,14 @@
 				</data>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value><![CDATA[<recipient-exists xmlns='urn:ietf:params:xml:ns:caldav'/>]]></value>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
+					</arg>
 				</verify>
 			</request>
 		</test>

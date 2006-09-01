@@ -231,7 +231,7 @@
 	<test-suite name='Schedule free-busy' ignore='no'>
 		<test name='1'>
 			<description>POST free busy</description>
-			<request user='user02' pswd='user02' print-response='yes'>
+			<request user='user02' pswd='user02' print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -248,6 +248,14 @@
 				</data>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T060000Z/PT1H,20060101T100000Z/PT1H,20060101T1
+ 80000Z/PT1H,20060101T220000Z/PT1H</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
