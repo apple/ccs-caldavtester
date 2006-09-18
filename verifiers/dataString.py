@@ -27,8 +27,8 @@ class Verifier(object):
         contains = args.get("contains", [])
         notcontains = args.get("notcontains", [])
         
-        # status code must be 200
-        if response.status not in (200,):
+        # status code must be 200, 207
+        if response.status not in (200,207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
         
         # look for response data
