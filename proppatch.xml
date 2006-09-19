@@ -24,7 +24,7 @@
 	<start/>
 	
 	<test-suite name='prop patches'>
-		<test name='1'>
+		<test name='1' ignore="no">
 			<description>PROPPATCH of details: good</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -37,6 +37,7 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:details</value>
+						<value>DAV:details2</value>
 					</arg>
 				</verify>
 			</request>
@@ -55,11 +56,12 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:details$My Name</value>
+						<value>DAV:details2$My Name 2</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='2'>
+		<test name='2' ignore="no">
 			<description>PROPPATCH of details: remove it</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -88,6 +90,10 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
+						<name>okprops</name>
+						<value>DAV:details2$My Name 2</value>
+					</arg>
+					<arg>
 						<name>badprops</name>
 						<value>DAV:details</value>
 					</arg>
@@ -105,7 +111,7 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>badprops</name>
+						<name>okprops</name>
 						<value>DAV:missing</value>
 					</arg>
 				</verify>
@@ -124,7 +130,30 @@
 					<arg>
 						<name>badprops</name>
 						<value>DAV:details</value>
+						<value>DAV:details2</value>
 						<value>DAV:resourcetype</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:details2$My Name 2</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:details</value>
 					</arg>
 				</verify>
 			</request>
