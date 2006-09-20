@@ -1,0 +1,2974 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest ignore-all="yes">
+	<description>Test Quota support on the server</description>
+
+	<start>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/</ruri>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/temp/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/2.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/3.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/4.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/5.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/6.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-2048</method>
+			<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/quotacol/temp/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/quotacol/temp/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/2.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
+			<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-4096</method><!-- 4Kb -->
+			<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-2048</method><!-- 2Kb -->
+			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+		</request>
+		<request>
+			<method>MKCOL</method>
+			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
+			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-2048</method>
+			<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/1.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+		</request>
+		<request>
+			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
+			<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/quota/2.ics</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='Properties on collections' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>allprop on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>allprop on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>propname on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>propname on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>props on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:quota-available-bytes</value>
+						<value>DAV:quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>props on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$118</value>
+						<value>DAV:quota-used-bytes$1930</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Properties on resources' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>allprop on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>allprop on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>propname on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>propname on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>props on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:quota-available-bytes</value>
+						<value>DAV:quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>props on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$118</value>
+						<value>DAV:quota-used-bytes$1930</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Properties on calendars' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>allprop on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>allprop on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>propname on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>propname on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>props on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:quota-available-bytes</value>
+						<value>DAV:quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>props on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Properties on calendar resources' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>allprop on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>allprop on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>propname on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>propname on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>quota-available-bytes</value>
+						<value>quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>props on non-quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:quota-available-bytes</value>
+						<value>DAV:quota-used-bytes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>props on quota collection</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='PUT Over quota on collection' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>over quota on quota collection with new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>over quota on quota collection with existing resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event_1</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>more</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>over quota on quota sub-collection with new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>over quota on quota sub-collection with existing resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event_1</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>more</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT Over quota on calendar' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>over quota on quota calendar with new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacal/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacal/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>over quota on quota calendar with existing resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event_1</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>more</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY resource over quota' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>over quota on quota collection with new resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/2.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>over quota on quota collection with existing resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event_1</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>more</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>over quota on quota collection copying collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/test/</value>
+				</header>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY calendar resource over quota' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>over quota on quota calendar with new resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacal/4.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>over quota on quota calendar with existing resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacal/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event_1</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>more</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>not allowed on quota calendar copying collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacal/test/</value>
+				</header>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>405</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacal/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY collection over quota' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>over quota on quota collection with new collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/test/</value>
+				</header>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>over quota on quota collection with existing collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/temp/</value>
+				</header>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>over quota on quota collection copying collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/quotacol/temp/test/</value>
+				</header>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/quotacol/temp/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT/DELETE/COPY/MOVE of resource with quota update' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Initial quota values</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PUT existing resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>COPY new resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>COPY existing resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>MOVE new resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>MOVE existing resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT/DELETE/COPY/MOVE of calendar resource with quota update' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Initial quota values</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+			<!-- Make sure we have the source collection files in place -->
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.ics</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.ics</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PUT existing resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>COPY new resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>COPY existing resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>MOVE new resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047941</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>MOVE existing resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1047490</value>
+						<value>DAV:quota-used-bytes$1086</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY/MOVE/DELETE of collection with quota update' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Initial quota values</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+			<!-- Make sure we have the source collection files in place -->
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.ics</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.ics</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.ics</filepath>
+				</data>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>COPY new collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/test/</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1033552</value>
+						<value>DAV:quota-used-bytes$15024</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>DELETE existing collection</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>MOVE new collection</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/collection/largequotacol/test/</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1033552</value>
+						<value>DAV:quota-used-bytes$15024</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>DELETE existing resource</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/calendars/users/user01/collection/largequotacol/test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT with nested over quota' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Initial quota values</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$4096</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$2048</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT small resource below nested and below parent quota</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$3461</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PUT smallish resource above nested but below parent quota</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$3461</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1048576</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>PUT smallish resource below nested (2) and below parent quota</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$426</value>
+						<value>DAV:quota-used-bytes$3670</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1413</value>
+						<value>DAV:quota-used-bytes$635</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1045541</value>
+						<value>DAV:quota-used-bytes$3035</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>PUT small resource below nested but above parent quota</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$0</value>
+						<value>DAV:quota-used-bytes$4330</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$753</value>
+						<value>DAV:quota-used-bytes$1295</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1045541</value>
+						<value>DAV:quota-used-bytes$3035</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>PUT large resource below nested (2) but above parent quota</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/5.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$0</value>
+						<value>DAV:quota-used-bytes$11200</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$753</value>
+						<value>DAV:quota-used-bytes$1295</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype</value>
+						<value>DAV:quota-available-bytes$1038671</value>
+						<value>DAV:quota-used-bytes$9905</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT with oversize attachment' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PUT new oversized resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT existing oversized resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event 2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PUT new oversized resource to regular collection</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/quota/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>COPY new oversized resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/calendar/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>COPY existing oversized resource</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/calendar/2.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event 2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>MOVE new oversized resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/calendar/1.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>MOVE existing oversized resource</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/calendars/users/user01/calendar/2.ics</value>
+				</header>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-resource-size</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>event 2</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<request>
+			<method>DELETE</method>
+			<ruri>/calendars/users/user01/collection/</ruri>
+		</request>
+	</end>
+	
+</caldavtest>
