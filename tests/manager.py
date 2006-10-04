@@ -25,7 +25,6 @@ import httplib
 from tests.populate import populate
 import os
 
-from tests.caldavtest import caldavtest
 from tests.serverinfo import serverinfo
 import getopt
 import sys
@@ -42,17 +41,23 @@ class manager(object):
     """
     Main class that runs test suites defined in an XML config file.
     """
-    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode']
+    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'logLevel']
 
-    def __init__( self, text=True ):
+    LOG_NONE    = 0
+    LOG_LOW     = 1
+    LOG_MEDIUM  = 2
+    LOG_HIGH    = 3
+
+    def __init__( self, text=True, level=LOG_HIGH ):
         self.server_info = serverinfo()
         self.populator = None
         self.depopulate = False
         self.tests = []
         self.textMode = text
+        self.logLevel = level
     
-    def log(self, str, indent = 0, indentStr = " ", after = 1, before = 0):
-        if self.textMode:
+    def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
+        if self.textMode and level <= self.logLevel:
             if before:
                 print "\n" * before,
             if indent:
@@ -63,7 +68,7 @@ class manager(object):
 
     def readXML( self, serverfile, populatorfile, testfiles, all ):
 
-        self.log("Reading Server Info from \"%s\"" % serverfile, after=2)
+        self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
     
         # Open and parse the server config file
         fd = open(serverfile, "r")
@@ -80,7 +85,7 @@ class manager(object):
         
         # Open and parse the populator config file
         if populatorfile:
-            self.log("Reading Populator Info from \"%s\"" % populatorfile, after=2)
+            self.log(manager.LOG_HIGH, "Reading Populator Info from \"%s\"" % populatorfile, after=2)
     
             fd = open(populatorfile, "r")
             doc = xml.dom.minidom.parse( fd )
@@ -102,13 +107,14 @@ class manager(object):
             fd.close()
             
             # Verify that top-level element is correct
+            from tests.caldavtest import caldavtest
             caldavtest_node = doc._get_documentElement()
             if caldavtest_node._get_localName() != tests.xmlDefs.ELEMENT_CALDAVTEST:
-                self.log("Ignoring file \"%s\" because it is not a test file" % (testfile,), after=2)
+                self.log(manager.LOG_HIGH, "Ignoring file \"%s\" because it is not a test file" % (testfile,), after=2)
                 continue
             if not caldavtest_node.hasChildNodes():
                 raise EX_INVALID_CONFIG_FILE
-            self.log("Reading Test Details from \"%s\"" % testfile, after=2)
+            self.log(manager.LOG_HIGH, "Reading Test Details from \"%s\"" % testfile, after=2)
                 
             # parse all the config data
             test = caldavtest(self, testfile)
@@ -149,6 +155,11 @@ class manager(object):
         
         self.readXML(sname, pname, fnames, all)
 
+    def runWithOptions(self, sname, pname, fnames, all = False, depopulate = False):
+        self.depopulate = depopulate
+        self.readXML(sname, pname, fnames, all)
+        return self.runAll()
+
     def runAll(self):
         
         if self.populator:
@@ -174,10 +185,10 @@ class manager(object):
         if self.populator and self.depopulate:
             self.runDepopulate()
 
-        self.log("Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
-        self.log("Total time: %d secs" % (endTime- startTime,))
+        self.log(manager.LOG_LOW, "Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
+        self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime- startTime,))
 
-        sys.exit(failed)
+        return failed, endTime - startTime
 
     def runPopulate(self):
         self.populator.generateAccounts()

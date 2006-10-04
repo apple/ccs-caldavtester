@@ -24,69 +24,69 @@
 	<description>Test POST method in CalDAV</description>
 
 	<start>
-		<request user="user02" pswd="user02" end-delete="yes">
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>/calendars/users/user02/calendar/1.ics</ruri>
+			<ruri>$pathprefix2:/calendar/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/7.ics</filepath>
 			</data>
 		</request>
-		<request user="user02" pswd="user02" end-delete="yes">
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>/calendars/users/user02/calendar/2.ics</ruri>
+			<ruri>$pathprefix2:/calendar/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/8.ics</filepath>
 			</data>
 		</request>
-		<request user="user02" pswd="user02" end-delete="yes">
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>/calendars/users/user02/calendar/3.ics</ruri>
+			<ruri>$pathprefix2:/calendar/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/10.ics</filepath>
 			</data>
 		</request>
-		<request user="user03" pswd="user03" end-delete="yes">
+		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>/calendars/users/user03/calendar/1.ics</ruri>
+			<ruri>$pathprefix3:/calendar/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/9.ics</filepath>
 			</data>
 		</request>
-		<request user="user03" pswd="user03" end-delete="yes">
+		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>/calendars/users/user03/calendar/2.ics</ruri>
+			<ruri>$pathprefix3:/calendar/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/10.ics</filepath>
 			</data>
 		</request>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/outbox/</ruri>
+			<ruri>$pathprefix:/outbox/</ruri>
 		</request>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/inbox/</ruri>
+			<ruri>$pathprefix:/inbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/outbox/</ruri>
+			<ruri>$pathprefix2:/outbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/inbox/</ruri>
+			<ruri>$pathprefix2:/inbox/</ruri>
 		</request>
-		<request user="user03" pswd="user03">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user03/outbox/</ruri>
+			<ruri>$pathprefix3:/outbox/</ruri>
 		</request>
-		<request user="user03" pswd="user03">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user03/inbox/</ruri>
+			<ruri>$pathprefix3:/inbox/</ruri>
 		</request>
 	</start>
 	
@@ -319,7 +319,7 @@
 		</test>
 		<test name='10' ignore='no'>
 			<description>POST reply with too many Attendees:</description>
-			<request user="user02" pswd="user02">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -329,7 +329,7 @@
 					<name>Recipient</name>
 					<value>mailto:user01@example.com</value>
 				</header>
-				<ruri>/calendars/users/user02/outbox/</ruri>
+				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/17.txt</filepath>
@@ -345,7 +345,7 @@
 		</test>
 		<test name='11' ignore='no'>
 			<description>POST reply with non-authorized Attendee:</description>
-			<request user="user02" pswd="user02">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -355,7 +355,7 @@
 					<name>Recipient</name>
 					<value>mailto:user01@example.com</value>
 				</header>
-				<ruri>/calendars/users/user02/outbox/</ruri>
+				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/18.txt</filepath>
@@ -396,7 +396,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -427,13 +427,13 @@
 		</test>
 		<test name='3'>
 			<description>Make sure resource exists and properties are set</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>
@@ -442,7 +442,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>/calendars/users/user02/inbox/</value>
+						<value>$pathprefix2:/inbox/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -455,13 +455,13 @@
 		</test>
 		<test name='4'>
 			<description>Make sure resource exists and properties are set</description>
-			<request  user="user03" pswd="user03" print-response='no'>
+			<request  user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/calendars/users/user03/inbox/</ruri>
+				<ruri>$pathprefix3:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>
@@ -470,7 +470,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>/calendars/users/user03/inbox/</value>
+						<value>$pathprefix3:/inbox/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -491,7 +491,7 @@
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>/principals/users/user02, /principals/users/user03</value>
+					<value>/principals/users/user02, $principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -505,7 +505,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -521,7 +521,7 @@
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$host:/principals/users/user02, $host:/principals/users/user03</value>
+					<value>$host:/principals/users/user02, $host:$principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -535,7 +535,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -564,9 +564,9 @@
 		</test>
 		<test name='2'>
 			<description>Simple calendar-query for VEVENTs</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/13.xml</filepath>
@@ -600,9 +600,9 @@
 		</test>
 		<test name='4'>
 			<description>Simple calendar-multiget for VEVENTs</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/15.xml</filepath>
@@ -615,7 +615,7 @@
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>/calendars/users/user01/inbox/1.ics</value>
+						<value>$pathprefix:/inbox/1.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -640,9 +640,9 @@
 		</test>
 		<test name='6'>
 			<description>free-busy-query failure</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/16.xml</filepath>

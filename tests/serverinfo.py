@@ -30,10 +30,13 @@ class serverinfo( object ):
 
     hostsubs = ""
     pathsubs = ""
+    subsdict = {}
 
     @classmethod
     def subs(cls, str):
-        return str.replace("$host:", serverinfo.hostsubs).replace("$pathprefix:", serverinfo.pathsubs)
+        for key, value in serverinfo.subsdict.iteritems():
+            str = str.replace(key, value)
+        return str
 
     def __init__( self ):
         self.host = ""
@@ -60,10 +63,25 @@ class serverinfo( object ):
                 self.pswd = child.firstChild.data
             elif child._get_localName() == tests.xmlDefs.ELEMENT_HOSTSUBS:
                 if child.firstChild is not None:
-                    serverinfo.hostsubs = child.firstChild.data
+                    serverinfo.subsdict["$host"] = child.firstChild.data
             elif child._get_localName() == tests.xmlDefs.ELEMENT_PATHSUBS:
                 if child.firstChild is not None:
-                    serverinfo.pathsubs = child.firstChild.data
+                    serverinfo.subsdict["$pathprefix"] = child.firstChild.data
             elif child._get_localName() == tests.xmlDefs.ELEMENT_SERVERFILEPATH:
                 if child.firstChild is not None:
                     self.serverfilepath = child.firstChild.data
+            elif child._get_localName() == tests.xmlDefs.ELEMENT_SUBSTITUTIONS:
+                self.parseSubstitutionsXML(child)
+
+    def parseSubstitutionsXML(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == tests.xmlDefs.ELEMENT_SUBSTITUTION:
+                key = None
+                value = None
+                for schild in child._get_childNodes():
+                    if schild._get_localName() == tests.xmlDefs.ELEMENT_KEY:
+                        key = schild.firstChild.data
+                    elif schild._get_localName() == tests.xmlDefs.ELEMENT_VALUE:
+                        value = schild.firstChild.data
+                if key and value:
+                    self.subsdict[key] = value

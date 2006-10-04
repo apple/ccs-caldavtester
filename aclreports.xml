@@ -155,7 +155,7 @@
 			<description>No DAV:read-acl privilege</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user02/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/1.xml</filepath>
@@ -186,11 +186,11 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>user01</value>
+						<value>$userid1:</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>admin</value>
+						<value>$useradmin:</value>
 					</arg>
 				</verify>
 			</request>
@@ -273,7 +273,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>user01</value>
+						<value>$userid1:</value>
 					</arg>
 				</verify>
 			</request>
@@ -291,7 +291,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>user01</value>
+						<value>$userid1:</value>
 					</arg>
 				</verify>
 			</request>
@@ -300,7 +300,7 @@
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user01/calendar/</ruri>
+				<ruri>$pathprefix:/calendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/7.xml</filepath>
@@ -318,7 +318,7 @@
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user01/calendar/</ruri>
+				<ruri>$pathprefix:/calendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/8.xml</filepath>
@@ -334,9 +334,9 @@
 		</test>
 		<test name='8' ignore='no'>
 			<description>principal-search with inaccessible property</description>
-			<request print-response='no' user='user02' pswd='user02'>
+			<request print-response='no' user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user01/</ruri>
+				<ruri>$pathprefix:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/11.xml</filepath>
@@ -395,7 +395,7 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>Valid non-apply-to report with DAV:prop</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>/principals/users/</ruri>
 				<data>
@@ -408,14 +408,14 @@
 						<name>okhrefs</name>
 						<value>public01</value>
 						<value>resource01</value>
-						<value>user01</value>
+						<value>$userid1:</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='4' ignore='no'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>/principals/users/</ruri>
 				<data>
@@ -435,7 +435,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Valid apply-to report with DAV:prop</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>1.ics</ruri>
 				<data>
@@ -452,14 +452,14 @@
 						<name>okhrefs</name>
 						<value>public01</value>
 						<value>resource01</value>
-						<value>user01</value>
+						<value>$userid1:</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='6' ignore='no'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>1.ics</ruri>
 				<data>
@@ -532,7 +532,7 @@
 			<description>Report on non-principal collection</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/calendars/users/user01/</ruri>
+				<ruri>$pathprefix:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>

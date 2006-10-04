@@ -20,6 +20,7 @@
 Class to encapsulate a single caldav test run.
 """
 
+from tests.manager import manager
 from tests.request import data
 from tests.request import request
 from tests.request import stats
@@ -53,14 +54,14 @@ class caldavtest(object):
         
     def run( self ):
         try:
-            self.manager.log("----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
+            self.manager.log(manager.LOG_HIGH, "----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
             self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
             ok, failed, ignored = self.run_tests()
             self.doenddelete( "Deleting Requests..." )
             self.dorequests( "Executing End Requests...", self.end_requests, False )
             return ok, failed, ignored
         except socket.error, msg:
-            self.manager.log("FATAL ERROR: " + msg.args[1], before=2)
+            self.manager.log(manager.LOG_HIGH, "FATAL ERROR: " + msg.args[1], before=2)
             return 0, 1, 0
         
     def run_tests( self ):
@@ -77,15 +78,15 @@ class caldavtest(object):
     def run_test_suite( self, suite ):
         descriptor = "    Test Suite: %s" % suite.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
-        self.manager.log("%s" % (descriptor,), before=1, after=0)
+        self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
         ok = 0
         failed = 0
         ignored = 0
         if suite.ignore:
-            self.manager.log("[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             ignored = len(suite.tests)
         else:
-            self.manager.log("")
+            self.manager.log(manager.LOG_HIGH, "")
             for test in suite.tests:
                 result = self.run_test( test )
                 if result == "t":
@@ -94,15 +95,15 @@ class caldavtest(object):
                     failed += 1
                 else:
                     ignored += 1
-        self.manager.log("Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
+        self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
         return (ok, failed, ignored)
             
     def run_test( self, test ):
         descriptor = "        Test: %s" % test.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
-        self.manager.log("%s" % (descriptor,), before=1, after=0)
+        self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
         if test.ignore:
-            self.manager.log("[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             return "i"
         else:
             result = False
@@ -115,26 +116,29 @@ class caldavtest(object):
                     result, resulttxt, response, respdata = self.dorequest( req, test.details, True, False, reqstats )
                     if not result:
                         break
-            self.manager.log(["[FAILED]", "[OK]"][result])
+            self.manager.log(manager.LOG_HIGH, ["[FAILED]", "[OK]"][result])
             if len(resulttxt) > 0:
-                self.manager.log(resulttxt)
+                self.manager.log(manager.LOG_HIGH, resulttxt)
             if result and test.stats:
-                self.manager.log("Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
-                self.manager.log("Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
+                self.manager.log(manager.LOG_MEDIUM, "Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
+                self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
             return ["f", "t"][result]
     
     def dorequests( self, description, list, doverify = True, forceverify = False ):
         if len(list) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
-        self.manager.log(description, before=1, after=0)
+        self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
+        ctr = 1
         for req in list:
             result, resulttxt, response, respdata = self.dorequest( req, False, doverify, forceverify )
             if not result:
+                resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
-        self.manager.log(["[FAILED]", "[OK]"][result])
+            ctr += 1
+        self.manager.log(manager.LOG_HIGH, ["[FAILED]", "[OK]"][result])
         if len(resulttxt) > 0:
-            self.manager.log(resulttxt)
+            self.manager.log(manager.LOG_HIGH, resulttxt)
         return result
     
     def dofindall( self, collection):
@@ -273,7 +277,7 @@ class caldavtest(object):
         if len(self.end_deletes) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
-        self.manager.log(description, before=1, after=0)
+        self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         for deleter in self.end_deletes:
             req = request()
             req.method = "DELETE"
@@ -283,7 +287,7 @@ class caldavtest(object):
             if len(deleter[2]):
                 req.pswd = deleter[2]
             self.dorequest( req, False, False )
-        self.manager.log("[DONE]")
+        self.manager.log(manager.LOG_HIGH, "[DONE]")
     
     def doaccess(self, ruri, enable):
         """
@@ -296,9 +300,30 @@ class caldavtest(object):
             if os.path.exists(filename):
                 attrs = xattr.xattr(filename)
                 if enable:
-                    del attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}access-disabled"]
+                    del attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}caldav-access-disabled"]
                 else:
-                    attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}access-disabled"] = "yes"
+                    attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}caldav-access-disabled"] = "yes"
+                return True
+        return False
+
+    def doquota(self, ruri, size):
+        """
+        We have to set the xattr WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}access-disabled 
+        on the resource pointed to by the ruri. Strictly speaking only the server know how to map from a uri to a file
+        path, so we have to cheat!
+        """
+        if self.manager.server_info.serverfilepath:
+            filename = os.path.join(self.manager.server_info.serverfilepath, ruri[1:])
+            if os.path.exists(filename):
+                attrs = xattr.xattr(filename)
+                if size is None:
+                    del attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}quota-root"]
+                else:
+                    attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}quota-root"] = \
+                            "<?xml version='1.0' encoding='UTF-8'?>\n" + \
+                            "<quota-root xmlns='http://twistedmatrix.com/xml_namespace/dav/private/'>" + \
+                            str(size) + \
+                            "</quota-root>"
                 return True
         return False
 
@@ -316,12 +341,24 @@ class caldavtest(object):
             if self.doaccess(req.ruri, False):
                 return True, "", None, None
             else:
-                return False, "Could not set access-disabled xattr on file", None, None
+                return False, "Could not set caldav-access-disabled xattr on file", None, None
         elif req.method == "ACCESS-ENABLE":
             if self.doaccess(req.ruri, True):
                 return True, "", None, None
             else:
-                return False, "Could not remove access-disabled xattr on file", None, None
+                return False, "Could not remove caldav-access-disabled xattr on file", None, None
+
+        # Special check for QUOTA
+        if req.method == "QUOTA-DISABLE":
+            if self.doquota(req.ruri, None):
+                return True, "", None, None
+            else:
+                return False, "Could remove quota-root xattr on file", None, None
+        elif req.method.startswith("QUOTA-ENABLE-"):
+            if self.doquota(req.ruri, req.method[len("QUOTA-ENABLE-"):]):
+                return True, "", None, None
+            else:
+                return False, "Could not set quota-root xattr on file", None, None
 
         # Special for delay
         if req.method == "DELAY":
@@ -374,12 +411,15 @@ class caldavtest(object):
         else:
             http = httplib.HTTPConnection( self.manager.server_info.host, self.manager.server_info.port )
         try:
+            #self.manager.log(manager.LOG_LOW, "Sending request")
             http.request( method, uri, data, headers )
+            #self.manager.log(manager.LOG_LOW, "Sent request")
         
             response = http.getresponse()
         
             respdata = None
             respdata = response.read()
+            #self.manager.log(manager.LOG_LOW, "Read response")
 
         finally:
             http.close()

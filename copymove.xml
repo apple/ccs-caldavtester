@@ -106,7 +106,7 @@
 	<test-suite name='COPY'>
 		<test name='1' ignore='no'>
 			<description>COPY within same calendar to new resource</description>
-			<request>
+			<request print-response="no">
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
@@ -118,6 +118,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>
@@ -140,6 +141,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>
@@ -162,13 +164,14 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='4'>
 			<description>COPY to different calendar, new resource</description>
-			<request>
+			<request print-response="no">
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
@@ -198,6 +201,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>
@@ -242,6 +246,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>
@@ -329,6 +334,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>409</value>
 					</arg>
 				</verify>
 			</request>

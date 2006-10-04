@@ -26,15 +26,15 @@
 	<start>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/</ruri>
+			<ruri>$pathprefix:/collection/</ruri>
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/temp/</ruri>
+			<ruri>$pathprefix:/collection/temp/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -42,7 +42,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/2.ics</filepath>
@@ -50,7 +50,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/3.ics</filepath>
@@ -58,7 +58,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/4.ics</filepath>
@@ -66,7 +66,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/5.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/5.ics</filepath>
@@ -74,7 +74,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+			<ruri>$pathprefix:/collection/temp/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/6.ics</filepath>
@@ -82,11 +82,11 @@
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+			<ruri>$pathprefix:/collection/noquotacol/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+			<ruri>$pathprefix:/collection/noquotacol/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -94,15 +94,15 @@
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+			<ruri>$pathprefix:/collection/quotacol/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-2048</method>
-			<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+			<ruri>$pathprefix:/collection/quotacol/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+			<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -110,11 +110,11 @@
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/quotacol/temp/</ruri>
+			<ruri>$pathprefix:/collection/quotacol/temp/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+			<ruri>$pathprefix:/collection/quotacol/temp/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -122,7 +122,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/quotacol/temp/2.ics</ruri>
+			<ruri>$pathprefix:/collection/quotacol/temp/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/2.ics</filepath>
@@ -130,43 +130,43 @@
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+			<ruri>$pathprefix:/collection/largequotacol/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
-			<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+			<ruri>$pathprefix:/collection/largequotacol/</ruri>
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-4096</method><!-- 4Kb -->
-			<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-2048</method><!-- 2Kb -->
-			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 		</request>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
-			<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+			<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+			<ruri>$pathprefix:/collection/noquotacal/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+			<ruri>$pathprefix:/collection/noquotacal/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -174,15 +174,15 @@
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+			<ruri>$pathprefix:/collection/quotacal/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-2048</method>
-			<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+			<ruri>$pathprefix:/collection/quotacal/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+			<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/1.ics</filepath>
@@ -190,15 +190,15 @@
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+			<ruri>$pathprefix:/collection/largequotacal/</ruri>
 		</request>
 		<request>
 			<method>QUOTA-ENABLE-1048576</method><!-- 1Mb -->
-			<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+			<ruri>$pathprefix:/collection/largequotacal/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+			<ruri>$pathprefix:/calendar/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/quota/2.ics</filepath>
@@ -215,7 +215,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -238,7 +238,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -261,7 +261,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -284,7 +284,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -307,7 +307,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -334,7 +334,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -361,7 +361,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -384,7 +384,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -407,7 +407,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -430,7 +430,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -453,7 +453,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -480,7 +480,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -507,7 +507,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -530,7 +530,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -553,7 +553,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -576,7 +576,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -599,7 +599,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -626,7 +626,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -653,7 +653,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -676,7 +676,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.xml</filepath>
@@ -699,7 +699,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -722,7 +722,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.xml</filepath>
@@ -745,7 +745,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/noquotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/noquotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -772,7 +772,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -795,7 +795,7 @@
 			<description>over quota on quota collection with new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.ics</filepath>
@@ -810,7 +810,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -824,7 +824,7 @@
 			<description>over quota on quota collection with existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -839,7 +839,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -860,7 +860,7 @@
 			<description>over quota on quota sub-collection with new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -875,7 +875,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -889,7 +889,7 @@
 			<description>over quota on quota sub-collection with existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -904,7 +904,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -928,7 +928,7 @@
 			<description>over quota on quota calendar with new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacal/4.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/4.ics</filepath>
@@ -943,7 +943,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacal/4.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -957,7 +957,7 @@
 			<description>over quota on quota calendar with existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/6.ics</filepath>
@@ -972,7 +972,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -998,9 +998,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/2.ics</value>
+					<value>$pathprefix:/collection/quotacol/2.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1011,7 +1011,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/2.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1022,7 +1022,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1034,9 +1034,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/1.ics</value>
+					<value>$pathprefix:/collection/quotacol/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1047,7 +1047,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1065,7 +1065,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1077,13 +1077,13 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/test/</value>
+					<value>$pathprefix:/collection/quotacol/test/</value>
 				</header>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1094,7 +1094,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/test/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1105,7 +1105,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1120,9 +1120,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacal/4.ics</value>
+					<value>$pathprefix:/collection/quotacal/4.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1133,7 +1133,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/4.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1144,7 +1144,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/4.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1155,7 +1155,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1177,9 +1177,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacal/1.ics</value>
+					<value>$pathprefix:/collection/quotacal/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/6.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1190,7 +1190,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacal/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1208,7 +1208,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/6.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/6.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1219,7 +1219,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1241,13 +1241,13 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacal/test/</value>
+					<value>$pathprefix:/collection/quotacal/test/</value>
 				</header>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1258,7 +1258,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacal/test/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1269,7 +1269,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1280,7 +1280,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/quotacal/</ruri>
+				<ruri>$pathprefix:/collection/quotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1305,13 +1305,13 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/test/</value>
+					<value>$pathprefix:/collection/quotacol/test/</value>
 				</header>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1322,7 +1322,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/test/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1333,7 +1333,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1345,13 +1345,13 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/temp/</value>
+					<value>$pathprefix:/collection/quotacol/temp/</value>
 				</header>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1362,14 +1362,14 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1385,13 +1385,13 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/quotacol/temp/test/</value>
+					<value>$pathprefix:/collection/quotacol/temp/test/</value>
 				</header>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1402,7 +1402,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/quotacol/temp/test/</ruri>
+				<ruri>$pathprefix:/collection/quotacol/temp/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1413,7 +1413,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1430,7 +1430,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1450,7 +1450,7 @@
 			<description>PUT new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.ics</filepath>
@@ -1465,7 +1465,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1485,7 +1485,7 @@
 			<description>PUT existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -1500,7 +1500,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1520,7 +1520,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1531,7 +1531,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1553,9 +1553,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+					<value>$pathprefix:/collection/largequotacol/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1566,7 +1566,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1588,9 +1588,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+					<value>$pathprefix:/collection/largequotacol/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1601,7 +1601,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1621,7 +1621,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1632,7 +1632,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1654,9 +1654,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+					<value>$pathprefix:/collection/largequotacol/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1667,7 +1667,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1689,9 +1689,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/1.ics</value>
+					<value>$pathprefix:/collection/largequotacol/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1702,7 +1702,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1722,7 +1722,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1733,7 +1733,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1760,7 +1760,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1778,7 +1778,7 @@
 			<!-- Make sure we have the source collection files in place -->
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.ics</filepath>
@@ -1786,7 +1786,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.ics</filepath>
@@ -1794,7 +1794,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -1805,7 +1805,7 @@
 			<description>PUT new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.ics</filepath>
@@ -1820,7 +1820,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1840,7 +1840,7 @@
 			<description>PUT existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -1855,7 +1855,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1875,7 +1875,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1886,7 +1886,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1908,9 +1908,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+					<value>$pathprefix:/collection/largequotacal/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1921,7 +1921,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1943,9 +1943,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+					<value>$pathprefix:/collection/largequotacal/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1956,7 +1956,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -1976,7 +1976,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1987,7 +1987,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2009,9 +2009,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+					<value>$pathprefix:/collection/largequotacal/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2022,7 +2022,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2044,9 +2044,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacal/1.ics</value>
+					<value>$pathprefix:/collection/largequotacal/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2057,7 +2057,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2077,7 +2077,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacal/1.ics</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2088,7 +2088,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacal/</ruri>
+				<ruri>$pathprefix:/collection/largequotacal/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2115,7 +2115,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2133,7 +2133,7 @@
 			<!-- Make sure we have the source collection files in place -->
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/1.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.ics</filepath>
@@ -2141,7 +2141,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/2.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.ics</filepath>
@@ -2149,7 +2149,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/temp/3.ics</ruri>
+				<ruri>$pathprefix:/collection/temp/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.ics</filepath>
@@ -2162,9 +2162,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/test/</value>
+					<value>$pathprefix:/collection/largequotacol/test/</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2175,7 +2175,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2195,7 +2195,7 @@
 			<description>DELETE existing collection</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/test/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2206,7 +2206,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2228,9 +2228,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/collection/largequotacol/test/</value>
+					<value>$pathprefix:/collection/largequotacol/test/</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/temp/</ruri>
+				<ruri>$pathprefix:/collection/temp/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2241,7 +2241,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2261,7 +2261,7 @@
 			<description>DELETE existing resource</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/largequotacol/test/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2272,7 +2272,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/largequotacol/</ruri>
+				<ruri>$pathprefix:/collection/largequotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2299,7 +2299,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2320,7 +2320,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2341,7 +2341,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2361,7 +2361,7 @@
 			<description>PUT small resource below nested and below parent quota</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/1.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/1.ics</filepath>
@@ -2376,7 +2376,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2397,7 +2397,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2418,7 +2418,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2438,7 +2438,7 @@
 			<description>PUT smallish resource above nested but below parent quota</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/4.ics</filepath>
@@ -2453,7 +2453,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -2468,7 +2468,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2489,7 +2489,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2510,7 +2510,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2530,7 +2530,7 @@
 			<description>PUT smallish resource below nested (2) and below parent quota</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/4.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/4.ics</filepath>
@@ -2545,7 +2545,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2566,7 +2566,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2587,7 +2587,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2607,7 +2607,7 @@
 			<description>PUT small resource below nested but above parent quota</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/2.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.ics</filepath>
@@ -2622,7 +2622,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2643,7 +2643,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2664,7 +2664,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2684,7 +2684,7 @@
 			<description>PUT large resource below nested (2) but above parent quota</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/5.ics</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/5.ics</filepath>
@@ -2699,7 +2699,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2720,7 +2720,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol1/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2741,7 +2741,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/parentquotacol/nestedquotacol2/</ruri>
+				<ruri>$pathprefix:/collection/parentquotacol/nestedquotacol2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/quota/3.xml</filepath>
@@ -2764,7 +2764,7 @@
 			<description>PUT new oversized resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<ruri>$pathprefix:/calendar/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/7.ics</filepath>
@@ -2779,7 +2779,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<ruri>$pathprefix:/calendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -2793,7 +2793,7 @@
 			<description>PUT existing oversized resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<ruri>$pathprefix:/calendar/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/7.ics</filepath>
@@ -2808,7 +2808,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<ruri>$pathprefix:/calendar/2.ics</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -2822,7 +2822,7 @@
 			<description>PUT new oversized resource to regular collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/7.ics</filepath>
@@ -2838,9 +2838,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/calendar/1.ics</value>
+					<value>$pathprefix:/calendar/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2851,7 +2851,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<ruri>$pathprefix:/calendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -2867,9 +2867,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/calendar/2.ics</value>
+					<value>$pathprefix:/calendar/2.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2880,7 +2880,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<ruri>$pathprefix:/calendar/2.ics</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -2896,9 +2896,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/calendar/1.ics</value>
+					<value>$pathprefix:/calendar/1.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2909,7 +2909,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/1.ics</ruri>
+				<ruri>$pathprefix:/calendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -2920,7 +2920,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2932,9 +2932,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>/calendars/users/user01/calendar/2.ics</value>
+					<value>$pathprefix:/calendar/2.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2945,7 +2945,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/calendar/2.ics</ruri>
+				<ruri>$pathprefix:/calendar/2.ics</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -2956,7 +2956,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/1.ics</ruri>
+				<ruri>$pathprefix:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2967,7 +2967,7 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>/calendars/users/user01/collection/</ruri>
+			<ruri>$pathprefix:/collection/</ruri>
 		</request>
 	</end>
 	

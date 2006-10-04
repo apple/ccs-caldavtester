@@ -231,7 +231,7 @@
 	<test-suite name='Schedule free-busy' ignore='no'>
 		<test name='1'>
 			<description>POST free busy</description>
-			<request user='user02' pswd='user02' print-response='no'>
+			<request user="$userid2:" pswd='$pswd2:' print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
@@ -241,7 +241,7 @@
 					<name>Recipient</name>
 					<value>mailto:user01@example.com</value>
 				</header>
-				<ruri>/calendars/users/user02/outbox/</ruri>
+				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleacl/3.ics</filepath>

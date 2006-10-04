@@ -24,15 +24,15 @@
 	<start>
 		<request end-delete='yes'>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection%201/</ruri>
+			<ruri>$pathprefix:/collection%201/</ruri>
 		</request>
 		<request end-delete='yes'>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/calendar%202/</ruri>
+			<ruri>$pathprefix:/calendar%202/</ruri>
 		</request>
 		<request end-delete='yes'>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/calendar%203/</ruri>
+			<ruri>$pathprefix:/calendar%203/</ruri>
 		</request>
 	</start>
 
@@ -41,7 +41,7 @@
 			<description>PUT</description>
 			<request print-response='no' end-delete='yes'>
 				<method>PUT</method>
-				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<ruri>$pathprefix:/collection%201/2%20a.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/2.txt</filepath>
@@ -65,9 +65,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:/calendars/users/user01/collection%201/2_2%20a.ics</value>
+					<value>$host:$pathprefix:/collection%201/2_2%20a.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<ruri>$pathprefix:/collection%201/2%20a.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -75,7 +75,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:/calendars/users/user01/collection%201/2_2%20a.ics</value>
+						<value>Location$$host:$pathprefix:/collection%201/2_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -85,7 +85,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection%201/2_2%20a.ics</ruri>
+				<ruri>$pathprefix:/collection%201/2_2%20a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/propfinds/1.txt</filepath>
@@ -101,7 +101,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>/calendars/users/user01/collection%201/2_2%20a.ics</value>
+						<value>$pathprefix:/collection%201/2_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -112,9 +112,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:/calendars/users/user01/collection%201/2_3%20a.ics</value>
+					<value>$host:$pathprefix:/collection%201/2_3%20a.ics</value>
 				</header>
-				<ruri>/calendars/users/user01/collection%201/2%20a.ics</ruri>
+				<ruri>$pathprefix:/collection%201/2%20a.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -122,7 +122,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:/calendars/users/user01/collection%201/2_3%20a.ics</value>
+						<value>Location$$host:$pathprefix:/collection%201/2_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -132,7 +132,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/collection%201/2_2%20a.ics</ruri>
+				<ruri>$pathprefix:/collection%201/2_2%20a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/propfinds/1.txt</filepath>
@@ -148,7 +148,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>/calendars/users/user01/collection%201/2_2%20a.ics</value>
+						<value>$pathprefix:/collection%201/2_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -183,7 +183,7 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+					<value>$host:$pathprefix:/calendar%202/2_2%20a.ics</value>
 				</header>
 				<ruri>2%20a.ics</ruri>
 				<verify>
@@ -193,7 +193,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+						<value>Location$$host:$pathprefix:/calendar%202/2_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -203,7 +203,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/calendar%202/2_2%20a.ics</ruri>
+				<ruri>$pathprefix:/calendar%202/2_2%20a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/propfinds/1.txt</filepath>
@@ -219,7 +219,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>/calendars/users/user01/calendar%202/2_2%20a.ics</value>
+						<value>$pathprefix:/calendar%202/2_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -230,7 +230,7 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+					<value>$host:$pathprefix:/calendar%203/2_3%20a.ics</value>
 				</header>
 				<ruri>2%20a.ics</ruri>
 				<verify>
@@ -240,7 +240,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+						<value>Location$$host:$pathprefix:/calendar%203/2_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -250,7 +250,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/users/user01/calendar%203/2_3%20a.ics</ruri>
+				<ruri>$pathprefix:/calendar%203/2_3%20a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/propfinds/1.txt</filepath>
@@ -266,7 +266,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>/calendars/users/user01/calendar%203/2_3%20a.ics</value>
+						<value>$pathprefix:/calendar%203/2_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>

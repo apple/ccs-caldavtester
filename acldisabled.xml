@@ -26,15 +26,15 @@
 	<start>
 		<request>
 			<method>MKCOL</method>
-			<ruri>/calendars/users/user01/collection/</ruri>
+			<ruri>$pathprefix:/collection/</ruri>
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/collection/disabled/</ruri>
+			<ruri>$pathprefix:/collection/disabled/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+			<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -42,7 +42,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+			<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/acldisabled/1.xml</filepath>
@@ -50,11 +50,11 @@
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>/calendars/users/user01/collection/enabled/</ruri>
+			<ruri>$pathprefix:/collection/enabled/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+			<ruri>$pathprefix:/collection/enabled/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -62,7 +62,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+			<ruri>$pathprefix:/collection/enabled/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/acldisabled/1.xml</filepath>
@@ -70,12 +70,12 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read Resource OK' ignore='no'>
+	<test-suite name='Read Resource OK' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>GET on disabled ics, user01</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -83,9 +83,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>GET on disabled ics, user02</description>
-			<request print-response='no' user='user02' pswd='user02'>
+			<request print-response='no' user='$userid2:' pswd="$pswd2:">
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -93,9 +93,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>GET on disabled ics, admin</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -105,7 +105,7 @@
 			<description>GET on enabled ics, user01</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/enabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -113,7 +113,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='PROPFIND OK' ignore='no'>
+	<test-suite name='PROPFIND OK' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>PROPFIND on collection, depth infinity</description>
 			<request print-response='no'>
@@ -122,7 +122,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/</ruri>
+				<ruri>$pathprefix:/collection/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acldisabled/2.xml</filepath>
@@ -131,7 +131,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/calendars/users/user01/collection/</value>
+						<value>$pathprefix:/collection/</value>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
@@ -152,7 +152,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/disabled/</ruri>
+				<ruri>$pathprefix:/collection/disabled/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acldisabled/2.xml</filepath>
@@ -161,7 +161,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/calendars/users/user01/collection/disabled/</value>
+						<value>$pathprefix:/collection/disabled/</value>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
@@ -178,7 +178,7 @@
 			<description>Disable access</description>
 			<request>
 				<method>ACCESS-DISABLE</method>
-				<ruri>/calendars/users/user01/collection/disabled</ruri>
+				<ruri>$pathprefix:/collection/disabled</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -188,7 +188,7 @@
 			<description>GET on ics, user01</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -200,9 +200,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>GET on ics, user02</description>
-			<request print-response='no' user='user02' pswd='user02'>
+			<request print-response='no' user='$userid2:' pswd="$pswd2:">
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -214,9 +214,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>GET on ics, admin</description>
-			<request print-response='no' user='admin' pswd='admin'>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -230,7 +230,7 @@
 			<description>GET on enabled ics, user01</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>/calendars/users/user01/collection/enabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/enabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -247,7 +247,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/</ruri>
+				<ruri>$pathprefix:/collection/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acldisabled/2.xml</filepath>
@@ -256,7 +256,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/calendars/users/user01/collection/</value>
+						<value>$pathprefix:/collection/</value>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
@@ -275,7 +275,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/calendars/users/user01/collection/disabled/</ruri>
+				<ruri>$pathprefix:/collection/disabled/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acldisabled/2.xml</filepath>
@@ -296,7 +296,7 @@
 			<description>DELETE on ics, user01</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -310,14 +310,14 @@
 			<description>Enable access</description>
 			<request>
 				<method>ACCESS-ENABLE</method>
-				<ruri>/calendars/users/user01/collection/disabled</ruri>
+				<ruri>$pathprefix:/collection/disabled</ruri>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
 			<description>DELETE on ics, user01</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/calendars/users/user01/collection/disabled/1.ics</ruri>
+				<ruri>$pathprefix:/collection/disabled/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -328,7 +328,7 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>/calendars/users/user01/collection/</ruri>
+			<ruri>$pathprefix:/collection/</ruri>
 		</request>
 	</end>
 	

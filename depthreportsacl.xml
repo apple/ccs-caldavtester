@@ -222,7 +222,7 @@
 	<test-suite name='Reports' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>multiget on top collection</description>
-			<request user='user02' pswd='user02' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
 				<header>
 					<name>Depth</name>
@@ -255,7 +255,7 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>query on top collection</description>
-			<request user='user02' pswd='user02' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
 				<header>
 					<name>Depth</name>
@@ -277,7 +277,7 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>query for free busy on collection with Depth infinity</description>
-			<request user='user02' pswd='user02' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
 				<header>
 					<name>Depth</name>

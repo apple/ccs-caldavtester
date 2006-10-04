@@ -22,9 +22,11 @@
 #
 
 from tests.manager import manager
+import sys
 
 if __name__ == "__main__":
     
     manager = manager()
     manager.readCommandLine()
-    manager.runAll()
+    result, timing = manager.runAll()
+    sys.exit(result)

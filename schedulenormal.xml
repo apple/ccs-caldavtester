@@ -24,29 +24,29 @@
 	<description>Test normal SCHEDULE operations in CalDAV</description>
 
 	<start>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/outbox/</ruri>
+			<ruri>$pathprefix:/outbox/</ruri>
 		</request>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/inbox/</ruri>
+			<ruri>$pathprefix:/inbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/outbox/</ruri>
+			<ruri>$pathprefix2:/outbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/inbox/</ruri>
+			<ruri>$pathprefix2:/inbox/</ruri>
 		</request>
-		<request user="user03" pswd="user03">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user03/outbox/</ruri>
+			<ruri>$pathprefix3:/outbox/</ruri>
 		</request>
-		<request user="user03" pswd="user03">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user03/inbox/</ruri>
+			<ruri>$pathprefix3:/inbox/</ruri>
 		</request>
 	</start>
 	
@@ -61,7 +61,7 @@
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>/principals/users/user02, /principals/users/user03</value>
+					<value>/principals/users/user02, $principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -75,7 +75,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^/calendars/users/user01/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -98,21 +98,21 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;/principals/users/user01&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;/principals/users/user02&lt;/href&gt;&lt;href xmlns="DAV:"&gt;/principals/users/user03&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal2:&lt;/href&gt;&lt;href xmlns="DAV:"&gt;$principal3:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='3'>
 			<description>Make sure resource exists and properties are set</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>
@@ -121,12 +121,12 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>/calendars/users/user02/inbox/</value>
+						<value>$pathprefix2:/inbox/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;/principals/users/user01&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;/principals/users/user02&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal2:&lt;/href&gt;</value>
 						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
 					</arg>
 				</verify>
@@ -134,13 +134,13 @@
 		</test>
 		<test name='4'>
 			<description>Make sure resource exists and properties are set</description>
-			<request user="user03" pswd="user03" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/calendars/users/user03/inbox/</ruri>
+				<ruri>$pathprefix3:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>
@@ -149,12 +149,12 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>/calendars/users/user03/inbox/</value>
+						<value>$pathprefix3:/inbox/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;/principals/users/user01&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;/principals/users/user03&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal3:&lt;/href&gt;</value>
 						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
 					</arg>
 				</verify>
@@ -162,7 +162,7 @@
 		</test>
 		<test name='5'>
 			<description>REPLY from one</description>
-			<request user="user02" pswd="user02" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>SCHEDULE</method>
 				<header>
 					<name>Originator</name>
@@ -172,7 +172,7 @@
 					<name>Recipient</name>
 					<value>/principals/users/user01</value>
 				</header>
-				<ruri>/calendars/users/user02/outbox/</ruri>
+				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/4.ics</filepath>
@@ -184,7 +184,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^/calendars/users/user02/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix2:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>

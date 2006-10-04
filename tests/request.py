@@ -42,10 +42,13 @@ class request( object ):
         self.headers = {}
         self.ruri = ""
         self.data = None
-        self.datasubs = False
+        self.datasubs = True
         self.verifiers = []
         self.grablocation = False
     
+    def __str__(self):
+        return "Method: %s; uri: %s" % (self.method, self.ruri)
+
     def getURI( self, si ):
         if self.ruri == "$":
             return self.ruri
@@ -101,8 +104,8 @@ class request( object ):
     
     def parseXML( self, node ):
         self.auth = node.getAttribute( tests.xmlDefs.ATTR_AUTH ) != tests.xmlDefs.ATTR_VALUE_NO
-        self.user = node.getAttribute( tests.xmlDefs.ATTR_USER )
-        self.pswd = node.getAttribute( tests.xmlDefs.ATTR_PSWD )
+        self.user = serverinfo.subs(node.getAttribute( tests.xmlDefs.ATTR_USER ))
+        self.pswd = serverinfo.subs(node.getAttribute( tests.xmlDefs.ATTR_PSWD ))
         self.end_delete = node.getAttribute( tests.xmlDefs.ATTR_END_DELETE ) == tests.xmlDefs.ATTR_VALUE_YES
         self.print_response = node.getAttribute( tests.xmlDefs.ATTR_PRINT_RESPONSE ) == tests.xmlDefs.ATTR_VALUE_YES
 
@@ -159,7 +162,7 @@ class data( object ):
     
     def parseXML( self, node ):
 
-        subs = node.getAttribute( tests.xmlDefs.ATTR_SUBSTITUTIONS ) == tests.xmlDefs.ATTR_VALUE_YES
+        subs = node.getAttribute( tests.xmlDefs.ATTR_SUBSTITUTIONS ) != tests.xmlDefs.ATTR_VALUE_NO
 
         for child in node._get_childNodes():
             if child._get_localName() == tests.xmlDefs.ELEMENT_CONTENTTYPE:

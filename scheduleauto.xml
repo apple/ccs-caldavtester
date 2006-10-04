@@ -24,31 +24,31 @@
 	<description>Test SCHEDULE method in CalDAV</description>
 
 	<start>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/outbox/</ruri>
+			<ruri>$pathprefix:/outbox/</ruri>
 		</request>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/inbox/</ruri>
+			<ruri>$pathprefix:/inbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/outbox/</ruri>
+			<ruri>$pathprefix2:/outbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/inbox/</ruri>
+			<ruri>$pathprefix2:/inbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/outbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/inbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/calendar/</ruri>
 		</request>
@@ -83,9 +83,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -97,9 +97,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -111,7 +111,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -125,7 +125,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<verify>
@@ -139,7 +139,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -153,9 +153,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -196,9 +196,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -210,9 +210,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -224,7 +224,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -238,7 +238,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<verify>
@@ -252,7 +252,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<data>
@@ -270,9 +270,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -288,7 +288,7 @@
 		</test>
 		<test name='8' ignore='no'>
 			<description>One item in resource01 Inbox (old one deleted)</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<data>
@@ -335,9 +335,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -349,9 +349,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -363,7 +363,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -377,7 +377,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<verify>
@@ -391,7 +391,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<data>
@@ -409,9 +409,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -427,7 +427,7 @@
 		</test>
 		<test name='8' ignore='no'>
 			<description>One item in resource01 Inbox (old one deleted)</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<data>
@@ -474,9 +474,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -488,9 +488,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -502,7 +502,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -516,7 +516,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<data>
@@ -534,7 +534,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -548,9 +548,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -591,9 +591,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -605,9 +605,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -619,7 +619,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -633,7 +633,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<data>
@@ -651,7 +651,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -665,9 +665,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -708,9 +708,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -722,9 +722,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -736,7 +736,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -750,7 +750,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<verify>
@@ -764,7 +764,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -778,9 +778,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -821,9 +821,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -835,9 +835,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -849,7 +849,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -863,7 +863,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Two items in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<data>
@@ -881,7 +881,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -895,9 +895,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -938,9 +938,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -952,9 +952,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -966,7 +966,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -980,7 +980,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Two items in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<data>
@@ -998,7 +998,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -1012,9 +1012,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1055,9 +1055,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user01/outbox/</ruri>
+				<ruri>$pathprefix:/outbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1069,9 +1069,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>/calendars/users/user02/inbox/</ruri>
+				<ruri>$pathprefix2:/inbox/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1083,7 +1083,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>One item in resource01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>/calendars/users/resource01/inbox/</ruri>
 				<verify>
@@ -1097,7 +1097,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Two items in resource01 Calendar</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/calendar/</ruri>
 				<data>
@@ -1115,7 +1115,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>One item in resource01 Outbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>/calendars/users/resource01/outbox/</ruri>
 				<verify>
@@ -1129,9 +1129,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
-			<request user="admin" pswd="admin" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>/calendars/users/user01/inbox/</ruri>
+				<ruri>$pathprefix:/inbox/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -1144,31 +1144,31 @@
 	</test-suite>
 
 	<end>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/outbox/</ruri>
+			<ruri>$pathprefix:/outbox/</ruri>
 		</request>
-		<request user="user01" pswd="user01">
+		<request>
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user01/inbox/</ruri>
+			<ruri>$pathprefix:/inbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/outbox/</ruri>
+			<ruri>$pathprefix2:/outbox/</ruri>
 		</request>
-		<request user="user02" pswd="user02">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>/calendars/users/user02/inbox/</ruri>
+			<ruri>$pathprefix2:/inbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/outbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/inbox/</ruri>
 		</request>
-		<request user="admin" pswd="admin">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>/calendars/users/resource01/calendar/</ruri>
 		</request>
