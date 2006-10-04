@@ -70,8 +70,12 @@ class Verifier(object):
         # Must have MULTISTATUS response code
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
-            
-        doc = xml.dom.minidom.parseString( respdata )
+        
+        try:
+            doc = xml.dom.minidom.parseString( respdata )
+        except:
+            return False, "           Coluld not parse proper XML response\n"
+                
         result = True
         resulttxt = ""
         for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
