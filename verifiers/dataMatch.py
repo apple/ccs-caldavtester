@@ -16,6 +16,8 @@
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
 
+from tests.serverinfo import serverinfo
+
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
@@ -50,6 +52,8 @@ class Verifier(object):
 
         if data is None:
             return False, "        Could not read data file"
+
+        data = serverinfo.subs(data)
 
         if data != respdata:
             data = data.replace("\n", "\r\n")
