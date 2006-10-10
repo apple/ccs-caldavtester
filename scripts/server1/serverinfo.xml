@@ -23,9 +23,6 @@
 <serverinfo>
 	<host>localhost</host>
 	<port>8008</port>
-	<calendarpath>/calendars/users/user01/calendar</calendarpath>
-	<user>user01</user>
-	<pswd>user01</pswd>
 	<substitutions>
 		<substitution>
 			<key>$host:</key>
@@ -53,6 +50,11 @@
 			<key>$userid1:</key>
 			<value>user01</value>
 		</substitution>
+		<!-- password for first user -->
+		<substitution>
+			<key>$pswd1:</key>
+			<value>user01</value>
+		</substitution>
 		<!-- relative path to first user principal resource-->
 		<substitution>
 			<key>$principal:</key>
@@ -62,6 +64,11 @@
 		<substitution>
 			<key>$pathprefix:</key>
 			<value>/calendars/users/user01</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$calendarpath1:</key>
+			<value>/calendars/users/user01/calendar</value>
 		</substitution>
 		
 		<!-- user id for second user -->

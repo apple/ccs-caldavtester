@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-#
 ##
 # Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
 #
@@ -17,16 +15,3 @@
 #
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
-#
-# Runs a suite of tests defined in a config file against a caldav server
-#
-
-from src.manager import manager
-import sys
-
-if __name__ == "__main__":
-    
-    manager = manager()
-    manager.readCommandLine()
-    result, timing = manager.runAll()
-    sys.exit(result)

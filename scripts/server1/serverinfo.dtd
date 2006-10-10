@@ -16,14 +16,11 @@
  DRI: Cyrus Daboo, cdaboo@apple.com
  -->
 
-<!ELEMENT serverinfo (host, port, ssl?, calendarpath, user, pswd, substitutions, serverfilepath)? >
+<!ELEMENT serverinfo (host, port, ssl?, substitutions, serverfilepath)? >
 
 	<!ELEMENT host			(#PCDATA)>
 	<!ELEMENT port			(#PCDATA)>
 	<!ELEMENT ssl			EMPTY>
-	<!ELEMENT calendarpath	(#PCDATA)>
-	<!ELEMENT user			(#PCDATA)>
-	<!ELEMENT pswd			(#PCDATA)>
 	<!ELEMENT substitutions	(substitution*)>
 		<!ELEMENT substitution	(key, value)>
 			<!ELEMENT key			(#PCDATA)>
