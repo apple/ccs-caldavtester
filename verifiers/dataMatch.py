@@ -16,15 +16,13 @@
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
 
-from tests.serverinfo import serverinfo
-
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
 
 class Verifier(object):
     
-    def verify(self, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         
@@ -53,7 +51,7 @@ class Verifier(object):
         if data is None:
             return False, "        Could not read data file"
 
-        data = serverinfo.subs(data)
+        data = manager.server_info.subs(data)
 
         if data != respdata:
             data = data.replace("\n", "\r\n")

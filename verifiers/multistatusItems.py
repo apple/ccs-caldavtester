@@ -27,7 +27,7 @@ import xml.dom.minidom
 
 class Verifier(object):
     
-    def verify(self, uri, response, respdata, args):
+    def verify(self, manager, uri, response, respdata, args):
 
         def ElementsByName(parent, nsURI, localName):
             rc = NodeList()

@@ -22,7 +22,7 @@ Verifier that chec ks the response status code for a specific value.
 
 class Verifier(object):
     
-    def verify(self, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # If no status veriffication requested, then assume all 2xx codes are OK
         teststatus = args.get("status", ["2xx"])
         
