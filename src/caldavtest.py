@@ -143,7 +143,7 @@ class caldavtest(object):
     
     def dofindall( self, collection):
         hrefs = []
-        req = request()
+        req = request(self.manager)
         req.method = "PROPFIND"
         req.ruri = collection[0]
         req.headers["Depth"] = "1"
@@ -189,7 +189,7 @@ class caldavtest(object):
         if len(deletes) == 0:
             return True
         for deleter in deletes:
-            req = request()
+            req = request(self.manager)
             req.method = "DELETE"
             req.ruri = deleter[0]
             if len(deleter[1]):
@@ -200,7 +200,7 @@ class caldavtest(object):
 
     def dofindnew( self, collection):
         hresult = ""
-        req = request()
+        req = request(self.manager)
         req.method = "PROPFIND"
         req.ruri = collection[0]
         req.headers["Depth"] = "1"
@@ -279,7 +279,7 @@ class caldavtest(object):
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         for deleter in self.end_deletes:
-            req = request()
+            req = request(self.manager)
             req.method = "DELETE"
             req.ruri = deleter[0]
             if len(deleter[1]):
