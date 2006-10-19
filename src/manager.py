@@ -141,7 +141,7 @@ class manager(object):
             elif option == "-d":
                 self.depopulate = True
             elif option == "-x":
-                self.dname = value
+                dname = value
             elif option == "--all":
                 all = True
                 
