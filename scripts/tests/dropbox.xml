@@ -1,0 +1,200 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<start/>
+	
+	<test-suite name='Principal properties'>
+		<test name='1'>
+			<description>Look for properties</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://twistedmatrix.com/xml_namespace/dav/drop-box-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Collection properties'>
+		<test name='1'>
+			<description>Look for properties</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/dropbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropboxhome xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Look for properties</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/notifications/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Drop Box Collection Create'>
+		<test name='1'>
+			<description>Create drop box</description>
+			<request end-delete='yes'>
+				<method>MKCOL</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='1'>
+			<description>Look for properties</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Drop Box Collection ACLs'>
+		<test name='1'>
+			<description>Create drop box resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify that user01 can read it</description>
+			<request>
+				<method>GET</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Verify that user03 cannot read it</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>GET</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Add user02 read privilege on collection</description>
+			<request>
+				<method>ACL</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Verify that user02 can now read it</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>GET</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Verify that user03 cannot read it</description>
+			<request user='$userid3:' pswd='$pswd3:'>
+				<method>GET</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+
+</caldavtest>
