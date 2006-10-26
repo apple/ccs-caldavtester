@@ -97,7 +97,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1'>
+		<test name='2'>
 			<description>Look for properties</description>
 			<request>
 				<method>PROPFIND</method>
@@ -184,6 +184,70 @@
 			<request user='$userid3:' pswd='$pswd3:'>
 				<method>GET</method>
 				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Drop Box Home Restrictions'>
+		<test name='1'>
+			<description>Try to create a calendar</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/dropbox/calendar/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Try to create a resource</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$pathprefix:/dropbox/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Drop Box Restrictions'>
+		<test name='1'>
+			<description>Try to create a calendar</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Try to create a collection</description>
+			<request end-delete="yes">
+				<method>MKCOL</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
