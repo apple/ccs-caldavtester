@@ -764,6 +764,27 @@
 				</verify>
 			</request>
 		</test>
+		<test name='19' ignore='no'>
+			<description>query for VEVENTs that contain a CATEGORY and filter by CATEGORY</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/basicquery/13.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='time-range query reports' ignore='no'>
