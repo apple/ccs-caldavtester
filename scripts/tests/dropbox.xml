@@ -49,6 +49,10 @@
 			<description>Look for properties</description>
 			<request>
 				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<ruri>$pathprefix:/dropbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -67,6 +71,10 @@
 			<description>Look for properties</description>
 			<request>
 				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<ruri>$pathprefix:/notifications/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -101,6 +109,10 @@
 			<description>Look for properties</description>
 			<request>
 				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
