@@ -21,6 +21,8 @@
  -->
 
 <caldavtest>
+	<description>Test drop box features</description>
+
 	<start/>
 	
 	<test-suite name='Principal properties'>
@@ -37,8 +39,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://twistedmatrix.com/xml_namespace/dav/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
-						<value>http://twistedmatrix.com/xml_namespace/dav/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
+						<value>http://apple.com/ns/calendarserver/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
+						<value>http://apple.com/ns/calendarserver/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
 					</arg>
 				</verify>
 			</request>
@@ -62,7 +64,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://apple.com/ns/calendarserver/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -84,7 +86,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://apple.com/ns/calendarserver/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -122,7 +124,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://twistedmatrix.com/xml_namespace/dav/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://apple.com/ns/calendarserver/"/></value>
 					</arg>
 				</verify>
 			</request>
