@@ -425,6 +425,127 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='COPY/MOVE and Properties' ignore='no'>
+		<test name='1' ignore="yes">
+			<description>Verify that COPY'ing a calendar preserves the calendar resource type</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/caltest1/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/copymove/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/caltest2/</value>
+				</header>
+				<ruri>$pathprefix:/caltest1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/caltest2/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/copymove/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify that MOVE'ing a calendar preserves the calendar resource type</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/copymove/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/caltest4/</value>
+				</header>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/caltest4/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/copymove/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request>
 			<method>DELETE</method>
@@ -433,6 +554,22 @@
 		<request>
 			<method>DELETE</method>
 			<ruri>move1.ics</ruri>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>$pathprefix:/caltest1/</ruri>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>$pathprefix:/caltest2/</ruri>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>$pathprefix:/caltest3/</ruri>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>$pathprefix:/caltest4/</ruri>
 		</request>
 	</end>
 	
