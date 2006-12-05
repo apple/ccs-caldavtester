@@ -97,11 +97,11 @@
 				<method>POST</method>
 				<header>
 					<name>Organizer</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/inbox/</ruri>
 				<data>
@@ -123,11 +123,11 @@
 				<method>POST</method>
 				<header>
 					<name>Organizer</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -149,11 +149,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -175,11 +175,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -201,11 +201,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -227,7 +227,7 @@
 				<method>POST</method>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -253,7 +253,7 @@
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -275,7 +275,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -297,11 +297,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -323,11 +323,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user02@example.com</value>
+					<value>$cuaddr2:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
@@ -349,11 +349,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user02@example.com</value>
+					<value>$cuaddr2:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
@@ -378,11 +378,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -419,8 +419,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user02@example.com&lt;/href&gt;&lt;href xmlns="DAV:"&gt;mailto:user03@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddr1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddr2:&lt;/href&gt;&lt;href xmlns="DAV:"&gt;$cuaddr3:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -446,8 +446,8 @@
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user02@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddr1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddr2:&lt;/href&gt;</value>
 						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
 					</arg>
 				</verify>
@@ -474,8 +474,8 @@
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;mailto:user01@example.com&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;mailto:user03@example.com&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddr1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddr3:&lt;/href&gt;</value>
 						<value>urn:ietf:params:xml:ns:caldavschedule-state$&lt;not-processed/&gt;</value>
 					</arg>
 				</verify>
@@ -487,11 +487,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>/principals/users/user01</value>
+					<value>$principal:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>/principals/users/user02, $principal3:</value>
+					<value>$principal2:, $principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -517,11 +517,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$host:/principals/users/user01</value>
+					<value>$host:$principal:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$host:/principals/users/user02, $host:$principal3:</value>
+					<value>$host:$principal2:, $host:$principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -665,11 +665,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:user02@example.com, mailto:user03@example.com</value>
+					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -696,11 +696,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:user01@example.com</value>
+					<value>$cuaddr1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:broken@example.com, mailto:user03@example.com</value>
+					<value>mailto:broken@example.com, $cuaddr3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>

@@ -57,11 +57,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>/principals/users/user01</value>
+					<value>$principal:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>/principals/users/user02, $principal3:</value>
+					<value>$principal2:, $principal3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -166,11 +166,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>/principals/users/user02</value>
+					<value>$principal2:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>/principals/users/user01</value>
+					<value>$principal3:</value>
 				</header>
 				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>
