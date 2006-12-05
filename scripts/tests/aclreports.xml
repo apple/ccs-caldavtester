@@ -182,14 +182,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/principals/users/</value>
+						<value>$principals:</value>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
 						<value>$userid1:</value>
-					</arg>
-					<arg>
-						<name>badhrefs</name>
 						<value>$useradmin:</value>
 					</arg>
 				</verify>
@@ -206,7 +203,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -228,7 +225,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -246,7 +243,7 @@
 			<description>Too many DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/6.xml</filepath>
@@ -264,7 +261,7 @@
 			<description>Valid self report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -282,7 +279,7 @@
 			<description>Valid self report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/5.xml</filepath>
@@ -357,7 +354,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -379,7 +376,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -397,7 +394,7 @@
 			<description>Valid non-apply-to report with DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -407,7 +404,6 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>public01</value>
-						<value>resource01</value>
 						<value>$userid1:</value>
 					</arg>
 				</verify>
@@ -417,7 +413,7 @@
 			<description>Valid non-apply-to report without DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/13.xml</filepath>
@@ -427,8 +423,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>public02</value>
-						<value>resource02</value>
-						<value>user02</value>
+						<value>$userid2:</value>
 					</arg>
 				</verify>
 			</request>
@@ -446,13 +441,13 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/principals/users/</value>
+						<value/>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>public01</value>
-						<value>resource01</value>
-						<value>$userid1:</value>
+						<value>$principals:public01</value>
+						<value>$principals:$userid1:</value>
+						<value>$rprincipal1:</value>
 					</arg>
 				</verify>
 			</request>
@@ -470,13 +465,13 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>/principals/users/</value>
+						<value/>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>public02</value>
-						<value>resource02</value>
-						<value>user02</value>
+						<value>$principals:public02</value>
+						<value>$principals:$userid2:</value>
+						<value>$resources:resource02</value>
 					</arg>
 				</verify>
 			</request>
@@ -492,7 +487,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -514,7 +509,7 @@
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -550,7 +545,7 @@
 			<description>Valid report</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -605,9 +600,9 @@
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
-					<value>1</value>
+					<value>0</value>
 				</header>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/17.xml</filepath>
