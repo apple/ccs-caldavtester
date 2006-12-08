@@ -16,7 +16,7 @@
  DRI: Cyrus Daboo, cdaboo@apple.com
  -->
 
-<!ELEMENT perfinfo (clients, threads, logging, tests, serverinfo, testinfo, substitutions)? >
+<!ELEMENT perfinfo (clients, threads, logging, tests, serverinfo, start, testinfo, end, substitutions)? >
 
 	<!ELEMENT clients		(#PCDATA)>
 
@@ -33,7 +33,11 @@
 
 	<!ELEMENT serverinfo	(#PCDATA)>
 
-	<!ELEMENT testinfo	(#PCDATA)>
+	<!ELEMENT start	        (#PCDATA)>
+
+	<!ELEMENT testinfo	    (#PCDATA)>
+
+	<!ELEMENT end    	    (#PCDATA)>
 
 	<!ELEMENT substitutions	(substitution*)>
 		<!ELEMENT substitution	(key, value)>

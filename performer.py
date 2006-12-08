@@ -65,6 +65,46 @@ if __name__ == "__main__":
 
     pinfo = readXML()
 
+    def doScript(script):
+        # Create argument list that varies for each threaded client. Basically use a separate
+        # server account for each client.
+        def runner(*args):
+            """
+            Test runner method. 
+            @param *args:
+            """
+            
+            if pinfo.logging:
+                print "Start: %s" % (args[0]["moresubs"]["$userid1:"],)
+            try:
+                mgr = manager(level=manager.LOG_NONE)
+                result, timing = mgr.runWithOptions(*args[1:], **args[0])
+                if pinfo.logging:
+                    print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
+            except Exception, e:
+                print "Thread run exception: %s" % (str(e),)
+    
+        args = []
+        for i in range(1, pinfo.clients + 1):
+            moresubs = {}
+            for key, value in pinfo.subsdict.iteritems():
+                moresubs[key] = subs(value, i)
+            args.append(({"moresubs": moresubs}, subs(pinfo.serverinfo, i), "", [subs(script, i)]))
+        for arg in args:
+            runner(*arg)
+
+    def doStart():
+        if pinfo.startscript:
+            print "Runnning start script %s" % (pinfo.startscript,)
+            doScript(pinfo.startscript)
+
+    def doEnd():
+        if pinfo.endscript:
+            print "Runnning end script %s" % (pinfo.endscript,)
+            doScript(pinfo.endscript)
+
+    doStart()
+
     # Cummulative results
     allresults = []
     
@@ -149,6 +189,8 @@ if __name__ == "__main__":
         
         allresults.append(result)
     
+    doEnd()
+
     # Print out averaged results.
     print "\n\nSpread\tReqs/sec\tAverage\t\tStd. Dev.\tTotal"
     print "==============================================================="

@@ -58,18 +58,18 @@
 			<runs>2</runs>
 		</test>
 	</tests>
-	<serverinfo>scripts/server/serverinfo.xml</serverinfo>
+	<serverinfo>scripts/server/apacheserverinfo.xml</serverinfo>
 	<testinfo>performance/put-small.xml</testinfo>
 	<substitutions>
 		<!-- first user id -->
 		<substitution>
 			<key>$userid1:</key>
-			<value>user%02d</value>
+			<value>admin</value>
 		</substitution>
 		<!-- password for first user -->
 		<substitution>
 			<key>$pswd1:</key>
-			<value>user%02d</value>
+			<value>admin</value>
 		</substitution>
 		<!-- relative path to first user principal resource-->
 		<substitution>
@@ -79,12 +79,12 @@
 		<!-- relative path to first user calendar home-->
 		<substitution>
 			<key>$pathprefix:</key>
-			<value>/calendars/users/user%02d</value>
+			<value>/~cyrusdaboo/uploads/users/user%02d</value>
 		</substitution>
 		<!-- relative path to first user calendar home-->
 		<substitution>
 			<key>$calendarpath1:</key>
-			<value>/calendars/users/user%02d/calendar</value>
+			<value>/~cyrusdaboo/uploads/users/user%02d</value>
 		</substitution>
 	</substitutions>
 </perfinfo>

@@ -26,7 +26,7 @@ class perfinfo( object ):
     """
     Maintains information about the performance test scenario.
     """
-    __slots__  = ['clients', 'threads', 'logging', 'tests', 'serverinfo', 'testinfo', 'subsdict']
+    __slots__  = ['clients', 'threads', 'logging', 'tests', 'serverinfo', 'startscript', 'testinfo', 'endscript', 'subsdict']
 
     def __init__( self ):
         self.clients = 20
@@ -34,7 +34,9 @@ class perfinfo( object ):
         self.logging = False
         self.tests = []
         self.serverinfo = ""
+        self.startscript = ""
         self.testinfo = ""
+        self.endscript = ""
         self.subsdict = {}
 
     def parseXML( self, node ):
@@ -49,8 +51,12 @@ class perfinfo( object ):
                 self.parseTestsXML(child)
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
                 self.serverinfo = child.firstChild.data
+            elif child._get_localName() == src.xmlDefs.ELEMENT_START:
+                self.startscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_TESTINFO:
                 self.testinfo = child.firstChild.data
+            elif child._get_localName() == src.xmlDefs.ELEMENT_END:
+                self.endscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
 
