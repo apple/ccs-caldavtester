@@ -39,8 +39,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://apple.com/ns/calendarserver/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
-						<value>http://apple.com/ns/calendarserver/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
+						<value>http://org.calendarserver/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
+						<value>http://org.calendarserver/ns/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
 					</arg>
 				</verify>
 			</request>
@@ -64,7 +64,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://apple.com/ns/calendarserver/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://org.calendarserver/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -86,7 +86,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://apple.com/ns/calendarserver/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://org.calendarserver/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -124,7 +124,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://apple.com/ns/calendarserver/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://org.calendarserver/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -223,7 +223,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2'>
+		<test name='2' ignore="yes">
 			<description>Try to create a resource</description>
 			<request end-delete="yes">
 				<method>PUT</method>
