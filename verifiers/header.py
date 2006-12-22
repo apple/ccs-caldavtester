@@ -26,7 +26,7 @@ class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Split into header/value tuples
-        testheader = args.get("header", [])
+        testheader = args.get("header", [])[:]
         for i in range(len(testheader)):
             p = testheader[i]
             present = True
