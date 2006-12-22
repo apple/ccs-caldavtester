@@ -33,6 +33,7 @@ from src.manager import manager
 from src.perfinfo import perfinfo
 
 EX_INVALID_CONFIG_FILE = "Invalid Config File"
+START_DELAY = 3.0
 
 if __name__ == "__main__":
     
@@ -111,7 +112,7 @@ if __name__ == "__main__":
     for test in pinfo.tests:
         result = [0.0, 0.0, 0.0]
         print "|",
-        for loop in range(test[1]):
+        for loop in range(test[2]):
             print ".",
             results = []
         
@@ -135,7 +136,7 @@ if __name__ == "__main__":
             # Create argument list that varies for each threaded client. Basically use a separate
             # server account for each client.
             args = []
-            for i in range(1, pinfo.clients + 1):
+            for i in range(1, test[0] + 1):
                 moresubs = {}
                 for key, value in pinfo.subsdict.iteritems():
                     moresubs[key] = subs(value, i)
@@ -147,10 +148,10 @@ if __name__ == "__main__":
                 # we are testing over. Wait for all threads to finish.
                 timers = []
                 for arg in args:
-                    sleeper = 5.0 + randrange(0, 100)/100.0 * test[0]
+                    sleeper = START_DELAY + randrange(0, 100)/100.0 * test[1]
                     timers.append(Timer(sleeper, runner, arg))
             
-                startTime = time.time() + 5.0
+                startTime = time.time() + START_DELAY
                 for thread in timers:
                     thread.start( )
             
@@ -183,16 +184,16 @@ if __name__ == "__main__":
             result[2] += diffTime
         
         # Average results from runs.
-        result[0] /= test[1]
-        result[1] /= test[1]
-        result[2] /= test[1]
+        result[0] /= test[2]
+        result[1] /= test[2]
+        result[2] /= test[2]
         
         allresults.append(result)
     
     doEnd()
 
     # Print out averaged results.
-    print "\n\nSpread\tReqs/sec\tAverage\t\tStd. Dev.\tTotal"
+    print "\n\nClients\tSpread\tReqs/sec\tAverage\t\tStd. Dev.\tTotal"
     print "==============================================================="
     for i in range(len(pinfo.tests)):
-        print "%.0f\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f" % (pinfo.tests[i][0], pinfo.clients/pinfo.tests[i][0], allresults[i][0], allresults[i][1], allresults[i][2],)
+        print "%.0f\t%.0f\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f" % (pinfo.tests[i][0], pinfo.tests[i][1], pinfo.tests[i][0]/pinfo.tests[i][1], allresults[i][0], allresults[i][1], allresults[i][2],)
