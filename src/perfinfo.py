@@ -52,26 +52,31 @@ class perfinfo( object ):
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
                 self.serverinfo = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_START:
-                self.startscript = child.firstChild.data
+                if child.firstChild is not None:
+                    self.startscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_TESTINFO:
                 self.testinfo = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_END:
-                self.endscript = child.firstChild.data
+                if child.firstChild is not None:
+                    self.endscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
 
     def parseTestsXML(self, node):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_TEST:
+                clients = self.clients
                 spread = None
                 runs = None
                 for schild in child._get_childNodes():
-                    if schild._get_localName() == src.xmlDefs.ELEMENT_SPREAD:
+                    if schild._get_localName() == src.xmlDefs.ELEMENT_CLIENTS:
+                        clients = int(schild.firstChild.data)
+                    elif schild._get_localName() == src.xmlDefs.ELEMENT_SPREAD:
                         spread = float(schild.firstChild.data)
                     elif schild._get_localName() == src.xmlDefs.ELEMENT_RUNS:
                         runs = int(schild.firstChild.data)
                 if spread and runs:
-                    self.tests.append((spread, runs,))
+                    self.tests.append((clients, spread, runs,))
 
     def parseSubstitutionsXML(self, node):
         for child in node._get_childNodes():
