@@ -215,10 +215,10 @@
 				<method>MKCALENDAR</method>
 				<ruri>$pathprefix:/dropbox/calendar/</ruri>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>status</name>
-						<value>403</value>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/valid-drop-box</value>
 					</arg>
 				</verify>
 			</request>
@@ -233,10 +233,10 @@
 					<filepath>Resource/dropbox/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>status</name>
-						<value>403</value>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/valid-drop-box</value>
 					</arg>
 				</verify>
 			</request>
@@ -249,10 +249,10 @@
 				<method>MKCALENDAR</method>
 				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>status</name>
-						<value>403</value>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/valid-drop-box-resource</value>
 					</arg>
 				</verify>
 			</request>
@@ -263,10 +263,10 @@
 				<method>MKCOL</method>
 				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>status</name>
-						<value>403</value>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/valid-drop-box-resource</value>
 					</arg>
 				</verify>
 			</request>

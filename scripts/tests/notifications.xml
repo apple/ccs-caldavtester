@@ -37,8 +37,12 @@
 			<ruri>$pathprefix:/notifications/</ruri>
 		</request>
 		<request>
-			<method>X_APPLE_SUBSCRIBE</method>
+			<method>POST</method>
 			<ruri>$pathprefix:/dropbox/ABC2/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/dropbox/5.xml</filepath>
+			</data>
 		</request>
 	</start>
 	
@@ -204,6 +208,156 @@
 			</request>
 		</test>
 	</test-suite>
+
+	<test-suite name='Subscribe/unsubscribe'>
+		<test name='1'>
+			<description>Invalid subscribe (no XML)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Invalid subscribe (incorrect XML)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Invalid subscribe (no privilege)</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Invalid unsubscribe (not subscribed)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/principal-must-be-subscribed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Valid subscribe</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Invalid unsubscribe (no XML)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Invalid unsubscribe (incorrect XML)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Invalid unsubscribe (not subscribed)</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>http://org.calendarserver/ns/principal-must-be-subscribed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Valid unsubscribe</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	
 	<end/>
 
