@@ -30,6 +30,10 @@
 			<description>Look for properties</description>
 			<request>
 				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<ruri>$principal:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>

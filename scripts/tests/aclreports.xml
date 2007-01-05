@@ -182,12 +182,14 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>prefix</name>
-						<value>$principals:</value>
+						<value></value>
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$userid1:</value>
-						<value>$useradmin:</value>
+						<value>$principal:</value>
+						<value>$principal:calendar-proxy-read/</value>
+						<value>$principal:calendar-proxy-write/</value>
+						<value>$principaladmin:</value>
 					</arg>
 				</verify>
 			</request>
@@ -269,8 +271,12 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>okhrefs</name>
-						<value>$userid1:</value>
+						<value>$principal:</value>
 					</arg>
 				</verify>
 			</request>
@@ -287,8 +293,12 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>okhrefs</name>
-						<value>$userid1:</value>
+						<value>$principal:</value>
 					</arg>
 				</verify>
 			</request>
@@ -402,9 +412,13 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>okhrefs</name>
-						<value>public01</value>
-						<value>$userid1:</value>
+						<value>$principals:public01/</value>
+						<value>$principal:</value>
 					</arg>
 				</verify>
 			</request>
@@ -421,9 +435,13 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>okhrefs</name>
-						<value>public02</value>
-						<value>$userid2:</value>
+						<value>$principals:public02/</value>
+						<value>$principal2:</value>
 					</arg>
 				</verify>
 			</request>
@@ -445,8 +463,8 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principals:public01</value>
-						<value>$principals:$userid1:</value>
+						<value>$principals:public01/</value>
+						<value>$principal:</value>
 						<value>$rprincipal1:</value>
 					</arg>
 				</verify>
@@ -469,9 +487,9 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principals:public02</value>
-						<value>$principals:$userid2:</value>
-						<value>$resources:resource02</value>
+						<value>$principals:public02/</value>
+						<value>$principals:$userid2:/</value>
+						<value>$resources:resource02/</value>
 					</arg>
 				</verify>
 			</request>
