@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE perfinfo SYSTEM "monitorinfo.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<monitorinfo>
+	<logging enable="yes"/>
+	<period>1.0</period>
+	<serverinfo>scripts/server/serverinfo-monitor.xml</serverinfo>
+	<start>monitor/get/get-start.xml</start>
+	<testinfo>monitor/get/get-small.xml</testinfo>
+	<end>monitor/get/get-end.xml</end>
+	<warningtime>1.0</warningtime>
+	<substitutions>
+		<!-- first user id -->
+		<substitution>
+			<key>$userid1:</key>
+			<value>cdaboo</value>
+		</substitution>
+		<!-- password for first user -->
+		<substitution>
+			<key>$pswd1:</key>
+			<value>appledav6585</value>
+		</substitution>
+		<!-- relative path to first user principal resource-->
+		<substitution>
+			<key>$principal:</key>
+			<value>/principals/user/cdaboo</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$pathprefix:</key>
+			<value>/calendars/user/cdaboo</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$calendarpath1:</key>
+			<value>/calendars/user/cdaboo/calendar</value>
+		</substitution>
+	</substitutions>
+</monitorinfo>

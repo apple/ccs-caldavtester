@@ -1,0 +1,98 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
+
+<!--
+ Copyright (c) 2006 Apple Computer, Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<serverinfo>
+	<host>localhost</host>
+	<port>8008</port>
+	<substitutions>
+		<substitution>
+			<key>$host:</key>
+			<value>http://localhost:8008</value>
+		</substitution>
+
+		<!-- relative path to principal collection-->
+		<substitution>
+			<key>$principals:</key>
+			<value>/principals/user/</value>
+		</substitution>
+
+		<!-- relative path to resource principal collection-->
+		<substitution>
+			<key>$resources:</key>
+			<value>/principals/resource/</value>
+		</substitution>
+
+		<!-- user id for admin user -->
+		<substitution>
+			<key>$useradmin:</key>
+			<value>admin</value>
+		</substitution>
+		<!-- password for admin user -->
+		<substitution>
+			<key>$pswdadmin:</key>
+			<value>admin</value>
+		</substitution>
+		<!-- relative path to admin principal resource-->
+		<substitution>
+			<key>$principaladmin:</key>
+			<value>/principals/user/admin/</value>
+		</substitution>
+
+		<!-- relative path to principal collection-->
+		<substitution>
+			<key>$principals:</key>
+			<value>/principals/user/</value>
+		</substitution>
+
+		<!-- relative path to first user principal resource-->
+		<substitution>
+			<key>$userid1:</key>
+			<value>user01</value>
+		</substitution>
+		<!-- password for first user -->
+		<substitution>
+			<key>$pswd1:</key>
+			<value>user01</value>
+		</substitution>
+		<!-- relative path to first user principal resource-->
+		<substitution>
+			<key>$principal:</key>
+			<value>/principals/user/user01/</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$pathprefix:</key>
+			<value>/calendars/user/user01</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$calendarpath1:</key>
+			<value>/calendars/user/user01/calendar</value>
+		</substitution>
+		<!-- calendar user address of first user-->
+		<substitution>
+			<key>$cuaddr1:</key>
+			<value>mailto:user01@example.com</value>
+		</substitution>
+	</substitutions>
+	<serverfilepath>/Users/cyrusdaboo/Documents/Development/Apple/eclipse/CalendarServer/twistedcaldav/test/data/</serverfilepath>
+</serverinfo>
