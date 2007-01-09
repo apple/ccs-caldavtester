@@ -53,10 +53,20 @@ class Verifier(object):
 
         data = manager.server_info.subs(data)
 
+        result = True
         if data != respdata:
             data = data.replace("\n", "\r\n")
             if data != respdata:
-                return False, "        Response data does not exactly match file data"
-
-        return True, ""
-            
+                # If we have an iCalendar file, then unwrap data and do compare
+                if files[0].endswith(".ics"):
+                    data = data.replace("\r\n ", "")
+                    respdata = respdata.replace("\r\n ", "")
+                    if data != respdata:
+                        result = False
+                else:
+                    result = False
+                
+        if result:
+            return True, ""
+        else:
+            return False, "        Response data does not exactly match file data"
