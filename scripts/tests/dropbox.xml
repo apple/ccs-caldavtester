@@ -43,8 +43,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://org.calendarserver/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
-						<value>http://org.calendarserver/ns/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
+						<value>http://calendarserver.org/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
+						<value>http://calendarserver.org/ns/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
 					</arg>
 				</verify>
 			</request>
@@ -68,7 +68,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://org.calendarserver/ns/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://calendarserver.org/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -90,7 +90,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://org.calendarserver/ns/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://calendarserver.org/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -128,7 +128,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://org.calendarserver/ns/"/></value>
+						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://calendarserver.org/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
@@ -222,7 +222,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://org.calendarserver/ns/valid-drop-box</value>
+						<value>http://calendarserver.org/ns/valid-drop-box</value>
 					</arg>
 				</verify>
 			</request>
@@ -240,7 +240,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://org.calendarserver/ns/valid-drop-box</value>
+						<value>http://calendarserver.org/ns/valid-drop-box</value>
 					</arg>
 				</verify>
 			</request>
@@ -256,7 +256,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://org.calendarserver/ns/valid-drop-box-resource</value>
+						<value>http://calendarserver.org/ns/valid-drop-box-resource</value>
 					</arg>
 				</verify>
 			</request>
@@ -270,7 +270,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://org.calendarserver/ns/valid-drop-box-resource</value>
+						<value>http://calendarserver.org/ns/valid-drop-box-resource</value>
 					</arg>
 				</verify>
 			</request>
