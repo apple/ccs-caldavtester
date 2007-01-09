@@ -93,7 +93,7 @@
 	<test-suite name='Valid Proxy User' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>GET user01 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -107,7 +107,7 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -121,7 +121,7 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -139,7 +139,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -160,7 +160,7 @@
 	<test-suite name='Wrong Proxy User' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>GET user01 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -178,7 +178,7 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -196,7 +196,7 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -214,7 +214,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>GET user02 resource</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -235,21 +235,21 @@
 	<test-suite name='Invalid Proxy User' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Valid proxy without header</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>401</value>
+						<value>400</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>Valid proxy proxying as another proxy</description>
-			<request user="proxy" pswd="proxy" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<header>
 					<name>X-Authorize-As</name>
@@ -260,7 +260,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>401</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -278,7 +278,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>401</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
