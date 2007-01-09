@@ -20,12 +20,13 @@
 #
 # Runs a series of test suites inb parallel using a thread pool
 #
-import signal
-import time
-import datetime
-import sys
 
+import datetime
+import signal
+import sys
+import time
 import xml.dom.minidom
+
 import src.xmlDefs
 
 from src.manager import manager
@@ -58,9 +59,9 @@ if __name__ == "__main__":
     
     minfo = readXML()
 
-    def doScript(script, dict={}):
+    def doScript(script):
         mgr = manager(level=manager.LOG_NONE)
-        return mgr.runWithOptions(minfo.serverinfo, "", [script,], dict)
+        return mgr.runWithOptions(minfo.serverinfo, "", [script,], {})
 
     def doStart():
         if minfo.startscript:
@@ -82,13 +83,17 @@ if __name__ == "__main__":
     try:
         while(True):
             time.sleep(minfo.period)
-            result, timing = doScript(minfo.testinfo, minfo.subsdict)
+            result, timing = doScript(minfo.testinfo)
             if minfo.logging:
                 print "Result: %d, Timing: %.3f" % (result, timing,)
             if timing >= minfo.warningtime:
-                print "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (str(datetime.datetime.now()), timing, minfo.warningtime,)
+                dt = str(datetime.datetime.now())
+                dt = dt[0:dt.rfind(".")]
+                print "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (dt, timing, minfo.warningtime,)
             if result != 0:
-                print "[%s] WARNING: request failed" % (str(datetime.datetime.now()),)
+                dt = str(datetime.datetime.now())
+                dt = dt[0:dt.rfind(".")]
+                print "[%s] WARNING: request failed" % (dt,)
         if minfo.logging:
             print "Done"
     except SystemExit:

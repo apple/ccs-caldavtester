@@ -26,7 +26,7 @@ class monitorinfo( object ):
     """
     Maintains information about the monitoring test scenario.
     """
-    __slots__  = ['logging', 'period', 'serverinfo', 'startscript', 'testinfo', 'endscript', 'warningtime', 'subsdict']
+    __slots__  = ['logging', 'period', 'serverinfo', 'startscript', 'testinfo', 'endscript', 'warningtime']
 
     def __init__( self ):
         self.logging = False
@@ -36,7 +36,6 @@ class monitorinfo( object ):
         self.testinfo = ""
         self.endscript = ""
         self.warningtime = 1.0
-        self.subsdict = {}
 
     def parseXML( self, node ):
         for child in node._get_childNodes():
@@ -56,18 +55,3 @@ class monitorinfo( object ):
                     self.endscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_WARNINGTIME:
                 self.warningtime = float(child.firstChild.data)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
-                self.parseSubstitutionsXML(child)
-
-    def parseSubstitutionsXML(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
-                key = None
-                value = None
-                for schild in child._get_childNodes():
-                    if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
-                        key = schild.firstChild.data
-                    elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                        value = schild.firstChild.data
-                if key and value:
-                    self.subsdict[key] = value

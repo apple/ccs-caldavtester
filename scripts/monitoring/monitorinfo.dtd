@@ -16,7 +16,7 @@
  DRI: Cyrus Daboo, cdaboo@apple.com
  -->
 
-<!ELEMENT monitorinfo (logging, period, serverinfo, start, testinfo, end, warningtime, substitutions)? >
+<!ELEMENT monitorinfo (logging, period, serverinfo, start, testinfo, end, warningtime)? >
 
 	<!ELEMENT logging		EMPTY>
 		<!ATTLIST logging	enable (yes|no) "no">
@@ -32,9 +32,3 @@
 	<!ELEMENT end    	    (#PCDATA)>
 
 	<!ELEMENT warningtime  	(#PCDATA)>
-
-	<!ELEMENT substitutions	(substitution*)>
-		<!ELEMENT substitution	(key, value)>
-			<!ELEMENT key			(#PCDATA)>
-			<!ELEMENT value			(#PCDATA)>
-	

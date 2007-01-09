@@ -21,38 +21,11 @@
  -->
 
 <monitorinfo>
-	<logging enable="yes"/>
+	<logging enable="no"/>
 	<period>1.0</period>
 	<serverinfo>scripts/server/serverinfo-monitor.xml</serverinfo>
 	<start>monitor/get/get-start.xml</start>
 	<testinfo>monitor/get/get-small.xml</testinfo>
 	<end>monitor/get/get-end.xml</end>
 	<warningtime>1.0</warningtime>
-	<substitutions>
-		<!-- first user id -->
-		<substitution>
-			<key>$userid1:</key>
-			<value>admin</value>
-		</substitution>
-		<!-- password for first user -->
-		<substitution>
-			<key>$pswd1:</key>
-			<value>admin</value>
-		</substitution>
-		<!-- relative path to first user principal resource-->
-		<substitution>
-			<key>$principal:</key>
-			<value>/principals/user/admin/</value>
-		</substitution>
-		<!-- relative path to first user calendar home-->
-		<substitution>
-			<key>$pathprefix:</key>
-			<value>/calendars/user/admin</value>
-		</substitution>
-		<!-- relative path to first user calendar home-->
-		<substitution>
-			<key>$calendarpath1:</key>
-			<value>/calendars/user/admin/calendar</value>
-		</substitution>
-	</substitutions>
 </monitorinfo>
