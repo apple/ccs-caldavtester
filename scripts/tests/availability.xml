@@ -25,6 +25,47 @@
 
 	<start/>
 	
+	<test-suite name='Capabilities'>
+		<test name='1' ignore='no'>
+			<description>Check for proper capability in DAV header</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$calendar:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendar-availability.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Supported component</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavsupported-calendar-component-set$&lt;comp name="VEVENT"/&gt;&lt;comp name="VTODO"/&gt;&lt;comp name="VTIMEZONE"/&gt;&lt;comp name="VJOURNAL"/&gt;&lt;comp name="VFREEBUSY"/&gt;&lt;comp name="VAVAILABILITY"/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='PUT VAVAILABILITY'>
 		<test name='1' ignore='no'>
 			<description>PUT availability</description>
