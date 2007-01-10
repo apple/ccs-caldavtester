@@ -29,10 +29,13 @@ class Verifier(object):
         testheader = args.get("header", [])[:]
         for i in range(len(testheader)):
             p = testheader[i]
-            present = True
+            present = "single"
             if p[0] == "!":
                 p = p[1:]
-                present = False
+                present = "none"
+            if p[0] == "*":
+                p = p[1:]
+                present = "multiple"
             if p.find("$") != -1:
                 testheader[i] = (p.split("$", 1)[0], p.split("$", 1)[1], present,)
             else:
@@ -52,25 +55,32 @@ class Verifier(object):
                 else:
                     continue
 
-            if (hdrs is not None) and (len(hdrs) != 0) and not test[2]:
+            if (hdrs is not None) and (len(hdrs) != 0) and (test[2] == "none"):
                 result = False
                 if len(resulttxt):
                     resulttxt += "\n"
                 resulttxt += "        Response Header was present one or more times: %s" % (test[0],)
                 continue
                
-            if len(hdrs) != 1:
+            if (len(hdrs) != 1) and (test[2] == "single"):
                 result = False
                 if len(resulttxt):
                     resulttxt += "\n"
                 resulttxt += "        Multiple Response Headers: %s" % (test[0],)
                 continue
-            if (test[1] is not None) and (re.match(test[1], hdrs[0]) is None):
-                result = False
-                if len(resulttxt):
-                    resulttxt += "\n"
-                resulttxt += "        Wrong Response Header Value: %s: %s" % (test[0], hdrs[0])
-                continue
+            
+            if (test[1] is not None):
+                matched = False
+                for hdr in hdrs:
+                     if (re.match(test[1], hdr) is not None):
+                         matched = True
+                         break
+                        
+                if not matched:
+                    result = False
+                    if len(resulttxt):
+                        resulttxt += "\n"
+                    resulttxt += "        Wrong Response Header Value: %s: %s" % (test[0], str(hdrs))
 
         return result, resulttxt
             
