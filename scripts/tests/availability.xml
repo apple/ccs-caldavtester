@@ -58,7 +58,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Capabilities'>
+	<test-suite name='Capabilities' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Check for proper capability in DAV header</description>
 			<request>
@@ -99,7 +99,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Verify PUT VAVAILABILITY'>
+	<test-suite name='Verify PUT VAVAILABILITY' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>PUT availability</description>
 			<request>
@@ -277,6 +277,95 @@
 						<name>okhrefs</name>
 						<value>1.ics</value>
 						<value>4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='free-busy reports' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>query for free busy with time range</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20060102T170000Z/20060102T180000Z</value>
+					</arg>
+					<arg>
+						<name>unavailable</name>
+						<value>20060101T000000Z/20060102T140000Z</value>
+						<value>20060102T170000Z/20060104T140000Z</value>
+						<value>20060104T170000Z/20060105T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>query for free busy with time range with an overridden available component</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>unavailable</name>
+						<value>20060104T000000Z/20060104T140000Z</value>
+						<value>20060104T170000Z/20060106T170000Z</value>
+						<value>20060106T220000Z/20060108T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>query for free busy with time range unbounded start availability</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>unavailable</name>
+						<value>20050501T000000Z/20050502T130000Z</value>
+						<value>20050502T210000Z/20050503T130000Z</value>
+						<value>20050503T210000Z/20050504T130000Z</value>
+						<value>20050504T210000Z/20050505T130000Z</value>
+						<value>20050505T210000Z/20050506T130000Z</value>
+						<value>20050506T210000Z/20050508T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>query for free busy with time range unbounded end availability</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>unavailable</name>
+						<value>20061001T000000Z/20061002T130000Z</value>
+						<value>20061002T210000Z/20061003T130000Z</value>
+						<value>20061003T210000Z/20061004T130000Z</value>
+						<value>20061004T210000Z/20061005T130000Z</value>
+						<value>20061005T210000Z/20061006T130000Z</value>
+						<value>20061006T210000Z/20061008T000000Z</value>
 					</arg>
 				</verify>
 			</request>
