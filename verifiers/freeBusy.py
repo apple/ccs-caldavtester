@@ -81,9 +81,9 @@ class Verifier(object):
                     raise ValueError("Unknown FBTYPE: %s" % (fbtype,))
             
             # Set sizes must match
-            if (len(busy) != len(busyp) or
-                 len(unavailable) != len(unavailablep) or
-                 len(tentative) != len(tentativep)):
+            if ((len(busy) != len(busyp)) or
+                (len(unavailable) != len(unavailablep)) or
+                (len(tentative) != len(tentativep))):
                 raise ValueError("Period list sizes do not match.")
             
             # Convert to string sets
