@@ -23,7 +23,7 @@
 <caldavtest>
 	<start/>
 	
-	<test-suite name='prop patches'>
+	<test-suite name='prop patches' ignore='no'>
 		<test name='1' ignore="no">
 			<description>PROPPATCH of details: good</description>
 			<request print-response='no'>
@@ -132,6 +132,90 @@
 						<value>DAV:details</value>
 						<value>DAV:details2</value>
 						<value>DAV:resourcetype</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:details2$My Name 2</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:details</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='prop patch property attributes'>
+		<test name='1' ignore="no">
+			<description>PROPPATCH with property XML attribute</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:details</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:details$My Name</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>details xml:lang='en'</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore="no">
+			<description>PROPPATCH of details: remove it</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:details</value>
 					</arg>
 				</verify>
 			</request>
