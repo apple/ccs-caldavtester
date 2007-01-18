@@ -46,7 +46,7 @@ class Verifier(object):
         for test in testheader:
             hdrs = response.msg.getheaders(test[0])
             if (hdrs is None or (len(hdrs) == 0)):
-                if test[2]:
+                if test[2] != "none":
                     result = False
                     if len(resulttxt):
                         resulttxt += "\n"
