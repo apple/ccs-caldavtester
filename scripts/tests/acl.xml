@@ -736,6 +736,25 @@
 				</verify>
 			</request>
 		</test>
+		<test name='2' ignore='no'>
+			<description>Check for proper capability in DAV header</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$principal:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*access-control.*</value>
+						<value>*DAV$.*calendar-access.*</value>
+						<value>*DAV$.*calendar-schedule.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Directory list access' ignore='no'>
