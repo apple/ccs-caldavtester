@@ -35,76 +35,72 @@ from src.perfinfo import perfinfo
 EX_INVALID_CONFIG_FILE = "Invalid Config File"
 START_DELAY = 3.0
 
-if __name__ == "__main__":
-    
-    def readXML():
+def readXML(perfinfoname):
 
-        perfinfoname = "scripts/performance/perfinfo.xml"
-        if len(sys.argv) > 1:
-            perfinfoname = sys.argv[1]
-            
-        # Open and parse the server config file
-        fd = open(perfinfoname, "r")
-        doc = xml.dom.minidom.parse( fd )
-        fd.close()
+    # Open and parse the server config file
+    fd = open(perfinfoname, "r")
+    doc = xml.dom.minidom.parse( fd )
+    fd.close()
 
-        # Verify that top-level element is correct
-        perfinfo_node = doc._get_documentElement()
-        if perfinfo_node._get_localName() != src.xmlDefs.ELEMENT_PERFINFO:
-            raise EX_INVALID_CONFIG_FILE
-        if not perfinfo_node.hasChildNodes():
-            raise EX_INVALID_CONFIG_FILE
-        pinfo = perfinfo()
-        pinfo.parseXML(perfinfo_node)
-        return pinfo
-    
-    def subs(str, i):
-        if "%" in str:
-            return str % i
-        else:
-            return str
+    # Verify that top-level element is correct
+    perfinfo_node = doc._get_documentElement()
+    if perfinfo_node._get_localName() != src.xmlDefs.ELEMENT_PERFINFO:
+        raise EX_INVALID_CONFIG_FILE
+    if not perfinfo_node.hasChildNodes():
+        raise EX_INVALID_CONFIG_FILE
+    pinfo = perfinfo()
+    pinfo.parseXML(perfinfo_node)
+    return pinfo
 
-    pinfo = readXML()
+def subs(str, i):
+    if "%" in str:
+        return str % i
+    else:
+        return str
 
-    def doScript(script):
-        # Create argument list that varies for each threaded client. Basically use a separate
-        # server account for each client.
-        def runner(*args):
-            """
-            Test runner method. 
-            @param *args:
-            """
-            
+def doScript(pinfo, script):
+    # Create argument list that varies for each threaded client. Basically use a separate
+    # server account for each client.
+    def runner(*args):
+        """
+        Test runner method. 
+        @param *args:
+        """
+        
+        if pinfo.logging:
+            print "Start: %s" % (args[0]["moresubs"]["$userid1:"],)
+        try:
+            mgr = manager(level=manager.LOG_NONE)
+            result, timing = mgr.runWithOptions(*args[1:], **args[0])
             if pinfo.logging:
-                print "Start: %s" % (args[0]["moresubs"]["$userid1:"],)
-            try:
-                mgr = manager(level=manager.LOG_NONE)
-                result, timing = mgr.runWithOptions(*args[1:], **args[0])
-                if pinfo.logging:
-                    print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
-            except Exception, e:
-                print "Thread run exception: %s" % (str(e),)
-    
-        args = []
-        for i in range(1, pinfo.clients + 1):
-            moresubs = {}
-            for key, value in pinfo.subsdict.iteritems():
-                moresubs[key] = subs(value, i)
-            args.append(({"moresubs": moresubs}, subs(pinfo.serverinfo, i), "", [subs(script, i)]))
-        for arg in args:
-            runner(*arg)
+                print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
+        except Exception, e:
+            print "Thread run exception: %s" % (str(e),)
 
-    def doStart():
-        if pinfo.startscript:
-            print "Runnning start script %s" % (pinfo.startscript,)
-            doScript(pinfo.startscript)
+    args = []
+    for i in range(1, pinfo.clients + 1):
+        moresubs = {}
+        for key, value in pinfo.subsdict.iteritems():
+            moresubs[key] = subs(value, i)
+        args.append(({"moresubs": moresubs}, subs(pinfo.serverinfo, i), "", [subs(script, i)]))
+    for arg in args:
+        runner(*arg)
 
-    def doEnd():
-        if pinfo.endscript:
-            print "Runnning end script %s" % (pinfo.endscript,)
-            doScript(pinfo.endscript)
+def doStart(pinfo):
+    if pinfo.startscript:
+        print "Runnning start script %s" % (pinfo.startscript,)
+        doScript(pinfo, pinfo.startscript)
 
-    doStart()
+def doEnd(pinfo):
+    if pinfo.endscript:
+        print "Runnning end script %s" % (pinfo.endscript,)
+        doScript(pinfo, pinfo.endscript)
+
+def runIt(script):
+
+    pinfo = readXML(script)
+
+    doStart(pinfo)
 
     # Cummulative results
     allresults = []
@@ -189,11 +185,23 @@ if __name__ == "__main__":
         result[2] /= test[2]
         
         allresults.append(result)
+
+    print "|"
     
-    doEnd()
+    doEnd(pinfo)
+
+    return pinfo, allresults
+
+if __name__ == "__main__":
+
+    perfinfoname = "scripts/performance/perfinfo.xml"
+    if len(sys.argv) > 1:
+        perfinfoname = sys.argv[1]
+
+    pinfo, allresults = runIt(perfinfoname)
 
     # Print out averaged results.
     print "\n\nClients\tSpread\tReqs/sec\tAverage\t\tStd. Dev.\tTotal"
-    print "==============================================================="
+    print "====================================================================="
     for i in range(len(pinfo.tests)):
         print "%.0f\t%.0f\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f" % (pinfo.tests[i][0], pinfo.tests[i][1], pinfo.tests[i][0]/pinfo.tests[i][1], allresults[i][0], allresults[i][1], allresults[i][2],)
