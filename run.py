@@ -22,6 +22,7 @@
 #
 
 from distutils.util import get_platform
+from distutils.sysconfig import get_python_version
 import getopt
 import os
 import subprocess
@@ -34,7 +35,7 @@ svn = "/usr/bin/svn"
 
 packages = [
     ("vobject", "vobject/src", "http://svn.osafoundation.org/vobject/branches/users/cdaboo/vavailability-173", "178"),
-    ("xattr", "xattr/build/lib.%s" % (get_platform(),), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.4", "992"),
+    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(),get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.4", "992"),
 ]
 
 def usage():
