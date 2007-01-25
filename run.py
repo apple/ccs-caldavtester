@@ -18,7 +18,7 @@
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
 #
-# Creates some test accounts on an OpenDirectory server for use with CalDAVTester
+# Runs the CalDAVTester test suite ensuring that required packages are available.
 #
 
 from distutils.util import get_platform
