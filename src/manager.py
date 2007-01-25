@@ -129,8 +129,9 @@ class manager(object):
         pname = None
         dname = "scripts/tests"
         fnames = []
+        docroot = None
         all = False
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dx:", ["all"])
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dx:r:", ["all"])
         
         # Process single options
         for option, value in options:
@@ -142,6 +143,8 @@ class manager(object):
                 self.depopulate = True
             elif option == "-x":
                 dname = value
+            elif option == "-r":
+                docroot = value
             elif option == "--all":
                 all = True
                 
@@ -159,6 +162,8 @@ class manager(object):
             fnames.append(dname + "/" + f)
         
         self.readXML(sname, pname, fnames, all)
+        if docroot:
+            self.server_info.serverfilepath = docroot
 
     def runWithOptions(self, sname, pname, fnames, moresubs, all = False, depopulate = False):
         self.depopulate = depopulate
