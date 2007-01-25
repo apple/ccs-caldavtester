@@ -22,6 +22,7 @@
 #
 
 from distutils.util import get_platform
+import getopt
 import os
 import subprocess
 import sys
@@ -36,7 +37,16 @@ packages = [
     ("xattr", "xattr/build/lib.%s" % (get_platform(),), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.4", "992"),
 ]
 
-def getOtherPackages():
+def usage():
+    print """Usage: run.py [options]
+Options:
+    -h       Print this help and exit
+    -s       Do setup only - do not run any tests
+    -r       Run tests only - do not do setup
+    -p       Print PYTHONPATH
+"""
+
+def setup():
     for package in packages:
         ppath = "%s/%s" % (top, package[0],)
         if not os.path.exists(ppath):
@@ -59,14 +69,54 @@ def getOtherPackages():
 
         add_paths.append("%s/%s" % (top, package[1],))
 
-def runIt():
+def pythonpath():
+    for package in packages:
+        add_paths.append("%s/%s" % (top, package[1],))
+    pypaths = sys.path
+    pypaths.extend(add_paths)
+    return ":".join(pypaths)
+
+def runit():
     pythonpath= ":".join(add_paths)
     subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH":pythonpath}).wait()
 
 if __name__ == "__main__":
 
     try:
-        getOtherPackages()
-        runIt()
+        do_setup = True
+        do_run = True
+
+        options, args = getopt.getopt(sys.argv[1:], "hprs")
+
+        for option, value in options:
+            if option == "-h":
+                usage()
+                sys.exit(0)
+            elif option == "-p":
+                print pythonpath()
+                sys.exit(0)
+            elif option == "-r":
+                do_setup = False
+            elif option == "-s":
+                do_run = False
+            else:
+                print "Unrecognized option: %s" % (option,)
+                usage()
+                raise ValueError
+
+        # Process arguments
+        if len(args) != 0:
+            print "No arguments allowed."
+            usage()
+            raise ValueError
+
+        if (do_setup):
+            setup()
+        else:
+            pythonpath()
+        if (do_run):
+            runit()
+    except SystemExit, e:
+        pass
     except Exception, e:
         sys.exit(str(e))
