@@ -35,7 +35,7 @@ if __name__ == "__main__":
     )
     
     for item in performs:
-        pinfo, result = performer.runIt(item)
+        pinfo, result = performer.runIt(item, silent=True)
         results.append((item[item.rfind("/")+1:item.rfind(".")], result[0][0], result[0][1], result[0][2]))
   
     print time.ctime(),

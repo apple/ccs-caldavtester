@@ -86,30 +86,34 @@ def doScript(pinfo, script):
     for arg in args:
         runner(*arg)
 
-def doStart(pinfo):
+def doStart(pinfo, silent):
     if pinfo.startscript:
-        print "Runnning start script %s" % (pinfo.startscript,)
+        if not silent:
+            print "Runnning start script %s" % (pinfo.startscript,)
         doScript(pinfo, pinfo.startscript)
 
-def doEnd(pinfo):
+def doEnd(pinfo, silent):
     if pinfo.endscript:
-        print "Runnning end script %s" % (pinfo.endscript,)
+        if not silent:
+            print "Runnning end script %s" % (pinfo.endscript,)
         doScript(pinfo, pinfo.endscript)
 
-def runIt(script):
+def runIt(script, silent=False):
 
     pinfo = readXML(script)
 
-    doStart(pinfo)
+    doStart(pinfo, silent)
 
     # Cummulative results
     allresults = []
     
     for test in pinfo.tests:
         result = [0.0, 0.0, 0.0]
-        print "|",
+        if not silent:
+            print "|",
         for loop in range(test[2]):
-            print ".",
+            if not silent:
+                print ".",
             results = []
         
             def runner(*args):
@@ -186,9 +190,10 @@ def runIt(script):
         
         allresults.append(result)
 
-    print "|"
+    if not silent:
+        print "|"
     
-    doEnd(pinfo)
+    doEnd(pinfo, silent)
 
     return pinfo, allresults
 
