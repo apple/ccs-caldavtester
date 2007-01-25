@@ -61,7 +61,7 @@ def getOtherPackages():
 
 def runIt():
     pythonpath= ":".join(add_paths)
-    subprocess.Popen(["./testcaldav.py", "availability.xml"], env={"PYTHONPATH":pythonpath}).wait()
+    subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH":pythonpath}).wait()
 
 if __name__ == "__main__":
 
