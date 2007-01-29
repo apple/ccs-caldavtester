@@ -30,7 +30,7 @@
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -38,7 +38,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/inbox/</ruri>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
@@ -46,7 +46,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/inbox/</ruri>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
 		</request>
 	</start>
 	
@@ -112,7 +112,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>
@@ -121,7 +121,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix2:/inbox/</value>
+						<value>$pathprefix2:/$inbox:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -140,7 +140,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix3:/inbox/</ruri>
+				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>
@@ -149,7 +149,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix3:/inbox/</value>
+						<value>$pathprefix3:/$inbox:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>

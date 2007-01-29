@@ -220,7 +220,7 @@
 		<!--  Set calendar-free-busy-set to the calendars only -->
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 			<data substitutions='yes'>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/scheduleacl/1.xml</filepath>
@@ -241,7 +241,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr1:</value>
 				</header>
-				<ruri>$pathprefix2:/outbox/</ruri>
+				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleacl/3.ics</filepath>
@@ -265,7 +265,7 @@
 		<!--  Set calendar-free-busy-set back to default -->
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 			<data substitutions='yes'>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/scheduleacl/2.xml</filepath>

@@ -26,27 +26,27 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/outbox/</ruri>
+			<ruri>$pathprefix:/$outbox:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/outbox/</ruri>
+			<ruri>$pathprefix2:/$outbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/inbox/</ruri>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/outbox/</ruri>
+			<ruri>$rpathprefix1:/$outbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/inbox/</ruri>
+			<ruri>$rpathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -67,7 +67,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/1.ics</filepath>
@@ -85,7 +85,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -99,7 +99,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -113,7 +113,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -141,7 +141,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -155,7 +155,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -180,7 +180,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/4.ics</filepath>
@@ -198,7 +198,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -212,7 +212,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -226,7 +226,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -254,7 +254,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -272,7 +272,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -290,7 +290,7 @@
 			<description>One item in resource01 Inbox (old one deleted)</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -319,7 +319,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/4.ics</filepath>
@@ -337,7 +337,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -351,7 +351,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -365,7 +365,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -393,7 +393,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -411,7 +411,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -429,7 +429,7 @@
 			<description>One item in resource01 Inbox (old one deleted)</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -458,7 +458,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/7.ics</filepath>
@@ -476,7 +476,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -490,7 +490,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -504,7 +504,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -536,7 +536,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -550,7 +550,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -575,7 +575,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/9.ics</filepath>
@@ -593,7 +593,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -607,7 +607,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -621,7 +621,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -653,7 +653,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -667,7 +667,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -692,7 +692,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/11.ics</filepath>
@@ -710,7 +710,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -724,7 +724,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -738,7 +738,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -766,7 +766,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -780,7 +780,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -805,7 +805,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/14.ics</filepath>
@@ -823,7 +823,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -837,7 +837,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -851,7 +851,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -883,7 +883,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -897,7 +897,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -922,7 +922,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/16.ics</filepath>
@@ -940,7 +940,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -954,7 +954,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -968,7 +968,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1000,7 +1000,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1014,7 +1014,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1039,7 +1039,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $rprincipal1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/18.ics</filepath>
@@ -1057,7 +1057,7 @@
 			<description>One item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1071,7 +1071,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1085,7 +1085,7 @@
 			<description>One item in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/inbox/</ruri>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1117,7 +1117,7 @@
 			<description>One item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/outbox/</ruri>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -1131,7 +1131,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -1146,27 +1146,27 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/outbox/</ruri>
+			<ruri>$pathprefix:/$outbox:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/outbox/</ruri>
+			<ruri>$pathprefix2:/$outbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/inbox/</ruri>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/outbox/</ruri>
+			<ruri>$rpathprefix1:/$outbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/inbox/</ruri>
+			<ruri>$rpathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>

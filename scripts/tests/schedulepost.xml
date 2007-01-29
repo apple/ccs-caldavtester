@@ -66,34 +66,34 @@
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/outbox/</ruri>
+			<ruri>$pathprefix:/$outbox:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/outbox/</ruri>
+			<ruri>$pathprefix2:/$outbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/inbox/</ruri>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/outbox/</ruri>
+			<ruri>$pathprefix3:/$outbox:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/inbox/</ruri>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
 		</request>
 	</start>
 	
 	<test-suite name='POST Errors' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST on invalid outbox</description>
-			<request>
+			<request print-response="yes">
 				<method>POST</method>
 				<header>
 					<name>Organizer</name>
@@ -103,7 +103,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -129,7 +129,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -155,7 +155,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/1.txt</filepath>
@@ -181,7 +181,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/2.txt</filepath>
@@ -207,7 +207,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/5.txt</filepath>
@@ -229,7 +229,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -255,7 +255,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -277,7 +277,7 @@
 					<name>Originator</name>
 					<value>$cuaddr1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -303,7 +303,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/4.txt</filepath>
@@ -329,7 +329,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr1:</value>
 				</header>
-				<ruri>$pathprefix2:/outbox/</ruri>
+				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/17.txt</filepath>
@@ -355,7 +355,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr1:</value>
 				</header>
-				<ruri>$pathprefix2:/outbox/</ruri>
+				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/18.txt</filepath>
@@ -384,7 +384,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -396,7 +396,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -433,7 +433,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>
@@ -442,7 +442,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix2:/inbox/</value>
+						<value>$pathprefix2:/$inbox:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -461,7 +461,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix3:/inbox/</ruri>
+				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>
@@ -470,7 +470,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix3:/inbox/</value>
+						<value>$pathprefix3:/$inbox:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -493,7 +493,7 @@
 					<name>Recipient</name>
 					<value>$principal2:, $principal3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -505,7 +505,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -523,7 +523,7 @@
 					<name>Recipient</name>
 					<value>$host:$principal2:, $host:$principal3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -535,7 +535,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 				<grablocation/>
@@ -548,7 +548,7 @@
 			<description>Simple calendar-query for VEVENTs</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/13.xml</filepath>
@@ -566,7 +566,7 @@
 			<description>Simple calendar-query for VEVENTs</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/13.xml</filepath>
@@ -584,7 +584,7 @@
 			<description>Simple calendar-multiget for VEVENTs</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/14.xml</filepath>
@@ -602,7 +602,7 @@
 			<description>Simple calendar-multiget for VEVENTs</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/15.xml</filepath>
@@ -615,7 +615,7 @@
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$pathprefix:/inbox/1.ics</value>
+						<value>$pathprefix:/$inbox:/1.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -624,7 +624,7 @@
 			<description>free-busy-query failure</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/16.xml</filepath>
@@ -642,7 +642,7 @@
 			<description>free-busy-query failure</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/inbox/</ruri>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/16.xml</filepath>
@@ -671,7 +671,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/6.txt</filepath>
@@ -702,7 +702,7 @@
 					<name>Recipient</name>
 					<value>mailto:broken@example.com, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/6.txt</filepath>
@@ -732,7 +732,7 @@
 					<name>Recipient</name>
 					<value>$principal2noslash:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/19.ics</filepath>
