@@ -37,7 +37,10 @@ class Verifier(object):
         if not respdata:
             return False, "        No pre/post condition response body"
             
-        doc = xml.dom.minidom.parseString( respdata )
+        try:
+            doc = xml.dom.minidom.parseString( respdata )
+        except Exception, ex:
+            return False, "        Could not parse XML: %s" %(ex,)
         error = doc._get_documentElement()
         errorName = (error.namespaceURI, error.localName)
 
