@@ -44,6 +44,26 @@
 				<filepath>Resource/dropbox/5.xml</filepath>
 			</data>
 		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/dropbox/ABC2/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/dropbox/7.xml</filepath>
+			</data>
+		</request>
+		<request user='$userid2:' pswd='$pswd2:'>
+			<method>POST</method>
+			<ruri>$pathprefix:/dropbox/ABC2/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/dropbox/5.xml</filepath>
+			</data>
+		</request>
+		<request user='$userid2:' pswd='$pswd2:'>
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/notifications/</ruri>
+		</request>
 	</start>
 	
 	<test-suite name='No notifications'>
@@ -83,6 +103,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>No notifications</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/notifications/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='PUT Notification'>
@@ -101,7 +143,7 @@
 			</request>
 		</test>
 		<test name='2'>
-			<description>Notifications</description>
+			<description>No notifications</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -109,6 +151,28 @@
 					<value>1</value>
 				</header>
 				<ruri>$pathprefix:/notifications/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Notifications</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/notifications/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/4.xml</filepath>
@@ -124,7 +188,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix:/notifications/</value>
+						<value>$pathprefix2:/notifications/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -164,6 +228,32 @@
 			</request>
 		</test>
 		<test name='2'>
+			<description>Remove existing notifications</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/notifications/</ruri>
+			</request>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/notifications/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
 			<description>Delete drop box resource</description>
 			<request>
 				<method>DELETE</method>
@@ -173,8 +263,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
-			<description>Notifications</description>
+		<test name='4'>
+			<description>No notifications</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -182,6 +272,28 @@
 					<value>1</value>
 				</header>
 				<ruri>$pathprefix:/notifications/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Notifications</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/notifications/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/4.xml</filepath>
@@ -197,7 +309,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix:/notifications/</value>
+						<value>$pathprefix2:/notifications/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
