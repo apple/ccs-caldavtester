@@ -18,7 +18,7 @@
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
 #
-# Creates some test accounts on an OpenDirectory server for use with CalDAVTester
+# Generate performance data based on runs of different scripts.
 #
 
 import time
