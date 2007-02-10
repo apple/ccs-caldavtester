@@ -24,7 +24,10 @@
 import time
 import performer
 
-if __name__ == "__main__":
+def human_readable(item, avg, stddev, total):
+     print "\t%s\t%.3f\t%.3f\t%.3f" % (item, avg, stddev, total)
+
+def main(logger):
 
     results = []
     performs = (
@@ -36,9 +39,7 @@ if __name__ == "__main__":
     
     for item in performs:
         pinfo, result = performer.runIt(item, silent=True)
-        results.append((item[item.rfind("/")+1:item.rfind(".")], result[0][0], result[0][1], result[0][2]))
+        logger(item[item.rfind("/")+1:item.rfind(".")], result[0][0], result[0][1], result[0][2])
   
-    print time.ctime(),
-    for result in results:
-        print "\t%s\t%.3f\t%.3f\t%.3f" % (result[0], result[1], result[2], result[3],),
-    print ""
+if __name__ == "__main__":
+    main(human_readable)
