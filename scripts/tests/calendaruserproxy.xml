@@ -598,6 +598,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Reset read-write proxy for user01</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
