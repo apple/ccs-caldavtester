@@ -93,7 +93,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Group membership'>
+	<test-suite name='Group membership' ignore="no">
 		<test name='1'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
@@ -516,6 +516,84 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='21'>
+			<description>Try to add user02 and a bogus user as read-write proxy for user01</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Principal report'>
+		<test name='1'>
+			<description>Add user02 and user03 as read-write proxy for user01</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$principal:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set$&lt;href&gt;$principal2:&lt;/href&gt;&lt;href&gt;$principal3:&lt;/href&gt;</value>
+						<value>DAV:group-membership$</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Valid self report with DAV:prop</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+				<method>REPORT</method>
+				<ruri>$principals:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principal2:</value>
+						<value>$principal:calendar-proxy-write/</value>
 					</arg>
 				</verify>
 			</request>
