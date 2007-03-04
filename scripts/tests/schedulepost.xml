@@ -93,7 +93,7 @@
 	<test-suite name='POST Errors' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST on invalid outbox</description>
-			<request print-response="yes">
+			<request print-response="no">
 				<method>POST</method>
 				<header>
 					<name>Organizer</name>
@@ -392,35 +392,30 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
-					</arg>
-				</verify>
-				<grablocation/>
 			</request>
 		</test>
 		<test name='2'>
-			<description>Make sure resource exists and properties are set</description>
+			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
-					<value>0</value>
+					<value>1</value>
 				</header>
-				<ruri>$</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/11.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddr1:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddr2:&lt;/href&gt;&lt;href xmlns="DAV:"&gt;$cuaddr3:&lt;/href&gt;</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -501,17 +496,9 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
-					</arg>
-				</verify>
-				<grablocation/>
 			</request>
 		</test>
-		<test name='6' ignore="yes">
+		<test name='6' ignore="no">
 			<description>POST which should work (using absolute principal addressing)</description>
 			<request print-response='no'>
 				<method>POST</method>
@@ -531,14 +518,6 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Location$^$pathprefix:/$outbox:/[^/]+\.ics$</value>
-					</arg>
-				</verify>
-				<grablocation/>
 			</request>
 		</test>
 	</test-suite>

@@ -71,35 +71,30 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Location$^$pathprefix:/outbox/[^/]+\.ics$</value>
-					</arg>
-				</verify>
-				<grablocation/>
 			</request>
 		</test>
 		<test name='2'>
-			<description>Make sure resource exists and properties are set</description>
+			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
-					<value>0</value>
+					<value>1</value>
 				</header>
-				<ruri>$</ruri>
+				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal2:&lt;/href&gt;&lt;href xmlns="DAV:"&gt;$principal3:&lt;/href&gt;</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -180,14 +175,6 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Location$^$pathprefix2:/outbox/[^/]+\.ics$</value>
-					</arg>
-				</verify>
-				<grablocation/>
 			</request>
 		</test>
 	</test-suite>

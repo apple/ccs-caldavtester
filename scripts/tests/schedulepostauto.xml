@@ -82,15 +82,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/1.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -195,15 +207,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/4.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -334,15 +358,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/4.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -473,15 +509,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/7.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -590,15 +638,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/9.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -707,15 +767,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/11.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -820,15 +892,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/14.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -937,15 +1021,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/16.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -1054,15 +1150,27 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Outbox</description>
+			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/18.ics</value>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$pathprefix:/$outbox:/</value>
 					</arg>
 				</verify>
 			</request>
