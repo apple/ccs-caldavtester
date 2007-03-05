@@ -55,8 +55,14 @@ class caldavtest(object):
     def run( self ):
         try:
             self.manager.log(manager.LOG_HIGH, "----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
-            self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
-            ok, failed, ignored = self.run_tests()
+            result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
+            if not result:
+                self.manager.log(manager.LOG_HIGH, "Start items failed - tests will not be run.")
+                ok = 0
+                failed = 1
+                ignored = 0
+            else:
+                ok, failed, ignored = self.run_tests()
             self.doenddelete( "Deleting Requests..." )
             self.dorequests( "Executing End Requests...", self.end_requests, False )
             return ok, failed, ignored
