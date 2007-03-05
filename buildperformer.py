@@ -21,7 +21,6 @@
 # Generate performance data based on runs of different scripts.
 #
 
-import time
 import performer
 
 def human_readable(item, avg, stddev, total):
@@ -29,7 +28,6 @@ def human_readable(item, avg, stddev, total):
 
 def main(logger):
 
-    results = []
     performs = (
         "scripts/buildperformance/get-small.xml",
         "scripts/buildperformance/get-large.xml",
