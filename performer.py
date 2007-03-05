@@ -108,6 +108,7 @@ def runIt(script, silent=False):
     allresults = []
     
     for test in pinfo.tests:
+        failed = [False]
         result = [0.0, 0.0, 0.0]
         if not silent:
             print "|",
@@ -127,6 +128,8 @@ def runIt(script, silent=False):
                 try:
                     mgr = manager(level=manager.LOG_NONE)
                     result, timing = mgr.runWithOptions(*args[1:], **args[0])
+                    if result > 0:
+                        failed[0] = True
                     results.append(timing)
                     if pinfo.logging:
                         print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
@@ -188,6 +191,9 @@ def runIt(script, silent=False):
         result[1] /= test[2]
         result[2] /= test[2]
         
+        if failed[0]:
+            result = [-1.0, -1.0, -1.0]
+            
         allresults.append(result)
 
     if not silent:
