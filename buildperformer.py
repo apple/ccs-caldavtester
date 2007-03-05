@@ -22,6 +22,7 @@
 #
 
 import performer
+import sys
 
 def human_readable(item, avg, stddev, total):
      print "\t%s\t%.3f\t%.3f\t%.3f" % (item, avg, stddev, total)
@@ -37,6 +38,9 @@ def main(logger):
     
     for item in performs:
         pinfo, result = performer.runIt(item, silent=True)
+        if result[0][0] == -1.0 or result[0][1] == -1.0 or result[0][2] == -1.0:
+            print "Failed: got result -1.0 for test script %s" % (item,)
+            sys.exit(1)
         logger(item[item.rfind("/")+1:item.rfind(".")], result[0][0], result[0][1], result[0][2])
   
 if __name__ == "__main__":
