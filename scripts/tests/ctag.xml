@@ -1,0 +1,503 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test the collection entity tag behavior on calwndar collections</description>
+
+	<start>
+		<request end-delete="yes">
+			<method>PUT</method>
+			<ruri>1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/movecopy/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/movecopy/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/delete/2.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PROPFIND</method>
+			<header>
+				<name>Depth</name>
+				<value>0</value>
+			</header>
+			<ruri>$pathprefix:/movecopy/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/ctag/1.xml</filepath>
+			</data>
+			<grabproperty>
+				<property>http://calendarserver.org/ns/getctag</property>
+				<variable>$getctag2:</variable>
+			</grabproperty>
+		</request>
+	</start>
+	
+	<test-suite name='PUT/DELETE/COPY/MOVE'>
+		<test name='1'>
+			<description>Check for CTag</description>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Check for CTag</description>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag$$getctag1:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Check for CTag change on DELETE</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>1.ics</ruri>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Check for CTag change on PUT of new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/delete/1.txt</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Check for CTag change on PUT of existing resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/delete/1.txt</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Check for CTag change on MOVE of new resource</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/movecopy/3.ics</value>
+				</header>
+				<ruri>1.ics</ruri>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag2:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag2:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Check for CTag change on COPY of new resource</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/2.ics</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/2.ics</ruri>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag$$getctag2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Check for CTag change on COPY of existing resource</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/2.ics</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/2.ics</ruri>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag$$getctag2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Check for CTag change on MOVE of existing resource</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/movecopy/2.ics</value>
+				</header>
+				<ruri>2.ics</ruri>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag1:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/movecopy/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag2:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag2:</variable>
+				</grabproperty>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Scheduling'>
+		<test name='1'>
+			<description>Check for CTag</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag3:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST invite</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr2:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<ruri>$pathprefix2:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/ctag/2.ics</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag3:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag3:</variable>
+				</grabproperty>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end>
+		<request>
+			<method>DELETE</method>
+			<ruri>$pathprefix:/movecopy/</ruri>
+		</request>
+	</end>
+	
+</caldavtest>
