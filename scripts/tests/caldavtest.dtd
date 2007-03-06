@@ -24,7 +24,7 @@
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
-	<!ELEMENT request (method, header*, ruri?, data?, verify*, grablocation?)>
+	<!ELEMENT request (method, header*, ruri?, data?, verify*, grablocation?, grabproperty?)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -48,6 +48,10 @@
 		
 		<!ELEMENT grablocation EMPTY>
 	
+		<!ELEMENT grabproperty (property, variable)>
+			<!ELEMENT property (#PCDATA)>
+			<!ELEMENT variable (#PCDATA)>
+
 	<!ELEMENT test-suite (test*)>
 		<!ATTLIST test-suite name CDATA #REQUIRED
 							ignore (yes|no) "no">
