@@ -17,16 +17,6 @@
 ##
 
 __all__ = [
-    "account",
-    "caldavtest",
-    "manager",
-    "monitorinfo",
-    "multithread",
-    "perfinfo",
-    "populate",
-    "request",
-    "serverinfo",
-    "test",
-    "testsuite",
-    "xmlDefs",
+    "xmlutils",
+    "webdav",
 ]

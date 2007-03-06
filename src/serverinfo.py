@@ -26,7 +26,7 @@ class serverinfo( object ):
     """
     Maintains information about the server beiung targetted.
     """
-    __slots__  = ['host', 'port', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict']
+    __slots__  = ['host', 'port', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict', 'extrasubsdict',]
 
 
     def __init__( self ):
@@ -38,17 +38,32 @@ class serverinfo( object ):
         self.pswd = ""
         self.serverfilepath = ""
         self.subsdict = {}
+        self.extrasubsdict = {}
 
-    def subs(self, str):
-        for key, value in self.subsdict.iteritems():
+    def subs(self, str, db=None):
+        if db is None:
+            db = self.subsdict
+        for key, value in db.iteritems():
             str = str.replace(key, value)
         return str
 
-    def addsubs(self, items):
+    def addsubs(self, items, db=None):
+        if db is None:
+            db = self.subsdict
         for key, value in items.iteritems():
-            self.subsdict[key] = value
+            db[key] = value
    
-        self.updateParams()
+        if db is None:
+            self.updateParams()
+    
+    def hasextrasubs(self):
+        return len(self.extrasubsdict) > 0
+
+    def extrasubs(self, str):
+        return self.subs(str, self.extrasubsdict)
+
+    def addextrasubs(self, items):
+        self.addsubs(items, self.extrasubsdict)
         
     def parseXML( self, node ):
         for child in node._get_childNodes():

@@ -21,46 +21,45 @@ Verifier that checks a propfind response to make sure that the specified propert
 are returned with appropriate status codes.
 """
 
-from xml.dom.minicompat import NodeList
 from xml.dom.minidom import Element
-from xml.dom.minidom import Node
 import xml.dom.minidom
+
+from utilities.xmlutils import ElementsByName
 
 class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
-        def ElementsByName(parent, nsURI, localName):
-            rc = NodeList()
-            for node in parent.childNodes:
-                if node.nodeType == Node.ELEMENT_NODE:
-                    if ((localName == "*" or node.localName == localName) and
-                        (nsURI == "*" or node.namespaceURI == nsURI)):
-                        rc.append(node)
-            return rc
 
         # If no status veriffication requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
 
         # Get property arguments and split on $ delimited for name, value tuples
         okprops = args.get("okprops", [])
+        ok_props_match = []
+        okprops_nomatch = {}
         for i in range(len(okprops)):
             p = okprops[i]
             if (p.find("$") != -1):
                 if  p.find("$") != len(p) - 1:
-                    okprops[i] = (p.split("$")[0], p.split("$")[1],)
+                    ok_props_match.append((p.split("$")[0], p.split("$")[1]))
                 else:
-                    okprops[i] = (p.split("$")[0], None,)
+                    ok_props_match.append((p.split("$")[0], None))
+            elif (p.find("!") != -1):
+                if  p.find("!") != len(p) - 1:
+                    okprops_nomatch[p.split("!")[0]] = p.split("!")[1]
+                else:
+                    okprops_nomatch[p.split("!")[0]] = None
             else:
-                okprops[i] = (p, None,)
+                ok_props_match.append((p, None))
         badprops = args.get("badprops", [])
         for i in range(len(badprops)):
             p = badprops[i]
             if p.find("$") != -1:
-                badprops[i] = (p.split("$")[0], p.split("$")[1],)
+                badprops[i] = (p.split("$")[0], p.split("$")[1])
             else:
-                badprops[i] = (p, None,)
+                badprops[i] = (p, None)
 
-        ok_test_set = set( okprops )
+        ok_test_set = set( ok_props_match )
         bad_test_set = set( badprops )
         
         # Process the multistatus response, extracting all hrefs
@@ -145,6 +144,11 @@ class Verifier(object):
             bad_missing = bad_test_set.difference( bad_result_set )
             bad_extras = bad_result_set.difference( bad_test_set )
             
+            # Now remove extras that are in the no-match set
+            for name, value in [p for p in ok_extras]:
+                if okprops_nomatch.has_key(name) and okprops_nomatch[name] != value:
+                    ok_extras.remove((name, value))
+                    
             if len( ok_missing ) + len( ok_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
                 if len( ok_missing ) != 0:
                     l = list( ok_missing )

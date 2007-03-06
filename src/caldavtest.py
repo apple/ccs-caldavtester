@@ -25,8 +25,12 @@ from src.request import data
 from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
+from utilities.xmlutils import ElementsByName
+
 from xml.dom.minicompat import NodeList
+from xml.dom.minidom import Element
 from xml.dom.minidom import Node
+
 import httplib
 import os
 import rfc822
@@ -453,6 +457,16 @@ class caldavtest(object):
             if hdrs:
                 self.grabbedlocation = hdrs[0]
 
+        if req.grabproperty:
+            if response.status == 207:
+                # grab the property here
+                propvalue = self.extractProperty(req.grabproperty[0], respdata)
+                if propvalue == None:
+                    result = False
+                    resulttxt += "\nProperty %s was not extracted from multistatus response\n" % (req.grabproperty[0],)
+                else:
+                    self.manager.server_info.addextrasubs({req.grabproperty[1]: propvalue})
+
         return result, resulttxt, response, respdata
 
     def verifyrequest( self, req, uri, response, respdata ):
@@ -498,3 +512,50 @@ class caldavtest(object):
             elif child._get_localName() == src.xmlDefs.ELEMENT_END:
                 self.end_requests = request.parseList( self.manager, child )
     
+    def extractProperty(self, propertyname, respdata):
+
+        try:
+            doc = xml.dom.minidom.parseString( respdata )
+        except:
+            return None
+                
+        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+            # Get all property status
+            propstatus = ElementsByName(response, "DAV:", "propstat")
+            for props in propstatus:
+                # Determine status for this propstat
+                status = ElementsByName(props, "DAV:", "status")
+                if len(status) == 1:
+                    statustxt = status[0].firstChild.data
+                    status = False
+                    if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
+                        status = (statustxt[9] == "2")
+                else:
+                    status = False
+                
+                if not status:
+                    continue
+
+                # Get properties for this propstat
+                prop = ElementsByName(props, "DAV:", "prop")
+                if len(prop) != 1:
+                    return False, "           Wrong number of DAV:prop elements\n"
+
+                for child in prop[0]._get_childNodes():
+                    if isinstance(child, Element):
+                        qname = (child.namespaceURI, child.localName)
+                        fqname = qname[0] + qname[1]
+                        if child.firstChild is not None:
+                            # Copy sub-element data as text into one long string and strip leading/trailing space
+                            value = ""
+                            for p in child._get_childNodes():
+                                temp = p.toprettyxml("", "")
+                                temp = temp.strip()
+                                value += temp
+                        else:
+                            value = ""
+                        
+                        if fqname == propertyname:
+                            return value
+
+        return None

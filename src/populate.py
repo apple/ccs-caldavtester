@@ -21,7 +21,7 @@ Class that encapsulates the information for populating a CalDAV server.
 """
 
 from src.account import account
-from utils import webdav
+from utilities import webdav
 import src.xmlDefs
 
 class populate( object ):

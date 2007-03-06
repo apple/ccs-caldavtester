@@ -21,22 +21,13 @@ Verifier that checks a multistatus response to make sure that the specified href
 are returned with appropriate status codes.
 """
 
-from xml.dom.minicompat import NodeList
-from xml.dom.minidom import Node
 import xml.dom.minidom
+
+from utilities.xmlutils import ElementsByName
 
 class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args):
-
-        def ElementsByName(parent, nsURI, localName):
-            rc = NodeList()
-            for node in parent.childNodes:
-                if node.nodeType == Node.ELEMENT_NODE:
-                    if ((localName == "*" or node.localName == localName) and
-                        (nsURI == "*" or node.namespaceURI == nsURI)):
-                        rc.append(node)
-            return rc
 
         # If no hrefs requested, then assume none should come back
         okhrefs = args.get("okhrefs", [])

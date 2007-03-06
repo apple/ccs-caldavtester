@@ -20,8 +20,7 @@
 Class that encapsulates the account information for populating a CalDAV server.
 """
 
-
-from utils import webdav
+from utilities import webdav
 import copy
 import md5
 import os

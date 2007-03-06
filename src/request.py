@@ -30,7 +30,8 @@ class request( object ):
     be used to determine a satisfactory output or not.
     """
     __slots__  = ['manager', 'auth', 'user', 'pswd', 'end_delete', 'print_response',
-                  'method', 'headers', 'ruri', 'data', 'datasubs', 'verifiers', 'grablocation']
+                  'method', 'headers', 'ruri', 'data', 'datasubs', 'verifiers',
+                  'grablocation', 'grabproperty']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -46,6 +47,7 @@ class request( object ):
         self.datasubs = True
         self.verifiers = []
         self.grablocation = False
+        self.grabproperty = None
     
     def __str__(self):
         return "Method: %s; uri: %s" % (self.method, self.ruri)
@@ -125,6 +127,8 @@ class request( object ):
                 self.verifiers[-1].parseXML( child )
             elif child._get_localName() == src.xmlDefs.ELEMENT_GRABLOCATION:
                 self.grablocation = True
+            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABPROPERTY:
+                self.parseGrabProperty(child)
 
     def parseHeader(self, node):
         
@@ -150,6 +154,19 @@ class request( object ):
                 
     parseList = staticmethod( parseList )
 
+    def parseGrabProperty(self, node):
+        
+        property = None
+        variable = None
+        for child in node._get_childNodes():
+           if child._get_localName() == src.xmlDefs.ELEMENT_PROPERTY:
+                property = child.firstChild.data
+           elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
+                variable = self.manager.server_info.subs(child.firstChild.data)
+        
+        if (property is not None) and (variable is not None):
+            self.grabproperty = (property, variable)
+            
 class data( object ):
     """
     Represents the data/body portion of an HTTP request.
@@ -188,6 +205,13 @@ class verify( object ):
         self.args = {}
     
     def doVerify(self, uri, response, respdata):
+        
+        # Re-do substitutions from values generated during the current test run
+        if self.manager.server_info.hasextrasubs():
+            for name, values in self.args.iteritems():
+                newvalues = [self.manager.server_info.extrasubs(value) for value in values]
+                self.args[name] = newvalues
+                
         verifierClass = self._importName("verifiers." + self.callback, "Verifier")
         verifier = verifierClass()
         return verifier.verify(self.manager, uri, response, respdata, self.args)

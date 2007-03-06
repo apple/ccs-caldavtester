@@ -1,4 +1,4 @@
-##
+#
 # Copyright (c) 2006-2007 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,3 +15,16 @@
 #
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
+
+from xml.dom.minicompat import NodeList
+from xml.dom.minidom import Node
+
+def ElementsByName(parent, nsURI, localName):
+    rc = NodeList()
+    for node in parent.childNodes:
+        if node.nodeType == Node.ELEMENT_NODE:
+            if ((localName == "*" or node.localName == localName) and
+                (nsURI == "*" or node.namespaceURI == nsURI)):
+                rc.append(node)
+    return rc
+

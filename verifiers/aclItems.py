@@ -21,23 +21,14 @@ Verifier that checks a propfind response to make sure that the specified ACL pri
 are available for the currently authenticated user.
 """
 
-from xml.dom.minicompat import NodeList
 from xml.dom.minidom import Element
-from xml.dom.minidom import Node
 import xml.dom.minidom
+
+from utilities.xmlutils import ElementsByName
 
 class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
-
-        def ElementsByName(parent, nsURI, localName):
-            rc = NodeList()
-            for node in parent.childNodes:
-                if node.nodeType == Node.ELEMENT_NODE:
-                    if ((localName == "*" or node.localName == localName) and
-                        (nsURI == "*" or node.namespaceURI == nsURI)):
-                        rc.append(node)
-            return rc
 
         granted = args.get("granted", [])
         denied = args.get("denied", [])
