@@ -50,6 +50,8 @@ class serverinfo( object ):
     def addsubs(self, items, db=None):
         if db is None:
             db_actual = self.subsdict
+        else:
+            db_actual = db
         for key, value in items.iteritems():
             db_actual[key] = value
    
