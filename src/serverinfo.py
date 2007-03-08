@@ -49,9 +49,9 @@ class serverinfo( object ):
 
     def addsubs(self, items, db=None):
         if db is None:
-            db = self.subsdict
+            db_actual = self.subsdict
         for key, value in items.iteritems():
-            db[key] = value
+            db_actual[key] = value
    
         if db is None:
             self.updateParams()
