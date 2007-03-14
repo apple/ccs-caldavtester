@@ -24,6 +24,8 @@
 	<description>Test PUT method in CalDAV</description>
 
 	<start>
+		<!-- Commented out as we do not support VAVAILABILITY components
+		     stored directly in calendars.
 		<request end-delete="yes">
 			<method>PUT</method>
 			<ruri>1.ics</ruri>
@@ -48,6 +50,7 @@
 				<filepath>Resource/availability/3.ics</filepath>
 			</data>
 		</request>
+		-->
 		<request end-delete="yes">
 			<method>PUT</method>
 			<ruri>4.ics</ruri>
@@ -58,7 +61,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Capabilities' ignore='no'>
+	<test-suite name='Capabilities' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>Check for proper capability in DAV header</description>
 			<request>
@@ -98,8 +101,9 @@
 			</request>
 		</test>
 	</test-suite>
-
-	<test-suite name='Verify PUT VAVAILABILITY' ignore='no'>
+	
+	<!--
+	<test-suite name='Verify PUT VAVAILABILITY' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>PUT availability</description>
 			<request>
@@ -116,7 +120,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='basic query reports' ignore='no'>
+	<test-suite name='basic query reports' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VAVAILABILITY defined</description>
 			<request>
@@ -175,7 +179,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='time-range query reports' ignore='no'>
+	<test-suite name='time-range query reports' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>query for VAVAILABILITYs within time range</description>
 			<request>
@@ -283,7 +287,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='free-busy reports' ignore='no'>
+	<test-suite name='free-busy reports' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
@@ -371,7 +375,132 @@
 			</request>
 		</test>
 	</test-suite>
+	-->
 
-	<end/>
-	
+	<test-suite name='Verify cannot PUT VAVAILABILITY'>
+		<test name='1' ignore='no'>
+			<description>PUT availability fails</description>
+			<request>
+				<method>PUT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/availability/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PROPPATCH VAVAILABILITY' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND no availability</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>http://calendarserver.org/ns/calendar-availability</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPPATCH invalid availability</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>http://calendarserver.org/ns/calendar-availability</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PROPPATCH valid availability</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/inbox/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/availability/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/calendar-availability</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='free-busy reports' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>query for free busy with time range</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/availability/19.ics</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060102T170000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY-UNAVAILABLE:20060102T000000Z/20060102T140000Z,2006010
+ 2T220000Z/20060103T000000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<request print-response="no">
+			<method>PROPPATCH</method>
+			<ruri>$pathprefix:/inbox/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/availability/18.xml</filepath>
+			</data>
+			<verify>
+				<callback>propfindItems</callback>
+				<arg>
+					<name>okprops</name>
+					<value>http://calendarserver.org/ns/calendar-availability</value>
+				</arg>
+			</verify>
+		</request>
+	</end>	
 </caldavtest>
