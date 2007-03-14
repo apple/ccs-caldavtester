@@ -1,0 +1,55 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test ACLs on the server</description>
+
+	<start/>
+	
+	<test-suite name='principal-match REPORT' ignore='no'>
+		<test name='1' count='1' stats='yes'>
+			<description>Valid self report with DAV:prop</description>
+			<request print-response='yes'>
+				<method>REPORT</method>
+				<ruri>/principals/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principal:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>
