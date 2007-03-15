@@ -178,6 +178,51 @@
 			</request>
 		</test>
 		<test name='2'>
+			<description>PROPFIND</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/propfinds/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value></value>
+						<value>2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget REPORT</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/multiget/encoded1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
 			<description>COPY</description>
 			<request print-response='no' end-delete='yes'>
 				<method>COPY</method>
@@ -224,7 +269,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='5'>
 			<description>MOVE</description>
 			<request print-response='no' end-delete='yes'>
 				<method>MOVE</method>
