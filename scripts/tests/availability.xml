@@ -61,7 +61,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Capabilities' ignore='yes'>
+	<test-suite name='Capabilities' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Check for proper capability in DAV header</description>
 			<request>
@@ -75,11 +75,12 @@
 					<arg>
 						<name>header</name>
 						<value>*DAV$.*calendar-availability.*</value>
+						<value>*DAV$.*inbox-availability.*</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2' ignore='yes'>
 			<description>Supported component</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
