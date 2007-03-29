@@ -316,6 +316,69 @@
 				</verify>
 			</request>
 		</test>
+		<test name='6'>
+			<description>multiget REPORT on encoded calendar collection path</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/calendar%203/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/multiget/encoded2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>multiget REPORT on encoded calendar resource path</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/calendar%203/2_3%20a.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/multiget/encoded2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>multiget REPORT on encoded collection path</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/multiget/encoded2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>calendar%203/2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
