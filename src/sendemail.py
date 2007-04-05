@@ -20,7 +20,10 @@
 Send an email message.
 """
 
-import email.mime.text
+try:
+    from email.mime.text import MIMEText
+except:
+    from email.MIMEText import MIMEText
 import smtplib
 
 def sendemail(fromaddr=("", ""), toaddrs=[], subject="", body=""):
@@ -45,7 +48,7 @@ def sendemail(fromaddr=("", ""), toaddrs=[], subject="", body=""):
         if ord(c) > 0x7F:
             charset = "utf-8"
             break
-    msg = email.mime.text.MIMEText(body, "plain", charset)
+    msg = MIMEText(body, "plain", charset)
     msg.add_header("From", fulladdr(fromaddr))
     msg.add_header("To", ", ".join([fulladdr(a) for a in toaddrs]))
     msg.add_header("Subject", subject)
