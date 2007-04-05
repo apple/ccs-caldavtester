@@ -24,8 +24,21 @@
 	<logging enable="no"/>
 	<period>1</period>
 	<serverinfo>scripts/server/serverinfo-monitor.xml</serverinfo>
-	<start/>
-	<testinfo>monitor/get/get.xml</testinfo>
-	<end/>
+	<start>monitor/get/get-start.xml</start>
+	<testinfo>monitor/get/get-small.xml</testinfo>
+	<end>monitor/get/get-end.xml</end>
 	<warningtime>1.0</warningtime>
+	<notify time-exceeded="no" request-failed="yes">
+		<mailto>test@example.com</mailto>
+		<subject>Calendar Server error</subject>
+		<body><![CDATA[Hi,
+The caldav.example.com Calendar Server generated the following error:
+
+%s
+
+Please take the appropriate action.
+
+Thank you.
+]]></body>
+	</notify>
 </monitorinfo>

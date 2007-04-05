@@ -20,13 +20,31 @@
 Class that encapsulates the server information for CalDAV monitoring.
 """
 
+from src.xmlUtils import getDefaultAttributeValue
+from src.xmlUtils import getYesNoAttributeValue
+from src.xmlUtils import readOneStringElement
+from src.xmlUtils import readStringElementList
 import src.xmlDefs
 
 class monitorinfo( object ):
     """
     Maintains information about the monitoring test scenario.
     """
-    __slots__  = ['logging', 'period', 'serverinfo', 'startscript', 'testinfo', 'endscript', 'warningtime']
+    __slots__  = [
+        'logging',
+        'period',
+        'serverinfo',
+        'startscript',
+        'testinfo',
+        'endscript',
+        'warningtime',
+        'notify',
+        'notify_time_exceeded',
+        'notify_request_failed',
+        'notify_interval',
+        'notify_subject',
+        'notify_body',
+    ]
 
     def __init__( self ):
         self.logging = False
@@ -36,11 +54,17 @@ class monitorinfo( object ):
         self.testinfo = ""
         self.endscript = ""
         self.warningtime = 1.0
+        self.notify = None
+        self.notify_time_exceeded = False
+        self.notify_request_failed = False
+        self.notify_interval = 15
+        self.notify_subject = None
+        self.notify_body = None
 
     def parseXML( self, node ):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_LOGGING:
-                self.logging = child.getAttribute( src.xmlDefs.ATTR_ENABLE ) != src.xmlDefs.ATTR_VALUE_NO
+                self.logging = getYesNoAttributeValue(child, src.xmlDefs.ATTR_ENABLE)
             elif child._get_localName() == src.xmlDefs.ELEMENT_PERIOD:
                 self.period = float(child.firstChild.data)
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
@@ -55,3 +79,10 @@ class monitorinfo( object ):
                     self.endscript = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_WARNINGTIME:
                 self.warningtime = float(child.firstChild.data)
+            elif child._get_localName() == src.xmlDefs.ELEMENT_NOTIFY:
+                self.notify_time_exceeded = getYesNoAttributeValue(child, src.xmlDefs.ATTR_TIME_EXCEEDED)
+                self.notify_request_failed = getYesNoAttributeValue(child, src.xmlDefs.ATTR_REQUEST_FAILED)
+                self.notify_interval = int(getDefaultAttributeValue(child, src.xmlDefs.ATTR_INTERVAL, "15"))
+                self.notify = readStringElementList(child, src.xmlDefs.ELEMENT_MAILTO)
+                self.notify_subject = readOneStringElement(child, src.xmlDefs.ELEMENT_SUBJECT)
+                self.notify_body = readOneStringElement(child, src.xmlDefs.ELEMENT_BODY)

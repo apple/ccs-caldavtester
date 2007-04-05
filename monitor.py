@@ -27,10 +27,10 @@ import sys
 import time
 import xml.dom.minidom
 
-import src.xmlDefs
-
+from src.sendemail import sendemail
 from src.manager import manager
 from src.monitorinfo import monitorinfo
+import src.xmlDefs
 
 EX_INVALID_CONFIG_FILE = "Invalid Config File"
 
@@ -74,6 +74,14 @@ if __name__ == "__main__":
             doScript(minfo.endscript)
         sys.exit()
 
+    def doNotification(msg):
+        sendemail(
+            fromaddr = ("Do Not Reply", "icalbridge-alert@apple.com"),
+            toaddrs = [("", a) for a in minfo.notify],
+            subject = minfo.notify_subject,
+            body = minfo.notify_body % (msg,),
+        )
+
     signal.signal(signal.SIGINT, doEnd)
 
     doStart()
@@ -81,6 +89,7 @@ if __name__ == "__main__":
     if minfo.logging:
         print "Start:"
     try:
+        last_notify = 0
         while(True):
             time.sleep(minfo.period)
             result, timing = doScript(minfo.testinfo)
@@ -89,11 +98,22 @@ if __name__ == "__main__":
             if timing >= minfo.warningtime:
                 dt = str(datetime.datetime.now())
                 dt = dt[0:dt.rfind(".")]
-                print "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (dt, timing, minfo.warningtime,)
+                msg = "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (dt, timing, minfo.warningtime,)
+                print msg
+                if minfo.notify_time_exceeded and (time.time() - last_notify > minfo.notify_interval * 60):
+                    print "Sending notification to %s" % (minfo.notify,)
+                    doNotification(msg)
+                    last_notify = time.time()
             if result != 0:
                 dt = str(datetime.datetime.now())
                 dt = dt[0:dt.rfind(".")]
-                print "[%s] WARNING: request failed" % (dt,)
+                msg = "[%s] WARNING: request failed" % (dt,)
+                print msg
+                if minfo.notify_request_failed and (time.time() - last_notify > minfo.notify_interval * 60):
+                    print "Sending notification to %s" % (minfo.notify,)
+                    doNotification(msg)
+                    last_notify = time.time()
+
         if minfo.logging:
             print "Done"
     except SystemExit:

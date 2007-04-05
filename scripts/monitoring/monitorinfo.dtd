@@ -16,7 +16,7 @@
  DRI: Cyrus Daboo, cdaboo@apple.com
  -->
 
-<!ELEMENT monitorinfo (logging, period, serverinfo, start, testinfo, end, warningtime)? >
+<!ELEMENT monitorinfo (logging, period, serverinfo, start, testinfo, end, warningtime, notify?) >
 
 	<!ELEMENT logging		EMPTY>
 		<!ATTLIST logging	enable (yes|no) "no">
@@ -32,3 +32,12 @@
 	<!ELEMENT end    	    (#PCDATA)>
 
 	<!ELEMENT warningtime  	(#PCDATA)>
+	
+	<!ELEMENT notify        (mailto+, subject, body)>
+		<!ATTLIST notify	time-exceeded  (yes|no) "no"
+							request-failed (yes|no) "yes"
+							interval       CDATA    "15">
+	
+		<!ELEMENT mailto    (#PCDATA)>
+		<!ELEMENT subject   (#PCDATA)>
+		<!ELEMENT body      (#PCDATA)>
