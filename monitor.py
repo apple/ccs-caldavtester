@@ -21,6 +21,7 @@
 # Runs a series of test suites inb parallel using a thread pool
 #
 
+from getpass import getpass
 import datetime
 import signal
 import sys
@@ -57,11 +58,14 @@ if __name__ == "__main__":
         minfo.parseXML(monitorinfoname_node)
         return minfo
     
+    user = raw_input("User: ")
+    pswd = getpass("Password: ")
+    
     minfo = readXML()
 
     def doScript(script):
         mgr = manager(level=manager.LOG_NONE)
-        return mgr.runWithOptions(minfo.serverinfo, "", [script,], {})
+        return mgr.runWithOptions(minfo.serverinfo, "", [script,], {"$userid1:":user, "$pswd1:":pswd, "$principal:":"/principals/users/%s/"%(user,)})
 
     def doStart():
         if minfo.startscript:
