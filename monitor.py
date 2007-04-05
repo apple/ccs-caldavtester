@@ -37,12 +37,17 @@ EX_INVALID_CONFIG_FILE = "Invalid Config File"
 
 if __name__ == "__main__":
     
+    monitorinfoname = "scripts/monitoring/monitorinfo.xml"
+    if len(sys.argv) > 1:
+        monitorinfoname = sys.argv[1]
+        
+    if len(sys.argv) > 2:
+        monitorlogname = sys.argv[2]
+    else:
+        monitorlogname = None
+
     def readXML():
 
-        monitorinfoname = "scripts/monitoring/monitorinfo.xml"
-        if len(sys.argv) > 1:
-            monitorinfoname = sys.argv[1]
-            
         # Open and parse the server config file
         fd = open(monitorinfoname, "r")
         doc = xml.dom.minidom.parse( fd )
@@ -88,39 +93,50 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, doEnd)
 
+    if monitorlogname:
+        log = open(monitorlogname, "a")
+    else:
+        log = None
+
+    def logtxt(txt):
+        if log:
+            log.write("%s\n" % (txt,))
+        else:
+            print txt
+
     doStart()
 
     if minfo.logging:
-        print "Start:"
+        logtxt("Start:")
     try:
         last_notify = 0
         while(True):
             time.sleep(minfo.period)
             result, timing = doScript(minfo.testinfo)
             if minfo.logging:
-                print "Result: %d, Timing: %.3f" % (result, timing,)
+                logtxt("Result: %d, Timing: %.3f" % (result, timing,))
             if timing >= minfo.warningtime:
                 dt = str(datetime.datetime.now())
                 dt = dt[0:dt.rfind(".")]
                 msg = "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (dt, timing, minfo.warningtime,)
-                print msg
+                logtxt(msg)
                 if minfo.notify_time_exceeded and (time.time() - last_notify > minfo.notify_interval * 60):
-                    print "Sending notification to %s" % (minfo.notify,)
+                    logtxt("Sending notification to %s" % (minfo.notify,))
                     doNotification(msg)
                     last_notify = time.time()
             if result != 0:
                 dt = str(datetime.datetime.now())
                 dt = dt[0:dt.rfind(".")]
                 msg = "[%s] WARNING: request failed" % (dt,)
-                print msg
+                logtxt(msg)
                 if minfo.notify_request_failed and (time.time() - last_notify > minfo.notify_interval * 60):
-                    print "Sending notification to %s" % (minfo.notify,)
+                    logtxt("Sending notification to %s" % (minfo.notify,))
                     doNotification(msg)
                     last_notify = time.time()
 
         if minfo.logging:
-            print "Done"
+            logtxt("Done")
     except SystemExit:
         pass
     except Exception, e:
-        print "Run exception: %s" % (str(e),)
+        log.write("Run exception: %s" % (str(e),))
