@@ -39,6 +39,7 @@ class monitorinfo( object ):
         'endscript',
         'warningtime',
         'notify',
+        'notify_from',
         'notify_time_exceeded',
         'notify_request_failed',
         'notify_interval',
@@ -55,6 +56,7 @@ class monitorinfo( object ):
         self.endscript = ""
         self.warningtime = 1.0
         self.notify = None
+        self.notify_from = None
         self.notify_time_exceeded = False
         self.notify_request_failed = False
         self.notify_interval = 15
@@ -84,5 +86,6 @@ class monitorinfo( object ):
                 self.notify_request_failed = getYesNoAttributeValue(child, src.xmlDefs.ATTR_REQUEST_FAILED)
                 self.notify_interval = int(getDefaultAttributeValue(child, src.xmlDefs.ATTR_INTERVAL, "15"))
                 self.notify = readStringElementList(child, src.xmlDefs.ELEMENT_MAILTO)
+                self.notify_from = readOneStringElement(child, src.xmlDefs.ELEMENT_MAILFROM)
                 self.notify_subject = readOneStringElement(child, src.xmlDefs.ELEMENT_SUBJECT)
                 self.notify_body = readOneStringElement(child, src.xmlDefs.ELEMENT_BODY)

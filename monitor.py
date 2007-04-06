@@ -35,108 +35,139 @@ import src.xmlDefs
 
 EX_INVALID_CONFIG_FILE = "Invalid Config File"
 
-if __name__ == "__main__":
+class monitor(object):
     
-    monitorinfoname = "scripts/monitoring/monitorinfo.xml"
-    if len(sys.argv) > 1:
-        monitorinfoname = sys.argv[1]
-        
-    if len(sys.argv) > 2:
-        monitorlogname = sys.argv[2]
-    else:
-        monitorlogname = None
+    def __init__(self, infoname, logname, user, pswd):
+        self.infoname = infoname
+        self.user = user
+        self.pswd = pswd
+        self.minfo = None
 
-    def readXML():
+        if logname:
+            self.log = open(logname, "a")
+        else:
+            self.log = None
+            
+        self.running = True
+
+    def readXML(self):
 
         # Open and parse the server config file
-        fd = open(monitorinfoname, "r")
+        fd = open(self.infoname, "r")
         doc = xml.dom.minidom.parse( fd )
         fd.close()
 
         # Verify that top-level element is correct
-        monitorinfoname_node = doc._get_documentElement()
-        if monitorinfoname_node._get_localName() != src.xmlDefs.ELEMENT_MONITORINFO:
+        node = doc._get_documentElement()
+        if node._get_localName() != src.xmlDefs.ELEMENT_MONITORINFO:
             raise EX_INVALID_CONFIG_FILE
-        if not monitorinfoname_node.hasChildNodes():
+        if not node.hasChildNodes():
             raise EX_INVALID_CONFIG_FILE
-        minfo = monitorinfo()
-        minfo.parseXML(monitorinfoname_node)
-        return minfo
+        self.minfo = monitorinfo()
+        self.minfo.parseXML(node)
     
+    def doScript(self, script):
+        mgr = manager(level=manager.LOG_NONE)
+        return mgr.runWithOptions(
+            self.minfo.serverinfo,
+            "",
+            [script,],
+            {
+                "$userid1:"  : self.user,
+                "$pswd1:"    : self.pswd,
+                "$principal:": "/principals/users/%s/" % (self.user,)
+            }
+        )
+
+    def doStart(self):
+        self.logtxt("Starting Monitor")
+
+        if self.minfo.startscript:
+            self.logtxt("Runnning start script %s" % (self.minfo.startscript,))
+            self.doScript(self.minfo.startscript)
+
+    def doEnd(self):
+        if self.minfo.endscript:
+            self.logtxt("Runnning end script %s" % (self.minfo.endscript,))
+            self.doScript(self.minfo.endscript)
+
+        self.logtxt("Stopped Monitor")
+        self.running = False
+
+    def doError(self, msg):
+        self.logtxt("Run exception: %s" % (msg,))
+
+    def doNotification(self, msg):
+        sendemail(
+            fromaddr = ("Do Not Reply", self.minfo.notify_from),
+            toaddrs = [("", a) for a in self.minfo.notify],
+            subject = self.minfo.notify_subject,
+            body = self.minfo.notify_body % (msg,),
+        )
+
+    def logtxt(self, txt):
+        dt = str(datetime.datetime.now())
+        dt = dt[0:dt.rfind(".")]
+        if self.log:
+            self.log.write("[%s] %s\n" % (dt, txt,))
+            self.log.flush()
+        else:
+            print "[%s] %s" % (dt, txt,)
+    
+    def runLoop(self):
+        last_notify = 0
+        while(self.running):
+            time.sleep(self.minfo.period)
+            if not self.running:
+                break
+            result, timing = m.doScript(self.minfo.testinfo)
+            if not self.running:
+                break
+            if self.minfo.logging:
+                self.logtxt("Result: %d, Timing: %.3f" % (result, timing,))
+            if timing >= self.minfo.warningtime:
+                msg = "WARNING: request time (%.3f) exceeds limit (%.3f)" % (timing, self.minfo.warningtime,)
+                self.logtxt(msg)
+                if self.minfo.notify_time_exceeded and (time.time() - last_notify > self.minfo.notify_interval * 60):
+                    self.logtxt("Sending notification to %s" % (self.minfo.notify,))
+                    self.doNotification(msg)
+                    last_notify = time.time()
+            if result != 0:
+                msg = "WARNING: request failed"
+                self.logtxt(msg)
+                if self.minfo.notify_request_failed and (time.time() - last_notify > self.minfo.notify_interval * 60):
+                    self.logtxt("Sending notification to %s" % (self.minfo.notify,))
+                    self.doNotification(msg)
+                    last_notify = time.time()
+
+if __name__ == "__main__":
+    
+    infoname = "scripts/monitoring/monitorinfo.xml"
+    if len(sys.argv) > 1:
+        infoname = sys.argv[1]
+        
+    if len(sys.argv) > 2:
+        logname = sys.argv[2]
+    else:
+        logname = None
+
     user = raw_input("User: ")
     pswd = getpass("Password: ")
     
-    minfo = readXML()
+    m = monitor(infoname, logname, user, pswd)
+    m.readXML()
 
-    def doScript(script):
-        mgr = manager(level=manager.LOG_NONE)
-        return mgr.runWithOptions(minfo.serverinfo, "", [script,], {"$userid1:":user, "$pswd1:":pswd, "$principal:":"/principals/users/%s/"%(user,)})
-
-    def doStart():
-        if minfo.startscript:
-            print "Runnning start script %s" % (minfo.startscript,)
-            doScript(minfo.startscript)
-
-    def doEnd(sig, frame):
-        if minfo.endscript:
-            print "Runnning end script %s" % (minfo.endscript,)
-            doScript(minfo.endscript)
+    def signalEnd(sig, frame):
+        m.doEnd()
         sys.exit()
 
-    def doNotification(msg):
-        sendemail(
-            fromaddr = ("Do Not Reply", "icalbridge-alert@apple.com"),
-            toaddrs = [("", a) for a in minfo.notify],
-            subject = minfo.notify_subject,
-            body = minfo.notify_body % (msg,),
-        )
+    signal.signal(signal.SIGINT, signalEnd)
 
-    signal.signal(signal.SIGINT, doEnd)
+    m.doStart()
 
-    if monitorlogname:
-        log = open(monitorlogname, "a")
-    else:
-        log = None
-
-    def logtxt(txt):
-        if log:
-            log.write("%s\n" % (txt,))
-        else:
-            print txt
-
-    doStart()
-
-    if minfo.logging:
-        logtxt("Start:")
     try:
-        last_notify = 0
-        while(True):
-            time.sleep(minfo.period)
-            result, timing = doScript(minfo.testinfo)
-            if minfo.logging:
-                logtxt("Result: %d, Timing: %.3f" % (result, timing,))
-            if timing >= minfo.warningtime:
-                dt = str(datetime.datetime.now())
-                dt = dt[0:dt.rfind(".")]
-                msg = "[%s] WARNING: request time (%.3f) exceeds limit (%.3f)" % (dt, timing, minfo.warningtime,)
-                logtxt(msg)
-                if minfo.notify_time_exceeded and (time.time() - last_notify > minfo.notify_interval * 60):
-                    logtxt("Sending notification to %s" % (minfo.notify,))
-                    doNotification(msg)
-                    last_notify = time.time()
-            if result != 0:
-                dt = str(datetime.datetime.now())
-                dt = dt[0:dt.rfind(".")]
-                msg = "[%s] WARNING: request failed" % (dt,)
-                logtxt(msg)
-                if minfo.notify_request_failed and (time.time() - last_notify > minfo.notify_interval * 60):
-                    logtxt("Sending notification to %s" % (minfo.notify,))
-                    doNotification(msg)
-                    last_notify = time.time()
-
-        if minfo.logging:
-            logtxt("Done")
+        m.runLoop()
     except SystemExit:
         pass
     except Exception, e:
-        log.write("Run exception: %s" % (str(e),))
+        m.doError(str(e))

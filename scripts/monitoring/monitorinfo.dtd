@@ -33,11 +33,12 @@
 
 	<!ELEMENT warningtime  	(#PCDATA)>
 	
-	<!ELEMENT notify        (mailto+, subject, body)>
+	<!ELEMENT notify        (mailfrom, mailto+, subject, body)>
 		<!ATTLIST notify	time-exceeded  (yes|no) "no"
 							request-failed (yes|no) "yes"
 							interval       CDATA    "15">
 	
+		<!ELEMENT mailfrom  (#PCDATA)>
 		<!ELEMENT mailto    (#PCDATA)>
 		<!ELEMENT subject   (#PCDATA)>
 		<!ELEMENT body      (#PCDATA)>
