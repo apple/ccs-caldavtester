@@ -52,6 +52,85 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='free-busy-set' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>PROPFIND inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set$&lt;href xmlns="DAV:"&gt;/calendars/users/user01/calendar/&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PROPPATCH valid calendar</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PROPPATCH invalid calendar</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>PROPPATCH valid calendar - reset it</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 	
 </caldavtest>
