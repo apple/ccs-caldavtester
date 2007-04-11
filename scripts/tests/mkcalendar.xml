@@ -170,6 +170,40 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='MKCALENDAR read-free-busy privilege'>
+		<test name='1'>
+			<description>MKCALENDAR</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>REPORT free-busy on new collection as another user</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/caltest3/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/mkcalendar/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>200</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 	<end/>
 
 </caldavtest>
