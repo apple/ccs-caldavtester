@@ -339,6 +339,23 @@
 				</verify>
 			</request>
 		</test>
+		<test name='8' ignore='no'>
+			<description>Single non-existent query</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/multiget/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>bogus-resource.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='basic query reports' ignore='no'>
