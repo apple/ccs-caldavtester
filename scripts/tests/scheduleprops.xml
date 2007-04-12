@@ -112,6 +112,24 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
+			<description>PROPPATCH delete it - fails</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>PROPPATCH valid calendar - reset it</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
