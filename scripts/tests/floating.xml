@@ -409,6 +409,40 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='REPORT floating behaviour - expand'>
+		<test name='1' ignore='no'>
+			<description>REPORT on non-recurring timed/floating events: no timezone</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/floating/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/floating/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>$pathprefix:/floating/</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>calendar-none/1.ics</value>
+						<value>calendar-none/2.ics</value>
+						<value>calendar-none/4.ics</value>
+						<value>calendar-us/1.ics</value>
+						<value>calendar-us/2.ics</value>
+						<value>calendar-us/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='REPORT free-busy floating behaviour'>
 		<test name='1' ignore='no'>
 			<description>free-busy on collection without timezone</description>
