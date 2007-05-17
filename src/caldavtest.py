@@ -117,6 +117,7 @@ class caldavtest(object):
             return "i"
         else:
             result = False
+            resulttxt = ""
             if test.stats:
                 reqstats = stats()
             else:
