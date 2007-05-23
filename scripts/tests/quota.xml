@@ -2991,6 +2991,31 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Quota on others' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Quota on other user</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$usercalendars:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/quota/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>quota-used-bytes&gt;0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request>
 			<method>DELETE</method>
