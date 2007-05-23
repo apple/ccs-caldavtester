@@ -189,6 +189,69 @@
 		</test>
 	</test-suite>
 		
+	<test-suite name="POSTs free busy - mask no ORGANIZER" ignore='no'>
+		<test name='1' ignore='no'>
+			<description>POST free busy - ok mask bad organizer</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr2:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T150000Z/PT1H,20060101T170000Z/PT1H,20060101T
+ 190000Z/PT1H,20060101T210000Z/PT1H,20060101T230000Z/PT1H</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>POST free busy - ok mask no organizer</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr2:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr2:</value>
+				</header>
+				<ruri>$pathprefix2:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T170000Z/PT1H,20060101T190000Z/PT1H,20060101T
+ 210000Z/PT1H,20060101T230000Z/PT1H</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+		
 	<end/>
 	
 </caldavtest>
