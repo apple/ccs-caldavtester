@@ -1026,7 +1026,18 @@
 
 	<test-suite name='REPORT/too big' ignore='no'>
 		<test name='1'>
-			<description>query with too many results</description>
+			<description>add one event to make it a 1001 event calendar</description>
+			<request end-delete="yes" print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix:/calendar.1000/abc.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/errors/6.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix:/calendar.1000/</ruri>
