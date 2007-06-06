@@ -241,6 +241,32 @@
 			</request>
 		</test>
 		<test name='8'>
+			<description>Verify no access for scheduling</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$principal2:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$principal2:, $principal3:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
 			<description>Clear user02 as read-only proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
@@ -274,7 +300,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='10'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -293,7 +319,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='11'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -312,7 +338,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='12'>
 			<description>Verify no access to resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>GET</method>
@@ -326,7 +352,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='13'>
 			<description>Add user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
@@ -360,7 +386,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='14'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -383,7 +409,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='15'>
 			<description>Verify single group membership</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -406,7 +432,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='16'>
 			<description>Verify access to resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>GET</method>
@@ -420,7 +446,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='17'>
 			<description>Verify access to resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PUT</method>
@@ -434,7 +460,55 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17'>
+		<test name='18'>
+			<description>Verify access for scheduling</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$principal2:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$principal2:, $principal3:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='19'>
+			<description>Verify no access for scheduling</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$principal:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$principal2:, $principal3:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20'>
 			<description>Clear user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
@@ -468,7 +542,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
+		<test name='21'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -487,7 +561,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19'>
+		<test name='22'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
@@ -506,7 +580,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20'>
+		<test name='23'>
 			<description>Verify no access to resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>GET</method>
@@ -520,7 +594,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21'>
+		<test name='24'>
 			<description>Try to add user02 and a bogus user as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
