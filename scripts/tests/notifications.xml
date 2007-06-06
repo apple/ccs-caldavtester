@@ -391,6 +391,24 @@
 			</request>
 		</test>
 		<test name='5'>
+			<description>Invalid subscribe - non-existent resource</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1-bogus/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
 			<description>Valid subscribe</description>
 			<request>
 				<method>POST</method>
@@ -404,7 +422,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='7'>
 			<description>Invalid unsubscribe (no XML)</description>
 			<request>
 				<method>POST</method>
@@ -418,7 +436,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='8'>
 			<description>Invalid unsubscribe (incorrect XML)</description>
 			<request>
 				<method>POST</method>
@@ -436,7 +454,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='9'>
 			<description>Invalid unsubscribe (not subscribed)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -454,7 +472,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='10'>
+			<description>Invalid unsubscribe - non-existent resource</description>
+			<request>
+				<method>POST</method>
+				<ruri>$pathprefix:/dropbox/ABC1-bogus/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
 			<description>Valid unsubscribe</description>
 			<request>
 				<method>POST</method>
