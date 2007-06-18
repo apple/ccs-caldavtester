@@ -379,6 +379,41 @@
 				</verify>
 			</request>
 		</test>
+		<test name='9'>
+			<description>query REPORT on encoded calendar path</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/calendar%203/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/basicquery/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2_3%20a.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>free-busy REPORT on encoded calendar path</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/calendar%203/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/freebusy/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
