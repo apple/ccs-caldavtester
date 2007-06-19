@@ -70,14 +70,14 @@ class serverinfo( object ):
     def parseXML( self, node ):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_HOST:
-                self.host = child.firstChild.data
+                self.host = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_PORT:
                 self.port = int( child.firstChild.data )
             elif child._get_localName() == src.xmlDefs.ELEMENT_SSL:
                 self.ssl = True
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERFILEPATH:
                 if child.firstChild is not None:
-                    self.serverfilepath = child.firstChild.data
+                    self.serverfilepath = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
    
@@ -102,8 +102,8 @@ class serverinfo( object ):
                 value = None
                 for schild in child._get_childNodes():
                     if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
-                        key = schild.firstChild.data
+                        key = schild.firstChild.data.encode("utf-8")
                     elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                        value = schild.firstChild.data
+                        value = schild.firstChild.data.encode("utf-8")
                 if key and value:
                     self.subsdict[key] = value

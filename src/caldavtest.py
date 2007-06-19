@@ -466,7 +466,7 @@ class caldavtest(object):
                     result = False
                     resulttxt += "\nProperty %s was not extracted from multistatus response\n" % (req.grabproperty[0],)
                 else:
-                    self.manager.server_info.addextrasubs({req.grabproperty[1]: propvalue})
+                    self.manager.server_info.addextrasubs({req.grabproperty[1]: propvalue.encode("utf-8")})
 
         return result, resulttxt, response, respdata
 
