@@ -35,7 +35,7 @@ svn = "/usr/bin/svn"
 
 packages = [
     ("vobject", "vobject/src", "http://svn.osafoundation.org/vobject/branches/users/cdaboo/vavailability-173", "178"),
-    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(),get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.4", "992"),
+    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(),get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.5", "1013"),
 ]
 
 def usage():
