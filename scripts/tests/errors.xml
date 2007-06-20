@@ -1157,6 +1157,59 @@
 			</request>
 		</test>
 	</test-suite>
+
+	<test-suite name='Root resource' ignore='no'>
+		<test name='1'>
+			<description>DELETE /</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>COPY /</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>/copy/</value>
+				</header>
+				<ruri>/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MOVE /</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>/move/</value>
+				</header>
+				<ruri>/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 	<end/>
 	
 </caldavtest>
