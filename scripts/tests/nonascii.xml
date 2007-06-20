@@ -1,0 +1,381 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<caldavtest>
+	<description>Test use of UTF-8 for HTTP and calendar data</description>
+
+	<start/>
+	
+	<test-suite name='MKCALENDAR' ignore="yes">
+		<test name='1'>
+			<description>MKCALENDAR with non-ascii</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>MKCALENDAR with non-ascii - duplicate</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET with non-ascii</description>
+			<request>
+				<method>GET</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET with non-ascii</description>
+			<request>
+				<method>GET</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Non-ascii resource URI' ignore="yes">
+		<test name='1'>
+			<description>PUT with non-ascii</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT with non-ascii</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET with non-ascii</description>
+			<request>
+				<method>GET</method>
+				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>GET with non-ascii</description>
+			<request>
+				<method>GET</method>
+				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>DELETE with non-ascii</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Multiget on-ascii resource URI' ignore="yes">
+		<test name='1'>
+			<description>PUT with non-ascii</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>REPORT with non-ascii - match parent and child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>te%cc%81st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>REPORT with non-ascii - match parent, different child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>t%c3%a9st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>REPORT with non-ascii - different parent, match child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>te%cc%81st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>REPORT with non-ascii - different parent, different child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>t%c3%a9st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>REPORT with non-ascii - match parent, match child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>te%cc%81st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>REPORT with non-ascii - match parent, different child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>t%c3%a9st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>REPORT with non-ascii - different parent, match child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>te%cc%81st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>REPORT with non-ascii - different parent, different child</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>t%c3%a9st.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Non-ascii calendar data' ignore="no">
+		<test name='1'>
+			<description>PUT with non-ascii data</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>nonascii.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>GET with non-ascii data</description>
+			<request>
+				<method>GET</method>
+				<ruri>nonascii.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Basic query with non-ascii data</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>nonascii.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Text query with ascii data</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>nonascii.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Text query with non-ascii data</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>nonascii.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>
