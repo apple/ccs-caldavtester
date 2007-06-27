@@ -21,7 +21,7 @@
  -->
 
 <caldavtest>
-	<description>Test drop box features</description>
+	<description>Test proxy user features</description>
 
 	<start>
 		<request end-delete="yes">
@@ -608,6 +608,69 @@
 					<arg>
 						<name>badprops</name>
 						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='25'>
+			<description>Verify no change to locked membership</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$rprincipal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='26'>
+			<description>Verify group memberships</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$rprincipal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set$&lt;href&gt;$principal:&lt;/href&gt;</value>
+						<value>DAV:group-membership$</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='27'>
+			<description>Verify group memberships</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$principal:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>&lt;href&gt;$rprincipal1:calendar-proxy-write/&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
