@@ -114,15 +114,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/1.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -235,15 +239,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/4.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -285,24 +293,6 @@
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$pathprefix:/$inbox:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/scheduleauto/6.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8' ignore='no'>
-			<description>One item in resource01 Inbox (old one deleted)</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -386,15 +376,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/4.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -436,24 +430,6 @@
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$pathprefix:/$inbox:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/scheduleauto/6.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8' ignore='no'>
-			<description>One item in resource01 Inbox (old one deleted)</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleauto/6.xml</filepath>
@@ -529,15 +505,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/7.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -654,15 +634,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/9.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -779,15 +763,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/11.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -900,15 +888,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/14.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -1025,15 +1017,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/16.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -1150,15 +1146,19 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>One item in resource01 Inbox</description>
+			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/scheduleauto/18.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
