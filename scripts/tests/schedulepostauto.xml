@@ -179,6 +179,135 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='POST non-recurring without conflict, no-rsvp' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do POST</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$principal:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$principal2:, $rprincipal1:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/19.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>No item in user01 Outbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user02 Inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/19.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>No items in resource01 Inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>One item in resource01 Calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="yes">
+				<method>GETNEW</method>
+				<ruri>$rpathprefix1:/calendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleauto/20.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>No item in resource01 Outbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$rpathprefix1:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleauto/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<test-suite name='Update to previous request - no auto-reply' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Do POST</description>
@@ -523,7 +652,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>One item in resource01 Calendar</description>
+			<description>Two items in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
@@ -535,7 +664,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>2</value>
 					</arg>
 				</verify>
 			</request>
@@ -652,7 +781,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>One item in resource01 Calendar</description>
+			<description>Two items in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
@@ -664,7 +793,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>2</value>
 					</arg>
 				</verify>
 			</request>
@@ -906,8 +1035,8 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>Two items in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<description>Three items in resource01 Calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="yes">
 				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
 				<data>
@@ -918,7 +1047,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>3</value>
 					</arg>
 				</verify>
 			</request>
@@ -1035,7 +1164,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>Two items in resource01 Calendar</description>
+			<description>Three items in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
@@ -1047,7 +1176,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>3</value>
 					</arg>
 				</verify>
 			</request>
@@ -1176,7 +1305,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>2</value>
 					</arg>
 				</verify>
 			</request>
