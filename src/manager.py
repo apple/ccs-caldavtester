@@ -40,7 +40,8 @@ class manager(object):
     """
     Main class that runs test suites defined in an XML config file.
     """
-    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'pid', 'memUsage', 'logLevel']
+    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'pid', 'memUsage', 'logLevel', 
+                  'digestCache']
 
     LOG_NONE    = 0
     LOG_LOW     = 1
@@ -56,6 +57,7 @@ class manager(object):
         self.pid = 0
         self.memUsage = None
         self.logLevel = level
+        self.digestCache = {}
     
     def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
         if self.textMode and level <= self.logLevel:

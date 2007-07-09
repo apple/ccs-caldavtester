@@ -21,8 +21,107 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 """
 
 import base64
+import httplib
+import md5
+import sha
 import src.xmlDefs
 import time
+
+algorithms = {
+    'md5': md5.new,
+    'md5-sess': md5.new,
+    'sha': sha.new,
+}
+
+# DigestCalcHA1
+def calcHA1(
+    pszAlg,
+    pszUserName,
+    pszRealm,
+    pszPassword,
+    pszNonce,
+    pszCNonce,
+    preHA1=None
+):
+    """
+    @param pszAlg: The name of the algorithm to use to calculate the digest.
+        Currently supported are md5 md5-sess and sha.
+
+    @param pszUserName: The username
+    @param pszRealm: The realm
+    @param pszPassword: The password
+    @param pszNonce: The nonce
+    @param pszCNonce: The cnonce
+
+    @param preHA1: If available this is a str containing a previously
+       calculated HA1 as a hex string. If this is given then the values for
+       pszUserName, pszRealm, and pszPassword are ignored.
+    """
+
+    if (preHA1 and (pszUserName or pszRealm or pszPassword)):
+        raise TypeError(("preHA1 is incompatible with the pszUserName, "
+                         "pszRealm, and pszPassword arguments"))
+
+    if preHA1 is None:
+        # We need to calculate the HA1 from the username:realm:password
+        m = algorithms[pszAlg]()
+        m.update(pszUserName)
+        m.update(":")
+        m.update(pszRealm)
+        m.update(":")
+        m.update(pszPassword)
+        HA1 = m.digest()
+    else:
+        # We were given a username:realm:password
+        HA1 = preHA1.decode('hex')
+
+    if pszAlg == "md5-sess":
+        m = algorithms[pszAlg]()
+        m.update(HA1)
+        m.update(":")
+        m.update(pszNonce)
+        m.update(":")
+        m.update(pszCNonce)
+        HA1 = m.digest()
+
+    return HA1.encode('hex')
+
+# DigestCalcResponse
+def calcResponse(
+    HA1,
+    algo,
+    pszNonce,
+    pszNonceCount,
+    pszCNonce,
+    pszQop,
+    pszMethod,
+    pszDigestUri,
+    pszHEntity,
+):
+    m = algorithms[algo]()
+    m.update(pszMethod)
+    m.update(":")
+    m.update(pszDigestUri)
+    if pszQop == "auth-int":
+        m.update(":")
+        m.update(pszHEntity)
+    HA2 = m.digest().encode('hex')
+
+    m = algorithms[algo]()
+    m.update(HA1)
+    m.update(":")
+    m.update(pszNonce)
+    m.update(":")
+    if pszNonceCount and pszCNonce and pszQop:
+        m.update(pszNonceCount)
+        m.update(":")
+        m.update(pszCNonce)
+        m.update(":")
+        m.update(pszQop)
+        m.update(":")
+    m.update(HA2)
+    respHash = m.digest().encode('hex')
+    return respHash
 
 class request( object ):
     """
@@ -71,17 +170,81 @@ class request( object ):
         
         # Auth
         if self.auth:
-            hdrs["Authorization"] = self.gethttpauth( si )
+            if si.authtype.lower() == "digest":
+                hdrs["Authorization"] = self.gethttpdigestauth( si )
+            else:
+                hdrs["Authorization"] = self.gethttpbasicauth( si )
         
         return hdrs
 
-    def gethttpauth( self, si ):
+    def gethttpbasicauth( self, si ):
         basicauth = [self.user, si.user][self.user == ""]
         basicauth += ":"
         basicauth += [self.pswd, si.pswd][self.pswd == ""]
         basicauth = "Basic " + base64.encodestring( basicauth )
         basicauth = basicauth.replace( "\n", "" )
         return basicauth
+
+    def gethttpdigestauth( self, si, wwwauthorize=None ):
+        
+        # Check the nonce cache to see if we've used this user before
+        user = [self.user, si.user][self.user == ""]
+        pswd = [self.pswd, si.pswd][self.pswd == ""]
+        details = None
+        if self.manager.digestCache.has_key(user):
+            details = self.manager.digestCache[user]
+        else:
+            if si.ssl:
+                http = httplib.HTTPSConnection( self.manager.server_info.host, self.manager.server_info.port )
+            else:
+                http = httplib.HTTPConnection( self.manager.server_info.host, self.manager.server_info.port )
+            try:
+                http.request( "OPTIONS", self.getURI(si) )
+            
+                response = http.getresponse()
+    
+            finally:
+                http.close()
+
+            if response.status == 401:
+
+                wwwauthorize = response.msg.getheaders("WWW-Authenticate")
+                for item in wwwauthorize:
+                    if not item.startswith("digest "):
+                        continue
+                    wwwauthorize = item[7:]
+                    def unq(s):
+                        if s[0] == s[-1] == '"':
+                            return s[1:-1]
+                        return s
+                    parts = wwwauthorize.split(',')
+            
+                    details = {}
+        
+                    for (k, v) in [p.split('=', 1) for p in parts]:
+                        details[k.strip()] = unq(v.strip())
+                        
+                    self.manager.digestCache[user] = details
+                    break
+
+        if details:
+            digest = calcResponse(
+                calcHA1(details.get('algorithm'), user, details.get('realm'), pswd, details.get('nonce'), details.get('cnonce')),
+                details.get('algorithm'), details.get('nonce'), details.get('nc'), details.get('cnonce'), details.get('qop'), self.method, self.getURI(si), None
+            )
+    
+            if details.get('qop'):
+                response = ('Digest username="%s", realm="%s", '
+                        'nonce="%s", uri="%s", '
+                        'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'), ))
+            else:
+                response = ('Digest username="%s", realm="%s", '
+                        'nonce="%s", uri="%s", '
+                        'response=%s, algorithm=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), ))
+    
+            return response
+        else:
+            return ""
 
     def getFilePath( self ):
         if self.data != None:

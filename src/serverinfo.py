@@ -26,12 +26,13 @@ class serverinfo( object ):
     """
     Maintains information about the server beiung targetted.
     """
-    __slots__  = ['host', 'port', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict', 'extrasubsdict',]
+    __slots__  = ['host', 'port', 'authtype', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict', 'extrasubsdict',]
 
 
     def __init__( self ):
         self.host = ""
         self.port = 80
+        self.authtype = "basic"
         self.ssl = False
         self.calendarpath = ""
         self.user = ""
@@ -73,6 +74,8 @@ class serverinfo( object ):
                 self.host = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_PORT:
                 self.port = int( child.firstChild.data )
+            elif child._get_localName() == src.xmlDefs.ELEMENT_AUTHTYPE:
+                self.authtype = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_SSL:
                 self.ssl = True
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERFILEPATH:

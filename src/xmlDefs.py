@@ -20,6 +20,7 @@
 
 ELEMENT_ACCOUNT = "account"
 ELEMENT_ARG = "arg"
+ELEMENT_AUTHTYPE = "authtype"
 ELEMENT_BODY = "body"
 ELEMENT_CALDAVTEST = "caldavtest"
 ELEMENT_CALENDARS = "calendars"
