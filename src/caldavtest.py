@@ -97,6 +97,8 @@ class caldavtest(object):
             ignored = len(suite.tests)
         else:
             self.manager.log(manager.LOG_HIGH, "")
+            if self.manager.memUsage:
+                start_usage = self.manager.getMemusage()
             for test in suite.tests:
                 result = self.run_test( test )
                 if result == "t":
@@ -105,6 +107,10 @@ class caldavtest(object):
                     failed += 1
                 else:
                     ignored += 1
+            if self.manager.memUsage:
+                end_usage = self.manager.getMemusage()
+                print start_usage, end_usage
+                self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100)/start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100)/start_usage[0]))) 
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
         return (ok, failed, ignored)
             

@@ -40,7 +40,7 @@ class manager(object):
     """
     Main class that runs test suites defined in an XML config file.
     """
-    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'logLevel']
+    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'pid', 'memUsage', 'logLevel']
 
     LOG_NONE    = 0
     LOG_LOW     = 1
@@ -53,6 +53,8 @@ class manager(object):
         self.depopulate = False
         self.tests = []
         self.textMode = text
+        self.pid = 0
+        self.memUsage = None
         self.logLevel = level
     
     def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
@@ -131,7 +133,8 @@ class manager(object):
         fnames = []
         docroot = None
         all = False
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dx:r:", ["all"])
+        pidfile = "../CalendarServer/logs/caldavd.pid"
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:r:", ["all", "pid=",])
         
         # Process single options
         for option, value in options:
@@ -147,6 +150,10 @@ class manager(object):
                 docroot = value
             elif option == "--all":
                 all = True
+            elif option == "-m":
+                self.memUsage = True
+            elif option == "--pid":
+                pidfile = value
                 
         if all:
             files = os.listdir(dname)
@@ -164,10 +171,17 @@ class manager(object):
         self.readXML(sname, pname, fnames, all)
         if docroot:
             self.server_info.serverfilepath = docroot
+            
+        if self.memUsage:
+            fd = open(pidfile, "r")
+            s = fd.read()
+            self.pid = int(s)
 
-    def runWithOptions(self, sname, pname, fnames, moresubs, all = False, depopulate = False):
+    def runWithOptions(self, sname, pname, fnames, moresubs, pid=0, memUsage=False, all = False, depopulate = False):
         self.depopulate = depopulate
         self.readXML(sname, pname, fnames, all, moresubs)
+        self.pid = pid
+        self.memUsage = memUsage
         return self.runAll()
 
     def runAll(self):
@@ -222,3 +236,17 @@ class manager(object):
         
         return response.status, respdata
         
+    def getMemusage(self):
+        """
+        
+        @param pid: numeric pid of process to get memory usage for
+        @type pid:  int
+        @retrun:    tuple of (RSS, VSZ) values for the process
+        """
+        
+        fd = os.popen("ps -l -p %d" % (self.pid,))
+        data = fd.read()
+        lines = data.split("\n")
+        procdata = lines[1].split()
+        return int(procdata[6]), int(procdata[7])
+
