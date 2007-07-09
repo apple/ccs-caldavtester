@@ -258,7 +258,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>One item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="yes">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
 				<verify>
@@ -1036,7 +1036,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Three items in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="yes">
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$rpathprefix1:/calendar/</ruri>
 				<data>
