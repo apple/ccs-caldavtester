@@ -34,6 +34,27 @@
 		</request>
 	</start>
 	
+	<test-suite name='OPTIONS header' ignore='no'>
+		<test name='1'>
+			<description>Look for options header tag</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$principal:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendar-proxy.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Principal resources' ignore='no'>
 		<test name='1'>
 			<description>Look for proxy principals</description>
