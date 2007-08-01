@@ -54,6 +54,12 @@
 			<value>/principals/locations/</value>
 		</substitution>
 
+		<!-- relative path to __uids__ principal collection-->
+		<substitution>
+			<key>$uids:</key>
+			<value>/principals/locations/</value>
+		</substitution>
+
 		<!-- relative path to calendars collection-->
 		<substitution>
 			<key>$calendars:</key>
@@ -88,16 +94,15 @@
 			<key>$pswdadmin:</key>
 			<value>admin</value>
 		</substitution>
+
 		<!-- relative path to admin principal resource-->
 		<substitution>
 			<key>$principaladmin:</key>
 			<value>/principals/users/admin/</value>
 		</substitution>
-
-		<!-- relative path to principal collection-->
 		<substitution>
-			<key>$principals:</key>
-			<value>/principals/users/</value>
+			<key>$principaluriadmin:</key>
+			<value>/principals/__uids__/admin/</value>
 		</substitution>
 
 		<!-- user id for proxy user -->
@@ -123,8 +128,12 @@
 		</substitution>
 		<!-- relative path to first user principal resource-->
 		<substitution>
-			<key>$principal:</key>
+			<key>$principal1:</key>
 			<value>/principals/users/user01/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluri1:</key>
+			<value>/principals/__uids__/user01/</value>
 		</substitution>
 		<substitution>
 			<key>$principalnoslash:</key>
@@ -145,6 +154,14 @@
 			<key>$cuaddr1:</key>
 			<value>mailto:user01@example.com</value>
 		</substitution>
+		<substitution>
+			<key>$cuaddralt1:</key>
+			<value>/principals/__uids__/user01/</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddraltnoslash1:</key>
+			<value>/principals/__uids__/user01</value>
+		</substitution>
 		
 		<!-- user id for second user -->
 		<substitution>
@@ -162,6 +179,10 @@
 			<value>/principals/users/user02/</value>
 		</substitution>
 		<substitution>
+			<key>$principaluri2:</key>
+			<value>/principals/__uids__/user02/</value>
+		</substitution>
+		<substitution>
 			<key>$principal2noslash:</key>
 			<value>/principals/users/user02</value>
 		</substitution>
@@ -174,6 +195,14 @@
 		<substitution>
 			<key>$cuaddr2:</key>
 			<value>mailto:user02@example.com</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddralt2:</key>
+			<value>/principals/__uids__/user02/</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddraltnoslash2:</key>
+			<value>/principals/__uids__/user02</value>
 		</substitution>
 		
 		<!-- user id for third user -->
@@ -191,6 +220,10 @@
 			<key>$principal3:</key>
 			<value>/principals/users/user03/</value>
 		</substitution>
+		<substitution>
+			<key>$principaluri3:</key>
+			<value>/principals/__uids__/user03/</value>
+		</substitution>
 		<!-- relative path to third user calendar home-->
 		<substitution>
 			<key>$pathprefix3:</key>
@@ -200,6 +233,10 @@
 		<substitution>
 			<key>$cuaddr3:</key>
 			<value>mailto:user03@example.com</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddralt3:</key>
+			<value>/principals/__uids__/user03/</value>
 		</substitution>
 
 		<!-- relative path to first resource calendar home-->
@@ -211,6 +248,14 @@
 		<substitution>
 			<key>$rprincipal1:</key>
 			<value>/principals/resources/resource01/</value>
+		</substitution>
+		<substitution>
+			<key>$rprincipaluri1:</key>
+			<value>/principals/__uids__/resource01/</value>
+		</substitution>
+		<substitution>
+			<key>$rcuaddralt1:</key>
+			<value>/principals/__uids__/resource01/</value>
 		</substitution>
 	</substitutions>
 	<serverfilepath>/Users/cyrusdaboo/Documents/Development/Apple/eclipse/CalendarServer/twistedcaldav/test/data/</serverfilepath>

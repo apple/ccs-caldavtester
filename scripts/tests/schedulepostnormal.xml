@@ -57,11 +57,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principal:</value>
+					<value>$cuaddralt1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$principal2:, $principal3:</value>
+					<value>$cuaddralt2:, $cuaddralt3:</value>
 				</header>
 				<ruri>$pathprefix:/outbox/</ruri>
 				<data>
@@ -120,8 +120,8 @@
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal2:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddralt1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddralt2:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -147,8 +147,8 @@
 					</arg>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$principal:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$principal3:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddralt1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddralt3:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -159,11 +159,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principal2:</value>
+					<value>$cuaddralt2:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$principal3:</value>
+					<value>$cuaddralt3:</value>
 				</header>
 				<ruri>$pathprefix2:/outbox/</ruri>
 				<data>

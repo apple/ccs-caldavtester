@@ -39,7 +39,7 @@
 			<description>Look for options header tag</description>
 			<request print-response="no">
 				<method>OPTIONS</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/1.xml</filepath>
@@ -60,7 +60,7 @@
 			<description>Look for proxy principals</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/1.xml</filepath>
@@ -80,7 +80,7 @@
 			<description>Check resource type of read-only proxy principal</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/1.xml</filepath>
@@ -98,7 +98,7 @@
 			<description>Check resource type of read-write proxy principal</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/1.xml</filepath>
@@ -119,7 +119,7 @@
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -171,7 +171,7 @@
 			<description>Add user02 as read proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/3.xml</filepath>
@@ -186,7 +186,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -195,7 +195,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principal2:&lt;/href&gt;</value>
+						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
 						<value>DAV:group-membership$</value>
 					</arg>
 				</verify>
@@ -209,7 +209,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -242,7 +242,7 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principal:calendar-proxy-read/&lt;/href&gt;</value>
+						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-read/&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -291,7 +291,7 @@
 			<description>Clear user02 as read-only proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/4.xml</filepath>
@@ -306,7 +306,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -325,7 +325,7 @@
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -377,7 +377,7 @@
 			<description>Add user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/3.xml</filepath>
@@ -392,7 +392,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -401,7 +401,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principal2:&lt;/href&gt;</value>
+						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
 						<value>DAV:group-membership$</value>
 					</arg>
 				</verify>
@@ -415,7 +415,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -448,7 +448,7 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principal:calendar-proxy-write/&lt;/href&gt;</value>
+						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-write/&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -487,11 +487,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principal2:</value>
+					<value>$cuaddralt2:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$principal2:, $principal3:</value>
+					<value>$cuaddralt2:, $cuaddralt3:</value>
 				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
@@ -509,7 +509,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principal:</value>
+					<value>$principal1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -533,7 +533,7 @@
 			<description>Clear user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/4.xml</filepath>
@@ -548,7 +548,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -567,7 +567,7 @@
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -619,7 +619,7 @@
 			<description>Try to add user02 and a bogus user as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/7.xml</filepath>
@@ -668,7 +668,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principal:&lt;/href&gt;</value>
+						<value>DAV:group-member-set$&lt;href&gt;$principaluri1:&lt;/href&gt;</value>
 						<value>DAV:group-membership$</value>
 					</arg>
 				</verify>
@@ -682,7 +682,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -691,7 +691,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>&lt;href&gt;$rprincipal1:calendar-proxy-write/&lt;/href&gt;</value>
+						<value>&lt;href&gt;$rprincipaluri1:calendar-proxy-write/&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -703,7 +703,7 @@
 			<description>Add user02 and user03 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/5.xml</filepath>
@@ -718,7 +718,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/2.xml</filepath>
@@ -727,7 +727,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principal2:&lt;/href&gt;&lt;href&gt;$principal3:&lt;/href&gt;</value>
+						<value>DAV:group-member-set$&lt;href&gt;$principaluri3:&lt;/href&gt;&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
 						<value>DAV:group-membership$</value>
 					</arg>
 				</verify>
@@ -751,7 +751,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$principal2:</value>
-						<value>$principal:calendar-proxy-write/</value>
+						<value>$principal1:calendar-proxy-write/</value>
 					</arg>
 				</verify>
 			</request>
@@ -760,7 +760,7 @@
 			<description>Reset read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal:calendar-proxy-write/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/calendaruserproxy/8.xml</filepath>

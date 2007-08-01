@@ -718,7 +718,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/15.xml</filepath>
@@ -728,7 +728,7 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:alternate-URI-set</value>
-						<value>DAV:principal-URL$&lt;href>$principal:&lt;/href></value>
+						<value>DAV:principal-URL$&lt;href>$principaluri1:&lt;/href></value>
 						<value>DAV:group-member-set</value>
 						<value>DAV:group-membership</value>
 						<value>DAV:displayname$User 01</value>
@@ -740,7 +740,7 @@
 			<description>Check for proper capability in DAV header</description>
 			<request>
 				<method>OPTIONS</method>
-				<ruri>$principal:</ruri>
+				<ruri>$principal1:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

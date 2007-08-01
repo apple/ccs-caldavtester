@@ -480,11 +480,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principal:</value>
+					<value>$cuaddralt1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$principal2:, $principal3:</value>
+					<value>$cuaddralt2:, $cuaddralt3:</value>
 				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
@@ -502,11 +502,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$host:$principal:</value>
+					<value>$host:$cuaddralt1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$host:$principal2:, $host:$principal3:</value>
+					<value>$host:$cuaddralt2:, $host:$cuaddralt3:</value>
 				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
@@ -703,11 +703,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>$principalnoslash:</value>
+					<value>$cuaddraltnoslash1:</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>$principal2noslash:</value>
+					<value>$cuaddraltnoslash2:</value>
 				</header>
 				<ruri>$pathprefix:/$outbox:/</ruri>
 				<data>
@@ -721,7 +721,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>ATTENDEE;CN=User 02:/principals/users/user02</value>
+						<value>ATTENDEE;CN=User 02:$cuaddraltnoslash2:</value>
 					</arg>
 				</verify>
 			</request>
