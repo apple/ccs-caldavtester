@@ -660,9 +660,12 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>FREEBUSY;FBTYPE=BUSY:20060101T170000Z/PT1H,20060101T190000Z/PT1H,20060101T
- 220000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY:20060101T170000Z/PT1H,20060101T190000Z/PT1H,20060101T220000Z/PT1H</value>
 						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
+					</arg>
+					<arg>
+						<name>unwrap</name>
+						<value/>
 					</arg>
 				</verify>
 			</request>
@@ -694,6 +697,10 @@
 						<value><![CDATA[<recipient-exists xmlns='urn:ietf:params:xml:ns:caldav'/>]]></value>
 						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
 					</arg>
+					<arg>
+						<name>unwrap</name>
+						<value/>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -722,6 +729,10 @@
 					<arg>
 						<name>contains</name>
 						<value>ATTENDEE;CN=User 02:$cuaddraltnoslash2:</value>
+					</arg>
+					<arg>
+						<name>unwrap</name>
+						<value/>
 					</arg>
 				</verify>
 			</request>

@@ -26,6 +26,7 @@ class Verifier(object):
         # Get arguments
         contains = args.get("contains", [])
         notcontains = args.get("notcontains", [])
+        unwrap = args.get("unwrap")
         
         # status code must be 200, 207
         if response.status not in (200,207):
@@ -35,12 +36,17 @@ class Verifier(object):
         if not respdata:
             return False, "        No response body"
         
+        # Un wrap if required
+        if unwrap is not None:
+            newrespdata = respdata.replace("\r\n ", "")
+        else:
+            newrespdata = respdata
         # Check each contains and not-contains (AND operation)
         for item in contains:
-            if respdata.find(item.replace("\n", "\r\n")) == -1:
+            if newrespdata.find(item.replace("\n", "\r\n")) == -1:
                 return False, "        Response data does not contain \"%s\"" % (item,)
         for item in notcontains:
-            if respdata.find(item.replace("\n", "\r\n")) != -1:
+            if newrespdata.find(item.replace("\n", "\r\n")) != -1:
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 
         return True, ""
