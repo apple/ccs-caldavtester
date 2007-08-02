@@ -33,6 +33,7 @@ import uuid
 diradmin_user    = "admin"
 diradmin_pswd    = "admin"
 directory_node   = "/LDAPv3/127.0.0.1"
+config           = "/etc/caldavd/caldavd.plist"
 service_locator  = "Bogus"
 
 serverinfo_default = "scripts/server/serverinfo.xml"
