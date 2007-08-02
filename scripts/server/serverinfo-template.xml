@@ -1,0 +1,262 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
+
+<!--
+ Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+ DRI: Cyrus Daboo, cdaboo@apple.com
+ -->
+
+<serverinfo>
+	<host>%(hostname)s</host>
+	<port>8008</port>
+	<authtype>basic</authtype>
+	<substitutions>
+		<substitution>
+			<key>$host:</key>
+			<value>http://%(hostname)s:8008</value>
+		</substitution>
+
+		<!-- relative path to principal collection-->
+		<substitution>
+			<key>$principals:</key>
+			<value>/principals/users/</value>
+		</substitution>
+
+		<!-- relative path to group principal collection-->
+		<substitution>
+			<key>$groups:</key>
+			<value>/principals/groups/</value>
+		</substitution>
+
+		<!-- relative path to resource principal collection-->
+		<substitution>
+			<key>$resources:</key>
+			<value>/principals/resources/</value>
+		</substitution>
+
+		<!-- relative path to location principal collection-->
+		<substitution>
+			<key>$locations:</key>
+			<value>/principals/locations/</value>
+		</substitution>
+
+		<!-- relative path to __uids__ principal collection-->
+		<substitution>
+			<key>$uids:</key>
+			<value>/principals/locations/</value>
+		</substitution>
+
+		<!-- relative path to calendars collection-->
+		<substitution>
+			<key>$calendars:</key>
+			<value>/calendars/</value>
+		</substitution>
+
+		<!-- relative path to user calendars collection-->
+		<substitution>
+			<key>$usercalendars:</key>
+			<value>/calendars/users/</value>
+		</substitution>
+
+		<!-- inbox name-->
+		<substitution>
+			<key>$inbox:</key>
+			<value>inbox</value>
+		</substitution>
+
+		<!-- outbox name-->
+		<substitution>
+			<key>$outbox:</key>
+			<value>outbox</value>
+		</substitution>
+
+		<!-- user id for admin user -->
+		<substitution>
+			<key>$useradmin:</key>
+			<value>testadmin</value>
+		</substitution>
+		<!-- password for admin user -->
+		<substitution>
+			<key>$pswdadmin:</key>
+			<value>testadmin</value>
+		</substitution>
+
+		<!-- relative path to admin principal resource-->
+		<substitution>
+			<key>$principaladmin:</key>
+			<value>/principals/users/testadmin/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluriadmin:</key>
+			<value>/principals/__uids__/%(testadmin_guid)s/</value>
+		</substitution>
+
+		<!-- user id for proxy user -->
+		<substitution>
+			<key>$userproxy:</key>
+			<value>superuser</value>
+		</substitution>
+		<!-- password for proxy user -->
+		<substitution>
+			<key>$pswdproxy:</key>
+			<value>superuser</value>
+		</substitution>
+
+		<!-- relative path to first user principal resource-->
+		<substitution>
+			<key>$userid1:</key>
+			<value>user01</value>
+		</substitution>
+		<!-- password for first user -->
+		<substitution>
+			<key>$pswd1:</key>
+			<value>user01</value>
+		</substitution>
+		<!-- relative path to first user principal resource-->
+		<substitution>
+			<key>$principal1:</key>
+			<value>/principals/users/user01/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluri1:</key>
+			<value>/principals/__uids__/%(user01_guid)s/</value>
+		</substitution>
+		<substitution>
+			<key>$principalnoslash:</key>
+			<value>/principals/users/user01</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$pathprefix:</key>
+			<value>/calendars/users/user01</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution>
+			<key>$calendarpath1:</key>
+			<value>/calendars/users/user01/calendar</value>
+		</substitution>
+		<!-- calendar user address of first user-->
+		<substitution>
+			<key>$cuaddr1:</key>
+			<value>mailto:user01@example.com</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddralt1:</key>
+			<value>/principals/__uids__/%(user01_guid)s/</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddraltnoslash1:</key>
+			<value>/principals/__uids__/%(user01_guid)s</value>
+		</substitution>
+		
+		<!-- user id for second user -->
+		<substitution>
+			<key>$userid2:</key>
+			<value>user02</value>
+		</substitution>
+		<!-- password for second user -->
+		<substitution>
+			<key>$pswd2:</key>
+			<value>user02</value>
+		</substitution>
+		<!-- relative path to second user principal resource-->
+		<substitution>
+			<key>$principal2:</key>
+			<value>/principals/users/user02/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluri2:</key>
+			<value>/principals/__uids__/%(user02_guid)s/</value>
+		</substitution>
+		<substitution>
+			<key>$principal2noslash:</key>
+			<value>/principals/users/user02</value>
+		</substitution>
+		<!-- relative path to second user calendar home-->
+		<substitution>
+			<key>$pathprefix2:</key>
+			<value>/calendars/users/user02</value>
+		</substitution>
+		<!-- calendar user address of second user-->
+		<substitution>
+			<key>$cuaddr2:</key>
+			<value>mailto:user02@example.com</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddralt2:</key>
+			<value>/principals/__uids__/%(user02_guid)s/</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddraltnoslash2:</key>
+			<value>/principals/__uids__/%(user02_guid)s</value>
+		</substitution>
+		
+		<!-- user id for third user -->
+		<substitution>
+			<key>$userid3:</key>
+			<value>user03</value>
+		</substitution>
+		<!-- password for third user -->
+		<substitution>
+			<key>$pswd3:</key>
+			<value>user03</value>
+		</substitution>
+		<!-- relative path to third user principal resource-->
+		<substitution>
+			<key>$principal3:</key>
+			<value>/principals/users/user03/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluri3:</key>
+			<value>/principals/__uids__/%(user03_guid)s/</value>
+		</substitution>
+		<!-- relative path to third user calendar home-->
+		<substitution>
+			<key>$pathprefix3:</key>
+			<value>/calendars/users/user03</value>
+		</substitution>
+		<!-- calendar user address of third user-->
+		<substitution>
+			<key>$cuaddr3:</key>
+			<value>mailto:user03@example.com</value>
+		</substitution>
+		<substitution>
+			<key>$cuaddralt3:</key>
+			<value>/principals/__uids__/%(user03_guid)s/</value>
+		</substitution>
+
+		<!-- relative path to first resource calendar home-->
+		<substitution>
+			<key>$rpathprefix1:</key>
+			<value>/calendars/resources/resource01</value>
+		</substitution>
+		<!-- relative path to first resource principal resource-->
+		<substitution>
+			<key>$rprincipal1:</key>
+			<value>/principals/resources/resource01/</value>
+		</substitution>
+		<substitution>
+			<key>$rprincipaluri1:</key>
+			<value>/principals/__uids__/%(resource01_guid)s/</value>
+		</substitution>
+		<substitution>
+			<key>$rcuaddralt1:</key>
+			<value>/principals/__uids__/%(resource01_guid)s/</value>
+		</substitution>
+	</substitutions>
+	<serverfilepath>%(docroot)s</serverfilepath>
+</serverinfo>
