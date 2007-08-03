@@ -35,9 +35,11 @@ diradmin_pswd    = "admin"
 directory_node   = "/LDAPv3/127.0.0.1"
 config           = "/etc/caldavd/caldavd.plist"
 service_locator  = "Bogus"
+old_style        = False
 
 serverinfo_default = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
+serverinfo_template_old = "scripts/server/serverinfo-template-old.xml"
 
 base_dir = "../CalendarServer/"
 
@@ -189,7 +191,10 @@ def patchSudoers(sudoers):
 def buildServerinfo(hostname, docroot):
     
     # Read in the serverinfo-template.xml file
-    fd = open(serverinfo_template, "r")
+    if old_style:
+        fd = open(serverinfo_template_old, "r")
+    else:
+        fd = open(serverinfo_template, "r")
     try:
         data = fd.read()
     finally:
@@ -230,12 +235,18 @@ def getServiceLocator(hostname):
 
     return "%s:%s:calendar" % (guid, vhostguid,)
 
-def addLargeCalendars(docroot):
+def addLargeCalendars(hostname, docroot):
     calendars = ("calendar.10", "calendar.100", "calendar.1000",)
     path = os.path.join(docroot, "calendars/users/user01")    
 
+    cmd = "curl --digest -u user01:user01 'http://%s:8008/calendars/users/user01/'" % (hostname,)
+    commands.getoutput(cmd)
+
     for calendar in calendars:
         cmd = "tar -C %s -zx -f data/%s.tgz" % (path, calendar,)
+        commands.getoutput(cmd)
+        cpath = os.path.join(path, calendar)    
+        cmd = "chown -R calendar:calendar %s" % (cpath,)
         commands.getoutput(cmd)
     
 def doToAccounts(f):
@@ -255,6 +266,9 @@ def doToAccounts(f):
 def createUser(path, user):
     # Do dscl command line operations to create a calendar user
     
+    if old_style and path == "/Places":
+        path = "/Resources"
+
     # Create the user
     cmd = "dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
     print cmd
@@ -296,7 +310,7 @@ def removeUser(path, user):
 if __name__ == "__main__":
 
     try:
-        options, args = getopt.getopt(sys.argv[1:], "n:p:u:f:")
+        options, args = getopt.getopt(sys.argv[1:], "n:p:u:f:", ["old"])
 
         for option, value in options:
             if option == "-h":
@@ -310,6 +324,8 @@ if __name__ == "__main__":
                 diradmin_pswd = value
             elif option == "-f":
                 config = value
+            elif option == "--old":
+                old_style = True
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
@@ -343,13 +359,16 @@ if __name__ == "__main__":
             doToAccounts(createUser)
             
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+            if old_style:
+                patchConfig(config, "/principals/users/testadmin/")
+            else:
+                patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
             
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(hostname, docroot)
 
             # Add large calendars to user account
-            addLargeCalendars(docroot)
+            addLargeCalendars(hostname, docroot)
 
         elif args[0] == "remove":
             doToAccounts(removeUser)
