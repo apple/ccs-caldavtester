@@ -534,6 +534,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='10' ignore='no'>
+			<description>Valid command</description>
+			<request print-response='no'>
+				<method>ACL</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>DAV:recognized-principal</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY/MOVE interaction with ACL' ignore='no'>
