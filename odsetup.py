@@ -43,6 +43,8 @@ serverinfo_template_old = "scripts/server/serverinfo-template-old.xml"
 
 base_dir = "../CalendarServer/"
 
+number_of_users = 5
+
 guids = {
     "testadmin": "",
     "user01":    "",
@@ -122,7 +124,7 @@ groupattrs = {
 
 records = (
     ("/Users", "testadmin", "testadmin", adminattrs, 1),
-    ("/Users", "user%02d", "user%02d", userattrs, 5),
+    ("/Users", "user%02d", "user%02d", userattrs, None),
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
     ("/Resources", "resource%02d", "resource%02d", resourceattrs, 10),
@@ -130,13 +132,15 @@ records = (
 )
 
 def usage():
-    print """Usage: odsteup [options] create|remove
+    print """Usage: odsteup [options] create|create-users|remove
 Options:
     -h       Print this help and exit
     -n node  OpenDirectory node to target
     -u uid   OpenDirectory Admin user id
     -p pswd  OpenDirectory Admin user password
     -f file  caldavd.plist config file used by the server
+    -c users number of user accounts to create (default: 5)
+    --old    use old-style directory/principal-URL schema
 """
 
 def readConfig(config):
@@ -249,10 +253,16 @@ def addLargeCalendars(hostname, docroot):
         cmd = "chown -R calendar:calendar %s" % (cpath,)
         commands.getoutput(cmd)
     
-def doToAccounts(f):
+def doToAccounts(f, users_only=False):
     for record in records:
-        if record[4] > 1:
-            for ctr in range(1, record[4] + 1):
+        if record[4] is None:
+            count = number_of_users
+        elif users_only:
+            continue
+        else:
+            count = record[4]
+        if count > 1:
+            for ctr in range(1, count + 1):
                 attrs = {}
                 for key, value in record[3].iteritems():
                     if value.find("%02d") != -1:
@@ -269,28 +279,33 @@ def createUser(path, user):
     if old_style and path == "/Places":
         path = "/Resources"
 
-    # Create the user
-    cmd = "dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
-    print cmd
-    os.system(cmd)
+    # Only create if it does not exist
+    cmd = "dscl -u %s -P %s %s -list %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
+    if commands.getstatusoutput(cmd)[0] != 0:
+        # Create the user
+        cmd = "dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
+        print cmd
+        commands.getoutput(cmd)
+        
+        # Set the password (only for /Users)
+        if path == "/Users":
+            cmd = "dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1])
+            print cmd
+            commands.getoutput(cmd)
     
-    # Set the password (only for /Users)
-    if path == "/Users":
-        cmd = "dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1])
-        print cmd
-        os.system(cmd)
-
-    # Other attributes
-    for key, value in user[2].iteritems():
-        if key == "dsAttrTypeStandard:GeneratedUID":
-            value = uuid.uuid4()
-        elif key == "dsAttrTypeStandard:ServicesLocator":
-            value = service_locator
-        elif key == "dsAttrTypeStandard:ResourceInfo":
-            value = value % {"guid":guids["user01"]}
-        cmd = "dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value)
-        print cmd
-        os.system(cmd)
+        # Other attributes
+        for key, value in user[2].iteritems():
+            if key == "dsAttrTypeStandard:GeneratedUID":
+                value = uuid.uuid4()
+            elif key == "dsAttrTypeStandard:ServicesLocator":
+                value = service_locator
+            elif key == "dsAttrTypeStandard:ResourceInfo":
+                value = value % {"guid":guids["user01"]}
+            cmd = "dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value)
+            print cmd
+            commands.getoutput(cmd)
+    else:
+        print "%s/%s already exists" % (path, user[0],)
 
     # Now read the guid for this record
     if guids.has_key(user[0]):
@@ -305,12 +320,12 @@ def removeUser(path, user):
     # Create the user
     cmd = "dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
     print cmd
-    os.system(cmd)
+    commands.getoutput(cmd)
 
 if __name__ == "__main__":
 
     try:
-        options, args = getopt.getopt(sys.argv[1:], "n:p:u:f:", ["old"])
+        options, args = getopt.getopt(sys.argv[1:], "n:p:u:f:c:", ["old"])
 
         for option, value in options:
             if option == "-h":
@@ -324,6 +339,8 @@ if __name__ == "__main__":
                 diradmin_pswd = value
             elif option == "-f":
                 config = value
+            elif option == "-c":
+                number_of_users = int(value)
             elif option == "--old":
                 old_style = True
             else:
@@ -340,7 +357,7 @@ if __name__ == "__main__":
             print "Too many arguments given. Only one of 'create' or 'remove' must be present."
             usage()
             raise ValueError
-        elif args[0] not in ("create", "remove"):
+        elif args[0] not in ("create", "create-users", "remove"):
             print "Wrong arguments given: %s" % (args[0],)
             usage()
             raise ValueError
@@ -369,6 +386,19 @@ if __name__ == "__main__":
 
             # Add large calendars to user account
             addLargeCalendars(hostname, docroot)
+
+        elif args[0] == "create-users":
+            # Read the caldavd.plist file and extract some information we will need.
+            hostname, docroot, sudoers = readConfig(config)
+            
+            # Get the ServiceLocator details we need to enable calendar users.
+            service_locator = getServiceLocator(hostname)
+    
+            # Now generate the OD accounts (caching guids as we go).
+            doToAccounts(createUser, users_only=True)
+            
+            # Create an appropriate serverinfo.xml file from the template
+            buildServerinfo(hostname, docroot)
 
         elif args[0] == "remove":
             doToAccounts(removeUser)
