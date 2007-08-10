@@ -24,7 +24,7 @@
 	<start/>
 	
 	<test-suite name='prop patches' ignore='no'>
-		<test name='1' ignore="no">
+		<test name='1' ignore='no'>
 			<description>PROPPATCH of details: good</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -61,7 +61,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2' ignore='no'>
 			<description>PROPPATCH of details: remove it</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -100,7 +100,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='3' ignore='no'>
 			<description>PROPPATCH remove non-existant</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -117,7 +117,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4'>
+		<test name='4' ignore='no'>
 			<description>PROPPATCH of resourcetype: fails</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
@@ -154,6 +154,41 @@
 					<arg>
 						<name>badprops</name>
 						<value>DAV:details</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>PROPPATCH of encoded value</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:displayname</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/proppatches/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:displayname$calendar &amp;lt;- &amp;amp; ]]&amp;gt;</value>
 					</arg>
 				</verify>
 			</request>
