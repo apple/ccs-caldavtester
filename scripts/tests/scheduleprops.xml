@@ -70,7 +70,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set$&lt;href xmlns="DAV:"&gt;/calendars/users/user01/calendar/&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set$&lt;href xmlns="DAV:"&gt;$calendarpath1:/&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -130,6 +130,105 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
+			<description>PROPPATCH valid calendar - reset it</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Setup some calendars</description>
+			<request  end-delete='yes' print-response="no">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/test1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request end-delete='yes' print-response="no">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix:/test2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>PROPPATCH - valid</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>Delete a calendar</description>
+			<request print-response="no">
+				<method>DELETE</method>
+				<ruri>$pathprefix:/test2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>PROPPATCH - valid new calendar, invalid existing</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>PROPPATCH - invalid new calendar, invalid existing</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/scheduleprops/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
 			<description>PROPPATCH valid calendar - reset it</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
