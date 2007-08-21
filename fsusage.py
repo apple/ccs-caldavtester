@@ -21,13 +21,13 @@
 # Generates fs_usage counts for CalDAVTester script runs.
 #
 
-import subprocess
-
 from src.manager import manager
 import getopt
 import os
 import signal
+import subprocess
 import sys
+import time
 
 def usage():
     print """Usage: fsusage [options]
@@ -39,7 +39,9 @@ Options:
 def getFSUsage(count, testscript, runs, pid, sname):
     tmpfile = "temp.fsusage.%02d" % (count,)
     fd = open(tmpfile, "w")
-    cid = subprocess.Popen(["fs_usage", "-f", "filesys", "%s" %(pid,),], stdout=fd).pid
+    cid = subprocess.Popen(["fs_usage", "-f", "filesys", "%s" %(pid,),], stdout=fd, stderr=fd).pid
+    
+    time.sleep(5)
     
     pname = None
     fnames = [testscript]
@@ -82,13 +84,14 @@ if __name__ == "__main__":
     fd = None
     
     tests = (
-        ("performance/get/get-small.xml", 10, "get-small",),
-        ("performance/get/get-large.xml", 10, "get-large",),
         ("performance/put/put-small.xml", 10, "put-small",),
         ("performance/put/put-large.xml", 10, "put-large",),
-        #("performance/propfind/propfind-small.xml", 10, "propfind-small",),
-        #("performance/propfind/propfind-medium.xml", 10, "propfind-medium",),
-        #("performance/propfind/propfind-large.xml", 10, "propfind-large",),
+        ("performance/get/get-small.xml", 10, "get-small",),
+        ("performance/get/get-large.xml", 10, "get-large",),
+        ("performance/propfind/propfind-ctag.xml", 10, "propfind-ctag",),
+        ("performance/propfind/propfind-small.xml", 10, "propfind-small",),
+        ("performance/propfind/propfind-medium.xml", 10, "propfind-medium",),
+        ("performance/propfind/propfind-large.xml", 10, "propfind-large",),
     )
     
     result = []
