@@ -36,8 +36,9 @@ Options:
     -f file  pid file of caldavd server
 """
 
-def getFSUsage(testscript, runs, pid, sname):
-    fd = open("temp", "w")
+def getFSUsage(count, testscript, runs, pid, sname):
+    tmpfile = "temp.fsusage.%02d" % (count,)
+    fd = open(tmpfile, "w")
     cid = subprocess.Popen(["fs_usage", "-f", "filesys", "%s" %(pid,),], stdout=fd).pid
     
     pname = None
@@ -48,7 +49,7 @@ def getFSUsage(testscript, runs, pid, sname):
 
     os.kill(cid, signal.SIGTERM)
 
-    fd = open("temp", "r")
+    fd = open(tmpfile, "r")
     ctr = 0
     for line in fd:
         ctr += 1
@@ -91,5 +92,5 @@ if __name__ == "__main__":
     )
     
     result = []
-    for test in tests:
-        print "%s\t%s" % (test[2], getFSUsage(test[0], test[1], pid, scriptsfile),)
+    for ctr, test in enumerate(tests):
+        print "%s\t%s" % (test[2], getFSUsage(ctr, test[0], test[1], pid, scriptsfile),)
