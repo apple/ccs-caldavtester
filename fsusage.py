@@ -36,11 +36,10 @@ Options:
     -f file  pid file of caldavd server
 """
 
-def getFSUsage(testscript, runs, pid):
+def getFSUsage(testscript, runs, pid, sname):
     fd = open("temp", "w")
     cid = subprocess.Popen(["fs_usage", "-f", "filesys", "%s" %(pid,),], stdout=fd).pid
     
-    sname = "scripts/server/serverinfo.xml"
     pname = None
     fnames = [testscript]
 
@@ -58,7 +57,9 @@ def getFSUsage(testscript, runs, pid):
 
 if __name__ == "__main__":
 
-    options, args = getopt.getopt(sys.argv[1:], "f:")
+    pidfile = "../CalendarServer/logs/caldavd.pid"
+    scriptsfile = "scripts/server/serverinfo.xml"
+    options, args = getopt.getopt(sys.argv[1:], "f:s:")
 
     for option, value in options:
         if option == "-h":
@@ -66,6 +67,8 @@ if __name__ == "__main__":
             sys.exit(0)
         elif option == "-f":
             pidfile = value
+        elif option == "-s":
+            scriptsfile = value
         else:
             print "Unrecognized option: %s" % (option,)
             usage()
@@ -82,11 +85,11 @@ if __name__ == "__main__":
         ("performance/get/get-large.xml", 10, "GET large",),
         ("performance/put/put-small.xml", 10, "PUT small",),
         ("performance/put/put-large.xml", 10, "PUT large",),
-        ("performance/propfind/propfind-small.xml", 10, "PROPFIND small",),
-        ("performance/propfind/propfind-medium.xml", 10, "PROPFIND medium",),
-        ("performance/propfind/propfind-large.xml", 10, "PROPFIND large",),
+        #("performance/propfind/propfind-small.xml", 10, "PROPFIND small",),
+        #("performance/propfind/propfind-medium.xml", 10, "PROPFIND medium",),
+        #("performance/propfind/propfind-large.xml", 10, "PROPFIND large",),
     )
     
     result = []
     for test in tests:
-        print "%s\t%s" % (test[2], getFSUsage(test[0], test[1], pid),)
+        print "%s\t%s" % (test[2], getFSUsage(test[0], test[1], pid, scriptsfile),)
