@@ -82,13 +82,13 @@ if __name__ == "__main__":
     fd = None
     
     tests = (
-        ("performance/get/get-small.xml", 10, "GET small",),
-        ("performance/get/get-large.xml", 10, "GET large",),
-        ("performance/put/put-small.xml", 10, "PUT small",),
-        ("performance/put/put-large.xml", 10, "PUT large",),
-        #("performance/propfind/propfind-small.xml", 10, "PROPFIND small",),
-        #("performance/propfind/propfind-medium.xml", 10, "PROPFIND medium",),
-        #("performance/propfind/propfind-large.xml", 10, "PROPFIND large",),
+        ("performance/get/get-small.xml", 10, "get-small",),
+        ("performance/get/get-large.xml", 10, "get-large",),
+        ("performance/put/put-small.xml", 10, "put-small",),
+        ("performance/put/put-large.xml", 10, "put-large",),
+        #("performance/propfind/propfind-small.xml", 10, "propfind-small",),
+        #("performance/propfind/propfind-medium.xml", 10, "propfind-medium",),
+        #("performance/propfind/propfind-large.xml", 10, "propfind-large",),
     )
     
     result = []
