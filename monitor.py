@@ -73,9 +73,9 @@ class monitor(object):
             "",
             [script,],
             {
-                "$userid1:"  : self.user,
-                "$pswd1:"    : self.pswd,
-                "$principal:": "/principals/users/%s/" % (self.user,)
+                "$userid1:"   : self.user,
+                "$pswd1:"     : self.pswd,
+                "$principal1:": "/principals/users/%s/" % (self.user,)
             }
         )
 
