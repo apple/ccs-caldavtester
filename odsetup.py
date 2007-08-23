@@ -325,7 +325,7 @@ def removeUser(path, user):
 if __name__ == "__main__":
 
     try:
-        options, args = getopt.getopt(sys.argv[1:], "n:p:u:f:c:", ["old"])
+        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:", ["old"])
 
         for option, value in options:
             if option == "-h":
