@@ -1217,6 +1217,44 @@
 
 	<test-suite name='POST cancel non-recurring' ignore='no'>
 		<test name='1' ignore='no'>
+			<description>getctag on resource01 Calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$rpathprefix1:/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$calendarctag:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>getctag on resource01 inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$inboxctag:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
@@ -1242,7 +1280,7 @@
 				<ruri>6</ruri>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='4' ignore='no'>
 			<description>No item in user01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1260,7 +1298,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='5' ignore='no'>
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
@@ -1274,7 +1312,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1292,7 +1330,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='7' ignore='no'>
 			<description>Two items in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1310,7 +1348,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='8' ignore='no'>
 			<description>No item in resource01 Outbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1328,7 +1366,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='9' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1338,6 +1376,50 @@
 					<arg>
 						<name>count</name>
 						<value>6</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>Test getctag on resource01 Calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$rpathprefix1:/calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$calendarctag:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<description>getctag on resource01 inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$inboxctag:</value>
 					</arg>
 				</verify>
 			</request>
