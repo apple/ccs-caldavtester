@@ -148,14 +148,14 @@ class monitor(object):
     def reportStart(html):
         if html:
             print """<html>
-<head><title>Server Status</title></head>
+<head><title>Server Status on %s</title></head>
 <body>
 
-"""
+""" % (str(datetime.datetime.now().replace(microsecond=0)))
         else:
-            print """Server Status
+            print """Server Status on %s
 
-"""
+""" % (str(datetime.datetime.now().replace(microsecond=0)))
 
     @staticmethod
     def reportEnd(html):
