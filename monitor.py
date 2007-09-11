@@ -22,6 +22,7 @@
 #
 
 from getpass import getpass
+import socket
 import datetime
 import signal
 import sys
@@ -125,17 +126,17 @@ class monitor(object):
                 break
             if self.minfo.logging:
                 self.logtxt("Result: %d, Timing: %.3f" % (result, timing,))
-            if timing >= self.minfo.warningtime:
-                msg = "WARNING: request time (%.3f) exceeds limit (%.3f)" % (timing, self.minfo.warningtime,)
-                self.logtxt(msg)
-                if self.minfo.notify_time_exceeded and (time.time() - last_notify > self.minfo.notify_interval * 60):
-                    self.logtxt("Sending notification to %s" % (self.minfo.notify,))
-                    self.doNotification(msg)
-                    last_notify = time.time()
             if result != 0:
                 msg = "WARNING: request failed"
                 self.logtxt(msg)
                 if self.minfo.notify_request_failed and (time.time() - last_notify > self.minfo.notify_interval * 60):
+                    self.logtxt("Sending notification to %s" % (self.minfo.notify,))
+                    self.doNotification(msg)
+                    last_notify = time.time()
+            elif timing >= self.minfo.warningtime:
+                msg = "WARNING: request time (%.3f) exceeds limit (%.3f)" % (timing, self.minfo.warningtime,)
+                self.logtxt(msg)
+                if self.minfo.notify_time_exceeded and (time.time() - last_notify > self.minfo.notify_interval * 60):
                     self.logtxt("Sending notification to %s" % (self.minfo.notify,))
                     self.doNotification(msg)
                     last_notify = time.time()
@@ -162,6 +163,7 @@ if __name__ == "__main__":
         sys.exit()
 
     signal.signal(signal.SIGINT, signalEnd)
+    socket.setdefaulttimeout(120)    # Two minute timeout
 
     m.doStart()
 
