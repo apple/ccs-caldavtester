@@ -22,6 +22,7 @@
 #
 
 from getpass import getpass
+import itertools
 import getopt
 import socket
 import datetime
@@ -143,11 +144,33 @@ class monitor(object):
                     self.doNotification(msg)
                     last_notify = time.time()
 
+    @staticmethod
+    def reportStart(html):
+        if html:
+            print """<html>
+<head><title>Server Status</title></head>
+<body>
+
+"""
+        else:
+            print """Server Status
+
+"""
+
+    @staticmethod
+    def reportEnd(html):
+        if html:
+            print """
+</body>
+</html>
+"""
+
     def reportUptime(self, html):
         
         # Read in the logfile and count failures.
         startstops = []
         failures = 0
+        last_failure = None
         fd = open(self.logname, "r")
         for line in fd:
             if line.find("Starting Monitor") != -1:
@@ -156,6 +179,7 @@ class monitor(object):
                 startstops.append(line)
             elif line.find("WARNING: request failed") != -1:
                 failures += 1
+                last_failure = line
         
         # Failed time = number of failures * monitor period (seconds)
         downtime = int(failures * self.minfo.period)
@@ -179,25 +203,40 @@ class monitor(object):
         
         uptime = elapsed_time - downtime
 
+        # Determine whether its up or down right now
+        if last_failure:
+            lastdowntime = self.parse_date(last_failure)
+            now = datetime.datetime.now()
+            diff = now - lastdowntime
+            diff = diff.days * 24 * 60 * 60 + diff.seconds
+            if diff < 2 * self.minfo.period:
+                status = "DOWN"
+            else:
+                status = "UP"
+        else:
+            status = "UP"
         if html:
-            print """<html>
-<head><title>Server Status</title></head>
-<body>
-<h2>Server Status: %s</h2>
+            print """
+<h2>Server: %s</h2>
 <table>
 <tr><td>Uptime</td><td>approx. %d (hours) / %d (days)</td></tr>
 <tr><td>Downtime</td><td>approx. %d (minutes) / %d (hours)</td></tr>
 <tr><td>Percentage</td><td>%.3f%%</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;<td></tr>
+<tr><td>Current Status</td><td>%s<td></tr>
 </table>
-</body>
-</html>
-""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime)
+
+""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
         else:
-            print """Server Status: %s
+            print """
+Server: %s
     Uptime:     approx. %d (hours) / %d (days)
     Downtime:   approx. %d (minutes) / %d (hours)
     Percentage: %.3f%%
-""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime)
+
+    Current Status: %s
+
+""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
 
     def parse_date(self, line):
         
@@ -233,13 +272,21 @@ if __name__ == "__main__":
             usage()
             raise ValueError
 
-    if len(args) > 0:
-        infoname = args[0]
-        
-    if len(args) > 1:
-        logname = args[1]
+    if uptime:
+        infoname = []
+        logname = []
+        for i in range(len(args)/2):
+            infoname.append(args[2 * i])
+            logname.append(args[2 * i + 1])
+
     else:
-        logname = None
+        if len(args) > 0:
+            infoname = args[0]
+            
+        if len(args) > 1:
+            logname = args[1]
+        else:
+            logname = None
 
     if uptime:
         user = ""
@@ -248,12 +295,17 @@ if __name__ == "__main__":
         user = raw_input("User: ")
         pswd = getpass("Password: ")
     
-    m = monitor(infoname, logname, user, pswd)
-    m.readXML()
-
     if uptime:
-        m.reportUptime(html)
+        monitor.reportStart(html)
+        for info, log in itertools.izip(infoname, logname):
+            m = monitor(info, log, user, pswd)
+            m.readXML()
+            m.reportUptime(html)
+        monitor.reportEnd(html)
     else:
+        m = monitor(infoname, logname, user, pswd)
+        m.readXML()
+
         def signalEnd(sig, frame):
             m.doEnd()
             sys.exit()
