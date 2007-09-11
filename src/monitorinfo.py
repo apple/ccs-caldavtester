@@ -31,8 +31,10 @@ class monitorinfo( object ):
     Maintains information about the monitoring test scenario.
     """
     __slots__  = [
+        'name',
         'logging',
         'period',
+        'timeout',
         'serverinfo',
         'startscript',
         'testinfo',
@@ -48,8 +50,10 @@ class monitorinfo( object ):
     ]
 
     def __init__( self ):
+        self.name = ""
         self.logging = False
         self.period = 1.0
+        self.timeout = 60
         self.serverinfo = ""
         self.startscript = ""
         self.testinfo = ""
@@ -64,11 +68,15 @@ class monitorinfo( object ):
         self.notify_body = None
 
     def parseXML( self, node ):
+        
+        self.name = getDefaultAttributeValue(node, src.xmlDefs.ATTR_NAME, "")
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_LOGGING:
                 self.logging = getYesNoAttributeValue(child, src.xmlDefs.ATTR_ENABLE)
             elif child._get_localName() == src.xmlDefs.ELEMENT_PERIOD:
                 self.period = float(child.firstChild.data)
+            elif child._get_localName() == src.xmlDefs.ELEMENT_TIMEOUT:
+                self.timeout = int(child.firstChild.data)
             elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
                 self.serverinfo = child.firstChild.data
             elif child._get_localName() == src.xmlDefs.ELEMENT_START:

@@ -22,6 +22,7 @@
 #
 
 from getpass import getpass
+import getopt
 import socket
 import datetime
 import signal
@@ -44,8 +45,9 @@ class monitor(object):
         self.pswd = pswd
         self.minfo = None
 
-        if logname:
-            self.log = open(logname, "a")
+        self.logname = logname
+        if self.logname:
+            self.log = open(self.logname, "a")
         else:
             self.log = None
             
@@ -141,35 +143,129 @@ class monitor(object):
                     self.doNotification(msg)
                     last_notify = time.time()
 
+    def reportUptime(self, html):
+        
+        # Read in the logfile and count failures.
+        startstops = []
+        failures = 0
+        fd = open(self.logname, "r")
+        for line in fd:
+            if line.find("Starting Monitor") != -1:
+                startstops.append(line)
+            elif line.find("Stopped Monitor") != -1:
+                startstops.append(line)
+            elif line.find("WARNING: request failed") != -1:
+                failures += 1
+        
+        # Failed time = number of failures * monitor period (seconds)
+        downtime = int(failures * self.minfo.period)
+        
+        # Now calculate actual monitor run time
+        elapsed_time = 0
+        start = None
+        for item in startstops:
+            if start is None and item.find("Starting Monitor") != -1:
+                start = self.parse_date(item)
+            elif start is not None and item.find("Stopped Monitor"):
+                end = self.parse_date(item)
+                delta = end - start
+                elapsed_time += delta.days * 24 * 60 * 60 + delta.seconds
+                start = None
+        
+        if start is not None:
+            end = datetime.datetime.now()
+            delta = end - start
+            elapsed_time += delta.days * 24 * 60 * 60 + delta.seconds
+        
+        uptime = elapsed_time - downtime
+
+        if html:
+            print """<html>
+<head><title>Server Status</title></head>
+<body>
+<h2>Server Status: %s</h2>
+<table>
+<tr><td>Uptime</td><td>approx. %d (hours) / %d (days)</td></tr>
+<tr><td>Downtime</td><td>approx. %d (minutes) / %d (hours)</td></tr>
+<tr><td>Percentage</td><td>%.3f%%</td></tr>
+</table>
+</body>
+</html>
+""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime)
+        else:
+            print """Server Status: %s
+    Uptime:     approx. %d (hours) / %d (days)
+    Downtime:   approx. %d (minutes) / %d (hours)
+    Percentage: %.3f%%
+""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime)
+
+    def parse_date(self, line):
+        
+        date = line[1:].split(']')[0]
+        return datetime.datetime(*(time.strptime(date, "%Y-%m-%d %H:%M:%S")[0:6]))
+
+def usage():
+    print """Usage: monitor.py [options] [<configfile>] [<logfile>]
+Options:
+    -h       Print this help and exit
+    -u       generate report of server uptime
+    --html   generate report as HTML
+"""
+
 if __name__ == "__main__":
     
     infoname = "scripts/monitoring/monitorinfo.xml"
-    if len(sys.argv) > 1:
-        infoname = sys.argv[1]
+    uptime = False
+    html = False
+
+    options, args = getopt.getopt(sys.argv[1:], "huw", ["html"])
+
+    for option, value in options:
+        if option == "-h":
+            usage()
+            sys.exit(0)
+        elif option == "-u":
+            uptime = True
+        elif option == "--html":
+            html = True
+        else:
+            print "Unrecognized option: %s" % (option,)
+            usage()
+            raise ValueError
+
+    if len(args) > 0:
+        infoname = args[0]
         
-    if len(sys.argv) > 2:
-        logname = sys.argv[2]
+    if len(args) > 1:
+        logname = args[1]
     else:
         logname = None
 
-    user = raw_input("User: ")
-    pswd = getpass("Password: ")
+    if uptime:
+        user = ""
+        pswd = ""
+    else:
+        user = raw_input("User: ")
+        pswd = getpass("Password: ")
     
     m = monitor(infoname, logname, user, pswd)
     m.readXML()
 
-    def signalEnd(sig, frame):
-        m.doEnd()
-        sys.exit()
-
-    signal.signal(signal.SIGINT, signalEnd)
-    socket.setdefaulttimeout(120)    # Two minute timeout
-
-    m.doStart()
-
-    try:
-        m.runLoop()
-    except SystemExit:
-        pass
-    except Exception, e:
-        m.doError(str(e))
+    if uptime:
+        m.reportUptime(html)
+    else:
+        def signalEnd(sig, frame):
+            m.doEnd()
+            sys.exit()
+    
+        signal.signal(signal.SIGINT, signalEnd)
+        socket.setdefaulttimeout(m.minfo.timeout)
+    
+        m.doStart()
+    
+        try:
+            m.runLoop()
+        except SystemExit:
+            pass
+        except Exception, e:
+            m.doError(str(e))

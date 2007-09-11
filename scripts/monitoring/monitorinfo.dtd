@@ -16,12 +16,15 @@
  DRI: Cyrus Daboo, cdaboo@apple.com
  -->
 
-<!ELEMENT monitorinfo (logging, period, serverinfo, start, testinfo, end, warningtime, notify?) >
+<!ELEMENT monitorinfo (logging, period, timeout, serverinfo, start, testinfo, end, warningtime, notify?) >
+	<!ATTLIST monitorinfo	name CDATA	"">
 
 	<!ELEMENT logging		EMPTY>
 		<!ATTLIST logging	enable (yes|no) "no">
 
 	<!ELEMENT period    	(#PCDATA)>
+
+	<!ELEMENT timeout    	(#PCDATA)>
 
 	<!ELEMENT serverinfo	(#PCDATA)>
 
