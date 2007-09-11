@@ -188,9 +188,12 @@ class monitor(object):
         # Now calculate actual monitor run time
         elapsed_time = 0
         start = None
+        firststart = None
         for item in startstops:
             if start is None and item.find("Starting Monitor") != -1:
                 start = self.parse_date(item)
+                if firststart is None:
+                    firststart = self.parse_date(item)
             elif start is not None and item.find("Stopped Monitor"):
                 end = self.parse_date(item)
                 delta = end - start
@@ -220,6 +223,7 @@ class monitor(object):
             print """
 <h3>Server: %s</h3>
 <table>
+<tr><td>Since</td><td>%s</td></tr>
 <tr><td>Uptime</td><td>approx. %d (hours) / %d (days)</td></tr>
 <tr><td>Downtime</td><td>approx. %d (minutes) / %d (hours)</td></tr>
 <tr><td>Percentage</td><td>%.3f%%</td></tr>
@@ -227,17 +231,18 @@ class monitor(object):
 <tr><td>Current Status</td><td>%s<td></tr>
 </table>
 
-""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
+""" % (self.minfo.name, str(firststart), uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
         else:
             print """
 Server: %s
+    Since:      %s
     Uptime:     approx. %d (hours) / %d (days)
     Downtime:   approx. %d (minutes) / %d (hours)
     Percentage: %.3f%%
 
     Current Status: %s
 
-""" % (self.minfo.name, uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
+""" % (self.minfo.name, str(firststart), uptime/60/60, uptime/60/60/24, downtime/60, downtime/60/60, ((uptime - downtime) * 100.0)/uptime, status)
 
     def parse_date(self, line):
         
