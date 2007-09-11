@@ -71,7 +71,7 @@ class caldavtest(object):
             self.dorequests( "Executing End Requests...", self.end_requests, False )
             return ok, failed, ignored
         except socket.error, msg:
-            self.manager.log(manager.LOG_HIGH, "FATAL ERROR: " + msg.args[1], before=2)
+            self.manager.log(manager.LOG_HIGH, "FATAL ERROR: %s" % (msg,), before=2)
             return 0, 1, 0
         
     def run_tests( self ):
