@@ -71,7 +71,7 @@ class monitor(object):
         self.minfo.parseXML(node)
     
     def doScript(self, script):
-        mgr = manager(level=manager.LOG_NONE)
+        mgr = manager(level=manager.LOG_ERROR, log_file=self.log)
         return mgr.runWithOptions(
             self.minfo.serverinfo,
             "",
@@ -102,12 +102,15 @@ class monitor(object):
         self.logtxt("Run exception: %s" % (msg,))
 
     def doNotification(self, msg):
-        sendemail(
-            fromaddr = ("Do Not Reply", self.minfo.notify_from),
-            toaddrs = [("", a) for a in self.minfo.notify],
-            subject = self.minfo.notify_subject,
-            body = self.minfo.notify_body % (msg,),
-        )
+        try:
+            sendemail(
+                fromaddr = ("Do Not Reply", self.minfo.notify_from),
+                toaddrs = [("", a) for a in self.minfo.notify],
+                subject = self.minfo.notify_subject,
+                body = self.minfo.notify_body % (msg,),
+            )
+        except Exception, e:
+            self.doError(str(e))
 
     def logtxt(self, txt):
         dt = str(datetime.datetime.now())
@@ -298,8 +301,8 @@ if __name__ == "__main__":
         user = ""
         pswd = ""
     else:
-        user = raw_input("User: ")
-        pswd = getpass("Password: ")
+        user = "cdaboo" #raw_input("User: ")
+        pswd = "caldav6585-2" #getpass("Password: ")
     
     if uptime:
         monitor.reportStart(html)

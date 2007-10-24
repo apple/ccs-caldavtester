@@ -61,7 +61,7 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
             result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
             if not result:
-                self.manager.log(manager.LOG_HIGH, "Start items failed - tests will not be run.")
+                self.manager.log(manager.LOG_ERROR, "Start items failed - tests will not be run.")
                 ok = 0
                 failed = 1
                 ignored = 0
@@ -71,7 +71,10 @@ class caldavtest(object):
             self.dorequests( "Executing End Requests...", self.end_requests, False )
             return ok, failed, ignored
         except socket.error, msg:
-            self.manager.log(manager.LOG_HIGH, "FATAL ERROR: %s" % (msg,), before=2)
+            self.manager.log(manager.LOG_ERROR, "SOCKET ERROR: %s" % (msg,), before=2)
+            return 0, 1, 0
+        except Exception, e:
+            self.manager.log(manager.LOG_ERROR, "FATAL ERROR: %s" % (e,), before=2)
             return 0, 1, 0
         
     def run_tests( self ):
@@ -133,9 +136,10 @@ class caldavtest(object):
                     result, resulttxt, response, respdata = self.dorequest( req, test.details, True, False, reqstats )
                     if not result:
                         break
-            self.manager.log(manager.LOG_HIGH, ["[FAILED]", "[OK]"][result])
+            loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
+            self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
             if len(resulttxt) > 0:
-                self.manager.log(manager.LOG_HIGH, resulttxt)
+                self.manager.log(loglevel, resulttxt)
             if result and test.stats:
                 self.manager.log(manager.LOG_MEDIUM, "Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
                 self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
@@ -153,9 +157,10 @@ class caldavtest(object):
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
             ctr += 1
-        self.manager.log(manager.LOG_HIGH, ["[FAILED]", "[OK]"][result])
+        loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
+        self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
         if len(resulttxt) > 0:
-            self.manager.log(manager.LOG_HIGH, resulttxt)
+            self.manager.log(loglevel, resulttxt)
         return result
     
     def dofindall( self, collection):
