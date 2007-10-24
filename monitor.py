@@ -22,6 +22,7 @@
 #
 
 from getpass import getpass
+from StringIO import StringIO
 import itertools
 import getopt
 import socket
@@ -70,8 +71,8 @@ class monitor(object):
         self.minfo = monitorinfo()
         self.minfo.parseXML(node)
     
-    def doScript(self, script):
-        mgr = manager(level=manager.LOG_ERROR, log_file=self.log)
+    def doScript(self, script, logger):
+        mgr = manager(level=manager.LOG_ERROR, log_file=logger)
         return mgr.runWithOptions(
             self.minfo.serverinfo,
             "",
@@ -127,13 +128,14 @@ class monitor(object):
             time.sleep(self.minfo.period)
             if not self.running:
                 break
-            result, timing = m.doScript(self.minfo.testinfo)
+            logger = StringIO()
+            result, timing = m.doScript(self.minfo.testinfo, logger)
             if not self.running:
                 break
             if self.minfo.logging:
                 self.logtxt("Result: %d, Timing: %.3f" % (result, timing,))
             if result != 0:
-                msg = "WARNING: request failed"
+                msg = "WARNING: request failed\n----\n%s\n----\n" % (logger.getvalue(),)
                 self.logtxt(msg)
                 if self.minfo.notify_request_failed and (time.time() - last_notify > self.minfo.notify_interval * 60):
                     self.logtxt("Sending notification to %s" % (self.minfo.notify,))
@@ -258,6 +260,8 @@ Options:
     -h       Print this help and exit
     -u       generate report of server uptime
     --html   generate report as HTML
+    --user   user name for test account
+    --pswd   password
 """
 
 if __name__ == "__main__":
@@ -265,8 +269,10 @@ if __name__ == "__main__":
     infoname = "scripts/monitoring/monitorinfo.xml"
     uptime = False
     html = False
+    user = None
+    pswd = None
 
-    options, args = getopt.getopt(sys.argv[1:], "huw", ["html"])
+    options, args = getopt.getopt(sys.argv[1:], "huw", ["html", "user=", "pswd=",])
 
     for option, value in options:
         if option == "-h":
@@ -276,6 +282,10 @@ if __name__ == "__main__":
             uptime = True
         elif option == "--html":
             html = True
+        elif option == "--user":
+            user = value
+        elif option == "--pswd":
+            pswd = value
         else:
             print "Unrecognized option: %s" % (option,)
             usage()
@@ -301,8 +311,10 @@ if __name__ == "__main__":
         user = ""
         pswd = ""
     else:
-        user = raw_input("User: ")
-        pswd = getpass("Password: ")
+        if not user:
+            user = raw_input("User: ")
+        if not pswd:
+            pswd = getpass("Password: ")
     
     if uptime:
         monitor.reportStart(html)
