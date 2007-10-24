@@ -301,8 +301,8 @@ if __name__ == "__main__":
         user = ""
         pswd = ""
     else:
-        user = "cdaboo" #raw_input("User: ")
-        pswd = "caldav6585-2" #getpass("Password: ")
+        user = raw_input("User: ")
+        pswd = getpass("Password: ")
     
     if uptime:
         monitor.reportStart(html)
