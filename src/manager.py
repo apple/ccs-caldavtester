@@ -41,14 +41,15 @@ class manager(object):
     Main class that runs test suites defined in an XML config file.
     """
     __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'pid', 'memUsage', 'logLevel', 
-                  'digestCache']
+                  'logFile', 'digestCache']
 
     LOG_NONE    = 0
-    LOG_LOW     = 1
-    LOG_MEDIUM  = 2
-    LOG_HIGH    = 3
+    LOG_ERROR   = 1
+    LOG_LOW     = 2
+    LOG_MEDIUM  = 3
+    LOG_HIGH    = 4
 
-    def __init__( self, text=True, level=LOG_HIGH ):
+    def __init__( self, text=True, level=LOG_HIGH, log_file=None ):
         self.server_info = serverinfo()
         self.populator = None
         self.depopulate = False
@@ -57,17 +58,24 @@ class manager(object):
         self.pid = 0
         self.memUsage = None
         self.logLevel = level
+        self.logFile = log_file
         self.digestCache = {}
     
     def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
         if self.textMode and level <= self.logLevel:
             if before:
-                print "\n" * before,
+                self.logit("\n" * before)
             if indent:
-                print indentStr * indent,
-            print str,
+                self.logit(indentStr * indent)
+            self.logit(str)
             if after:
-                print "\n" * after,
+                self.logit("\n" * after)
+
+    def logit(self, str):
+        if self.logFile:
+            self.logFile.write(str)
+        else:
+            print str,
 
     def readXML( self, serverfile, populatorfile, testfiles, all, moresubs = {} ):
 
