@@ -33,6 +33,10 @@
 			</data>
 		</request>
 		<request end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix:/collection/</ruri>
+		</request>
+		<request end-delete="yes">
 			<method>MKCALENDAR</method>
 			<ruri>$pathprefix:/calendar2/</ruri>
 		</request>
@@ -526,6 +530,42 @@
 				</verify>
 			</request>
 		</test>
+		<test name='12'>
+			<description>COPY calendar into calendar</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/calendar2/</value>
+				</header>
+				<ruri>$pathprefix:/calendar2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>COPY collection into calendar</description>
+			<request>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/collection/</value>
+				</header>
+				<ruri>$pathprefix:/collection/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='MOVE' ignore='no'>
@@ -723,6 +763,42 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavnumber-of-recurrences-within-limits</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>MOVE calendar into calendar</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/calendar2/</value>
+				</header>
+				<ruri>$pathprefix:/calendar2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>MOVE collection into calendar</description>
+			<request>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix:/calendar/collection/</value>
+				</header>
+				<ruri>$pathprefix:/collection/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
