@@ -369,6 +369,61 @@
 				</verify>
 			</request>
 		</test>
+		<test name='12' ignore='no'>
+			<description>POST reply with disabled Attendee:</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddrdisabled:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/20.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value><![CDATA[<recipient-exists xmlns='urn:ietf:params:xml:ns:caldav'/>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>POST reply with disabled Organizer:</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddrdisabled:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedule/21.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavorganizer-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name="POSTs" ignore='no'>
