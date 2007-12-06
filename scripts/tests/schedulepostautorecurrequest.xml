@@ -543,6 +543,63 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='POST recurring multi-user/multi-instance' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Do POST</description>
+			<request>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddralt1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$rcuaddralt1:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/scheduleautorecurrequest/22.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>6</ruri>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>No items in resource01 Inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>One item in user01 Inbox</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/scheduleautorecurrequest/23.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request>
 			<method>DELETEALL</method>
