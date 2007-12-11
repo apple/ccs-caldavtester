@@ -91,6 +91,76 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Timezone cache - aliases'>
+		<test name='1'>
+			<description>PUT event with truncated timezone in April</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/timezones/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>query for free busy with time range</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/timezones/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20070401T143000Z/20070401T153000Z</value>
+						<value>20071210T153000Z/20071210T163000Z</value>
+						<value>20070402T150000Z/20070402T160000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT event with truncated timezone in December</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>5.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/timezones/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>query for free busy with time range</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/timezones/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20070401T143000Z/20070401T153000Z</value>
+						<value>20071210T153000Z/20071210T163000Z</value>
+						<value>20070402T150000Z/20070402T160000Z</value>
+						<value>20071211T140000Z/20071211T150000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 	
 </caldavtest>
