@@ -212,6 +212,35 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='No X-CALENDARSERVER-ACCESS on Outbox' ignore='no'>
+		<test name='1'>
+			<description>Do POST on Outbox with wrong data</description>
+			<request print-response="no">
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr2:, $cuaddr3:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>http://calendarserver.org/ns/no-access-restrictions</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 
 </caldavtest>
