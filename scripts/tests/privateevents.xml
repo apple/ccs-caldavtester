@@ -44,6 +44,30 @@
 				<filepath>Resource/privateevents/4.xml</filepath>
 			</data>
 		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/copycalendar/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/copycalendar/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/4.xml</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/movecalendar/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/movecalendar/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/4.xml</filepath>
+			</data>
+		</request>
 	</start>
 	
 	<test-suite name='OPTIONS header' ignore='no'>
@@ -2179,7 +2203,7 @@
 	<test-suite name='query PUBLIC tests' ignore='no'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="yes">
+			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$pathprefix:/sharedcalendar/</ruri>
 				<data>
@@ -2578,6 +2602,1003 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='query no match SUMMARY' ignore='no'>
+		<test name='1'>
+			<description>query by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/26.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>query by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/26.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/26.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='query no match LOCATION' ignore='no'>
+		<test name='1'>
+			<description>query by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/27.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>query by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/27.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/27.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='query no match ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>query by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/28.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>query by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/28.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/28.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='query no match VALARM' ignore='no'>
+		<test name='1'>
+			<description>query by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/29.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>query by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/29.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/29.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY tests' ignore='no'>
+		<test name='1'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/copycalendar/1.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/copycalendar/2.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/copycalendar/3.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/copycalendar/4.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/copycalendar/5.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/5.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/30.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/30.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/30.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY PUBLIC tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/31.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/31.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/31.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY CONFIDENTIAL all data tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY RESTRICTED all data tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/33.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/33.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/33.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='MOVE tests' ignore='no'>
+		<test name='1'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/movecalendar/1.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/movecalendar/2.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/movecalendar/3.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/movecalendar/4.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/4.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>copy to calendar</description>
+			<request print-response="no">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>http://localhost:8008/$pathprefix:/movecalendar/5.ics</value>
+				</header>
+				<ruri>$pathprefix:/sharedcalendar/5.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/34.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/34.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/34.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='MOVE PUBLIC tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/35.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/35.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/35.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='MOVE CONFIDENTIAL all data tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/36.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/36.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/36.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='MOVE RESTRICTED all data tests' ignore='no'>
+		<test name='1'>
+			<description>multiget by user01</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/37.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>multiget by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/37.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/37.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
 						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
