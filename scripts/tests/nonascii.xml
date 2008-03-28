@@ -23,7 +23,12 @@
 <caldavtest>
 	<description>Test use of UTF-8 for HTTP and calendar data</description>
 
-	<start/>
+	<start>
+		<request end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix:/collection/</ruri>
+		</request>
+	</start>
 	
 	<test-suite name='MKCALENDAR' ignore="yes">
 		<test name='1'>
@@ -376,6 +381,145 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Non-utf-8 calendar data' ignore="no">
+		<test name='1'>
+			<description>PUT with non-utf-8 data without charset</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>nonutf8.ics</ruri>
+				<data>
+					<content-type>text/calendar</content-type>
+					<filepath>Resource/nonascii/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT with non-utf-8 data with utf-8 charset</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>nonutf8.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT with non-utf-8 data with non-utf-8 charset</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>nonutf8.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=iso-8859-1</content-type>
+					<filepath>Resource/nonascii/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Copy/Move Non-utf-8 calendar data' ignore="no">
+		<test name='1'>
+			<description>PUT with non-utf-8 data to regular collection</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<data>
+					<content-type>text/calendar</content-type>
+					<filepath>Resource/nonascii/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>COPY non-utf-8 data to calendar collection</description>
+			<request end-delete="yes">
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/copy1.ics</value>
+				</header>
+				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>MOVE non-utf-8 data to calendar collection</description>
+			<request end-delete="yes">
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/copy1.ics</value>
+				</header>
+				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name="POSTs" ignore='no'>
+		<test name='1'>
+			<description>POST with non-utf-8 data</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddr1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddr2:, $cuaddr3:</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
