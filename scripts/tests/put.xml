@@ -329,6 +329,20 @@
 				</verify>
 			</request>
 		</test>
+		<test name='11' ignore='no'>
+			<description>RECURRENCE-ID component before master</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>11-23.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/problemics/23.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Problem VTODOs - various combinations of date-time/date values'>
