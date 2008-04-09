@@ -1020,6 +1020,132 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='ACL calendar home' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Set read/read-current-user-privilege-set on home only</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>ACL</method>
+				<ruri>$pathprefix2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/23.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Check for current-user-privilege-set on calendar home as user01</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:current-user-privilege-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Check that calendar privileges are still inherited for user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:current-user-privilege-set</value>
+						<value>DAV:acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Remove read/read-current-user-privilege-set on home only</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>ACL</method>
+				<ruri>$pathprefix2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/25.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Check no current-user-privilege-set on calendar home as user01</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:current-user-privilege-set</value>
+						<value>DAV:acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Check that calendar privileges are still inherited for user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/acls/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:current-user-privilege-set</value>
+						<value>DAV:acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
