@@ -838,6 +838,57 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='query reports with filtered data' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>query for resources with VCALENDAR &amp; VEVENT defined - return filtered data</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/filtereddata/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>DTSTAMP</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>query for resources with VCALENDAR &amp; VEVENT defined - return filtered data</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/filtereddata/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>DTSTAMP</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<test-suite name='time-range query reports' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>query for VEVENTs within time range</description>
