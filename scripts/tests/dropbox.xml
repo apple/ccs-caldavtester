@@ -44,7 +44,6 @@
 					<arg>
 						<name>okprops</name>
 						<value>http://calendarserver.org/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
-						<value>http://calendarserver.org/ns/notifications-URL$&lt;href xmlns="DAV:">$pathprefix:/notifications/&lt;/href></value>
 					</arg>
 				</verify>
 			</request>
@@ -69,28 +68,6 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://calendarserver.org/ns/"/></value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Look for properties</description>
-			<request>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$pathprefix:/notifications/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/dropbox/2.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;notifications xmlns="http://calendarserver.org/ns/"/></value>
 					</arg>
 				</verify>
 			</request>
