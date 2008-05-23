@@ -26,11 +26,12 @@ import xml.dom.minidom
 class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
-        # If no status veriffication requested, then assume all 2xx codes are OK
+        # If no status verification requested, then assume all 2xx codes are OK
         teststatus = args.get("error", [])
+        statusCode = args.get("status", ["403", "409", "507"])
         
-        # status code must be 403 or 409 as per rfc3253 section 1.6, or 507 as per rfc4331 section 6
-        if response.status not in [403, 409, 507]:
+        # status code could be anything, but typically 403, 409 or 507
+        if str(response.status) not in statusCode:
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
         
         # look for pre-condition data
