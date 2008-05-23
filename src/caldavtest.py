@@ -318,7 +318,16 @@ class caldavtest(object):
         path, so we have to cheat!
         """
         if self.manager.server_info.serverfilepath:
-            filename = os.path.join(self.manager.server_info.serverfilepath, ruri[1:])
+            # __uids__ URI path is actually hashed on disk
+            segments = ruri[1:].split('/')
+            for ctr, segment in enumerate(segments):
+                if segment == "__uids__":
+                    uid = segments[ctr + 1]
+                    segments.insert(ctr + 1, uid[0:2])
+                    segments.insert(ctr + 2, uid[2:4])
+                    break
+            filepath = "/".join(segments)
+            filename = os.path.join(self.manager.server_info.serverfilepath, filepath)
             if os.path.exists(filename):
                 attrs = xattr.xattr(filename)
                 if enable:
@@ -335,7 +344,16 @@ class caldavtest(object):
         path, so we have to cheat!
         """
         if self.manager.server_info.serverfilepath:
-            filename = os.path.join(self.manager.server_info.serverfilepath, ruri[1:])
+            # __uids__ URI path is actually hashed on disk
+            segments = ruri[1:].split('/')
+            for ctr, segment in enumerate(segments):
+                if segment == "__uids__":
+                    uid = segments[ctr + 1]
+                    segments.insert(ctr + 1, uid[0:2])
+                    segments.insert(ctr + 2, uid[2:4])
+                    break
+            filepath = "/".join(segments)
+            filename = os.path.join(self.manager.server_info.serverfilepath, filepath)
             if os.path.exists(filename):
                 attrs = xattr.xattr(filename)
                 if size is None:
