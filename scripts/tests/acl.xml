@@ -218,6 +218,7 @@
 						<value>DAV:resourcetype</value>
 						<value>DAV:getetag</value>
 						<value>DAV:displayname</value>
+						<value>DAV:current-user-privilege-set</value>
 						<value>DAV:supported-privilege-set</value>
 						<value>DAV:acl-restrictions</value>
 						<value>DAV:inherited-acl-set</value>
@@ -225,7 +226,6 @@
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:current-user-privilege-set</value>
 						<value>DAV:acl</value>
 						<value>DAV:owner</value>
 						<value>DAV:group</value>
@@ -1099,7 +1099,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>Check no current-user-privilege-set on calendar home as user01</description>
+			<description>Check property access on calendar home as user01</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -1114,8 +1114,11 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>badprops</name>
+						<name>okprops</name>
 						<value>DAV:current-user-privilege-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
 						<value>DAV:acl</value>
 					</arg>
 				</verify>
