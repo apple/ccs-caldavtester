@@ -426,7 +426,7 @@
 	</test-suite>
 	
 	<test-suite name='COPY/MOVE and Properties' ignore='no'>
-		<test name='1' ignore="yes">
+		<test name='1' ignore="no">
 			<description>Verify that COPY'ing a calendar preserves the calendar resource type</description>
 			<request>
 				<method>MKCALENDAR</method>
@@ -480,7 +480,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"&gt;</value>
+						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
 					</arg>
 				</verify>
 			</request>
