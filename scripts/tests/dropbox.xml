@@ -188,6 +188,42 @@
 				</verify>
 			</request>
 		</test>
+		<test name='7'>
+			<description>Add invalid user read privilege on collection</description>
+			<request>
+				<method>ACL</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Add invalid user read privilege on collection</description>
+			<request>
+				<method>ACL</method>
+				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/dropbox/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	<test-suite name='Drop Box Home Restrictions'>
 		<test name='1'>
