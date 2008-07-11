@@ -65,7 +65,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -94,7 +94,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -123,11 +123,15 @@
 	<test-suite name="POST invite one user" ignore='no'>
 		<test name='1'>
 			<description>POST invite to one valid user</description>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -169,11 +173,15 @@
 	<test-suite name="POST invite two users" ignore='no'>
 		<test name='1'>
 			<description>POST invite to two valid users</description>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -210,7 +218,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
@@ -233,7 +241,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -285,7 +293,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -314,11 +322,11 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
-					<value>mailto:remote02@calendarserver.org</value>
+					<value>mailto:remote02@example.org</value>
 				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -343,7 +351,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
@@ -369,7 +377,7 @@
 				<method>POST</method>
 				<header>
 					<name>Originator</name>
-					<value>mailto:remote01@calendarserver.org</value>
+					<value>mailto:remote01@example.org</value>
 				</header>
 				<header>
 					<name>Recipient</name>
