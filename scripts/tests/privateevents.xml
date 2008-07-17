@@ -46,6 +46,58 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
+			<ruri>$pathprefix:/rolledcalendar/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix:/rolledcalendar/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/4.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/rolledcalendar/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/5.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/rolledcalendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/6.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/rolledcalendar/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/8.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/rolledcalendar/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/10.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix:/rolledcalendar/5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/12.ics</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
 			<ruri>$pathprefix:/copycalendar/</ruri>
 		</request>
 		<request>
@@ -3602,6 +3654,51 @@
 						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Rolled up data tests' ignore='no'>
+		<test name='1'>
+			<description>get by user01</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix:/rolledcalendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/38.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>get by user02</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix:/rolledcalendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/39.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>get by user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix:/rolledcalendar/</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/39.ics</value>
 					</arg>
 				</verify>
 			</request>
