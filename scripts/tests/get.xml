@@ -24,7 +24,7 @@
 	<description>Test GET on collections to ensure proper directory listing, calendar aggregation behavior</description>
 
 	<start>
-		<request end-delete="yes" print-response="yes">
+		<request end-delete="yes">
 			<method>PUT</method>
 			<ruri>1.ics</ruri>
 			<data>
@@ -113,6 +113,34 @@
 						<value>calendar</value>
 						<value>$inbox:</value>
 						<value>$outbox:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET on calendar collection without multiple VTIMEZONEs</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/delete/4.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/get/1.ics</value>
 					</arg>
 				</verify>
 			</request>
