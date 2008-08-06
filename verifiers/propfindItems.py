@@ -30,8 +30,15 @@ class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
 
-        # If no status veriffication requested, then assume all 2xx codes are OK
+        # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
+
+        # Check how many responses are returned
+        counts = args.get("count", [])
+        if len(counts) == 1:
+            count = int(counts[0])
+        else:
+            count = None
 
         # Get property arguments and split on $ delimited for name, value tuples
         okprops = args.get("okprops", [])
@@ -73,10 +80,11 @@ class Verifier(object):
         try:
             doc = xml.dom.minidom.parseString( respdata )
         except:
-            return False, "           Coluld not parse proper XML response\n"
+            return False, "           Could not parse proper XML response\n"
                 
         result = True
         resulttxt = ""
+        ctr = 0
         for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
 
             # Get href for this response
@@ -88,6 +96,10 @@ class Verifier(object):
             else:
                 href = ""
             if href in ignores:
+                continue
+            
+            if count is not None:
+                ctr += 1
                 continue
 
             # Get all property status
@@ -175,5 +187,9 @@ class Verifier(object):
                         resulttxt += " " + str(i) 
                     resulttxt += "\n"
                 result = False
-            
+        
+        if count is not None and count != ctr:
+            result = False
+            resulttxt = "        Expected %d response items but got %d." % (count, ctr,)
+
         return result, resulttxt
