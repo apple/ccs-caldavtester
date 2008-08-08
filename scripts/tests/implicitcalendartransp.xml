@@ -100,6 +100,31 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Default Calendar' ignore='no'>
+		<test name='1'>
+			<description>Look for property on new calendar</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-calendar-transp$&lt;opaque/&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='New Calendar - free-busy-set compatibility' ignore='no'>
 		<test name='1'>
 			<description>Create new calendar</description>
@@ -392,6 +417,28 @@
 						<name>notcontains</name>
 						<value>$pathprefix:/testcalendar2/</value>
 						<value>$pathprefix:/testcalendar3/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16'>
+			<description>Look for free-busy-set fro default calendar</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>$pathprefix:/calendar</value>
 					</arg>
 				</verify>
 			</request>
