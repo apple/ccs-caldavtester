@@ -25,9 +25,52 @@
 
 	<start/>
 	
-	<test-suite name='Empty Property' ignore='no'>
+	<test-suite name='Default Property' ignore='no'>
 		<test name='1'>
 			<description>Look for empty property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Set empty Property' ignore='no'>
+		<test name='1'>
+			<description>Set property on Inbox</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -152,49 +195,6 @@
 					<arg>
 						<name>okprops</name>
 						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-	
-	<test-suite name='Set empty Property' ignore='no'>
-		<test name='1'>
-			<description>Set property on Inbox</description>
-			<request print-response='no'>
-				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/defaultcalendar/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Verify property on inbox</description>
-			<request print-response="no">
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$</value>
 					</arg>
 				</verify>
 			</request>
