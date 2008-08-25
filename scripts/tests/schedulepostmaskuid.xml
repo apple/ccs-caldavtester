@@ -40,25 +40,25 @@
 				<filepath>Resource/schedulemaskuid/2.ics</filepath>
 			</data>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/3.ics</ruri>
+			<ruri>$calendarpath1:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedulemaskuid/3.ics</filepath>
 			</data>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/4.ics</ruri>
+			<ruri>$calendarpath1:/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedulemaskuid/4.ics</filepath>
 			</data>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/5.ics</ruri>
+			<ruri>$calendarpath3:/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedulemaskuid/5.ics</filepath>
@@ -220,7 +220,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='2'>
 			<description>POST free busy - ok mask no organizer</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
@@ -252,6 +252,31 @@
 		</test>
 	</test-suite>
 		
-	<end/>
+	<end>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/calendar/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/$inbox:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/calendar/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix3:/calendar/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
