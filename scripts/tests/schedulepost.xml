@@ -24,6 +24,30 @@
 	<description>Test POST method in CalDAV</description>
 
 	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/calendar/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/$inbox:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/calendar/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix3:/calendar/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
+		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
 			<ruri>$pathprefix2:/calendar/1.ics</ruri>
@@ -96,7 +120,7 @@
 			<request print-response="no">
 				<method>POST</method>
 				<header>
-					<name>Organizer</name>
+					<name>Originator</name>
 					<value>$cuaddr1:</value>
 				</header>
 				<header>
@@ -122,7 +146,7 @@
 			<request>
 				<method>POST</method>
 				<header>
-					<name>Organizer</name>
+					<name>Originator</name>
 					<value>$cuaddr1:</value>
 				</header>
 				<header>
@@ -392,7 +416,7 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>contains</name>
+						<name>notcontains</name>
 						<value><![CDATA[<recipient-exists xmlns='urn:ietf:params:xml:ns:caldav'/>]]></value>
 					</arg>
 				</verify>

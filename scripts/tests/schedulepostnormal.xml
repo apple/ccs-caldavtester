@@ -115,13 +115,8 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>ignore</name>
-						<value>$pathprefix2:/$inbox:/</value>
-					</arg>
-					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddralt1:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddralt2:&lt;/href&gt;</value>
+						<name>count</name>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -142,36 +137,9 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>ignore</name>
-						<value>$pathprefix3:/$inbox:/</value>
+						<name>count</name>
+						<value>1</value>
 					</arg>
-					<arg>
-						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator$&lt;href xmlns="DAV:"&gt;$cuaddralt1:&lt;/href&gt;</value>
-						<value>urn:ietf:params:xml:ns:caldavrecipient$&lt;href xmlns="DAV:"&gt;$cuaddralt3:&lt;/href&gt;</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>REPLY from one</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddralt2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddralt3:</value>
-				</header>
-				<ruri>$pathprefix2:/outbox/</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedulenormal/4.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
