@@ -21,7 +21,7 @@
  -->
 
 <caldavtest>
-	<description>Test the collection entity tag behavior on calwndar collections</description>
+	<description>Test the collection entity tag behavior on calendar collections</description>
 
 	<start>
 		<request end-delete="yes">
@@ -424,7 +424,33 @@
 	
 	<test-suite name='Scheduling'>
 		<test name='1'>
-			<description>Check for CTag</description>
+			<description>Check for CTag on calendar</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>http://calendarserver.org/ns/getctag</property>
+					<variable>$getctag3:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Check for CTag on inbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -445,29 +471,49 @@
 				</verify>
 				<grabproperty>
 					<property>http://calendarserver.org/ns/getctag</property>
-					<variable>$getctag3:</variable>
+					<variable>$getctag4:</variable>
 				</grabproperty>
 			</request>
 		</test>
-		<test name='2'>
-			<description>POST invite</description>
+		<test name='3'>
+			<description>PUT invite</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<ruri>$pathprefix2:/$outbox:/</ruri>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/ctag/2.ics</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
-			<request>
+		</test>
+		<test name="4">
+			<description>Test calendar ctag change</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/getctag!$getctag3:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name="5">
+			<description>Test inbox ctag change</description>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<header>
 					<name>Depth</name>
@@ -482,13 +528,9 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/getctag!$getctag3:</value>
+						<value>http://calendarserver.org/ns/getctag!$getctag4:</value>
 					</arg>
 				</verify>
-				<grabproperty>
-					<property>http://calendarserver.org/ns/getctag</property>
-					<variable>$getctag3:</variable>
-				</grabproperty>
 			</request>
 		</test>
 	</test-suite>
@@ -497,6 +539,22 @@
 		<request>
 			<method>DELETE</method>
 			<ruri>$pathprefix:/movecopy/</ruri>
+		</request>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+		</request>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/$inbox:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
 		</request>
 	</end>
 	
