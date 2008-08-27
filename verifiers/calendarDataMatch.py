@@ -15,7 +15,9 @@
 #
 # DRI: Cyrus Daboo, cdaboo@apple.com
 ##
-from vobject.base import readOne
+
+from vobject.base import readOne, ContentLine
+from vobject.base import Component
 from difflib import unified_diff
 import StringIO
 
@@ -56,12 +58,28 @@ class Verifier(object):
 
         data = manager.server_info.subs(data)
         
+        def removePropertiesParameters(component):
+            
+            for item in tuple(component.getChildren()):
+                if isinstance(item, Component):
+                    removePropertiesParameters(item)
+                elif isinstance(item, ContentLine):
+                    
+                    # Always remove DTSTAMP
+                    if item.name == "DTSTAMP":
+                        component.remove(item)
+                    elif item.name == "X-CALENDARSERVER-ATTENDEE-COMMENT":
+                        if item.params.has_key("X-CALENDARSERVER-DTSTAMP"):
+                            item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
+
         s = StringIO.StringIO(respdata)
         resp_calendar = readOne(s)
+        removePropertiesParameters(resp_calendar)
         respdata = resp_calendar.serialize()
         
         s = StringIO.StringIO(data)
         data_calendar = readOne(s)
+        removePropertiesParameters(data_calendar)
         data = data_calendar.serialize()
         
         result = respdata == data
