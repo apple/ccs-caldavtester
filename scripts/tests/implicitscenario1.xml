@@ -432,6 +432,18 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>SCHEDULE-STATUS</value>
+						<value>SCHEDULE-AGENT</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
@@ -578,6 +590,18 @@
 					<arg>
 						<name>count</name>
 						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>SCHEDULE-STATUS</value>
+						<value>SCHEDULE-AGENT</value>
 					</arg>
 				</verify>
 			</request>
