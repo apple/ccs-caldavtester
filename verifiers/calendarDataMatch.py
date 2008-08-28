@@ -69,5 +69,5 @@ class Verifier(object):
         if result:
             return True, ""
         else:
-            print "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
-            return False, "        Response data does not exactly match file data"
+            error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
+            return False, "        Response data does not exactly match file data%s" % (error_diff,)
