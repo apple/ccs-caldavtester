@@ -1216,13 +1216,13 @@
 			</request>
 		</test>
 		<test name='15'>
-			<description>Organizer removes alarm</description>
+			<description>Organizer changes alarm</description>
 			<request print-response='no'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/10.ics</filepath>
+					<filepath>Resource/implicit/scenario1/alarms/13.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1238,7 +1238,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/11.ics</value>
+						<value>Resource/implicit/scenario1/alarms/14.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1280,6 +1280,70 @@
 			</request>
 		</test>
 		<test name='19'>
+			<description>Organizer removes alarm</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/alarms/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='20'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/alarms/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='21'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22'>
+			<description>Attendee has unchanged data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/alarms/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='23'>
 			<description>Attendee changes alarm</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -1300,7 +1364,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20'>
+		<test name='24'>
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -1322,7 +1386,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21'>
+		<test name='25'>
 			<description>Organizer data unchanged</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -1336,7 +1400,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22'>
+		<test name='26'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
