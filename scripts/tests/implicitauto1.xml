@@ -1288,9 +1288,17 @@
 			<method>DELETEALL</method>
 			<ruri>$pathprefix:/$inbox:/</ruri>
 		</request>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/calendar/</ruri>
+		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$pathprefix2:/$inbox:/</ruri>
+		</request>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/calendar/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
