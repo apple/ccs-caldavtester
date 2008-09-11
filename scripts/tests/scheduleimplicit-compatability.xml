@@ -21,9 +21,23 @@
  -->
 
 <caldavtest>
-	<description>Test implicit scheduling compatability with old-style POST scheduling</description>
+	<description>Test implicit scheduling compatibility with old-style POST scheduling</description>
 
-	<start/>
+	<start>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$pathprefix:/$inbox:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/$inbox:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
+		</request>
+	</start>
+	
 	
 	<test-suite name='OPTIONS header' ignore='no'>
 		<test name='1'>
@@ -60,6 +74,97 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name="POSTs ignored" ignore='no'>
+		<test name='1'>
+			<description>Initial REQUEST</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddralt1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddralt2:, $cuaddralt3:</value>
+				</header>
+				<ruri>$pathprefix:/outbox/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulenormal/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Make sure no resource exists</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix:/$outbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedulenormal/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Make sure no resource exists</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedulenormal/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Make sure no resource exists</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/schedulenormal/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
