@@ -73,19 +73,23 @@ class Verifier(object):
                             item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
 
         s = StringIO.StringIO(respdata)
-        resp_calendar = readOne(s)
-        removePropertiesParameters(resp_calendar)
-        respdata = resp_calendar.serialize()
-        
-        s = StringIO.StringIO(data)
-        data_calendar = readOne(s)
-        removePropertiesParameters(data_calendar)
-        data = data_calendar.serialize()
-        
-        result = respdata == data
-                
-        if result:
-            return True, ""
-        else:
-            error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
-            return False, "        Response data does not exactly match file data%s" % (error_diff,)
+        try:
+            resp_calendar = readOne(s)
+            removePropertiesParameters(resp_calendar)
+            respdata = resp_calendar.serialize()
+            
+            s = StringIO.StringIO(data)
+            data_calendar = readOne(s)
+            removePropertiesParameters(data_calendar)
+            data = data_calendar.serialize()
+            
+            result = respdata == data
+                    
+            if result:
+                return True, ""
+            else:
+                error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
+                return False, "        Response data does not exactly match file data%s" % (error_diff,)
+        except:
+                return False, "        Response data is not calendar data data"
+            
