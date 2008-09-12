@@ -28,10 +28,6 @@ class Verifier(object):
         notcontains = args.get("notcontains", [])
         unwrap = args.get("unwrap")
         
-        # status code must be 200, 207
-        if response.status not in (200,207):
-            return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
         # look for response data
         if not respdata:
             return False, "        No response body"
