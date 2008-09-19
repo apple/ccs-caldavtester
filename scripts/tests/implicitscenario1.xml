@@ -162,6 +162,18 @@
 					</arg>
 				</verify>
 			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>DTSTART;TZID</value>
+						<value>DURATION</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
@@ -602,6 +614,11 @@
 						<name>notcontains</name>
 						<value>SCHEDULE-STATUS</value>
 						<value>SCHEDULE-AGENT</value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>DTSTART;TZID</value>
+						<value>DURATION</value>
 					</arg>
 				</verify>
 			</request>
