@@ -73,7 +73,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
 				</data>
 				<verify>
@@ -81,6 +81,32 @@
 					<arg>
 						<name>count</name>
 						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><create/></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -151,7 +177,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
 				</data>
 				<verify>
@@ -171,6 +197,25 @@
 						<name>contains</name>
 						<value>DTSTART;TZID</value>
 						<value>DURATION</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddr2:</attendee><partstat/></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -248,7 +293,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
 				</data>
 				<verify>
@@ -256,6 +301,32 @@
 					<arg>
 						<name>count</name>
 						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><summary/></changes></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -326,7 +397,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
 				</data>
 				<verify>
@@ -334,6 +405,32 @@
 					<arg>
 						<name>count</name>
 						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddr2:</attendee><partstat/></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -433,7 +530,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -523,7 +620,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -594,7 +691,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -622,6 +719,25 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><cancel/></action>]]></value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='12'>
 			<description>Attendee data gone</description>
@@ -633,7 +749,7 @@
 				</header>
 				<ruri>$calendarpath2:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -726,7 +842,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -804,7 +920,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -882,7 +998,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
 				</data>
 				<verify>
@@ -989,7 +1105,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
@@ -1078,7 +1194,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
@@ -1174,7 +1290,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
@@ -1270,7 +1386,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
@@ -1334,7 +1450,7 @@
 				</header>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
@@ -1391,7 +1507,7 @@
 				</header>
 				<ruri>$pathprefix:/$inbox:/</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
+					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
 				</data>
 				<verify>
