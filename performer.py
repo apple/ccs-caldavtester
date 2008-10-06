@@ -69,7 +69,7 @@ def doScript(pinfo, script):
             print "Start: %s" % (args[0]["moresubs"]["$userid1:"],)
         try:
             mgr = manager(level=manager.LOG_NONE)
-            result, timing = mgr.runWithOptions(*args[1:], **args[0])
+            _ignore_result, _ignore_timing = mgr.runWithOptions(*args[1:], **args[0])
             if pinfo.logging:
                 print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
         except Exception, e:
@@ -110,7 +110,7 @@ def runIt(script, silent=False):
         result = [0.0, 0.0, 0.0]
         if not silent:
             print "|",
-        for loop in range(test[2]):
+        for _ignore_loop in range(test[2]):
             if not silent:
                 print ".",
             results = []

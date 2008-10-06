@@ -131,7 +131,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
                 for req in test.requests:
-                    result, resulttxt, response, respdata = self.dorequest( req, test.details, True, False, reqstats )
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats )
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -150,7 +150,7 @@ class caldavtest(object):
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         ctr = 1
         for req in list:
-            result, resulttxt, response, respdata = self.dorequest( req, False, doverify, forceverify )
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify )
             if not result:
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
@@ -180,7 +180,7 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, resulttxt, response, respdata = self.dorequest( req, False, False )
+        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             doc = xml.dom.minidom.parseString( respdata )
 
@@ -238,7 +238,7 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, resulttxt, response, respdata = self.dorequest( req, False, False )
+        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             doc = xml.dom.minidom.parseString( respdata )
 

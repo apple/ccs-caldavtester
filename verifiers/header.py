@@ -70,9 +70,9 @@ class Verifier(object):
             if (test[1] is not None):
                 matched = False
                 for hdr in hdrs:
-                     if (re.match(test[1], hdr) is not None):
-                         matched = True
-                         break
+                    if (re.match(test[1], hdr) is not None):
+                        matched = True
+                        break
                         
                 if not matched:
                     result = False

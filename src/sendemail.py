@@ -18,10 +18,7 @@
 Send an email message.
 """
 
-try:
-    from email.mime.text import MIMEText
-except:
-    from email.MIMEText import MIMEText
+from email.mime.text import MIMEText
 import smtplib
 
 def sendemail(fromaddr=("", ""), toaddrs=[], subject="", body=""):

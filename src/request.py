@@ -296,9 +296,9 @@ class request( object ):
         name = None
         value = None
         for child in node._get_childNodes():
-           if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
+            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
                 name = child.firstChild.data.encode("utf-8")
-           elif child._get_localName() == src.xmlDefs.ELEMENT_VALUE:
+            elif child._get_localName() == src.xmlDefs.ELEMENT_VALUE:
                 value = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
         
         if (name is not None) and (value is not None):
@@ -320,9 +320,9 @@ class request( object ):
         property = None
         variable = None
         for child in node._get_childNodes():
-           if child._get_localName() == src.xmlDefs.ELEMENT_PROPERTY:
+            if child._get_localName() == src.xmlDefs.ELEMENT_PROPERTY:
                 property = child.firstChild.data.encode("utf-8")
-           elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
+            elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
                 variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
         
         if (property is not None) and (variable is not None):

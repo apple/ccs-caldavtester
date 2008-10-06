@@ -45,13 +45,13 @@ def getFSUsage(count, testscript, runs, pid, sname):
     fnames = [testscript]
 
     mgr = manager(level=manager.LOG_NONE)
-    result, timing = mgr.runWithOptions(sname, pname, fnames, {})
+    _ignore_result, _ignore_timing = mgr.runWithOptions(sname, pname, fnames, {})
 
     os.kill(cid, signal.SIGTERM)
 
     fd = open(tmpfile, "r")
     ctr = 0
-    for line in fd:
+    for _ignore_line in fd:
         ctr += 1
 
     return ctr / runs

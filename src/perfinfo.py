@@ -159,7 +159,7 @@ class perfinfo( object ):
                 print "Start: %s" % (args[0]["moresubs"]["$userid1:"],)
             try:
                 mgr = manager(level=manager.LOG_NONE)
-                result, timing = mgr.runWithOptions(*args[1:], **args[0])
+                _ignore_result, _ignore_timing = mgr.runWithOptions(*args[1:], **args[0])
                 if self.logging:
                     print "Done: %s" % (args[0]["moresubs"]["$userid1:"],)
             except Exception, e:
