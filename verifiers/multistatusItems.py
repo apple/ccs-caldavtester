@@ -33,7 +33,7 @@ class Verifier(object):
         count = args.get("count", [])
         prefix = args.get("prefix", [])
         if len(prefix):
-            prefix = prefix[0]
+            prefix = prefix[0] if prefix[0] != "-" else ""
         else:
             prefix = uri
         okhrefs = [prefix + i for i in okhrefs]
@@ -51,7 +51,8 @@ class Verifier(object):
         doc = xml.dom.minidom.parseString( respdata )
         ok_status_hrefs = []
         bad_status_hrefs = []
-        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+        multistatus = doc.getElementsByTagNameNS("DAV:", "multistatus" )
+        for response in ElementsByName(multistatus[0], "DAV:", "response"):
 
             # Get href for this response
             href = ElementsByName(response, "DAV:", "href")
