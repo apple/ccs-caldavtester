@@ -827,6 +827,247 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Proxy For properties'>
+		<test name='1'>
+			<description>Default setup</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$principal1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/calendar-proxy-read-for$</value>
+						<value>http://calendarserver.org/ns/calendar-proxy-write-for$</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Change proxy state and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request user='$userid3:' pswd='$pswd3:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<ruri>$principal1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[http://calendarserver.org/ns/calendar-proxy-read-for$<href xmlns="DAV:">$principaluri2:</href>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/calendar-proxy-write-for$<href xmlns="DAV:">$principaluri3:</href>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Reset proxies</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request user='$userid3:' pswd='$pswd3:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Expand properties'>
+		<test name='1'>
+			<description>OK property query</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$principal1:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principal1:</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>User 02</value>
+						<value>User 03</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Change proxy state and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request user='$userid3:' pswd='$pswd3:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>OK property query</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$principal1:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principal1:</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>User 02</value>
+						<value>User 03</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Reset proxies</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request user='$userid3:' pswd='$pswd3:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 
 </caldavtest>
