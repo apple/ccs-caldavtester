@@ -1069,6 +1069,23 @@
 				</verify>
 			</request>
 		</test>
+		<test name='11' ignore='no'>
+			<description>Invalid VTIMEZONE check</description>
+			<request>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/104.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='alarm time-range query reports' ignore='no'>
