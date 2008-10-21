@@ -156,7 +156,7 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>One item in user01 Inbox</description>
+			<description>No items in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$pathprefix:/$inbox:/</ruri>
@@ -168,7 +168,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
