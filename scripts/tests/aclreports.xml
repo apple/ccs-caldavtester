@@ -495,6 +495,95 @@
 				</verify>
 			</request>
 		</test>
+		<test name='7' ignore='no'>
+			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/21.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:apprentice/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:admin/</value>
+						<value>$uids:apprentice/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>Valid ROOM displayname search report</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/23.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:location03/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>Valid RESOURCE displayname search report</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:resource03/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='principal-search-property-set REPORT' ignore='no'>
