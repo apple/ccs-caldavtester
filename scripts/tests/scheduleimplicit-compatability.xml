@@ -24,7 +24,7 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -85,7 +85,7 @@
 					<name>Recipient</name>
 					<value>$cuaddralt2:, $cuaddralt3:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/1.ics</filepath>
@@ -103,7 +103,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix:/$outbox:/</ruri>
+				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/2.xml</filepath>

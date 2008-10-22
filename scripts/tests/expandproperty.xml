@@ -89,7 +89,7 @@
 			<description>Set property to point to someone else's calendar</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/4.xml</filepath>
@@ -103,7 +103,7 @@
 			<description>Try query against accessible href</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/5.xml</filepath>
@@ -116,7 +116,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$pathprefix:/</value>
+						<value>$pathprefix1:/</value>
 					</arg>
 				</verify>
 				<verify>
@@ -132,7 +132,7 @@
 			<description>Try query against inaccessible href</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/6.xml</filepath>
@@ -145,7 +145,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$pathprefix:/</value>
+						<value>$pathprefix1:/</value>
 					</arg>
 				</verify>
 				<verify>
@@ -161,7 +161,7 @@
 			<description>Reset property</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/7.xml</filepath>

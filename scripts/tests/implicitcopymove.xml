@@ -18,12 +18,12 @@
  limitations under the License.
  -->
 
-<caldavtest>
-	<description>Test implicit scheduling for one attendee, not recurring</description>
+<caldavtest ignore-all="yes">
+	<description>Test COPY/MOVE behavior with implicit scheduling</description>
 
 	<start>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>GET</method>
+		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
+			<method>MKCALENDAR</method>
 			<ruri>$calendarpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">

@@ -41,7 +41,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix:/dropbox/&lt;/href></value>
+						<value>http://calendarserver.org/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$pathprefix1:/dropbox/&lt;/href></value>
 					</arg>
 				</verify>
 			</request>
@@ -56,7 +56,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/dropbox/</ruri>
+				<ruri>$pathprefix1:/dropbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/2.xml</filepath>
@@ -76,7 +76,7 @@
 			<description>Create drop box</description>
 			<request end-delete='yes'>
 				<method>MKCOL</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -94,7 +94,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/2.xml</filepath>
@@ -114,7 +114,7 @@
 			<description>Create drop box resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/test.xml</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/2.xml</filepath>
@@ -128,7 +128,7 @@
 			<description>Verify that user01 can read it</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/test.xml</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -138,7 +138,7 @@
 			<description>Verify that user03 cannot read it</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>GET</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/test.xml</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -152,7 +152,7 @@
 			<description>Add user02 read privilege on collection</description>
 			<request>
 				<method>ACL</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/3.xml</filepath>
@@ -166,7 +166,7 @@
 			<description>Verify that user02 can now read it</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>GET</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/test.xml</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -176,7 +176,7 @@
 			<description>Verify that user03 cannot read it</description>
 			<request user='$userid3:' pswd='$pswd3:'>
 				<method>GET</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/test.xml</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -190,7 +190,7 @@
 			<description>Add invalid user read privilege on collection</description>
 			<request>
 				<method>ACL</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/8.xml</filepath>
@@ -208,7 +208,7 @@
 			<description>Add invalid user read privilege on collection</description>
 			<request>
 				<method>ACL</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/9.xml</filepath>
@@ -228,7 +228,7 @@
 			<description>Try to create a calendar</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/dropbox/calendar/</ruri>
+				<ruri>$pathprefix1:/dropbox/calendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -242,7 +242,7 @@
 			<description>Try to create a resource</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix:/dropbox/test.xml</ruri>
+				<ruri>$pathprefix1:/dropbox/test.xml</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/dropbox/2.xml</filepath>
@@ -262,7 +262,7 @@
 			<description>Try to create a calendar</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/calendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -276,7 +276,7 @@
 			<description>Try to create a collection</description>
 			<request end-delete="yes">
 				<method>MKCOL</method>
-				<ruri>$pathprefix:/dropbox/ABCEFG/calendar/</ruri>
+				<ruri>$pathprefix1:/dropbox/ABCEFG/calendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>

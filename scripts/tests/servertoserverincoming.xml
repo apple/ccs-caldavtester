@@ -24,11 +24,11 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$outbox:/</ruri>
+			<ruri>$pathprefix1:/$outbox:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -40,7 +40,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/calendar/1.ics</ruri>
+			<ruri>$pathprefix1:/calendar/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/servertoserver/1.ics</filepath>
@@ -123,7 +123,7 @@
 			<description>POST invite to one valid user</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
@@ -156,7 +156,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -173,7 +173,7 @@
 			<description>POST invite to two valid users</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
@@ -206,7 +206,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -403,11 +403,11 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$outbox:/</ruri>
+			<ruri>$pathprefix1:/$outbox:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>

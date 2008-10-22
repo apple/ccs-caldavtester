@@ -32,11 +32,11 @@
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix:/movecopy/</ruri>
+			<ruri>$pathprefix1:/movecopy/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/movecopy/2.ics</ruri>
+			<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/2.txt</filepath>
@@ -48,7 +48,7 @@
 				<name>Depth</name>
 				<value>0</value>
 			</header>
-			<ruri>$pathprefix:/movecopy/</ruri>
+			<ruri>$pathprefix1:/movecopy/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/ctag/1.xml</filepath>
@@ -208,7 +208,7 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/movecopy/3.ics</value>
+					<value>$host:$pathprefix1:/movecopy/3.ics</value>
 				</header>
 				<ruri>1.ics</ruri>
 			</request>
@@ -240,7 +240,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/</ruri>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -266,7 +266,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/2.ics</ruri>
+				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -296,7 +296,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/</ruri>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -318,7 +318,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/2.ics</ruri>
+				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -348,7 +348,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/</ruri>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -368,7 +368,7 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/movecopy/2.ics</value>
+					<value>$host:$pathprefix1:/movecopy/2.ics</value>
 				</header>
 				<ruri>2.ics</ruri>
 			</request>
@@ -400,7 +400,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/movecopy/</ruri>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -455,7 +455,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -517,7 +517,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -536,7 +536,7 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix:/movecopy/</ruri>
+			<ruri>$pathprefix1:/movecopy/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
@@ -548,7 +548,7 @@
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>

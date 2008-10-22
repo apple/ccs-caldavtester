@@ -32,15 +32,15 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix:/collection/</ruri>
+			<ruri>$pathprefix1:/collection/</ruri>
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix:/calendar2/</ruri>
+			<ruri>$pathprefix1:/calendar2/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/calendar2/6.ics</ruri>
+			<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/6.txt</filepath>
@@ -48,7 +48,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/calendar2/7.ics</ruri>
+			<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/7.txt</filepath>
@@ -56,7 +56,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/1.xml</ruri>
+			<ruri>$pathprefix1:/1.xml</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/errors/1.txt</filepath>
@@ -64,7 +64,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/2.ics</ruri>
+			<ruri>$pathprefix1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/2.txt</filepath>
@@ -72,7 +72,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/3.ics</ruri>
+			<ruri>$pathprefix1:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/3.txt</filepath>
@@ -80,7 +80,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/4.ics</ruri>
+			<ruri>$pathprefix1:/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/4.txt</filepath>
@@ -88,7 +88,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/5.ics</ruri>
+			<ruri>$pathprefix1:/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/5.txt</filepath>
@@ -96,7 +96,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/6.ics</ruri>
+			<ruri>$pathprefix1:/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/6.txt</filepath>
@@ -104,7 +104,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/7.ics</ruri>
+			<ruri>$pathprefix1:/7.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/7.txt</filepath>
@@ -112,7 +112,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/8.ics</ruri>
+			<ruri>$pathprefix1:/8.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/8.txt</filepath>
@@ -120,7 +120,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix:/9.ics</ruri>
+			<ruri>$pathprefix1:/9.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/9.txt</filepath>
@@ -336,9 +336,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/1.xml</ruri>
+				<ruri>$pathprefix1:/1.xml</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -354,9 +354,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/2.ics</ruri>
+				<ruri>$pathprefix1:/2.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -372,9 +372,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/3.ics</ruri>
+				<ruri>$pathprefix1:/3.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -390,9 +390,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/4.ics</ruri>
+				<ruri>$pathprefix1:/4.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -408,9 +408,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/5.ics</ruri>
+				<ruri>$pathprefix1:/5.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -426,9 +426,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/6.ics</ruri>
+				<ruri>$pathprefix1:/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -444,9 +444,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/copy1.ics</value>
+					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/6.ics</ruri>
+				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -462,9 +462,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/7.ics</ruri>
+				<ruri>$pathprefix1:/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -480,9 +480,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/7.ics</ruri>
+				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -498,9 +498,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/2.ics</value>
+					<value>$host:$pathprefix1:/calendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix:/8.ics</ruri>
+				<ruri>$pathprefix1:/8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -516,9 +516,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/9.ics</ruri>
+				<ruri>$pathprefix1:/9.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -534,9 +534,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/calendar2/</value>
+					<value>$host:$pathprefix1:/calendar/calendar2/</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/</ruri>
+				<ruri>$pathprefix1:/calendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -552,9 +552,9 @@
 				<method>COPY</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/collection/</value>
+					<value>$host:$pathprefix1:/calendar/collection/</value>
 				</header>
-				<ruri>$pathprefix:/collection/</ruri>
+				<ruri>$pathprefix1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -573,9 +573,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/1.xml</ruri>
+				<ruri>$pathprefix1:/1.xml</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -591,9 +591,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/2.ics</ruri>
+				<ruri>$pathprefix1:/2.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -609,9 +609,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/3.ics</ruri>
+				<ruri>$pathprefix1:/3.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -627,9 +627,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/4.ics</ruri>
+				<ruri>$pathprefix1:/4.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -645,9 +645,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/5.ics</ruri>
+				<ruri>$pathprefix1:/5.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -663,9 +663,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/6.ics</ruri>
+				<ruri>$pathprefix1:/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -681,9 +681,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/move1.ics</value>
+					<value>$host:$pathprefix1:/calendar/move1.ics</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/6.ics</ruri>
+				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -699,9 +699,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/7.ics</ruri>
+				<ruri>$pathprefix1:/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -717,9 +717,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/7.ics</ruri>
+				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -735,9 +735,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/2.ics</value>
+					<value>$host:$pathprefix1:/calendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix:/8.ics</ruri>
+				<ruri>$pathprefix1:/8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -753,9 +753,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/1.ics</value>
+					<value>$host:$pathprefix1:/calendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix:/9.ics</ruri>
+				<ruri>$pathprefix1:/9.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -771,9 +771,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/calendar2/</value>
+					<value>$host:$pathprefix1:/calendar/calendar2/</value>
 				</header>
-				<ruri>$pathprefix:/calendar2/</ruri>
+				<ruri>$pathprefix1:/calendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -789,9 +789,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix:/calendar/collection/</value>
+					<value>$host:$pathprefix1:/calendar/collection/</value>
 				</header>
-				<ruri>$pathprefix:/collection/</ruri>
+				<ruri>$pathprefix1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1103,7 +1103,7 @@
 			<description>add one event to make it a 1001 event calendar</description>
 			<request end-delete="yes" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix:/calendar.1000/abc.ics</ruri>
+				<ruri>$pathprefix1:/calendar.1000/abc.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/6.txt</filepath>
@@ -1114,7 +1114,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/calendar.1000/</ruri>
+				<ruri>$pathprefix1:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/23.txt</filepath>
@@ -1132,7 +1132,7 @@
 			<description>multiget with too many results</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/calendar.1000/</ruri>
+				<ruri>$pathprefix1:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/24.txt</filepath>
@@ -1150,7 +1150,7 @@
 			<description>free-busy with too many results</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/calendar.1000/</ruri>
+				<ruri>$pathprefix1:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/25.txt</filepath>
@@ -1216,7 +1216,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/$outbox:/</ruri>
+				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/6.txt</filepath>

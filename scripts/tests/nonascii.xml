@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix:/collection/</ruri>
+			<ruri>$pathprefix1:/collection/</ruri>
 		</request>
 	</start>
 	
@@ -33,7 +33,7 @@
 			<description>MKCALENDAR with non-ascii</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -43,7 +43,7 @@
 			<description>MKCALENDAR with non-ascii - duplicate</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -57,7 +57,7 @@
 			<description>GET with non-ascii</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -67,7 +67,7 @@
 			<description>GET with non-ascii</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -80,7 +80,7 @@
 			<description>PUT with non-ascii</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/te%cc%81st.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/1.ics</filepath>
@@ -94,7 +94,7 @@
 			<description>PUT with non-ascii</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/t%c3%a9st.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/1.ics</filepath>
@@ -112,7 +112,7 @@
 			<description>GET with non-ascii</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/te%cc%81st.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -122,7 +122,7 @@
 			<description>GET with non-ascii</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/t%c3%a9st.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -132,7 +132,7 @@
 			<description>DELETE with non-ascii</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix:/Te%cc%81st/t%c3%a9st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/t%c3%a9st.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -145,7 +145,7 @@
 			<description>PUT with non-ascii</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix:/Te%cc%81st/te%cc%81st.ics</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/te%cc%81st.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/1.ics</filepath>
@@ -159,7 +159,7 @@
 			<description>REPORT with non-ascii - match parent and child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/2.xml</filepath>
@@ -177,7 +177,7 @@
 			<description>REPORT with non-ascii - match parent, different child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/3.xml</filepath>
@@ -195,7 +195,7 @@
 			<description>REPORT with non-ascii - different parent, match child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/4.xml</filepath>
@@ -213,7 +213,7 @@
 			<description>REPORT with non-ascii - different parent, different child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/Te%cc%81st/</ruri>
+				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/5.xml</filepath>
@@ -231,7 +231,7 @@
 			<description>REPORT with non-ascii - match parent, match child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/2.xml</filepath>
@@ -249,7 +249,7 @@
 			<description>REPORT with non-ascii - match parent, different child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/3.xml</filepath>
@@ -267,7 +267,7 @@
 			<description>REPORT with non-ascii - different parent, match child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/4.xml</filepath>
@@ -285,7 +285,7 @@
 			<description>REPORT with non-ascii - different parent, different child</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/T%c3%a9st/</ruri>
+				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/5.xml</filepath>
@@ -441,7 +441,7 @@
 			<description>PUT with non-utf-8 data to regular collection</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<data>
 					<content-type>text/calendar</content-type>
 					<filepath>Resource/nonascii/10.ics</filepath>
@@ -459,7 +459,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -477,7 +477,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix:/collection/nonutf8.ics</ruri>
+				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -502,7 +502,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix:/$outbox:/</ruri>
+				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/11.ics</filepath>

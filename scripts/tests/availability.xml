@@ -402,7 +402,7 @@
 			<description>PROPFIND no availability</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/15.xml</filepath>
@@ -420,7 +420,7 @@
 			<description>PROPPATCH invalid availability</description>
 			<request>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/16.xml</filepath>
@@ -438,7 +438,7 @@
 			<description>PROPPATCH valid availability</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/inbox/</ruri>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/17.xml</filepath>
@@ -467,7 +467,7 @@
 					<name>Recipient</name>
 					<value>$cuaddr1:</value>
 				</header>
-				<ruri>$pathprefix:/outbox/</ruri>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/availability/19.ics</filepath>
@@ -488,7 +488,7 @@
 	<end>
 		<request print-response="no">
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix:/inbox/</ruri>
+			<ruri>$pathprefix1:/inbox/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/availability/18.xml</filepath>

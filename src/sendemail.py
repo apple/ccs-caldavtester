@@ -48,6 +48,6 @@ def sendemail(fromaddr=("", ""), toaddrs=[], subject="", body=""):
     msg.add_header("To", ", ".join([fulladdr(a) for a in toaddrs]))
     msg.add_header("Subject", subject)
     msgtxt = msg.as_string(False)
-    server = smtplib.SMTP("relay.apple.com")
+    server = smtplib.SMTP("mail.example.com")
     server.sendmail(fromaddr[1], [a[1] for a in toaddrs], msgtxt)
     server.quit()

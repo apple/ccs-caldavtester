@@ -305,7 +305,7 @@
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/calendar/</ruri>
+				<ruri>$pathprefix1:/calendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/7.xml</filepath>
@@ -323,7 +323,7 @@
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/calendar/</ruri>
+				<ruri>$pathprefix1:/calendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/8.xml</filepath>
@@ -341,7 +341,7 @@
 			<description>principal-search with inaccessible property</description>
 			<request print-response='no' user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/11.xml</filepath>
@@ -546,7 +546,7 @@
 			<description>Report on non-principal collection</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>

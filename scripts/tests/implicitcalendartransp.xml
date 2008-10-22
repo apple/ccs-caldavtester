@@ -28,7 +28,7 @@
 			<description>Create new calendar</description>
 			<request print-response="no" end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/testcalendar/</ruri>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -42,7 +42,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar/</ruri>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -60,7 +60,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/testcalendar/</ruri>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/2.xml</filepath>
@@ -82,7 +82,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar/</ruri>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -128,7 +128,7 @@
 			<description>Create new calendar</description>
 			<request print-response="no" end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -142,7 +142,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -164,7 +164,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -173,7 +173,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix:/testcalendar2/</value>
+						<value>$pathprefix1:/testcalendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -182,7 +182,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/2.xml</filepath>
@@ -204,7 +204,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -226,7 +226,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -235,7 +235,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix:/testcalendar2</value>
+						<value>$pathprefix1:/testcalendar2</value>
 					</arg>
 				</verify>
 			</request>
@@ -244,7 +244,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/4.xml</filepath>
@@ -266,7 +266,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -288,7 +288,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -297,7 +297,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix:/testcalendar2/</value>
+						<value>$pathprefix1:/testcalendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -306,7 +306,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/2.xml</filepath>
@@ -328,7 +328,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -348,9 +348,9 @@
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
-					<value>$pathprefix:/testcalendar3/</value>
+					<value>$pathprefix1:/testcalendar3/</value>
 				</header>
-				<ruri>$pathprefix:/testcalendar2/</ruri>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -364,7 +364,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -373,11 +373,11 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix:/testcalendar2</value>
+						<value>$pathprefix1:/testcalendar2</value>
 					</arg>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix:/testcalendar3</value>
+						<value>$pathprefix1:/testcalendar3</value>
 					</arg>
 				</verify>
 			</request>
@@ -386,7 +386,7 @@
 			<description>Delete new calendar</description>
 			<request print-response="no">
 				<method>DELETE</method>
-				<ruri>$pathprefix:/testcalendar3/</ruri>
+				<ruri>$pathprefix1:/testcalendar3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -404,7 +404,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -413,8 +413,8 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix:/testcalendar2/</value>
-						<value>$pathprefix:/testcalendar3/</value>
+						<value>$pathprefix1:/testcalendar2/</value>
+						<value>$pathprefix1:/testcalendar3/</value>
 					</arg>
 				</verify>
 			</request>
@@ -427,7 +427,7 @@
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -436,7 +436,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix:/calendar</value>
+						<value>$pathprefix1:/calendar</value>
 					</arg>
 				</verify>
 			</request>

@@ -14,7 +14,7 @@
  limitations under the License.
  -->
 
-<!ELEMENT serverinfo (host, port, authtype?, ssl?, substitutions, serverfilepath)? >
+<!ELEMENT serverinfo (host, port, authtype?, ssl?, substitutions)? >
 
 	<!ELEMENT host			(#PCDATA)>
 	<!ELEMENT port			(#PCDATA)>
@@ -24,5 +24,4 @@
 		<!ELEMENT substitution	(key, value)>
 			<!ELEMENT key			(#PCDATA)>
 			<!ELEMENT value			(#PCDATA)>
-	<!ELEMENT serverfilepath	(#PCDATA)>
 	

@@ -76,9 +76,6 @@ class serverinfo( object ):
                 self.authtype = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_SSL:
                 self.ssl = True
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERFILEPATH:
-                if child.firstChild is not None:
-                    self.serverfilepath = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
    

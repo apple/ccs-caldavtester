@@ -22,11 +22,11 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix:/top-collection/</ruri>
+			<ruri>$pathprefix1:/top-collection/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/</ruri>
+			<ruri>$pathprefix1:/top-collection/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
@@ -35,11 +35,11 @@
 		<!--  Calendar with DAV:read only -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix:/top-collection/calendar1/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar1/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
@@ -47,7 +47,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar1/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal1.ics</filepath>
@@ -55,7 +55,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar1/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
@@ -63,7 +63,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar1/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal2.ics</filepath>
@@ -71,7 +71,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar1/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
@@ -79,7 +79,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar1/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal3.ics</filepath>
@@ -87,7 +87,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar1/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar1/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/3.xml</filepath>
@@ -96,11 +96,11 @@
 		<!--  Calendar with no privileges -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix:/top-collection/calendar2/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar2/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
@@ -108,7 +108,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar2/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal4.ics</filepath>
@@ -116,7 +116,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar2/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
@@ -124,7 +124,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar2/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal5.ics</filepath>
@@ -132,7 +132,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar2/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
@@ -140,7 +140,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar2/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal6.ics</filepath>
@@ -148,7 +148,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar2/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar2/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/3.xml</filepath>
@@ -157,11 +157,11 @@
 		<!--  Calendar with CALDAV:read-free-busy only -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix:/top-collection/calendar3/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar3/</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/3.xml</filepath>
@@ -169,7 +169,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar3/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal7.ics</filepath>
@@ -177,7 +177,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar3/1.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/1.xml</filepath>
@@ -185,7 +185,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar3/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal8.ics</filepath>
@@ -193,7 +193,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar3/2.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/2.xml</filepath>
@@ -201,7 +201,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix:/top-collection/calendar3/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/cal9.ics</filepath>
@@ -209,7 +209,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix:/top-collection/calendar3/3.ics</ruri>
+			<ruri>$pathprefix1:/top-collection/calendar3/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/depthreportsacl/3.xml</filepath>
@@ -218,7 +218,7 @@
 		<!--  Set calendar-free-busy-set to the calendars only -->
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 			<data substitutions='yes'>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/scheduleacl/1.xml</filepath>
@@ -263,7 +263,7 @@
 		<!--  Set calendar-free-busy-set back to default -->
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
+			<ruri>$pathprefix1:/$inbox:/</ruri>
 			<data substitutions='yes'>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/scheduleacl/2.xml</filepath>

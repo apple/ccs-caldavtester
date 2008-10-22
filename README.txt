@@ -76,7 +76,7 @@ serverinfo.dtd
 
 	ELEMENT <pathsubs>
 		a string that can be substituted into test scripts and data
-		using '$pathprefix:' as the substitution key string.
+		using '$pathprefix1:' as the substitution key string.
 
 caldavtest.dtd:
 
@@ -172,7 +172,7 @@ caldavtest.dtd:
 		request body, if there is one.
 		
 		ATTRIBUTE substitutions
-			if set to 'yes' then '$host:' and '$pathprefix:'
+			if set to 'yes' then '$host:' and '$pathprefix1:'
 			substitutions will be performed on the data before it is sent
 			in the request.
 

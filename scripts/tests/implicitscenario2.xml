@@ -199,7 +199,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario2/simple/3.xml</filepath>
@@ -231,7 +231,7 @@
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -334,7 +334,7 @@
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario2/simple/3.xml</filepath>
@@ -366,7 +366,7 @@
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -444,11 +444,11 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix:/calendar/</ruri>
+				<ruri>$pathprefix1:/calendar/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix:/$inbox:/</ruri>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

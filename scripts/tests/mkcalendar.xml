@@ -26,7 +26,7 @@
 			<description>Simple MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest1/</ruri>
+				<ruri>$pathprefix1:/caltest1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -40,7 +40,7 @@
 			<description>MKCALENDAR on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest1/</ruri>
+				<ruri>$pathprefix1:/caltest1/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -54,7 +54,7 @@
 			<description>MKCALENDAR inside another calendar</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest1/caltest2/</ruri>
+				<ruri>$pathprefix1:/caltest1/caltest2/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -68,7 +68,7 @@
 			<description>MKCOL inside a calendar</description>
 			<request>
 				<method>MKCOL</method>
-				<ruri>$pathprefix:/caltest1/collection/</ruri>
+				<ruri>$pathprefix1:/caltest1/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -85,7 +85,7 @@
 			<description>MKCALENDAR with correct request body</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest2/</ruri>
+				<ruri>$pathprefix1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/mkcalendar/1.txt</filepath>
@@ -103,7 +103,7 @@
 			<description>MKCALENDAR with correct request body on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest2/</ruri>
+				<ruri>$pathprefix1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/mkcalendar/1.txt</filepath>
@@ -121,7 +121,7 @@
 			<description>MKCALENDAR with incorrect request body</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest3/</ruri>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/mkcalendar/2.txt</filepath>
@@ -138,7 +138,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix:/caltest3/</ruri>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -152,7 +152,7 @@
 			<description>MKCALENDAR with incorrect request body on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest2/</ruri>
+				<ruri>$pathprefix1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/mkcalendar/2.txt</filepath>
@@ -173,7 +173,7 @@
 			<description>MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix:/caltest3/</ruri>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -187,7 +187,7 @@
 			<description>REPORT free-busy on new collection as another user</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix:/caltest3/</ruri>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/mkcalendar/3.xml</filepath>
