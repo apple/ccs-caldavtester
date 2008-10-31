@@ -19,20 +19,36 @@
  -->
 
 <caldavtest ignore-all="yes">
-	<description>Test COPY/MOVE behavior with implicit scheduling</description>
+	<description>Test COPY/MOVE behavior with implicit scheduling (also some PUT restrictions)</description>
 
 	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>GET</method>
+			<ruri>$calendarpath1:/</ruri>
+		</request>
 		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$calendarpath1:/</ruri>
+			<ruri>$pathprefix1:/calendar-2/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix1:/collection/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>GET</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix2:/calendar-2/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+			<method>MKCOL</method>
+			<ruri>$pathprefix2:/collection/</ruri>
+		</request>
 	</start>
 	
-	<test-suite name='Simple Changes' ignore='no'>
+	<test-suite name='PUT UID restrictions - ORGANIZER' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -40,7 +56,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/1.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -56,7 +72,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/2.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -72,39 +88,13 @@
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindValues</callback>
-					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><create/></action>]]></value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -118,7 +108,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/4.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -145,122 +135,77 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Organizer tries PUT of same resource to another calendar</description>
+			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$</ruri>
+				<ruri>$pathprefix1:/calendar-2/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/5.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='7'>
-			<description>Organizer Inbox Item</description>
+			<description>Organizer tries PUT of same resource to a collection</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/2.ics</ruri>
 				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>contains</name>
-						<value>DTSTART;TZID</value>
-						<value>DURATION</value>
-					</arg>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindValues</callback>
-					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddr2:</attendee><partstat/></reply></action>]]></value>
-					</arg>
+					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='8'>
-			<description>Organizer data changed</description>
+			<description>Organizer tries PUT of same resource without Organizer/Attendee to another calendar</description>
 			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/calendar-2/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
 				<verify>
-					<callback>calendarDataMatch</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/6.ics</value>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
+			<description>Organizer tries PUT of same resource without Organizer/Attendee to a collection</description>
 			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='10'>
-			<description>Organizer changes Summary</description>
+			<description>Organizer overwrites resource without Organizer/Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/7.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -276,7 +221,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/8.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -292,53 +237,35 @@
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindValues</callback>
-					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><summary/></changes></update></action>]]></value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='13'>
-			<description>Attendee has data</description>
+			<description>Attendee has no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<ruri>$calendarpath2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
 				<verify>
-					<callback>calendarDataMatch</callback>
+					<callback>multistatusItems</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/9.ics</value>
+						<name>count</name>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -365,76 +292,59 @@
 			</request>
 		</test>
 		<test name='15'>
-			<description>Attendee -> Declined</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='PUT no UID restrictions - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores without Attendee</description>
+			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/10.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
-			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindValues</callback>
-					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddr2:</attendee><partstat/></reply></action>]]></value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='17'>
-			<description>Organizer data changed</description>
+		<test name='2'>
+			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -442,37 +352,52 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/simple/11.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
-			<description>Organizer deletes Inbox Item</description>
+		<test name='3'>
+			<description>Organizer stores without Attendeeinto another calendar</description>
 			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/calendar-2/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
 			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
+				<method>GET</method>
+				<ruri>$pathprefix1:/calendar-2/1.ics</ruri>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>status</name>
-						<value>204</value>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='19'>
+		<test name='5'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -481,6 +406,14 @@
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -489,15 +422,15 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Organizer Delete' ignore='no'>
+	<test-suite name='PUT UID restrictions - ATTENDEE' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/1.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -508,12 +441,12 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/organizerdelete/2.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -529,25 +462,13 @@
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>notcontains</name>
-						<value>SCHEDULE-STATUS</value>
-						<value>SCHEDULE-AGENT</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -561,7 +482,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scenario1/organizerdelete/4.ics</value>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -588,914 +509,95 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
+			<description>Attendee tries PUT of same resource to another calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$</ruri>
+				<ruri>$pathprefix2:/calendar-2/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/5.ics</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/4.ics</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>count</name>
-						<value>2</value>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+		<test name='7'>
+			<description>Attendee tries PUT of same resource to a collection</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix2:/collection/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/4.ics</filepath>
+				</data>
 				<verify>
-					<callback>calendarDataMatch</callback>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee tries PUT of same resource without Organizer/Attendee to another calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix2:/calendar-2/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/organizerdelete/6.ics</value>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+			<description>Attendee tries PUT of same resource without Organizer/Attendee to a collection</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix2:/collection/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/6.ics</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='10'>
-			<description>Organizer deletes data</description>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+			<description>Attendee overwrites resource without Organizer/Attendee</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
 					<arg>
-						<name>status</name>
-						<value>204</value>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-attendee-change</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='11'>
-			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>notcontains</name>
-						<value>SCHEDULE-STATUS</value>
-						<value>SCHEDULE-AGENT</value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>DTSTART;TZID</value>
-						<value>DURATION</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<ruri>$</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindValues</callback>
-					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><cancel/></action>]]></value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='12'>
-			<description>Attendee data gone</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$calendarpath2:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='13'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='14'>
-			<description>Clean-up</description>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-			</request>
-		</test>
-	</test-suite>
-
-	<test-suite name='Attendee Delete' ignore='no'>
-		<test name='1'>
-			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/attendeedelete/1.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/attendeedelete/2.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/attendeedelete/4.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='6'>
-			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/attendeedelete/5.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/attendeedelete/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='10'>
-			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='11'>
-			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='12'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/attendeedelete/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='13'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='14'>
-			<description>Clean-up</description>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-			</request>
-		</test>
-	</test-suite>
-	
-	<test-suite name='Alarms' ignore='no'>
-		<test name='1'>
-			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/1.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/2.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>notcontains</name>
-						<value>VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/4.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='6'>
-			<description>Attendee -> Accepted + alarm</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/5.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>notcontains</name>
-						<value>VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='10'>
-			<description>Organizer changes Time leaves their alarm</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/7.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='11'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/8.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='12'>
-			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>notcontains</name>
-						<value>VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='13'>
-			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/9.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='14'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='15'>
-			<description>Organizer changes alarm</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/13.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='16'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/14.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='17'>
-			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='18'>
-			<description>Attendee has unchanged data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/9.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='19'>
-			<description>Organizer removes alarm</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/10.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='20'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/11.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='21'>
-			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='22'>
-			<description>Attendee has unchanged data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/9.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='23'>
-			<description>Attendee changes alarm</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/12.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='24'>
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -1506,36 +608,30 @@
 				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='25'>
-			<description>Organizer data unchanged</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/implicit/scenario1/alarms/11.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='26'>
+		<test name='12'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1544,6 +640,2047 @@
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='PUT non-schedule->schedule' ignore='no'>
+		<test name='1'>
+			<description>Organizer does not invite Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee no data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$calendarpath2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='MOVE to other calendar - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer MOVES to another calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='MOVE to other calendar - ATTENDEE' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee MOVES to another calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
+				</header>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Organizer no Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='MOVE from/to collection - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores to collection</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer MOVES to calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/2.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Organizer MOVES to collection</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/collection/1.ics</value>
+				</header>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Attendee has no data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$calendarpath2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='MOVE to calendar with overwrite - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores to collection</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer stores to calendar - no Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer MOVES to calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/1.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer stores to collection without Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Organizer MOVES to calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/1.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15'>
+			<description>Attendee has no data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$calendarpath2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='17'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY between calendars/collections no scheduling - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores without Attendees</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer COPIES to a collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/collection/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer COPIES to a calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer tries to invite Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='COPY between calendars/collections with scheduling - ORGANIZER/ATTENDEE' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores without Attendees</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer COPIES to a collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/collection/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer COPIES to a calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee COPIES to a collection</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix2:/collection/2.ics</value>
+				</header>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer no Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Attendee COPIES to a calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
+				</header>
+				<ruri>$</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavunique-scheduling-object-resource</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Organizer no Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='COPY from/to collection - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores to collection</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer COPIES to calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/2.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Organizer COPIES to collection</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/collection/2.ics</value>
+				</header>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='COPY to calendar with overwrite - ORGANIZER' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores to collection</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer stores to calendar - no Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer COPIES to calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/1.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer stores to collection without Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Attendee no Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Organizer COPIES to calendar</description>
+			<request print-response='no'>
+				<method>COPY</method>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarpath1:/1.ics</value>
+				</header>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/copymove/put-restrictions/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15'>
+			<description>Attendee has no data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<ruri>$calendarpath2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='17'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/calendar-2/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/collection/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/calendar-2/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$pathprefix2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

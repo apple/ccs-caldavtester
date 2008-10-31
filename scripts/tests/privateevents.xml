@@ -44,6 +44,58 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/fromcalendar/</ruri>
+		</request>
+		<request>
+			<method>ACL</method>
+			<ruri>$pathprefix1:/fromcalendar/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/4.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/44.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/45.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/46.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/47.ics</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/privateevents/48.ics</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
 			<ruri>$pathprefix1:/rolledcalendar/</ruri>
 		</request>
 		<request>
@@ -1062,7 +1114,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/10.ics</filepath>
+					<filepath>Resource/privateevents/40.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1153,7 +1205,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/10.ics</filepath>
+					<filepath>Resource/privateevents/40.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1171,7 +1223,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/10.ics</filepath>
+					<filepath>Resource/privateevents/40.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1268,7 +1320,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/11.ics</filepath>
+					<filepath>Resource/privateevents/41.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1359,7 +1411,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/11.ics</filepath>
+					<filepath>Resource/privateevents/41.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1380,7 +1432,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/12.ics</filepath>
+					<filepath>Resource/privateevents/42.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1471,7 +1523,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/12.ics</filepath>
+					<filepath>Resource/privateevents/42.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1489,7 +1541,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/12.ics</filepath>
+					<filepath>Resource/privateevents/42.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1589,7 +1641,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/13.ics</filepath>
+					<filepath>Resource/privateevents/43.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1680,7 +1732,7 @@
 				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/privateevents/13.ics</filepath>
+					<filepath>Resource/privateevents/43.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -2891,7 +2943,7 @@
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/1.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2905,7 +2957,7 @@
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/2.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2919,7 +2971,7 @@
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/3.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2933,7 +2985,7 @@
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/4.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2947,7 +2999,7 @@
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/5.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3115,7 +3167,6 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3142,8 +3193,6 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3170,8 +3219,6 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3198,7 +3245,6 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3225,8 +3271,6 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3253,8 +3297,6 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3264,70 +3306,70 @@
 
 	<test-suite name='MOVE tests' ignore='no'>
 		<test name='1'>
-			<description>copy to calendar</description>
+			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/1.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>copy to calendar</description>
+			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/2.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='3'>
-			<description>copy to calendar</description>
+			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/3.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='4'>
-			<description>copy to calendar</description>
+			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/4.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='5'>
-			<description>copy to calendar</description>
+			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/5.ics</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
+				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3495,7 +3537,6 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3522,8 +3563,6 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3550,8 +3589,6 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3578,7 +3615,6 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3605,8 +3641,6 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3633,8 +3667,6 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
