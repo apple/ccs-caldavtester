@@ -30,6 +30,10 @@
 			<method>GET</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>GET</method>
+			<ruri>$calendarpath3:/</ruri>
+		</request>
 	</start>
 	
 	<test-suite name='No schedule-tag' ignore='no'>
@@ -292,6 +296,45 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Attendee event has new schedule tag header</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee-new:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee-new:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee-new:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Organizer change to resource with invalid If-Schedule-Tag-Match' ignore='no'>
@@ -335,9 +378,44 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Attendee event has same schedule tag header</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-attendee-new:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee-new:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='Attendee change to resource with valid If-Schedule-Tag-Match' ignore='no'>
+	<test-suite name='Attendee non-PARTSTAT change to resource with valid If-Schedule-Tag-Match' ignore='no'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -392,6 +470,41 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Organizer event has same schedule tag header</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-organizer-new2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer-new2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Attendee change to resource with invalid If-Schedule-Tag-Match' ignore='no'>
@@ -431,6 +544,41 @@
 					<arg>
 						<name>okprops</name>
 						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee-new2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer event has same schedule tag header</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-organizer-new2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer-new2:</value>
 					</arg>
 				</verify>
 			</request>
@@ -497,7 +645,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scheduletag/3.ics</filepath>
+					<filepath>Resource/implicit/scheduletag/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -511,7 +659,7 @@
 				</verify>
 				<grabheader>
 					<name>Schedule-Tag</name>
-					<variable>$schedule-tag:</variable>
+					<variable>$schedule-tag-organizer:</variable>
 				</grabheader>
 			</request>
 		</test>
@@ -528,7 +676,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag:</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
 					</arg>
 				</verify>
 			</request>
@@ -550,7 +698,7 @@
 				</verify>
 				<grabheader>
 					<name>Schedule-Tag</name>
-					<variable>$schedule-tag:</variable>
+					<variable>$schedule-tag-attendee02:</variable>
 				</grabheader>
 			</request>
 		</test>
@@ -567,9 +715,475 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag:</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee02:</value>
 					</arg>
 				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>New attendee event has schedule tag header</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee03:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Matching property</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee03:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Organizer change' ignore='no'>
+		<test name='1'>
+			<description>Updated event has changed schedule tag header</description>
+			<request print-response="no">
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-organizer:</value>
+				</header>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/8.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-organizer:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-organizer:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-organizer:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee event has changed schedule tag header</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee02:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee02:</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee02:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='5'>
+			<description>New attendee event has changed schedule tag header</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee03:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee03:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Matching property</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee03:</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee03:</variable>
+				</grabproperty>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Attendee 02 change' ignore='no'>
+		<test name='1'>
+			<description>Updated event has changed schedule tag header</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-attendee02:</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee02:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Matching property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee02:</value>
+						<value>DAV:getetag!$etag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee02:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer has same schedule tag header</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-organizer:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
+						<value>DAV:getetag!$etag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee02:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee has same schedule tag header</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-attendee03:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Matching property</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee03:</value>
+						<value>DAV:getetag!$etag-attendee03:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee03:</variable>
+				</grabproperty>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Attendee 03 change' ignore='no'>
+		<test name='1'>
+			<description>Updated event has changed schedule tag header</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-attendee03:</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee03:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee03:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Matching property</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee03:</value>
+						<value>DAV:getetag!$etag-attendee03:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee03:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer has same schedule tag header</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-organizer:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
+						<value>DAV:getetag!$etag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee02:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee has same schedule tag header</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag$$schedule-tag-attendee02:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Matching property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-attendee02:</value>
+						<value>DAV:getetag!$etag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-attendee02:</variable>
+				</grabproperty>
 			</request>
 		</test>
 	</test-suite>
@@ -581,6 +1195,8 @@
 			<ruri>$pathprefix1:/$inbox:/</ruri>
 			<ruri>$pathprefix2:/calendar/</ruri>
 			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$pathprefix3:/calendar/</ruri>
+			<ruri>$pathprefix3:/$inbox:/</ruri>
 		</request>
 	</end>
 	
