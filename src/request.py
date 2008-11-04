@@ -127,8 +127,8 @@ class request( object ):
     be used to determine a satisfactory output or not.
     """
     __slots__  = ['manager', 'auth', 'user', 'pswd', 'end_delete', 'print_response',
-                  'method', 'headers', 'ruri', 'data', 'datasubs', 'verifiers',
-                  'grablocation', 'grabproperty']
+                  'method', 'headers', 'ruris', 'ruri', 'data', 'datasubs', 'verifiers',
+                  'grabheader', 'grabproperty']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -139,15 +139,16 @@ class request( object ):
         self.print_response = False
         self.method = ""
         self.headers = {}
+        self.ruris = []
         self.ruri = ""
         self.data = None
         self.datasubs = True
         self.verifiers = []
-        self.grablocation = False
+        self.grabheader = None
         self.grabproperty = None
     
     def __str__(self):
-        return "Method: %s; uri: %s" % (self.method, self.ruri)
+        return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
 
     def getURI( self, si ):
         if self.ruri == "$":
@@ -161,6 +162,8 @@ class request( object ):
         
     def getHeaders( self, si ):
         hdrs = self.headers
+        for key, value in hdrs.items():
+            hdrs[key] = si.extrasubs(value)
         
         # Content type
         if self.data != None:
@@ -279,15 +282,17 @@ class request( object ):
             elif child._get_localName() == src.xmlDefs.ELEMENT_HEADER:
                 self.parseHeader(child)
             elif child._get_localName() == src.xmlDefs.ELEMENT_RURI:
-                self.ruri = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
+                self.ruris.append(self.manager.server_info.subs(child.firstChild.data.encode("utf-8")))
+                if len(self.ruris) == 1:
+                    self.ruri = self.ruris[0]
             elif child._get_localName() == src.xmlDefs.ELEMENT_DATA:
                 self.data = data()
                 self.datasubs = self.data.parseXML( child )
             elif child._get_localName() == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABLOCATION:
-                self.grablocation = True
+            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABHEADER:
+                self.parseGrabHeader(child)
             elif child._get_localName() == src.xmlDefs.ELEMENT_GRABPROPERTY:
                 self.parseGrabProperty(child)
 
@@ -314,6 +319,19 @@ class request( object ):
         return requests
                 
     parseList = staticmethod( parseList )
+
+    def parseGrabHeader(self, node):
+        
+        header = None
+        variable = None
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
+                header = child.firstChild.data.encode("utf-8")
+            elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
+                variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
+        
+        if (header is not None) and (variable is not None):
+            self.grabheader = (header, variable)
 
     def parseGrabProperty(self, node):
         

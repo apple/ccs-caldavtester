@@ -165,6 +165,7 @@ class caldavtest(object):
         hrefs = []
         req = request(self.manager)
         req.method = "PROPFIND"
+        req.ruris.append(collection[0])
         req.ruri = collection[0]
         req.headers["Depth"] = "1"
         if len(collection[1]):
@@ -211,6 +212,7 @@ class caldavtest(object):
         for deleter in deletes:
             req = request(self.manager)
             req.method = "DELETE"
+            req.ruris.append(deleter[0])
             req.ruri = deleter[0]
             if len(deleter[1]):
                 req.user = deleter[1]
@@ -222,6 +224,7 @@ class caldavtest(object):
         hresult = ""
         req = request(self.manager)
         req.method = "PROPFIND"
+        req.ruris.append(collection[0])
         req.ruri = collection[0]
         req.headers["Depth"] = "1"
         if len(collection[1]):
@@ -301,6 +304,7 @@ class caldavtest(object):
         for deleter in self.end_deletes:
             req = request(self.manager)
             req.method = "DELETE"
+            req.ruris.append(deleter[0])
             req.ruri = deleter[0]
             if len(deleter[1]):
                 req.user = deleter[1]
@@ -369,13 +373,14 @@ class caldavtest(object):
         
         # Special check for DELETEALL
         if req.method == "DELETEALL":
-            collection = (req.ruri, req.user, req.pswd)
-            hrefs = self.dofindall(collection)
-            self.dodeleteall(hrefs)
+            for ruri in req.ruris:
+                collection = (ruri, req.user, req.pswd)
+                hrefs = self.dofindall(collection)
+                self.dodeleteall(hrefs)
             return True, "", None, None
         
         # Special check for ACCESS-DISABLE
-        if req.method == "ACCESS-DISABLE":
+        elif req.method == "ACCESS-DISABLE":
             if self.doaccess(req.ruri, False):
                 return True, "", None, None
             else:
@@ -387,7 +392,7 @@ class caldavtest(object):
                 return False, "Could not remove caldav-access-disabled xattr on file", None, None
 
         # Special check for QUOTA
-        if req.method == "QUOTA-DISABLE":
+        elif req.method == "QUOTA-DISABLE":
             if self.doquota(req.ruri, None):
                 return True, "", None, None
             else:
@@ -399,7 +404,7 @@ class caldavtest(object):
                 return False, "Could not set quota-root xattr on file", None, None
 
         # Special for delay
-        if req.method == "DELAY":
+        elif req.method == "DELAY":
             # self.ruri contains a numeric delay in seconds
             delay = int(req.ruri)
             starttime = time.time()
@@ -407,14 +412,8 @@ class caldavtest(object):
                 pass
             return True, "", None, None
 
-        # Special for LISTNEW
-        if req.method == "LISTNEW":
-            collection = (req.ruri, req.user, req.pswd)
-            self.grabbedlocation = self.dofindnew(collection)
-            return True, "", None, None
-            
         # Special for GETNEW
-        if req.method == "GETNEW":
+        elif req.method == "GETNEW":
             collection = (req.ruri, req.user, req.pswd)
             self.grabbedlocation = self.dofindnew(collection)
             req.method = "GET"
@@ -480,10 +479,10 @@ class caldavtest(object):
             resulttxt += str(response.msg) + "\n" + respdata
             resulttxt += "\n--------END:RESPONSE--------\n"
         
-        if req.grablocation:
-            hdrs = response.msg.getheaders("Location")
+        if req.grabheader:
+            hdrs = response.msg.getheaders(req.grabheader[0])
             if hdrs:
-                self.grabbedlocation = hdrs[0]
+                self.manager.server_info.addextrasubs({req.grabheader[1]: hdrs[0].encode("utf-8")})
 
         if req.grabproperty:
             if response.status == 207:

@@ -35,50 +35,52 @@ class Verifier(object):
                 p = p[1:]
                 present = "multiple"
             if p.find("$") != -1:
-                testheader[i] = (p.split("$", 1)[0], p.split("$", 1)[1], present,)
+                testheader[i] = (p.split("$", 1)[0], p.split("$", 1)[1], present, True,)
+            elif p.find("!") != -1:
+                testheader[i] = (p.split("!", 1)[0], p.split("!", 1)[1], present, False,)
             else:
-                testheader[i] = (p, None, present,)
+                testheader[i] = (p, None, present, True,)
         
         result = True
         resulttxt = ""
-        for test in testheader:
-            hdrs = response.msg.getheaders(test[0])
+        for hdrname, hdrvalue, presence, matchvalue in testheader:
+            hdrs = response.msg.getheaders(hdrname)
             if (hdrs is None or (len(hdrs) == 0)):
-                if test[2] != "none":
+                if presence != "none":
                     result = False
                     if len(resulttxt):
                         resulttxt += "\n"
-                    resulttxt += "        Missing Response Header: %s" % (test[0],)
+                    resulttxt += "        Missing Response Header: %s" % (hdrname,)
                     continue
                 else:
                     continue
 
-            if (hdrs is not None) and (len(hdrs) != 0) and (test[2] == "none"):
+            if (hdrs is not None) and (len(hdrs) != 0) and (presence == "none"):
                 result = False
                 if len(resulttxt):
                     resulttxt += "\n"
-                resulttxt += "        Response Header was present one or more times: %s" % (test[0],)
+                resulttxt += "        Response Header was present one or more times: %s" % (hdrname,)
                 continue
                
-            if (len(hdrs) != 1) and (test[2] == "single"):
+            if (len(hdrs) != 1) and (presence == "single"):
                 result = False
                 if len(resulttxt):
                     resulttxt += "\n"
-                resulttxt += "        Multiple Response Headers: %s" % (test[0],)
+                resulttxt += "        Multiple Response Headers: %s" % (hdrname,)
                 continue
             
-            if (test[1] is not None):
+            if (hdrvalue is not None):
                 matched = False
                 for hdr in hdrs:
-                    if (re.match(test[1], hdr) is not None):
+                    if (re.match(hdrvalue, hdr) is not None):
                         matched = True
                         break
                         
-                if not matched:
+                if matchvalue and not matched or not matchvalue and matched:
                     result = False
                     if len(resulttxt):
                         resulttxt += "\n"
-                    resulttxt += "        Wrong Response Header Value: %s: %s" % (test[0], str(hdrs))
+                    resulttxt += "        Wrong Response Header Value: %s: %s" % (hdrname, str(hdrs))
 
         return result, resulttxt
             

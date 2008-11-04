@@ -22,7 +22,7 @@
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
-	<!ELEMENT request (method, header*, ruri?, data?, verify*, grablocation?, grabproperty?)>
+	<!ELEMENT request (method, header*, ruri*, data?, verify*, grabheader?, grabproperty?)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -44,7 +44,7 @@
 				<!ELEMENT callback (#PCDATA)>
 				<!ELEMENT arg (name, value+)>
 		
-		<!ELEMENT grablocation EMPTY>
+		<!ELEMENT grabheader (name, variable)>
 	
 		<!ELEMENT grabproperty (property, variable)>
 			<!ELEMENT property (#PCDATA)>
