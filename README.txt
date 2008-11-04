@@ -146,9 +146,7 @@ caldavtest.dtd:
 			2) ACCESS-DISABLE - removes the access-disabled xattr on the file specified by the <ruri> element.
 			3) ACCESS-ENABLE - adds the access-disabled xattr on the file specified by the <ruri> element.
 			4) DELAY - pause for the number of seconds specified by the <ruri> element.
-			5) LISTNEW - find the newest resource in the collection specified by the <ruri> element and put its URI
-						into the $ variable for later use in an <ruri> element.
-			6) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
+			5) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 					    into the $ variable for later use in an <ruri> element.
 
 	ELEMENT <header>
@@ -199,12 +197,15 @@ caldavtest.dtd:
 			ELEMENT <value>
 				values for the argument.
 
-	ELEMENT <grablocation>
-		if present, this stores the value of any Location header
-		returned in the response in an internal variable. If a
-		subsequent request specifies has an <ruri> element value of '$'
-		then the last stored location value is used as the actual
-		request URI.
+	ELEMENT <grabheader>
+		if present, this stores the value of the specified header
+		returned in the response in a named variable which can be used
+		in subsequent requests.
+		
+	ELEMENT <grabproperty>
+		if present, this stores the value of the specified property
+		returned in a PROPFIND response in a named variable which can
+		be used in subsequent requests.
 		
 VERIFICATION Methods
 
