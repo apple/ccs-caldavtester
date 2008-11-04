@@ -480,19 +480,24 @@ class caldavtest(object):
             resulttxt += "\n--------END:RESPONSE--------\n"
         
         if req.grabheader:
-            hdrs = response.msg.getheaders(req.grabheader[0])
-            if hdrs:
-                self.manager.server_info.addextrasubs({req.grabheader[1]: hdrs[0].encode("utf-8")})
+            for hdrname, variable in req.grabheader:
+                hdrs = response.msg.getheaders(hdrname)
+                if hdrs:
+                    self.manager.server_info.addextrasubs({variable: hdrs[0].encode("utf-8")})
+                else:
+                    result = False
+                    resulttxt += "\nHeader %s was not extracted from response\n" % (hdrname,)
 
         if req.grabproperty:
             if response.status == 207:
-                # grab the property here
-                propvalue = self.extractProperty(req.grabproperty[0], respdata)
-                if propvalue == None:
-                    result = False
-                    resulttxt += "\nProperty %s was not extracted from multistatus response\n" % (req.grabproperty[0],)
-                else:
-                    self.manager.server_info.addextrasubs({req.grabproperty[1]: propvalue.encode("utf-8")})
+                for propname, variable in req.grabproperty:
+                    # grab the property here
+                    propvalue = self.extractProperty(propname, respdata)
+                    if propvalue == None:
+                        result = False
+                        resulttxt += "\nProperty %s was not extracted from multistatus response\n" % (propname,)
+                    else:
+                        self.manager.server_info.addextrasubs({variable: propvalue.encode("utf-8")})
 
         return result, resulttxt, response, respdata
 

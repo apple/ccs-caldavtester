@@ -144,8 +144,8 @@ class request( object ):
         self.data = None
         self.datasubs = True
         self.verifiers = []
-        self.grabheader = None
-        self.grabproperty = None
+        self.grabheader = []
+        self.grabproperty = []
     
     def __str__(self):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
@@ -331,7 +331,7 @@ class request( object ):
                 variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
         
         if (header is not None) and (variable is not None):
-            self.grabheader = (header, variable)
+            self.grabheader.append((header, variable))
 
     def parseGrabProperty(self, node):
         
@@ -344,7 +344,7 @@ class request( object ):
                 variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
         
         if (property is not None) and (variable is not None):
-            self.grabproperty = (property, variable)
+            self.grabproperty.append((property, variable))
             
 class data( object ):
     """
