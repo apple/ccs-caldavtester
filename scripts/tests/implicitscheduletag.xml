@@ -1188,6 +1188,322 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Organizer Merge' ignore='no'>
+		<test name='1'>
+			<description>Updated event that has changed on disk</description>
+			<request print-response="no">
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-organizer:</value>
+				</header>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-organizer:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-organizer:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-organizer:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scheduletag/13.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scheduletag/14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee -> Accepted</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/15.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Updated event that has changed on disk</description>
+			<request print-response="no">
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-organizer:</value>
+				</header>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/16.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-organizer:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-organizer:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Matching property</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-tag$$schedule-tag-organizer:</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$etag-organizer:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scheduletag/17.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Attendee Merge' ignore='no'>
+		<test name='1'>
+			<description>Get current schedule tag header values</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-organizer:</variable>
+				</grabheader>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee02:</variable>
+				</grabheader>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee03:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee 02 -> Declined</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-attendee02:</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/18.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee02:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee02:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee 03 -> Accepted</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PUT</method>
+				<header>
+					<name>If-Schedule-Tag-Match</name>
+					<value>$schedule-tag-attendee03:</value>
+				</header>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scheduletag/19.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Schedule-Tag!$schedule-tag-attendee03:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-attendee03:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scheduletag/20.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
