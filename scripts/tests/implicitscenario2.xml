@@ -249,7 +249,7 @@
 			</request>
 		</test>
 		<test name='10'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -265,7 +265,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -285,27 +285,6 @@
 			</request>
 		</test>
 		<test name='12'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='13'>
 			<description>Attendee 2 -> Decline</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
@@ -326,7 +305,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='13'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -348,7 +327,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='14'>
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -362,7 +341,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='15'>
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -383,8 +362,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17'>
-			<description>Attendee 1 Inbox Item</description>
+		<test name='16'>
+			<description>Attendee 1 no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -400,12 +379,12 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
+		<test name='17'>
 			<description>Attendee 1 data changed</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -419,28 +398,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='20'>
+		<test name='18'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>

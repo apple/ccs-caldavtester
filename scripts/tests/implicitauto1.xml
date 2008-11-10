@@ -100,7 +100,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -116,7 +116,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -379,7 +379,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -395,7 +395,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -515,7 +515,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -531,7 +531,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -651,7 +651,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -667,7 +667,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -787,7 +787,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -803,7 +803,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -923,7 +923,7 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>Two items in user02 Inbox</description>
+			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<header>
@@ -939,7 +939,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>2</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -1092,7 +1092,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Cancel event</description>
-			<request>
+			<request print-response="yes">
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>

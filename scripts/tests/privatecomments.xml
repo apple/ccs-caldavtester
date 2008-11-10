@@ -266,7 +266,7 @@
 			</request>
 		</test>
 		<test name='10'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -282,7 +282,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -297,27 +297,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='12'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -404,7 +383,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -420,7 +399,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -435,27 +414,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -542,7 +500,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -558,7 +516,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -573,27 +531,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -680,7 +617,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -696,7 +633,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -711,27 +648,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/14.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -818,7 +734,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Attendee 1 Inbox Item</description>
+			<description>Attendee 1 no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -834,7 +750,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -849,27 +765,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/17.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -956,7 +851,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Attendee 2 Inbox Item</description>
+			<description>Attendee 2 no Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<header>
@@ -972,7 +867,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>
@@ -992,27 +887,6 @@
 			</request>
 		</test>
 		<test name='7'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
