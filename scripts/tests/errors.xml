@@ -327,6 +327,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='12'>
+			<description>PUT duplicate RECURRENCE-ID</description>
+			<request end-delete="yes" print-response='no'>
+				<method>PUT</method>
+				<ruri>34.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/errors/34.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-object-resource</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY' ignore='no'>
