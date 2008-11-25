@@ -459,14 +459,6 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>

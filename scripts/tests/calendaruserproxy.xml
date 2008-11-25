@@ -263,14 +263,6 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$principal2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$principal2:, $principal3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -483,14 +475,6 @@
 			<description>Verify access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddralt2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddralt2:, $cuaddralt3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -505,18 +489,10 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$principal1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$principal2:, $principal3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/calendaruserproxy/9.ics</filepath>
+					<filepath>Resource/calendaruserproxy/13.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>

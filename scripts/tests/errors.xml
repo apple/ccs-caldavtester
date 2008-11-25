@@ -1226,18 +1226,10 @@
 			<description>POST free busy</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>urn:uuid:bogus-uuid</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedule/6.txt</filepath>
+					<filepath>Resource/errors/35.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>

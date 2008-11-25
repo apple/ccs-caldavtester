@@ -231,14 +231,6 @@
 			<description>POST free busy</description>
 			<request user="$userid2:" pswd='$pswd2:' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>

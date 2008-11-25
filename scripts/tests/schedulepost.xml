@@ -117,14 +117,6 @@
 			<description>POST on invalid outbox</description>
 			<request print-response="no">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -143,14 +135,6 @@
 			<description>POST with invalid content</description>
 			<request>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -169,14 +153,6 @@
 			<description>POST with invalid calendar data</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -195,14 +171,6 @@
 			<description>POST without METHOD property</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -221,14 +189,6 @@
 			<description>POST with invalid iTIP object</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -244,65 +204,13 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>POST without Originator:</description>
-			<request>
-				<method>POST</method>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedule/3.txt</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator-specified</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7' ignore='no'>
-			<description>POST with non-authorized Originator:</description>
-			<request print-response='no'>
-				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:user01-bogus@example.com</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedule/3.txt</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavoriginator-allowed</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8' ignore='no'>
 			<description>POST without Recipient:</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedule/3.txt</filepath>
+					<filepath>Resource/schedule/22.ics</filepath>
 				</data>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -313,18 +221,10 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='7' ignore='no'>
 			<description>POST with non-authorized Organizer:</description>
 			<request>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -339,18 +239,10 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='8' ignore='no'>
 			<description>POST reply with too many Attendees:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -365,18 +257,10 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='9' ignore='no'>
 			<description>POST reply with non-authorized Attendee:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr2:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$pathprefix2:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -391,18 +275,10 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='10' ignore='no'>
 			<description>POST reply with disabled Attendee:</description>
 			<request>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddrdisabled:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -420,18 +296,10 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='11' ignore='no'>
 			<description>POST reply with disabled Organizer:</description>
 			<request>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddrdisabled:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -453,14 +321,6 @@
 			<description>POST which should work</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -555,14 +415,6 @@
 			<description>POST which should work (using relative principal addressing)</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddralt1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddralt2:, $cuaddralt3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -577,14 +429,6 @@
 			<description>POST which should work (using absolute principal addressing)</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$host:$cuaddralt1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$host:$cuaddralt2:, $host:$cuaddralt3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -717,14 +561,6 @@
 			<description>POST free busy</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -752,18 +588,10 @@
 			<description>POST free busy - recipients with failure</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>mailto:broken@example.com, $cuaddr3:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/schedule/6.txt</filepath>
+					<filepath>Resource/schedule/23.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -786,14 +614,6 @@
 			<description>POST free busy - check ATTENDEE presence</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddraltnoslash1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddraltnoslash2:</value>
-				</header>
 				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>

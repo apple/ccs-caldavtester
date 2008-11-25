@@ -61,14 +61,6 @@
 			<description>POST free busy one valid user</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -90,14 +82,6 @@
 			<description>POST free busy two valid users</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:,$cuaddr2:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -127,14 +111,6 @@
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -177,14 +153,6 @@
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:, $cuaddr2:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -237,14 +205,6 @@
 			<description>POST authenticated</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -263,14 +223,6 @@
 			<description>POST local originator</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>$cuaddr1:</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -289,14 +241,6 @@
 			<description>POST invalid local recipient</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>mailto:bogus@example.com</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -318,14 +262,6 @@
 			<description>POST remote recipient</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>mailto:remote02@example.org</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -347,14 +283,6 @@
 			<description>POST local organizer</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr2:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -373,14 +301,6 @@
 			<description>POST local attendee reply</description>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
-				<header>
-					<name>Originator</name>
-					<value>mailto:remote01@example.org</value>
-				</header>
-				<header>
-					<name>Recipient</name>
-					<value>$cuaddr1:</value>
-				</header>
 				<ruri>$servertoserver:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
