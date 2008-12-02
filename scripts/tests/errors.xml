@@ -345,6 +345,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='13'>
+			<description>PUT bad escape sequence</description>
+			<request end-delete="yes" print-response='no'>
+				<method>PUT</method>
+				<ruri>34.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/errors/36.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY' ignore='no'>
