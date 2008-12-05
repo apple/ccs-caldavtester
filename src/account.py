@@ -18,9 +18,9 @@
 Class that encapsulates the account information for populating a CalDAV server.
 """
 
+from hashlib import md5
 from utilities import webdav
 import copy
-import md5
 import os
 import src.xmlDefs
 
@@ -169,12 +169,12 @@ class calendar(object):
             file_object.close( )
 
         if self.datacount == 1:
-            rpath = cpath + md5.new(cpath + item + str(self.count)).hexdigest() + ".ics"
+            rpath = cpath + md5(cpath + item + str(self.count)).hexdigest() + ".ics"
             webdav.Put(server_info, rpath, "text/calendar; charset=utf-8", caldata).run()
         else:
             for ctr in range(1, self.datacount + 1):
                 data = caldata.replace(self.datacountarg, str(ctr))
-                rpath = cpath + md5.new(cpath + item + str(self.count) + str(ctr)).hexdigest() + ".ics"
+                rpath = cpath + md5(cpath + item + str(self.count) + str(ctr)).hexdigest() + ".ics"
                 webdav.Put(server_info, rpath, "text/calendar; charset=utf-8", data).run()
 
     def parseXML( self, node ):

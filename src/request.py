@@ -18,17 +18,16 @@
 Defines the 'request' class which encapsulates an HTTP request and verification.
 """
 
+from hashlib import md5, sha1
 import base64
 import httplib
-import md5
-import sha
 import src.xmlDefs
 import time
 
 algorithms = {
-    'md5': md5.new,
-    'md5-sess': md5.new,
-    'sha': sha.new,
+    'md5': md5,
+    'md5-sess': md5,
+    'sha': sha1,
 }
 
 # DigestCalcHA1
