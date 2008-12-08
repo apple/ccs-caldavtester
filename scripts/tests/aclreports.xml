@@ -584,6 +584,184 @@
 				</verify>
 			</request>
 		</test>
+		<test name='11' ignore='no'>
+			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/25.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:admin/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$calendarpath1:/1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/26.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/27.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14' ignore='no'>
+			<description>Invalid search report - test attribute bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/28.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15' ignore='no'>
+			<description>Invalid search report - type attribute bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/29.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16' ignore='no'>
+			<description>Invalid search report - caseless attribute bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/30.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='17' ignore='no'>
+			<description>Invalid search report - match-type attribute bogus</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/31.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='18' ignore='no'>
+			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$uids:user01/</value>
+						<value>$uids:user02/</value>
+						<value>$uids:user03/</value>
+						<value>$uids:user04/</value>
+						<value>$uids:user05/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$calendarpath1:/1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>507</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='principal-search-property-set REPORT' ignore='no'>

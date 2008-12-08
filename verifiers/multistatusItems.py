@@ -56,8 +56,8 @@ class Verifier(object):
 
             # Get href for this response
             href = ElementsByName(response, "DAV:", "href")
-            if len(href) != 1:
-                return
+            if href is None or len(href) != 1:
+                return False, "        Incorrect/missing DAV:Href element in response"
             if href[0].firstChild is not None:
                 href = href[0].firstChild.data
             else:
