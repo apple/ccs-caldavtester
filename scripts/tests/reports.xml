@@ -150,6 +150,14 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
+			<ruri>19.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/reports/put/19.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
 			<ruri>101.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
@@ -392,6 +400,7 @@
 						<value>13.ics</value>
 						<value>14.ics</value>
 						<value>18.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -462,6 +471,7 @@
 						<value>7.ics</value>
 						<value>8.ics</value>
 						<value>9.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -511,6 +521,7 @@
 						<value>13.ics</value>
 						<value>14.ics</value>
 						<value>18.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -557,6 +568,7 @@
 						<value>12.ics</value>
 						<value>13.ics</value>
 						<value>14.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -604,6 +616,7 @@
 						<value>12.ics</value>
 						<value>13.ics</value>
 						<value>14.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -710,6 +723,7 @@
 						<value>13.ics</value>
 						<value>14.ics</value>
 						<value>18.ics</value>
+						<value>19.ics</value>
 						<value>101.ics</value>
 						<value>102.ics</value>
 						<value>103.ics</value>
@@ -789,6 +803,7 @@
 						<value>13.ics</value>
 						<value>14.ics</value>
 						<value>18.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -917,6 +932,7 @@
 						<value>5.ics</value>
 						<value>6.ics</value>
 						<value>7.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1096,6 +1112,23 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<description>query for VEVENTs within time range in distant future</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/8.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1313,6 +1346,7 @@
 						<value>5.ics</value>
 						<value>6.ics</value>
 						<value>7.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1332,6 +1366,7 @@
 						<value>5.ics</value>
 						<value>6.ics</value>
 						<value>7.ics</value>
+						<value>19.ics</value>
 					</arg>
 				</verify>
 			</request>

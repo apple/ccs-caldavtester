@@ -36,6 +36,8 @@ Details of the calendar resources in this directory:
 
 17.txt: 'freebusy 3' between 2006-01-08 EST and 2006-01-09 EST, with 3 busy types
 
+19.txt: 'monthly event' starts 2006-01-02 10:00 EST, duration 1H, repeats monthly
+
 101.txt: 'task 1' no due date
 
 102.txt: 'task 2' due 2006-01-01 11:00 EST with repeating alarm 1H before end
