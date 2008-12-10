@@ -3,7 +3,7 @@
 <!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,7 +28,13 @@
 			<value>http://localhost:8008</value>
 		</substitution>
 
-		<!-- relative path to principal collection-->
+		<!-- relative path to main principal collection-->
+		<substitution>
+			<key>$principalcollection:</key>
+			<value>/principals/</value>
+		</substitution>
+
+		<!-- relative path to user principal collection-->
 		<substitution>
 			<key>$principals:</key>
 			<value>/principals/users/</value>
@@ -68,6 +74,12 @@
 		<substitution>
 			<key>$usercalendars:</key>
 			<value>/calendars/__uids__/</value>
+		</substitution>
+
+		<!-- relative path to user calendars collection-->
+		<substitution>
+			<key>$userscalendars:</key>
+			<value>/calendars/users/</value>
 		</substitution>
 
 		<!-- inbox name-->
