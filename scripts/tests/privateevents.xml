@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -3705,6 +3705,280 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privateevents/39.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Admin access' ignore='no'>
+		<test name='1'>
+			<description>GET by admin normal</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/sharedcalendar/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>GET by admin PUBLIC</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/sharedcalendar/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET by admin PRIVATE</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/sharedcalendar/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>GET by admin RESTRICTED</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/sharedcalendar/4.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/49.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>GET by admin CONFIDENTIAL</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/sharedcalendar/5.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/50.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>multiget by admin PUBLIC</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>multiget by admin PRIVATE</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>multiget by admin CONFIDENTIAL</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>multiget by admin RESTRICTED</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>query by admin PUBLIC</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/21.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event public access</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>query by admin PRIVATE</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/20.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>query by admin CONFIDENTIAL</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>multiget by admin RESTRICTED</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/privateevents/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Rolled-up get by admin</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/rolledcalendar/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/privateevents/38.ics</value>
 					</arg>
 				</verify>
 			</request>
