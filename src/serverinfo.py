@@ -22,7 +22,7 @@ import src.xmlDefs
 
 class serverinfo( object ):
     """
-    Maintains information about the server beiung targetted.
+    Maintains information about the server being targetted.
     """
     __slots__  = ['host', 'port', 'authtype', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict', 'extrasubsdict',]
 
@@ -69,7 +69,10 @@ class serverinfo( object ):
     def parseXML( self, node ):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_HOST:
-                self.host = child.firstChild.data.encode("utf-8")
+                try:
+                    self.host = child.firstChild.data.encode("utf-8")
+                except:
+                    self.host = "localhost"
             elif child._get_localName() == src.xmlDefs.ELEMENT_PORT:
                 self.port = int( child.firstChild.data )
             elif child._get_localName() == src.xmlDefs.ELEMENT_AUTHTYPE:

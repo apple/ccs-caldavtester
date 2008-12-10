@@ -218,24 +218,6 @@ def buildServerinfo(hostname, docroot):
     finally:
         fd.close()
 
-def getServiceLocator(hostname):
-    cmd = "dscl -u %s -P %s %s -read /Computers/%s GeneratedUID"  % (diradmin_user, diradmin_pswd, directory_node, hostname)
-    result = commands.getoutput(cmd)
-    guid = result.split()[1]
-
-    cmd = "dscl -u %s -P %s %s -read /Computers/%s dsAttrTypeNative:apple-serviceinfo"  % (diradmin_user, diradmin_pswd, directory_node, hostname)
-    result = commands.getoutput(cmd)
-    plist = readPlistFromString(result[result.find("<?xml"):])
-    vhosts = plist.get("com.apple.macosxserver.virtualhosts", None)
-    for key, value in vhosts.iteritems():
-        serviceTypes = value.get("serviceType", None)
-        if serviceTypes:
-            for type in serviceTypes:
-                if type == "calendar":
-                    vhostguid = key
-                    break
-
-    return "%s:%s:calendar" % (guid, vhostguid,)
 
 def addLargeCalendars(hostname, docroot):
     calendars = ("calendar.10", "calendar.100", "calendar.1000",)
@@ -367,9 +349,6 @@ if __name__ == "__main__":
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
     
-            # Get the ServiceLocator details we need to enable calendar users.
-            service_locator = getServiceLocator(hostname)
-    
             # Now generate the OD accounts (caching guids as we go).
             doToAccounts(createUser)
             
@@ -389,9 +368,6 @@ if __name__ == "__main__":
             # Read the caldavd.plist file and extract some information we will need.
             hostname, docroot, sudoers = readConfig(config)
             
-            # Get the ServiceLocator details we need to enable calendar users.
-            service_locator = getServiceLocator(hostname)
-    
             # Now generate the OD accounts (caching guids as we go).
             doToAccounts(createUser, users_only=True)
             
