@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -91,11 +91,11 @@
 			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/2.xml</filepath>
@@ -113,11 +113,11 @@
 			<description>Make sure no resource exists</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>
@@ -135,11 +135,11 @@
 			<description>Make sure no resource exists</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/3.xml</filepath>

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/errors/6.ics</filepath>
@@ -133,7 +133,7 @@
 			<description>PUT non-calendar data</description>
 			<request>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/1.xml</filepath>
@@ -151,7 +151,7 @@
 			<description>PUT invalid calendar data</description>
 			<request>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/2.ics</filepath>
@@ -169,7 +169,7 @@
 			<description>PUT with multiple component types</description>
 			<request>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/3.ics</filepath>
@@ -187,7 +187,7 @@
 			<description>PUT with METHOD property</description>
 			<request>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/4.ics</filepath>
@@ -205,7 +205,7 @@
 			<description>PUT with different uids in same resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/5.ics</filepath>
@@ -223,7 +223,7 @@
 			<description>PUT with duplicate uids</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/6.ics</filepath>
@@ -241,7 +241,7 @@
 			<description>PUT with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/7.ics</filepath>
@@ -259,7 +259,7 @@
 			<description>PUT with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/8.ics</filepath>
@@ -277,7 +277,7 @@
 			<description>PUT with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/9.ics</filepath>
@@ -295,7 +295,7 @@
 			<description>PUT without timezone</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/28.ics</filepath>
@@ -313,7 +313,7 @@
 			<description>PUT invalid RRULE</description>
 			<request end-delete="yes" print-response='no'>
 				<method>PUT</method>
-				<ruri>33.ics</ruri>
+				<ruri>$calendarpath1:/33.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/33.ics</filepath>
@@ -331,7 +331,7 @@
 			<description>PUT duplicate RECURRENCE-ID</description>
 			<request end-delete="yes" print-response='no'>
 				<method>PUT</method>
-				<ruri>34.ics</ruri>
+				<ruri>$calendarpath1:/34.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/34.ics</filepath>
@@ -349,7 +349,7 @@
 			<description>PUT bad escape sequence</description>
 			<request end-delete="yes" print-response='no'>
 				<method>PUT</method>
-				<ruri>34.ics</ruri>
+				<ruri>$calendarpath1:/34.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/errors/36.ics</filepath>
@@ -370,11 +370,11 @@
 			<description>COPY non-calendar data</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/1.xml</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/1.xml</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -388,11 +388,11 @@
 			<description>COPY invalid calendar data</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/2.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -406,11 +406,11 @@
 			<description>COPY with multiple component types</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/3.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -424,11 +424,11 @@
 			<description>COPY with METHOD property</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/4.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -442,11 +442,11 @@
 			<description>COPY with different uids in same resource</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/5.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/5.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -460,11 +460,11 @@
 			<description>COPY with duplicate uids</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/6.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -478,11 +478,11 @@
 			<description>COPY from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -496,11 +496,11 @@
 			<description>COPY with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/7.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -514,11 +514,11 @@
 			<description>COPY from calendar with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -532,11 +532,11 @@
 			<description>COPY with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/8.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/2.ics</value>
+					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -550,11 +550,11 @@
 			<description>COPY with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/9.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/9.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -568,11 +568,11 @@
 			<description>COPY calendar into calendar</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/calendar2/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/calendar2/</value>
+					<value>$host:$calendarpath1:/calendar2/</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -586,11 +586,11 @@
 			<description>COPY collection into calendar</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/collection/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/collection/</value>
+					<value>$host:$calendarpath1:/collection/</value>
 				</header>
-				<ruri>$pathprefix1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -607,11 +607,11 @@
 			<description>MOVE non-calendar data</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/1.xml</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/1.xml</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -625,11 +625,11 @@
 			<description>MOVE invalid calendar data</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/2.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -643,11 +643,11 @@
 			<description>MOVE with multiple component types</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/3.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -661,11 +661,11 @@
 			<description>MOVE with METHOD property</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/4.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -679,11 +679,11 @@
 			<description>MOVE with different uids in same resource</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/5.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/5.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -697,11 +697,11 @@
 			<description>MOVE with duplicate uids</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/6.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -715,11 +715,11 @@
 			<description>MOVE from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -733,11 +733,11 @@
 			<description>MOVE with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/7.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -751,11 +751,11 @@
 			<description>MOVE from calendar with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -769,11 +769,11 @@
 			<description>MOVE with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/8.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/2.ics</value>
+					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -787,11 +787,11 @@
 			<description>MOVE with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/9.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.ics</value>
+					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/9.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -805,11 +805,11 @@
 			<description>MOVE calendar into calendar</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/calendar2/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/calendar2/</value>
+					<value>$host:$calendarpath1:/calendar2/</value>
 				</header>
-				<ruri>$pathprefix1:/calendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -823,11 +823,11 @@
 			<description>MOVE collection into calendar</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/collection/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/collection/</value>
+					<value>$host:$calendarpath1:/collection/</value>
 				</header>
-				<ruri>$pathprefix1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -844,6 +844,7 @@
 			<description>query with invalid calendar-data content-type</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/10.xml</filepath>
@@ -861,6 +862,7 @@
 			<description>query with invalid calendar-data version</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/11.xml</filepath>
@@ -878,6 +880,7 @@
 			<description>multiget with invalid calendar-data content-type</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/12.xml</filepath>
@@ -895,6 +898,7 @@
 			<description>multiget with invalid calendar-data version</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/13.xml</filepath>
@@ -915,6 +919,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/14.xml</filepath>
@@ -932,6 +937,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/15.xml</filepath>
@@ -949,6 +955,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/16.xml</filepath>
@@ -966,6 +973,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/17.xml</filepath>
@@ -983,6 +991,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/18.xml</filepath>
@@ -1000,6 +1009,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/19.xml</filepath>
@@ -1017,6 +1027,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/20.xml</filepath>
@@ -1034,6 +1045,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/21.xml</filepath>
@@ -1051,6 +1063,7 @@
 			<description>query with invalid filter</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/22.xml</filepath>
@@ -1068,6 +1081,7 @@
 			<description>query with invalid time-range (dates)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/29.xml</filepath>
@@ -1085,6 +1099,7 @@
 			<description>query with invalid time-range (floating)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/30.xml</filepath>
@@ -1102,6 +1117,7 @@
 			<description>free-busy with invalid time-range (dates)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/31.xml</filepath>
@@ -1119,6 +1135,7 @@
 			<description>free-busy with invalid time-range (floating)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/32.xml</filepath>
@@ -1207,6 +1224,7 @@
 			<description>query with invalid timezone</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/26.xml</filepath>
@@ -1224,6 +1242,7 @@
 			<description>proppatch with invalid timezone</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/errors/27.xml</filepath>
@@ -1265,7 +1284,7 @@
 			<description>DELETE /</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>/</ruri>
+				<ruri>$root:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1279,11 +1298,11 @@
 			<description>COPY /</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Destination</name>
 					<value>/copy/</value>
 				</header>
-				<ruri>/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1297,11 +1316,11 @@
 			<description>MOVE /</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Destination</name>
 					<value>/move/</value>
 				</header>
-				<ruri>/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>

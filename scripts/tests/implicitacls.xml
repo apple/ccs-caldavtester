@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@
 			<description>Look for CALDAV:schedule-send on Outbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/acls/1.xml</filepath>
@@ -51,11 +51,11 @@
 			<description>Look for CALDAV:schedule-send on Outbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/acls/1.xml</filepath>
@@ -77,11 +77,11 @@
 			<description>Look for CALDAV:schedule-send on Outbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/acls/2.xml</filepath>
@@ -100,11 +100,11 @@
 			<description>Look for CALDAV:schedule-send on Outbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/acls/2.xml</filepath>

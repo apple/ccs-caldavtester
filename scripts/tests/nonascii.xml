@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -306,7 +306,7 @@
 			<description>PUT with non-ascii data</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>nonascii.ics</ruri>
+				<ruri>$calendarpath1:/nonascii.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/6.ics</filepath>
@@ -320,7 +320,7 @@
 			<description>GET with non-ascii data</description>
 			<request>
 				<method>GET</method>
-				<ruri>nonascii.ics</ruri>
+				<ruri>$calendarpath1:/nonascii.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -330,6 +330,7 @@
 			<description>Basic query with non-ascii data</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/7.xml</filepath>
@@ -347,6 +348,7 @@
 			<description>Text query with ascii data</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/8.xml</filepath>
@@ -364,6 +366,7 @@
 			<description>Text query with non-ascii data</description>
 			<request>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/9.xml</filepath>
@@ -384,7 +387,7 @@
 			<description>PUT with non-utf-8 data without charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>nonutf8.ics</ruri>
+				<ruri>$calendarpath1:/nonutf8.ics</ruri>
 				<data>
 					<content-type>text/calendar</content-type>
 					<filepath>Resource/nonascii/10.ics</filepath>
@@ -402,7 +405,7 @@
 			<description>PUT with non-utf-8 data with utf-8 charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>nonutf8.ics</ruri>
+				<ruri>$calendarpath1:/nonutf8.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/nonascii/10.ics</filepath>
@@ -420,7 +423,7 @@
 			<description>PUT with non-utf-8 data with non-utf-8 charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>nonutf8.ics</ruri>
+				<ruri>$calendarpath1:/nonutf8.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=iso-8859-1</content-type>
 					<filepath>Resource/nonascii/10.ics</filepath>
@@ -455,11 +458,11 @@
 			<description>COPY non-utf-8 data to calendar collection</description>
 			<request end-delete="yes">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -473,11 +476,11 @@
 			<description>MOVE non-utf-8 data to calendar collection</description>
 			<request end-delete="yes">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>

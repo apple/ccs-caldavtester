@@ -22,6 +22,7 @@
 	<!ELEMENT ssl			EMPTY>
 	<!ELEMENT substitutions	(substitution*)>
 		<!ELEMENT substitution	(key, value)>
+    		<!ATTLIST substitution repeat CDATA "1">
 			<!ELEMENT key			(#PCDATA)>
 			<!ELEMENT value			(#PCDATA)>
 	

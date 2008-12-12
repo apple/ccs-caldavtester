@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -32,7 +32,7 @@
 		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/aclreports/10.xml</filepath>
@@ -40,7 +40,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>2.ics</ruri>
+			<ruri>$calendarpath1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/2.txt</filepath>
@@ -48,7 +48,7 @@
 		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>2.ics</ruri>
+			<ruri>$calendarpath1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/aclreports/9.xml</filepath>
@@ -56,7 +56,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1todo.ics</ruri>
+			<ruri>$calendarpath1:/1todo.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/todo/1.txt</filepath>
@@ -69,11 +69,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/1.xml</filepath>
@@ -91,11 +91,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/1.xml</filepath>
@@ -113,11 +113,11 @@
 			<description>No DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/2.xml</filepath>
@@ -135,7 +135,7 @@
 			<description>Too many DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/3.xml</filepath>
@@ -171,7 +171,7 @@
 			<description>Valid report</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/1.xml</filepath>
@@ -187,7 +187,7 @@
 						<value>$principaluri1:</value>
 						<value>$principaluri1:calendar-proxy-read/</value>
 						<value>$principaluri1:calendar-proxy-write/</value>
-						<value>$principaluriadmin:</value>
+						<value>$principaluri_admin:</value>
 					</arg>
 				</verify>
 			</request>
@@ -199,11 +199,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -221,11 +221,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -243,7 +243,7 @@
 			<description>Too many DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/6.xml</filepath>
@@ -261,7 +261,7 @@
 			<description>Valid self report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/4.xml</filepath>
@@ -283,7 +283,7 @@
 			<description>Valid self report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/5.xml</filepath>
@@ -305,7 +305,7 @@
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/7.xml</filepath>
@@ -323,7 +323,7 @@
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/8.xml</filepath>
@@ -358,11 +358,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -380,11 +380,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -402,7 +402,7 @@
 			<description>Valid non-apply-to report with DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/12.xml</filepath>
@@ -415,7 +415,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:public01/</value>
+						<value>$principals_uids:public01/</value>
 						<value>$principaluri1:</value>
 					</arg>
 				</verify>
@@ -425,7 +425,7 @@
 			<description>Valid non-apply-to report without DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/13.xml</filepath>
@@ -438,7 +438,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:public02/</value>
+						<value>$principals_uids:public02/</value>
 						<value>$principaluri2:</value>
 					</arg>
 				</verify>
@@ -448,7 +448,7 @@
 			<description>Valid apply-to report with DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/14.xml</filepath>
@@ -461,11 +461,11 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:public01/</value>
+						<value>$principals_uids:public01/</value>
 						<value>$principaluri1:</value>
-						<value>$uids:group01/</value>
+						<value>$principals_uids:group01/</value>
 						<value>$rprincipaluri1:</value>
-						<value>$uids:location01/</value>
+						<value>$principals_uids:location01/</value>
 					</arg>
 				</verify>
 			</request>
@@ -474,7 +474,7 @@
 			<description>Valid non-apply-to report without DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/15.xml</filepath>
@@ -487,10 +487,10 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:public02/</value>
+						<value>$principals_uids:public02/</value>
 						<value>$principaluri2:</value>
-						<value>$uids:resource02/</value>
-						<value>$uids:location02/</value>
+						<value>$principals_uids:resource02/</value>
+						<value>$principals_uids:location02/</value>
 					</arg>
 				</verify>
 			</request>
@@ -499,7 +499,7 @@
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/21.xml</filepath>
@@ -512,7 +512,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:apprentice/</value>
+						<value>$principals_uids:apprentice/</value>
 					</arg>
 				</verify>
 			</request>
@@ -521,7 +521,7 @@
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/22.xml</filepath>
@@ -534,8 +534,8 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:admin/</value>
-						<value>$uids:apprentice/</value>
+						<value>$principals_uids:admin/</value>
+						<value>$principals_uids:apprentice/</value>
 					</arg>
 				</verify>
 			</request>
@@ -544,7 +544,7 @@
 			<description>Valid ROOM displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/23.xml</filepath>
@@ -557,7 +557,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:location03/</value>
+						<value>$principals_uids:location03/</value>
 					</arg>
 				</verify>
 			</request>
@@ -566,7 +566,7 @@
 			<description>Valid RESOURCE displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/24.xml</filepath>
@@ -579,7 +579,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:resource03/</value>
+						<value>$principals_uids:resource03/</value>
 					</arg>
 				</verify>
 			</request>
@@ -588,7 +588,7 @@
 			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/25.xml</filepath>
@@ -601,7 +601,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:admin/</value>
+						<value>$principals_uids:admin/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
@@ -621,7 +621,7 @@
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/26.xml</filepath>
@@ -639,7 +639,7 @@
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/27.xml</filepath>
@@ -657,7 +657,7 @@
 			<description>Invalid search report - test attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/28.xml</filepath>
@@ -675,7 +675,7 @@
 			<description>Invalid search report - type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/29.xml</filepath>
@@ -693,7 +693,7 @@
 			<description>Invalid search report - caseless attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/30.xml</filepath>
@@ -711,7 +711,7 @@
 			<description>Invalid search report - match-type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/31.xml</filepath>
@@ -729,7 +729,7 @@
 			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/32.xml</filepath>
@@ -742,11 +742,11 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:user01/</value>
-						<value>$uids:user02/</value>
-						<value>$uids:user03/</value>
-						<value>$uids:user04/</value>
-						<value>$uids:user05/</value>
+						<value>$principaluri1:</value>
+						<value>$principaluri2:</value>
+						<value>$principaluri3:</value>
+						<value>$principaluri4:</value>
+						<value>$principaluri5:</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
@@ -769,11 +769,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -791,11 +791,11 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -831,7 +831,7 @@
 			<description>Valid report</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$principals:</ruri>
+				<ruri>$principals_users:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/16.xml</filepath>
@@ -855,11 +855,11 @@
 			<description>Regular resource</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/17.xml</filepath>
@@ -884,11 +884,11 @@
 			<description>Regular resource</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/aclreports/17.xml</filepath>

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -65,11 +65,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
@@ -91,11 +91,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
@@ -169,11 +169,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
@@ -200,11 +200,11 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
@@ -285,11 +285,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
@@ -311,11 +311,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
@@ -389,11 +389,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/3.xml</filepath>
@@ -415,11 +415,11 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
@@ -472,7 +472,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -480,7 +480,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -522,11 +522,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
@@ -612,11 +612,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
@@ -683,11 +683,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
@@ -719,11 +719,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/simple/12.xml</filepath>
@@ -741,11 +741,11 @@
 			<description>Attendee data gone</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
@@ -784,7 +784,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -792,7 +792,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -834,11 +834,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
@@ -912,11 +912,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
@@ -990,11 +990,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/attendeedelete/3.xml</filepath>
@@ -1047,7 +1047,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1055,7 +1055,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1097,11 +1097,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1186,11 +1186,11 @@
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1282,11 +1282,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1378,11 +1378,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1442,11 +1442,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1499,11 +1499,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/alarms/3.xml</filepath>
@@ -1535,7 +1535,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1543,7 +1543,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1585,11 +1585,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/no-x-properties/3.xml</filepath>
@@ -1681,11 +1681,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/no-x-properties/3.xml</filepath>
@@ -1738,11 +1738,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scenario1/no-x-properties/3.xml</filepath>
@@ -1774,7 +1774,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1782,7 +1782,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -81,11 +81,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -230,11 +230,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -252,11 +252,11 @@
 			<description>Attendee has no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -295,7 +295,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -311,7 +311,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -389,7 +389,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -405,7 +405,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -455,11 +455,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -601,11 +601,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -623,7 +623,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -639,7 +639,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -689,11 +689,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -711,11 +711,11 @@
 			<description>Attendee no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -761,11 +761,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -818,7 +818,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -834,7 +834,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -884,11 +884,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -941,11 +941,11 @@
 			<description>Organizer MOVES to another calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -955,11 +955,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -977,7 +977,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -993,7 +993,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1043,11 +1043,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1107,11 +1107,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>MOVE</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
 				</header>
-				<ruri>$</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1121,11 +1121,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1143,7 +1143,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1159,7 +1159,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1195,11 +1195,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1217,11 +1217,11 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1245,11 +1245,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1302,11 +1302,11 @@
 			<description>Organizer MOVES to collection</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/collection/1.ics</value>
 				</header>
-				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1316,11 +1316,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1338,11 +1338,11 @@
 			<description>Attendee has no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1381,7 +1381,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1397,7 +1397,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1433,11 +1433,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1469,11 +1469,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1491,11 +1491,11 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1519,11 +1519,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1590,11 +1590,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1612,11 +1612,11 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1640,11 +1640,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1662,11 +1662,11 @@
 			<description>Attendee has no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1705,7 +1705,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1721,7 +1721,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1771,11 +1771,11 @@
 			<description>Organizer COPIES to a collection</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/collection/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1785,11 +1785,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1807,11 +1807,11 @@
 			<description>Organizer COPIES to a calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1821,11 +1821,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1861,11 +1861,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1883,7 +1883,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1899,7 +1899,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1949,11 +1949,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -1971,11 +1971,11 @@
 			<description>Organizer COPIES to a collection</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/collection/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1985,11 +1985,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2007,11 +2007,11 @@
 			<description>Organizer COPIES to a calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2025,11 +2025,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2061,11 +2061,11 @@
 			<description>Attendee COPIES to a collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>COPY</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/collection/2.ics</value>
 				</header>
-				<ruri>$</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2075,11 +2075,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2097,11 +2097,11 @@
 			<description>Attendee COPIES to a calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>COPY</method>
+				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
 				</header>
-				<ruri>$</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -2115,11 +2115,11 @@
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2137,7 +2137,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2153,7 +2153,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -2189,11 +2189,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2211,11 +2211,11 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2239,11 +2239,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2296,11 +2296,11 @@
 			<description>Organizer COPIES to collection</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/collection/2.ics</value>
 				</header>
-				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2310,11 +2310,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2332,7 +2332,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2348,7 +2348,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -2384,11 +2384,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2420,11 +2420,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2442,11 +2442,11 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2470,11 +2470,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2541,11 +2541,11 @@
 			<description>Attendee no Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2563,11 +2563,11 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2591,11 +2591,11 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2613,11 +2613,11 @@
 			<description>Attendee has no data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$calendarpath2:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/copymove/put-restrictions/3.xml</filepath>
@@ -2656,7 +2656,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2672,7 +2672,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,9 +37,11 @@ class Verifier(object):
             newrespdata = respdata
         # Check each contains and not-contains (AND operation)
         for item in contains:
+            item = manager.server_info.subs(item)
             if newrespdata.find(item.replace("\n", "\r\n")) == -1:
                 return False, "        Response data does not contain \"%s\"" % (item,)
         for item in notcontains:
+            item = manager.server_info.subs(item)
             if newrespdata.find(item.replace("\n", "\r\n")) != -1:
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 

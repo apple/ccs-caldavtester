@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 			<description>PUT event with truncated timezone in April</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/timezones/1.ics</filepath>
@@ -42,6 +42,7 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/timezones/2.xml</filepath>
@@ -59,7 +60,7 @@
 			<description>PUT event with truncated timezone in December</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>3.ics</ruri>
+				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/timezones/3.ics</filepath>
@@ -73,6 +74,7 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/timezones/2.xml</filepath>
@@ -94,7 +96,7 @@
 			<description>PUT event with truncated timezone in April</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>4.ics</ruri>
+				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/timezones/4.ics</filepath>
@@ -108,6 +110,7 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/timezones/2.xml</filepath>
@@ -127,7 +130,7 @@
 			<description>PUT event with truncated timezone in December</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>5.ics</ruri>
+				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/timezones/5.ics</filepath>
@@ -141,6 +144,7 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/timezones/2.xml</filepath>

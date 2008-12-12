@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -44,11 +44,11 @@
 		</request>
 		<request>
 			<method>PROPFIND</method>
+			<ruri>$pathprefix1:/movecopy/</ruri>
 			<header>
 				<name>Depth</name>
 				<value>0</value>
 			</header>
-			<ruri>$pathprefix1:/movecopy/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/ctag/1.xml</filepath>
@@ -65,6 +65,7 @@
 			<description>Check for CTag</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -90,6 +91,7 @@
 			<description>Check for CTag</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -111,10 +113,11 @@
 			<description>Check for CTag change on DELETE</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -140,7 +143,7 @@
 			<description>Check for CTag change on PUT of new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/delete/1.txt</filepath>
@@ -148,6 +151,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -173,7 +177,7 @@
 			<description>Check for CTag change on PUT of existing resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/delete/1.txt</filepath>
@@ -181,6 +185,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -206,14 +211,15 @@
 			<description>Check for CTag change on MOVE of new resource</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/movecopy/3.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -236,11 +242,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -262,14 +268,15 @@
 			<description>Check for CTag change on COPY of new resource</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -292,11 +299,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -314,14 +321,15 @@
 			<description>Check for CTag change on COPY of existing resource</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -344,11 +352,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -366,14 +374,15 @@
 			<description>Check for CTag change on MOVE of existing resource</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/movecopy/2.ics</value>
 				</header>
-				<ruri>2.ics</ruri>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -396,11 +405,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/movecopy/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -425,11 +434,11 @@
 			<description>Check for CTag on calendar</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -451,11 +460,11 @@
 			<description>Check for CTag on inbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -491,11 +500,11 @@
 			<description>Test calendar ctag change</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>
@@ -513,11 +522,11 @@
 			<description>Test inbox ctag change</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/ctag/1.xml</filepath>

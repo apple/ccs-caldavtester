@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -32,7 +32,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>2.ics</ruri>
+			<ruri>$calendarpath1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/2.txt</filepath>
@@ -40,7 +40,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1todo.ics</ruri>
+			<ruri>$calendarpath1:/1todo.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/todo/1.txt</filepath>
@@ -161,11 +161,11 @@
 			<description>PROPFIND existing VEVENT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>PROPFIND</method>
+				<ruri>$calendars:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -198,11 +198,11 @@
 			<description>PROPFIND without DAV:read-acl or DAV:read-current-user-privilege-set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendars:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/calendars/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -235,11 +235,11 @@
 			<description>Check for schedule privilege on iTIP Inbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/inbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/inbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -261,11 +261,11 @@
 			<description>Check for schedule privilege on iTIP Outbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -287,11 +287,11 @@
 			<description>Check for lack of schedule privilege on regular calendar</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/calendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -319,11 +319,11 @@
 			<description>PROPFIND all calendars</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/2.xml</filepath>
@@ -348,11 +348,11 @@
 			<description>PROPFIND: prinicpal-collection-set test</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/14.xml</filepath>
@@ -391,7 +391,7 @@
 			<description>DAV:no-ace-conflict precondition failure - attempt to set protected ACE</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/5.xml</filepath>
@@ -409,7 +409,7 @@
 			<description>DAV:no-ace-conflict precondition failure - attempt to set inherited ACE</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/6.xml</filepath>
@@ -427,7 +427,7 @@
 			<description>DAV:no-protected-ace-conflict precondition failure - attempt to change protected ACE</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/7.xml</filepath>
@@ -446,7 +446,7 @@
 			<description>DAV:no-inherited-ace-conflict precondition failure - attempt to change inherited ACE</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/8.xml</filepath>
@@ -465,7 +465,7 @@
 			<description>DAV:deny-before-grant precondition failure - attempt to deny before grant a set of ACEs</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/9.xml</filepath>
@@ -483,7 +483,7 @@
 			<description>DAV:not-supported-privilege precondition failure - attempt to use unsupported privilege</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/10.xml</filepath>
@@ -501,7 +501,7 @@
 			<description>DAV:recognized-principal precondition failure - attempt to use unknown principal</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/11.xml</filepath>
@@ -519,7 +519,7 @@
 			<description>Valid command</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/12.xml</filepath>
@@ -537,7 +537,7 @@
 			<description>Valid command</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/22.xml</filepath>
@@ -558,11 +558,11 @@
 			<description>COPY to non-writeable shared calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/visibletouser01/copy1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -576,11 +576,11 @@
 			<description>COPY to non-visible shared calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/notvisibletouser01/copy1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -594,6 +594,7 @@
 			<description>COPY to non-visible shared calendar with overwrite</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/notvisibletouser01/hidden1.ics</value>
@@ -602,7 +603,6 @@
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -616,11 +616,11 @@
 			<description>COPY to visible with no overwrite shared calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/writeabletouser01/1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -634,11 +634,11 @@
 			<description>COPY to writeable shared calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/writeabletouser01/copy1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -652,11 +652,11 @@
 			<description>MOVE to non-writeable shared calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/visibletouser01/move2.ics</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -670,11 +670,11 @@
 			<description>MOVE to non-visible shared calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/notvisibletouser01/move2.ics</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -688,6 +688,7 @@
 			<description>MOVE to non-visible shared calendar with overwrite</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/notvisibletouser01/hidden1.ics</value>
@@ -696,7 +697,6 @@
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -710,11 +710,11 @@
 			<description>MOVE to writeable shared calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix2:/writeabletouser01/move2.ics</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -731,11 +731,11 @@
 			<description>PROPFIND principal VEVENT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/15.xml</filepath>
@@ -814,11 +814,11 @@
 			<description>Check that read is not set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -836,11 +836,11 @@
 			<description>Check that read is not inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -872,11 +872,11 @@
 			<description>Check that read is set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -894,11 +894,11 @@
 			<description>Check that read is inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -919,11 +919,11 @@
 			<description>Check that read is not set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/colreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/colreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -941,11 +941,11 @@
 			<description>Check that read is not inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -977,11 +977,11 @@
 			<description>Check that read is set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/colreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/colreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -999,11 +999,11 @@
 			<description>Check that read is inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/1.xml</filepath>
@@ -1038,11 +1038,11 @@
 			<description>Check for current-user-privilege-set on calendar home as user01</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/24.xml</filepath>
@@ -1064,11 +1064,11 @@
 			<description>Check that calendar privileges are still inherited for user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/24.xml</filepath>
@@ -1101,11 +1101,11 @@
 			<description>Check property access on calendar home as user01</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/24.xml</filepath>
@@ -1127,11 +1127,11 @@
 			<description>Check that calendar privileges are still inherited for user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/acls/24.xml</filepath>

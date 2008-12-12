@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/calendar/</ruri>
+			<ruri>$calendarpath1:/</ruri>
 		</request>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
@@ -32,7 +32,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/calendar/</ruri>
+			<ruri>$calendarpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -40,7 +40,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/calendar/</ruri>
+			<ruri>$calendarpath3:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
@@ -48,7 +48,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/1.ics</ruri>
+			<ruri>$calendarpath2:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/7.ics</filepath>
@@ -56,7 +56,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/2.ics</ruri>
+			<ruri>$calendarpath2:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/8.ics</filepath>
@@ -64,7 +64,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calendar/3.ics</ruri>
+			<ruri>$calendarpath2:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/10.ics</filepath>
@@ -72,7 +72,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix3:/calendar/1.ics</ruri>
+			<ruri>$calendarpath3:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/9.ics</filepath>
@@ -80,7 +80,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
-			<ruri>$pathprefix3:/calendar/2.ics</ruri>
+			<ruri>$calendarpath3:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/schedule/10.ics</filepath>
@@ -335,11 +335,11 @@
 			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/11.xml</filepath>
@@ -361,11 +361,11 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>
@@ -388,11 +388,11 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request  user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/12.xml</filepath>

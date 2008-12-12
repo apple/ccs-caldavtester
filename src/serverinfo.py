@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ class serverinfo( object ):
         self.port = 80
         self.authtype = "basic"
         self.ssl = False
-        self.calendarpath = ""
         self.user = ""
         self.pswd = ""
         self.serverfilepath = ""
@@ -42,8 +41,16 @@ class serverinfo( object ):
     def subs(self, str, db=None):
         if db is None:
             db = self.subsdict
-        for key, value in db.iteritems():
-            str = str.replace(key, value)
+        count = 0
+        while count < 10:
+            do_again = False
+            for key, value in db.iteritems():
+                newstr = str.replace(key, value)
+                do_again = do_again or (newstr != str)
+                str = newstr
+            if not do_again:
+                break
+            count += 1
         return str
 
     def addsubs(self, items, db=None):
@@ -86,9 +93,6 @@ class serverinfo( object ):
 
     def updateParams(self):         
         # Now cache some useful substitutions
-        if "$calendarpath1:" not in self.subsdict:
-            raise ValueError, "Must have $calendarpath1: substitution"
-        self.calendarpath = self.subsdict["$calendarpath1:"]
         if "$userid1:" not in self.subsdict:
             raise ValueError, "Must have $userid1: substitution"
         self.user = self.subsdict["$userid1:"]
@@ -99,6 +103,10 @@ class serverinfo( object ):
     def parseSubstitutionsXML(self, node):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
+                
+                # Look for repeats
+                repeat = child.getAttribute( src.xmlDefs.ATTR_REPEAT )
+
                 key = None
                 value = None
                 for schild in child._get_childNodes():
@@ -106,5 +114,10 @@ class serverinfo( object ):
                         key = schild.firstChild.data.encode("utf-8")
                     elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
                         value = schild.firstChild.data.encode("utf-8")
+
                 if key and value:
-                    self.subsdict[key] = value
+                    if repeat:
+                        for count in range(1, int(repeat)):
+                            self.subsdict[key % (count,)] = value % (count,)
+                    else:
+                        self.subsdict[key] = value

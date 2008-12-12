@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -198,11 +198,11 @@
 			<description>Check for no DAV:owner on root</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -220,11 +220,11 @@
 			<description>Check for no DAV:owner on user calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$calendars_uids:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$usercalendars:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -242,11 +242,11 @@
 			<description>Check for no DAV:owner on principal</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -264,11 +264,11 @@
 			<description>Check for DAV:owner on calendar home</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -286,11 +286,11 @@
 			<description>Check for DAV:owner on calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -308,11 +308,11 @@
 			<description>Check for DAV:owner on calendar resource</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -330,11 +330,11 @@
 			<description>Check for DAV:owner on other user's calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/2.xml</filepath>
@@ -452,11 +452,11 @@
 			<description>PROPFIND by user01</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -475,11 +475,11 @@
 			<description>PROPFIND by user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -498,11 +498,11 @@
 			<description>PROPFIND by user03</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -633,11 +633,11 @@
 			<description>PROPFIND by user01</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -657,11 +657,11 @@
 			<description>PROPFIND by user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -681,11 +681,11 @@
 			<description>PROPFIND by user03</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -943,11 +943,11 @@
 			<description>PROPFIND by user01</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -968,11 +968,11 @@
 			<description>PROPFIND by user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -992,11 +992,11 @@
 			<description>PROPFIND by user03</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1130,7 +1130,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 1</value>
 						<value>LOCATION:confidential 1</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1230,11 +1230,11 @@
 			<description>PROPFIND by user01</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1256,11 +1256,11 @@
 			<description>PROPFIND by user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1281,11 +1281,11 @@
 			<description>PROPFIND by user03</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1336,7 +1336,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1448,7 +1448,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 1</value>
 						<value>LOCATION:restricted 1</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1548,11 +1548,11 @@
 			<description>PROPFIND by user01</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1575,11 +1575,11 @@
 			<description>PROPFIND by user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1601,11 +1601,11 @@
 			<description>PROPFIND by user03</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$pathprefix1:/sharedcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/privateevents/1.xml</filepath>
@@ -1657,7 +1657,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1900,7 +1900,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1927,8 +1927,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1955,8 +1955,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1983,7 +1983,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2010,8 +2010,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2038,8 +2038,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2065,7 +2065,7 @@
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2096,8 +2096,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2124,8 +2124,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2151,7 +2151,7 @@
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2182,8 +2182,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2210,8 +2210,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2374,7 +2374,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2401,8 +2401,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2429,8 +2429,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2457,7 +2457,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2484,8 +2484,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2512,8 +2512,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2539,7 +2539,7 @@
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2570,8 +2570,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2598,8 +2598,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2625,7 +2625,7 @@
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2656,8 +2656,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2684,8 +2684,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
-						<value>ATTENDEE:mailto:user02@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ATTENDEE:$cuaddr2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2931,11 +2931,11 @@
 			<description>copy to calendar</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2945,11 +2945,11 @@
 			<description>copy to calendar</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2959,11 +2959,11 @@
 			<description>copy to calendar</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/3.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2973,11 +2973,11 @@
 			<description>copy to calendar</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/4.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -2987,11 +2987,11 @@
 			<description>copy to calendar</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/copycalendar/5.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3301,11 +3301,11 @@
 			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3315,11 +3315,11 @@
 			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/2.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3329,11 +3329,11 @@
 			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/3.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3343,11 +3343,11 @@
 			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/4.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3357,11 +3357,11 @@
 			<description>move to calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:/$pathprefix1:/movecalendar/5.ics</value>
 				</header>
-				<ruri>$pathprefix1:/fromcalendar/5.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -3844,7 +3844,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3867,7 +3867,7 @@
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -3939,7 +3939,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3963,7 +3963,7 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:mailto:user01@example.com</value>
+						<value>ORGANIZER:$cuaddr1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>

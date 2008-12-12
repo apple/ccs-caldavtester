@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
 			<description>PROPPATCH of details: good</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/1.xml</filepath>
@@ -41,6 +42,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -63,6 +65,7 @@
 			<description>PROPPATCH of details: remove it</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/3.xml</filepath>
@@ -77,6 +80,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -102,6 +106,7 @@
 			<description>PROPPATCH remove non-existant</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/4.xml</filepath>
@@ -119,6 +124,7 @@
 			<description>PROPPATCH of resourcetype: fails</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/5.xml</filepath>
@@ -135,6 +141,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -160,6 +167,7 @@
 			<description>PROPPATCH of encoded value</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/8.xml</filepath>
@@ -174,6 +182,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -198,6 +207,7 @@
 			<description>PROPPATCH with property XML attribute</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/6.xml</filepath>
@@ -212,6 +222,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -240,6 +251,7 @@
 			<description>PROPPATCH of details: remove it</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/proppatches/3.xml</filepath>
@@ -254,6 +266,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

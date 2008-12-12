@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 			<description>GET on root collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/</ruri>
+				<ruri>$root:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -38,7 +38,7 @@
 			<description>GET on principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/</ruri>
+				<ruri>$principalcollection:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -48,7 +48,7 @@
 			<description>GET on user principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/users/</ruri>
+				<ruri>$principals_users:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -58,7 +58,7 @@
 			<description>GET on group principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/groups/</ruri>
+				<ruri>$principals_groups:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -68,7 +68,7 @@
 			<description>GET on locations principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/locations/</ruri>
+				<ruri>$principals_locations:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -78,7 +78,7 @@
 			<description>GET on resources principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/resources/</ruri>
+				<ruri>$principals_resources:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -88,7 +88,7 @@
 			<description>GET on __uids__ principals collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/principals/__uids__/</ruri>
+				<ruri>$principals_uids:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -102,7 +102,7 @@
 			<description>GET on calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/</ruri>
+				<ruri>$calendars:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -112,7 +112,7 @@
 			<description>GET on user calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/users/</ruri>
+				<ruri>$calendars_users:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -122,7 +122,7 @@
 			<description>GET on group calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/groups/</ruri>
+				<ruri>$calendars_groups:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -132,7 +132,7 @@
 			<description>GET on locations calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/locations/</ruri>
+				<ruri>$calendars_locations:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -142,7 +142,7 @@
 			<description>GET on resources calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/resources/</ruri>
+				<ruri>$calendars_resources:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -152,7 +152,7 @@
 			<description>GET on __uids__ calendars collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>/calendars/__uids__/</ruri>
+				<ruri>$calendars_uids:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>

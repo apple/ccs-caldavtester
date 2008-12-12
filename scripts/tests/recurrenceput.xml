@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
 			<description>PUT non-recurring timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/1.txt</filepath>
@@ -43,7 +43,7 @@
 			<description>PUT non-recurring all day event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>2.ics</ruri>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/2.txt</filepath>
@@ -57,7 +57,7 @@
 			<description>PUT recurring (no exceptions) timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>3.ics</ruri>
+				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/3.txt</filepath>
@@ -71,7 +71,7 @@
 			<description>PUT recurring (no exceptions) all day event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>4.ics</ruri>
+				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/4.txt</filepath>
@@ -85,7 +85,7 @@
 			<description>PUT recurring (with exceptions) timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>5.ics</ruri>
+				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/5.txt</filepath>
@@ -99,7 +99,7 @@
 			<description>PUT recurring (with exceptions) all day event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>6.ics</ruri>
+				<ruri>$calendarpath1:/6.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/6.txt</filepath>
@@ -113,7 +113,7 @@
 			<description>PUT recurring (with future exceptions) timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>7.ics</ruri>
+				<ruri>$calendarpath1:/7.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/7.txt</filepath>
@@ -127,7 +127,7 @@
 			<description>PUT recurring (with future exceptions) all day event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>8.ics</ruri>
+				<ruri>$calendarpath1:/8.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/8.txt</filepath>
@@ -144,7 +144,7 @@
 			<description>Plain VTODO with no date - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>1todo.ics</ruri>
+				<ruri>$calendarpath1:/1todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/5.txt</filepath>
@@ -158,7 +158,7 @@
 			<description>Plain VTODO with all-day DUE only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>2todo.ics</ruri>
+				<ruri>$calendarpath1:/2todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/6.txt</filepath>
@@ -172,7 +172,7 @@
 			<description>Plain VTODO with all-day DTSTART/DURATION only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>3todo.ics</ruri>
+				<ruri>$calendarpath1:/3todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/7.txt</filepath>
@@ -186,7 +186,7 @@
 			<description>Plain VTODO with all-day DTSTART only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>3todo.ics</ruri>
+				<ruri>$calendarpath1:/3todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/8.txt</filepath>
@@ -200,7 +200,7 @@
 			<description>Plain VTODO with timed DUE only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>4todo.ics</ruri>
+				<ruri>$calendarpath1:/4todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/9.txt</filepath>
@@ -214,7 +214,7 @@
 			<description>Plain VTODO with timed DTSTART/DURATION only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>5todo.ics</ruri>
+				<ruri>$calendarpath1:/5todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/10.txt</filepath>
@@ -228,7 +228,7 @@
 			<description>Plain VTODO with timed DTSTART/DURATION only - recurring</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>5todo.ics</ruri>
+				<ruri>$calendarpath1:/5todo.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/todo/11.txt</filepath>

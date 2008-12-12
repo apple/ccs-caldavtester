@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones</ruri>
+				<ruri>$timezoneservice:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -38,7 +38,7 @@
 			<description>POST on resource</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones</ruri>
+				<ruri>$timezoneservice:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -48,7 +48,7 @@
 			<description>PUT on resource - fails</description>
 			<request>
 				<method>PUT</method>
-				<ruri>/timezones</ruri>
+				<ruri>$timezoneservice:</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/recurrenceput/1.txt</filepath>
@@ -66,7 +66,7 @@
 			<description>DELETE on resource - fails</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>/timezones</ruri>
+				<ruri>$timezoneservice:</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -83,7 +83,7 @@
 			<description>GET on resource - invalid parameter</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?query=true</ruri>
+				<ruri>$timezoneservice:?query=true</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -101,7 +101,7 @@
 			<description>POST on resource - invalid parameter</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?query=true</ruri>
+				<ruri>$timezoneservice:?query=true</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -119,7 +119,7 @@
 			<description>GET on resource - invalid method</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=true</ruri>
+				<ruri>$timezoneservice:?method=true</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -137,7 +137,7 @@
 			<description>POST on resource - invalid method</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=true</ruri>
+				<ruri>$timezoneservice:?method=true</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -155,7 +155,7 @@
 			<description>GET on resource - multiple methods</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=list&amp;method=list</ruri>
+				<ruri>$timezoneservice:?method=list&amp;method=list</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -173,7 +173,7 @@
 			<description>POST on resource - multiple methods</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=list&amp;method=list</ruri>
+				<ruri>$timezoneservice:?method=list&amp;method=list</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -194,7 +194,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=list</ruri>
+				<ruri>$timezoneservice:?method=list</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -213,7 +213,7 @@
 			<description>POST on resource</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=list</ruri>
+				<ruri>$timezoneservice:?method=list</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -235,7 +235,7 @@
 			<description>GET on resource - no tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get</ruri>
+				<ruri>$timezoneservice:?method=get</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -253,7 +253,7 @@
 			<description>POST on resource - no tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get</ruri>
+				<ruri>$timezoneservice:?method=get</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -271,7 +271,7 @@
 			<description>GET on resource - multiple tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -289,7 +289,7 @@
 			<description>POST on resource - multiple tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -307,7 +307,7 @@
 			<description>GET on resource - invalid tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get&amp;tzid=America/Pittsburgh</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/Pittsburgh</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -325,7 +325,7 @@
 			<description>POST on resource - invalid tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get&amp;tzid=America/Pittsburgh</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/Pittsburgh</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -346,7 +346,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get&amp;tzid=America/New_York</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/New_York</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -363,7 +363,7 @@
 			<description>POST on resource</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get&amp;tzid=America/New_York</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=America/New_York</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -380,7 +380,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get&amp;tzid=Europe/London</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=Europe/London</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -397,7 +397,7 @@
 			<description>POST on resource</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get&amp;tzid=Europe/London</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=Europe/London</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -414,7 +414,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=get&amp;tzid=GB</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=GB</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -431,7 +431,7 @@
 			<description>POST on resource</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=get&amp;tzid=GB</ruri>
+				<ruri>$timezoneservice:?method=get&amp;tzid=GB</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -451,7 +451,7 @@
 			<description>GET on resource - no tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand</ruri>
+				<ruri>$timezoneservice:?method=expand</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -469,7 +469,7 @@
 			<description>POST on resource - no tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand</ruri>
+				<ruri>$timezoneservice:?method=expand</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -487,7 +487,7 @@
 			<description>GET on resource - multiple tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -505,7 +505,7 @@
 			<description>POST on resource - multiple tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -523,7 +523,7 @@
 			<description>GET on resource - invalid tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/Pittsburgh</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/Pittsburgh</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -541,7 +541,7 @@
 			<description>POST on resource - invalid tzid</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/Pittsburgh</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/Pittsburgh</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -559,7 +559,7 @@
 			<description>GET on resource - no start</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -577,7 +577,7 @@
 			<description>POST on resource - no start</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -595,7 +595,7 @@
 			<description>GET on resource - too many start</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -613,7 +613,7 @@
 			<description>POST on resource - too many start</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -631,7 +631,7 @@
 			<description>GET on resource - invalid start</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -649,7 +649,7 @@
 			<description>POST on resource - invalid start</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -667,7 +667,7 @@
 			<description>GET on resource - no end</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -685,7 +685,7 @@
 			<description>POST on resource - no end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -703,7 +703,7 @@
 			<description>GET on resource - too many end</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -721,7 +721,7 @@
 			<description>POST on resource - too many end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -739,7 +739,7 @@
 			<description>GET on resource - invalid end</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -757,7 +757,7 @@
 			<description>POST on resource - invalid end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -775,7 +775,7 @@
 			<description>GET on resource - start > end</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -793,7 +793,7 @@
 			<description>POST on resource - start > end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -811,7 +811,7 @@
 			<description>GET on resource - start == end</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -829,7 +829,7 @@
 			<description>POST on resource - start == end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -850,7 +850,7 @@
 			<description>GET on resource - simple range</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -872,7 +872,7 @@
 			<description>POST on resource - simple range</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -894,7 +894,7 @@
 			<description>GET on resource - complex range</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -920,7 +920,7 @@
 			<description>POST on resource - complex range</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -946,7 +946,7 @@
 			<description>GET on resource - no DST</description>
 			<request>
 				<method>GET</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -969,7 +969,7 @@
 			<description>POST on resource - start == end</description>
 			<request>
 				<method>POST</method>
-				<ruri>/timezones?method=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
+				<ruri>$timezoneservice:?method=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

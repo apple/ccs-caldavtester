@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
 			<description>PROPFIND of basic properties depth=0</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -43,6 +44,7 @@
 			<description>PROPFIND of basic properties depth=1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -60,6 +62,7 @@
 			<description>PROPFIND of basic properties depth=infinity</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -77,6 +80,7 @@
 			<description>PROPFIND getcontentlength=0</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -101,6 +105,7 @@
 			<description>PROPFIND of property names depth=0</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -118,6 +123,7 @@
 			<description>PROPFIND of property names depth=1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -135,6 +141,7 @@
 			<description>PROPFIND of property names depth=infinity</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -155,6 +162,7 @@
 			<description>PROPFIND of all properties depth=0</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -172,6 +180,7 @@
 			<description>PROPFIND of all properties depth=1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -189,6 +198,7 @@
 			<description>PROPFIND of all properties depth=infinity</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -209,6 +219,7 @@
 			<description>PROPFIND with invalid elements</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -230,6 +241,7 @@
 			<description>PROPFIND of unknown element</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -251,6 +263,7 @@
 			<description>PROPFIND with one unknown property</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

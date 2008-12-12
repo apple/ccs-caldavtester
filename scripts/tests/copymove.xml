@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/1.txt</filepath>
@@ -33,7 +33,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>2.ics</ruri>
+			<ruri>$calendarpath1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/2.txt</filepath>
@@ -53,7 +53,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>3.ics</ruri>
+			<ruri>$calendarpath1:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/3.txt</filepath>
@@ -69,7 +69,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>4.ics</ruri>
+			<ruri>$calendarpath1:/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/4.txt</filepath>
@@ -85,7 +85,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>5.ics</ruri>
+			<ruri>$calendarpath1:/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/5.txt</filepath>
@@ -93,7 +93,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>6.ics</ruri>
+			<ruri>$calendarpath1:/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/copymove/6.txt</filepath>
@@ -106,11 +106,11 @@
 			<description>COPY within same calendar to new resource</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -125,15 +125,15 @@
 			<description>COPY within same calendar to existing resource with overwrite</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -148,15 +148,15 @@
 			<description>COPY within same calendar to existing resource without overwrite</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/copy1.ics</value>
+					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
 					<value>F</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -171,11 +171,11 @@
 			<description>COPY to different calendar, new resource</description>
 			<request print-response="no">
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -189,11 +189,11 @@
 			<description>COPY to different calendar, new resource, duplicate UID</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_2.ics</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -208,6 +208,7 @@
 			<description>COPY to different calendar, existing resource with overwrite</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
@@ -216,7 +217,6 @@
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -230,6 +230,7 @@
 			<description>COPY to different calendar, existing resource with overwrite, duplicate UID</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
@@ -238,7 +239,6 @@
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -253,6 +253,7 @@
 			<description>COPY to different calendar, existing resource without overwrite</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
@@ -261,7 +262,6 @@
 					<name>Overwrite</name>
 					<value>F</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -275,6 +275,7 @@
 			<description>COPY to different calendar, existing resource without overwrite, duplicate UID</description>
 			<request>
 				<method>COPY</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
@@ -283,7 +284,6 @@
 					<name>Overwrite</name>
 					<value>F</value>
 				</header>
-				<ruri>2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -300,11 +300,11 @@
 			<description>MOVE within same calendar to new resource</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/5.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
-				<ruri>5.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -318,15 +318,15 @@
 			<description>MOVE within same calendar to existing resource with overwrite</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/6.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>6.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -341,15 +341,15 @@
 			<description>MOVE within same calendar to existing resource without overwrite</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/move1.ics</value>
+					<value>$host:$calendarpath1:/move1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
 					<value>F</value>
 				</header>
-				<ruri>3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -363,11 +363,11 @@
 			<description>MOVE to different calendar, new resource</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/move1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/move2_1.ics</value>
 				</header>
-				<ruri>move1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -381,6 +381,7 @@
 			<description>MOVE to different calendar, existing resource with overwrite</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/3.ics</value>
@@ -389,7 +390,6 @@
 					<name>Overwrite</name>
 					<value>T</value>
 				</header>
-				<ruri>3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -403,6 +403,7 @@
 			<description>MOVE to different calendar, existing resource without overwrite</description>
 			<request>
 				<method>MOVE</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/4.ics</value>
@@ -411,7 +412,6 @@
 					<name>Overwrite</name>
 					<value>F</value>
 				</header>
-				<ruri>4.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -435,11 +435,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/caltest1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/caltest1/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/copymove/7.xml</filepath>
@@ -454,22 +454,22 @@
 			</request>
 			<request>
 				<method>COPY</method>
+				<ruri>$pathprefix1:/caltest1/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/caltest2/</value>
 				</header>
-				<ruri>$pathprefix1:/caltest1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/caltest2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/caltest2/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/copymove/7.xml</filepath>
@@ -494,11 +494,11 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/caltest3/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/copymove/7.xml</filepath>
@@ -513,22 +513,22 @@
 			</request>
 			<request>
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/caltest3/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/caltest4/</value>
 				</header>
-				<ruri>$pathprefix1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/caltest4/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/caltest4/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/copymove/7.xml</filepath>
@@ -547,11 +547,11 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>copy1.ics</ruri>
+			<ruri>$calendarpath1:/copy1.ics</ruri>
 		</request>
 		<request>
 			<method>DELETE</method>
-			<ruri>move1.ics</ruri>
+			<ruri>$calendarpath1:/move1.ics</ruri>
 		</request>
 		<request>
 			<method>DELETE</method>

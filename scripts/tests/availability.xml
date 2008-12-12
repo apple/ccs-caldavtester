@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
 		     stored directly in calendars.
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/availability/1.ics</filepath>
@@ -34,7 +34,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>2.ics</ruri>
+			<ruri>$calendarpath1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/availability/2.ics</filepath>
@@ -42,7 +42,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>3.ics</ruri>
+			<ruri>$calendarpath1:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/availability/3.ics</filepath>
@@ -51,7 +51,7 @@
 		-->
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>4.ics</ruri>
+			<ruri>$calendarpath1:/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/availability/4.ics</filepath>
@@ -64,7 +64,7 @@
 			<description>Check for proper capability in DAV header</description>
 			<request>
 				<method>OPTIONS</method>
-				<ruri>$calendar:</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -82,6 +82,7 @@
 			<description>Supported component</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -107,7 +108,7 @@
 			<description>PUT availability</description>
 			<request>
 				<method>GET</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -381,7 +382,7 @@
 			<description>PUT availability fails</description>
 			<request>
 				<method>PUT</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/availability/1.ics</filepath>

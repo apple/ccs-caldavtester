@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@
 			<description>Check for authenticated property on /</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>
@@ -50,11 +50,11 @@
 			<description>Check for unauthenticated property on /</description>
 			<request auth="no">
 				<method>PROPFIND</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>
@@ -72,11 +72,11 @@
 			<description>Check for authenticated property on / (user02)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
+				<ruri>$root:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>
@@ -97,11 +97,11 @@
 			<description>Check for authenticated property on /</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>
@@ -119,11 +119,11 @@
 			<description>Check for unauthenticated property on /</description>
 			<request auth="no">
 				<method>PROPFIND</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>
@@ -141,11 +141,11 @@
 			<description>Check for authenticated property on / (user02)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
+				<ruri>$principals_users:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principals:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/current-user-principal/1.xml</filepath>

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 			<description>SCHEDULE on valid outbox</description>
 			<request>
 				<method>SCHEDULE</method>
+				<ruri>$pathprefix1:/outbox/</ruri>
 				<header>
 					<name>Organizer</name>
 					<value>$cuaddr1:</value>
@@ -36,7 +37,6 @@
 					<name>Recipient</name>
 					<value>$cuaddr2:, $cuaddr3:</value>
 				</header>
-				<ruri>$pathprefix1:/outbox/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>

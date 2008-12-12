@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
-	<!ELEMENT request (method, header*, ruri*, data?, verify*, grabheader*, grabproperty*)>
+	<!ELEMENT request (method, ruri+, header*, data?, verify*, grabheader*, grabproperty*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""

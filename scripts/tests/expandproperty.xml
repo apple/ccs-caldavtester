@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -178,11 +178,11 @@
 			<description>Wrong Depth 1</description>
 			<request print-response="no">
 				<method>REPORT</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/1.xml</filepath>
@@ -200,11 +200,11 @@
 			<description>Wrong Depth infinity</description>
 			<request print-response="no">
 				<method>REPORT</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/1.xml</filepath>
@@ -243,7 +243,7 @@
 			<description>Non-expanding group-member-set query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$uids:toplevelgroup/</ruri>
+				<ruri>$principals_uids:toplevelgroup/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/9.xml</filepath>
@@ -256,7 +256,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:toplevelgroup/</value>
+						<value>$principals_uids:toplevelgroup/</value>
 					</arg>
 				</verify>
 				<verify>
@@ -293,7 +293,7 @@
 			<description>Expanding group-member-set query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$uids:toplevelgroup/</ruri>
+				<ruri>$principals_uids:toplevelgroup/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/expandproperty/10.xml</filepath>
@@ -306,7 +306,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$uids:toplevelgroup/</value>
+						<value>$principals_uids:toplevelgroup/</value>
 					</arg>
 				</verify>
 				<verify>

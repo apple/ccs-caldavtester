@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>1.ics</ruri>
+			<ruri>$calendarpath1:/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/delete/1.txt</filepath>
@@ -93,11 +93,11 @@
 			<description>GET user01 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid1:</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -107,11 +107,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid1:</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -121,11 +121,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid1:</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -139,11 +139,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/notvisibletouser01/hidden1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid1:</value>
 				</header>
-				<ruri>$pathprefix2:/notvisibletouser01/hidden1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -160,11 +160,11 @@
 			<description>GET user01 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid3:</value>
 				</header>
-				<ruri>1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -178,11 +178,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid3:</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -196,11 +196,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid3:</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -214,11 +214,11 @@
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/notvisibletouser01/hidden1.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid3:</value>
 				</header>
-				<ruri>$pathprefix2:/notvisibletouser01/hidden1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -235,7 +235,7 @@
 			<description>Valid proxy without header</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
-				<ruri>1.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -249,11 +249,11 @@
 			<description>Valid proxy proxying as another proxy</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>proxy2</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -267,11 +267,11 @@
 			<description>Regular user trying to proxy</description>
 			<request print-response='no'>
 				<method>GET</method>
+				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<header>
 					<name>X-Authorize-As</name>
 					<value>$userid2:</value>
 				</header>
-				<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>

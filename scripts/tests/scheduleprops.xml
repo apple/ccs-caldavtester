@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@
 			<description>PROPFIND inbox/outbox URLs</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleprops/1.xml</filepath>
@@ -55,11 +55,11 @@
 			<description>PROPFIND inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/scheduleprops/2.xml</filepath>

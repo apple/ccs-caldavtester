@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -38,11 +38,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -78,11 +78,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -103,11 +103,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -138,11 +138,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -160,11 +160,11 @@
 			<description>Look for free-busy-set</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -200,11 +200,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -222,11 +222,11 @@
 			<description>Look for free-busy-set</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -262,11 +262,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -284,11 +284,11 @@
 			<description>Look for free-busy-set</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -324,11 +324,11 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/1.xml</filepath>
@@ -346,11 +346,11 @@
 			<description>Move new calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
+				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$pathprefix1:/testcalendar3/</value>
 				</header>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -360,11 +360,11 @@
 			<description>Look for free-busy-set</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -400,11 +400,11 @@
 			<description>Look for free-busy-set</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>
@@ -423,11 +423,11 @@
 			<description>Look for free-busy-set fro default calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/calendartransp/3.xml</filepath>

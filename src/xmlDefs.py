@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -82,6 +82,7 @@ ATTR_MODE = "mode"
 ATTR_NAME = "name"
 ATTR_PRINT_RESPONSE = "print-response"
 ATTR_PSWD = "pswd"
+ATTR_REPEAT = "repeat"
 ATTR_REQUEST_FAILED = "request-failed"
 ATTR_STATS = "stats"
 ATTR_SUBSTITUTIONS = "substitutions"

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/calendar/</ruri>
+			<ruri>$rcalendarpath1:/</ruri>
 		</request>
 	</start>
 	
@@ -109,7 +109,7 @@
 			<description>One item in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/calendar/</ruri>
+				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -209,7 +209,7 @@
 			<description>One item in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/calendar/</ruri>
+				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -309,7 +309,7 @@
 			<description>One item in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$rpathprefix1:/calendar/</ruri>
+				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -343,7 +343,7 @@
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/calendar/</ruri>
+			<ruri>$calendarpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -351,7 +351,7 @@
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/calendar/</ruri>
+			<ruri>$calendarpath2:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -359,7 +359,7 @@
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/calendar/</ruri>
+			<ruri>$rcalendarpath1:/</ruri>
 		</request>
 	</end>
 	

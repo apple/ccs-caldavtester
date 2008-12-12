@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -222,11 +222,11 @@
 			<description>multiget on top collection</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
+				<ruri>$pathprefix1:/top-collection/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$pathprefix1:/top-collection/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/depthreportsacl/4.xml</filepath>
@@ -255,11 +255,11 @@
 			<description>query on top collection</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
+				<ruri>$pathprefix1:/top-collection/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$pathprefix1:/top-collection/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/depthreportsacl/5.xml</filepath>
@@ -277,11 +277,11 @@
 			<description>query for free busy on collection with Depth infinity</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
+				<ruri>$pathprefix1:/top-collection/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<ruri>$pathprefix1:/top-collection/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/depthreportsacl/6.xml</filepath>

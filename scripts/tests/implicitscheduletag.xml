@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -253,11 +253,11 @@
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
 				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-organizer-new:</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/5.ics</filepath>
@@ -342,11 +342,11 @@
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
 				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-organizer-new:</value>
 				</header>
-				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/5.ics</filepath>
@@ -427,11 +427,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee-new:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/6.ics</filepath>
@@ -512,11 +512,11 @@
 			<description>Updated event has schedule tag header</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee-new:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/5.ics</filepath>
@@ -629,9 +629,9 @@
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar/</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<ruri>$pathprefix1:/$inbox:/</ruri>
-				<ruri>$pathprefix2:/calendar/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 				<ruri>$pathprefix2:/$inbox:/</ruri>
 			</request>
 		</test>
@@ -766,11 +766,11 @@
 			<description>Updated event has changed schedule tag header</description>
 			<request print-response="no">
 				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-organizer:</value>
 				</header>
-				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/8.ics</filepath>
@@ -916,11 +916,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee02:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/10.ics</filepath>
@@ -1058,11 +1058,11 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee03:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/11.ics</filepath>
@@ -1193,11 +1193,11 @@
 			<description>Updated event that has changed on disk</description>
 			<request print-response="no">
 				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-organizer:</value>
 				</header>
-				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/12.ics</filepath>
@@ -1294,11 +1294,11 @@
 			<description>Updated event that has changed on disk</description>
 			<request print-response="no">
 				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-organizer:</value>
 				</header>
-				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/16.ics</filepath>
@@ -1427,11 +1427,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee02:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/18.ics</filepath>
@@ -1463,11 +1463,11 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PUT</method>
+				<ruri>$</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee03:</value>
 				</header>
-				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/scheduletag/19.ics</filepath>
@@ -1507,11 +1507,11 @@
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/calendar/</ruri>
+			<ruri>$calendarpath1:/</ruri>
 			<ruri>$pathprefix1:/$inbox:/</ruri>
-			<ruri>$pathprefix2:/calendar/</ruri>
+			<ruri>$calendarpath2:/</ruri>
 			<ruri>$pathprefix2:/$inbox:/</ruri>
-			<ruri>$pathprefix3:/calendar/</ruri>
+			<ruri>$calendarpath3:/</ruri>
 			<ruri>$pathprefix3:/$inbox:/</ruri>
 		</request>
 	</end>

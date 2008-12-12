@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -150,14 +150,7 @@ class request( object ):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
 
     def getURI( self, si ):
-        if self.ruri == "$":
-            return self.ruri
-        if len(self.ruri) > 0 and self.ruri[0] == '/':
-            uri = ""
-        else:
-            uri = "%s/" % ( si.calendarpath )
-        uri += self.ruri
-        return uri
+        return self.ruri
         
     def getHeaders( self, si ):
         hdrs = self.headers
