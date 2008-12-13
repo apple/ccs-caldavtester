@@ -1,0 +1,322 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
+
+<!--
+ Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<serverinfo>
+	<host>%(hostname)s</host>
+	<port>8008</port>
+	<authtype>basic</authtype>
+	<substitutions>
+		<substitution>
+			<key>$host:</key>
+			<value>http://%(hostname)s:8008</value>
+		</substitution>
+
+		<!-- relative path to caldav root-->
+		<substitution>
+			<key>$root:</key>
+			<value>/</value>
+		</substitution>
+
+		<!-- relative path to main principal collection-->
+		<substitution>
+			<key>$principalcollection:</key>
+			<value>$root:principals/</value>
+		</substitution>
+
+		<!-- the core recored type collections-->
+		<substitution>
+			<key>$uidstype:</key>
+			<value>__uids__</value>
+		</substitution>
+		<substitution>
+			<key>$userstype:</key>
+			<value>users</value>
+		</substitution>
+		<substitution>
+			<key>$groupstype:</key>
+			<value>groups</value>
+		</substitution>
+		<substitution>
+			<key>$locationstype:</key>
+			<value>locations</value>
+		</substitution>
+		<substitution>
+			<key>$resourcestype:</key>
+			<value>resources</value>
+		</substitution>
+
+		<!-- relative path to record type principal collections-->
+		<substitution>
+			<key>$principals_uids:</key>
+			<value>$principalcollection:$uidstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$principals_users:</key>
+			<value>$principalcollection:$userstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$principals_groups:</key>
+			<value>$principalcollection:$groupstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$principals_resources:</key>
+			<value>$principalcollection:$resourcestype:/</value>
+		</substitution>
+		<substitution>
+			<key>$principals_locations:</key>
+			<value>$principalcollection:$locationstype:/</value>
+		</substitution>
+
+		<!-- relative path to calendars collection-->
+		<substitution>
+			<key>$calendars:</key>
+			<value>$root:calendars/</value>
+		</substitution>
+
+		<!-- relative path to record type calendar collections-->
+		<substitution>
+			<key>$calendars_uids:</key>
+			<value>$calendars:$uidstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$calendars_users:</key>
+			<value>$calendars:$userstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$calendars_groups:</key>
+			<value>$calendars:$groupstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$calendars_resources:</key>
+			<value>$calendars:$resourcestype:/</value>
+		</substitution>
+		<substitution>
+			<key>$calendars_locations:</key>
+			<value>$calendars:$locationstype:/</value>
+		</substitution>
+
+		<!-- primary calendar name-->
+		<substitution>
+			<key>$calendar:</key>
+			<value>calendar</value>
+		</substitution>
+
+		<!-- inbox name-->
+		<substitution>
+			<key>$inbox:</key>
+			<value>inbox</value>
+		</substitution>
+
+		<!-- outbox name-->
+		<substitution>
+			<key>$outbox:</key>
+			<value>outbox</value>
+		</substitution>
+
+		<!-- dropbox name-->
+		<substitution>
+			<key>$dropbox:</key>
+			<value>dropbox</value>
+		</substitution>
+
+		<!-- freebusy name-->
+		<substitution>
+			<key>$freebusy:</key>
+			<value>freebusy</value>
+		</substitution>
+
+		<!-- server-to-server inbox-->
+		<substitution>
+			<key>$servertoserver:</key>
+			<value>$root:inbox</value>
+		</substitution>
+
+		<!-- timezone service-->
+		<substitution>
+			<key>$timezoneservice:</key>
+			<value>$root:timezones</value>
+		</substitution>
+
+		<!-- user id for admin user -->
+		<substitution>
+			<key>$useradmin:</key>
+			<value>admin</value>
+		</substitution>
+		<!-- guid for admin user -->
+		<substitution>
+			<key>$useradminguid:</key>
+			<value>%(useradminguid)s</value>
+		</substitution>
+		<!-- password for admin user -->
+		<substitution>
+			<key>$pswdadmin:</key>
+			<value>admin</value>
+		</substitution>
+
+		<!-- relative path to admin principal resource-->
+		<substitution>
+			<key>$principal_admin:</key>
+			<value>$principals_users:$useradmin:/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluri_admin:</key>
+			<value>$principals_uids:$useradminguid:/</value>
+		</substitution>
+
+		<!-- user id for proxy user -->
+		<substitution>
+			<key>$userproxy:</key>
+			<value>superuser</value>
+		</substitution>
+		<!-- password for proxy user -->
+		<substitution>
+			<key>$pswdproxy:</key>
+			<value>superuser</value>
+		</substitution>
+
+		<!-- user id -->
+		<substitution repeat="10">
+			<key>$userid%%d:</key>
+			<value>user%%02d</value>
+		</substitution>
+		<!-- user guid -->
+		<substitution repeat="10">
+			<key>$userguid%%d:</key>
+			<value>user%%02d</value>
+		</substitution>
+		<!-- password -->
+		<substitution repeat="10">
+			<key>$pswd%%d:</key>
+			<value>user%%02d</value>
+		</substitution>
+		<!-- relative path to first user principal resource-->
+		<substitution repeat="10">
+			<key>$principal%%d:</key>
+			<value>$principals_users:$userid%%d:/</value>
+		</substitution>
+		<substitution repeat="10">
+			<key>$principaluri%%d:</key>
+			<value>$principals_uids:$userguid%%d:/</value>
+		</substitution>
+		<substitution repeat="10">
+			<key>$principal%%dnoslash:</key>
+			<value>$principals_users:$userid%%d:</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution repeat="10">
+			<key>$pathprefix%%d:</key>
+			<value>$calendars_uids:$userguid%%d:</value>
+		</substitution>
+		<!-- relative path to first user calendar-->
+		<substitution repeat="10">
+			<key>$calendarpath%%d:</key>
+			<value>$calendars_uids:$userguid%%d:/$calendar:</value>
+		</substitution>
+		<!-- relative path to first user calendar home-->
+		<substitution repeat="10">
+			<key>$calendarpathalt%%d:</key>
+			<value>$calendars_uids:$userid%%d:/$calendar:</value>
+		</substitution>
+		<!-- calendar user address of first user-->
+		<substitution repeat="10">
+			<key>$cuaddr%%d:</key>
+			<value>mailto:$userid%%d:@example.com</value>
+		</substitution>
+		<substitution repeat="10">
+			<key>$cuaddralt%%d:</key>
+			<value>$principaluri%%d:</value>
+		</substitution>
+		<substitution repeat="10">
+			<key>$cuaddraltnoslash%%d:</key>
+			<value>$principals_uids:$userguid%%d:</value>
+		</substitution>
+		
+		<!--  Override some of the above definitions for special cases -->
+
+		<!-- calendar user address of second user-->
+		<substitution>
+			<key>$cuaddr2:</key>
+			<value>MAILTO:user02@example.com</value>
+		</substitution>
+
+		<substitution>
+			<key>$userguid1:</key>
+			<value>%(userguid1)s</value>
+		</substitution>
+		<substitution>
+			<key>$userguid12:</key>
+			<value>%(userguid2)s</value>
+		</substitution>
+		<substitution>
+			<key>$userguid3:</key>
+			<value>%(userguid3)s</value>
+		</substitution>
+
+		<!-- resource id-->
+		<substitution>
+			<key>$resourceid1:</key>
+			<value>resource01</value>
+		</substitution>
+		<!-- resource guid-->
+		<substitution>
+			<key>$resourceguid1:</key>
+			<value>%(resourceguid1)s</value>
+		</substitution>
+		<!-- relative path to first resource calendar home-->
+		<substitution>
+			<key>$rpathprefix1:</key>
+			<value>$calendars_uids:$resourceguid1:</value>
+		</substitution>
+		<!-- relative path to first resource calendar home-->
+		<substitution>
+			<key>$rcalendarpath1:</key>
+			<value>$calendars_uids:$resourceguid1:/$calendar:</value>
+		</substitution>
+		<!-- relative path to first resource principal resource-->
+		<substitution>
+			<key>$rprincipal1:</key>
+			<value>$principals_resources:$resourceid1:/</value>
+		</substitution>
+		<substitution>
+			<key>$rprincipaluri1:</key>
+			<value>$principals_uids:$resourceguid1:/</value>
+		</substitution>
+		<substitution>
+			<key>$rcuaddralt1:</key>
+			<value>$rprincipaluri1:</value>
+		</substitution>
+
+		<!-- relative path to disabled group principal resource-->
+		<substitution>
+			<key>$principaldisabled:</key>
+			<value>$principals_groups:disabledgroup/</value>
+		</substitution>
+		<substitution>
+			<key>$principaluridisabled:</key>
+			<value>$principals_uids:disabledgroup/</value>
+		</substitution>
+		<!-- calendar user address of disabled group-->
+		<substitution>
+			<key>$cuaddrdisabled:</key>
+			<value>$principals_uids:disabledgroup/</value>
+		</substitution>
+
+	</substitutions>
+</serverinfo>

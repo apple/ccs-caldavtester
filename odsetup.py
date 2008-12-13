@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@
 #
 
 from plistlib import readPlist
-from plistlib import readPlistFromString
 from plistlib import writePlist
 import commands
 import getopt
@@ -32,12 +31,9 @@ diradmin_user    = "admin"
 diradmin_pswd    = "admin"
 directory_node   = "/LDAPv3/127.0.0.1"
 config           = "/etc/caldavd/caldavd.plist"
-service_locator  = "Bogus"
-old_style        = False
 
-serverinfo_default = "scripts/server/serverinfo.xml"
+serverinfo_default  = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
-serverinfo_template_old = "scripts/server/serverinfo-template-old.xml"
 
 base_dir = "../CalendarServer/"
 
@@ -51,29 +47,25 @@ guids = {
     "resource01":"",
 }
 
-# List of users as a tuple: (<<name>>, <<pswd>>, <<ServicesLocator value>, <<repeat count>>)
+# List of users as a tuple: (<<name>>, <<pswd>>, <<repeat count>>)
 adminattrs = {
     "dsAttrTypeStandard:RealName":        "Test Admin",
     "dsAttrTypeStandard:EMailAddress":    "testadmin@example.com",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus"
 }
 
 userattrs = {
     "dsAttrTypeStandard:RealName":        "User %02d",
     "dsAttrTypeStandard:EMailAddress":    "user%02d@example.com",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus"
 }
 
 publicattrs = {
     "dsAttrTypeStandard:RealName":        "Public %02d",
     "dsAttrTypeStandard:EMailAddress":    "public%02d@example.com",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus"
 }
 
 locationattrs = {
     "dsAttrTypeStandard:GeneratedUID":    "Bogus",
     "dsAttrTypeStandard:RealName":        "Room %02d",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus",
     "dsAttrTypeStandard:ResourceType":    "1",
     "dsAttrTypeStandard:ResourceInfo":    """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -95,7 +87,6 @@ locationattrs = {
 resourceattrs = {
     "dsAttrTypeStandard:GeneratedUID":    "Bogus",
     "dsAttrTypeStandard:RealName":        "Resource %02d",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus",
     "dsAttrTypeStandard:ResourceType":    "0",
     "dsAttrTypeStandard:ResourceInfo":    """<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -117,7 +108,6 @@ resourceattrs = {
 groupattrs = {
     "dsAttrTypeStandard:RealName":        "Group 01",
     "dsAttrTypeStandard:EMailAddress":    "group01@example.com",
-    "dsAttrTypeStandard:ServicesLocator": "Bogus"
 }
 
 records = (
@@ -138,7 +128,6 @@ Options:
     -p pswd  OpenDirectory Admin user password
     -f file  caldavd.plist config file used by the server
     -c users number of user accounts to create (default: 5)
-    --old    use old-style directory/principal-URL schema
 """
 
 def readConfig(config):
@@ -193,10 +182,7 @@ def patchSudoers(sudoers):
 def buildServerinfo(hostname, docroot):
     
     # Read in the serverinfo-template.xml file
-    if old_style:
-        fd = open(serverinfo_template_old, "r")
-    else:
-        fd = open(serverinfo_template, "r")
+    fd = open(serverinfo_template, "r")
     try:
         data = fd.read()
     finally:
@@ -204,12 +190,11 @@ def buildServerinfo(hostname, docroot):
 
     data = data % {
         "hostname"       : hostname,
-        "docroot"        : docroot,
-        "testadmin_guid" : guids["testadmin"],
-        "user01_guid"    : guids["user01"],
-        "user02_guid"    : guids["user02"],
-        "user03_guid"    : guids["user03"],
-        "resource01_guid": guids["resource01"],
+        "useradminguid"  : guids["testadmin"],
+        "userguid1"      : guids["user01"],
+        "userguid2"      : guids["user02"],
+        "userguid3"      : guids["user03"],
+        "resourceguid1"  : guids["resource01"],
     }
     
     fd = open(serverinfo_default, "w")
@@ -221,7 +206,15 @@ def buildServerinfo(hostname, docroot):
 
 def addLargeCalendars(hostname, docroot):
     calendars = ("calendar.10", "calendar.100", "calendar.1000",)
-    path = os.path.join(docroot, "calendars/users/user01")    
+    guid01 = guids["user01"]
+    path = os.path.join(
+        docroot,
+        "calendars",
+        "__uids__",
+        guid01[0:2],
+        guid01[2:4],
+        guid01,
+    )
 
     cmd = "curl --digest -u user01:user01 'http://%s:8008/calendars/users/user01/'" % (hostname,)
     commands.getoutput(cmd)
@@ -256,9 +249,6 @@ def doToAccounts(f, users_only=False):
 def createUser(path, user):
     # Do dscl command line operations to create a calendar user
     
-    if old_style and path == "/Places":
-        path = "/Resources"
-
     # Only create if it does not exist
     cmd = "dscl -u %s -P %s %s -list %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
     if commands.getstatusoutput(cmd)[0] != 0:
@@ -277,8 +267,6 @@ def createUser(path, user):
         for key, value in user[2].iteritems():
             if key == "dsAttrTypeStandard:GeneratedUID":
                 value = uuid.uuid4()
-            elif key == "dsAttrTypeStandard:ServicesLocator":
-                value = service_locator
             elif key == "dsAttrTypeStandard:ResourceInfo":
                 value = value % {"guid":guids["user01"]}
             cmd = "dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value)
@@ -321,8 +309,6 @@ if __name__ == "__main__":
                 config = value
             elif option == "-c":
                 number_of_users = int(value)
-            elif option == "--old":
-                old_style = True
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
@@ -353,10 +339,7 @@ if __name__ == "__main__":
             doToAccounts(createUser)
             
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            if old_style:
-                patchConfig(config, "/principals/users/testadmin/")
-            else:
-                patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
             
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(hostname, docroot)
