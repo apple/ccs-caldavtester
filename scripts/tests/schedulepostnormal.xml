@@ -24,27 +24,27 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/outbox/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/outbox/</ruri>
+			<ruri>$outboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/outbox/</ruri>
+			<ruri>$outboxpath3:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/$inbox:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 	</start>
 	
@@ -53,7 +53,7 @@
 			<description>Initial REQUEST</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedulenormal/1.ics</filepath>
@@ -67,7 +67,7 @@
 			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -84,7 +84,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$pathprefix1:/$outbox:/</value>
+						<value>$outboxpath1:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -93,7 +93,7 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -115,7 +115,7 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>

@@ -24,19 +24,19 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -49,7 +49,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/1.ics</filepath>
@@ -67,7 +67,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -95,7 +95,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -112,7 +112,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/4.ics</filepath>
@@ -130,7 +130,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -158,7 +158,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -175,7 +175,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/7.ics</filepath>
@@ -193,7 +193,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -221,7 +221,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -238,7 +238,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/10.ics</filepath>
@@ -256,7 +256,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -284,7 +284,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -301,7 +301,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/13.ics</filepath>
@@ -319,7 +319,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -347,7 +347,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -364,7 +364,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/16.ics</filepath>
@@ -382,7 +382,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -410,7 +410,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -427,7 +427,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/19.ics</filepath>
@@ -445,7 +445,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -473,7 +473,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -490,7 +490,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurrequest/22.ics</filepath>
@@ -508,7 +508,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -522,7 +522,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -537,19 +537,19 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>

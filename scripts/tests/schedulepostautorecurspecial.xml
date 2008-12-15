@@ -24,19 +24,19 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -49,7 +49,7 @@
 			<description>Do POST of 5-day recurrence</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurspecial/1.ics</filepath>
@@ -67,7 +67,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -95,7 +95,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -109,7 +109,7 @@
 			<description>Do POST of 3rd-day override</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurspecial/3.ics</filepath>
@@ -127,7 +127,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -155,7 +155,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -169,7 +169,7 @@
 			<description>Do POST of 4th-day cancel</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurspecial/5.ics</filepath>
@@ -187,7 +187,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -215,7 +215,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -230,19 +230,19 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>

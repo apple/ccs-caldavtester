@@ -403,7 +403,7 @@
 			<description>PROPFIND no availability</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/inbox/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/15.xml</filepath>
@@ -421,7 +421,7 @@
 			<description>PROPPATCH invalid availability</description>
 			<request>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/inbox/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/16.xml</filepath>
@@ -439,7 +439,7 @@
 			<description>PROPPATCH valid availability</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/inbox/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/availability/17.xml</filepath>
@@ -460,7 +460,7 @@
 			<description>query for free busy with time range</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/availability/19.ics</filepath>
@@ -481,7 +481,7 @@
 	<end>
 		<request print-response="no">
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix1:/inbox/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/availability/18.xml</filepath>

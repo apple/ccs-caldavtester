@@ -235,7 +235,7 @@
 			<description>Check for schedule privilege on iTIP Inbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/inbox/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -261,7 +261,7 @@
 			<description>Check for schedule privilege on iTIP Outbox</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -339,7 +339,7 @@
 						<value/>
 						<value>visibletouser01/</value>
 						<value>writeabletouser01/</value>
-						<value>freebusy</value>
+						<value>$freebusy:</value>
 					</arg>
 				</verify>
 			</request>

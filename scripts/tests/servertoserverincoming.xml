@@ -24,19 +24,19 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$outbox:/</ruri>
+			<ruri>$outboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
@@ -107,7 +107,7 @@
 			<description>POST invite to one valid user</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
@@ -132,7 +132,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -149,7 +149,7 @@
 			<description>POST invite to two valid users</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request auth='no' print-response='no'>
 				<method>POST</method>
@@ -174,7 +174,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -188,7 +188,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -323,19 +323,19 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$outbox:/</ruri>
+			<ruri>$outboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</end>
 	

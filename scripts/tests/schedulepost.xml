@@ -28,7 +28,7 @@
 		</request>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
@@ -36,7 +36,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
@@ -44,7 +44,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/$inbox:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
@@ -88,27 +88,27 @@
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$outbox:/</ruri>
+			<ruri>$outboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/$outbox:/</ruri>
+			<ruri>$outboxpath3:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/$inbox:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 	</start>
 	
@@ -117,7 +117,7 @@
 			<description>POST on invalid outbox</description>
 			<request print-response="no">
 				<method>POST</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -135,7 +135,7 @@
 			<description>POST with invalid content</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -153,7 +153,7 @@
 			<description>POST with invalid calendar data</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/1.txt</filepath>
@@ -171,7 +171,7 @@
 			<description>POST without METHOD property</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/2.txt</filepath>
@@ -189,7 +189,7 @@
 			<description>POST with invalid iTIP object</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/5.txt</filepath>
@@ -207,7 +207,7 @@
 			<description>POST without Recipient:</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/22.ics</filepath>
@@ -225,7 +225,7 @@
 			<description>POST with non-authorized Organizer:</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/4.txt</filepath>
@@ -243,7 +243,7 @@
 			<description>POST reply with too many Attendees:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
-				<ruri>$pathprefix2:/$outbox:/</ruri>
+				<ruri>$outboxpath2:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/17.txt</filepath>
@@ -261,7 +261,7 @@
 			<description>POST reply with non-authorized Attendee:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
-				<ruri>$pathprefix2:/$outbox:/</ruri>
+				<ruri>$outboxpath2:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/18.txt</filepath>
@@ -279,7 +279,7 @@
 			<description>POST reply with disabled Attendee:</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/20.ics</filepath>
@@ -300,7 +300,7 @@
 			<description>POST reply with disabled Organizer:</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/21.ics</filepath>
@@ -321,7 +321,7 @@
 			<description>POST which should work</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -335,7 +335,7 @@
 			<description>Make sure no resource exists</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -352,7 +352,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$pathprefix1:/$outbox:/</value>
+						<value>$outboxpath1:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -361,7 +361,7 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -374,7 +374,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix2:/$inbox:/</value>
+						<value>$inboxpath2:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -388,7 +388,7 @@
 			<description>Make sure resource exists and properties are set</description>
 			<request  user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -401,7 +401,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix3:/$inbox:/</value>
+						<value>$inboxpath3:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -415,7 +415,7 @@
 			<description>POST which should work (using relative principal addressing)</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -429,7 +429,7 @@
 			<description>POST which should work (using absolute principal addressing)</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/3.txt</filepath>
@@ -446,7 +446,7 @@
 			<description>Simple calendar-query for VEVENTs</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/13.xml</filepath>
@@ -464,7 +464,7 @@
 			<description>Simple calendar-query for VEVENTs</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/13.xml</filepath>
@@ -482,7 +482,7 @@
 			<description>Simple calendar-multiget for VEVENTs</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/14.xml</filepath>
@@ -500,7 +500,7 @@
 			<description>Simple calendar-multiget for VEVENTs</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/15.xml</filepath>
@@ -513,7 +513,7 @@
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$pathprefix1:/$inbox:/1.ics</value>
+						<value>$inboxpath1:/1.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -522,7 +522,7 @@
 			<description>free-busy-query failure</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/16.xml</filepath>
@@ -540,7 +540,7 @@
 			<description>free-busy-query failure</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/schedule/16.xml</filepath>
@@ -561,7 +561,7 @@
 			<description>POST free busy</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/6.txt</filepath>
@@ -588,7 +588,7 @@
 			<description>POST free busy - recipients with failure</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/23.ics</filepath>
@@ -614,7 +614,7 @@
 			<description>POST free busy - check ATTENDEE presence</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/schedule/19.ics</filepath>

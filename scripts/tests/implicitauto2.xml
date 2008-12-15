@@ -24,11 +24,11 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -59,7 +59,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -91,7 +91,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -123,15 +123,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -159,7 +159,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -191,7 +191,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -223,15 +223,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -259,7 +259,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -291,7 +291,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -323,15 +323,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -359,7 +359,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -391,7 +391,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -423,15 +423,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -459,7 +459,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -491,7 +491,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -523,15 +523,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -559,7 +559,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -591,7 +591,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -623,15 +623,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -659,7 +659,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -691,7 +691,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -723,15 +723,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -759,7 +759,7 @@
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -791,7 +791,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/auto2/1.xml</filepath>
@@ -823,15 +823,15 @@
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -839,7 +839,7 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
@@ -847,7 +847,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -855,7 +855,7 @@
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>

@@ -71,7 +71,7 @@
 			<description>No items in user02 Inbox</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/proxy/4.xml</filepath>
@@ -103,7 +103,7 @@
 			<description>One item in user03 Inbox</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -142,7 +142,7 @@
 			<description>Proxy deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -184,7 +184,7 @@
 			<description>One item in user02 Inbox</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/proxy/4.xml</filepath>
@@ -216,7 +216,7 @@
 			<description>No item in user03 Inbox</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -418,7 +418,7 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
@@ -426,7 +426,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$userid2:">
 			<method>DELETEALL</method>
@@ -434,7 +434,7 @@
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/$inbox:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$userid3:">
 			<method>DELETEALL</method>

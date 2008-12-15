@@ -24,19 +24,19 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
@@ -49,7 +49,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/1.ics</filepath>
@@ -67,7 +67,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -95,7 +95,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -112,7 +112,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/3.ics</filepath>
@@ -130,7 +130,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -158,7 +158,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -175,7 +175,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/5.ics</filepath>
@@ -193,7 +193,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -221,7 +221,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -238,7 +238,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/7.ics</filepath>
@@ -256,7 +256,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -284,7 +284,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -301,7 +301,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/8.ics</filepath>
@@ -319,7 +319,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -347,7 +347,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -364,7 +364,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/9.ics</filepath>
@@ -382,7 +382,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -410,7 +410,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -427,7 +427,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/11.ics</filepath>
@@ -445,7 +445,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -473,7 +473,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -490,7 +490,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/13.ics</filepath>
@@ -508,7 +508,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -536,7 +536,7 @@
 			<description>One item in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -553,7 +553,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/15.ics</filepath>
@@ -571,7 +571,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -599,7 +599,7 @@
 			<description>Three items in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -616,7 +616,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/17.ics</filepath>
@@ -634,7 +634,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -662,7 +662,7 @@
 			<description>Three items in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -679,7 +679,7 @@
 			<description>Do POST</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/$outbox:/</ruri>
+				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/scheduleautorecurcancel/19.ics</filepath>
@@ -697,7 +697,7 @@
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$rpathprefix1:/$inbox:/</ruri>
+				<ruri>$rinboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -725,7 +725,7 @@
 			<description>Three items in user01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
@@ -740,19 +740,19 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$outbox:/</ruri>
+			<ruri>$outboxpath1:/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/$inbox:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
+			<ruri>$routboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>

@@ -69,7 +69,7 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -105,7 +105,7 @@
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -154,7 +154,7 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -173,7 +173,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -201,7 +201,7 @@
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -250,7 +250,7 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -269,7 +269,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -297,7 +297,7 @@
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -346,7 +346,7 @@
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -365,7 +365,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -393,7 +393,7 @@
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -418,7 +418,7 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -426,7 +426,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
@@ -434,7 +434,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -472,7 +472,7 @@
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -491,7 +491,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -538,7 +538,7 @@
 			<description>Attendees delete Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -556,7 +556,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -591,7 +591,7 @@
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -610,7 +610,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -621,7 +621,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -640,7 +640,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -699,7 +699,7 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -707,7 +707,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/$inbox:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
@@ -715,7 +715,7 @@
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix3:/$inbox:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>

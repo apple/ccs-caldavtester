@@ -28,7 +28,7 @@
 			<description>Look for empty property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -53,7 +53,7 @@
 			<description>Set property on Inbox</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/defaultcalendar/4.xml</filepath>
@@ -71,7 +71,7 @@
 			<description>Verify property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -96,7 +96,7 @@
 			<description>Look for empty property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -118,7 +118,7 @@
 			<description>Set property on Inbox</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/defaultcalendar/2.xml</filepath>
@@ -136,7 +136,7 @@
 			<description>Verify property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -161,7 +161,7 @@
 			<description>Set property on Inbox</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/implicit/defaultcalendar/3.xml</filepath>
@@ -179,7 +179,7 @@
 			<description>Verify property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/$inbox:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
