@@ -341,6 +341,16 @@
 						<value>writeabletouser01/</value>
 						<value>$freebusy:</value>
 					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$dropbox:/</value>
+						<value>notvisibletouser01/</value>
+						<value>calreadtoauth/</value>
+						<value>colreadtoauth/</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -775,7 +785,7 @@
 	</test-suite>
 
 	<test-suite name='Directory list access' ignore='no'>
-		<test name='1' ignore='yes'>
+		<test name='1' ignore='no'>
 			<description>Get calendar home collection</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -783,8 +793,9 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>notcontains</name>
-						<value>inbox</value>
+						<name>contains</name>
+						<value>visibletouser01/</value>
+						<value>$inbox:</value>
 					</arg>
 				</verify>
 			</request>
