@@ -23,6 +23,7 @@ from src.serverinfo import serverinfo
 import getopt
 import httplib
 import os
+import random
 import src.xmlDefs
 import sys
 import time
@@ -139,10 +140,10 @@ class manager(object):
         pname = None
         dname = "scripts/tests"
         fnames = []
-        docroot = None
         all = False
         pidfile = "../CalendarServer/logs/caldavd.pid"
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:r:", ["all", "pid=",])
+        random_order = False
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "pid=", "random"])
         
         # Process single options
         for option, value in options:
@@ -154,14 +155,14 @@ class manager(object):
                 self.depopulate = True
             elif option == "-x":
                 dname = value
-            elif option == "-r":
-                docroot = value
             elif option == "--all":
                 all = True
             elif option == "-m":
                 self.memUsage = True
             elif option == "--pid":
                 pidfile = value
+            elif option == "--random":
+                random_order = True
                 
         if all:
             files = os.listdir(dname)
@@ -176,9 +177,16 @@ class manager(object):
         for f in args:
             fnames.append(dname + "/" + f)
         
+        # Randomize file list
+        if random_order:
+            new_fnames = []
+            while fnames:
+                element = random.choice(fnames)
+                new_fnames.append(element)
+                fnames.remove(element)
+            fnames = new_fnames
+
         self.readXML(sname, pname, fnames, all)
-        if docroot:
-            self.server_info.serverfilepath = docroot
             
         if self.memUsage:
             fd = open(pidfile, "r")

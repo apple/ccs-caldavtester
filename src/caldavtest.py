@@ -313,62 +313,6 @@ class caldavtest(object):
             self.dorequest( req, False, False )
         self.manager.log(manager.LOG_HIGH, "[DONE]")
     
-    def doaccess(self, ruri, enable):
-        """
-        We have to set the xattr WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}access-disabled 
-        on the resource pointed to by the ruri. Strictly speaking only the server know how to map from a uri to a file
-        path, so we have to cheat!
-        """
-        if self.manager.server_info.serverfilepath:
-            # __uids__ URI path is actually hashed on disk
-            segments = ruri[1:].split('/')
-            for ctr, segment in enumerate(segments):
-                if segment == "__uids__":
-                    uid = segments[ctr + 1]
-                    segments.insert(ctr + 1, uid[0:2])
-                    segments.insert(ctr + 2, uid[2:4])
-                    break
-            filepath = "/".join(segments)
-            filename = os.path.join(self.manager.server_info.serverfilepath, filepath)
-            if os.path.exists(filename):
-                attrs = xattr.xattr(filename)
-                if enable:
-                    del attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}caldav-access-disabled"]
-                else:
-                    attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}caldav-access-disabled"] = "yes"
-                return True
-        return False
-
-    def doquota(self, ruri, size):
-        """
-        We have to set the xattr WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}access-disabled 
-        on the resource pointed to by the ruri. Strictly speaking only the server know how to map from a uri to a file
-        path, so we have to cheat!
-        """
-        if self.manager.server_info.serverfilepath:
-            # __uids__ URI path is actually hashed on disk
-            segments = ruri[1:].split('/')
-            for ctr, segment in enumerate(segments):
-                if segment == "__uids__":
-                    uid = segments[ctr + 1]
-                    segments.insert(ctr + 1, uid[0:2])
-                    segments.insert(ctr + 2, uid[2:4])
-                    break
-            filepath = "/".join(segments)
-            filename = os.path.join(self.manager.server_info.serverfilepath, filepath)
-            if os.path.exists(filename):
-                attrs = xattr.xattr(filename)
-                if size is None:
-                    del attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}quota-root"]
-                else:
-                    attrs["WebDAV:{http:%2F%2Ftwistedmatrix.com%2Fxml_namespace%2Fdav%2Fprivate%2F}quota-root"] = \
-                            "<?xml version='1.0' encoding='UTF-8'?>\n" + \
-                            "<quota-root xmlns='http://twistedmatrix.com/xml_namespace/dav/private/'>" + \
-                            str(size) + \
-                            "</quota-root>"
-                return True
-        return False
-
     def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None ):
         
         # Special check for DELETEALL
@@ -379,30 +323,6 @@ class caldavtest(object):
                 self.dodeleteall(hrefs)
             return True, "", None, None
         
-        # Special check for ACCESS-DISABLE
-        elif req.method == "ACCESS-DISABLE":
-            if self.doaccess(req.ruri, False):
-                return True, "", None, None
-            else:
-                return False, "Could not set caldav-access-disabled xattr on file", None, None
-        elif req.method == "ACCESS-ENABLE":
-            if self.doaccess(req.ruri, True):
-                return True, "", None, None
-            else:
-                return False, "Could not remove caldav-access-disabled xattr on file", None, None
-
-        # Special check for QUOTA
-        elif req.method == "QUOTA-DISABLE":
-            if self.doquota(req.ruri, None):
-                return True, "", None, None
-            else:
-                return False, "Could remove quota-root xattr on file", None, None
-        elif req.method.startswith("QUOTA-ENABLE-"):
-            if self.doquota(req.ruri, req.method[len("QUOTA-ENABLE-"):]):
-                return True, "", None, None
-            else:
-                return False, "Could not set quota-root xattr on file", None, None
-
         # Special for delay
         elif req.method == "DELAY":
             # self.ruri contains a numeric delay in seconds

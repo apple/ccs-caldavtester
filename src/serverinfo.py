@@ -24,7 +24,7 @@ class serverinfo( object ):
     """
     Maintains information about the server being targetted.
     """
-    __slots__  = ['host', 'port', 'authtype', 'ssl', 'calendarpath', 'user', 'pswd', 'serverfilepath', 'subsdict', 'extrasubsdict',]
+    __slots__  = ['host', 'port', 'authtype', 'ssl', 'calendarpath', 'user', 'pswd', 'subsdict', 'extrasubsdict',]
 
 
     def __init__( self ):
@@ -34,7 +34,6 @@ class serverinfo( object ):
         self.ssl = False
         self.user = ""
         self.pswd = ""
-        self.serverfilepath = ""
         self.subsdict = {}
         self.extrasubsdict = {}
 

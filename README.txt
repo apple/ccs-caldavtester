@@ -12,7 +12,8 @@ Many tests are included in this package.
 
 COMMAND LINE OPTIONS
 
-testcaldav.py [-s filename] [-p filename] [-d] [--all] file1 file2 ...
+testcaldav.py [-s filename] [-p filename] [-d] [--all] [--random] \
+	file1 file2 ...
 
 	-s : filename specifies the file to use for server information
 	(default is 'serverinfo.xml').
@@ -27,6 +28,8 @@ testcaldav.py [-s filename] [-p filename] [-d] [--all] file1 file2 ...
 	--all : execute all tests found in the working directory. Each .xml
 	file in that directory is examined and those corresponding to the
 	caldavtest.dtd are executed.
+
+	--random : randomize the order in which the tests are run.
 
 	file1 file2 ...: a list of test files to execute tests from.
 
@@ -58,25 +61,25 @@ serverinfo.dtd
 	ELEMENT <port>
 		port to use to connect to server.
 
+	ELEMENT <authtype>
+		HTTP authentication method to use.
+
 	ELEMENT <ssl>
 		if present, use SSL to connect to the server.
 
-	ELEMENT <calendarpath>
-		base path to a calendar on the server to run tests with.
+	ELEMENT <substitutions>
+		used to encapsulate all variable substitutions.
 
-	ELEMENT <user>
-		user id to use when authenticating with the server.
+		ELEMENT <substitution>
+			a variable substitution - the repeat attribute can
+			be used to repeat the substitution a set number of
+			times whilst generating different substitutions.
 
-	ELEMENT <pswd>
-		password to use when authenticating with the server.
+			ELEMENT <key>
+				the substitution key (usually '$xxx:').
 
-	ELEMENT <hostsubs>
-		a string that can be substituted into test scripts and data
-		using '$host:' as the substitution key string.
-
-	ELEMENT <pathsubs>
-		a string that can be substituted into test scripts and data
-		using '$pathprefix1:' as the substitution key string.
+			ELEMENT <value>
+				the substitution value.
 
 caldavtest.dtd:
 
@@ -142,12 +145,13 @@ caldavtest.dtd:
 
 	ELEMENT <method>
 		the HTTP method for this request. There are some 'special' methods that do some useful 'compound' operations:
-			1) DELETEALL - deletes all resources within the collection specified by the <ruri> element.
-			2) ACCESS-DISABLE - removes the access-disabled xattr on the file specified by the <ruri> element.
-			3) ACCESS-ENABLE - adds the access-disabled xattr on the file specified by the <ruri> element.
-			4) DELAY - pause for the number of seconds specified by the <ruri> element.
-			5) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
+			1) DELETEALL - deletes all resources within the collections specified by the <ruri> elements.
+			2) DELAY - pause for the number of seconds specified by the <ruri> element.
+			3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 					    into the $ variable for later use in an <ruri> element.
+
+	ELEMENT <ruri>
+		the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
 
 	ELEMENT <header>
 		can be used to specify additional headers in the request.
@@ -157,13 +161,6 @@ caldavtest.dtd:
 
 		ELEMENT <value>
 			the header value.
-
-	ELEMENT <ruri>
-		if the text in this element does not start with a '/', then it
-		is appended to the text from the serverinfo <calendarpath>
-		element (with '/' in between) and used as the URI for the
-		request. If the text in this element starts with '/' then it is
-		used as-is for the URI of the request.
 
 	ELEMENT <data>
 		used to specify the source and nature of data used in the
@@ -260,6 +257,23 @@ header:
 	
 dataMatch:
 	Performs a check of response body and matches it against the data in the specified file.
+
+	Argument: 'filepath'
+		The file path to a file containing data to match the response body to.
+	
+	Example:
+	
+	<verify>
+		<callback>dataMatch</callback>
+		<arg>
+			<name>filepath</name>
+			<value>resources/put.ics</value>
+		</arg>
+	</verify>
+	
+calandarDataMatch:
+	Similar to data match but tries to "normalize" the calendar data so that e.g., different
+	ordering of properties is not significant.
 
 	Argument: 'filepath'
 		The file path to a file containing data to match the response body to.
@@ -395,6 +409,27 @@ propfindItems:
 		<arg>
 			<name>ignore</name>
 			<value>/calendars/test/</value>
+		</arg>
+	</verify>
+	
+propfindValues:
+	Performs a regular expression match against property values. The overall
+	response status must be 207.
+
+	Argument: 'props'
+		A set of properties for which a 2xx response status is required. Two forms can be used:
+		
+		'propname$value' - will test for property value match
+		'propname!value' - will test for property value non-match
+	
+	Example:
+	
+	<verify>
+		<callback>propfindValues</callback>
+		<arg>
+			<name>props</name>
+			<value>DAV:getcontenttype$text/.*</value>
+			<value>DAV:getcontenttype!text/calendar</value>
 		</arg>
 	</verify>
 	
