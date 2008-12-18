@@ -329,27 +329,10 @@
 					<filepath>Resource/acls/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>statusCode</callback>
 					<arg>
-						<name>prefix</name>
-						<value>$pathprefix2:/</value>
-					</arg>
-					<arg>
-						<name>okhrefs</name>
-						<value/>
-						<value>visibletouser01/</value>
-						<value>writeabletouser01/</value>
-						<value>$freebusy:</value>
-					</arg>
-					<arg>
-						<name>badhrefs</name>
-						<value>$calendar:/</value>
-						<value>$inbox:/</value>
-						<value>$outbox:/</value>
-						<value>$dropbox:/</value>
-						<value>notvisibletouser01/</value>
-						<value>calreadtoauth/</value>
-						<value>colreadtoauth/</value>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -793,7 +776,7 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>contains</name>
+						<name>notcontains</name>
 						<value>visibletouser01/</value>
 						<value>$inbox:</value>
 					</arg>
@@ -1059,14 +1042,10 @@
 					<filepath>Resource/acls/24.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>statusCode</callback>
 					<arg>
-						<name>okprops</name>
-						<value>DAV:current-user-privilege-set</value>
-					</arg>
-					<arg>
-						<name>badprops</name>
-						<value>DAV:acl</value>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1122,14 +1101,10 @@
 					<filepath>Resource/acls/24.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>statusCode</callback>
 					<arg>
-						<name>okprops</name>
-						<value>DAV:current-user-privilege-set</value>
-					</arg>
-					<arg>
-						<name>badprops</name>
-						<value>DAV:acl</value>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
