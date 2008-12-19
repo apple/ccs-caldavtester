@@ -524,6 +524,23 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Floating DTSTART with RRULE:UNTIL' ignore='no'>
+		<test name='1'>
+			<description>Store resource</description>
+			<request print-response='no' end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/7.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/floating/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
