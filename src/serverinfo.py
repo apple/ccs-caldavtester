@@ -99,24 +99,33 @@ class serverinfo( object ):
             raise ValueError, "Must have $pswd1: substitution"
         self.pswd = self.subsdict["$pswd1:"]
 
+    def parseRepeatXML(self, node):
+        # Look for count
+        count = node.getAttribute( src.xmlDefs.ATTR_COUNT )
+
+        for child in node._get_childNodes():
+            self.parseSubstitutionXML(child, count)
+
     def parseSubstitutionsXML(self, node):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
-                
-                # Look for repeats
-                repeat = child.getAttribute( src.xmlDefs.ATTR_REPEAT )
+                self.parseSubstitutionXML(child)
+            elif child._get_localName() == src.xmlDefs.ELEMENT_REPEAT:
+                self.parseRepeatXML(child)
 
-                key = None
-                value = None
-                for schild in child._get_childNodes():
-                    if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
-                        key = schild.firstChild.data.encode("utf-8")
-                    elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                        value = schild.firstChild.data.encode("utf-8")
+    def parseSubstitutionXML(self, node, repeat=None):
+        if node._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
+            key = None
+            value = None
+            for schild in node._get_childNodes():
+                if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
+                    key = schild.firstChild.data.encode("utf-8")
+                elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
+                    value = schild.firstChild.data.encode("utf-8")
 
-                if key and value:
-                    if repeat:
-                        for count in range(1, int(repeat)):
-                            self.subsdict[key % (count,)] = value % (count,)
-                    else:
-                        self.subsdict[key] = value
+            if key and value:
+                if repeat:
+                    for count in range(1, int(repeat)):
+                        self.subsdict[key % (count,)] = value % (count,)
+                else:
+                    self.subsdict[key] = value

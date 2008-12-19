@@ -27,8 +27,9 @@ DTSTART;TZID=US/Eastern:20060101T100000
 DURATION:PT1H
 SUMMARY:event confidential access 2
 LOCATION:confidential 2
-ORGANIZER:$cuaddr1:
-ATTENDEE;SCHEDULE-STATUS="1.2;Scheduling message has been delivered":$cuaddr2:
+ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:
+ATTENDEE;CN=$username2:;SCHEDULE-STATUS="1.2;Scheduling message has been delivered";
+ X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:
 UID:54E181BC7CCC373042B28842FFC-40@ninevah.local
 BEGIN:VALARM
 ACTION:DISPLAY

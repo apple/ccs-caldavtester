@@ -159,6 +159,11 @@
 			<key>$useradmin:</key>
 			<value>admin</value>
 		</substitution>
+		<!-- guid for admin user -->
+		<substitution>
+			<key>$useradminguid:</key>
+			<value>admin</value>
+		</substitution>
 		<!-- password for admin user -->
 		<substitution>
 			<key>$pswdadmin:</key>
@@ -172,7 +177,7 @@
 		</substitution>
 		<substitution>
 			<key>$principaluri_admin:</key>
-			<value>$principals_uids:$useradmin:/</value>
+			<value>$principals_uids:$useradminguid:/</value>
 		</substitution>
 
 		<!-- user id for proxy user -->
@@ -186,69 +191,105 @@
 			<value>superuser</value>
 		</substitution>
 
-		<!-- user id -->
-		<substitution repeat="10">
-			<key>$userid%d:</key>
-			<value>user%02d</value>
-		</substitution>
-		<!-- user guid -->
-		<substitution repeat="10">
-			<key>$userguid%d:</key>
-			<value>user%02d</value>
-		</substitution>
-		<!-- password -->
-		<substitution repeat="10">
-			<key>$pswd%d:</key>
-			<value>user%02d</value>
-		</substitution>
-		<!-- relative path to first user principal resource-->
-		<substitution repeat="10">
-			<key>$principal%d:</key>
-			<value>$principals_users:$userid%d:/</value>
-		</substitution>
-		<substitution repeat="10">
-			<key>$principaluri%d:</key>
-			<value>$principals_uids:$userguid%d:/</value>
-		</substitution>
-		<substitution repeat="10">
-			<key>$principal%dnoslash:</key>
-			<value>$principals_users:$userid%d:</value>
-		</substitution>
-		<!-- relative path to first user calendar home-->
-		<substitution repeat="10">
-			<key>$pathprefix%d:</key>
-			<value>$calendars_uids:$userguid%d:</value>
-		</substitution>
-		<!-- relative path to first user calendar-->
-		<substitution repeat="10">
-			<key>$calendarpath%d:</key>
-			<value>$calendars_uids:$userguid%d:/$calendar:</value>
-		</substitution>
-		<!-- relative path to first user calendar home-->
-		<substitution repeat="10">
-			<key>$calendarpathalt%d:</key>
-			<value>$calendars_uids:$userid%d:/$calendar:</value>
-		</substitution>
-		<!-- calendar user address of first user-->
-		<substitution repeat="10">
-			<key>$cuaddr%d:</key>
-			<value>mailto:$userid%d:@example.com</value>
-		</substitution>
-		<substitution repeat="10">
-			<key>$cuaddralt%d:</key>
-			<value>$principaluri%d:</value>
-		</substitution>
-		<substitution repeat="10">
-			<key>$cuaddraltnoslash%d:</key>
-			<value>$principals_uids:$userguid%d:</value>
-		</substitution>
-		
+		<!--  Ten user accounts -->
+		<repeat count="10">
+			<!-- user id -->
+			<substitution>
+				<key>$userid%d:</key>
+				<value>user%02d</value>
+			</substitution>
+			<!-- user guid -->
+			<substitution>
+				<key>$userguid%d:</key>
+				<value>user%02d</value>
+			</substitution>
+			<!-- user name -->
+			<substitution>
+				<key>$username%d:</key>
+				<value>User %02d</value>
+			</substitution>
+			<!-- password -->
+			<substitution>
+				<key>$pswd%d:</key>
+				<value>user%02d</value>
+			</substitution>
+			<!-- relative path to user principal resource-->
+			<substitution>
+				<key>$principal%d:</key>
+				<value>$principals_users:$userid%d:/</value>
+			</substitution>
+			<substitution>
+				<key>$principaluri%d:</key>
+				<value>$principals_uids:$userguid%d:/</value>
+			</substitution>
+			<substitution>
+				<key>$principal%dnoslash:</key>
+				<value>$principals_users:$userid%d:</value>
+			</substitution>
+			<!-- relative path to user calendar home-->
+			<substitution>
+				<key>$pathprefix%d:</key>
+				<value>$calendars_uids:$userguid%d:</value>
+			</substitution>
+			<!-- relative path to user calendar-->
+			<substitution>
+				<key>$calendarpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$calendar:</value>
+			</substitution>
+			<!-- relative path to user inbox-->
+			<substitution>
+				<key>$inboxpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$inbox:</value>
+			</substitution>
+			<!-- relative path to user outbox-->
+			<substitution>
+				<key>$outboxpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$outbox:</value>
+			</substitution>
+			<!-- relative path to user dropbox-->
+			<substitution>
+				<key>$dropboxpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$dropbox:</value>
+			</substitution>
+			<!-- relative path to user freebusy-->
+			<substitution>
+				<key>$freebusypath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$freebusy:</value>
+			</substitution>
+			<!-- relative path to user alternate calendar home-->
+			<substitution>
+				<key>$calendarpathalt%d:</key>
+				<value>$calendars_users:$userid%d:/$calendar:</value>
+			</substitution>
+			<substitution>
+				<key>$email%d:</key>
+				<value>$userid%d:@example.com</value>
+			</substitution>
+			<!-- calendar user address of user-->
+			<substitution>
+				<key>$cuaddr%d:</key>
+				<value>mailto:$email%d:</value>
+			</substitution>
+			<substitution>
+				<key>$cuaddralt%d:</key>
+				<value>$principaluri%d:</value>
+			</substitution>
+			<substitution>
+				<key>$cuaddraltnoslash%d:</key>
+				<value>$principals_uids:$userguid%d:</value>
+			</substitution>
+			<substitution>
+				<key>$cuaddrurn%d:</key>
+				<value>urn:uuid:$userguid%d:</value>
+			</substitution>
+		</repeat>
+
 		<!--  Override some of the above definitions for special cases -->
 
 		<!-- calendar user address of second user-->
 		<substitution>
 			<key>$cuaddr2:</key>
-			<value>MAILTO:user02@example.com</value>
+			<value>MAILTO:$email2:</value>
 		</substitution>
 
 		<!-- resource id-->
@@ -261,6 +302,11 @@
 			<key>$resourceguid1:</key>
 			<value>resource01</value>
 		</substitution>
+		<!-- resource name-->
+		<substitution>
+			<key>$resourcename1:</key>
+			<value>Resource 01</value>
+		</substitution>
 		<!-- relative path to first resource calendar home-->
 		<substitution>
 			<key>$rpathprefix1:</key>
@@ -270,6 +316,16 @@
 		<substitution>
 			<key>$rcalendarpath1:</key>
 			<value>$calendars_uids:$resourceguid1:/$calendar:</value>
+		</substitution>
+		<!-- relative path to first resource inbox-->
+		<substitution>
+			<key>$rinboxpath1:</key>
+			<value>$calendars_uids:$resourceguid1:/$inbox:</value>
+		</substitution>
+		<!-- relative path to first resource outbox-->
+		<substitution>
+			<key>$routboxpath1:</key>
+			<value>$calendars_uids:$resourceguid1:/$outbox:</value>
 		</substitution>
 		<!-- relative path to first resource principal resource-->
 		<substitution>
@@ -283,6 +339,10 @@
 		<substitution>
 			<key>$rcuaddralt1:</key>
 			<value>$rprincipaluri1:</value>
+		</substitution>
+		<substitution>
+			<key>$rcuaddrurn1:</key>
+			<value>urn:uuid:$resourceguid1:</value>
 		</substitution>
 
 		<!-- relative path to disabled group principal resource-->

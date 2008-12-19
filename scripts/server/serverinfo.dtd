@@ -20,9 +20,10 @@
 	<!ELEMENT port			(#PCDATA)>
 	<!ELEMENT authtype		(#PCDATA)>
 	<!ELEMENT ssl			EMPTY>
-	<!ELEMENT substitutions	(substitution*)>
+	<!ELEMENT substitutions	(substitution|repeat)*>
+		<!ELEMENT repeat	(substitution+)>
+    		<!ATTLIST repeat count CDATA "1">
 		<!ELEMENT substitution	(key, value)>
-    		<!ATTLIST substitution repeat CDATA "1">
 			<!ELEMENT key			(#PCDATA)>
 			<!ELEMENT value			(#PCDATA)>
 	

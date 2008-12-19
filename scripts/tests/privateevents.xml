@@ -545,6 +545,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -566,6 +570,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -586,6 +594,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -729,6 +741,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -750,6 +766,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -770,6 +790,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -806,6 +830,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -826,6 +854,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -864,6 +896,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PRIVATE</value>
@@ -1048,6 +1084,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PRIVATE</value>
 						<value>VERSION:2.0</value>
@@ -1132,13 +1172,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 1</value>
 						<value>LOCATION:confidential 1</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1154,6 +1198,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -1181,6 +1229,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -1346,13 +1398,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1368,6 +1424,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -1395,6 +1455,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -1458,13 +1522,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 1</value>
 						<value>LOCATION:restricted 1</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1480,6 +1548,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -1507,6 +1579,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -1675,13 +1751,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1697,6 +1777,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -1724,6 +1808,10 @@
 				</verify>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -1849,6 +1937,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -1871,6 +1963,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -1892,6 +1988,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -1918,13 +2018,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1942,6 +2046,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -1951,8 +2059,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -1970,6 +2078,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -1979,8 +2091,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2001,13 +2113,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2025,6 +2141,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2034,8 +2154,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2053,6 +2173,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2062,8 +2186,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2084,12 +2208,16 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2111,6 +2239,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2120,8 +2252,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2139,6 +2271,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2148,8 +2284,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2170,12 +2306,16 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2197,6 +2337,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2206,8 +2350,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2225,6 +2369,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2234,8 +2382,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2323,6 +2471,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -2345,6 +2497,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -2366,6 +2522,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -2392,13 +2552,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2416,6 +2580,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2425,8 +2593,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2444,6 +2612,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2453,8 +2625,8 @@
 						<name>notcontains</name>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2475,13 +2647,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2499,6 +2675,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2508,8 +2688,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2527,6 +2707,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2536,8 +2720,8 @@
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2558,12 +2742,16 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2585,6 +2773,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2594,8 +2786,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2613,6 +2805,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -2622,8 +2818,8 @@
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2644,12 +2840,16 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -2671,6 +2871,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2680,8 +2884,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -2699,6 +2903,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -2708,8 +2916,8 @@
 					<arg>
 						<name>notcontains</name>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
-						<value>ORGANIZER:$cuaddr1:</value>
-						<value>ATTENDEE:$cuaddr2:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;X-CALENDARSERVER-EMAIL=$email2::$cuaddrurn2:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3108,6 +3316,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -3130,6 +3342,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -3151,6 +3367,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -3177,6 +3397,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -3199,6 +3423,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -3225,6 +3453,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -3255,6 +3487,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -3277,6 +3513,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -3303,6 +3543,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -3478,6 +3722,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -3500,6 +3748,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -3521,6 +3773,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -3547,6 +3803,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
@@ -3569,6 +3829,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -3595,6 +3859,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
@@ -3625,6 +3893,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
@@ -3647,6 +3919,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -3673,6 +3949,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
@@ -3818,6 +4098,10 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
 						<value>VERSION:2.0</value>
@@ -3862,13 +4146,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3886,12 +4174,16 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 					<arg>
@@ -3912,6 +4204,10 @@
 				</data>
 				<verify>
 					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:PUBLIC</value>
@@ -3957,13 +4253,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event confidential access 2</value>
 						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
@@ -3981,13 +4281,17 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
 						<value>VERSION:2.0</value>
 						<value>DTSTART;TZID=US/Eastern:20060101T100000</value>
 						<value>SUMMARY:event restricted access 2</value>
 						<value>LOCATION:restricted 2</value>
-						<value>ORGANIZER:$cuaddr1:</value>
+						<value>ORGANIZER;CN=$username1:;X-CALENDARSERVER-EMAIL=$email1::$cuaddrurn1:</value>
 						<value>BEGIN:VALARM</value>
 					</arg>
 				</verify>
