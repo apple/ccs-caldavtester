@@ -766,6 +766,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='19' ignore='no'>
+			<description>Exact calendar-user-address-set REPORT</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/33.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principals_uids:user01/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='principal-search-property-set REPORT' ignore='no'>
