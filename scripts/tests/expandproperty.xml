@@ -367,6 +367,71 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Non-expanding group-membership query</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$principals_uids:user10/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/expandproperty/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principals_uids:user10/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Sub Group 1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Expanding group-membership query</description>
+			<request print-response="yes">
+				<method>REPORT</method>
+				<ruri>$principals_uids:user10/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/expandproperty/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principals_uids:user10/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Sub Group 1</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Top Level Group</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
