@@ -125,7 +125,7 @@ class serverinfo( object ):
 
             if key and value:
                 if repeat:
-                    for count in range(1, int(repeat)):
+                    for count in range(1, int(repeat) + 1):
                         self.subsdict[key % (count,)] = value % (count,)
                 else:
                     self.subsdict[key] = value
