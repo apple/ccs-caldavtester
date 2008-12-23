@@ -37,29 +37,46 @@ serverinfo_template = "scripts/server/serverinfo-template.xml"
 
 base_dir = "../CalendarServer/"
 
-number_of_users = 5
+number_of_users = 10
 
 guids = {
     "testadmin": "",
-    "user01":    "",
-    "user02":    "",
-    "user03":    "",
-    "resource01":"",
+    "apprentice": "",
+    "group01"   :"",
 }
+
+for i in range(1, 11):
+    guids["user%02d" % (i,)] = ""
+    guids["public%02d" % (i,)] = ""
+    guids["resource%02d" % (i,)] = ""
+    guids["location%02d" % (i,)] = ""
 
 # List of users as a tuple: (<<name>>, <<pswd>>, <<repeat count>>)
 adminattrs = {
-    "dsAttrTypeStandard:RealName":        "Test Admin",
+    "dsAttrTypeStandard:RealName":        "Super User",
+    "dsAttrTypeStandard:FirstName":       "Super",
+    "dsAttrTypeStandard:LastName":        "User",
     "dsAttrTypeStandard:EMailAddress":    "testadmin@example.com",
+}
+
+apprenticeattrs = {
+    "dsAttrTypeStandard:RealName":        "Apprentice Super User",
+    "dsAttrTypeStandard:FirstName":       "Apprentice",
+    "dsAttrTypeStandard:LastName":        "Super User",
+    "dsAttrTypeStandard:EMailAddress":    "apprentice@example.com",
 }
 
 userattrs = {
     "dsAttrTypeStandard:RealName":        "User %02d",
+    "dsAttrTypeStandard:FirstName":       "User",
+    "dsAttrTypeStandard:LastName":        "%02d",
     "dsAttrTypeStandard:EMailAddress":    "user%02d@example.com",
 }
 
 publicattrs = {
     "dsAttrTypeStandard:RealName":        "Public %02d",
+    "dsAttrTypeStandard:FirstName":       "Public",
+    "dsAttrTypeStandard:LastName":        "%02d",
     "dsAttrTypeStandard:EMailAddress":    "public%02d@example.com",
 }
 
@@ -98,6 +115,8 @@ resourceattrs = {
         <true/>
         <key>CalendaringDelegate</key>
         <string>%(guid)s</string>
+        <key>ReadOnlyCalendaringDelegate</key>
+        <string>%(readonlyguid)s</string>
         <key>Label</key>
         <string>Printer</string>
     </dict>
@@ -112,6 +131,7 @@ groupattrs = {
 
 records = (
     ("/Users", "testadmin", "testadmin", adminattrs, 1),
+    ("/Users", "apprentice", "apprentice", apprenticeattrs, 1),
     ("/Users", "user%02d", "user%02d", userattrs, None),
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
@@ -188,13 +208,35 @@ def buildServerinfo(hostname, docroot):
     finally:
         fd.close()
 
+    subs_template = """
+        <substitution>
+            <key>%s</key>
+            <value>%s</value>
+        </substitution>
+"""
+
+    subs = [
+        ("$useradminguid:",      guids["testadmin"]),
+        ("$userapprenticeguid:", guids["apprentice"]),
+        ("$groupguid1:",         guids["group01"]),
+    ]
+    
+    for i in range(1, number_of_users + 1):
+        subs.append(("$userguid%d:" % (i,), guids["user%02d" % (i,)]))
+    for i in range(1, 11):
+        subs.append(("$publicuserguid%d:" % (i,), guids["public%02d" % (i,)]))
+    for i in range(1, 11):
+        subs.append(("$resourceguid%d:" % (i,), guids["resource%02d" % (i,)]))
+    for i in range(1, 11):
+        subs.append(("$locationguid%d:" % (i,), guids["location%02d" % (i,)]))
+    
+    subs_str = ""
+    for x, y in subs:
+        subs_str += subs_template % (x, y,)
+
     data = data % {
         "hostname"       : hostname,
-        "useradminguid"  : guids["testadmin"],
-        "userguid1"      : guids["user01"],
-        "userguid2"      : guids["user02"],
-        "userguid3"      : guids["user03"],
-        "resourceguid1"  : guids["resource01"],
+        "overrides"      : subs_str,
     }
     
     fd = open(serverinfo_default, "w")
@@ -250,7 +292,7 @@ def createUser(path, user):
     # Do dscl command line operations to create a calendar user
     
     # Only create if it does not exist
-    cmd = "dscl -u %s -P %s %s -list %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
+    cmd = "dscl %s -list %s/%s" % (directory_node, path, user[0])
     if commands.getstatusoutput(cmd)[0] != 0:
         # Create the user
         cmd = "dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
@@ -268,7 +310,10 @@ def createUser(path, user):
             if key == "dsAttrTypeStandard:GeneratedUID":
                 value = uuid.uuid4()
             elif key == "dsAttrTypeStandard:ResourceInfo":
-                value = value % {"guid":guids["user01"]}
+                value = value % {
+                    "guid":guids["user01"],
+                    "readonlyguid":guids["user03"],
+                }
             cmd = "dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value)
             print cmd
             commands.getoutput(cmd)
@@ -277,7 +322,7 @@ def createUser(path, user):
 
     # Now read the guid for this record
     if guids.has_key(user[0]):
-        cmd = "dscl -u %s -P %s %s -read %s/%s GeneratedUID"  % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
+        cmd = "dscl %s -read %s/%s GeneratedUID"  % (directory_node, path, user[0])
         result = commands.getoutput(cmd)
         guid = result.split()[1]
         guids[user[0]] = guid
