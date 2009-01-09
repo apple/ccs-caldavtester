@@ -1134,6 +1134,104 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Tests on missing resources' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Get on non-existent inaccessible resource</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1bogus.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Get on existing inaccessible resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/delete/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Unauthenticated get on non-existent inaccessible resource</description>
+			<request auth="no">
+				<method>GET</method>
+				<ruri>$pathprefix1:/calendar-bogus/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Unauthenticated get on existing inaccessible resource</description>
+			<request auth="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Bogus authenticated get on non-existent inaccessible resource</description>
+			<request user="admin" pswd="foobar">
+				<method>GET</method>
+				<ruri>$pathprefix1:/calendar-bogus/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Bogus authenticated get on existing inaccessible resource</description>
+			<request user="admin" pswd="foobar">
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
