@@ -26,7 +26,7 @@
 	<test-suite name='Quota enabled by default on calendar home and below only' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>props on /calendars/</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendars:</ruri>
 				<header>
@@ -53,7 +53,7 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>props on /calendars/users/</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendars_users:</ruri>
 				<header>
@@ -80,9 +80,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>props on home</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -104,9 +104,9 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>props on calendar</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$calendarpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -128,7 +128,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>props on /principals/</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -155,7 +155,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>props on /principals/users/</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -182,9 +182,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>props on principal</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$principaluri1:</ruri>
+				<ruri>$principaluri2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -212,9 +212,9 @@
 	<test-suite name='Quota after collection create' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Create new calendar</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/newcalendar/</ruri>
+				<ruri>$pathprefix2:/newcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -222,9 +222,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -249,9 +249,9 @@
 	<test-suite name='Quota after empty collection delete' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Create new calendar</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/newcalendar/</ruri>
+				<ruri>$pathprefix2:/newcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -259,9 +259,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -286,18 +286,18 @@
 	<test-suite name='Quota after collection create, and PUT' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Create new calendar</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/newcalendar/</ruri>
+				<ruri>$pathprefix2:/newcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
-				<ruri>$pathprefix1:/newcalendar/1.ics</ruri>
+				<ruri>$pathprefix2:/newcalendar/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/quota/2.ics</filepath>
@@ -309,9 +309,9 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -336,9 +336,9 @@
 	<test-suite name='Quota after non-empty collection delete' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Create new calendar</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/newcalendar/</ruri>
+				<ruri>$pathprefix2:/newcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -346,9 +346,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
