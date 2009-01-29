@@ -161,13 +161,27 @@ def readConfig(config):
     hostname = plist["ServerHostName"]
     docroot = plist["DocumentRoot"]
     sudoers = plist["SudoersFile"]
+    try:
+        basic_ok = plist["Authentication"]["Basic"]["Enabled"]
+    except KeyError:
+        pass
+    try:
+        digest_ok = plist["Authentication"]["Digest"]["Enabled"]
+    except KeyError:
+        pass
+    if basic_ok:
+        authtype = "basic"
+    elif digest_ok:
+        authtype = "digest"
     
+    if not hostname:
+        hostname = "localhost"
     if docroot[0] != "/":
         docroot = base_dir + docroot
     if sudoers[0] != "/":
         sudoers = base_dir + sudoers
 
-    return hostname, docroot, sudoers
+    return hostname, authtype, docroot, sudoers
 
 def patchConfig(config, admin):
     """
@@ -199,7 +213,7 @@ def patchSudoers(sudoers):
         users.append({"username":"superuser", "password": "superuser"})
         writePlist(plist, sudoers)
 
-def buildServerinfo(hostname, docroot):
+def buildServerinfo(hostname, authtype, docroot):
     
     # Read in the serverinfo-template.xml file
     fd = open(serverinfo_template, "r")
@@ -236,6 +250,7 @@ def buildServerinfo(hostname, docroot):
 
     data = data % {
         "hostname"       : hostname,
+        "authtype"       : authtype,
         "overrides"      : subs_str,
     }
     
@@ -375,7 +390,7 @@ if __name__ == "__main__":
         
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, docroot, sudoers = readConfig(config)
+            hostname, authtype, docroot, sudoers = readConfig(config)
             
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
@@ -387,20 +402,20 @@ if __name__ == "__main__":
             patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
             
             # Create an appropriate serverinfo.xml file from the template
-            buildServerinfo(hostname, docroot)
+            buildServerinfo(hostname, authtype, docroot)
 
             # Add large calendars to user account
             addLargeCalendars(hostname, docroot)
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, docroot, sudoers = readConfig(config)
+            hostname, authtype, docroot, sudoers = readConfig(config)
             
             # Now generate the OD accounts (caching guids as we go).
             doToAccounts(createUser, users_only=True)
             
             # Create an appropriate serverinfo.xml file from the template
-            buildServerinfo(hostname, docroot)
+            buildServerinfo(hostname, authtype, docroot)
 
         elif args[0] == "remove":
             doToAccounts(removeUser)

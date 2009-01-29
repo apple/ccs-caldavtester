@@ -1204,7 +1204,7 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>Bogus authenticated get on non-existent inaccessible resource</description>
-			<request user="admin" pswd="foobar">
+			<request user="$useradmin:" pswd="foobar">
 				<method>GET</method>
 				<ruri>$pathprefix1:/calendar-bogus/</ruri>
 				<verify>
@@ -1218,7 +1218,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>Bogus authenticated get on existing inaccessible resource</description>
-			<request user="admin" pswd="foobar">
+			<request user="$useradmin:" pswd="foobar">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
