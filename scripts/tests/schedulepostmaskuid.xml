@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -21,48 +21,155 @@
 <caldavtest>
 	<description>Test normal POST operations in CalDAV</description>
 
-	<start>
-		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath2:/1.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/schedulemaskuid/1.ics</filepath>
-			</data>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath2:/2.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/schedulemaskuid/2.ics</filepath>
-			</data>
-		</request>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath1:/3.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/schedulemaskuid/3.ics</filepath>
-			</data>
-		</request>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath1:/4.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/schedulemaskuid/4.ics</filepath>
-			</data>
-		</request>
-		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath3:/5.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/schedulemaskuid/5.ics</filepath>
-			</data>
-		</request>
-	</start>
+	<start/>
+	
+	<test-suite name="Initialize state" ignore='no'>
+		<test name="1">
+			<description>Blocking event user 2</description>
+			<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="2">
+			<description>Blocking event user 2</description>
+			<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="3">
+			<description>Invite user 1 -> user 2</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="4">
+			<description>User 2 -> accepted</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="5">
+			<description>Invite user 1 -> user 2</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="6">
+			<description>User 2 -> accepted</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/13.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="7">
+			<description>Invite user 3 -> user 2</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath3:/5.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name="8">
+			<description>User 2 -> accepted</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/schedulemaskuid/14.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 	
 	<test-suite name="POSTs free busy" ignore='no'>
 		<test name='1'>
