@@ -1159,7 +1159,7 @@
 			</request>
 		</test>
 		<test name='9' ignore='no'>
-			<description>Five items in user02 Calendar</description>
+			<description>Six items in user02 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
@@ -1175,12 +1175,26 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>5</value>
+						<value>6</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='10' ignore='no'>
+			<description>One item in user02 calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/auto1/suite8/1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1198,7 +1212,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='12' ignore='no'>
 			<description>Five items in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1220,7 +1234,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='13' ignore='no'>
 			<description>Test getctag on resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1242,7 +1256,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='14' ignore='no'>
 			<description>getctag on resource01 inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>PROPFIND</method>
@@ -1264,7 +1278,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='15' ignore='no'>
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>

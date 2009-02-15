@@ -375,28 +375,30 @@
 			</request>
 		</test>
 		<test name='10'>
-			<description>Attendee has no data</description>
+			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/deletecalendar/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>0</value>
+						<name>filepath</name>
+						<value>Resource/implicit/deletecalendar/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='11'>
+			<description>Attendee deletes data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -576,28 +578,30 @@
 			</request>
 		</test>
 		<test name='11'>
-			<description>Attendee has no data</description>
+			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/deletecalendar/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>0</value>
+						<name>filepath</name>
+						<value>Resource/implicit/deletecalendar/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='12'>
+			<description>Attendee deletes data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -853,7 +857,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='15'>
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -894,48 +898,55 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
-			<description>Attendees have no data</description>
+		<test name='16'>
+			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/deletecalendar/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>0</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$calendarpath3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/deletecalendar/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>0</value>
+						<name>filepath</name>
+						<value>Resource/implicit/deletecalendar/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='17'>
+			<description>Attendee deletes data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='18'>
+			<description>Attendee has cancelled data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/deletecalendar/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='19'>
+			<description>Attendee deletes data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='20'>
 			<description>Attendees delete Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>

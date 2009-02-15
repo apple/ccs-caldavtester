@@ -88,6 +88,6 @@ class Verifier(object):
             else:
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
-        except:
-            return False, "        Response data is not calendar data data"
+        except Exception, e:
+            return False, "        Response data is not calendar data data: %s" % (e,)
             

@@ -32,7 +32,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Simple Changes' ignore='yes'>
+	<test-suite name='Simple Changes' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -489,7 +489,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Organizer Delete' ignore='yes'>
+	<test-suite name='Organizer Delete' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -738,28 +738,30 @@
 			</request>
 		</test>
 		<test name='12'>
-			<description>Attendee data gone</description>
+			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>1</value>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/organizerdelete/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='13'>
+			<description>Attendee deletes data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -780,7 +782,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='15'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -801,7 +803,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee Delete' ignore='yes'>
+	<test-suite name='Attendee Delete' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1064,7 +1066,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Alarms' ignore='yes'>
+	<test-suite name='Alarms' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1552,7 +1554,284 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='No X- properties' ignore='yes'>
+	<test-suite name='Recurring Alarms' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4-1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/4-1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/recurring-alarms/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/recurring-alarms/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee -> Accepted</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Organizer Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Organizer data changed</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/4-1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/recurring-alarms/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Organizer deletes Inbox Item</description>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Attendee -> adds overridden alarm</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Organizer changes summary</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4-1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/8.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/scenario1/recurring-alarms/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scenario1/recurring-alarms/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='No X- properties' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>

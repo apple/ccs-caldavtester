@@ -60,8 +60,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/non-recurring-delete/2.ics</filepath>
@@ -71,7 +78,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -89,7 +106,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -138,8 +155,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/recurring-delete-all/2.ics</filepath>
@@ -149,7 +173,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -167,7 +201,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -308,8 +342,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/partial-delete-all/2.ics</filepath>
@@ -319,7 +360,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -337,7 +388,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -482,8 +533,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/non-recurring-remove/3.ics</filepath>
@@ -493,7 +551,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -511,7 +579,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -564,8 +632,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/recurring-remove-all/3.ics</filepath>
@@ -575,7 +650,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -593,7 +678,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -738,8 +823,15 @@
 		<test name='3'>
 			<description>Attendee stores cancelled event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
+				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/implicit/cancels/partial-remove-all/3.ics</filepath>
@@ -749,7 +841,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
+			<description>Attendee deletes cancelled event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>No items in user02 calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -767,7 +869,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
