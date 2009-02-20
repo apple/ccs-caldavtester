@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 ##
-# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -40,9 +40,8 @@ base_dir = "../CalendarServer/"
 number_of_users = 10
 
 guids = {
-    "testadmin": "",
-    "apprentice": "",
-    "group01"   :"",
+    "testadmin"  : "",
+    "apprentice" : "",
 }
 
 for i in range(1, 11):
@@ -50,6 +49,9 @@ for i in range(1, 11):
     guids["public%02d" % (i,)] = ""
     guids["resource%02d" % (i,)] = ""
     guids["location%02d" % (i,)] = ""
+
+for i in range(1, 5):
+    guids["group%02d" % (i,)] = ""
 
 # List of users as a tuple: (<<name>>, <<pswd>>, <<repeat count>>)
 adminattrs = {
@@ -125,8 +127,7 @@ resourceattrs = {
 }
 
 groupattrs = {
-    "dsAttrTypeStandard:RealName":        "Group 01",
-    "dsAttrTypeStandard:EMailAddress":    "group01@example.com",
+        "dsAttrTypeStandard:RealName":        "Group %02d",
 }
 
 records = (
@@ -136,7 +137,7 @@ records = (
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
     ("/Resources", "resource%02d", "resource%02d", resourceattrs, 10),
-    ("/Groups", "group01", "group01", groupattrs, 1),
+    ("/Groups", "group%02d", "group%02d", groupattrs, 4),
 )
 
 def usage():
@@ -243,6 +244,8 @@ def buildServerinfo(hostname, authtype, docroot):
         subs.append(("$resourceguid%d:" % (i,), guids["resource%02d" % (i,)]))
     for i in range(1, 11):
         subs.append(("$locationguid%d:" % (i,), guids["location%02d" % (i,)]))
+    for i in range(1, 5):
+        subs.append(("$groupguid%d:" % (i,), guids["group%02d" % (i,)]))
     
     subs_str = ""
     for x, y in subs:
@@ -302,6 +305,28 @@ def doToAccounts(f, users_only=False):
                 f(record[0], ruser)
         else:
             f(record[0], record[1:])
+
+def doGroupMemberships():
+    
+    memberships = (
+        ("group01", ("user01",), (),),
+        ("group02", ("user06", "user07",), (),),
+        ("group03", ("user08", "user09",), (),),
+        ("group04", ("user10",), ("group02", "group03",),),
+    )
+    
+    for groupname, users, nestedgroups in memberships:
+        
+        memberGUIDs = [guids[user] for user in users]
+        nestedGUIDs = [guids[group] for group in nestedgroups]
+        
+        cmd = "dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs]))
+        print cmd
+        commands.getoutput(cmd)
+
+        cmd = "dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs]))
+        print cmd
+        commands.getoutput(cmd)
 
 def createUser(path, user):
     # Do dscl command line operations to create a calendar user
@@ -397,6 +422,7 @@ if __name__ == "__main__":
     
             # Now generate the OD accounts (caching guids as we go).
             doToAccounts(createUser)
+            doGroupMemberships()
             
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
             patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
