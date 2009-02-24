@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header' ignore="no">
 		<test name='1'>
 			<description>Look for options header tag</description>
 			<request print-response="no">
@@ -53,7 +53,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Principal resources' ignore='no'>
+	<test-suite name='Principal resources' ignore="no">
 		<test name='1'>
 			<description>Look for proxy principals</description>
 			<request print-response="no">
@@ -717,7 +717,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Principal report'>
+	<test-suite name='Principal report' ignore="no">
 		<test name='1'>
 			<description>Add user02 and user03 as read-write proxy for user01</description>
 			<request print-response="no">
@@ -803,7 +803,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Proxy For properties'>
+	<test-suite name='Proxy For properties' ignore="no">
 		<test name='1'>
 			<description>Default setup</description>
 			<request print-response="no">
@@ -881,7 +881,7 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>Reset proxies</description>
+			<description>Reset proxies and test</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response="no">
 				<method>PROPPATCH</method>
 				<ruri>$principal2:calendar-proxy-read/</ruri>
@@ -912,10 +912,30 @@
 					</arg>
 				</verify>
 			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$principal1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>http://calendarserver.org/ns/calendar-proxy-read-for$</value>
+						<value>http://calendarserver.org/ns/calendar-proxy-write-for$</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 	</test-suite>
 	
-	<test-suite name='Expand properties'>
+	<test-suite name='Expand properties' ignore="no">
 		<test name='1'>
 			<description>OK property query</description>
 			<request print-response="no">
@@ -1044,6 +1064,105 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Calendar Home cache invalidation' ignore="no">
+		<test name='1'>
+			<description>Cannot access user2 calendar home</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Change proxy state and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>207</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Reset proxies and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 
 </caldavtest>
