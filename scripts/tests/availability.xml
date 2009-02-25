@@ -78,8 +78,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='yes'>
-			<description>Supported component</description>
+		<test name='2' ignore='no'>
+			<description>VAVAILABILITY not a supported component</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -95,7 +95,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavsupported-calendar-component-set$&lt;comp name="VEVENT"/&gt;&lt;comp name="VTODO"/&gt;&lt;comp name="VTIMEZONE"/&gt;&lt;comp name="VJOURNAL"/&gt;&lt;comp name="VFREEBUSY"/&gt;&lt;comp name="VAVAILABILITY"/&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavsupported-calendar-component-set$&lt;comp name="VEVENT"/&gt;&lt;comp name="VTODO"/&gt;&lt;comp name="VTIMEZONE"/&gt;&lt;comp name="VJOURNAL"/&gt;&lt;comp name="VFREEBUSY"/&gt;</value>
 					</arg>
 				</verify>
 			</request>

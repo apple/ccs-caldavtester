@@ -439,7 +439,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Cancel Override' ignore='yes'>
+	<test-suite name='Cancel Override' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendees</description>
 			<request print-response='no'>
@@ -651,42 +651,26 @@
 			</request>
 		</test>
 		<test name='8'>
-			<description>Attendees have no data</description>
+			<description>Attendees have cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/recur1/override/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>0</value>
+						<name>filepath</name>
+						<value>Resource/implicit/recur1/override/6.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/recur1/override/3.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>count</name>
-						<value>0</value>
+						<name>filepath</name>
+						<value>Resource/implicit/recur1/override/7.ics</value>
 					</arg>
 				</verify>
 			</request>
