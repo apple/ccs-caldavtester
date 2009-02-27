@@ -21,11 +21,16 @@
 <caldavtest>
 	<description>Test default calendar behavior in CalDAV</description>
 
-	<start/>
+	<start>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/calendar-test/</ruri>
+		</request>
+	</start>
 	
 	<test-suite name='Default Property' ignore='no'>
 		<test name='1'>
-			<description>Look for empty property on inbox</description>
+			<description>Look for property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
@@ -61,7 +66,7 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>okprops</name>
+						<name>badprops</name>
 						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
 					</arg>
 				</verify>
@@ -84,7 +89,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -93,7 +98,7 @@
 	
 	<test-suite name='Set valid Property' ignore='no'>
 		<test name='1'>
-			<description>Look for empty property on inbox</description>
+			<description>Look for existing property on inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
@@ -109,7 +114,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -149,7 +154,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$pathprefix1:/calendar-test&lt;/href&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -192,8 +197,239 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$pathprefix1:/calendar-test&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Move default calendar' ignore='no'>
+		<test name='1'>
+			<description>Move calendar</description>
+			<request print-response='no'>
+				<method>MOVE</method>
+				<ruri>$pathprefix1:/calendar-test/</ruri>
+				<header>
+					<name>Destination</name>
+					<value>$host:$pathprefix1:/calendar-moved/</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$pathprefix1:/calendar-moved&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Delete default calendar' ignore='no'>
+		<test name='1'>
+			<description>Delete calendar</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/calendar-moved/</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavdefault-calendar-delete-allowed</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$pathprefix1:/calendar-moved&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Delete previously default calendar' ignore='no'>
+		<test name='1'>
+			<description>Set property on Inbox</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Delete calendar</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/calendar-moved/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Verify property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
 						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
 					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Set valid Property' ignore='no'>
+		<test name='1'>
+			<description>Look for existing property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefixalt1:/calendar-test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Set property on Inbox</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Verify property on inbox</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL$&lt;href xmlns="DAV:"&gt;$pathprefix1:/calendar-test&lt;/href&gt;</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Set property on Inbox</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/defaultcalendar/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>urn:ietf:params:xml:ns:caldavschedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Delete calendar</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/calendar-test/</ruri>
+				<verify>
+					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
