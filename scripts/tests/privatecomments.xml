@@ -417,6 +417,21 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/privatecomments/39.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabproperty>
+					<property>DAV:getlastmodified</property>
+					<variable>$attendee2-getlastmodified:</variable>
+				</grabproperty>
+			</request>
 		</test>
 	</test-suite>
 
@@ -522,7 +537,7 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Attendee 2 data changed</description>
+			<description>Attendee 2 data unchanged</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
@@ -531,6 +546,21 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/privatecomments/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/privatecomments/39.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getlastmodified$$attendee2-getlastmodified:</value>
 					</arg>
 				</verify>
 			</request>
