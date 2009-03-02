@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,12 +30,10 @@ from xml.dom.minidom import Element
 from xml.dom.minidom import Node
 
 import httplib
-import os
 import rfc822
 import socket
 import src.xmlDefs
 import time
-import xattr
 import xml.dom.minidom
 
 STATUSTXT_WIDTH    = 60
