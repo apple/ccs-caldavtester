@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -324,7 +324,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><summary/></changes></update></action>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><changed-property name="ATTENDEE"/><changed-property name="SUMMARY"/></changes></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
