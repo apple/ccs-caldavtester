@@ -140,6 +140,20 @@
 			</request>
 		</test>
 		<test name='7'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/dropbox/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -161,7 +175,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='9'>
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -175,7 +189,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='10'>
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -196,7 +210,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='11'>
 			<description>Attendee -> Accepted adds new ATTACH</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -217,7 +231,21 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='12'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/dropbox/12.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
 			<description>Organizer no Inbox Item</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -239,7 +267,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='14'>
 			<description>Organizer data unchanged</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -253,7 +281,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='15'>
 			<description>Organizer adds another ATTACH</description>
 			<request print-response='no'>
 				<method>PUT</method>
@@ -267,7 +295,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='16'>
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -281,7 +309,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='17'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -303,7 +331,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='18'>
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -317,7 +345,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17'>
+		<test name='19'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -338,7 +366,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
+		<test name='20'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
