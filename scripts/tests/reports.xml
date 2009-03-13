@@ -1176,6 +1176,96 @@
 				</verify>
 			</request>
 		</test>
+		<test name='13' ignore='no'>
+			<description>query for VEVENTs within time range - no end</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14' ignore='no'>
+			<description>query for VEVENTs within time range - no start</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>19.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15' ignore='no'>
+			<description>query for VEVENTs within time range - no start and no end</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16' ignore='no'>
+			<description>query for VEVENTs within time range - too many</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavnumber-of-recurrences-within-limits</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='alarm time-range query reports' ignore='no'>
