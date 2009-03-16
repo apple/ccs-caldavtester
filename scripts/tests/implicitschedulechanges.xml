@@ -236,7 +236,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><changed-property name="DTEND"/><changed-property name="DTSTART"/></changes></update></action>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><changed-property name="DTEND"><changed-parameter name="TZID"/></changed-property><changed-property name="DTSTART"><changed-parameter name="TZID"/></changed-property></changes></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -309,7 +309,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><changed-property name="DTEND"><changed-parameter name="VALUE"/></changed-property><changed-property name="DTSTART"><changed-parameter name="VALUE"/></changed-property></changes></update></action>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><changes><changed-property name="DTEND"><changed-parameter name="TZID"/><changed-parameter name="VALUE"/></changed-property><changed-property name="DTSTART"><changed-parameter name="TZID"/><changed-parameter name="VALUE"/></changed-property></changes></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
