@@ -399,6 +399,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='16'>
+			<description>PUT with too many attendees to new resource</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/errors/39.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavmax-attendees-per-instance</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY' ignore='no'>
