@@ -1163,6 +1163,109 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Calendar Home properties' ignore="no">
+		<test name='1'>
+			<description>Cannot access user2 calendar home</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Change proxy state and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:current-user-privilege-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>DAV:acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Reset proxies and test</description>
+			<request user='$userid2:' pswd='$pswd2:' print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal2:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/calendaruserproxy/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 
 </caldavtest>
