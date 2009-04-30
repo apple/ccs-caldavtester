@@ -1034,9 +1034,6 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-		</test>
-		<test name='4'>
-			<description>Attendee stores cancelled event instances</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
 				<ruri>$</ruri>
@@ -1049,25 +1046,28 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
-			<description>One item in user02 calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>PROPFIND</method>
+		<test name='4'>
+			<description>Attendee removes cancelled event instances</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
 				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/cancels/1.xml</filepath>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/cancels/partial-remove-some/4.ics</filepath>
 				</data>
 				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
+					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='5'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
