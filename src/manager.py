@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -141,9 +141,10 @@ class manager(object):
         dname = "scripts/tests"
         fnames = []
         all = False
+        excludes = set()
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "pid=", "random"])
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "exclude=", "pid=", "random"])
         
         # Process single options
         for option, value in options:
@@ -157,6 +158,8 @@ class manager(object):
                 dname = value
             elif option == "--all":
                 all = True
+            elif option == "--exclude":
+                excludes.add(value)
             elif option == "-m":
                 self.memUsage = True
             elif option == "--pid":
@@ -167,7 +170,7 @@ class manager(object):
         if all:
             files = os.listdir(dname)
             for file in files:
-                if file.endswith(".xml"):
+                if file.endswith(".xml") and file not in excludes:
                     fnames.append(dname + "/" + file)
 
         # Remove any server info file from files enuerated by --all

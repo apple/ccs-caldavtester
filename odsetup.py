@@ -31,6 +31,7 @@ diradmin_user    = "admin"
 diradmin_pswd    = "admin"
 directory_node   = "/LDAPv3/127.0.0.1"
 config           = "/etc/caldavd/caldavd.plist"
+utility          = "/usr/sbin/caldav_utility"
 
 serverinfo_default  = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
@@ -92,10 +93,6 @@ locationattrs = {
 <dict>
     <key>com.apple.WhitePagesFramework</key>
     <dict>
-        <key>AutoAcceptsInvitation</key>
-        <true/>
-        <key>CalendaringDelegate</key>
-        <string>%(guid)s</string>
         <key>Label</key>
         <string>Room</string>
     </dict>
@@ -113,12 +110,6 @@ resourceattrs = {
 <dict>
     <key>com.apple.WhitePagesFramework</key>
     <dict>
-        <key>AutoAcceptsInvitation</key>
-        <true/>
-        <key>CalendaringDelegate</key>
-        <string>%(guid)s</string>
-        <key>ReadOnlyCalendaringDelegate</key>
-        <string>%(readonlyguid)s</string>
         <key>Label</key>
         <string>Printer</string>
     </dict>
@@ -148,7 +139,7 @@ Options:
     -u uid   OpenDirectory Admin user id
     -p pswd  OpenDirectory Admin user password
     -f file  caldavd.plist config file used by the server
-    -c users number of user accounts to create (default: 5)
+    -c users number of user accounts to create (default: 10)
 """
 
 def readConfig(config):
@@ -366,6 +357,24 @@ def createUser(path, user):
         result = commands.getoutput(cmd)
         guid = result.split()[1]
         guids[user[0]] = guid
+        
+    # Do caldav_utility setup
+    if path in ("/Places", "/Resources",):
+        if path in ("/Places",):
+            cmd = "%s --resource %s --add-write-delegate %s --set-auto-schedule true" % (
+                utility,
+                guids[user[0]],
+                guids["user01"],
+            )
+        else:
+            cmd = "%s --resource %s --add-write-delegate %s --add-read-delegate %s --set-auto-schedule true" % (
+                utility,
+                guids[user[0]],
+                guids["user01"],
+                guids["user03"],
+            )
+        print cmd
+        commands.getoutput(cmd)
 
 def removeUser(path, user):
     # Do dscl command line operations to create a calendar user

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -1205,74 +1205,6 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='REPORT/too big' ignore='no'>
-		<test name='1'>
-			<description>add one event to make it a 1001 event calendar</description>
-			<request end-delete="yes" print-response='no'>
-				<method>PUT</method>
-				<ruri>$pathprefix1:/calendar.1000/abc.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/errors/6.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/errors/23.xml</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>DAV:number-of-matches-within-limits</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>multiget with too many results</description>
-			<request print-response='no'>
-				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/errors/24.xml</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>DAV:number-of-matches-within-limits</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>free-busy with too many results</description>
-			<request print-response='no'>
-				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/errors/25.xml</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>DAV:number-of-matches-within-limits</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-	
 	<test-suite name='Invalid CalDAV:timezone' ignore='no'>
 		<test name='1'>
 			<description>query with invalid timezone</description>
@@ -1385,6 +1317,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<end/>
 	
 </caldavtest>
