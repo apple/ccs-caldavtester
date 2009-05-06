@@ -777,6 +777,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='20' ignore='no'>
+			<description>Invalid CUA in calendar-user-address-set REPORT</description>
+			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/aclreports/34.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='principal-search-property-set REPORT' ignore='no'>
