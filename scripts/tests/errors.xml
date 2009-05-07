@@ -435,6 +435,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='18'>
+			<description>PUT with bad organizer property</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/errors/41.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-attendee-change</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY' ignore='no'>
