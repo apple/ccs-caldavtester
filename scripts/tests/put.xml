@@ -23,7 +23,7 @@
 
 	<start/>
 	
-	<test-suite name='PUT VEVENT'>
+	<test-suite name='PUT VEVENT' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>PUT non-recurring timed event</description>
 			<request end-delete='yes'>
@@ -186,7 +186,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Problem VEVENTs - EXDATE &amp; various combinations of date-time/date values'>
+	<test-suite name='Problem VEVENTs - EXDATE &amp; various combinations of date-time/date values' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>PUT problem event</description>
 			<request end-delete='yes'>
@@ -343,7 +343,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Problem VTODOs - various combinations of date-time/date values'>
+	<test-suite name='Problem VTODOs - various combinations of date-time/date values' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>DTSTART/DATE-TIME/UTC, DUE/DATE</description>
 			<request end-delete='yes'>
@@ -514,7 +514,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT with Content-Type parameters'>
+	<test-suite name='PUT with Content-Type parameters' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>PUT</description>
 			<request>
@@ -613,6 +613,201 @@
 					<arg>
 						<name>okprops</name>
 						<value>DAV:getcontenttype$text/calendar;x-mac-auto-archive=yes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUT with RRULE truncation'>
+		<test name='1' ignore='no'>
+			<description>RRULE - no truncation count</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>RRULE - no truncation until</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/12.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>RRULE - truncation count</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/13.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>RRULE - truncation until</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/15.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/16.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>RRULE - no truncation unbounded yearly</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/17.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/17.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>RRULE - truncation unbounded daily</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/recurrenceput/18.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/2r.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/recurrenceput/19.ics</value>
 					</arg>
 				</verify>
 			</request>
