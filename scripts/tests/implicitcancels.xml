@@ -1088,6 +1088,192 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Recurring - remove - some - attendee still cancelled' ignore='no'>
+		<test name='1'>
+			<description>Organizer stores event</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/cancels/still-cancelled/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer updates event</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/cancels/still-cancelled/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee stores cancelled event instances</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/cancels/still-cancelled/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Organizer Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath1:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>STATUS:CANCELLED</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee declines an instance</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/cancels/still-cancelled/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Organizer Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath1:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>RECURRENCE-ID;TZID=US/Eastern:20060103T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>FREQ=DAILY</value>
+						<value>RECURRENCE-ID;TZID=US/Eastern:20060104T100000</value>
+						<value>STATUS:CANCELLED</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 	
 </caldavtest>
