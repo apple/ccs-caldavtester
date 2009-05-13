@@ -36,7 +36,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Organizer Merge - insignificant change' ignore='no'>
+	<test-suite name='Organizer Merge - insignificant change' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -44,7 +44,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/1.ics</filepath>
+					<filepath>Resource/implicit/compatibility/organizer-merge/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -60,7 +60,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/compatibility/2.ics</value>
+						<value>Resource/implicit/compatibility/organizer-merge/2.ics</value>
 					</arg>
 				</verify>
 				<grabheader>
@@ -80,7 +80,7 @@
 				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/3.xml</filepath>
+					<filepath>Resource/implicit/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -100,7 +100,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/compatibility/4.ics</value>
+						<value>Resource/implicit/compatibility/organizer-merge/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -140,7 +140,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/5.ics</filepath>
+					<filepath>Resource/implicit/compatibility/organizer-merge/4.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -158,7 +158,7 @@
 				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/3.xml</filepath>
+					<filepath>Resource/implicit/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -178,7 +178,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/compatibility/6.ics</value>
+						<value>Resource/implicit/compatibility/organizer-merge/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -215,7 +215,7 @@
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/7.ics</filepath>
+					<filepath>Resource/implicit/compatibility/organizer-merge/6.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -231,7 +231,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/compatibility/8.ics</value>
+						<value>Resource/implicit/compatibility/organizer-merge/7.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -247,7 +247,7 @@
 				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/implicit/compatibility/3.xml</filepath>
+					<filepath>Resource/implicit/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -259,6 +259,209 @@
 			</request>
 		</test>
 		<test name='13'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Attendee instance override as master' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee to on overridden instance only</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/compatibility/oneinstance-rewrite/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/compatibility/oneinstance-rewrite/2.ics</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>ETag</name>
+					<variable>$etag-organizer:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/compatibility/oneinstance-rewrite/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee -> Accepted removing R-ID</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/implicit/compatibility/oneinstance-rewrite/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/compatibility/oneinstance-rewrite/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Organizer Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Organizer data changed</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/compatibility/oneinstance-rewrite/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer deletes Inbox Item</description>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
