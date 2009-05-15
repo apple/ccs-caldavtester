@@ -163,6 +163,7 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -181,6 +182,7 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -199,6 +201,7 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -586,7 +589,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy - recipients with failure</description>
-			<request print-response='no'>
+			<request print-response='yes'>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
