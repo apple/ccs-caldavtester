@@ -31,7 +31,7 @@ diradmin_user    = "admin"
 diradmin_pswd    = "admin"
 directory_node   = "/LDAPv3/127.0.0.1"
 config           = "/etc/caldavd/caldavd.plist"
-utility          = "/usr/sbin/caldav_utility"
+utility          = "/usr/sbin/calendarserver_manage_principals"
 
 serverinfo_default  = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
@@ -361,17 +361,14 @@ def createUser(path, user):
     # Do caldav_utility setup
     if path in ("/Places", "/Resources",):
         if path in ("/Places",):
-            cmd = "%s --resource %s --add-write-delegate %s --set-auto-schedule true" % (
+            cmd = "%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
                 utility,
-                guids[user[0]],
-                guids["user01"],
+                user[0],
             )
         else:
-            cmd = "%s --resource %s --add-write-delegate %s --add-read-delegate %s --set-auto-schedule true" % (
+            cmd = "%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
                 utility,
-                guids[user[0]],
-                guids["user01"],
-                guids["user03"],
+                user[0],
             )
         print cmd
         commands.getoutput(cmd)
