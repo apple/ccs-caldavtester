@@ -18,6 +18,8 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
+import xml.dom.minidom
+
 class Verifier(object):
     
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
@@ -61,9 +63,17 @@ class Verifier(object):
                     respdata = respdata.replace("\r\n ", "")
                     if data != respdata:
                         result = False
+                elif files[0].endswith(".xml"):
+                    try:
+                        respdata = xml.dom.minidom.parseString( respdata ).toprettyxml("", "")
+                        data = xml.dom.minidom.parseString( data ).toprettyxml("", "")
+                    except Exception, ex:
+                        return False, "        Could not parse XML: %s" %(ex,)
+                    if data != respdata:
+                        result = False
                 else:
                     result = False
-                
+
         if result:
             return True, ""
         else:
