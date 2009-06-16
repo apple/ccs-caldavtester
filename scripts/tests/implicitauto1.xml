@@ -46,6 +46,14 @@
 			<method>DELETEALL</method>
 			<ruri>$rcalendarpath1:/</ruri>
 		</request>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>PROPPATCH</method>
+			<ruri>$rcalendarpath1:/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/implicit/auto1/2.xml</filepath>
+			</data>
+		</request>
 	</start>
 	
 	<test-suite name='#1 Non-recurring without conflict' ignore='no'>
@@ -1319,6 +1327,14 @@
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>$rcalendarpath1:/</ruri>
+		</request>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>PROPPATCH</method>
+			<ruri>$rcalendarpath1:/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/implicit/auto1/3.xml</filepath>
+			</data>
 		</request>
 	</end>
 	
