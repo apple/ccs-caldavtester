@@ -2820,6 +2820,24 @@
 			</request>
 		</test>
 		<test name='11'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/5.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/implicit/scheduletag/organizerreinvite/8.ics</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Schedule-Tag</name>
+					<variable>$schedule-tag-organizer:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='12'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -2841,7 +2859,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='13'>
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -2850,12 +2868,12 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/implicit/scheduletag/organizerreinvite/8.ics</value>
+						<value>Resource/implicit/scheduletag/organizerreinvite/9.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='14'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -2876,7 +2894,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='15'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
