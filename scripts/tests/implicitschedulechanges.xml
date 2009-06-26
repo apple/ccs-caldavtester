@@ -557,7 +557,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><recurrence><master/><changes><changed-property name="SUMMARY"/></changes></recurrence></update></action>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><recurrence><master/><changes><changed-property name="ATTENDEE"/><changed-property name="SUMMARY"/></changes></recurrence></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -980,7 +980,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><recurrence><master/><changes><changed-property name="SUMMARY"/></changes></recurrence><recurrence><recurrenceid>20060104T150000Z</recurrenceid><changes><changed-property name="ATTENDEE"/><changed-property name="DTEND"/><changed-property name="DTSTART"/></changes></recurrence></update></action>]]></value>
+						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><recurrence><master/><changes><changed-property name="ATTENDEE"/><changed-property name="SUMMARY"/></changes></recurrence><recurrence><recurrenceid>20060102T150000Z</recurrenceid><changes><changed-property name="ATTENDEE"/></changes></recurrence><recurrence><recurrenceid>20060104T150000Z</recurrenceid><changes><changed-property name="ATTENDEE"/><changed-property name="DTEND"/><changed-property name="DTSTART"/></changes></recurrence></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
