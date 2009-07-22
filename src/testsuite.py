@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,23 +25,33 @@ class testsuite( object ):
     """
     Maintains a list of tests to run as part of a 'suite'.
     """
-    __slots__  = ['manager', 'name', 'ignore', 'tests']
     
     def __init__( self, manager ):
         self.manager = manager
         self.name = ""
         self.ignore = False
+        self.require_features = set()
         self.tests = []
     
+    def missingFeatures(self):
+        return self.require_features - self.manager.server_info.features
+
     def parseXML( self, node ):
         self.name = node.getAttribute( src.xmlDefs.ATTR_NAME )
         self.ignore = node.getAttribute( src.xmlDefs.ATTR_IGNORE ) == src.xmlDefs.ATTR_VALUE_YES
 
-        test_nodes = node.getElementsByTagName( src.xmlDefs.ELEMENT_TEST )
-        for child in test_nodes:
-            t = test(self.manager)
-            t.parseXML( child )
-            self.tests.append( t )
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures( child )
+            elif child._get_localName() == src.xmlDefs.ELEMENT_TEST:
+                t = test(self.manager)
+                t.parseXML( child )
+                self.tests.append( t )
+
+    def parseFeatures(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.firstChild.data.encode("utf-8"))
 
     def dump( self ):
         print "\nTest Suite:"

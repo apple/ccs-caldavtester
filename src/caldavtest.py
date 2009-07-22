@@ -39,12 +39,12 @@ import xml.dom.minidom
 STATUSTXT_WIDTH    = 60
 
 class caldavtest(object):
-    __slots__  = ['manager', 'name', 'description', 'ignore_all', 'start_requests', 'end_requests', 'end_deletes', 'suites', 'grabbedlocation']
     
     def __init__( self, manager, name ):
         self.manager = manager
         self.name = name
         self.description = ""
+        self.require_features = set()
         self.ignore_all = False
         self.start_requests = []
         self.end_requests = []
@@ -52,7 +52,15 @@ class caldavtest(object):
         self.suites = []
         self.grabbedlocation = None
         
+    def missingFeatures(self):
+        return self.require_features - self.manager.server_info.features
+
     def run( self ):
+        if len(self.missingFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "----- Ignoring CalDAV Tests from \"%s\"... -----" % self.name, before=1)
+            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
+            return 0, 0, 1
+            
         try:
             self.manager.log(manager.LOG_HIGH, "----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
             result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
@@ -93,6 +101,10 @@ class caldavtest(object):
         ignored = 0
         if suite.ignore:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            ignored = len(suite.tests)
+        elif len(suite.missingFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
             ignored = len(suite.tests)
         else:
             self.manager.log(manager.LOG_HIGH, "")
@@ -453,6 +465,8 @@ class caldavtest(object):
         for child in node._get_childNodes():
             if child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
                 self.description = child.firstChild.data
+            elif child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures( child )
             elif child._get_localName() == src.xmlDefs.ELEMENT_START:
                 self.start_requests = request.parseList( self.manager, child )
             elif child._get_localName() == src.xmlDefs.ELEMENT_TESTSUITE:
@@ -462,6 +476,11 @@ class caldavtest(object):
             elif child._get_localName() == src.xmlDefs.ELEMENT_END:
                 self.end_requests = request.parseList( self.manager, child )
     
+    def parseFeatures(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.firstChild.data.encode("utf-8"))
+
     def extractProperty(self, propertyname, respdata):
 
         try:

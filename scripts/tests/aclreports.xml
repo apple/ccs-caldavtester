@@ -500,7 +500,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+	</test-suite>
+
+	<test-suite name='Extended principal-property-search REPORT' ignore='no'>
+		<require-feature>
+			<feature>extended-principal-search</feature>
+		</require-feature>
+
+		<test name='1' ignore='no'>
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -522,7 +529,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='2' ignore='no'>
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -545,7 +552,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='3' ignore='no'>
 			<description>Valid ROOM displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -567,7 +574,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='4' ignore='no'>
 			<description>Valid RESOURCE displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -589,7 +596,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='5' ignore='no'>
 			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -622,7 +629,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -640,7 +647,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='7' ignore='no'>
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -658,7 +665,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='8' ignore='no'>
 			<description>Invalid search report - test attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -676,7 +683,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='9' ignore='no'>
 			<description>Invalid search report - type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -694,7 +701,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
+		<test name='10' ignore='no'>
 			<description>Invalid search report - caseless attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -712,7 +719,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='11' ignore='no'>
 			<description>Invalid search report - match-type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -730,7 +737,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='12' ignore='no'>
 			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -755,7 +762,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='13' ignore='no'>
 			<description>"equals" calendar-user-address-set REPORT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -777,7 +784,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='14' ignore='no'>
 			<description>Invalid CUA in calendar-user-address-set REPORT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>

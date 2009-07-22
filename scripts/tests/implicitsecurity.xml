@@ -21,6 +21,10 @@
 <caldavtest>
 	<description>Test security of implicit CalDAV scheduling</description>
 
+	<require-feature>
+		<feature>implicit-scheduling</feature>
+	</require-feature>
+
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>GET</method>

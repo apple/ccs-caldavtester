@@ -21,6 +21,11 @@
 <caldavtest>
 	<description>Test implicit scheduling for one attendee, not recurring</description>
 
+	<require-feature>
+		<feature>implicit-scheduling</feature>
+		<feature>private-comments</feature>
+	</require-feature>
+
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>GET</method>

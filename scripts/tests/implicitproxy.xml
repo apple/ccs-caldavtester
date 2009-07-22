@@ -21,6 +21,11 @@
 <caldavtest>
 	<description>Test implicit scheduling done by proxies</description>
 
+	<require-feature>
+		<feature>proxy</feature>
+		<feature>implicit-scheduling</feature>
+	</require-feature>
+
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>GET</method>

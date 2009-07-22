@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  limitations under the License.
  -->
 
-<!ELEMENT serverinfo (host, port, authtype?, ssl?, substitutions)? >
+<!ELEMENT serverinfo (host, port, authtype?, ssl?, features?, substitutions)? >
 
 	<!ELEMENT host			(#PCDATA)>
 	<!ELEMENT port			(#PCDATA)>
 	<!ELEMENT authtype		(#PCDATA)>
 	<!ELEMENT ssl			EMPTY>
+	<!ELEMENT features      feature*>
+		<!ELEMENT feature   (#PCDATA)>
 	<!ELEMENT substitutions	(substitution|repeat)*>
 		<!ELEMENT repeat	(substitution+)>
     		<!ATTLIST repeat count CDATA "1">

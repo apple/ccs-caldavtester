@@ -21,6 +21,10 @@
 <caldavtest ignore-all="yes">
 	<description>Test COPY/MOVE behavior with implicit scheduling (also some PUT restrictions)</description>
 
+	<require-feature>
+		<feature>implicit-scheduling</feature>
+	</require-feature>
+
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>GET</method>

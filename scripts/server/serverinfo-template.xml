@@ -22,6 +22,25 @@
 	<host>%(hostname)s</host>
 	<port>8008</port>
 	<authtype>%(authtype)s</authtype>
+
+	<features>
+		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
+		<feature>ctag</feature>							<!-- ctag extension -->
+		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
+		<feature>dropbox</feature>						<!-- dropbox extension -->
+		<feature>extended-principal-search</feature>	<!-- Extended principal-property-search REPORT extension -->
+		<feature>expand-property</feature>				<!-- Expand property REPORT -->
+		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
+		<feature>maskuid</feature>						<!-- maskuid extension -->
+		<feature>private-comments</feature>				<!-- private-comments extension -->
+		<feature>private-events</feature>				<!-- private-events extension -->
+		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
+		<feature>proxy-authz</feature>					<!-- sudo user extension -->
+		<feature>quota</feature>						<!-- WebDAV QUOTA -->
+		<feature>timezone-service</feature>				<!-- Timezone service extension -->
+		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
+	</features>
+
 	<substitutions>
 		<substitution>
 			<key>$host:</key>

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,6 +29,8 @@ ELEMENT_DATA = "data"
 ELEMENT_DATASOURCE = "datasource"
 ELEMENT_DESCRIPTION = "description"
 ELEMENT_END = "end"
+ELEMENT_FEATURES = "features"
+ELEMENT_FEATURE = "feature"
 ELEMENT_FILEPATH = "filepath"
 ELEMENT_GRABHEADER = "grabheader"
 ELEMENT_GRABPROPERTY = "grabproperty"
@@ -50,6 +52,7 @@ ELEMENT_PORT = "port"
 ELEMENT_PROPERTY = "property"
 ELEMENT_REPEAT = "repeat"
 ELEMENT_REQUEST = "request"
+ELEMENT_REQUIRE_FEATURE = "require-feature"
 ELEMENT_RUNS = "runs"
 ELEMENT_RURI = "ruri"
 ELEMENT_SERVERINFO = "serverinfo"

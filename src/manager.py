@@ -39,8 +39,6 @@ class manager(object):
     """
     Main class that runs test suites defined in an XML config file.
     """
-    __slots__  = ['server_info', 'populator', 'depopulate', 'tests', 'textMode', 'pid', 'memUsage', 'logLevel', 
-                  'logFile', 'digestCache']
 
     LOG_NONE    = 0
     LOG_ERROR   = 1

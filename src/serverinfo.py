@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,14 +24,13 @@ class serverinfo( object ):
     """
     Maintains information about the server being targetted.
     """
-    __slots__  = ['host', 'port', 'authtype', 'ssl', 'calendarpath', 'user', 'pswd', 'subsdict', 'extrasubsdict',]
-
 
     def __init__( self ):
         self.host = ""
         self.port = 80
         self.authtype = "basic"
         self.ssl = False
+        self.features = set()
         self.user = ""
         self.pswd = ""
         self.subsdict = {}
@@ -85,10 +84,17 @@ class serverinfo( object ):
                 self.authtype = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_SSL:
                 self.ssl = True
+            elif child._get_localName() == src.xmlDefs.ELEMENT_FEATURES:
+                self.parseFeatures(child)
             elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
    
         self.updateParams()
+
+    def parseFeatures(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
+                self.features.add(child.firstChild.data.encode("utf-8"))
 
     def updateParams(self):         
         # Now cache some useful substitutions

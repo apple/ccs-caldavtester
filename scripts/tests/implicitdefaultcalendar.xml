@@ -21,6 +21,10 @@
 <caldavtest>
 	<description>Test default calendar behavior in CalDAV</description>
 
+	<require-feature>
+		<feature>implicit-scheduling</feature>
+	</require-feature>
+
 	<start>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
