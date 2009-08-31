@@ -77,7 +77,7 @@ def pythonpath():
 
 def runit():
     pythonpath= ":".join(add_paths)
-    subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH":pythonpath}).wait()
+    return subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH":pythonpath}).wait()
 
 if __name__ == "__main__":
 
@@ -114,7 +114,9 @@ if __name__ == "__main__":
         else:
             pythonpath()
         if (do_run):
-            runit()
+            sys.exit(runit())
+        else:
+            sys.exit(0)
     except SystemExit, e:
         pass
     except Exception, e:
