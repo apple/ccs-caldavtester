@@ -220,7 +220,7 @@ class perfinfo( object ):
                         print "Thread run exception: %s" % (str(e),)
                     if time.time() > endtime:
                         break
-                    #time.sleep(randrange(0, 100)/100.0 * test[1])
+                    time.sleep(randrange(0, 100)/100.0 * test[1])
         
             # Create argument list that varies for each threaded client. Basically use a separate
             # server account for each client.
