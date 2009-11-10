@@ -499,6 +499,28 @@
 
 	<test-suite name="POSTs" ignore='no'>
 		<test name='1'>
+			<description>POST with utf-8 data</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<header>
+					<name>Originator</name>
+					<value>$cuaddralt1:</value>
+				</header>
+				<header>
+					<name>Recipient</name>
+					<value>$cuaddralt2:</value>
+				</header>
+				<ruri>$outboxpath1:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/nonascii/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
 			<description>POST with non-utf-8 data</description>
 			<request print-response='no'>
 				<method>POST</method>
@@ -519,6 +541,11 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<end>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$pathprefix2:/outbox/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
