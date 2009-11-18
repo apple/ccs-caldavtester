@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ class Verifier(object):
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
+        filters = args.get("filter", [])
         
         # status code must be 200, 207
         if response.status not in (200,207):
@@ -69,6 +70,16 @@ class Verifier(object):
                     elif item.name == "X-CALENDARSERVER-ATTENDEE-COMMENT":
                         if item.params.has_key("X-CALENDARSERVER-DTSTAMP"):
                             item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
+                            
+                    for filter in filters:
+                        if ":" in filter:
+                            property, parameter = filter.split(":")
+                            if item.name == property:
+                                if item.params.has_key(parameter):
+                                    del item.params[parameter]
+                        else:
+                            if item.name == filter:
+                                component.remove(item)
 
         s = StringIO.StringIO(respdata)
         try:
