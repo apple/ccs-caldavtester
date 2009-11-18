@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -1315,6 +1315,35 @@
 					<arg>
 						<name>error</name>
 						<value>urn:ietf:params:xml:ns:caldavnumber-of-recurrences-within-limits</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='17' ignore='no'>
+			<description>query for free busy with overlapping and consecutive events</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/23.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/reports/put/23.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/timerangequery/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>23.ics</value>
 					</arg>
 				</verify>
 			</request>
