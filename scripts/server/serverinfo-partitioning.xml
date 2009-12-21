@@ -39,7 +39,7 @@
 		<feature>quota</feature>						<!-- WebDAV QUOTA -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
-		<!-- <feature>partitioning</feature>  -->		<!-- Partitioned server -->
+		<feature>partitioning</feature>					<!-- Partitioned server -->
 	</features>
 
 	<substitutions>
@@ -555,6 +555,86 @@
 			<key>$cuaddrdisabled:</key>
 			<value>$principals_uids:disabledgroup/</value>
 		</substitution>
+
+		<!--  Ten other accounts -->
+		<repeat count="10">
+			<!-- user id -->
+			<substitution>
+				<key>$otherid%d:</key>
+				<value>other%02d</value>
+			</substitution>
+			<!-- user guid -->
+			<substitution>
+				<key>$otherguid%d:</key>
+				<value>other%02d</value>
+			</substitution>
+			<!-- user name -->
+			<substitution>
+				<key>$otherusername%d:</key>
+				<value>Other %02d</value>
+			</substitution>
+			<!-- password -->
+			<substitution>
+				<key>$otherpswd%d:</key>
+				<value>other%02d</value>
+			</substitution>
+			<!-- relative path to user principal resource-->
+			<substitution>
+				<key>$otherprincipal%d:</key>
+				<value>$principals_users:$otherid%d:/</value>
+			</substitution>
+			<substitution>
+				<key>$otherprincipaluri%d:</key>
+				<value>$principals_uids:$otherguid%d:/</value>
+			</substitution>
+			<!-- relative path to user calendar home-->
+			<substitution>
+				<key>$otherpathprefix%d:</key>
+				<value>$calendars_uids:$otherguid%d:</value>
+			</substitution>
+			<!-- relative path to user calendar-->
+			<substitution>
+				<key>$othercalendarpath%d:</key>
+				<value>$calendars_uids:$otherguid%d:/$calendar:</value>
+			</substitution>
+			<!-- relative path to user inbox-->
+			<substitution>
+				<key>$otherinboxpath%d:</key>
+				<value>$calendars_uids:$otherguid%d:/$inbox:</value>
+			</substitution>
+			<!-- relative path to user outbox-->
+			<substitution>
+				<key>$otheroutboxpath%d:</key>
+				<value>$calendars_uids:$otherguid%d:/$outbox:</value>
+			</substitution>
+			<!-- relative path to user dropbox-->
+			<substitution>
+				<key>$otherdropboxpath%d:</key>
+				<value>$calendars_uids:$otherguid%d:/$dropbox:</value>
+			</substitution>
+			<!-- relative path to user freebusy-->
+			<substitution>
+				<key>$otherfreebusypath%d:</key>
+				<value>$calendars_uids:$otherguid%d:/$freebusy:</value>
+			</substitution>
+			<!-- calendar user address of user-->
+			<substitution>
+				<key>$otheremail%d:</key>
+				<value>$otherid%d:@example.com</value>
+			</substitution>
+			<substitution>
+				<key>$othercuaddr%d:</key>
+				<value>mailto:$otheremail%d:</value>
+			</substitution>
+			<substitution>
+				<key>$othercuaddralt%d:</key>
+				<value>$otherprincipaluri%d:</value>
+			</substitution>
+			<substitution>
+				<key>$othercuaddrurn%d:</key>
+				<value>urn:uuid:$otherguid%d:</value>
+			</substitution>
+		</repeat>
 
 		<!--  Override some of the above definitions for special cases -->
 
