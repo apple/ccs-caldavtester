@@ -28,41 +28,12 @@
 	</require-feature>
 
 	<start>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$outbox:/</ruri>
-		</request>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$pathprefix:/$inbox:/</ruri>
-		</request>
-		<request user="$otherid1:" pswd="$otherpswd1:">
-			<method>DELETEALL</method>
-			<ruri>$otherpathprefix:/$outbox:/</ruri>
-		</request>
-		<request user="$otherid1:" pswd="$otherpswd1:">
-			<method>DELETEALL</method>
-			<ruri>$otherpathprefix:/$inbox:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$outbox:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/$inbox:/</ruri>
-		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$outbox:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/$inbox:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rpathprefix1:/calendar/</ruri>
+			<ruri>$otherinboxpath1:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
+			<ruri>$rcalendarpath1:/</ruri>
 		</request>
 	</start>
 	
@@ -189,7 +160,7 @@
 			<description>Clean-up inboxes</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
+				<ruri>$otherinboxpath1:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
 				<ruri>$rinboxpath1:/</ruri>
 			</request>
