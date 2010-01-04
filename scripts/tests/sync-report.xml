@@ -1,0 +1,360 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<caldavtest>
+	<require-feature>
+		<feature>sync-report</feature>
+	</require-feature>
+
+	<start>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/synccalendar/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/reports/put/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/synccalendar/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/reports/put/2.txt</filepath>
+			</data>
+		</request>
+	</start>
+	
+	<test-suite name='support-report-set' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Not on calendar-home</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:supported-report-set!.*sync-collection.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>On calendar</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:supported-report-set$.*sync-collection.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='simple reports - empty token' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource new resource</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - diff token' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<end/>
+	
+</caldavtest>

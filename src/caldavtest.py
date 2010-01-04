@@ -18,17 +18,17 @@
 Class to encapsulate a single caldav test run.
 """
 
+from cStringIO import StringIO
 from src.manager import manager
 from src.request import data
 from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
 from utilities.xmlutils import ElementsByName
-
 from xml.dom.minicompat import NodeList
 from xml.dom.minidom import Element
 from xml.dom.minidom import Node
-
+from xml.etree.ElementTree import ElementTree
 import httplib
 import rfc822
 import socket
@@ -429,6 +429,16 @@ class caldavtest(object):
                     else:
                         self.manager.server_info.addextrasubs({variable: propvalue.encode("utf-8")})
 
+        if req.grabelement:
+            for elementpath, variable in req.grabelement:
+                # grab the property here
+                elementvalue = self.extractElement(elementpath, respdata)
+                if elementvalue == None:
+                    result = False
+                    resulttxt += "\Element %s was not extracted from response\n" % (elementpath,)
+                else:
+                    self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8")})
+
         return result, resulttxt, response, respdata
 
     def verifyrequest( self, req, uri, response, respdata ):
@@ -528,3 +538,30 @@ class caldavtest(object):
                             return value
 
         return None
+    
+
+    def extractElement(self, elementpath, respdata):
+
+        try:
+            tree = ElementTree()
+            tree.parse(StringIO(respdata))
+        except:
+            return None
+        
+        # Strip off the top-level item
+        if elementpath[0] == '/':
+            elementpath = elementpath[1:]
+            splits = elementpath.split('/', 1)
+            root = splits[0]
+            if tree.getroot().tag != root:
+                return None
+            elif len(splits) == 1:
+                return tree.getroot().text
+            else:
+                elementpath = splits[1]
+                
+        e = tree.find(elementpath)
+        if e is not None:
+            return e.text
+        else:
+            return None

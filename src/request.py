@@ -127,7 +127,7 @@ class request( object ):
     """
     __slots__  = ['manager', 'auth', 'user', 'pswd', 'end_delete', 'print_response',
                   'method', 'headers', 'ruris', 'ruri', 'data', 'datasubs', 'verifiers',
-                  'grabheader', 'grabproperty']
+                  'grabheader', 'grabproperty', 'grabelement']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -145,12 +145,13 @@ class request( object ):
         self.verifiers = []
         self.grabheader = []
         self.grabproperty = []
+        self.grabelement = []
     
     def __str__(self):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
 
     def getURI( self, si ):
-        return self.ruri
+        return si.extrasubs(self.ruri)
         
     def getHeaders( self, si ):
         hdrs = self.headers
@@ -259,6 +260,7 @@ class request( object ):
                     fd.close()
             if self.datasubs:
                 data = str(self.manager.server_info.subs(data))
+                data = self.manager.server_info.extrasubs(data)
         return data
     
     def parseXML( self, node ):
@@ -284,9 +286,11 @@ class request( object ):
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
             elif child._get_localName() == src.xmlDefs.ELEMENT_GRABHEADER:
-                self.parseGrabHeader(child)
+                self.parseGrab(child, self.grabheader)
             elif child._get_localName() == src.xmlDefs.ELEMENT_GRABPROPERTY:
-                self.parseGrabProperty(child)
+                self.parseGrab(child, self.grabproperty)
+            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABELEMENT:
+                self.parseGrab(child, self.grabelement)
 
     def parseHeader(self, node):
         
@@ -312,31 +316,18 @@ class request( object ):
                 
     parseList = staticmethod( parseList )
 
-    def parseGrabHeader(self, node):
+    def parseGrab(self, node, appendto):
         
-        header = None
+        name = None
         variable = None
         for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
-                header = child.firstChild.data.encode("utf-8")
+            if child._get_localName() in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
+                name = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
                 variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
         
-        if (header is not None) and (variable is not None):
-            self.grabheader.append((header, variable))
-
-    def parseGrabProperty(self, node):
-        
-        property = None
-        variable = None
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_PROPERTY:
-                property = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
-                variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
-        
-        if (property is not None) and (variable is not None):
-            self.grabproperty.append((property, variable))
+        if (name is not None) and (variable is not None):
+            appendto.append((name, variable))
             
 class data( object ):
     """
