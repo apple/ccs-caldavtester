@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -166,15 +166,16 @@ class manager(object):
                 random_order = True
                 
         if all:
-            files = os.listdir(dname)
+            files = []
+            os.path.walk(dname, lambda arg,dir,names:files.extend([os.path.join(dir, name) for name in names]), None)
             for file in files:
                 if file.endswith(".xml") and file not in excludes:
-                    fnames.append(dname + "/" + file)
+                    fnames.append(file)
 
-        # Remove any server info file from files enuerated by --all
+        # Remove any server info file from files enumerated by --all
         fnames[:] = [x for x in fnames if (x != sname) and (not pname or (x != pname))]
 
-        # Process any filesarguments as test configs
+        # Process any file arguments as test configs
         for f in args:
             fnames.append(dname + "/" + f)
         

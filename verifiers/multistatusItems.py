@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -106,25 +106,25 @@ class Verifier(object):
         if len( ok_missing ) + len( ok_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
             if len( ok_missing ) != 0:
                 l = list( ok_missing )
-                resulttxt += "        Items not returned in report (OK):"
+                resulttxt += "        %d Items not returned in report (OK):" % (len( ok_missing ), )
                 for i in l:
                     resulttxt += " " + str(i) 
                 resulttxt += "\n"
             if len( ok_extras ) != 0:
                 l = list( ok_extras )
-                resulttxt += "        Unexpected items returned in report (OK):"
+                resulttxt += "        %d Unexpected items returned in report (OK):" % (len( ok_extras ), )
                 for i in l:
                     resulttxt += " " + str(i) 
                 resulttxt += "\n"
             if len( bad_missing ) != 0:
                 l = list( bad_missing )
-                resulttxt += "        Items not returned in report (BAD):"
+                resulttxt += "        %d Items not returned in report (BAD):" % (len( bad_missing ), )
                 for i in l:
                     resulttxt += " " + str(i) 
                 resulttxt += "\n"
             if len( bad_extras ) != 0:
                 l = list( bad_extras )
-                resulttxt += "        Unexpected items returned in report (BAD):"
+                resulttxt += "        %d Unexpected items returned in report (BAD):" % (len( bad_extras ), )
                 for i in l:
                     resulttxt += " " + str(i) 
                 resulttxt += "\n"

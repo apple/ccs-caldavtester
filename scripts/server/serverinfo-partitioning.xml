@@ -24,25 +24,33 @@
 	<authtype>basic</authtype>
 
 	<features>
+		<!--  Generic WebDAV extensions -->
 		<!-- <feature>add-member</feature> -->			<!-- Add-member used to create resources -->
-		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
 		<feature>ctag</feature>							<!-- ctag extension -->
 		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
-		<feature>dropbox</feature>						<!-- dropbox extension -->
 		<feature>extended-principal-search</feature>	<!-- Extended principal-property-search REPORT extension -->
 		<feature>expand-property</feature>				<!-- Expand property REPORT -->
+		<feature>quota</feature>						<!-- WebDAV QUOTA -->
+		<feature>sync-report</feature>					<!-- WebDAV collection sync REPORT -->
+		<!-- <feature>well-known</feature> -->			<!-- well-known feature -->
+
+		<!-- CalDAV specific extension -->
+		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
+		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
+		<feature>dropbox</feature>						<!-- dropbox extension -->
 		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
 		<feature>maskuid</feature>						<!-- maskuid extension -->
-		<feature>partitioning</feature>					<!-- Partitioned server -->
+		<feature>partitioning</feature> 				<!-- Partitioned server -->
 		<feature>private-comments</feature>				<!-- private-comments extension -->
 		<feature>private-events</feature>				<!-- private-events extension -->
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
 		<feature>proxy-authz</feature>					<!-- sudo user extension -->
-		<feature>quota</feature>						<!-- WebDAV QUOTA -->
-		<feature>sync-report</feature>					<!-- WebDAV collection sync REPORT -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
-		<!-- <feature>well-known</feature> -->			<!-- well-known feature -->
+
+		<!-- CardDAV specific extension -->
+		<!-- <feature>carddav</feature> -->				<!-- Basic CardDAV feature enabler -->
+
 	</features>
 
 	<substitutions>

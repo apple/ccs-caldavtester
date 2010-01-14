@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -57,12 +57,12 @@ class caldavtest(object):
 
     def run( self ):
         if len(self.missingFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "----- Ignoring CalDAV Tests from \"%s\"... -----" % self.name, before=1)
+            self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
             self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
             return 0, 0, 1
             
         try:
-            self.manager.log(manager.LOG_HIGH, "----- Running CalDAV Tests from \"%s\"... -----" % self.name, before=1)
+            self.manager.log(manager.LOG_HIGH, "----- Running Tests from \"%s\"... -----" % self.name, before=1)
             result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
             if not result:
                 self.manager.log(manager.LOG_ERROR, "Start items failed - tests will not be run.")
