@@ -20,7 +20,7 @@
 
 <serverinfo>
 	<host>localhost</host>
-	<port>8008</port>
+	<port>8800</port>
 	<authtype>basic</authtype>
 
 	<features>
@@ -35,7 +35,7 @@
 		<!-- <feature>well-known</feature> -->			<!-- well-known feature -->
 
 		<!-- CalDAV specific extension -->
-		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
+		<!-- <feature>caldav</feature>  -->				<!-- Basic CalDAV feature enabler -->
 		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
 		<feature>dropbox</feature>						<!-- dropbox extension -->
 		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
@@ -49,14 +49,14 @@
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 
 		<!-- CardDAV specific extension -->
-		<!-- <feature>carddav</feature> -->				<!-- Basic CardDAV feature enabler -->
+		<feature>carddav</feature>						<!-- Basic CardDAV feature enabler -->
 
 	</features>
 
 	<substitutions>
 		<substitution>
 			<key>$host:</key>
-			<value>http://localhost:8008</value>
+			<value>http://localhost:8800</value>
 		</substitution>
 
 		<!-- relative path to caldav root-->

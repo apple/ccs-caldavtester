@@ -3,7 +3,7 @@
 <!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
 
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -185,6 +185,38 @@
 			<value>$root:timezones</value>
 		</substitution>
 
+		<!-- relative path to calendars collection-->
+		<substitution>
+			<key>$addressbooks:</key>
+			<value>$root:addressbooks/</value>
+		</substitution>
+
+		<!-- relative path to record type calendar collections-->
+		<substitution>
+			<key>$addressbooks_uids:</key>
+			<value>$addressbooks:$uidstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$addressbooks_users:</key>
+			<value>$addressbooks:$userstype:/</value>
+		</substitution>
+		<substitution>
+			<key>$addressbooks_groups:</key>
+			<value>$addressbooks:$groupstype:/</value>
+		</substitution>
+
+		<!-- primary calendar name-->
+		<substitution>
+			<key>$addressbook:</key>
+			<value>addressbook</value>
+		</substitution>
+
+		<!-- directory name-->
+		<substitution>
+			<key>$directory:</key>
+			<value>$root:directory/</value>
+		</substitution>
+
 		<!-- user id for admin user -->
 		<substitution>
 			<key>$useradmin:</key>
@@ -283,6 +315,7 @@
 				<key>$principal%dnoslash:</key>
 				<value>$principals_users:$userid%d:</value>
 			</substitution>
+
 			<!-- relative path to user calendar home-->
 			<substitution>
 				<key>$pathprefix%d:</key>
@@ -343,6 +376,17 @@
 			<substitution>
 				<key>$cuaddrurn%d:</key>
 				<value>urn:uuid:$userguid%d:</value>
+			</substitution>
+
+			<!-- relative path to user addressbook home-->
+			<substitution>
+				<key>$addressbookhome%d:</key>
+				<value>$addressbooks_uids:$userguid%d:</value>
+			</substitution>
+			<!-- relative path to user addressbook-->
+			<substitution>
+				<key>$addressbookpath%d:</key>
+				<value>$addressbooks_uids:$userguid%d:/$addressbook:</value>
 			</substitution>
 		</repeat>
 
