@@ -349,6 +349,10 @@ class caldavtest(object):
             req.method = "GET"
             req.ruri = "$"
             
+        elif req.method == "BREAK":
+            # Useful for setting a break point
+            return True, "", None, None
+
         result = True;
         resulttxt = ""
         response = None
