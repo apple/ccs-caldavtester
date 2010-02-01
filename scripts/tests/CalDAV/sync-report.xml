@@ -27,11 +27,11 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/synccalendar/</ruri>
+			<ruri>$pathprefix1:/synccalendar1/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+			<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -39,7 +39,27 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar/2.ics</ruri>
+			<ruri>$pathprefix1:/synccalendar1/2.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/synccalendar2/</ruri>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PUT</method>
+			<ruri>$pathprefix1:/synccalendar2/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
@@ -74,7 +94,7 @@
 			<description>On calendar</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -94,12 +114,12 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='simple reports - empty token' ignore='no'>
+	<test-suite name='simple reports - empty token - no props' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -118,7 +138,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -129,7 +149,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -149,14 +169,14 @@
 			<description>remove resource new resource</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -175,7 +195,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -186,7 +206,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -203,12 +223,12 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token' ignore='no'>
+	<test-suite name='simple reports - diff token - no props' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -231,7 +251,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -242,7 +262,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -264,14 +284,14 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar/3.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -285,7 +305,7 @@
 			<description>remove resource (treated as old)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
@@ -307,7 +327,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar/1.ics</ruri>
+				<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -318,7 +338,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -340,13 +360,350 @@
 			<description>no change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar/</ruri>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - empty token - props' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource new resource</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - diff token - props' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:getcontenttype</value>
+						<value>DAV:getetag</value>
+					</arg>
 				</verify>
 				<grabelement>
 					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
