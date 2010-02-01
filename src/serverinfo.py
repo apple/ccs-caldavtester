@@ -127,11 +127,11 @@ class serverinfo( object ):
                 if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
                     key = schild.firstChild.data.encode("utf-8")
                 elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                    value = schild.firstChild.data.encode("utf-8")
+                    value = schild.firstChild.data.encode("utf-8") if schild.firstChild else ""
 
             if key and value:
                 if repeat:
                     for count in range(1, int(repeat) + 1):
-                        self.subsdict[key % (count,)] = value % (count,)
+                        self.subsdict[key % (count,)] = (value % (count,)) if "%" in value else value
                 else:
                     self.subsdict[key] = value
