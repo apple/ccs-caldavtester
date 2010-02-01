@@ -104,7 +104,7 @@ class caldavtest(object):
             ignored = len(suite.tests)
         elif len(suite.missingFeatures()) != 0:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
+            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),))
             ignored = len(suite.tests)
         else:
             self.manager.log(manager.LOG_HIGH, "")
@@ -131,6 +131,10 @@ class caldavtest(object):
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
         if test.ignore:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            return "i"
+        elif len(test.missingFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),))
             return "i"
         else:
             result = False

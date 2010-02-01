@@ -27,7 +27,7 @@ class test( object ):
     be run more than once, and timing information gathered and averaged across
     all runs.
     """
-    __slots__  = ['manager', 'name', 'details', 'count', 'stats', 'ignore', 'description', 'requests']
+    __slots__  = ['manager', 'name', 'details', 'count', 'stats', 'ignore', 'require_features', 'description', 'requests']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -36,9 +36,13 @@ class test( object ):
         self.count = 1
         self.stats = False
         self.ignore = False
+        self.require_features = set()
         self.description = ""
         self.requests = []
     
+    def missingFeatures(self):
+        return self.require_features - self.manager.server_info.features
+
     def parseXML( self, node ):
         self.name = node.getAttribute( src.xmlDefs.ATTR_NAME )
         self.details = node.getAttribute( src.xmlDefs.ATTR_DETAILS ) == src.xmlDefs.ATTR_VALUE_YES
@@ -51,11 +55,18 @@ class test( object ):
         self.ignore = node.getAttribute( src.xmlDefs.ATTR_IGNORE ) == src.xmlDefs.ATTR_VALUE_YES
 
         for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
+            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures( child )
+            elif child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
                 self.description = child.firstChild.data
 
         # get request
         self.requests = request.parseList( self.manager, node )
+
+    def parseFeatures(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.firstChild.data.encode("utf-8"))
 
     def dump( self ):
         print "\nTEST: %s" % self.name
