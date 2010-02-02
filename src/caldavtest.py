@@ -110,8 +110,9 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "")
             if self.manager.memUsage:
                 start_usage = self.manager.getMemusage()
+            etags = {}
             for test in suite.tests:
-                result = self.run_test( test )
+                result = self.run_test( test, etags )
                 if result == "t":
                     ok += 1
                 elif result == "f":
@@ -125,7 +126,7 @@ class caldavtest(object):
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
         return (ok, failed, ignored)
             
-    def run_test( self, test ):
+    def run_test( self, test, etags ):
         descriptor = "        Test: %s" % test.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
@@ -145,7 +146,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
                 for req in test.requests:
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats )
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags )
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -310,6 +311,70 @@ class caldavtest(object):
 
         return hresult
 
+    def dowaitcount( self, collection, count):
+        
+        for _ignore in range(30):
+            req = request(self.manager)
+            req.method = "PROPFIND"
+            req.ruris.append(collection[0])
+            req.ruri = collection[0]
+            req.headers["Depth"] = "1"
+            if len(collection[1]):
+                req.user = collection[1]
+            if len(collection[2]):
+                req.pswd = collection[2]
+            req.data = data()
+            req.data.value = """<?xml version="1.0" encoding="utf-8" ?>
+<D:propfind xmlns:D="DAV:">
+<D:prop>
+<D:getetag/>
+</D:prop>
+</D:propfind>
+"""
+            req.data.content_type = "text/xml"
+            result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
+            ctr = 0
+            if result and (response is not None) and (response.status == 207) and (respdata is not None):
+                doc = xml.dom.minidom.parseString( respdata )
+    
+                for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+                    ctr += 1
+                
+                if ctr - 1 == count:
+                    return True
+        else:
+            return False
+
+    def dowaitchanged( self, uri, etag, user, pswd ):
+        
+        for _ignore in range(30):
+            req = request(self.manager)
+            req.method = "HEAD"
+            req.ruris.append(uri)
+            req.ruri = uri
+            if user:
+                req.user = user
+            if pswd:
+                req.pswd = pswd
+            result, _ignore_resulttxt, response,  _ignore_respdata = self.dorequest( req, False, False )
+            if result and (response is not None):
+                if response.status / 100 == 2:
+                    hdrs = response.msg.getheaders("Etag")
+                    if hdrs:
+                        newetag = hdrs[0].encode("utf-8")
+                        if newetag != etag:
+                            break
+                else:
+                    return False
+            delay = 1
+            starttime = time.time()
+            while (time.time() < starttime + delay):
+                pass
+        else:
+            return False
+
+        return True
+
     def doenddelete( self, description ):
         if len(self.end_deletes) == 0:
             return True
@@ -327,7 +392,7 @@ class caldavtest(object):
             self.dorequest( req, False, False )
         self.manager.log(manager.LOG_HIGH, "[DONE]")
     
-    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None ):
+    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None ):
         
         # Special check for DELETEALL
         if req.method == "DELETEALL":
@@ -353,6 +418,15 @@ class caldavtest(object):
             req.method = "GET"
             req.ruri = "$"
             
+        # Special check for WAITCOUNT
+        elif req.method.startswith("WAITCOUNT"):
+            count = int(req.method[10:])
+            collection = (req.ruri, req.user, req.pswd)
+            if self.dowaitcount(collection, count):
+                return True, "", None, None
+            else:
+                return False, "Count did not change", None, None
+
         elif req.method == "BREAK":
             # Useful for setting a break point
             return True, "", None, None
@@ -375,6 +449,12 @@ class caldavtest(object):
         
         if details:
             resulttxt += "        %s: %s\n" % ( method, uri )
+
+        # Special for GETCHANGED
+        if req.method == "GETCHANGED":
+            if not self.dowaitchanged(uri, etags[uri], req.user, req.pswd):
+                return False, "Resource did not change", None, None
+            method = "GET"
 
         # Start request timer if required
         if stats:
@@ -417,6 +497,11 @@ class caldavtest(object):
             resulttxt += str(response.msg) + "\n" + respdata
             resulttxt += "\n--------END:RESPONSE--------\n"
         
+        if etags is not None and req.method == "GET":
+            hdrs = response.msg.getheaders("Etag")
+            if hdrs:
+                etags[uri] = hdrs[0].encode("utf-8")
+
         if req.grabheader:
             for hdrname, variable in req.grabheader:
                 hdrs = response.msg.getheaders(hdrname)
