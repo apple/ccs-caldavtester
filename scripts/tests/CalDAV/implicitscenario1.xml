@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -34,6 +34,16 @@
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>GET</method>
 			<ruri>$calendarpath2:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</start>
 	
@@ -69,23 +79,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/simple/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -94,6 +89,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='4'>
+			<require-feature>
+				<feature>schedule-changes</feature>
+			</require-feature>
+			<description>Attendee Inbox Item schedule-changes</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
@@ -114,7 +115,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4'>
+		<test name='5'>
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -128,7 +129,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -149,7 +150,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='7'>
 			<description>Attendee -> Accepted</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -170,26 +171,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='8'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/simple/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -203,6 +189,12 @@
 					</arg>
 				</verify>
 			</request>
+		</test>
+		<test name='9'>
+			<require-feature>
+				<feature>schedule-changes</feature>
+			</require-feature>
+			<description>Organizer Inbox Item schedule-changes</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
@@ -223,21 +215,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/scenario1/simple/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
+		<test name='10'>
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -258,7 +236,21 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='11'>
+			<description>Organizer data changed</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scenario1/simple/6.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
 			<description>Organizer changes Summary</description>
 			<request print-response='no'>
 				<method>PUT</method>
@@ -272,7 +264,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='13'>
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -286,34 +278,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='14'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/simple/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='yes'>
 				<method>GETNEW</method>
 				<ruri>$inboxpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='15'>
+			<require-feature>
+				<feature>schedule-changes</feature>
+			</require-feature>
+			<description>Attendee Inbox Item schedule-changes</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
@@ -334,7 +317,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='16'>
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -348,7 +331,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='17'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -369,7 +352,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='18'>
 			<description>Attendee -> Declined</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -390,26 +373,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='19'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/simple/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -418,6 +386,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='20'>
+			<require-feature>
+				<feature>schedule-changes</feature>
+			</require-feature>
+			<description>Organizer Inbox Item schedule-changes</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
@@ -438,21 +412,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17'>
-			<description>Organizer data changed</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/scenario1/simple/11.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='18'>
+		<test name='21'>
 			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -473,19 +433,37 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19'>
+		<test name='22'>
+			<description>Organizer data changed</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scenario1/simple/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='23'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
 			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -526,23 +504,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -616,23 +579,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='8'>
@@ -687,23 +635,8 @@
 		<test name='11'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/organizerdelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -722,6 +655,12 @@
 					</arg>
 				</verify>
 			</request>
+		</test>
+		<test name='12'>
+			<require-feature>
+				<feature>schedule-changes</feature>
+			</require-feature>
+			<description>Attendee Inbox Item schedule-changes</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
@@ -742,7 +681,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='13'>
 			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -756,7 +695,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='14'>
 			<description>Attendee deletes data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
@@ -766,7 +705,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14'>
+		<test name='15'>
 			<description>Attendee deletes Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -787,19 +726,23 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='16'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
 			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -840,23 +783,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -918,23 +846,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='8'>
@@ -996,23 +909,8 @@
 		<test name='11'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/scenario1/attendeedelete/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='12'>
@@ -1056,13 +954,17 @@
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
 			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1071,7 +973,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Alarms' ignore='no'>
+	<test-suite name='Alarms' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1559,7 +1461,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Recurring Alarms' ignore='no'>
+	<test-suite name='Recurring Alarms' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1836,7 +1738,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='No X- properties' ignore='no'>
+	<test-suite name='No X- properties' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2075,7 +1977,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='TZID reset' ignore='no'>
+	<test-suite name='TZID reset' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2264,7 +2166,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='No master Organizer' ignore='no'>
+	<test-suite name='No master Organizer' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2530,7 +2432,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Duplicate Attendee' ignore='no'>
+	<test-suite name='Duplicate Attendee' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
