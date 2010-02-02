@@ -125,6 +125,7 @@ class Verifier(object):
                 if propname not in ok_status_props:
                     resulttxt += "        Items not returned in report (OK) for %s: %s\n" % (href, propname,)
                     result = False
+                    continue
                 matched = re.match(value, ok_status_props[propname])
                 if match and not matched:
                     resulttxt += "        Items not matching for %s: %s %s\n" % (href, propname, ok_status_props[propname])
