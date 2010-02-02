@@ -69,6 +69,11 @@
 	</start>
 	
 	<test-suite name='acl-principal-prop-set REPORT' ignore='no'>
+
+		<require-feature>
+			<feature>acl-principal-prop-set REPORT</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
 			<description>Wrong Depth</description>
 			<request print-response='no'>
@@ -199,6 +204,11 @@
 	</test-suite>
 	
 	<test-suite name='principal-match REPORT' ignore='no'>
+
+		<require-feature>
+			<feature>principal-match REPORT</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
 			<description>Wrong Depth</description>
 			<request print-response='no'>
@@ -256,6 +266,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
+						<value>400</value>
 						<value>500</value>
 					</arg>
 				</verify>
@@ -362,6 +373,11 @@
 	</test-suite>
 
 	<test-suite name='principal-property-search REPORT' ignore='no'>
+
+		<require-feature>
+			<feature>principal-property-search REPORT</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
 			<description>Wrong Depth</description>
 			<request print-response='no'>
@@ -507,6 +523,7 @@
 	</test-suite>
 
 	<test-suite name='Extended principal-property-search REPORT' ignore='no'>
+
 		<require-feature>
 			<feature>extended-principal-search</feature>
 		</require-feature>
@@ -809,6 +826,11 @@
 	</test-suite>
 	
 	<test-suite name='principal-search-property-set REPORT' ignore='no'>
+
+		<require-feature>
+			<feature>principal-search-property-set REPORT</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
 			<description>Wrong Depth</description>
 			<request print-response='no'>
@@ -895,6 +917,7 @@
 	</test-suite>
 	
 	<test-suite name='supported-report-set property' ignore='no'>
+
 		<test name='1' ignore='no'>
 			<description>Regular resource</description>
 			<request print-response='no'>
