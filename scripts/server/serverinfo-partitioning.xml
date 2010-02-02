@@ -25,9 +25,20 @@
 
 	<features>
 		<!--  Generic WebDAV extensions -->
+		<feature>COPY Method</feature>							<!-- COPY method -->
+		<feature>MOVE Method</feature>							<!-- MOVE method -->
+		
+		<!-- ACL related -->
+		<feature>ACL Method</feature>							<!-- ACL method -->
+		<feature>acl-principal-prop-set REPORT</feature>		<!-- ACL acl-principal-prop-set REPORT -->
+		<feature>principal-match REPORT</feature>				<!-- ACL principal-match REPORT -->
+		<feature>principal-property-search REPORT</feature>		<!-- ACL principal-property-search REPORT -->
+		<feature>principal-search-property-set REPORT</feature>	<!-- ACL principal-search-property-set REPORT -->
+
 		<!-- <feature>add-member</feature> -->			<!-- Add-member used to create resources -->
 		<feature>ctag</feature>							<!-- ctag extension -->
 		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
+		<feature>directory listing</feature> 			<!-- GET on collection -->
 		<feature>extended-principal-search</feature>	<!-- Extended principal-property-search REPORT extension -->
 		<feature>expand-property</feature>				<!-- Expand property REPORT -->
 		<feature>quota</feature>						<!-- WebDAV QUOTA -->
@@ -38,6 +49,7 @@
 		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
 		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
 		<feature>dropbox</feature>						<!-- dropbox extension -->
+		<feature>EMAIL parameter</feature>				<!-- Server normalizes cuaddress and adds EMAIL parameter -->
 		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
 		<feature>maskuid</feature>						<!-- maskuid extension -->
 		<feature>partitioning</feature> 				<!-- Partitioned server -->
@@ -45,6 +57,7 @@
 		<feature>private-events</feature>				<!-- private-events extension -->
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
 		<feature>proxy-authz</feature>					<!-- sudo user extension -->
+		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 
