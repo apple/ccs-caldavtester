@@ -18,6 +18,7 @@ from vobject.base import readOne, ContentLine
 from vobject.base import Component
 from difflib import unified_diff
 import StringIO
+from vobject.icalendar import RecurringComponent, TimezoneComponent
 
 """
 Verifier that checks the response body for an exact match to data in a file.
@@ -30,6 +31,14 @@ class Verifier(object):
         files = args.get("filepath", [])
         filters = args.get("filter", [])
         
+        if "EMAIL parameter" not in manager.server_info.features:
+            filters.append("ATTENDEE:EMAIL") 
+            filters.append("ORGANIZER:EMAIL")
+        filters.append("CALSCALE")
+        filters.append("PRODID")
+        filters.append("CREATED")
+        filters.append("LAST-MODIFIED")
+ 
         # status code must be 200, 207
         if response.status not in (200,207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
@@ -81,15 +90,29 @@ class Verifier(object):
                             if item.name == filter:
                                 component.remove(item)
 
+        def normalizeRRULE(calobj):
+            
+            for component in calobj.getChildren():
+                if isinstance(component, RecurringComponent):
+                    rruleset = component.rruleset
+                    if rruleset:
+                        component.rruleset = rruleset
+                elif isinstance(component, TimezoneComponent):
+                    tzinfo = component.tzinfo
+                    if tzinfo:
+                        component.tzinfo = tzinfo
+
         s = StringIO.StringIO(respdata)
         try:
             resp_calendar = readOne(s)
             removePropertiesParameters(resp_calendar)
+            normalizeRRULE(resp_calendar)
             respdata = resp_calendar.serialize()
             
             s = StringIO.StringIO(data)
             data_calendar = readOne(s)
             removePropertiesParameters(data_calendar)
+            normalizeRRULE(data_calendar)
             data = data_calendar.serialize()
             
             result = respdata == data
