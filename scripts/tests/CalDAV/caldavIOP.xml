@@ -273,6 +273,31 @@
 		</test>
 	</test-suite>
 	
-	<end/>
+	<end>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath3:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$inboxpath3:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
