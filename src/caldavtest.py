@@ -342,6 +342,10 @@ class caldavtest(object):
                 
                 if ctr - 1 == count:
                     return True
+            delay = 1
+            starttime = time.time()
+            while (time.time() < starttime + delay):
+                pass
         else:
             return False
 
