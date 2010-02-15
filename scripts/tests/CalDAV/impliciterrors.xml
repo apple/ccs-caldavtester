@@ -464,6 +464,42 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Invalid Attendee PUT using Organizer on server' ignore='no'>
+		<test name='1'>
+			<description>Attendee creates event</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/123.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/errors/bad-attendee-put/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavattendee-allowed</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>No Attendee resource</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/123.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 	
 </caldavtest>
