@@ -1,0 +1,297 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<caldavtest>
+	<description>Test calendar sharing</description>
+
+	<require-feature>
+		<feature>caldav</feature>
+		<feature>shared-calendars</feature>
+	</require-feature>
+
+	<start/>
+	
+	<test-suite name='OPTIONS header' ignore='no'>
+		<test name='1'>
+			<description>Look for options header tag on principal</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$principal1:</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendarserver-sharing.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Look for options header tag on calendar</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendarserver-sharing.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='Upgrade calendar to shared'>
+		<test name='1'>
+			<description>Create new calendar</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/shared1/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Not shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype!.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Upgrade via PROPPATCH</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix1:/shared1/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/upgrade_collection/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Is shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype$.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Downgrade calendar to shared'>
+		<test name='1'>
+			<description>Create new shared calendar</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/shared2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix1:/shared2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/downgrade_collection/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Is shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype$.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Downgrade via PROPPATCH</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix1:/shared2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/downgrade_collection/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Is not shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype!.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Upgrade calendar to shared via MKCALENDAR'>
+		<test name='1'>
+			<description>Create new calendar</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/shared3/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/mkcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Is shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared3/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype$.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Upgrade calendar to shared via extended MKCOL'>
+		<require-feature>
+			<feature>Extended MKCOL</feature>
+		</require-feature>
+		<test name='1'>
+			<description>Create new calendar</description>
+			<request end-delete="yes">
+				<method>MKCOL</method>
+				<ruri>$pathprefix1:/shared4/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/mkcol/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Is shared</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared4/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFINDs/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:resourcetype$.*shared-owner.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<end/>
+	
+</caldavtest>
