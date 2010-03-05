@@ -19,19 +19,18 @@
  -->
 
 <serverinfo>
-	<host>localhost</host>
-	<port>8800</port>
+	<host>128.195.52.43</host>
+	<port>8080</port>
 	<authtype>basic</authtype>
 
 	<features>
 		<!--  Generic WebDAV extensions -->
-		<feature>COPY Method</feature>							<!-- COPY method -->
-		<feature>MOVE Method</feature>							<!-- MOVE method -->
-		<feature>Extended MKCOL</feature>						<!-- Extended MKCOL -->
+		<!-- <feature>COPY Method</feature> -->					<!-- COPY method -->
+		<!-- <feature>MOVE Method</feature> -->					<!-- MOVE method -->
 		
 		<!-- ACL related -->
-		<feature>ACL Method</feature>							<!-- ACL method -->
-		<feature>acl-principal-prop-set REPORT</feature>		<!-- ACL acl-principal-prop-set REPORT -->
+		<!-- <feature>ACL Method</feature> -->					<!-- ACL method -->
+		<!-- <feature>acl-principal-prop-set REPORT</feature> --><!-- ACL acl-principal-prop-set REPORT -->
 		<feature>principal-match REPORT</feature>				<!-- ACL principal-match REPORT -->
 		<feature>principal-property-search REPORT</feature>		<!-- ACL principal-property-search REPORT -->
 		<feature>principal-search-property-set REPORT</feature>	<!-- ACL principal-search-property-set REPORT -->
@@ -39,45 +38,44 @@
 		<!-- <feature>add-member</feature> -->			<!-- Add-member used to create resources -->
 		<feature>ctag</feature>							<!-- ctag extension -->
 		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
-		<feature>directory listing</feature> 			<!-- GET on collection -->
-		<feature>extended-principal-search</feature>	<!-- Extended principal-property-search REPORT extension -->
-		<feature>expand-property</feature>				<!-- Expand property REPORT -->
+		<!-- <feature>directory listing</feature> -->	<!-- GET on collection -->
+		<!-- <feature>extended-principal-search</feature> --><!-- Extended principal-property-search REPORT extension -->
+		<!-- <feature>expand-property</feature> -->		<!-- Expand property REPORT -->
 		<feature>quota</feature>						<!-- WebDAV QUOTA -->
 		<feature>sync-report</feature>					<!-- WebDAV collection sync REPORT -->
 		<!-- <feature>well-known</feature> -->			<!-- well-known feature -->
 
 		<!-- CalDAV specific extension -->
-		<!-- <feature>caldav</feature>  -->				<!-- Basic CalDAV feature enabler -->
-		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
-		<feature>dropbox</feature>						<!-- dropbox extension -->
-		<feature>EMAIL parameter</feature>				<!-- Server normalizes cuaddress and adds EMAIL parameter -->
+		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
+		<!-- <feature>auto-accept</feature> -->			<!-- Auto-accept for rooms & locations -->
+		<!-- <feature>dropbox</feature> -->				<!-- dropbox extension -->
+		<!-- <feature>EMAIL parameter</feature> -->		<!-- Server normalizes cuaddress and adds EMAIL parameter -->
 		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
-		<feature>maskuid</feature>						<!-- maskuid extension -->
+		<!-- <feature>maskuid</feature> -->				<!-- maskuid extension -->
 		<!-- <feature>partitioning</feature> -->		<!-- Partitioned server -->
-		<feature>private-comments</feature>				<!-- private-comments extension -->
-		<feature>private-events</feature>				<!-- private-events extension -->
-		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
-		<feature>proxy-authz</feature>					<!-- sudo user extension -->
-		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
-		<feature>shared-calendars</feature>				<!-- Shared calendars extension -->
-		<feature>timezone-service</feature>				<!-- Timezone service extension -->
-		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
+		<!-- <feature>private-comments</feature> -->	<!-- private-comments extension -->
+		<!-- <feature>private-events</feature> -->		<!-- private-events extension -->
+		<!-- <feature>proxy</feature> -->				<!-- calendar-user-proxy extension -->
+		<!-- <feature>proxy-authz</feature> -->			<!-- sudo user extension -->
+		<!-- <feature>schedule-changes</feature> -->	<!-- schedule-changes property extension -->
+		<!-- <feature>timezone-service</feature> -->	<!-- Timezone service extension -->
+		<!-- <feature>vavailability</feature> -->		<!-- VAVAILABILITY on inbox -->
 
 		<!-- CardDAV specific extension -->
-		<feature>carddav</feature>						<!-- Basic CardDAV feature enabler -->
+		<!-- <feature>carddav</feature> -->				<!-- Basic CardDAV feature enabler -->
 
 	</features>
 
 	<substitutions>
 		<substitution>
 			<key>$host:</key>
-			<value>http://localhost:8800</value>
+			<value>http://128.195.52.43:8080</value>
 		</substitution>
 
 		<!-- relative path to caldav root-->
 		<substitution>
 			<key>$root:</key>
-			<value>/</value>
+			<value>/davserver/dav/</value>
 		</substitution>
 
 		<!-- relative path to main principal collection-->
@@ -89,73 +87,73 @@
 		<!-- the core recored type collections-->
 		<substitution>
 			<key>$uidstype:</key>
-			<value>__uids__</value>
+			<value></value>
 		</substitution>
 		<substitution>
 			<key>$userstype:</key>
-			<value>users</value>
+			<value></value>
 		</substitution>
 		<substitution>
 			<key>$groupstype:</key>
-			<value>groups</value>
+			<value></value>
 		</substitution>
 		<substitution>
 			<key>$locationstype:</key>
-			<value>locations</value>
+			<value></value>
 		</substitution>
 		<substitution>
 			<key>$resourcestype:</key>
-			<value>resources</value>
+			<value></value>
 		</substitution>
 
 		<!-- relative path to record type principal collections-->
 		<substitution>
 			<key>$principals_uids:</key>
-			<value>$principalcollection:$uidstype:/</value>
+			<value>$principalcollection:</value>
 		</substitution>
 		<substitution>
 			<key>$principals_users:</key>
-			<value>$principalcollection:$userstype:/</value>
+			<value>$principalcollection:</value>
 		</substitution>
 		<substitution>
 			<key>$principals_groups:</key>
-			<value>$principalcollection:$groupstype:/</value>
+			<value>$principalcollection:</value>
 		</substitution>
 		<substitution>
 			<key>$principals_resources:</key>
-			<value>$principalcollection:$resourcestype:/</value>
+			<value>$principalcollection:</value>
 		</substitution>
 		<substitution>
 			<key>$principals_locations:</key>
-			<value>$principalcollection:$locationstype:/</value>
+			<value>$principalcollection:</value>
 		</substitution>
 
 		<!-- relative path to calendars collection-->
 		<substitution>
 			<key>$calendars:</key>
-			<value>$root:calendars/</value>
+			<value>$root:home/</value>
 		</substitution>
 
 		<!-- relative path to record type calendar collections-->
 		<substitution>
 			<key>$calendars_uids:</key>
-			<value>$calendars:$uidstype:/</value>
+			<value>$calendars:</value>
 		</substitution>
 		<substitution>
 			<key>$calendars_users:</key>
-			<value>$calendars:$userstype:/</value>
+			<value>$calendars:</value>
 		</substitution>
 		<substitution>
 			<key>$calendars_groups:</key>
-			<value>$calendars:$groupstype:/</value>
+			<value>$calendars:</value>
 		</substitution>
 		<substitution>
 			<key>$calendars_resources:</key>
-			<value>$calendars:$resourcestype:/</value>
+			<value>$calendars:</value>
 		</substitution>
 		<substitution>
 			<key>$calendars_locations:</key>
-			<value>$calendars:$locationstype:/</value>
+			<value>$calendars:</value>
 		</substitution>
 
 		<!-- primary calendar name-->
@@ -167,25 +165,19 @@
 		<!-- inbox name-->
 		<substitution>
 			<key>$inbox:</key>
-			<value>inbox</value>
+			<value>calendar-inbox</value>
 		</substitution>
 
 		<!-- outbox name-->
 		<substitution>
 			<key>$outbox:</key>
-			<value>outbox</value>
+			<value>calendar-outbox</value>
 		</substitution>
 
 		<!-- dropbox name-->
 		<substitution>
 			<key>$dropbox:</key>
 			<value>dropbox</value>
-		</substitution>
-
-		<!-- notification name-->
-		<substitution>
-			<key>$notification:</key>
-			<value>notification</value>
 		</substitution>
 
 		<!-- freebusy name-->
@@ -215,15 +207,15 @@
 		<!-- relative path to record type calendar collections-->
 		<substitution>
 			<key>$addressbooks_uids:</key>
-			<value>$addressbooks:$uidstype:/</value>
+			<value>$addressbooks:</value>
 		</substitution>
 		<substitution>
 			<key>$addressbooks_users:</key>
-			<value>$addressbooks:$userstype:/</value>
+			<value>$addressbooks:</value>
 		</substitution>
 		<substitution>
 			<key>$addressbooks_groups:</key>
-			<value>$addressbooks:$groupstype:/</value>
+			<value>$addressbooks:</value>
 		</substitution>
 
 		<!-- primary calendar name-->
@@ -306,22 +298,22 @@
 			<!-- user id -->
 			<substitution>
 				<key>$userid%d:</key>
-				<value>user%02d</value>
+				<value>caluser%d</value>
 			</substitution>
 			<!-- user guid -->
 			<substitution>
 				<key>$userguid%d:</key>
-				<value>user%02d</value>
+				<value>caluser%d</value>
 			</substitution>
 			<!-- user name -->
 			<substitution>
 				<key>$username%d:</key>
-				<value>User %02d</value>
+				<value>User %d</value>
 			</substitution>
 			<!-- password -->
 			<substitution>
 				<key>$pswd%d:</key>
-				<value>user%02d</value>
+				<value>secret</value>
 			</substitution>
 			<!-- relative path to user principal resource-->
 			<substitution>
@@ -330,11 +322,11 @@
 			</substitution>
 			<substitution>
 				<key>$principaluri%d:</key>
-				<value>$principals_uids:$userguid%d:/</value>
+				<value>$principals_uids:$userguid%d:@Sun.COM/</value>
 			</substitution>
 			<substitution>
 				<key>$principal%dnoslash:</key>
-				<value>$principals_users:$userid%d:</value>
+				<value>$principals_users:$userid%d:@Sun.COM</value>
 			</substitution>
 
 			<!-- relative path to user calendar home-->
@@ -362,11 +354,6 @@
 				<key>$dropboxpath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$dropbox:</value>
 			</substitution>
-			<!-- relative path to user notification-->
-			<substitution>
-				<key>$notificationpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$notification:</value>
-			</substitution>
 			<!-- relative path to user freebusy-->
 			<substitution>
 				<key>$freebusypath%d:</key>
@@ -384,12 +371,12 @@
 			</substitution>
 			<substitution>
 				<key>$email%d:</key>
-				<value>$userid%d:@example.com</value>
+				<value>$userid%d:@Sun.COM</value>
 			</substitution>
 			<!-- calendar user address of user-->
 			<substitution>
 				<key>$cuaddr%d:</key>
-				<value>mailto:$email%d:</value>
+				<value>MAILTO:$email%d:</value>
 			</substitution>
 			<substitution>
 				<key>$cuaddralt%d:</key>
@@ -401,7 +388,7 @@
 			</substitution>
 			<substitution>
 				<key>$cuaddrurn%d:</key>
-				<value>urn:uuid:$userguid%d:</value>
+				<value>MAILTO:$email%d:</value>
 			</substitution>
 
 			<!-- relative path to user addressbook home-->
@@ -459,7 +446,7 @@
 			</substitution>
 			<substitution>
 				<key>$publicemail%d:</key>
-				<value>$publicuserid%d:@example.com</value>
+				<value>$publicuserid%d:@Sun.COM</value>
 			</substitution>
 			<!-- calendar user address of user-->
 			<substitution>

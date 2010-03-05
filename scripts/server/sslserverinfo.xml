@@ -183,6 +183,12 @@
 			<value>dropbox</value>
 		</substitution>
 
+		<!-- notification name-->
+		<substitution>
+			<key>$notification:</key>
+			<value>notification</value>
+		</substitution>
+
 		<!-- freebusy name-->
 		<substitution>
 			<key>$freebusy:</key>
@@ -356,6 +362,11 @@
 			<substitution>
 				<key>$dropboxpath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$dropbox:</value>
+			</substitution>
+			<!-- relative path to user notification-->
+			<substitution>
+				<key>$notificationpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$notification:</value>
 			</substitution>
 			<!-- relative path to user freebusy-->
 			<substitution>
