@@ -55,6 +55,7 @@ class Verifier(object):
             return False, "        Could not read data file"
 
         data = manager.server_info.subs(data)
+        data = manager.server_info.extrasubs(data)
         
         def normalizeXMLData(data):
             # Read in XML

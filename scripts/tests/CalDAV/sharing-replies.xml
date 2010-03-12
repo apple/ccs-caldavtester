@@ -130,6 +130,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>Check Sharer notification collection</description>
+			<request>
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/replies/accept/6.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{http://calendarserver.org/ns/}dtstamp</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='Update reply'>
@@ -169,6 +191,28 @@
 					<arg>
 						<name>filter</name>
 						<value>{http://calendarserver.org/ns/}uid</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Check Sharer notification collection</description>
+			<request>
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/replies/decline/4.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{http://calendarserver.org/ns/}dtstamp</value>
 					</arg>
 				</verify>
 			</request>
