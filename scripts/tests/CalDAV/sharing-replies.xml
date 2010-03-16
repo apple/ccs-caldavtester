@@ -92,7 +92,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='yes'>
 				<method>POST</method>
 				<ruri>$pathprefix2:/</ruri>
 				<data substitutions='yes'>
@@ -100,7 +100,15 @@
 					<filepath>Resource/CalDAV/sharing/replies/accept/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/replies/accept/7.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{DAV:}href</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
