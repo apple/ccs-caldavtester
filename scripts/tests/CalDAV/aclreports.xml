@@ -939,10 +939,45 @@
 					</arg>
 				</verify>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>dataString</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/aclreports/19.xml</value>
+						<name>contains</name>
+						<value>acl-principal-prop-set</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>principal-match</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>principal-property-search</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>expand-property</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>calendar-query</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>calendar-multiget</value>
 					</arg>
 				</verify>
 			</request>
@@ -968,10 +1003,59 @@
 					</arg>
 				</verify>
 				<verify>
-					<callback>dataMatch</callback>
+					<callback>dataString</callback>
 					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/aclreports/20.xml</value>
+						<name>contains</name>
+						<value>acl-principal-prop-set</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>principal-match</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>principal-property-search</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>expand-property</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>calendar-query</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>calendar-multiget</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>free-busy-query</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>principal-search-property-set</value>
 					</arg>
 				</verify>
 			</request>
