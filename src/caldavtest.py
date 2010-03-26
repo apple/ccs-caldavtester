@@ -209,6 +209,7 @@ class caldavtest(object):
                             rc.append(node)
                 return rc
 
+            request_uri = req.getURI( self.manager.server_info )
             for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
     
                 # Get href for this response
@@ -217,7 +218,7 @@ class caldavtest(object):
                     return False, "           Wrong number of DAV:href elements\n"
                 if href[0].firstChild is not None:
                     href = href[0].firstChild.data
-                    if href != req.ruri:
+                    if href != request_uri:
                         hrefs.append((href, collection[1], collection[2]) )
         return hrefs
 
@@ -270,6 +271,7 @@ class caldavtest(object):
                 return rc
 
             latest = 0
+            request_uri = req.getURI( self.manager.server_info )
             for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
     
                 # Get href for this response
@@ -278,7 +280,7 @@ class caldavtest(object):
                     return False, "           Wrong number of DAV:href elements\n"
                 if href[0].firstChild is not None:
                     href = href[0].firstChild.data
-                    if href != req.ruri:
+                    if href != request_uri:
 
                         # Get all property status
                         propstatus = ElementsByName(response, "DAV:", "propstat")
