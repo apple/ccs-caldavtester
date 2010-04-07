@@ -28,6 +28,7 @@
 		<!--  Generic WebDAV extensions -->
 		<feature>COPY Method</feature>							<!-- COPY method -->
 		<feature>MOVE Method</feature>							<!-- MOVE method -->
+		<feature>Extended MKCOL</feature>						<!-- Extended MKCOL -->
 		
 		<!-- ACL related -->
 		<feature>ACL Method</feature>							<!-- ACL method -->
@@ -59,6 +60,7 @@
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
 		<feature>proxy-authz</feature>					<!-- sudo user extension -->
 		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
+		<feature>shared-calendars</feature>				<!-- Shared calendars extension -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 
@@ -179,6 +181,12 @@
 		<substitution>
 			<key>$dropbox:</key>
 			<value>dropbox</value>
+		</substitution>
+
+		<!-- notification name-->
+		<substitution>
+			<key>$notification:</key>
+			<value>notification</value>
 		</substitution>
 
 		<!-- freebusy name-->
@@ -354,6 +362,11 @@
 			<substitution>
 				<key>$dropboxpath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$dropbox:</value>
+			</substitution>
+			<!-- relative path to user notification-->
+			<substitution>
+				<key>$notificationpath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$notification:</value>
 			</substitution>
 			<!-- relative path to user freebusy-->
 			<substitution>

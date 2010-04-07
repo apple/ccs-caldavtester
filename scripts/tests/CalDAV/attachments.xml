@@ -45,14 +45,10 @@
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
-					<callback>dataString</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>contains</name>
-						<value>ATTACH;FMTTYPE=image/jpeg;ENCODING=BASE64;VALUE=BINARY:</value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>RQAUUUUAFFFFAH//2Q==</value>
+						<name>filepath</name>
+						<value>Resource/CalDAV/attachments/1.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -74,14 +70,10 @@
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
-					<callback>dataString</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>contains</name>
-						<value>ATTACH;FMTTYPE=image/jpeg;ENCODING=BASE64;VALUE=BINARY:</value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>RQAUUUUAFFFFAH//2Q==</value>
+						<name>filepath</name>
+						<value>Resource/CalDAV/attachments/2.ics</value>
 					</arg>
 				</verify>
 			</request>
