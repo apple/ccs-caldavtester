@@ -141,24 +141,6 @@
 			</request>
 		</test>
 		<test name='4'>
-			<description>COPY to search directory</description>
-			<request print-response="no">
-				<method>COPY</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
-				<header>
-					<name>Destination</name>
-					<value>$host:$addressbookhome1:/search/copy2_1.vcf</value>
-				</header>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
 			<description>MOVE within same addressbook to new resource</description>
 			<request print-response="no">
 				<method>MOVE</method>
@@ -176,7 +158,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='5'>
 			<description>MOVE within same addressbook to existing resource with overwrite</description>
 			<request print-response="no">
 				<method>MOVE</method>
@@ -198,7 +180,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='6'>
 			<description>MOVE within same addressbook to existing resource without overwrite</description>
 			<request print-response="no">
 				<method>MOVE</method>
@@ -216,24 +198,6 @@
 					<arg>
 						<name>status</name>
 						<value>412</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8'>
-			<description>MOVE to search directory</description>
-			<request print-response="no">
-				<method>MOVE</method>
-				<ruri>$addressbookpath1:/move1.vcf</ruri>
-				<header>
-					<name>Destination</name>
-					<value>$host:$addressbookhome1:/search/move2_1.vcf</value>
-				</header>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
 					</arg>
 				</verify>
 			</request>
