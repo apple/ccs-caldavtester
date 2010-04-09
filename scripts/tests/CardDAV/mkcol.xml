@@ -62,7 +62,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+ 		<test name='3'>
 			<description>MKCOL with incorrect request body</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCOL</method>
@@ -112,8 +112,26 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>MKCOL with incorrect resourcetype on new resource</description>
+			<request>
+				<method>MKCOL</method>
+				<ruri>$addressbookhome1:/adbktest3/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/mkcol/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
-	
+
 	<end/>
 
 </caldavtest>
