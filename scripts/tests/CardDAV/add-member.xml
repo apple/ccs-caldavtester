@@ -19,10 +19,10 @@
  -->
 
 <caldavtest>
-	<description>Test PUT method in CalDAV</description>
+	<description>Test PUT method in CardDAV</description>
 
 	<require-feature>
-		<feature>caldav</feature>
+		<feature>carddav</feature>
 		<feature>add-member</feature>
 	</require-feature>
 
@@ -33,36 +33,36 @@
 			<description>PROPFIND on calendar</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/add-member/1.xml</filepath>
+					<filepath>Resource/CardDAV/add-member/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[DAV:add-member$<href>$calendarpath1:/;add-member</href>]]></value>
+						<value><![CDATA[DAV:add-member$<href>$addressbookpath1:/;add-member</href>]]></value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>PROPFIND on calendar home</description>
+			<description>PROPFIND on address book home</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/add-member/1.xml</filepath>
+					<filepath>Resource/CardDAV/add-member/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -75,15 +75,15 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='POST VEVENT' ignore='no'>
+	<test-suite name='POST VCARD' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>POST non-recurring timed event</description>
+			<description>POST simple vCard</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarpath1:/;add-member</ruri>
+				<ruri>$addressbookpath1:/;add-member</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/recurrenceput/1.txt</filepath>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/1.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -108,10 +108,10 @@
 				<method>GET</method>
 				<ruri>$posted:/</ruri>
 				<verify>
-					<callback>calendarDataMatch</callback>
+					<callback>dataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/recurrenceput/1.txt</value>
+						<value>Resource/CardDAV/vcardput/1.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -121,7 +121,7 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$calendarpath1:/</ruri>
+			<ruri>$addressbookpath1:/</ruri>
 		</request>
 	</end>
 	
