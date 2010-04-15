@@ -65,6 +65,7 @@
 
 		<!-- CardDAV specific extension -->
 		<feature>carddav</feature> 						<!-- Basic CardDAV feature enabler -->
+		<feature>global-addressbook</feature> 			<!-- Global address book for each user -->
 
 	</features>
 
@@ -226,16 +227,22 @@
 			<value>$addressbooks:$groupstype:/</value>
 		</substitution>
 
-		<!-- primary calendar name-->
+		<!-- primary addressbook name -->
 		<substitution>
 			<key>$addressbook:</key>
 			<value>addressbook</value>
 		</substitution>
 
-		<!-- directory name-->
+		<!-- directory name -->
 		<substitution>
 			<key>$directory:</key>
 			<value>$root:directory/</value>
+		</substitution>
+
+		<!-- global-addressbook name -->
+		<substitution>
+			<key>$global_addressbook:</key>
+			<value>global-addressbook</value>
 		</substitution>
 
 		<!-- user id for admin user -->

@@ -37,7 +37,7 @@
 		<feature>principal-property-search REPORT</feature>		<!-- ACL principal-property-search REPORT -->
 		<feature>principal-search-property-set REPORT</feature>	<!-- ACL principal-search-property-set REPORT -->
 
-		<!-- <feature>add-member</feature> -->			<!-- Add-member used to create resources -->
+		<feature>add-member</feature>					<!-- Add-member used to create resources -->
 		<feature>ctag</feature>							<!-- ctag extension -->
 		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
 		<feature>directory listing</feature> 			<!-- GET on collection -->
@@ -45,7 +45,7 @@
 		<feature>expand-property</feature>				<!-- Expand property REPORT -->
 		<feature>quota</feature>						<!-- WebDAV QUOTA -->
 		<feature>sync-report</feature>					<!-- WebDAV collection sync REPORT -->
-		<!-- <feature>well-known</feature> -->			<!-- well-known feature -->
+		<feature>well-known</feature>					<!-- well-known feature -->
 
 		<!-- CalDAV specific extension -->
 		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
@@ -59,13 +59,14 @@
 		<feature>private-events</feature>				<!-- private-events extension -->
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
 		<feature>proxy-authz</feature>					<!-- sudo user extension -->
-		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
 		<feature>shared-calendars</feature>				<!-- Shared calendars extension -->
+		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 
 		<!-- CardDAV specific extension -->
-		<!-- <feature>carddav</feature> -->				<!-- Basic CardDAV feature enabler -->
+		<feature>carddav</feature> 						<!-- Basic CardDAV feature enabler -->
+		<feature>global-addressbook</feature> 			<!-- Global address book for each user -->
 
 	</features>
 
@@ -227,16 +228,22 @@
 			<value>$addressbooks:$groupstype:/</value>
 		</substitution>
 
-		<!-- primary calendar name-->
+		<!-- primary addressbook name -->
 		<substitution>
 			<key>$addressbook:</key>
 			<value>addressbook</value>
 		</substitution>
 
-		<!-- directory name-->
+		<!-- directory name -->
 		<substitution>
 			<key>$directory:</key>
 			<value>$root:directory/</value>
+		</substitution>
+
+		<!-- global-addressbook name -->
+		<substitution>
+			<key>$global_addressbook:</key>
+			<value>global-addressbook</value>
 		</substitution>
 
 		<!-- user id for admin user -->
