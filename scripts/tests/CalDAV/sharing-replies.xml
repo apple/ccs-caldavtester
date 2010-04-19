@@ -92,7 +92,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='yes'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
 				<ruri>$pathprefix2:/</ruri>
 				<data substitutions='yes'>
@@ -110,6 +110,10 @@
 						<value>{DAV:}href</value>
 					</arg>
 				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$shareecalendar:</variable>
+				</grabelement>
 			</request>
 		</test>
 		<test name='4' ignore='no'>
@@ -156,6 +160,50 @@
 					<arg>
 						<name>filter</name>
 						<value>{http://calendarserver.org/ns/}dtstamp</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Check sharee calendar displyname</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/displayname.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:displayname$The Shared Calendar</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>Check sharee calendar displyname</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/displayname.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:displayname$shared</value>
 					</arg>
 				</verify>
 			</request>
