@@ -1376,6 +1376,36 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Unauthenticated versus Forbidden' ignore='no'>
+		<test name='1'>
+			<description>Existing user with incorrect password</description>
+			<request user="$userid1:" pswd="bogus" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Non-Existing user</description>
+			<request user="bogus" pswd="bogus" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 	<end/>
 	
 </caldavtest>
