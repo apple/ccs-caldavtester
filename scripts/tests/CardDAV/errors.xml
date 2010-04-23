@@ -168,6 +168,23 @@
 				</verify>
 			</request>
 		</test>
+		<test name='7'>
+			<description>ORG \, value</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/7.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcarderrors/7.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
 
 	</test-suite>
 
