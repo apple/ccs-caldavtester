@@ -1271,6 +1271,131 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Drop Box Collection ACLs'>
+		<test name='1'>
+			<description>Add user02 as read-write proxy for user01</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Create drop box</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>MKCOL</method>
+				<ruri>$dropboxpath1:/ABCEFG/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Create drop box resource</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>PUT</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Verify that user01 can read it</description>
+			<request>
+				<method>GET</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Verify that user03 cannot read it</description>
+			<request user='$userid3:' pswd='$pswd3:'>
+				<method>GET</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Add user03 read privilege on collection</description>
+			<request user='$userid2:' pswd='$pswd2:' >
+				<method>ACL</method>
+				<ruri>$dropboxpath1:/ABCEFG/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Verify that user03 can now read it</description>
+			<request user='$userid3:' pswd='$pswd3:'>
+				<method>GET</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Delete drop box</description>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>DELETE</method>
+				<ruri>$dropboxpath1:/ABCEFG/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Clear user02 as read-write proxy for user01</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 
 </caldavtest>
