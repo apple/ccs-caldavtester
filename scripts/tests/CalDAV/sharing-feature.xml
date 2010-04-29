@@ -59,6 +59,53 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Allowed modes'>
+		<test name='1' ignore='no'>
+			<description>Check mode</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/feature/allowed/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[http://calendarserver.org/ns/allowed-sharing-modes$<can-be-shared/>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='1' ignore='no'>
+			<description>No mode on inbox</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/feature/allowed/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>http://calendarserver.org/ns/allowed-sharing-modes</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Upgrade calendar to shared'>
 		<test name='1'>
 			<description>Create new calendar</description>
