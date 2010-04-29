@@ -177,7 +177,9 @@ class manager(object):
 
         # Process any file arguments as test configs
         for f in args:
-            fnames.append(dname + "/" + f)
+            if f[0] != '/':
+                f = os.path.join(dname, f)
+            fnames.append(f)
         
         # Randomize file list
         if random_order:
