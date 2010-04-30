@@ -26,12 +26,21 @@
 		<feature>shared-calendars</feature>
 	</require-feature>
 
-	<start/>
+	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath2:/</ruri>
+		</request>
+	</start>
 	
 	<test-suite name='Create calendar' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
-			<request end-delete="no">
+			<request end-delete="yes">
 				<method>MKCALENDAR</method>
 				<ruri>$pathprefix1:/shared/</ruri>
 				<data>
@@ -156,6 +165,15 @@
 		</test>
 	</test-suite>
 	
-	<end/>
+	<end>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath2:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>

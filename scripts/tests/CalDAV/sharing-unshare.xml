@@ -56,7 +56,7 @@
 				<ruri>$pathprefix1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/unshare/accept/1.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/setup/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -76,7 +76,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/unshare/accept/2.xml</value>
+						<value>Resource/CalDAV/sharing/setup/2.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -97,13 +97,13 @@
 				<ruri>$pathprefix2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/unshare/accept/3.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/setup/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/replies/accept/7.xml</value>
+						<value>Resource/CalDAV/sharing/setup/7.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -127,13 +127,13 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/unshare/accept/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/setup/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/unshare/accept/5.xml</value>
+						<value>Resource/CalDAV/sharing/setup/5.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -155,7 +155,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/unshare/accept/6.xml</value>
+						<value>Resource/CalDAV/sharing/setup/6.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -241,6 +241,15 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<end>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath2:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
