@@ -32,6 +32,7 @@ class Verifier(object):
         badhrefs = args.get("badhrefs", [])
         count = args.get("count", [])
         prefix = args.get("prefix", [])
+        ignoremissing = args.get("ignoremissing", [])
         if len(prefix):
             prefix = prefix[0] if prefix[0] != "-" else ""
         else:
@@ -99,7 +100,7 @@ class Verifier(object):
 
         # Now do set difference
         ok_missing = ok_test_set.difference( ok_result_set )
-        ok_extras = ok_result_set.difference( ok_test_set )
+        ok_extras = ok_result_set.difference( ok_test_set ) if not ignoremissing else set()
         bad_missing = bad_test_set.difference( bad_result_set )
         bad_extras = bad_result_set.difference( bad_test_set )
         
