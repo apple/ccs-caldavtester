@@ -149,10 +149,26 @@ def readConfig(config):
     @param config: file path to caldavd.plist
     @type config: str
     """
+
+    # SudoersFile was removed from the default caldavd.plist. Cope.
+    plist = readPlist(config)
+    try: plist["SudoersFile"]
+    except KeyError:
+	# add SudoersFile entry to caldavd.plist
+        plist["SudoersFile"] = "/etc/caldavd/sudoers.plist"
+        writePlist(plist,config)
+
+    try: sudoerspl = readPlist('/etc/caldavd/sudoers.plist')
+    except IOError:
+        # create a new sudoers.plist with empty 'users' array
+        sudoerspl = {'users': []}
+        writePlist(sudoerspl,'/etc/caldavd/sudoers.plist')
+
     plist = readPlist(config)
     hostname = plist["ServerHostName"]
     docroot = plist["DocumentRoot"]
     sudoers = plist["SudoersFile"]
+    
     try:
         basic_ok = plist["Authentication"]["Basic"]["Enabled"]
     except KeyError:
