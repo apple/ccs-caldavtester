@@ -32,8 +32,8 @@ add_paths = []
 svn = "/usr/bin/svn"
 
 packages = [
-    ("vobject", "vobject", "http://svn.osafoundation.org/vobject/trunk", "212"),
-    #("vobject", "vobject", "svn+ssh://cdaboo@svn.osafoundation.org/svn/vobject/trunk", "212"),
+    ("vobject", "vobject", "http://svn.osafoundation.org/vobject/trunk", "218"),
+    #("vobject", "vobject", "svn+ssh://cdaboo@svn.osafoundation.org/svn/vobject/trunk", "218"),
     ("xattr", "xattr/build/lib.%s-%s" % (get_platform(),get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.5", "1013"),
 ]
 
