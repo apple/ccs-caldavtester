@@ -19,6 +19,7 @@ Class to encapsulate a single caldav test run.
 """
 
 from cStringIO import StringIO
+from src.httpshandler import SmartHTTPConnection
 from src.manager import manager
 from src.request import data
 from src.request import request
@@ -29,7 +30,6 @@ from xml.dom.minicompat import NodeList
 from xml.dom.minidom import Element
 from xml.dom.minidom import Node
 from xml.etree.ElementTree import ElementTree
-import httplib
 import rfc822
 import socket
 import src.xmlDefs
@@ -467,10 +467,7 @@ class caldavtest(object):
             stats.startTimer()
 
         # Do the http request
-        if self.manager.server_info.ssl:
-            http = httplib.HTTPSConnection( self.manager.server_info.host, self.manager.server_info.port )
-        else:
-            http = httplib.HTTPConnection( self.manager.server_info.host, self.manager.server_info.port )
+        http = SmartHTTPConnection( self.manager.server_info.host, self.manager.server_info.port, self.manager.server_info.ssl )
         try:
             #self.manager.log(manager.LOG_LOW, "Sending request")
             http.request( method, uri, data, headers )
