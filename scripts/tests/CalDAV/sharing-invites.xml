@@ -211,6 +211,53 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Attempt broken invite'>
+		<test name='1' ignore='no'>
+			<description>POST invitation</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/broken/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>424</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>403</name>
+						<value>mailto:bogus@example.net</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Check Sharee notification collection</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$notificationpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<test-suite name='Delete new invite'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
