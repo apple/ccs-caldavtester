@@ -21,7 +21,8 @@
 
 export PYTHONPATH=/usr/share/caldavd/lib/python
 ./testcaldav.py --all \
- 	--exclude CalDAV/directory.xml \
- 	--exclude CalDAV/errors-big-calendars.xml \
- 	--exclude CalDAV/proxyauthz.xml
+	--subdir CalDAV \
+	--exclude CalDAV/directory.xml \
+	--exclude CalDAV/errors-big-calendars.xml \
+	--exclude CalDAV/proxyauthz.xml
  	
