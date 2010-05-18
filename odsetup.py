@@ -19,19 +19,25 @@
 # Creates some test accounts on an OpenDirectory server for use with CalDAVTester
 #
 
-from plistlib import readPlist
+from plistlib import readPlist, readPlistFromString
 from plistlib import writePlist
-import commands
 import getopt
 import os
 import sys
 import uuid
+from getpass import getpass
+from subprocess import Popen, PIPE
+import xml.parsers.expat
 
 diradmin_user    = "admin"
-diradmin_pswd    = "admin"
+diradmin_pswd    = ""
 directory_node   = "/LDAPv3/127.0.0.1"
 config           = "/etc/caldavd/caldavd.plist"
 utility          = "/usr/sbin/calendarserver_manage_principals"
+cmdutility       = "/usr/sbin/calendarserver_command_gateway"
+
+verbose = False
+veryverbose = False
 
 serverinfo_default  = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
@@ -53,6 +59,9 @@ for i in range(1, 11):
 
 for i in range(1, 5):
     guids["group%02d" % (i,)] = ""
+
+locations = {}
+resources = {}
 
 # List of users as a tuple: (<<name>>, <<pswd>>, <<repeat count>>)
 adminattrs = {
@@ -83,38 +92,100 @@ publicattrs = {
     "dsAttrTypeStandard:EMailAddress":    "public%02d@example.com",
 }
 
-locationattrs = {
-    "dsAttrTypeStandard:GeneratedUID":    "Bogus",
-    "dsAttrTypeStandard:RealName":        "Room %02d",
-    "dsAttrTypeStandard:ResourceType":    "1",
-    "dsAttrTypeStandard:ResourceInfo":    """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+locationcreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>com.apple.WhitePagesFramework</key>
-    <dict>
-        <key>Label</key>
-        <string>Room</string>
-    </dict>
+        <key>command</key>
+        <string>createLocation</string>
+        <key>AutoSchedule</key>
+        <true/>
+        <key>GeneratedUID</key>
+        <string>%(guid)s</string>
+        <key>RealName</key>
+        <string>%(realname)s</string>
+        <key>RecordName</key>
+        <array>
+                <string>%(recordname)s</string>
+        </array>
 </dict>
-</plist>""".replace("\n", "").replace('"', '\\"')
+</plist>
+"""
+
+locationremovecmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>command</key>
+        <string>deleteLocation</string>
+        <key>GeneratedUID</key>
+        <string>%(guid)s</string>
+</dict>
+</plist>
+"""
+
+locationlistcmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>command</key>
+        <string>getLocationList</string>
+</dict>
+</plist>
+"""
+
+resourcecreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>command</key>
+        <string>createResource</string>
+        <key>AutoSchedule</key>
+        <true/>
+        <key>GeneratedUID</key>
+        <string>%(guid)s</string>
+        <key>RealName</key>
+        <string>%(realname)s</string>
+        <key>Type</key>
+        <string>Printer</string>
+        <key>RecordName</key>
+        <array>
+                <string>%(recordname)s</string>
+        </array>
+        <key>Comment</key>
+        <string>Test Comment</string>
+</dict>
+</plist>
+"""
+
+resourceremovecmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>command</key>
+        <string>deleteResource</string>
+        <key>GeneratedUID</key>
+        <string>%(guid)s</string>
+</dict>
+</plist>
+"""
+
+resourcelistcmd = """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>command</key>
+        <string>getResourceList</string>
+</dict>
+</plist>
+"""
+
+locationattrs = {
+    "dsAttrTypeStandard:RealName":        "Room %02d",
 }
 
 resourceattrs = {
-    "dsAttrTypeStandard:GeneratedUID":    "Bogus",
     "dsAttrTypeStandard:RealName":        "Resource %02d",
-    "dsAttrTypeStandard:ResourceType":    "0",
-    "dsAttrTypeStandard:ResourceInfo":    """<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>com.apple.WhitePagesFramework</key>
-    <dict>
-        <key>Label</key>
-        <string>Printer</string>
-    </dict>
-</dict>
-</plist>""".replace("\n", "").replace('"', '\\"')
 }
 
 groupattrs = {
@@ -140,7 +211,29 @@ Options:
     -p pswd  OpenDirectory Admin user password
     -f file  caldavd.plist config file used by the server
     -c users number of user accounts to create (default: 10)
+    -v       verbose logging
+    -V       very verbose logging
 """
+
+def cmd(args, input=None, raiseOnFail=True):
+    
+    if veryverbose:
+        print "-----"
+    if verbose:
+        print args
+    if input:
+        p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
+        result = p.communicate(input)
+    else:
+        p = Popen(args, stdout=PIPE, stderr=PIPE, shell=True)
+        result = p.communicate()
+
+    if veryverbose:
+        print "Output: %s" % (result[0],)
+        print "Code: %s" % (p.returncode,)
+    if raiseOnFail and p.returncode:
+        raise RuntimeError(result[1])
+    return result[0], p.returncode
 
 def readConfig(config):
     """
@@ -152,9 +245,10 @@ def readConfig(config):
 
     # SudoersFile was removed from the default caldavd.plist. Cope.
     plist = readPlist(config)
-    try: plist["SudoersFile"]
+    try:
+        plist["SudoersFile"]
     except KeyError:
-	# add SudoersFile entry to caldavd.plist
+        # add SudoersFile entry to caldavd.plist
         plist["SudoersFile"] = "/etc/caldavd/sudoers.plist"
         writePlist(plist,config)
 
@@ -201,8 +295,19 @@ def patchConfig(config, admin):
     @type admin: str
     """
     plist = readPlist(config)
+
     admins = plist["AdminPrincipals"]
     admins[:] = [admin]
+
+    # Only concern ourselves with the OD records we care about
+    plist["DirectoryService"]["params"]["node"] = "/LDAPv3/127.0.0.1"
+
+    # For testing do not send iMIP messages!
+    plist["Scheduling"]["iMIP"]["Enabled"] = False
+
+    # No SACLs
+    plist["EnableSACLs"] = False
+
     writePlist(plist, config)
 
 def patchSudoers(sudoers):
@@ -283,17 +388,38 @@ def addLargeCalendars(hostname, docroot):
         guid01,
     )
 
-    cmd = "curl --digest -u user01:user01 'http://%s:8008/calendars/users/user01/'" % (hostname,)
-    commands.getoutput(cmd)
+    result = cmd("curl --digest -u user01:user01 'http://%s:8008/calendars/users/user01/'" % (hostname,), raiseOnFail=False)
 
-    for calendar in calendars:
-        cmd = "tar -C %s -zx -f data/%s.tgz" % (path, calendar,)
-        commands.getoutput(cmd)
-        cpath = os.path.join(path, calendar)    
-        cmd = "chown -R calendar:calendar %s" % (cpath,)
-        commands.getoutput(cmd)
-    
+    if result[1] == 0:
+        for calendar in calendars:
+            cmd("tar -C %s -zx -f data/%s.tgz" % (path, calendar,))
+            cmd("chown -R calendar:calendar %s" % (os.path.join(path, calendar) ,))
+
+def loadLists(path, records):
+    if path == "/Places":
+        result = cmd(
+            "%s -f %s" % (cmdutility, config,),
+            locationlistcmd,
+        )
+    elif path == "/Resources":
+        result = cmd(
+            "%s -f %s" % (cmdutility, config,),
+            resourcelistcmd
+        )
+    else:
+        raise ValueError()
+
+    try:
+        plist = readPlistFromString(result[0])
+    except xml.parsers.expat.ExpatError, e:
+        print "Error (%s) parsing (%s)" % (e, result[0])
+        raise
+
+    for record in plist["result"]:
+        records[record["RecordName"][0]] = record["GeneratedUID"] 
+
 def doToAccounts(f, users_only=False):
+    
     for record in records:
         if record[4] is None:
             count = number_of_users
@@ -327,80 +453,124 @@ def doGroupMemberships():
         memberGUIDs = [guids[user] for user in users]
         nestedGUIDs = [guids[group] for group in nestedgroups]
         
-        cmd = "dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs]))
-        print cmd
-        commands.getoutput(cmd)
-
-        cmd = "dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs]))
-        print cmd
-        commands.getoutput(cmd)
+        cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs])), raiseOnFail=False)
+        cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs])), raiseOnFail=False)
 
 def createUser(path, user):
+    
+    if path in ("/Users", "/Groups",):
+        createUserViaDS(path, user)
+    else:
+        createUserViaGateway(path, user)
+        
+    # Do caldav_utility setup
+    if path in ("/Places", "/Resources",):
+        if path in ("/Places",):
+            cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
+                utility,
+                user[0],
+            ))
+        else:
+            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
+                utility,
+                user[0],
+            ))
+
+def createUserViaDS(path, user):
     # Do dscl command line operations to create a calendar user
     
     # Only create if it does not exist
-    cmd = "dscl %s -list %s/%s" % (directory_node, path, user[0])
-    if commands.getstatusoutput(cmd)[0] != 0:
+    if cmd("dscl %s -list %s/%s" % (directory_node, path, user[0]), raiseOnFail=False)[1] != 0:
         # Create the user
-        cmd = "dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
-        print cmd
-        commands.getoutput(cmd)
+        cmd("dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]))
         
         # Set the password (only for /Users)
         if path == "/Users":
-            cmd = "dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1])
-            print cmd
-            commands.getoutput(cmd)
+            cmd("dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1]))
     
         # Other attributes
         for key, value in user[2].iteritems():
             if key == "dsAttrTypeStandard:GeneratedUID":
                 value = uuid.uuid4()
-            elif key == "dsAttrTypeStandard:ResourceInfo":
-                value = value % {
-                    "guid":guids["user01"],
-                    "readonlyguid":guids["user03"],
-                }
-            cmd = "dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value)
-            print cmd
-            commands.getoutput(cmd)
+            cmd("dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value))
     else:
         print "%s/%s already exists" % (path, user[0],)
 
     # Now read the guid for this record
     if guids.has_key(user[0]):
-        cmd = "dscl %s -read %s/%s GeneratedUID"  % (directory_node, path, user[0])
-        result = commands.getoutput(cmd)
-        guid = result.split()[1]
+        result = cmd("dscl %s -read %s/%s GeneratedUID"  % (directory_node, path, user[0]))
+        guid = result[0].split()[1]
         guids[user[0]] = guid
-        
-    # Do caldav_utility setup
-    if path in ("/Places", "/Resources",):
-        if path in ("/Places",):
-            cmd = "%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
-                utility,
-                user[0],
-            )
-        else:
-            cmd = "%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
-                utility,
-                user[0],
-            )
-        print cmd
-        commands.getoutput(cmd)
 
+def createUserViaGateway(path, user):
+    
+    # Check for existing
+    if path == "/Places":
+        if user[0] in locations:
+            guids[user[0]] = locations[user[0]]
+            return
+    elif path == "/Resources":
+        if user[0] in resources:
+            guids[user[0]] = resources[user[0]]
+            return
+    
+    guid = uuid.uuid4()
+    if guids.has_key(user[0]):
+        guids[user[0]] = guid
+    if path == "/Places":
+        cmd(
+            "%s -f %s" % (cmdutility, config,),
+            locationcreatecmd % {
+                "guid":guid,
+                "realname":user[2]["dsAttrTypeStandard:RealName"],
+                "recordname":user[0]
+            }
+        )
+    elif path == "/Resources":
+        cmd(
+            "%s -f %s" % (cmdutility, config,),
+            resourcecreatecmd % {
+                "guid":guid,
+                "realname":user[2]["dsAttrTypeStandard:RealName"],
+                "recordname":user[0]
+            }
+        )
+    else:
+        raise ValueError()
+    
 def removeUser(path, user):
+    
+    if path in ("/Users", "/Groups",):
+        removeUserViaDS(path, user)
+    else:
+        removeUserViaGateway(path, user)
+
+def removeUserViaDS(path, user):
     # Do dscl command line operations to create a calendar user
     
     # Create the user
-    cmd = "dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0])
-    print cmd
-    commands.getoutput(cmd)
+    cmd("dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]), raiseOnFail=False)
+
+def removeUserViaGateway(path, user):
+    
+    guid = uuid.uuid4()
+    if path == "/Places":
+        cmd(
+            "%s -f %s" % (cmdutility, config,),
+            locationremovecmd % {"guid":guid,}
+        )
+    elif path == "/Resources":
+        cmd(
+            "%s -f %s" % (cmdutility, config,),
+            resourceremovecmd % {"guid":guid,}
+        )
+    else:
+        raise ValueError()
 
 if __name__ == "__main__":
 
     try:
-        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:", ["old"])
+        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV", ["old"])
 
         for option, value in options:
             if option == "-h":
@@ -416,10 +586,18 @@ if __name__ == "__main__":
                 config = value
             elif option == "-c":
                 number_of_users = int(value)
+            elif option == "-v":
+                verbose = True
+            elif option == "-V":
+                verbose = True
+                veryverbose = True
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
                 raise ValueError
+
+        if not diradmin_pswd:
+            diradmin_pswd = getpass("Password: ")
 
         # Process arguments
         if len(args) == 0:
@@ -443,6 +621,9 @@ if __name__ == "__main__":
             patchSudoers(sudoers)
     
             # Now generate the OD accounts (caching guids as we go).
+            loadLists("/Places", locations)
+            loadLists("/Resources", resources)
+
             doToAccounts(createUser)
             doGroupMemberships()
             
@@ -460,6 +641,9 @@ if __name__ == "__main__":
             hostname, authtype, docroot, sudoers = readConfig(config)
             
             # Now generate the OD accounts (caching guids as we go).
+            loadLists("/Places", locations)
+            loadLists("/Resources", resources)
+
             doToAccounts(createUser, users_only=True)
             
             # Create an appropriate serverinfo.xml file from the template
