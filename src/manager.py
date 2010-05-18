@@ -140,9 +140,10 @@ class manager(object):
         fnames = []
         all = False
         excludes = set()
+        subdir = None
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "exclude=", "pid=", "random"])
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "random"])
         
         # Process single options
         for option, value in options:
@@ -156,6 +157,8 @@ class manager(object):
                 dname = value
             elif option == "--all":
                 all = True
+            elif option == "--subdir":
+                subdir = value + "/"
             elif option == "--exclude":
                 excludes.add(value)
             elif option == "-m":
@@ -169,8 +172,9 @@ class manager(object):
             files = []
             os.path.walk(dname, lambda arg,dir,names:files.extend([os.path.join(dir, name) for name in names]), None)
             for file in files:
-                if file.endswith(".xml") and file not in excludes:
-                    fnames.append(file)
+                if file.endswith(".xml") and file[len(dname)+1:] not in excludes:
+                    if subdir is None or file[len(dname)+1:].startswith(subdir):
+                        fnames.append(file)
 
         # Remove any server info file from files enumerated by --all
         fnames[:] = [x for x in fnames if (x != sname) and (not pname or (x != pname))]
