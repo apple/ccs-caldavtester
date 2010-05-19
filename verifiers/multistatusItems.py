@@ -29,6 +29,7 @@ class Verifier(object):
 
         # If no hrefs requested, then assume none should come back
         okhrefs = args.get("okhrefs", [])
+        nohrefs = args.get("nohrefs", [])
         badhrefs = args.get("badhrefs", [])
         statushrefs = {}
         for arg in args.keys():
@@ -38,6 +39,7 @@ class Verifier(object):
             except ValueError:
                 pass
         count = args.get("count", [])
+        totalcount = args.get("totalcount", [])
         prefix = args.get("prefix", [])
         ignoremissing = args.get("ignoremissing", [])
         if len(prefix):
@@ -45,13 +47,15 @@ class Verifier(object):
         else:
             prefix = uri
         okhrefs = [prefix + i for i in okhrefs]
+        nohrefs = [prefix + i for i in nohrefs]
         badhrefs = [prefix + i for i in badhrefs]
         for k,v in args.items():
             v = [prefix + i for i in v]
             args[k] = v
         count = [int(i) for i in count]
+        totalcount = [int(i) for i in totalcount]
         
-        if "okhrefs" in args or "badhrefs" in args:
+        if "okhrefs" in args or "nohrefs" in args or "badhrefs" in args:
             doOKBad = True
         elif statushrefs:
             doOKBad = False
@@ -109,6 +113,7 @@ class Verifier(object):
             status_code_hrefs.setdefault(code, set()).add(href)
         ok_result_set = set(ok_status_hrefs)
         ok_test_set = set(okhrefs)
+        no_test_set = set(nohrefs)
         bad_result_set = set(bad_status_hrefs)
         bad_test_set = set(badhrefs)
         
@@ -122,14 +127,22 @@ class Verifier(object):
                 resulttxt +=  "        %d items returned, but %d items expected" % (len(ok_result_set) - 1, count[0], )
             return result, resulttxt
 
+        # Check for total count
+        if len(totalcount) == 1:
+            if len(ok_result_set) != totalcount[0]:
+                result = False
+                resulttxt +=  "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0], )
+            return result, resulttxt
+
         if doOKBad:
             # Now do set difference
             ok_missing = ok_test_set.difference( ok_result_set )
             ok_extras = ok_result_set.difference( ok_test_set ) if not ignoremissing else set()
+            no_extras = ok_result_set.intersection( no_test_set )
             bad_missing = bad_test_set.difference( bad_result_set )
             bad_extras = bad_result_set.difference( bad_test_set )
             
-            if len( ok_missing ) + len( ok_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
+            if len( ok_missing ) + len( ok_extras ) + len( no_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
                 if len( ok_missing ) != 0:
                     l = list( ok_missing )
                     resulttxt += "        %d Items not returned in report (OK):" % (len( ok_missing ), )
@@ -139,6 +152,12 @@ class Verifier(object):
                 if len( ok_extras ) != 0:
                     l = list( ok_extras )
                     resulttxt += "        %d Unexpected items returned in report (OK):" % (len( ok_extras ), )
+                    for i in l:
+                        resulttxt += " " + str(i) 
+                    resulttxt += "\n"
+                if len( no_extras ) != 0:
+                    l = list( no_extras )
+                    resulttxt += "        %d Unwanted items returned in report (OK):" % (len( no_extras ), )
                     for i in l:
                         resulttxt += " " + str(i) 
                     resulttxt += "\n"
