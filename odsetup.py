@@ -90,6 +90,11 @@ publicattrs = {
     "dsAttrTypeStandard:FirstName":       "Public",
     "dsAttrTypeStandard:LastName":        "%02d",
     "dsAttrTypeStandard:EMailAddress":    "public%02d@example.com",
+    "dsAttrTypeStandard:Street":          "%d Public Row",
+    "dsAttrTypeStandard:City":            "Exampleville",
+    "dsAttrTypeStandard:State":           "Testshire",
+    "dsAttrTypeStandard:PostalCode":      "RFC 4791",
+    "dsAttrTypeStandard:Country":         "AAA",
 }
 
 locationcreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
@@ -260,9 +265,13 @@ def readConfig(config):
 
     plist = readPlist(config)
     hostname = plist["ServerHostName"]
+
+    serverroot = plist["ServerRoot"]
     docroot = plist["DocumentRoot"]
+    docroot = os.path.join(serverroot, docroot) if docroot and docroot[0] not in ('/', '.',) else docroot
+
     sudoers = plist["SudoersFile"]
-    
+
     try:
         basic_ok = plist["Authentication"]["Basic"]["Enabled"]
     except KeyError:
