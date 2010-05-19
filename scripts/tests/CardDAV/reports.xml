@@ -899,9 +899,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='search query reports' ignore='yes'>
+	<test-suite name='directory gateway query reports' ignore='no'>
+		<require-feature>
+			<feature>directory-gateway</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
-			<description>query for FN starts with "jos"</description>
+			<description>query for FN starts with "pub"</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -913,14 +917,16 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-					    <value>00000000-cf07a1a2-Sm9zaCBCZWhua2U%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zaHVhIEJhbmtv.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBBbHZhcmV6.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZXBoIEFuZGVyc29u.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZWxpbiBCdXN0YW1hbnRl.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZWYgQmlzbWFub3Zza3k%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBBYmFyY2E%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBCYXNhcm90.vcf</value>
+					    <value>$publicuserguid1:.vcf</value>
+					    <value>$publicuserguid2:.vcf</value>
+					    <value>$publicuserguid3:.vcf</value>
+					    <value>$publicuserguid4:.vcf</value>
+					    <value>$publicuserguid5:.vcf</value>
+					    <value>$publicuserguid6:.vcf</value>
+					    <value>$publicuserguid7:.vcf</value>
+					    <value>$publicuserguid8:.vcf</value>
+					    <value>$publicuserguid9:.vcf</value>
+					    <value>$publicuserguid10:.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -929,7 +935,7 @@
 			<description>query for FN starts with "sim" in a unmatching vCard</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$directory:00000000-cf07a1a2-Sm9zZWYgQmlzbWFub3Zza3k%3D.vcf</ruri>
+				<ruri>$directory:$publicuserguid1:.vcf</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/2.xml</filepath>
@@ -943,7 +949,7 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
-			<description>query for ADR does not contain "a"</description>
+			<description>query for EMAIL does not contain "b"</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -955,28 +961,39 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-U2FyYWggQWJib3R0.vcf</value>
-						<value>00000000-cf07a1a2-SmFtZXMgQmFja2Vz.vcf</value>
-						<value>00000000-cf07a1a2-U3RldmUgQ2Fubw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-UmljayBBbWV6cXVpdGE%3D.vcf</value>
-						<value>00000000-cf07a1a2-U3RldmVuIEJpbmRlcg%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-Vml2aWVubmUgQWhlcm4gQWhlcm4%3D.vcf</value>
-						<value>00000000-cf07a1a2-QmVwcGUgQ2FydWdubw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-TGVpZ2ggQmxhbmtlbnNoaXA%3D.vcf</value>
-						<value>00000000-cf07a1a2-VG9ueSBBZ2hhemFyaWFu.vcf</value>
-						<value>00000000-cf07a1a2-R2FyZXRoIEFsZWNvY2s%3D.vcf</value>
-						<value>00000000-cf07a1a2-QXJhY2VseSBBY29zdGE%3D.vcf</value>
-						<value>00000000-cf07a1a2-w4VzYSBCZXJnZ3Jlbg%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-TWljaGVsZSBCdXJucw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-Q29yZXkgQ2Fyc29u.vcf</value>
-						<value>00000000-cf07a1a2-TWFyeS1FbGlzYSBCdXJrZQ%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-UGhpbGlwIEJvaw%3D%3D.vcf</value>
+						<value>$userguid1:.vcf</value>
+						<value>$userguid2:.vcf</value>
+						<value>$userguid3:.vcf</value>
+						<value>$userguid4:.vcf</value>
+						<value>$userguid5:.vcf</value>
+						<value>$userguid6:.vcf</value>
+						<value>$userguid7:.vcf</value>
+						<value>$userguid8:.vcf</value>
+						<value>$userguid9:.vcf</value>
+						<value>$userguid10:.vcf</value>
+					</arg>
+					<arg>
+						<name>nohrefs</name>
+					    <value>$publicuserguid1:.vcf</value>
+					    <value>$publicuserguid2:.vcf</value>
+					    <value>$publicuserguid3:.vcf</value>
+					    <value>$publicuserguid4:.vcf</value>
+					    <value>$publicuserguid5:.vcf</value>
+					    <value>$publicuserguid6:.vcf</value>
+					    <value>$publicuserguid7:.vcf</value>
+					    <value>$publicuserguid8:.vcf</value>
+					    <value>$publicuserguid9:.vcf</value>
+					    <value>$publicuserguid10:.vcf</value>
+					</arg>
+					<arg>
+						<name>ignoremissing</name>
+						<value/>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='4' ignore='no'>
-			<description>query for EMAIL is-not-defined</description>
+			<description>query for ADR is-not-defined</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -988,18 +1005,20 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-UGF1bCBCb2xpbmc%3D.vcf</value>
-						<value>00000000-cf07a1a2-QnJ5YXIgQnJvd24%3D.vcf</value>
-						<value>00000000-cf07a1a2-SmltIEFpZWxsbw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-RWxpemFiZXRoIENhbnRyYWxs.vcf</value>
-						<value>00000000-cf07a1a2-UGV0ZXIgQm9obGlu.vcf</value>
-						<value>00000000-cf07a1a2-U2FtIEFnbmV3.vcf</value>
-						<value>00000000-cf07a1a2-b25lIEJhZGdlcw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-Q2hyaXMgQnJ1Z2g%3D.vcf</value>
-						<value>00000000-cf07a1a2-QW15IENhcmxvdw%3D%3D.vcf</value>
-						<value>00000000-cf07a1a2-U3RhY3kgQW50aWE%3D.vcf</value>
-						<value>00000000-cf07a1a2-VmljdG9yIENhYmFnYmFnLCBKci4%3D.vcf</value>
-						<value>00000000-cf07a1a2-Um9iZXJ0IEJsYWluZXk%3D.vcf</value>
+						<value>$userguid1:.vcf</value>
+						<value>$userguid2:.vcf</value>
+						<value>$userguid3:.vcf</value>
+						<value>$userguid4:.vcf</value>
+						<value>$userguid5:.vcf</value>
+						<value>$userguid6:.vcf</value>
+						<value>$userguid7:.vcf</value>
+						<value>$userguid8:.vcf</value>
+						<value>$userguid9:.vcf</value>
+						<value>$userguid10:.vcf</value>
+					</arg>
+					<arg>
+						<name>ignoremissing</name>
+						<value/>
 					</arg>
 				</verify>
 			</request>
@@ -1015,28 +1034,15 @@
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
- 					<arg>
-						<name>badhrefs</name>
-						<value/> 
-					</arg>
 					<arg>
-						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-RWxvZGlhIEFuZ3VpYW5vIFBhbnRvamE%3D.vcf</value>
-						<value>00000000-cf07a1a2-S2FyZW4gQWJnYXJpYW4%3D.vcf</value>
-						<value>00000000-cf07a1a2-VG9taWNrbyBBYmVsbGE%3D.vcf</value>
-						<value>00000000-cf07a1a2-S0VMTFkgQUxGT1JE.vcf</value>
-						<value>00000000-cf07a1a2-QWFyb24gQWJib3R0.vcf</value>
-						<value>00000000-cf07a1a2-RmF0aW1hIEFiZHVsbGFo.vcf</value>
-						<value>00000000-cf07a1a2-SGFuaSBBYmRlbGF6aW0%3D.vcf</value>
-						<value>00000000-cf07a1a2-U2FyYWggQWJib3R0.vcf</value>
-						<value>00000000-cf07a1a2-VGFtbXkgQWJlbGw%3D.vcf</value>
-						<value>00000000-cf07a1a2-Sm9uYXRoYW4gQWJlcmxl.vcf</value>
+						<name>totalcount</name>
+						<value>10</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>query EMAIL contains "@euro" with parameter "HOME"</description>
+			<description>query EMAIL contains "@example" with parameter "HOME"</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1047,14 +1053,14 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>badhrefs</name>
-						<value/> 
+						<name>totalcount</name>
+						<value>0</value> 
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>query N contains "Mac" and EMAIL contains "@euro"</description>
+			<description>query FN contains "ic 01" and EMAIL contains "@example"</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1066,13 +1072,13 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-					    <value>00000000-cf07a1a2-Q2xhaXJlIE1hY1JhZQ%3D%3D.vcf</value>
+					    <value>$publicuserguid1:.vcf</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name="8" ignore="no">
-			<description>query for resources with EMAIL contains '.com' and 'apple" with parameter TYPE = "WORK") limited to 4 responses</description>
+			<description>query for resources with EMAIL contains '.com' and '01' with parameter TYPE = "WORK") limited to 4 responses</description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1087,17 +1093,14 @@
 						<value/> 
 					</arg>
 					<arg>
-						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-Sm9zZSBBYmFyY2E%3D.vcf</value>
- 						<value>00000000-cf07a1a2-RWxvZGlhIEFuZ3VpYW5vIFBhbnRvamE%3D.vcf</value>
- 						<value>00000000-cf07a1a2-U2FyYWggQWJib3R0.vcf</value>
- 						<value>00000000-cf07a1a2-S0VMTFkgQUxGT1JE.vcf</value>
+						<name>totalcount</name>
+						<value>4</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name="9" ignore="no">
-			<description>query for resources with (FN contains 'John' and 'Anderson") or (EMAIL  contains 'apple' and 'ank')" </description>
+			<description>query for resources with (FN contains 'Public' and '03") or (EMAIL  contains 'User' and '02')" </description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1107,16 +1110,10 @@
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
- 					<arg>
-						<name>badhrefs</name>
-						<value/> 
-					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-TWljaGVsbGUgQmFua3M%3D.vcf</value>
- 						<value>00000000-cf07a1a2-Sm9obiBBbmtlcg%3D%3D.vcf</value>
- 						<value>00000000-cf07a1a2-Sm9obiBBbmRlcnNvbg%3D%3D.vcf</value>
- 						<value>00000000-cf07a1a2-Sm9zaHVhIEJhbmtv.vcf</value>
+					    <value>$publicuserguid3:.vcf</value>
+					    <value>$userguid2:.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -1137,17 +1134,14 @@
 						<value/> 
 					</arg>
 					<arg>
-						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-Sm9zZSBBYmFyY2E%3D.vcf</value>
- 						<value>00000000-cf07a1a2-RWxvZGlhIEFuZ3VpYW5vIFBhbnRvamE%3D.vcf</value>
- 						<value>00000000-cf07a1a2-U2FyYWggQWJib3R0.vcf</value>
- 						<value>00000000-cf07a1a2-S0VMTFkgQUxGT1JE.vcf</value>
+						<name>totalcount</name>
+						<value>4</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name="11" ignore="no">
-			<description>query for resources with (FN contains 'John' and 'Anderson") AND (EMAIL  contains 'apple' and 'john') limited to 4 results"" </description>
+			<description>query for resources with (FN contains 'Public' and '03") AND (EMAIL  contains 'example' and 'public') limited to 4 results"" </description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1159,13 +1153,13 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-Sm9obiBBbmRlcnNvbg%3D%3D.vcf</value>
+					    <value>$publicuserguid3:.vcf</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name="12" ignore="no">
-			<description>query for resources with (FN contains 'John') AND (FN contains 'Anderson") AND (EMAIL  contains 'apple') AND (EMAIL  contains 'ank') limited to 4 results"" </description>
+			<description>query for resources with (FN contains 'Public' and '03") AND (EMAIL  contains 'example' and 'user') limited to 4 results"" </description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1182,7 +1176,7 @@
 			</request>
 		</test>
 		<test name="13" ignore="no">
-			<description>query for resources where (FN contains 'John') OR (FN contains 'Anderson") OR (EMAIL  contains 'apple') OR (EMAIL  contains 'ank') limited to 4 results" </description>
+			<description>query for resources where (FN contains '02') OR (FN contains '03") OR (EMAIL  contains '04') OR (EMAIL  contains 'user')" </description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1192,22 +1186,28 @@
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
- 					<arg>
-						<name>badhrefs</name>
-						<value/> 
-					</arg>
 					<arg>
 						<name>okhrefs</name>
- 						<value>00000000-cf07a1a2-Sm9zZSBBYmFyY2E%3D.vcf</value>
- 						<value>00000000-cf07a1a2-RWxvZGlhIEFuZ3VpYW5vIFBhbnRvamE%3D.vcf</value>
- 						<value>00000000-cf07a1a2-U2FyYWggQWJib3R0.vcf</value>
- 						<value>00000000-cf07a1a2-S0VMTFkgQUxGT1JE.vcf</value>
+					    <value>$userguid2:.vcf</value>
+					    <value>$publicuserguid2:.vcf</value>
+					    <value>$userguid3:.vcf</value>
+					    <value>$publicuserguid3:.vcf</value>
+					    <value>$userguid4:.vcf</value>
+					    <value>$publicuserguid4:.vcf</value>
+						<value>$userguid1:.vcf</value>
+						<value>$userguid4:.vcf</value>
+						<value>$userguid5:.vcf</value>
+						<value>$userguid6:.vcf</value>
+						<value>$userguid7:.vcf</value>
+						<value>$userguid8:.vcf</value>
+						<value>$userguid9:.vcf</value>
+						<value>$userguid10:.vcf</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name="14" ignore="no">
-			<description>query for resources with (FN contains 'John' AND 'Anderson") OR (EMAIL  contains 'ank' with TYPE parameter = "work") limited to 4 results" </description>
+			<description>query for resources with (FN contains 'Public' or '03") AND (EMAIL  contains 'bogus' with TYPE parameter = "work") limited to 4 results" </description>
 			<request print-response="no">
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
@@ -1218,14 +1218,19 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>okhrefs</name>
-						<value>00000000-cf07a1a2-Sm9obiBBbmtlcg%3D%3D.vcf</value>
+						<name>totalcount</name>
+					    <value>0</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 	</test-suite>
-	<test-suite name='search multiget reports' ignore='yes'>
+
+	<test-suite name='directory gateway multiget reports' ignore='no'>
+		<require-feature>
+			<feature>directory-gateway</feature>
+		</require-feature>
+
 		<test name='1' ignore='no'>
 			<description>basic multiget of 8 resources in search node returning etag and entire vcf data</description>
 			<request print-response="no">
@@ -1239,14 +1244,14 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-					    <value>00000000-cf07a1a2-Sm9zaCBCZWhua2U%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zaHVhIEJhbmtv.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBBbHZhcmV6.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZXBoIEFuZGVyc29u.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZWxpbiBCdXN0YW1hbnRl.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZWYgQmlzbWFub3Zza3k%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBBYmFyY2E%3D.vcf</value>
-					    <value>00000000-cf07a1a2-Sm9zZSBCYXNhcm90.vcf</value>
+						<value>$userguid1:.vcf</value>
+						<value>$userguid2:.vcf</value>
+						<value>$userguid3:.vcf</value>
+						<value>$userguid4:.vcf</value>
+						<value>$publicuserguid1:.vcf</value>
+						<value>$publicuserguid2:.vcf</value>
+						<value>$publicuserguid3:.vcf</value>
+						<value>$publicuserguid4:.vcf</value>
 					</arg>
 				</verify>
 			</request>
