@@ -165,7 +165,7 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>Check sharee calendar displyname</description>
+			<description>Check sharee calendar displyname/shared-url</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar:/</ruri>
@@ -175,19 +175,20 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/displayname.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/replies/accept/8.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>propfindValues</callback>
 					<arg>
 						<name>okprops</name>
 						<value>DAV:displayname$The Shared Calendar</value>
+						<value>http://calendarserver.org/ns/sharedurl$$pathprefix1:/shared</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>Check sharee calendar displyname</description>
+			<description>Check sharer calendar displyname</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$pathprefix1:/shared/</ruri>
