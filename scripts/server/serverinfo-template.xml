@@ -20,7 +20,7 @@
 
 <serverinfo>
 	<host>%(hostname)s</host>
-	<port>8008</port>
+	<port>%(port)s</port>
 	<authtype>%(authtype)s</authtype>
 
 	<features>
@@ -67,13 +67,15 @@
 		<!-- CardDAV specific extension -->
 		<feature>carddav</feature> 						<!-- Basic CardDAV feature enabler -->
 		<feature>global-addressbook</feature> 			<!-- Global address book for each user -->
+		<feature>shared-addressbooks</feature>			<!-- Shared address books extension -->
+		<feature>directory-gateway</feature>			<!-- Directory gateway extension -->
 
 	</features>
 
 	<substitutions>
 		<substitution>
 			<key>$host:</key>
-			<value>http://%(hostname)s:8008</value>
+			<value>http://%(hostname)s:%(port)s</value>
 		</substitution>
 
 		<!-- relative path to caldav root-->
@@ -359,6 +361,11 @@
 				<key>$calendarpath%%d:</key>
 				<value>$calendars_uids:$userguid%%d:/$calendar:</value>
 			</substitution>
+			<!-- relative path to user alternate calendar home-->
+			<substitution>
+				<key>$calendarpathalt%%d:</key>
+				<value>$calendars_users:$userid%%d:/$calendar:</value>
+			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
 				<key>$inboxpath%%d:</key>
@@ -383,11 +390,6 @@
 			<substitution>
 				<key>$freebusypath%%d:</key>
 				<value>$calendars_uids:$userguid%%d:/$freebusy:</value>
-			</substitution>
-			<!-- relative path to user alternate calendar home-->
-			<substitution>
-				<key>$calendarpathalt%%d:</key>
-				<value>$calendars_users:$userid%%d:/$calendar:</value>
 			</substitution>
 			<substitution>
 				<key>$email%%d:</key>

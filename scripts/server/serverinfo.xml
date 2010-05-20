@@ -68,6 +68,7 @@
 		<feature>carddav</feature> 						<!-- Basic CardDAV feature enabler -->
 		<feature>global-addressbook</feature> 			<!-- Global address book for each user -->
 		<feature>shared-addressbooks</feature>			<!-- Shared address books extension -->
+		<!-- <feature>directory-gateway</feature> -->	<!-- Directory gateway extension -->
 
 	</features>
 
@@ -351,10 +352,20 @@
 				<key>$pathprefix%d:</key>
 				<value>$calendars_uids:$userguid%d:</value>
 			</substitution>
+			<!-- relative path to user alternate calendar home-->
+			<substitution>
+				<key>$pathprefixalt%d:</key>
+				<value>$calendars_users:$userid%d:</value>
+			</substitution>
 			<!-- relative path to user calendar-->
 			<substitution>
 				<key>$calendarpath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$calendar:</value>
+			</substitution>
+			<!-- relative path to user alternate calendar-->
+			<substitution>
+				<key>$calendarpathalt%d:</key>
+				<value>$calendars_users:$userid%d:/$calendar:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
@@ -380,16 +391,6 @@
 			<substitution>
 				<key>$freebusypath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$freebusy:</value>
-			</substitution>
-			<!-- relative path to user alternate calendar home-->
-			<substitution>
-				<key>$pathprefixalt%d:</key>
-				<value>$calendars_users:$userid%d:</value>
-			</substitution>
-			<!-- relative path to user alternate calendar-->
-			<substitution>
-				<key>$calendarpathalt%d:</key>
-				<value>$calendars_users:$userid%d:/$calendar:</value>
 			</substitution>
 			<substitution>
 				<key>$email%d:</key>

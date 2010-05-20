@@ -32,15 +32,24 @@ import xml.parsers.expat
 diradmin_user    = "admin"
 diradmin_pswd    = ""
 directory_node   = "/LDAPv3/127.0.0.1"
-config           = "/etc/caldavd/caldavd.plist"
 utility          = "/usr/sbin/calendarserver_manage_principals"
 cmdutility       = "/usr/sbin/calendarserver_command_gateway"
 
 verbose = False
 veryverbose = False
 
-serverinfo_default  = "scripts/server/serverinfo.xml"
 serverinfo_template = "scripts/server/serverinfo-template.xml"
+
+details = {
+    "caldav": {
+        "config": "/etc/caldavd/caldavd.plist",
+        "serverinfo": "scripts/server/serverinfo-caldav.xml"
+    },
+    "carddav": {
+        "config": "/etc/carddavd/carddavd.plist",
+        "serverinfo": "scripts/server/serverinfo-carddav.xml"
+    }
+}
 
 base_dir = "../CalendarServer/"
 
@@ -210,14 +219,16 @@ records = (
 def usage():
     print """Usage: odsteup [options] create|create-users|remove
 Options:
-    -h       Print this help and exit
-    -n node  OpenDirectory node to target
-    -u uid   OpenDirectory Admin user id
-    -p pswd  OpenDirectory Admin user password
-    -f file  caldavd.plist config file used by the server
-    -c users number of user accounts to create (default: 10)
-    -v       verbose logging
-    -V       very verbose logging
+    -h        Print this help and exit
+    -n node   OpenDirectory node to target
+    -u uid    OpenDirectory Admin user id
+    -p pswd   OpenDirectory Admin user password
+    -f file   .plist config file used by the server
+    -c users  number of user accounts to create (default: 10)
+    -v        verbose logging
+    -V        very verbose logging
+    --caldav  testing CalDAV server
+    --carddav testing CardDAV server
 """
 
 def cmd(args, input=None, raiseOnFail=True):
@@ -257,7 +268,8 @@ def readConfig(config):
         plist["SudoersFile"] = "/etc/caldavd/sudoers.plist"
         writePlist(plist,config)
 
-    try: sudoerspl = readPlist('/etc/caldavd/sudoers.plist')
+    try:
+        sudoerspl = readPlist('/etc/caldavd/sudoers.plist')
     except IOError:
         # create a new sudoers.plist with empty 'users' array
         sudoerspl = {'users': []}
@@ -271,6 +283,8 @@ def readConfig(config):
     docroot = os.path.join(serverroot, docroot) if docroot and docroot[0] not in ('/', '.',) else docroot
 
     sudoers = plist["SudoersFile"]
+
+    port = plist["HTTPPort"]
 
     try:
         basic_ok = plist["Authentication"]["Basic"]["Enabled"]
@@ -292,7 +306,7 @@ def readConfig(config):
     if sudoers[0] != "/":
         sudoers = base_dir + sudoers
 
-    return hostname, authtype, docroot, sudoers
+    return hostname, port, authtype, docroot, sudoers
 
 def patchConfig(config, admin):
     """
@@ -335,7 +349,7 @@ def patchSudoers(sudoers):
         users.append({"username":"superuser", "password": "superuser"})
         writePlist(plist, sudoers)
 
-def buildServerinfo(hostname, authtype, docroot):
+def buildServerinfo(serverinfo_default, hostname, port, authtype, docroot):
     
     # Read in the serverinfo-template.xml file
     fd = open(serverinfo_template, "r")
@@ -374,6 +388,7 @@ def buildServerinfo(hostname, authtype, docroot):
 
     data = data % {
         "hostname"       : hostname,
+        "port"           : str(port),
         "authtype"       : authtype,
         "overrides"      : subs_str,
     }
@@ -404,7 +419,7 @@ def addLargeCalendars(hostname, docroot):
             cmd("tar -C %s -zx -f data/%s.tgz" % (path, calendar,))
             cmd("chown -R calendar:calendar %s" % (os.path.join(path, calendar) ,))
 
-def loadLists(path, records):
+def loadLists(config, path, records):
     if path == "/Places":
         result = cmd(
             "%s -f %s" % (cmdutility, config,),
@@ -427,9 +442,11 @@ def loadLists(path, records):
     for record in plist["result"]:
         records[record["RecordName"][0]] = record["GeneratedUID"] 
 
-def doToAccounts(f, users_only=False):
+def doToAccounts(config, protocol, f, users_only=False):
     
     for record in records:
+        if protocol == "carddav" and record[0] in ("/Places", "/Resources"):
+            continue
         if record[4] is None:
             count = number_of_users
         elif users_only:
@@ -444,9 +461,9 @@ def doToAccounts(f, users_only=False):
                         value = value % (ctr,)
                     attrs[key] = value
                 ruser = (record[1] % (ctr,), record[2] % (ctr,), attrs, 1)
-                f(record[0], ruser)
+                f(config, record[0], ruser)
         else:
-            f(record[0], record[1:])
+            f(config, record[0], record[1:])
 
 def doGroupMemberships():
     
@@ -465,12 +482,12 @@ def doGroupMemberships():
         cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs])), raiseOnFail=False)
         cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs])), raiseOnFail=False)
 
-def createUser(path, user):
+def createUser(config, path, user):
     
     if path in ("/Users", "/Groups",):
-        createUserViaDS(path, user)
-    else:
-        createUserViaGateway(path, user)
+        createUserViaDS(config, path, user)
+    elif protocol == "caldav":
+        createUserViaGateway(config, path, user)
         
     # Do caldav_utility setup
     if path in ("/Places", "/Resources",):
@@ -485,7 +502,7 @@ def createUser(path, user):
                 user[0],
             ))
 
-def createUserViaDS(path, user):
+def createUserViaDS(config, path, user):
     # Do dscl command line operations to create a calendar user
     
     # Only create if it does not exist
@@ -511,7 +528,7 @@ def createUserViaDS(path, user):
         guid = result[0].split()[1]
         guids[user[0]] = guid
 
-def createUserViaGateway(path, user):
+def createUserViaGateway(config, path, user):
     
     # Check for existing
     if path == "/Places":
@@ -547,28 +564,33 @@ def createUserViaGateway(path, user):
     else:
         raise ValueError()
     
-def removeUser(path, user):
+def removeUser(config, path, user):
     
     if path in ("/Users", "/Groups",):
-        removeUserViaDS(path, user)
+        removeUserViaDS(config, path, user)
     else:
-        removeUserViaGateway(path, user)
+        removeUserViaGateway(config, path, user)
 
-def removeUserViaDS(path, user):
+def removeUserViaDS(config, path, user):
     # Do dscl command line operations to create a calendar user
     
     # Create the user
     cmd("dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]), raiseOnFail=False)
 
-def removeUserViaGateway(path, user):
+def removeUserViaGateway(config, path, user):
     
-    guid = uuid.uuid4()
     if path == "/Places":
+        if user[0] not in locations:
+            return
+        guid = locations[user[0]]
         cmd(
             "%s -f %s" % (cmdutility, config,),
             locationremovecmd % {"guid":guid,}
         )
     elif path == "/Resources":
+        if user[0] not in resources:
+            return
+        guid = resources[user[0]]
         cmd(
             "%s -f %s" % (cmdutility, config,),
             resourceremovecmd % {"guid":guid,}
@@ -578,8 +600,11 @@ def removeUserViaGateway(path, user):
 
 if __name__ == "__main__":
 
+    config = None
+    protocol = None
+    serverinfo_default = None
     try:
-        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV", ["old"])
+        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV", ["carddav", "caldav", "old"])
 
         for option, value in options:
             if option == "-h":
@@ -600,11 +625,24 @@ if __name__ == "__main__":
             elif option == "-V":
                 verbose = True
                 veryverbose = True
+            elif option == "--carddav":
+                protocol = "carddav"
+            elif option == "--caldav":
+                protocol = "caldav"
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
                 raise ValueError
 
+        if not protocol:
+            print "One of --carddav or --caldav MUST be specified"
+            usage()
+            raise ValueError
+        else:
+            if not config:
+                config = details[protocol]["config"]
+                serverinfo_default = details[protocol]["serverinfo"]
+            
         if not diradmin_pswd:
             diradmin_pswd = getpass("Password: ")
 
@@ -624,42 +662,48 @@ if __name__ == "__main__":
         
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, authtype, docroot, sudoers = readConfig(config)
+            hostname, port, authtype, docroot, sudoers = readConfig(config)
             
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
     
             # Now generate the OD accounts (caching guids as we go).
-            loadLists("/Places", locations)
-            loadLists("/Resources", resources)
+            if protocol == "caldav":
+                loadLists(config, "/Places", locations)
+                loadLists(config, "/Resources", resources)
 
-            doToAccounts(createUser)
+            doToAccounts(config, protocol, createUser)
             doGroupMemberships()
             
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
             patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
             
             # Create an appropriate serverinfo.xml file from the template
-            buildServerinfo(hostname, authtype, docroot)
+            buildServerinfo(serverinfo_default, hostname, port, authtype, docroot)
 
             # Add large calendars to user account
-            addLargeCalendars(hostname, docroot)
+            if protocol == "caldav":
+                addLargeCalendars(hostname, docroot)
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, authtype, docroot, sudoers = readConfig(config)
+            hostname, port, authtype, docroot, sudoers = readConfig(config)
             
             # Now generate the OD accounts (caching guids as we go).
-            loadLists("/Places", locations)
-            loadLists("/Resources", resources)
+            if protocol == "caldav":
+                loadLists(config, "/Places", locations)
+                loadLists(config, "/Resources", resources)
 
-            doToAccounts(createUser, users_only=True)
+            doToAccounts(config, protocol, createUser, users_only=True)
             
             # Create an appropriate serverinfo.xml file from the template
-            buildServerinfo(hostname, authtype, docroot)
+            buildServerinfo(serverinfo_default, hostname, port, authtype, docroot)
 
         elif args[0] == "remove":
-            doToAccounts(removeUser)
+            if protocol == "caldav":
+                loadLists(config, "/Places", locations)
+                loadLists(config, "/Resources", resources)
+            doToAccounts(config, protocol, removeUser)
             
     except Exception, e:
         sys.exit(str(e))
