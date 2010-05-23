@@ -16,16 +16,24 @@
 
 import httplib
 import socket
-import ssl as sslmodule
+_haveSSL = False
+try:
+    import ssl as sslmodule
+    _haveSSL = True
+except ImportError:
+    pass
 
-class HTTPSConnection_SSLv3(httplib.HTTPSConnection):
-    "This class allows communication via SSL."
-
-    def connect(self):
-        "Connect to a host on a given (SSL) port."
-
-        sock = socket.create_connection((self.host, self.port), self.timeout)
-        self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=sslmodule.PROTOCOL_SSLv3)
+if _haveSSL:
+    class HTTPSConnection_SSLv3(httplib.HTTPSConnection):
+        "This class allows communication via SSL."
+    
+        def connect(self):
+            "Connect to a host on a given (SSL) port."
+    
+            sock = socket.create_connection((self.host, self.port), self.timeout)
+            self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=sslmodule.PROTOCOL_SSLv3)
+else:
+    HTTPSConnection_SSLv3 = httplib.HTTPSConnection
 
 https_v23_connects = set()
 https_v3_connects = set()
