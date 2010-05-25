@@ -64,16 +64,16 @@ class caldavtest(object):
             
         try:
             self.manager.log(manager.LOG_HIGH, "----- Running Tests from \"%s\"... -----" % self.name, before=1)
-            result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True )
+            result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS") )
             if not result:
                 self.manager.log(manager.LOG_ERROR, "Start items failed - tests will not be run.")
                 ok = 0
                 failed = 1
                 ignored = 0
             else:
-                ok, failed, ignored = self.run_tests()
-            self.doenddelete( "Deleting Requests..." )
-            self.dorequests( "Executing End Requests...", self.end_requests, False )
+                ok, failed, ignored = self.run_tests(label=self.name)
+            self.doenddelete( "Deleting Requests...", label="%s | %s" % (self.name, "END_DELETE"))
+            self.dorequests( "Executing End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
             return ok, failed, ignored
         except socket.error, msg:
             self.manager.log(manager.LOG_ERROR, "SOCKET ERROR: %s" % (msg,), before=2)
@@ -82,18 +82,18 @@ class caldavtest(object):
             self.manager.log(manager.LOG_ERROR, "FATAL ERROR: %s" % (e,), before=2)
             return 0, 1, 0
         
-    def run_tests( self ):
+    def run_tests( self, label = "" ):
         ok = 0
         failed = 0
         ignored = 0
         for suite in self.suites:
-            o, f, i = self.run_test_suite( suite )
+            o, f, i = self.run_test_suite( suite, label="%s | %s" % (label, suite.name) )
             ok += o
             failed += f
             ignored += i
         return (ok, failed, ignored)
     
-    def run_test_suite( self, suite ):
+    def run_test_suite( self, suite, label = "" ):
         descriptor = "    Test Suite: %s" % suite.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
@@ -113,7 +113,7 @@ class caldavtest(object):
                 start_usage = self.manager.getMemusage()
             etags = {}
             for test in suite.tests:
-                result = self.run_test( test, etags )
+                result = self.run_test( test, etags, label="%s | %s" % (label, test.name) )
                 if result == "t":
                     ok += 1
                 elif result == "f":
@@ -127,7 +127,7 @@ class caldavtest(object):
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
         return (ok, failed, ignored)
             
-    def run_test( self, test, etags ):
+    def run_test( self, test, etags, label = "" ):
         descriptor = "        Test: %s" % test.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
@@ -147,7 +147,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
                 for req in test.requests:
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags )
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags, label=label )
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -159,14 +159,14 @@ class caldavtest(object):
                 self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
             return ["f", "t"][result]
     
-    def dorequests( self, description, list, doverify = True, forceverify = False ):
+    def dorequests( self, description, list, doverify = True, forceverify = False, label = "" ):
         if len(list) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         ctr = 1
         for req in list:
-            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify )
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify, label=label )
             if not result:
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
@@ -177,7 +177,7 @@ class caldavtest(object):
             self.manager.log(loglevel, resulttxt)
         return result
     
-    def dofindall( self, collection):
+    def dofindall( self, collection, label = "" ):
         hrefs = []
         req = request(self.manager)
         req.method = "PROPFIND"
@@ -197,7 +197,7 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
+        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label=label )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             doc = xml.dom.minidom.parseString( respdata )
 
@@ -223,7 +223,7 @@ class caldavtest(object):
                         hrefs.append((href, collection[1], collection[2]) )
         return hrefs
 
-    def dodeleteall( self, deletes ):
+    def dodeleteall( self, deletes, label = "" ):
         if len(deletes) == 0:
             return True
         for deleter in deletes:
@@ -235,9 +235,9 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            self.dorequest( req, False, False )
+            self.dorequest( req, False, False, label=label )
 
-    def dofindnew( self, collection):
+    def dofindnew( self, collection, label = "" ):
         hresult = ""
         req = request(self.manager)
         req.method = "PROPFIND"
@@ -258,7 +258,7 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
+        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s" % (label, "FINDNEW") )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             doc = xml.dom.minidom.parseString( respdata )
 
@@ -314,7 +314,7 @@ class caldavtest(object):
 
         return hresult
 
-    def dowaitcount( self, collection, count):
+    def dowaitcount( self, collection, count, label = ""):
         
         for _ignore in range(30):
             req = request(self.manager)
@@ -335,7 +335,7 @@ class caldavtest(object):
 </D:propfind>
 """
             req.data.content_type = "text/xml"
-            result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False )
+            result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count) )
             ctr = 0
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
                 doc = xml.dom.minidom.parseString( respdata )
@@ -352,7 +352,7 @@ class caldavtest(object):
         else:
             return False
 
-    def dowaitchanged( self, uri, etag, user, pswd ):
+    def dowaitchanged( self, uri, etag, user, pswd, label = "" ):
         
         for _ignore in range(30):
             req = request(self.manager)
@@ -363,7 +363,7 @@ class caldavtest(object):
                 req.user = user
             if pswd:
                 req.pswd = pswd
-            result, _ignore_resulttxt, response,  _ignore_respdata = self.dorequest( req, False, False )
+            result, _ignore_resulttxt, response,  _ignore_respdata = self.dorequest( req, False, False, label="%s | %s" % (label, "WAITCHANGED") )
             if result and (response is not None):
                 if response.status / 100 == 2:
                     hdrs = response.msg.getheaders("Etag")
@@ -382,7 +382,7 @@ class caldavtest(object):
 
         return True
 
-    def doenddelete( self, description ):
+    def doenddelete( self, description, label = "" ):
         if len(self.end_deletes) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
@@ -396,17 +396,17 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            self.dorequest( req, False, False )
+            self.dorequest( req, False, False, label=label )
         self.manager.log(manager.LOG_HIGH, "[DONE]")
     
-    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None ):
+    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "" ):
         
         # Special check for DELETEALL
         if req.method == "DELETEALL":
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                hrefs = self.dofindall(collection)
-                self.dodeleteall(hrefs)
+                hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
+                self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
             return True, "", None, None
         
         # Special for delay
@@ -421,7 +421,7 @@ class caldavtest(object):
         # Special for GETNEW
         elif req.method == "GETNEW":
             collection = (req.ruri, req.user, req.pswd)
-            self.grabbedlocation = self.dofindnew(collection)
+            self.grabbedlocation = self.dofindnew(collection, label=label)
             req.method = "GET"
             req.ruri = "$"
             
@@ -429,7 +429,7 @@ class caldavtest(object):
         elif req.method.startswith("WAITCOUNT"):
             count = int(req.method[10:])
             collection = (req.ruri, req.user, req.pswd)
-            if self.dowaitcount(collection, count):
+            if self.dowaitcount(collection, count, label=label):
                 return True, "", None, None
             else:
                 return False, "Count did not change", None, None
@@ -465,7 +465,8 @@ class caldavtest(object):
 
         # Special for GETCHANGED
         if req.method == "GETCHANGED":
-            if not self.dowaitchanged(uri, etags[uri], req.user, req.pswd):
+            if not self.dowaitchanged(uri, etags[uri], req.user, req.pswd,
+                label=label):
                 return False, "Resource did not change", None, None
             method = "GET"
 
@@ -475,6 +476,10 @@ class caldavtest(object):
 
         # Do the http request
         http = SmartHTTPConnection( self.manager.server_info.host, self.manager.server_info.port, self.manager.server_info.ssl )
+
+        if not headers.has_key('User-Agent') and label is not None:
+            headers['User-Agent'] = label.encode("utf-8")
+
         try:
             #self.manager.log(manager.LOG_LOW, "Sending request")
             http.request( method, uri, data, headers )
