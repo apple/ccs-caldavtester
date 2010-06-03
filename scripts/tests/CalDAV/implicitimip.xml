@@ -143,64 +143,6 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Attempt to store local organized event with SCHEDULE-AGENT=NONE' ignore='no'>
-		<test name='1'>
-			<description>Attendee stores organized event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/7.ics</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavvalid-attendee-change</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Attendee stores organized event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/8.ics</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavvalid-attendee-change</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>Clean-up</description>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
-		</test>
-	</test-suite>
-
 	<end/>
 	
 </caldavtest>

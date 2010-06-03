@@ -772,6 +772,397 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Organizer CLIENT' ignore='no'>
+		<test name='1'>
+			<description>Attendee 2 stores SCHEDULE-AGENT=CLIENT event with NEEDS-ACTION</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request  user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/organizer-client/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer No Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee 2 stores SCHEDULE-AGENT=CLIENT event with ACCPTED</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee checks data</description>
+			<request  user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/organizer-client/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Organizer No Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee 2 tries to store SCHEDULE-AGENT=SERVER</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee 2 deletes event</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee checks data</description>
+			<request  user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer No Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Clean-up</description>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Organizer CLIENT->SERVER' ignore='no'>
+		<test name='1'>
+			<description>Attendee 2 stores SCHEDULE-AGENT=CLIENT event with ACCEPTED</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request  user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer No Inbox Item</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer invites Attendees</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee 2 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee 2 has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee deletes Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Attendee 3 no Inbox Item</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath3:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Attendee 3 no data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath3:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Attendee 2 tries to store SCHEDULE-AGENT=CLIENT</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/organizer-client-server/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Clean-up</description>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
