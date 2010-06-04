@@ -53,7 +53,7 @@ details = {
 
 base_dir = "../CalendarServer/"
 
-number_of_users = 10
+number_of_users = 40
 
 guids = {
     "testadmin"  : "",

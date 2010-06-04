@@ -642,6 +642,35 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>POST free busy - check ATTENDEE limit</description>
+			<request print-response='yes'>
+				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/schedule/24.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>ATTENDEE:$cuaddr30:</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>ATTENDEE:$cuaddr31:</value>
+					</arg>
+					<arg>
+						<name>unwrap</name>
+						<value/>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
