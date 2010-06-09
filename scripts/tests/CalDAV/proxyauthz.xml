@@ -56,14 +56,6 @@
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
-			<method>ACL</method>
-			<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
-			<data>
-				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/acls/20.xml</filepath>
-			</data>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
 			<data>
@@ -123,7 +115,18 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>per-object-ACLs</feature>
+			</require-feature>
 			<description>GET user02 resource</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>ACL</method>
+				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/acls/20.xml</filepath>
+				</data>
+			</request>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
 				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
@@ -180,6 +183,9 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
+			<require-feature>
+				<feature>per-object-ACLs</feature>
+			</require-feature>
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
@@ -198,6 +204,9 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>per-object-ACLs</feature>
+			</require-feature>
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
@@ -208,14 +217,13 @@
 				</header>
 				<verify>
 					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='4' ignore='no'>
+			<require-feature>
+				<feature>per-object-ACLs</feature>
+			</require-feature>
 			<description>GET user02 resource</description>
 			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
 				<method>GET</method>
