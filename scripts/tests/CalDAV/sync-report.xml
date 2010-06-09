@@ -112,6 +112,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3' ignore='no'>
+			<description>On inbox</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>props</name>
+						<value>DAV:supported-report-set$.*sync-collection.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='simple reports - empty token - no props' ignore='no'>
@@ -709,6 +731,26 @@
 					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
 					<variable>$synctoken1:</variable>
 				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - empty inbox' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
 			</request>
 		</test>
 	</test-suite>
