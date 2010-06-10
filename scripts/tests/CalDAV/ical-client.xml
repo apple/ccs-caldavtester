@@ -27,7 +27,7 @@
 
 	<start/>
 	
-	<test-suite name='Account setup'>
+	<test-suite name='Account setup - client 1' ignore='no'>
 		<test name='1'>
 			<description>PROPFIND principal - no authentication</description>
 			<request auth="no">
@@ -39,7 +39,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/ical-client/1.xml</filepath>
+					<filepath>Resource/CalDAV/ical-client/client1/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -61,7 +61,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/ical-client/1.xml</filepath>
+					<filepath>Resource/CalDAV/ical-client/client1/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -74,7 +74,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Polling'>
+	<test-suite name='Polling - client 1' ignore='no'>
 		<test name='1'>
 			<description>PROPFIND calendar home</description>
 			<request print-response="no">
@@ -86,7 +86,79 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/ical-client/2.xml</filepath>
+					<filepath>Resource/CalDAV/ical-client/client1/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>207</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Account setup - client 2' ignore='no'>
+		<test name='1'>
+			<description>PROPFIND principal - no authentication</description>
+			<request auth="no">
+				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ical-client/client2/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PROPFIND principal - with authentication</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ical-client/client2/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>207</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Polling - client 2' ignore='no'>
+		<test name='1'>
+			<description>PROPFIND calendar home</description>
+			<request print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ical-client/client2/2.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
