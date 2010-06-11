@@ -96,7 +96,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Initial event' ignore='no'>
+	<test-suite name='Initial event' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User01 store to shared</description>
 			<request user="$userid1:" pswd="$pswd1:" print-response="no">
@@ -138,7 +138,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User01 changed event' ignore='no'>
+	<test-suite name='User01 changed event' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User01 store to shared</description>
 			<request user="$userid1:" pswd="$pswd1:" print-response="no">
@@ -180,7 +180,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User02 changed event' ignore='no'>
+	<test-suite name='User02 changed event' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User02 store to shared</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -222,7 +222,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Different freebusy' ignore='no'>
+	<test-suite name='Different freebusy' ignore='yes'>
 		<test name='1'>
 			<description>Set properties on new calendars</description>
 			<request print-response='no'>
@@ -393,7 +393,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User01 complex recurring store' ignore='no'>
+	<test-suite name='User01 complex recurring store' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User01 store to shared</description>
 			<request user="$userid1:" pswd="$pswd1:" print-response="no">
@@ -435,7 +435,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User02 complex recurring store' ignore='no'>
+	<test-suite name='User02 complex recurring store' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User02 store to shared</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -477,7 +477,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Complex freebusy' ignore='no'>
+	<test-suite name='Complex freebusy' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>User01 freebusy</description>
 			<request print-response='no'>
@@ -633,6 +633,61 @@
 						<value>20060102T130000Z/20060102T140000Z</value>
 						<value>20060103T140000Z/20060103T150000Z</value>
 						<value>20060104T130000Z/20060104T140000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Prevent per-user data injection' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>User01 new event with injected per-user data</description>
+			<request user="$userid1:" pswd="$pswd1:" end-delete="yes" print-response="no">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/peruser-data/inject/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>User01 new event with valid data</description>
+			<request user="$userid1:" pswd="$pswd1:" end-delete="yes" print-response="no">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/peruser-data/inject/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>User01 existing event with injected per-user data</description>
+			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/peruser-data/inject/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>urn:ietf:params:xml:ns:caldavvalid-calendar-data</value>
+						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
 					</arg>
 				</verify>
 			</request>
