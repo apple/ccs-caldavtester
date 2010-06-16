@@ -28,17 +28,21 @@
 	</require-feature>
 
 	<start>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETEALL</method>
-			<ruri>$notificationpath1:/</ruri>
-		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request end-delete="yes">
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath3:/</ruri>
+		</request>
+		<request user="$userid4:" pswd="$pswd4:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath4:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$pathprefix2:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -52,12 +56,12 @@
 	<test-suite name='Setup two sharees'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$pathprefix2:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharinginvite23.xml</filepath>
+					<filepath>Resource/Common/POST/sharinginvite234.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -66,42 +70,6 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee 2 notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
-				<ruri>$notificationpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$notificationpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<grabelement>
-					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
-					<variable>$inviteuid2:</variable>
-				</grabelement>
-			</request>
-		</test>
-		<test name='3'>
-			<description>Sharee 2 replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<grabelement>
-					<name>{DAV:}href</name>
-					<variable>$shareecalendar2:</variable>
-				</grabelement>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Check Sharee 3 notification collection</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath3:/</ruri>
@@ -118,14 +86,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5'>
-			<description>Sharee 3 replies ACCEPTED</description>
+		<test name='3'>
+			<description>Sharee 2 replies ACCEPTED</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>POST</method>
 				<ruri>$pathprefix3:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
+					<filepath>Resource/Common/POST/sharingreply23.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -136,12 +104,44 @@
 				</grabelement>
 			</request>
 		</test>
+		<test name='4'>
+			<description>Check Sharee 3 notification collection</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath4:/</ruri>
+			</request>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$notificationpath4:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid4:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Sharee 3 replies ACCEPTED</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix4:/</ruri>
+				<data substitutions='yes'>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharingreply24.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$shareecalendar4:</variable>
+				</grabelement>
+			</request>
+		</test>
 		<test name='6'>
 			<description>Clean out notifications</description>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$notificationpath1:/</ruri>
-			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
@@ -150,34 +150,15 @@
 				<method>DELETEALL</method>
 				<ruri>$notificationpath3:/</ruri>
 			</request>
+			<request user="$userid4:" pswd="$pswd4:">
+				<method>DELETEALL</method>
+				<ruri>$notificationpath4:/</ruri>
+			</request>
 		</test>
 	</test-suite>
 
 	<test-suite name='Empty quota for all' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2' ignore='no'>
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -200,7 +181,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='2' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -223,11 +204,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
+		<test name='3' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$pathprefix4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -247,29 +251,6 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='6' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -292,14 +273,37 @@
 				</verify>
 			</request>
 		</test>
+		<test name='6' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='PUT by User 1' ignore='no'>
+	<test-suite name='PUT by User 2' ignore='no'>
 		<test name='1'>
-			<description>PUT by user 1</description>
-			<request>
+			<description>PUT by user 2</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<ruri>$pathprefix2:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/quota/1.ics</filepath>
@@ -311,9 +315,9 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>User 1</description>
-			<request print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -333,29 +337,6 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -378,11 +359,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
+		<test name='4' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$pathprefix4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -402,10 +406,10 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>User 3</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$shareecalendar2:/</ruri>
+				<ruri>$shareecalendar3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -425,10 +429,10 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$shareecalendar3:/</ruri>
+				<ruri>$shareecalendar4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -449,12 +453,12 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT by User 2' ignore='no'>
+	<test-suite name='PUT by User 3' ignore='no'>
 		<test name='1'>
-			<description>PUT by user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" >
+			<description>PUT by user 3</description>
+			<request user="$userid3:" pswd="$pswd3:" >
 				<method>PUT</method>
-				<ruri>$shareecalendar2:/2.ics</ruri>
+				<ruri>$shareecalendar3:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/quota/2.ics</filepath>
@@ -465,10 +469,10 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$pathprefix2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -488,29 +492,6 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -533,11 +514,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
+		<test name='4' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$pathprefix4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -557,10 +561,10 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>User 3</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$shareecalendar2:/</ruri>
+				<ruri>$shareecalendar3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -580,6 +584,134 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104855550</value>
+						<value>DAV:quota-used-bytes$2050</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='DELETE by User 3' ignore='no'>
+		<test name='1'>
+			<description>DELETE by user 3</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETE</method>
+				<ruri>$shareecalendar3:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104856550</value>
+						<value>DAV:quota-used-bytes$1050</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>User 3</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix3:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/shared/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104856550</value>
+						<value>DAV:quota-used-bytes$1050</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -596,8 +728,31 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104855550</value>
-						<value>DAV:quota-used-bytes$2050</value>
+						<value>DAV:quota-available-bytes$104856550</value>
+						<value>DAV:quota-used-bytes$1050</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104856550</value>
+						<value>DAV:quota-used-bytes$1050</value>
 					</arg>
 				</verify>
 			</request>
@@ -609,36 +764,13 @@
 			<description>DELETE by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
-				<ruri>$shareecalendar2:/1.ics</ruri>
+				<ruri>$pathprefix2:/shared/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104856550</value>
-						<value>DAV:quota-used-bytes$1050</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3' ignore='no'>
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -661,158 +793,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
-			<description>User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104856550</value>
-						<value>DAV:quota-used-bytes$1050</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='6' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104856550</value>
-						<value>DAV:quota-used-bytes$1050</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7' ignore='no'>
-			<description>User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104856550</value>
-						<value>DAV:quota-used-bytes$1050</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-
-	<test-suite name='DELETE by User 1' ignore='no'>
-		<test name='1'>
-			<description>DELETE by user 1</description>
-			<request>
-				<method>DELETE</method>
-				<ruri>$pathprefix1:/shared/2.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='2' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
 		<test name='3' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value>DAV:quota-available-bytes$104857600</value>
-						<value>DAV:quota-used-bytes$0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4' ignore='no'>
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
@@ -835,11 +816,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
-			<description>User 1</description>
-			<request print-response='no'>
+		<test name='4' ignore='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$pathprefix4:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/quota.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>DAV:quota-available-bytes$104857600</value>
+						<value>DAV:quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>User 2</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -859,10 +863,10 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>User 3</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$shareecalendar2:/</ruri>
+				<ruri>$shareecalendar3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -882,10 +886,10 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<description>User 4</description>
+			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$shareecalendar3:/</ruri>
+				<ruri>$shareecalendar4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -907,10 +911,6 @@
 	</test-suite>
 
 	<end>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETEALL</method>
-			<ruri>$notificationpath1:/</ruri>
-		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
@@ -918,6 +918,10 @@
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath3:/</ruri>
+		</request>
+		<request user="$userid4:" pswd="$pswd4:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath4:/</ruri>
 		</request>
 	</end>
 	
