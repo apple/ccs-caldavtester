@@ -35,6 +35,9 @@
 			</data>
 		</request>
 		<request end-delete="yes">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>MKCOL</method>
 			<ruri>$pathprefix1:/collection/</ruri>
 		</request>
@@ -690,6 +693,9 @@
 			</request>
 		</test>
 		<test name='13'>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<description>COPY collection into calendar</description>
 			<request>
 				<method>COPY</method>
@@ -931,6 +937,9 @@
 			</request>
 		</test>
 		<test name='13'>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<description>MOVE collection into calendar</description>
 			<request>
 				<method>MOVE</method>
