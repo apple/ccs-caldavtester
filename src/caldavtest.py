@@ -401,6 +401,11 @@ class caldavtest(object):
     
     def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "" ):
         
+        if len(req.missingFeatures()) != 0:
+            #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            #self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(req.missingFeatures())),))
+            return True, "", None, None
+
         # Special check for DELETEALL
         if req.method == "DELETEALL":
             for ruri in req.ruris:

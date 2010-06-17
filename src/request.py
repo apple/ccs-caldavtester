@@ -127,7 +127,7 @@ class request( object ):
     """
     __slots__  = ['manager', 'auth', 'user', 'pswd', 'end_delete', 'print_response',
                   'method', 'headers', 'ruris', 'ruri', 'data', 'datasubs', 'verifiers',
-                  'grabheader', 'grabproperty', 'grabelement']
+                  'grabheader', 'grabproperty', 'grabelement', 'require_features']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -136,6 +136,7 @@ class request( object ):
         self.pswd = ""
         self.end_delete = False
         self.print_response = False
+        self.require_features = set()
         self.method = ""
         self.headers = {}
         self.ruris = []
@@ -149,6 +150,9 @@ class request( object ):
     
     def __str__(self):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
+
+    def missingFeatures(self):
+        return self.require_features - self.manager.server_info.features
 
     def getURI( self, si ):
         return si.extrasubs(self.ruri)
@@ -271,7 +275,9 @@ class request( object ):
         self.print_response = node.getAttribute( src.xmlDefs.ATTR_PRINT_RESPONSE ) == src.xmlDefs.ATTR_VALUE_YES
 
         for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_METHOD:
+            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures( child )
+            elif child._get_localName() == src.xmlDefs.ELEMENT_METHOD:
                 self.method = child.firstChild.data.encode("utf-8")
             elif child._get_localName() == src.xmlDefs.ELEMENT_HEADER:
                 self.parseHeader(child)
@@ -291,6 +297,11 @@ class request( object ):
                 self.parseGrab(child, self.grabproperty)
             elif child._get_localName() == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseGrab(child, self.grabelement)
+
+    def parseFeatures(self, node):
+        for child in node._get_childNodes():
+            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.firstChild.data.encode("utf-8"))
 
     def parseHeader(self, node):
         
