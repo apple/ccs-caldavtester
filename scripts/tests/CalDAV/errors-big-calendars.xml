@@ -30,9 +30,9 @@
 	<test-suite name='REPORT/too big' ignore='no'>
 		<test name='1'>
 			<description>add one event to make it a 1001 event calendar</description>
-			<request end-delete="yes" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" end-delete="yes" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/calendar.1000/abc.ics</ruri>
+				<ruri>$pathprefix9:/calendar.1000/abc.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/errors/6.ics</filepath>
@@ -41,9 +41,9 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
+				<ruri>$pathprefix9:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/errors/23.xml</filepath>
@@ -59,9 +59,9 @@
 		</test>
 		<test name='2'>
 			<description>multiget with too many results</description>
-			<request print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
+				<ruri>$pathprefix9:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/errors/24.xml</filepath>
@@ -77,9 +77,9 @@
 		</test>
 		<test name='3'>
 			<description>free-busy with too many results</description>
-			<request print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/calendar.1000/</ruri>
+				<ruri>$pathprefix9:/calendar.1000/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/errors/25.xml</filepath>
