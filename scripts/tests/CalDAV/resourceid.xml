@@ -105,6 +105,52 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Principals'>
+		<test name='1' ignore='no'>
+			<description>Check property</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/resourceid.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[DAV:resource-id$<href>urn:uuid:$userguid1:</href>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Check property</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$principaluri1:</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/resourceid.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[DAV:resource-id$<href>urn:uuid:$userguid1:</href>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 
 	<end>
 		<request>
