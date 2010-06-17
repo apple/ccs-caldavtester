@@ -25,7 +25,7 @@
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
-	<!ELEMENT request (method, ruri+, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
+	<!ELEMENT request (require-feature?, method, ruri+, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
