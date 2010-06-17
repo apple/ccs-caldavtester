@@ -25,10 +25,6 @@
 
 	<start>
 		<request end-delete='yes'>
-			<method>MKCOL</method>
-			<ruri>$pathprefix1:/collection%201/</ruri>
-		</request>
-		<request end-delete='yes'>
 			<method>MKCALENDAR</method>
 			<ruri>$pathprefix1:/calendar%202/</ruri>
 		</request>
@@ -39,8 +35,15 @@
 	</start>
 
 	<test-suite name='regular resource'>
+		<require-feature>
+			<feature>regular-collection</feature>
+		</require-feature>
 		<test name='1'>
 			<description>PUT</description>
+			<request end-delete='yes'>
+				<method>MKCOL</method>
+				<ruri>$pathprefix1:/collection%201/</ruri>
+			</request>
 			<request print-response='no' end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$pathprefix1:/collection%201/2%20a.ics</ruri>
