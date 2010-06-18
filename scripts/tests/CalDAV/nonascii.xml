@@ -27,6 +27,9 @@
 
 	<start>
 		<request end-delete="yes">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>MKCOL</method>
 			<ruri>$pathprefix1:/collection/</ruri>
 		</request>
@@ -447,6 +450,9 @@
 	</test-suite>
 
 	<test-suite name='Copy/Move Non-utf-8 calendar data' ignore="no">
+		<require-feature>
+			<feature>regular-collection</feature>
+		</require-feature>
 		<test name='1'>
 			<description>PUT with non-utf-8 data to regular collection</description>
 			<request end-delete="yes">
