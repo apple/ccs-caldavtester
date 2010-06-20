@@ -567,6 +567,9 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>MKCOL</description>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<request end-delete="yes">
 				<method>MKCOL</method>
 				<ruri>$pathprefix1:/collection/</ruri>
@@ -577,6 +580,9 @@
 		</test>
 		<test name='5' ignore='no'>
 			<description>PUT</description>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<request>
 				<method>PUT</method>
 				<ruri>$pathprefix1:/collection/1234</ruri>
@@ -591,6 +597,9 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>GET</description>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<request>
 				<method>GET</method>
 				<ruri>$pathprefix1:/collection/1234</ruri>
@@ -605,6 +614,9 @@
 		</test>
 		<test name='7' ignore='no'>
 			<description>PROPFIND</description>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$pathprefix1:/collection/1234</ruri>

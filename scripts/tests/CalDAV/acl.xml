@@ -132,10 +132,16 @@
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>MKCOL</method>
 			<ruri>$pathprefix2:/colreadtoauth/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>ACL</method>
 			<ruri>$pathprefix2:/colreadtoauth/</ruri>
 			<data>
@@ -144,6 +150,9 @@
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>PUT</method>
 			<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
 			<data>
@@ -942,6 +951,9 @@
 	</test-suite>
 
 	<test-suite name='ACL regular collection no inheritance' ignore='no'>
+		<require-feature>
+			<feature>regular-collection</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>Check that read is not set</description>
 			<request print-response='no'>
