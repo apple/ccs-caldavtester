@@ -35,6 +35,9 @@
 			</data>
 		</request>
 		<request end-delete="yes">
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<method>PUT</method>
 			<ruri>$pathprefix1:/1todo.ics</ruri>
 			<data>
@@ -63,6 +66,9 @@
 			</request>
 		</test>
 		<test name='2'>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<description>Get from regular collection</description>
 			<request>
 				<method>GET</method>
@@ -103,6 +109,9 @@
 			</request>
 		</test>
 		<test name='2'>
+			<require-feature>
+				<feature>regular-collection</feature>
+			</require-feature>
 			<description>Get on regular collection</description>
 			<request>
 				<method>GET</method>
