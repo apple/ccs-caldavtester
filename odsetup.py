@@ -60,7 +60,7 @@ guids = {
     "apprentice" : "",
 }
 
-for i in range(1, 11):
+for i in range(1, number_of_users + 1):
     guids["user%02d" % (i,)] = ""
     guids["public%02d" % (i,)] = ""
     guids["resource%02d" % (i,)] = ""
@@ -401,18 +401,24 @@ def buildServerinfo(serverinfo_default, hostname, port, authtype, docroot):
 
 
 def addLargeCalendars(hostname, docroot):
+    largeCalendarUser = "user09"
     calendars = ("calendar.10", "calendar.100", "calendar.1000",)
-    guid01 = guids["user01"]
+    largeGuid = guids[largeCalendarUser]
     path = os.path.join(
         docroot,
         "calendars",
         "__uids__",
-        guid01[0:2],
-        guid01[2:4],
-        guid01,
+        largeGuid[0:2],
+        largeGuid[2:4],
+        largeGuid,
     )
 
-    result = cmd("curl --digest -u user01:user01 'http://%s:8008/calendars/users/user01/'" % (hostname,), raiseOnFail=False)
+    result = cmd("curl --digest -u %s:%s 'http://%s:8008/calendars/users/%s/'" % (
+        largeCalendarUser,
+        largeCalendarUser,
+        hostname,
+        largeCalendarUser,
+    ), raiseOnFail=False)
 
     if result[1] == 0:
         for calendar in calendars:
