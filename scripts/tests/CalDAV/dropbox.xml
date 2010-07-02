@@ -2,9 +2,8 @@
 
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
-<!--
+	<!--
  Copyright (c) 2006-2010 Apple Inc. All rights reserved.
-
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -16,7 +15,7 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- -->
+	-->
 
 <caldavtest>
 	<description>Test drop box features</description>
@@ -26,8 +25,18 @@
 		<feature>dropbox</feature>
 	</require-feature>
 
-	<start/>
-	
+	<start>
+		<request print-response='yes' user="$userid1:" pswd="$pswd1:"
+			end-delete='yes'>
+			<method>PUT</method>
+			<ruri>$calendarpath1:/1.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/dropbox/1.ics</filepath>
+			</data>
+		</request>
+	</start>
+
 	<test-suite name='Principal properties'>
 		<test name='1'>
 			<description>Look for properties</description>
@@ -79,7 +88,7 @@
 	<test-suite name='Drop Box Collection Create'>
 		<test name='1'>
 			<description>Create drop box</description>
-			<request end-delete='yes'>
+			<request end-delete='yes' user="$userid1:" pswd="$pswd1:">
 				<method>MKCOL</method>
 				<ruri>$dropboxpath1:/ABCEFG/</ruri>
 				<verify>
@@ -131,7 +140,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify that user01 can read it</description>
-			<request>
+			<request user='$userid1:' pswd='$pswd1:'>
 				<method>GET</method>
 				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
 				<verify>
@@ -292,7 +301,7 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
 	<end/>
 
 </caldavtest>
