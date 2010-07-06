@@ -375,9 +375,29 @@
 		</test>
 		<test name='4'>
 			<description>MOVE to different calendar, new resource</description>
+			<request print-response='yes'>
+				<method>PROPFIND</method>
+				<ruri>move1.ics</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/getetag.xml</filepath>
+				</data>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$getetag:</variable>
+				</grabproperty>
+			</request>
 			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/move1.ics</ruri>
+				<header>
+					<name>If-Match</name>
+					<value>$getetag:</value>
+				</header>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/move2_1.ics</value>
@@ -393,9 +413,29 @@
 		</test>
 		<test name='5'>
 			<description>MOVE to different calendar, existing resource with overwrite</description>
+			<request print-response='yes'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/getetag.xml</filepath>
+				</data>
+				<grabproperty>
+					<property>DAV:getetag</property>
+					<variable>$getetag:</variable>
+				</grabproperty>
+			</request>
 			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
+				<header>
+					<name>If-Match</name>
+					<value>$getetag:</value>
+				</header>
 				<header>
 					<name>Destination</name>
 					<value>$host:$pathprefix1:/calendar2/3.ics</value>
