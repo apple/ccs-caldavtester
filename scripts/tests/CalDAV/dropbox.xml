@@ -150,7 +150,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify that user03 cannot read it</description>
-			<request user='$userid2:' pswd='$pswd2:'>
+			<request user='$userid3:' pswd='$pswd3:'>
 				<method>GET</method>
 				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
 				<verify>
@@ -177,7 +177,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Verify that user02 can now read it</description>
+			<description>Verify that user02 can read it</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>GET</method>
 				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
