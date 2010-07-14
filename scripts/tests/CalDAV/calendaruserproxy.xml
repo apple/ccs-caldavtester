@@ -1295,15 +1295,14 @@
 		</test>
 		<test name='2'>
 			<description>Create drop box</description>
-			<request user="$userid2:" pswd="$pswd2:"
-				end-delete='yes'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>204</value>
+						<value>201</value>
 					</arg>
 				</verify>
 				<data>
@@ -1363,8 +1362,7 @@
 		</test>
 		<test name='6'>
 			<description>Add user03 read privilege on collection</description>
-			<request user="$userid2:" pswd="$pswd2:"
-				end-delete='yes'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
 				<verify>
@@ -1406,6 +1404,13 @@
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>DELETE</method>
 				<ruri>$dropboxpath1:/ABCEFG/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>DELETE</method>
+				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
