@@ -146,6 +146,20 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/dropbox/2.xml</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Content-Type$text/xml;charset=utf-8</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -183,6 +197,20 @@
 				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/dropbox/2.xml</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Content-Type$text/xml;charset=utf-8</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
