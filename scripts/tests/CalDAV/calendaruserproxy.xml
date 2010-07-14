@@ -1295,6 +1295,22 @@
 		</test>
 		<test name='2'>
 			<description>Create drop box</description>
+			<request user="$userid2:" pswd="$pswd2:"
+				end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/1.ics</filepath>
+				</data>
+			</request>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>MKCOL</method>
 				<ruri>$dropboxpath1:/ABCEFG/</ruri>
@@ -1347,6 +1363,22 @@
 		</test>
 		<test name='6'>
 			<description>Add user03 read privilege on collection</description>
+			<request user="$userid2:" pswd="$pswd2:"
+				end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
+					</arg>
+				</verify>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/2.ics</filepath>
+				</data>
+			</request>
 			<request user='$userid2:' pswd='$pswd2:' >
 				<method>ACL</method>
 				<ruri>$dropboxpath1:/ABCEFG/</ruri>
