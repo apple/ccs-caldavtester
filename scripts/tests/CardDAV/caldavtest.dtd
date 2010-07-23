@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@
 
 	<!ELEMENT description (#PCDATA)>
 
-	<!ELEMENT require-feature feature*>
+	<!ELEMENT require-feature (feature*)>
 		<!ELEMENT feature (#PCDATA)>
 
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
-	<!ELEMENT request (method, ruri+, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
+	<!ELEMENT request (require-feature?, method, ruri*, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -45,7 +45,7 @@
 		<!ELEMENT verify (callback, arg*)>
 			
 				<!ELEMENT callback (#PCDATA)>
-				<!ELEMENT arg (name, value+)>
+				<!ELEMENT arg (name, value*)>
 		
 		<!ELEMENT grabheader (name, variable)>
 	
@@ -59,7 +59,7 @@
 		<!ATTLIST test-suite name CDATA #REQUIRED
 							ignore (yes|no) "no">
 	
-		<!ELEMENT test (description?, request+)>
+		<!ELEMENT test (require-feature?, description?, request+)>
 			<!ATTLIST test name CDATA #REQUIRED
 						  count CDATA "1"
 						  stats (yes|no) "no"

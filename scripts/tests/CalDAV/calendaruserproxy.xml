@@ -1298,6 +1298,10 @@
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/4.ics</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1305,10 +1309,6 @@
 						<value>201</value>
 					</arg>
 				</verify>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/dropbox/4.ics</filepath>
-				</data>
 			</request>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>MKCOL</method>
@@ -1365,6 +1365,10 @@
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/3.ics</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1372,10 +1376,6 @@
 						<value>204</value>
 					</arg>
 				</verify>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/dropbox/3.ics</filepath>
-				</data>
 			</request>
 			<request user='$userid2:' pswd='$pswd2:' >
 				<method>ACL</method>
