@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -67,27 +67,27 @@ class monitorinfo( object ):
 
     def parseXML( self, node ):
         
-        self.name = getDefaultAttributeValue(node, src.xmlDefs.ATTR_NAME, "")
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_LOGGING:
+        self.name = node.get(src.xmlDefs.ATTR_NAME, "")
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_LOGGING:
                 self.logging = getYesNoAttributeValue(child, src.xmlDefs.ATTR_ENABLE)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_PERIOD:
-                self.period = float(child.firstChild.data)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TIMEOUT:
-                self.timeout = int(child.firstChild.data)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
-                self.serverinfo = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_START:
+            elif child.tag == src.xmlDefs.ELEMENT_PERIOD:
+                self.period = float(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_TIMEOUT:
+                self.timeout = int(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_SERVERINFO:
+                self.serverinfo = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_START:
                 if child.firstChild is not None:
-                    self.startscript = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TESTINFO:
-                self.testinfo = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_END:
+                    self.startscript = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_TESTINFO:
+                self.testinfo = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_END:
                 if child.firstChild is not None:
-                    self.endscript = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_WARNINGTIME:
-                self.warningtime = float(child.firstChild.data)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_NOTIFY:
+                    self.endscript = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_WARNINGTIME:
+                self.warningtime = float(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_NOTIFY:
                 self.notify_time_exceeded = getYesNoAttributeValue(child, src.xmlDefs.ATTR_TIME_EXCEEDED)
                 self.notify_request_failed = getYesNoAttributeValue(child, src.xmlDefs.ATTR_REQUEST_FAILED)
                 self.notify_interval = int(getDefaultAttributeValue(child, src.xmlDefs.ATTR_INTERVAL, "15"))

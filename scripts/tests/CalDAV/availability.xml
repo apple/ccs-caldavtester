@@ -100,7 +100,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavsupported-calendar-component-set$&lt;comp name="VEVENT"/&gt;&lt;comp name="VTODO"/&gt;&lt;comp name="VTIMEZONE"/&gt;&lt;comp name="VFREEBUSY"/&gt;</value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set$<comp name="VEVENT" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VTODO" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VTIMEZONE" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VFREEBUSY" xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -417,7 +417,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>http://calendarserver.org/ns/calendar-availability</value>
+						<value>{http://calendarserver.org/ns/}calendar-availability</value>
 					</arg>
 				</verify>
 			</request>
@@ -435,7 +435,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>http://calendarserver.org/ns/calendar-availability</value>
+						<value>{http://calendarserver.org/ns/}calendar-availability</value>
 					</arg>
 				</verify>
 			</request>
@@ -453,7 +453,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/calendar-availability</value>
+						<value>{http://calendarserver.org/ns/}calendar-availability</value>
 					</arg>
 				</verify>
 			</request>
@@ -495,7 +495,7 @@
 				<callback>propfindItems</callback>
 				<arg>
 					<name>okprops</name>
-					<value>http://calendarserver.org/ns/calendar-availability</value>
+					<value>{http://calendarserver.org/ns/}calendar-availability</value>
 				</arg>
 			</verify>
 		</request>

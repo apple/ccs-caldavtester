@@ -14,13 +14,13 @@
 # limitations under the License.
 ##
 
-from difflib import unified_diff
-import StringIO
-from xml.etree.ElementTree import ElementTree, tostring
-
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
+
+from difflib import unified_diff
+from xml.etree.ElementTree import ElementTree, tostring
+import StringIO
 
 class Verifier(object):
     
@@ -83,4 +83,3 @@ class Verifier(object):
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
         except Exception, e:
             return False, "        Response data is not xml data: %s" % (e,)
-            

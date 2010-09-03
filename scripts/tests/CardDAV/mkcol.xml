@@ -57,7 +57,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:resource-must-be-null</value>
+						<value>{DAV:}resource-must-be-null</value>
 					</arg>
 				</verify>
 			</request>
@@ -75,10 +75,10 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:resourcetype</value>
-						<value>DAV:getetag</value>
-						<value>DAV:displayname</value>
-						<value>urn:ietf:params:xml:ns:carddavaddressbook-description</value>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}getetag</value>
+						<value>{DAV:}displayname</value>
+						<value>{urn:ietf:params:xml:ns:carddav}addressbook-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -107,7 +107,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:resource-must-be-null</value>
+						<value>{DAV:}resource-must-be-null</value>
 					</arg>
 				</verify>
 			</request>

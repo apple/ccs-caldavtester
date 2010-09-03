@@ -19,9 +19,8 @@ Verifier that checks a multistatus response to make sure that the specified href
 are returned with appropriate status codes.
 """
 
-import xml.dom.minidom
-
-from utilities.xmlutils import ElementsByName
+from xml.etree.ElementTree import ElementTree
+from StringIO import StringIO
 
 class Verifier(object):
     
@@ -70,26 +69,26 @@ class Verifier(object):
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
             
-        doc = xml.dom.minidom.parseString( respdata )
+        try:
+            tree = ElementTree(file=StringIO(respdata))
+        except Exception:
+            return False, "           HTTP response is not valid XML: %s\n" % (respdata,)
+
         ok_status_hrefs = []
         bad_status_hrefs = []
         status_code_hrefs = {}
-        multistatus = doc.getElementsByTagNameNS("DAV:", "multistatus" )
-        for response in ElementsByName(multistatus[0], "DAV:", "response"):
+        for response in tree.findall("{DAV:}response"):
 
             # Get href for this response
-            href = ElementsByName(response, "DAV:", "href")
+            href = response.findall("{DAV:}href")
             if href is None or len(href) != 1:
                 return False, "        Incorrect/missing DAV:Href element in response"
-            if href[0].firstChild is not None:
-                href = href[0].firstChild.data
-            else:
-                href = ""
+            href = href[0].text
 
             # Verify status
-            status = ElementsByName(response, "DAV:", "status")
+            status = response.findall("{DAV:}status")
             if len(status) == 1:
-                statustxt = status[0].firstChild.data
+                statustxt = status[0].text
                 status = False
                 if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
                     status = (statustxt[9] == "2")
@@ -98,7 +97,7 @@ class Verifier(object):
                     except ValueError:
                         code = 0
             else:
-                propstatus = ElementsByName(response, "DAV:", "propstat")
+                propstatus = response.findall("{DAV:}propstat")
                 if len(propstatus) > 0:
                     statustxt = "OK"
                     status = True

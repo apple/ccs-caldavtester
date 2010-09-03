@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -83,19 +83,13 @@ class account( object ):
         webdav.Delete(server_info, path).run()
 
     def parseXML( self, node ):
-        self.count = node.getAttribute( src.xmlDefs.ATTR_COUNT )
-        if self.count == '':
-            self.count = src.xmlDefs.ATTR_DEFAULT_COUNT
-        else:
-            self.count = int(self.count)
-        self.countarg = node.getAttribute( src.xmlDefs.ATTR_COUNTARG )
-        if self.countarg == '':
-            self.countarg = src.xmlDefs.ATTR_DEFAULT_COUNTARG
+        self.count = int(node.get(src.xmlDefs.ATTR_COUNT, src.xmlDefs.ATTR_DEFAULT_COUNT))
+        self.countarg = node.get(src.xmlDefs.ATTR_COUNTARG, src.xmlDefs.ATTR_DEFAULT_COUNTARG)
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
-                self.name = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_CALENDARS:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                self.name = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_CALENDARS:
                 cal = calendar(self)
                 cal.parseXML(child)
                 self.calendars.extend(cal.expand())
@@ -178,28 +172,16 @@ class calendar(object):
                 webdav.Put(server_info, rpath, "text/calendar; charset=utf-8", data).run()
 
     def parseXML( self, node ):
-        self.count = node.getAttribute( src.xmlDefs.ATTR_COUNT )
-        if self.count == '':
-            self.count = src.xmlDefs.ATTR_DEFAULT_COUNT
-        else:
-            self.count = int(self.count)
-        self.countarg = node.getAttribute( src.xmlDefs.ATTR_COUNTARG )
-        if self.countarg == '':
-            self.countarg = src.xmlDefs.ATTR_DEFAULT_COUNTARG
+        self.count = int(node.get(src.xmlDefs.ATTR_COUNT, src.xmlDefs.ATTR_DEFAULT_COUNT))
+        self.countarg = node.get(src.xmlDefs.ATTR_COUNTARG, src.xmlDefs.ATTR_DEFAULT_COUNTARG)
         self.dataall = src.xmlDefs.ATTR_MODE == src.xmlDefs.ATTR_VALUE_ALL
         self.datasubstitute = src.xmlDefs.ATTR_SUBSTITUTIONS == src.xmlDefs.ATTR_VALUE_YES
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
-                self.name = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_DATASOURCE:
-                self.datacount = child.getAttribute( src.xmlDefs.ATTR_COUNT )
-                if self.datacount == '':
-                    self.datacount = src.xmlDefs.ATTR_DEFAULT_COUNT
-                else:
-                    self.datacount = int(self.datacount)
-                self.datacountarg = child.getAttribute( src.xmlDefs.ATTR_COUNTARG )
-                if self.datacountarg == '':
-                    self.datacountarg = src.xmlDefs.ATTR_DEFAULT_COUNTARG
-                self.datasource = child.firstChild.data
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                self.name = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_DATASOURCE:
+                self.datacount = int(child.get(src.xmlDefs.ATTR_COUNT, src.xmlDefs.ATTR_DEFAULT_COUNT))
+                self.datacountarg = child.get(src.xmlDefs.ATTR_COUNTARG, src.xmlDefs.ATTR_DEFAULT_COUNTARG)
+                self.datasource = child.text
     

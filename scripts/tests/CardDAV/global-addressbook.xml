@@ -46,7 +46,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value>DAV:resourcetype$.*shared[^-].*</value>
+						<value>{DAV:}resourcetype$.*shared[^-].*</value>
 					</arg>
 				</verify>
 			</request>
@@ -235,11 +235,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resource-id</value>
+						<value>{DAV:}resource-id</value>
 					</arg>
 				</verify>
 				<grabproperty>
-					<property>DAV:resource-id</property>
+					<property>{DAV:}resource-id</property>
 					<variable>$resourceid:</variable>
 				</grabproperty>
 			</request>
@@ -261,7 +261,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resource-id$$resourceid:</value>
+						<value>{DAV:}resource-id$$resourceid:</value>
 					</arg>
 				</verify>
 			</request>

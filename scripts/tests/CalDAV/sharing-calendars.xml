@@ -122,18 +122,21 @@
 					<filepath>Resource/CalDAV/sharing/calendars/read-write/4.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>DAV:resourcetype$.*shared[^-].*</value>
-						<value><![CDATA[DAV:owner$<href>$principaluri1:</href>]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<read/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<write/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<bind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<unbind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*admin.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*all.*]]></value>
-						<value><![CDATA[urn:ietf:params:xml:ns:caldavschedule-calendar-transp$<transparent/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp/{urn:ietf:params:xml:ns:caldav}transparent</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
 					</arg>
 				</verify>
 			</request>
@@ -326,17 +329,20 @@
 					<filepath>Resource/CalDAV/sharing/calendars/read-only/4.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>DAV:resourcetype$.*shared[^-].*</value>
-						<value><![CDATA[DAV:owner$<href>$principaluri1:</href>]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<read/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*<write/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*<bind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*<unbind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*admin.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*all.*]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
 					</arg>
 				</verify>
 			</request>

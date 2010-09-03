@@ -216,7 +216,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:owner</value>
+						<value>{DAV:}owner</value>
 					</arg>
 				</verify>
 			</request>
@@ -238,7 +238,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:owner</value>
+						<value>{DAV:}owner</value>
 					</arg>
 				</verify>
 			</request>
@@ -260,7 +260,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:owner</value>
+						<value>{DAV:}owner</value>
 					</arg>
 				</verify>
 			</request>
@@ -282,7 +282,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:owner$&lt;href&gt;$principaluri1:&lt;/href&gt;</value>
+						<value><![CDATA[{DAV:}owner$<href xmlns="DAV:">$principaluri1:</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -304,7 +304,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:owner$&lt;href&gt;$principaluri1:&lt;/href&gt;</value>
+						<value><![CDATA[{DAV:}owner$<href xmlns="DAV:">$principaluri1:</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -326,7 +326,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:owner$&lt;href&gt;$principaluri1:&lt;/href&gt;</value>
+						<value><![CDATA[{DAV:}owner$<href xmlns="DAV:">$principaluri1:</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -369,7 +369,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://calendarserver.org/ns/no-access-restrictions</value>
+						<value>{http://calendarserver.org/ns/}no-access-restrictions</value>
 					</arg>
 				</verify>
 			</request>

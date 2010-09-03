@@ -55,7 +55,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/dropbox-home-URL$&lt;href xmlns="DAV:">$dropboxpath1:/&lt;/href></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}dropbox-home-URL$<href xmlns="DAV:">$dropboxpath1:/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -79,7 +79,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox-home xmlns="http://calendarserver.org/ns/"/></value>
+						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><dropbox-home xmlns="http://calendarserver.org/ns/"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -117,7 +117,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/>&lt;dropbox xmlns="http://calendarserver.org/ns/"/></value>
+						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><dropbox xmlns="http://calendarserver.org/ns/"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -441,7 +441,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>http://calendarserver.org/ns/valid-drop-box</value>
+						<value>{http://calendarserver.org/ns/}valid-drop-box</value>
 					</arg>
 				</verify>
 			</request>

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 """
 Verifier that checks the response for a pre/post-condition <DAV:error> result.
 """
-from xml.dom.minidom import Element
 
-import xml.dom.minidom
+from xml.etree.ElementTree import ElementTree
+from StringIO import StringIO
 
 class Verifier(object):
     
@@ -37,23 +37,18 @@ class Verifier(object):
             return False, "        No pre/post condition response body"
             
         try:
-            doc = xml.dom.minidom.parseString( respdata )
+            tree = ElementTree(file=StringIO(respdata))
         except Exception, ex:
             return False, "        Could not parse XML: %s" %(ex,)
-        error = doc._get_documentElement()
-        errorName = (error.namespaceURI, error.localName)
 
-        if errorName != ("DAV:", "error"):
+        if tree.getroot().tag != "{DAV:}error":
             return False, "        Missing <DAV:error> element in response"
 
         # Make a set of expected pre/post condition elements
         expected = set(teststatus)
         got = set()
-        for child in error._get_childNodes():
-            if isinstance(child, Element):
-                qname = (child.namespaceURI, child.localName)
-                fqname = qname[0] + qname[1]
-                got.add(fqname)
+        for child in tree.getroot().getchildren():
+            got.add(child.tag)
         
         missing = expected.difference(got)
         extras = got.difference(expected)

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 """
 
 from hashlib import md5, sha1
+from src.xmlUtils import getYesNoAttributeValue
 import base64
 import httplib
 import src.xmlDefs
@@ -268,58 +269,58 @@ class request( object ):
         return data
     
     def parseXML( self, node ):
-        self.auth = node.getAttribute( src.xmlDefs.ATTR_AUTH ) != src.xmlDefs.ATTR_VALUE_NO
-        self.user = self.manager.server_info.subs(node.getAttribute( src.xmlDefs.ATTR_USER ).encode("utf-8"))
-        self.pswd = self.manager.server_info.subs(node.getAttribute( src.xmlDefs.ATTR_PSWD ).encode("utf-8"))
-        self.end_delete = node.getAttribute( src.xmlDefs.ATTR_END_DELETE ) == src.xmlDefs.ATTR_VALUE_YES
-        self.print_response = node.getAttribute( src.xmlDefs.ATTR_PRINT_RESPONSE ) == src.xmlDefs.ATTR_VALUE_YES
+        self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
+        self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
+        self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, "").encode("utf-8"))
+        self.end_delete = getYesNoAttributeValue(node, src.xmlDefs.ATTR_END_DELETE)
+        self.print_response = getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_METHOD:
-                self.method = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_HEADER:
+            elif child.tag == src.xmlDefs.ELEMENT_METHOD:
+                self.method = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_HEADER:
                 self.parseHeader(child)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_RURI:
-                self.ruris.append(self.manager.server_info.subs(child.firstChild.data.encode("utf-8")))
+            elif child.tag == src.xmlDefs.ELEMENT_RURI:
+                self.ruris.append(self.manager.server_info.subs(child.text.encode("utf-8")))
                 if len(self.ruris) == 1:
                     self.ruri = self.ruris[0]
-            elif child._get_localName() == src.xmlDefs.ELEMENT_DATA:
+            elif child.tag == src.xmlDefs.ELEMENT_DATA:
                 self.data = data()
                 self.datasubs = self.data.parseXML( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_VERIFY:
+            elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABHEADER:
+            elif child.tag == src.xmlDefs.ELEMENT_GRABHEADER:
                 self.parseGrab(child, self.grabheader)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABPROPERTY:
+            elif child.tag == src.xmlDefs.ELEMENT_GRABPROPERTY:
                 self.parseGrab(child, self.grabproperty)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_GRABELEMENT:
+            elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseGrab(child, self.grabelement)
 
     def parseFeatures(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.text.encode("utf-8"))
 
     def parseHeader(self, node):
         
         name = None
         value = None
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
-                name = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                value = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                name = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_VALUE:
+                value = self.manager.server_info.subs(child.text.encode("utf-8"))
         
         if (name is not None) and (value is not None):
             self.headers[name] = value
             
     def parseList( manager, node ):
         requests = []
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_REQUEST:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_REQUEST:
                 req = request(manager)
                 req.parseXML( child )
                 requests.append( req )
@@ -331,11 +332,11 @@ class request( object ):
         
         name = None
         variable = None
-        for child in node._get_childNodes():
-            if child._get_localName() in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
-                name = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_VARIABLE:
-                variable = self.manager.server_info.subs(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
+                name = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
+                variable = self.manager.server_info.subs(child.text.encode("utf-8"))
         
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
@@ -353,13 +354,13 @@ class data( object ):
     
     def parseXML( self, node ):
 
-        subs = node.getAttribute( src.xmlDefs.ATTR_SUBSTITUTIONS ) != src.xmlDefs.ATTR_VALUE_NO
+        subs = node.get(src.xmlDefs.ATTR_SUBSTITUTIONS, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_CONTENTTYPE:
-                self.content_type = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_FILEPATH:
-                self.filepath = child.firstChild.data.encode("utf-8")
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_CONTENTTYPE:
+                self.content_type = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
+                self.filepath = child.text.encode("utf-8")
 
         return subs
 
@@ -398,21 +399,21 @@ class verify( object ):
 
     def parseXML( self, node ):
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_CALLBACK:
-                self.callback = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_ARG:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_CALLBACK:
+                self.callback = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
 
     def parseArgXML(self, node):
         name = None
         values = []
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_NAME:
-                name = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                if child.firstChild is not None:
-                    values.append(self.manager.server_info.subs(child.firstChild.data.encode("utf-8")))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                name = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_VALUE:
+                if child.text is not None:
+                    values.append(self.manager.server_info.subs(child.text.encode("utf-8")))
                 else:
                     values.append("")
         if name and len(values):

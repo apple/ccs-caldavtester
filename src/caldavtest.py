@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-import sys
 
 """
 Class to encapsulate a single caldav test run.
@@ -26,17 +25,12 @@ from src.request import data
 from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
-from utilities.xmlutils import ElementsByName
-from xml.dom.minicompat import NodeList
-from xml.dom.minidom import Element
-from xml.dom.minidom import Node
-from xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import ElementTree, tostring
 import rfc822
 import socket
 import src.xmlDefs
+import sys
 import time
-from xml.dom.expatbuilder import TEXT_NODE
-import xml.dom.minidom
 
 STATUSTXT_WIDTH    = 60
 
@@ -200,28 +194,21 @@ class caldavtest(object):
         req.data.content_type = "text/xml"
         result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label=label )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
-            doc = xml.dom.minidom.parseString( respdata )
-
-            def ElementsByName(parent, nsURI, localName):
-                rc = NodeList()
-                for node in parent.childNodes:
-                    if node.nodeType == Node.ELEMENT_NODE:
-                        if ((localName == "*" or node.localName == localName) and
-                            (nsURI == "*" or node.namespaceURI == nsURI)):
-                            rc.append(node)
-                return rc
+            try:
+                tree = ElementTree(file=StringIO(respdata))
+            except Exception:
+                return ()
 
             request_uri = req.getURI( self.manager.server_info )
-            for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+            for response in tree.findall("{DAV:}response"):
     
                 # Get href for this response
-                href = ElementsByName(response, "DAV:", "href")
+                href = response.findall("{DAV:}href")
                 if len(href) != 1:
                     return False, "           Wrong number of DAV:href elements\n"
-                if href[0].firstChild is not None:
-                    href = href[0].firstChild.data
-                    if href != request_uri:
-                        hrefs.append((href, collection[1], collection[2]) )
+                href = href[0].text
+                if href != request_uri:
+                    hrefs.append((href, collection[1], collection[2]) )
         return hrefs
 
     def dodeleteall( self, deletes, label = "" ):
@@ -261,57 +248,49 @@ class caldavtest(object):
         req.data.content_type = "text/xml"
         result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s" % (label, "FINDNEW") )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
-            doc = xml.dom.minidom.parseString( respdata )
-
-            def ElementsByName(parent, nsURI, localName):
-                rc = NodeList()
-                for node in parent.childNodes:
-                    if node.nodeType == Node.ELEMENT_NODE:
-                        if ((localName == "*" or node.localName == localName) and
-                            (nsURI == "*" or node.namespaceURI == nsURI)):
-                            rc.append(node)
-                return rc
+            try:
+                tree = ElementTree(file=StringIO(respdata))
+            except Exception:
+                return hresult
 
             latest = 0
             request_uri = req.getURI( self.manager.server_info )
-            for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+            for response in tree.findall("{DAV:}response" ):
     
                 # Get href for this response
-                href = ElementsByName(response, "DAV:", "href")
+                href = response.findall("{DAV:}href")
                 if len(href) != 1:
                     return False, "           Wrong number of DAV:href elements\n"
-                if href[0].firstChild is not None:
-                    href = href[0].firstChild.data
-                    if href != request_uri:
+                href = href[0].text
+                if href != request_uri:
 
-                        # Get all property status
-                        propstatus = ElementsByName(response, "DAV:", "propstat")
-                        for props in propstatus:
-                            # Determine status for this propstat
-                            status = ElementsByName(props, "DAV:", "status")
-                            if len(status) == 1:
-                                statustxt = status[0].firstChild.data
-                                status = False
-                                if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
-                                    status = (statustxt[9] == "2")
-                            else:
-                                status = False
-                            
+                    # Get all property status
+                    propstatus = response.findall("{DAV:}propstat")
+                    for props in propstatus:
+                        # Determine status for this propstat
+                        status = props.findall("{DAV:}status")
+                        if len(status) == 1:
+                            statustxt = status[0].text
+                            status = False
+                            if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
+                                status = (statustxt[9] == "2")
+                        else:
+                            status = False
+                        
+                        # Get properties for this propstat
+                        prop = props.findall("{DAV:}prop")
+                        for el in prop:
+
                             # Get properties for this propstat
-                            prop = ElementsByName(props, "DAV:", "prop")
-                            for el in prop:
-    
-                                # Get properties for this propstat
-                                glm = ElementsByName(el, "DAV:", "getlastmodified")
-                                if len(glm) != 1:
-                                    continue
-                                if glm[0].firstChild is not None:
-                                    value = glm[0].firstChild.data
-                                    value = rfc822.parsedate(value)
-                                    value = time.mktime(value)
-                                    if value > latest:
-                                        hresult = href
-                                        latest = value
+                            glm = el.findall("{DAV:}getlastmodified")
+                            if len(glm) != 1:
+                                continue
+                            value = glm[0].text
+                            value = rfc822.parsedate(value)
+                            value = time.mktime(value)
+                            if value > latest:
+                                hresult = href
+                                latest = value
 
         return hresult
 
@@ -339,9 +318,9 @@ class caldavtest(object):
             result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count) )
             ctr = 0
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
-                doc = xml.dom.minidom.parseString( respdata )
-    
-                for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+                tree = ElementTree(file=StringIO(respdata))
+
+                for response in tree.findall("{DAV:}response"):
                     ctr += 1
                 
                 if ctr - 1 == count:
@@ -584,42 +563,42 @@ class caldavtest(object):
             return result, resulttxt
 
     def parseXML( self, node ):
-        self.ignore_all = node.getAttribute( src.xmlDefs.ATTR_IGNORE_ALL ) == src.xmlDefs.ATTR_VALUE_YES
+        self.ignore_all = node.get(src.xmlDefs.ATTR_IGNORE_ALL, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
-                self.description = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_START:
-                self.start_requests = request.parseList( self.manager, child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TESTSUITE:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
+                self.description = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures(child)
+            elif child.tag == src.xmlDefs.ELEMENT_START:
+                self.start_requests = request.parseList(self.manager, child)
+            elif child.tag == src.xmlDefs.ELEMENT_TESTSUITE:
                 suite = testsuite(self.manager)
-                suite.parseXML( child )
-                self.suites.append( suite )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_END:
-                self.end_requests = request.parseList( self.manager, child )
+                suite.parseXML(child)
+                self.suites.append(suite)
+            elif child.tag == src.xmlDefs.ELEMENT_END:
+                self.end_requests = request.parseList(self.manager, child)
     
     def parseFeatures(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.text.encode("utf-8"))
 
     def extractProperty(self, propertyname, respdata):
 
         try:
-            doc = xml.dom.minidom.parseString( respdata )
-        except:
+            tree = ElementTree(file=StringIO(respdata))
+        except Exception:
             return None
                 
-        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+        for response in tree.findall("{DAV:}response"):
             # Get all property status
-            propstatus = ElementsByName(response, "DAV:", "propstat")
+            propstatus = response.findall("{DAV:}propstat")
             for props in propstatus:
                 # Determine status for this propstat
-                status = ElementsByName(props, "DAV:", "status")
+                status = props.findall("{DAV:}status")
                 if len(status) == 1:
-                    statustxt = status[0].firstChild.data
+                    statustxt = status[0].text
                     status = False
                     if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
                         status = (statustxt[9] == "2")
@@ -630,26 +609,24 @@ class caldavtest(object):
                     continue
 
                 # Get properties for this propstat
-                prop = ElementsByName(props, "DAV:", "prop")
+                prop = props.findall("{DAV:}prop")
                 if len(prop) != 1:
                     return False, "           Wrong number of DAV:prop elements\n"
 
-                for child in prop[0]._get_childNodes():
-                    if isinstance(child, Element):
-                        qname = (child.namespaceURI, child.localName)
-                        fqname = qname[0] + qname[1]
-                        if child.firstChild is not None:
-                            # Copy sub-element data as text into one long string and strip leading/trailing space
-                            value = ""
-                            for p in child._get_childNodes():
-                                temp = p.data if p.nodeType == TEXT_NODE else p.toprettyxml("", "") 
-                                temp = temp.strip()
-                                value += temp
-                        else:
-                            value = ""
-                        
-                        if fqname == propertyname:
-                            return value
+                for child in prop[0].getchildren():
+                    fqname = child.tag
+                    if len(child):
+                        # Copy sub-element data as text into one long string and strip leading/trailing space
+                        value = ""
+                        for p in child.getchildren():
+                            temp = tostring(p)
+                            temp = temp.strip()
+                            value += temp
+                    else:
+                        value = ""
+                    
+                    if fqname == propertyname:
+                        return value
 
         return None
     

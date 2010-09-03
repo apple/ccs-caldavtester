@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ Class that encapsulates a series of tests.
 """
 
 from src.test import test
+from src.xmlUtils import getYesNoAttributeValue
 import src.xmlDefs
 
 class testsuite( object ):
@@ -37,21 +38,21 @@ class testsuite( object ):
         return self.require_features - self.manager.server_info.features
 
     def parseXML( self, node ):
-        self.name = node.getAttribute( src.xmlDefs.ATTR_NAME )
-        self.ignore = node.getAttribute( src.xmlDefs.ATTR_IGNORE ) == src.xmlDefs.ATTR_VALUE_YES
+        self.name = node.get(src.xmlDefs.ATTR_NAME, "")
+        self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TEST:
+            elif child.tag == src.xmlDefs.ELEMENT_TEST:
                 t = test(self.manager)
                 t.parseXML( child )
                 self.tests.append( t )
 
     def parseFeatures(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.text.encode("utf-8"))
 
     def dump( self ):
         print "\nTest Suite:"

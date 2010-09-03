@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2007 Apple Inc. All rights reserved.
+# Copyright (c) 2007-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import src.xmlDefs
 def readStringElementList(node, ename):
     
     results = []
-    for child in node._get_childNodes():
-        if child._get_localName() == ename:
-            results.append(child.firstChild.data.decode("utf-8"))
+    for child in node.getchildren():
+        if child.tag == ename:
+            results.append(child.text.decode("utf-8"))
     return results
 
 def getYesNoAttributeValue(node, attr):
-    return node.getAttribute(attr) != src.xmlDefs.ATTR_VALUE_NO
+    return node.get(attr, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
 def getDefaultAttributeValue(node, attr, default):
     result = node.getAttribute(attr)
@@ -40,7 +40,7 @@ def getDefaultAttributeValue(node, attr, default):
 
 def readOneStringElement(node, ename):
     
-    for child in node._get_childNodes():
-        if child._get_localName() == ename:
-            return child.firstChild.data.decode("utf-8")
+    for child in node.getchildren():
+        if child.tag == ename:
+            return child.text.decode("utf-8")
     return ""

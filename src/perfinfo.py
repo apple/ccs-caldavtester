@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,17 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-from src.manager import manager
-from random import randrange
-from threading import Timer
-import time
 
 """
 Class that encapsulates the server information for a CalDAV test run.
 """
 
+from random import randrange
+from src.manager import manager
+from src.xmlUtils import getYesNoAttributeValue
+from threading import Timer
+from xml.etree.ElementTree import ElementTree
+from xml.parsers.expat import ExpatError
 import src.xmlDefs
-import xml.dom.minidom
+import time
 
 START_DELAY = 3.0
 
@@ -65,60 +67,61 @@ class perfinfo( object ):
     @classmethod
     def parseFile(cls, filename):
         # Open and parse the server config file
-        fd = open(filename, "r")
-        doc = xml.dom.minidom.parse( fd )
-        fd.close()
+        try:
+            tree = ElementTree(file=filename)
+        except ExpatError, e:
+            raise RuntimeError("Unable to parse file '%s' because: %s" % (filename, e,))
     
         # Verify that top-level element is correct
-        perfinfo_node = doc._get_documentElement()
-        if perfinfo_node._get_localName() != src.xmlDefs.ELEMENT_PERFINFO:
+        perfinfo_node = tree.getroot()
+        if perfinfo_node.tag != src.xmlDefs.ELEMENT_PERFINFO:
             raise ValueError("Invalid configuration file: %s" % (filename,))
-        if not perfinfo_node.hasChildNodes():
+        if not len(perfinfo_node):
             raise ValueError("Invalid configuration file: %s" % (filename,))
         pinfo = perfinfo()
         pinfo.parseXML(perfinfo_node)
         return pinfo
         
     def parseXML( self, node ):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_CLIENTS:
-                self.clients = int(child.firstChild.data)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_THREADS:
-                self.threads = child.getAttribute( src.xmlDefs.ATTR_ENABLE ) != src.xmlDefs.ATTR_VALUE_NO
-            elif child._get_localName() == src.xmlDefs.ELEMENT_LOGGING:
-                self.logging = child.getAttribute( src.xmlDefs.ATTR_ENABLE ) != src.xmlDefs.ATTR_VALUE_NO
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TESTS:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_CLIENTS:
+                self.clients = int(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_THREADS:
+                self.threads = getYesNoAttributeValue(child, src.xmlDefs.ATTR_ENABLE)
+            elif child.tag == src.xmlDefs.ELEMENT_LOGGING:
+                self.logging = getYesNoAttributeValue(child, src.xmlDefs.ATTR_ENABLE)
+            elif child.tag == src.xmlDefs.ELEMENT_TESTS:
                 self.parseTestsXML(child)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SERVERINFO:
-                self.serverinfo = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_START:
-                if child.firstChild is not None:
-                    self.startscript = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_TESTINFO:
-                self.testinfo = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_END:
-                if child.firstChild is not None:
-                    self.endscript = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
+            elif child.tag == src.xmlDefs.ELEMENT_SERVERINFO:
+                self.serverinfo = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_START:
+                if child.text:
+                    self.startscript = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_TESTINFO:
+                self.testinfo = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_END:
+                if child.text:
+                    self.endscript = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
 
     def parseTestsXML(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_TEST:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_TEST:
                 clients = self.clients
                 spread = None
                 runs = None
-                for schild in child._get_childNodes():
-                    if schild._get_localName() == src.xmlDefs.ELEMENT_CLIENTS:
-                        clist = schild.firstChild.data.split(",")
+                for schild in child.getchildren():
+                    if schild.tag == src.xmlDefs.ELEMENT_CLIENTS:
+                        clist = schild.text.split(",")
                         if len(clist) == 1:
                             clients = int(clist[0])
                         else:
                             clients = range(int(clist[0]), int(clist[1]) + 1, int(clist[2]))
-                    elif schild._get_localName() == src.xmlDefs.ELEMENT_SPREAD:
-                        spread = float(schild.firstChild.data)
-                    elif schild._get_localName() == src.xmlDefs.ELEMENT_RUNS:
-                        runs = int(schild.firstChild.data)
+                    elif schild.tag == src.xmlDefs.ELEMENT_SPREAD:
+                        spread = float(schild.text)
+                    elif schild.tag == src.xmlDefs.ELEMENT_RUNS:
+                        runs = int(schild.text)
                 if spread and runs:
                     if isinstance(clients, list):
                         for client in clients:
@@ -127,15 +130,15 @@ class perfinfo( object ):
                         self.tests.append((clients, spread, runs,))
 
     def parseSubstitutionsXML(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_SUBSTITUTION:
                 key = None
                 value = None
-                for schild in child._get_childNodes():
-                    if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
-                        key = schild.firstChild.data
-                    elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                        value = schild.firstChild.data
+                for schild in child.getchildren():
+                    if schild.tag == src.xmlDefs.ELEMENT_KEY:
+                        key = schild.text
+                    elif schild.tag == src.xmlDefs.ELEMENT_VALUE:
+                        value = schild.text
                 if key and value:
                     self.subsdict[key] = value
 

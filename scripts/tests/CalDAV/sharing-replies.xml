@@ -181,8 +181,8 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$The Shared Calendar</value>
-						<value>http://calendarserver.org/ns/sharedurl$$pathprefix1:/shared</value>
+						<value>{DAV:}displayname$The Shared Calendar</value>
+						<value>{http://calendarserver.org/ns/}sharedurl$$pathprefix1:/shared</value>
 					</arg>
 				</verify>
 			</request>
@@ -204,7 +204,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$shared</value>
+						<value>{DAV:}displayname$shared</value>
 					</arg>
 				</verify>
 			</request>

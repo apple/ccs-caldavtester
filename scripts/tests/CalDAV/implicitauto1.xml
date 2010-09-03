@@ -1040,7 +1040,7 @@
 					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
 				</data>
 				<grabproperty>
-					<property>http://calendarserver.org/ns/getctag</property>
+					<property>{http://calendarserver.org/ns/}getctag</property>
 					<variable>$calendarctag:</variable>
 				</grabproperty>
 			</request>
@@ -1059,7 +1059,7 @@
 					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
 				</data>
 				<grabproperty>
-					<property>http://calendarserver.org/ns/getctag</property>
+					<property>{http://calendarserver.org/ns/}getctag</property>
 					<variable>$inboxctag:</variable>
 				</grabproperty>
 			</request>
@@ -1269,7 +1269,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/getctag!$calendarctag:</value>
+						<value>{http://calendarserver.org/ns/}getctag!$calendarctag:</value>
 					</arg>
 				</verify>
 			</request>
@@ -1291,7 +1291,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/getctag$$inboxctag:</value>
+						<value>{http://calendarserver.org/ns/}getctag$$inboxctag:</value>
 					</arg>
 				</verify>
 			</request>

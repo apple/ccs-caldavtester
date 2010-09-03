@@ -122,17 +122,20 @@
 					<filepath>Resource/CalDAV/sharing/peruser-properties/read-write/4.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>DAV:resourcetype$.*shared[^-].*</value>
-						<value><![CDATA[DAV:owner$<href>$principaluri1:</href>]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<read/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<write/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<bind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set$.*<unbind/>.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*admin.*]]></value>
-						<value><![CDATA[DAV:current-user-privilege-set!.*all.*]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
 					</arg>
 				</verify>
 			</request>
@@ -153,7 +156,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname</value>
+						<value>{DAV:}displayname</value>
 					</arg>
 				</verify>
 			</request>
@@ -172,7 +175,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$Changed Name #1</value>
+						<value>{DAV:}displayname$Changed Name #1</value>
 					</arg>
 				</verify>
 			</request>
@@ -194,7 +197,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$The Shared Calendar</value>
+						<value>{DAV:}displayname$The Shared Calendar</value>
 					</arg>
 				</verify>
 			</request>
@@ -212,7 +215,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname</value>
+						<value>{DAV:}displayname</value>
 					</arg>
 				</verify>
 			</request>
@@ -231,7 +234,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$Shared Name #2</value>
+						<value>{DAV:}displayname$Shared Name #2</value>
 					</arg>
 				</verify>
 			</request>
@@ -253,7 +256,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$Changed Name #1</value>
+						<value>{DAV:}displayname$Changed Name #1</value>
 					</arg>
 				</verify>
 			</request>
@@ -274,7 +277,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -293,7 +296,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description$Description #1</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description$Description #1</value>
 					</arg>
 				</verify>
 			</request>
@@ -315,7 +318,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description$Description #1</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description$Description #1</value>
 					</arg>
 				</verify>
 			</request>
@@ -333,7 +336,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description</value>
 					</arg>
 				</verify>
 			</request>
@@ -352,7 +355,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description$Sharee Description #2</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description$Sharee Description #2</value>
 					</arg>
 				</verify>
 			</request>
@@ -374,7 +377,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-description$Description #1</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-description$Description #1</value>
 					</arg>
 				</verify>
 			</request>

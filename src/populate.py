@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ class populate( object ):
         self.accounts = []
     
     def parseXML( self, node ):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
-                self.description = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_PATH:
-                self.path = child.firstChild.data
-            elif child._get_localName() == src.xmlDefs.ELEMENT_ACCOUNT:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
+                self.description = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_PATH:
+                self.path = child.text
+            elif child.tag == src.xmlDefs.ELEMENT_ACCOUNT:
                 acct = account()
                 acct.parseXML(child)
                 self.accounts.extend(acct.expand())

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ Class that encapsulates a single CalDAV test.
 """
 
 from src.request import request
+from src.xmlUtils import getYesNoAttributeValue
 import src.xmlDefs
 
 class test( object ):
@@ -44,29 +45,25 @@ class test( object ):
         return self.require_features - self.manager.server_info.features
 
     def parseXML( self, node ):
-        self.name = node.getAttribute( src.xmlDefs.ATTR_NAME )
-        self.details = node.getAttribute( src.xmlDefs.ATTR_DETAILS ) == src.xmlDefs.ATTR_VALUE_YES
-        self.count = node.getAttribute( src.xmlDefs.ATTR_COUNT )
-        if self.count == '':
-            self.count = 1
-        else:
-            self.count = int(self.count)
-        self.stats = node.getAttribute( src.xmlDefs.ATTR_STATS ) == src.xmlDefs.ATTR_VALUE_YES
-        self.ignore = node.getAttribute( src.xmlDefs.ATTR_IGNORE ) == src.xmlDefs.ATTR_VALUE_YES
+        self.name = node.get(src.xmlDefs.ATTR_NAME, "")
+        self.details = getYesNoAttributeValue(node, src.xmlDefs.ATTR_DETAILS)
+        self.count = int(node.get(src.xmlDefs.ATTR_COUNT, 1))
+        self.stats = getYesNoAttributeValue(node, src.xmlDefs.ATTR_STATS)
+        self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
 
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures( child )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_DESCRIPTION:
-                self.description = child.firstChild.data
+            elif child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
+                self.description = child.text
 
         # get request
         self.requests = request.parseList( self.manager, node )
 
     def parseFeatures(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                self.require_features.add(child.text.encode("utf-8"))
 
     def dump( self ):
         print "\nTEST: %s" % self.name

@@ -110,7 +110,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><create/></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><create/></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -210,7 +210,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -312,7 +312,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><update><recurrence><master/><changes><changed-property name="ATTENDEE"/><changed-property name="SUMMARY"/></changes></recurrence></update></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><update><recurrence><master/><changes><changed-property name="ATTENDEE"/><changed-property name="SUMMARY"/></changes></recurrence></update></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -407,7 +407,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -676,7 +676,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><cancel/></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><cancel/></action>]]></value>
 					</arg>
 				</verify>
 			</request>

@@ -180,22 +180,22 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:getcontentlength</value>
-						<value>DAV:getcontenttype</value>
-						<value>DAV:resourcetype</value>
-						<value>DAV:getetag</value>
-						<value>DAV:displayname</value>
-						<value>DAV:supported-privilege-set</value>
-						<value>DAV:current-user-privilege-set</value>
-						<value>DAV:acl</value>
-						<value>DAV:acl-restrictions</value>
-						<value>DAV:inherited-acl-set</value>
-						<value>DAV:principal-collection-set</value>
+						<value>{DAV:}getcontentlength</value>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}getetag</value>
+						<value>{DAV:}displayname</value>
+						<value>{DAV:}supported-privilege-set</value>
+						<value>{DAV:}current-user-privilege-set</value>
+						<value>{DAV:}acl</value>
+						<value>{DAV:}acl-restrictions</value>
+						<value>{DAV:}inherited-acl-set</value>
+						<value>{DAV:}principal-collection-set</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:owner</value>
-						<value>DAV:group</value>
+						<value>{DAV:}owner</value>
+						<value>{DAV:}group</value>
 					</arg>
 				</verify>
 			</request>
@@ -217,22 +217,22 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:getcontentlength</value>
-						<value>DAV:getcontenttype</value>
-						<value>DAV:resourcetype</value>
-						<value>DAV:getetag</value>
-						<value>DAV:displayname</value>
-						<value>DAV:current-user-privilege-set</value>
-						<value>DAV:supported-privilege-set</value>
-						<value>DAV:acl-restrictions</value>
-						<value>DAV:inherited-acl-set</value>
-						<value>DAV:principal-collection-set</value>
+						<value>{DAV:}getcontentlength</value>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}getetag</value>
+						<value>{DAV:}displayname</value>
+						<value>{DAV:}current-user-privilege-set</value>
+						<value>{DAV:}supported-privilege-set</value>
+						<value>{DAV:}acl-restrictions</value>
+						<value>{DAV:}inherited-acl-set</value>
+						<value>{DAV:}principal-collection-set</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:acl</value>
-						<value>DAV:owner</value>
-						<value>DAV:group</value>
+						<value>{DAV:}acl</value>
+						<value>{DAV:}owner</value>
+						<value>{DAV:}group</value>
 					</arg>
 				</verify>
 			</request>
@@ -254,11 +254,11 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>DAV:read</value>
-						<value>DAV:write</value>
-						<value>DAV:write-acl</value>
-						<value>DAV:read-current-user-privilege-set</value>
-						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+						<value>{DAV:}read</value>
+						<value>{DAV:}write</value>
+						<value>{DAV:}write-acl</value>
+						<value>{DAV:}read-current-user-privilege-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule</value>
 					</arg>
 				</verify>
 			</request>
@@ -280,11 +280,11 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>DAV:read</value>
-						<value>DAV:write</value>
-						<value>DAV:write-acl</value>
-						<value>DAV:read-current-user-privilege-set</value>
-						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+						<value>{DAV:}read</value>
+						<value>{DAV:}write</value>
+						<value>{DAV:}write-acl</value>
+						<value>{DAV:}read-current-user-privilege-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule</value>
 					</arg>
 				</verify>
 			</request>
@@ -306,14 +306,14 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>DAV:read</value>
-						<value>DAV:write</value>
-						<value>DAV:write-acl</value>
-						<value>DAV:read-current-user-privilege-set</value>
+						<value>{DAV:}read</value>
+						<value>{DAV:}write</value>
+						<value>{DAV:}write-acl</value>
+						<value>{DAV:}read-current-user-privilege-set</value>
 					</arg>
 					<arg>
 						<name>denied</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule</value>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule</value>
 					</arg>
 				</verify>
 			</request>
@@ -360,7 +360,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:principal-collection-set$&lt;href>$principalcollection:&lt;/href></value>
+						<value><![CDATA[{DAV:}principal-collection-set$<href xmlns="DAV:">$principalcollection:</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -410,7 +410,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:no-ace-conflict</value>
+						<value>{DAV:}no-ace-conflict</value>
 					</arg>
 				</verify>
 			</request>
@@ -431,7 +431,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:no-ace-conflict</value>
+						<value>{DAV:}no-ace-conflict</value>
 					</arg>
 				</verify>
 			</request>
@@ -452,7 +452,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:no-protected-ace-conflict</value>
+						<value>{DAV:}no-protected-ace-conflict</value>
 					</arg>
 				</verify>
 			</request>
@@ -473,7 +473,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:no-inherited-ace-conflict</value>
+						<value>{DAV:}no-inherited-ace-conflict</value>
 					</arg>
 				</verify>
 			</request>
@@ -494,7 +494,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:deny-before-grant</value>
+						<value>{DAV:}deny-before-grant</value>
 					</arg>
 				</verify>
 			</request>
@@ -515,7 +515,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:not-supported-privilege</value>
+						<value>{DAV:}not-supported-privilege</value>
 					</arg>
 				</verify>
 			</request>
@@ -536,7 +536,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:recognized-principal</value>
+						<value>{DAV:}recognized-principal</value>
 					</arg>
 				</verify>
 			</request>
@@ -557,7 +557,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:recognized-principal</value>
+						<value>{DAV:}recognized-principal</value>
 					</arg>
 				</verify>
 			</request>
@@ -578,7 +578,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>DAV:recognized-principal</value>
+						<value>{DAV:}recognized-principal</value>
 					</arg>
 				</verify>
 			</request>
@@ -776,11 +776,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:alternate-URI-set</value>
-						<value>DAV:principal-URL$&lt;href>$principaluri1:&lt;/href></value>
-						<value>DAV:group-member-set</value>
-						<value>DAV:group-membership</value>
-						<value>DAV:displayname$$username1:</value>
+						<value>{DAV:}alternate-URI-set</value>
+						<value><![CDATA[{DAV:}principal-URL$<href xmlns="DAV:">$principaluri1:</href>]]></value>
+						<value>{DAV:}group-member-set</value>
+						<value>{DAV:}group-membership</value>
+						<value>{DAV:}displayname$$username1:</value>
 					</arg>
 				</verify>
 			</request>
@@ -921,7 +921,7 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+						<value>{urn:ietf:params:xml:ns:caldav}read-free-busy</value>
 					</arg>
 				</verify>
 			</request>
@@ -943,7 +943,7 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+						<value>{urn:ietf:params:xml:ns:caldav}read-free-busy</value>
 					</arg>
 				</verify>
 			</request>
@@ -1029,7 +1029,7 @@
 					<callback>aclItems</callback>
 					<arg>
 						<name>granted</name>
-						<value>urn:ietf:params:xml:ns:caldavread-free-busy</value>
+						<value>{urn:ietf:params:xml:ns:caldav}read-free-busy</value>
 					</arg>
 				</verify>
 			</request>
@@ -1116,8 +1116,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:current-user-privilege-set</value>
-						<value>DAV:acl</value>
+						<value>{DAV:}current-user-privilege-set</value>
+						<value>{DAV:}acl</value>
 					</arg>
 				</verify>
 			</request>
@@ -1179,8 +1179,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:current-user-privilege-set</value>
-						<value>DAV:acl</value>
+						<value>{DAV:}current-user-privilege-set</value>
+						<value>{DAV:}acl</value>
 					</arg>
 				</verify>
 			</request>

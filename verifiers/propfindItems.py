@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@ Verifier that checks a propfind response to make sure that the specified propert
 are returned with appropriate status codes.
 """
 
-from xml.dom.minidom import Element
-import xml.dom.minidom
-
-from utilities.xmlutils import ElementsByName
+from xml.etree.ElementTree import ElementTree, tostring
+from StringIO import StringIO
 
 class Verifier(object):
     
@@ -38,6 +36,25 @@ class Verifier(object):
         else:
             count = None
 
+        # Check how many responses are returned
+        roots = args.get("root-element", [])
+        if len(roots) == 1:
+            root = roots[0]
+        else:
+            root = "{DAV:}multistatus"
+
+        def normalizeXML(value):
+            
+            if value[0] == '<':
+                value = "<CDTdummy>" + value + "</CDTdummy>"
+                try:
+                    tree = ElementTree(file=StringIO(value))
+                except Exception:
+                    return False, "           Could not parse XML value: %s\n" % (value,)
+                value = tostring(tree.getroot())
+                value = value.replace("<CDTdummy>", "").replace("</CDTdummy>", "")
+            return value
+
         # Get property arguments and split on $ delimited for name, value tuples
         okprops = args.get("okprops", [])
         ok_props_match = []
@@ -46,12 +63,12 @@ class Verifier(object):
             p = okprops[i]
             if (p.find("$") != -1):
                 if  p.find("$") != len(p) - 1:
-                    ok_props_match.append((p.split("$")[0], p.split("$")[1]))
+                    ok_props_match.append((p.split("$")[0], normalizeXML(p.split("$")[1])))
                 else:
                     ok_props_match.append((p.split("$")[0], None))
             elif (p.find("!") != -1):
                 if  p.find("!") != len(p) - 1:
-                    okprops_nomatch[p.split("!")[0]] = p.split("!")[1]
+                    okprops_nomatch[p.split("!")[0]] = normalizeXML(p.split("!")[1])
                 else:
                     okprops_nomatch[p.split("!")[0]] = None
             else:
@@ -60,7 +77,7 @@ class Verifier(object):
         for i in range(len(badprops)):
             p = badprops[i]
             if p.find("$") != -1:
-                badprops[i] = (p.split("$")[0], p.split("$")[1])
+                badprops[i] = (p.split("$")[0], normalizeXML(p.split("$")[1]))
             else:
                 badprops[i] = (p, None)
 
@@ -74,25 +91,27 @@ class Verifier(object):
         # Must have MULTISTATUS response code
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
-        
+
+        # Read in XML
         try:
-            doc = xml.dom.minidom.parseString( respdata )
-        except:
+            tree = ElementTree(file=StringIO(respdata))
+        except Exception:
             return False, "           Could not parse proper XML response\n"
-                
+        
+        # Test root element
+        if tree.getroot().tag != root:
+            return False, "           Invalid root-element specified: %s\n" % (root,)
+
         result = True
         resulttxt = ""
         ctr = 0
-        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+        for response in tree.findall("{DAV:}response"):
 
             # Get href for this response
-            href = ElementsByName(response, "DAV:", "href")
-            if len(href) != 1:
+            href = response.find("{DAV:}href")
+            if href is None:
                 return False, "           Wrong number of DAV:href elements\n"
-            if href[0].firstChild is not None:
-                href = href[0].firstChild.data
-            else:
-                href = ""
+            href = href.text
             if href in ignores:
                 continue
             
@@ -103,12 +122,12 @@ class Verifier(object):
             # Get all property status
             ok_status_props = []
             bad_status_props = []
-            propstatus = ElementsByName(response, "DAV:", "propstat")
+            propstatus = response.findall("{DAV:}propstat")
             for props in propstatus:
                 # Determine status for this propstat
-                status = ElementsByName(props, "DAV:", "status")
-                if len(status) == 1:
-                    statustxt = status[0].firstChild.data
+                status = props.find("{DAV:}status")
+                if status is not None:
+                    statustxt = status.text
                     status = False
                     if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
                         status = (statustxt[9] == "2")
@@ -116,34 +135,40 @@ class Verifier(object):
                     status = False
                 
                 # Get properties for this propstat
-                prop = ElementsByName(props, "DAV:", "prop")
-                if len(prop) != 1:
+                prop = props.find("{DAV:}prop")
+                if not prop:
                     return False, "           Wrong number of DAV:prop elements\n"
 
-                for child in prop[0]._get_childNodes():
-                    if isinstance(child, Element):
-                        qname = (child.namespaceURI, child.localName)
-                        fqname = qname[0] + qname[1]
-                        if child.firstChild is not None:
-                            # Copy sub-element data as text into one long string and strip leading/trailing space
-                            value = ""
-                            for p in child._get_childNodes():
-                                temp = p.toprettyxml("", "")
-                                temp = temp.strip()
-                                value += temp
-                            if status:
-                                if (fqname, None,) in ok_test_set:
-                                    value = None
-                            else:
-                                if (fqname, None,) in bad_test_set:
-                                    value = None
-                        else:
-                            value = None
-                        
+                for child in prop.getchildren():
+                    fqname = child.tag
+                    if len(child):
+                        # Copy sub-element data as text into one long string and strip leading/trailing space
+                        value = ""
+                        for p in child.getchildren():
+                            temp = tostring(p)
+                            temp = temp.strip()
+                            value += temp
                         if status:
-                            ok_status_props.append( (fqname, value,) )
+                            if (fqname, None,) in ok_test_set:
+                                value = None
                         else:
-                            bad_status_props.append( (fqname, value,) )
+                            if (fqname, None,) in bad_test_set:
+                                value = None
+                    elif child.text:
+                        value = child.text
+                        if status:
+                            if (fqname, None,) in ok_test_set:
+                                value = None
+                        else:
+                            if (fqname, None,) in bad_test_set:
+                                value = None
+                    else:
+                        value = None
+                    
+                    if status:
+                        ok_status_props.append( (fqname, value,) )
+                    else:
+                        bad_status_props.append( (fqname, value,) )
     
             ok_result_set = set( ok_status_props )
             bad_result_set = set( bad_status_props )

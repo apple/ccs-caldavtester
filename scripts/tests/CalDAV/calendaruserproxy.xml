@@ -92,7 +92,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;principal/>&lt;collection/>&lt;calendar-proxy-read xmlns="http://calendarserver.org/ns/"/></value>
+						<value><![CDATA[{DAV:}resourcetype$<D:principal xmlns:D="DAV:"/><D:collection xmlns:D="DAV:"/><CS:calendar-proxy-read xmlns:CS="http://calendarserver.org/ns/"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -110,7 +110,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;principal/>&lt;collection/>&lt;calendar-proxy-write xmlns="http://calendarserver.org/ns/"/></value>
+						<value><![CDATA[{DAV:}resourcetype$<D:principal xmlns:D="DAV:"/><D:collection xmlns:D="DAV:"/><CS:calendar-proxy-write xmlns:CS="http://calendarserver.org/ns/"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -131,8 +131,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -150,8 +150,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -183,7 +183,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -198,8 +198,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -221,8 +221,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -244,8 +244,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-read/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership$<D:href xmlns:D="DAV:">$principaluri1:calendar-proxy-read/</D:href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -295,7 +295,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -310,8 +310,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -329,8 +329,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -348,8 +348,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -381,7 +381,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -396,8 +396,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -419,8 +419,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -442,8 +442,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-write/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership$<D:href xmlns:D="DAV:">$principaluri1:calendar-proxy-write/</D:href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -521,7 +521,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -536,8 +536,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -555,8 +555,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -574,8 +574,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -607,7 +607,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -625,7 +625,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -647,8 +647,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri1:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri1:</D:href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -692,8 +692,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri3:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri3:</D:href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -736,7 +736,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -751,8 +751,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 				<verify>
@@ -801,7 +801,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -826,8 +826,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/calendar-proxy-read-for$</value>
-						<value>http://calendarserver.org/ns/calendar-proxy-write-for$</value>
+						<value>{http://calendarserver.org/ns/}calendar-proxy-read-for$</value>
+						<value>{http://calendarserver.org/ns/}calendar-proxy-write-for$</value>
 					</arg>
 				</verify>
 			</request>
@@ -845,7 +845,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -860,7 +860,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -879,8 +879,8 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[http://calendarserver.org/ns/calendar-proxy-read-for$<href xmlns="DAV:">$principaluri2:</href>]]></value>
-						<value><![CDATA[http://calendarserver.org/ns/calendar-proxy-write-for$<href xmlns="DAV:">$principaluri3:</href>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}calendar-proxy-read-for$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}calendar-proxy-write-for$<D:href xmlns:D="DAV:">$principaluri3:</D:href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -898,7 +898,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -913,7 +913,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -932,8 +932,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>http://calendarserver.org/ns/calendar-proxy-read-for$</value>
-						<value>http://calendarserver.org/ns/calendar-proxy-write-for$</value>
+						<value>{http://calendarserver.org/ns/}calendar-proxy-read-for$</value>
+						<value>{http://calendarserver.org/ns/}calendar-proxy-write-for$</value>
 					</arg>
 				</verify>
 			</request>
@@ -984,7 +984,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -999,7 +999,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1047,7 +1047,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1062,7 +1062,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1105,7 +1105,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1142,7 +1142,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1204,7 +1204,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1223,11 +1223,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:current-user-privilege-set</value>
+						<value>{DAV:}current-user-privilege-set</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:acl</value>
+						<value>{DAV:}acl</value>
 					</arg>
 				</verify>
 			</request>
@@ -1245,7 +1245,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1288,7 +1288,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -1429,7 +1429,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>

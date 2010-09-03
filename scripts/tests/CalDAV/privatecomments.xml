@@ -434,7 +434,7 @@
 					<callback>statusCode</callback>
 				</verify>
 				<grabproperty>
-					<property>DAV:getlastmodified</property>
+					<property>{DAV:}getlastmodified</property>
 					<variable>$attendee2-getlastmodified:</variable>
 				</grabproperty>
 			</request>
@@ -566,7 +566,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:getlastmodified$$attendee2-getlastmodified:</value>
+						<value>{DAV:}getlastmodified$$attendee2-getlastmodified:</value>
 					</arg>
 				</verify>
 			</request>
@@ -1101,7 +1101,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence><recurrence><recurrenceid>20060102T150000Z</recurrenceid><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence></reply></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence><recurrence><recurrenceid>20060102T150000Z</recurrenceid><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -1209,7 +1209,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/schedule-changes$<dtstamp>.*</dtstamp><action><reply><attendee>$cuaddrurn2:</attendee><recurrence><recurrenceid>20060102T150000Z</recurrenceid><changes><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence></reply></action>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><recurrenceid>20060102T150000Z</recurrenceid><changes><changed-property name="X-CALENDARSERVER-PRIVATE-COMMENT"/></changes></recurrence></reply></action>]]></value>
 					</arg>
 				</verify>
 			</request>

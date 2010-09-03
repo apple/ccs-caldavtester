@@ -67,6 +67,13 @@ serverinfo.dtd
 	ELEMENT <ssl>
 		if present, use SSL to connect to the server.
 
+	ELEMENT <features>
+		list of features for the server under test.
+
+		ELEMENT <feature>
+			specific feature supported by the server under test,
+			used to do conditional testing.
+
 	ELEMENT <substitutions>
 		used to encapsulate all variable substitutions.
 
@@ -81,6 +88,10 @@ serverinfo.dtd
 			ELEMENT <value>
 				the substitution value.
 
+		ELEMENT <repeat>
+			allow repeating substitutions for the specified count.
+
+
 caldavtest.dtd:
 
 	Defines the XML DTD for test script files:
@@ -93,6 +104,13 @@ caldavtest.dtd:
 
 	ELEMENT <description>
 		a description for this test script.
+
+	ELEMENT <require-feature>
+		set of features.
+
+		ELEMENT <feature>
+			feature that server has to support for this entire test
+			script to run.
 
 	ELEMENT <start>
 		defines a series of requests that are executed before testing
@@ -111,6 +129,13 @@ caldavtest.dtd:
 		defines a group of tests to be run. The suite is given a name
 		and has an 'ignore' attribute that can be used to disable it.
 
+		ELEMENT <require-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server has to support for this test
+				suite to run.
+
 	ELEMENT <test>
 		defines a single test within a test suite. A test has a name,
 		description and one or more requests associated with it. There
@@ -118,6 +143,13 @@ caldavtest.dtd:
 		executed multiple times by setting the 'count' attribute to a
 		value greater than 1. Timing information about the test can be
 		printed out by setting the 'stats' attribute to 'yes'.
+
+		ELEMENT <require-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server has to support for this test
+				to run.
 
 
 	ELEMENT <request>
@@ -149,6 +181,7 @@ caldavtest.dtd:
 			2) DELAY - pause for the number of seconds specified by the <ruri> element.
 			3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 					    into the $ variable for later use in an <ruri> element.
+			3) WAITCOUNT - wait until at least a certain numner of resources appear in a collection.
 
 	ELEMENT <ruri>
 		the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
@@ -204,59 +237,43 @@ caldavtest.dtd:
 		returned in a PROPFIND response in a named variable which can
 		be used in subsequent requests.
 		
+	ELEMENT <grabelement>
+		if present, this stores the text representation of an XML
+		element extracted from the response body in a named variable
+		which can be used in subsequent requests.
+		
 VERIFICATION Methods
 
-statusCode:
-	Performs a simple test of the response status code and returns True
-	if the code matches, otherwise False.
+acltems:
+	Performs a check of multi-status response body and checks to see
+	whether the specified privileges are granted or denied on each
+	resource in the response for the current user (i.e. tests the
+	DAV:current-user-privilege-set).
+
+	Argument: 'granted'
+		A set of privileges that must be granted.
 	
-	Argument: 'status'
-		If the argument is not present, the any 2xx status code response
-		will result in True. The status code value can be specified as
-		'NNN' or 'Nxx' where 'N' is a digit and 'x' the letter x. In the
-		later case, the verifier will return True if the response status
-		code's 'major' digit matches the first digit.
-	
+	Argument: 'denied'
+		A set of privileges that must be denied denied.
+
 	Example:
 	
 	<verify>
-		<callback>statusCode</callback>
+		<callback>multistatusitems</callback>
 		<arg>
-			<name>status</name>
-			<value>2xx</value>
+			<name>granted</name>
+			<value>DAV:read</value>
+		</arg>
+		<arg>
+			<name>denied</name>
+			<value>DAV:write</value>
+			<value>DAV:write-acl</value>
 		</arg>
 	</verify>
 	
-header:
-	Performs a check of response header and value. This can be used to
-	test for the presence or absence of a header, or the presence of a
-	header with a specific value.
-
-	Argument: 'header'
-		This can be specified in one of three forms:
-		
-			'headername' - will test for the presence of the response
-			header named 'header name'.
-
-			'headername$value' - will test for the presence of the
-			response header named 'headername' and also check that its
-			value matches 'value'.
-
-			'!headername' - will test for the absence of a header named
-			'headername' in the response header.
-	
-	Example:
-	
-	<verify>
-		<callback>header</callback>
-		<arg>
-			<name>header</name>
-			<value>Content-type$text/plain</value>
-		</arg>
-	</verify>
-	
-dataMatch:
-	Performs a check of response body and matches it against the data in the specified file.
+calandarDataMatch:
+	Similar to data match but tries to "normalize" the calendar data so that e.g., different
+	ordering of properties is not significant.
 
 	Argument: 'filepath'
 		The file path to a file containing data to match the response body to.
@@ -271,9 +288,8 @@ dataMatch:
 		</arg>
 	</verify>
 	
-calandarDataMatch:
-	Similar to data match but tries to "normalize" the calendar data so that e.g., different
-	ordering of properties is not significant.
+dataMatch:
+	Performs a check of response body and matches it against the data in the specified file.
 
 	Argument: 'filepath'
 		The file path to a file containing data to match the response body to.
@@ -309,154 +325,6 @@ dataString:
 		<arg>
 			<name>notcontains</name>
 			<value>BEGIN:VTODO</value>
-		</arg>
-	</verify>
-	
-prepostcondition:
-	Performs a check of response body and status code to verify that a
-	specific pre-/post-condition error was returned. The response status
-	code has to be one of 403 or 409.
-
-	Argument: 'error'
-		The expected XML element qualified-name to match.
-	
-	Example:
-	
-	<verify>
-		<callback>prepostcondition</callback>
-		<arg>
-			<name>error</name>
-			<value>DAV:too-many-matches</value>
-		</arg>
-	</verify>
-	
-multistatusItems:
-	Performs a check of multi-status response body and checks to see
-	what hrefs were returned and whether those had a good (2xx) or bad
-	(non-2xx) response code. The overall response status must be 207.
-
-	Argument: 'okhrefs'
-		A set of hrefs for which a 2xx response status is required.
-	
-	Argument: 'badhrefs'
-		A set of hrefs for which a non-2xx response status is required.
-
-	Argument: 'prefix'
-		A prefix that is appended to all of the specified okhrefs and
-		badhrefs values.
-	
-	Example:
-	
-	<verify>
-		<callback>multistatusitems</callback>
-		<arg>
-			<name>okhrefs</name>
-			<value>/calendar/test/1.ics</value>
-			<value>/calendar/test/2.ics</value>
-			<value>/calendar/test/3.ics</value>
-		</arg>
-		<arg>
-			<name>badhrefs</name>
-			<value>/calendar/test/4.ics</value>
-			<value>/calendar/test/5.ics</value>
-			<value>/calendar/test/6.ics</value>
-		</arg>
-	</verify>
-	
-propfindItems:
-	Performs a check of propfind multi-status response body and checks to see
-	whether the returned properties (and optionally their values) are good (2xx) or bad
-	(non-2xx) response code. The overall response status must be 207.
-
-	Argument: 'okprops'
-		A set of properties for which a 2xx response status is required. Two forms can be used:
-		
-		'propname' - will test for the presence of the property named
-		'propname'. The element data must be a qualified XML element
-		name.
-	
-		'propname$value' - will test for the presence of the property
-		named 'propname' and check that its value matches the provided
-		'value'. The element data must be a qualified XML element name.
-		XML elements in the property value can be tested provided proper
-		XML escaping is used (see example).
-	
-	Argument: 'badhrefs'
-		A set of properties for which a non-2xx response status is
-		required. The same two forms as used for 'okprops' can be used
-		here.
-
-	Argument: 'ignore'
-		One or more href values for hrefs in the response which will be
-		ignored. e.g. when doing a PROPFIND Depth:1, you may want to
-		ignore the top-level resource when testing as only the
-		properties on the child resources may be of interest.
-	
-	Example:
-	
-	<verify>
-		<callback>propfindItems</callback>
-		<arg>
-			<name>okprops</name>
-			<value>DAV:getetag</value>
-			<value>DAV:getcontenttype$text/plain</value>
-			<value>X:getstate$&lt;X:ok/&gt;</value>
-		</arg>
-		<arg>
-			<name>badprops</name>
-			<value>X:nostate</value>
-		</arg>
-		<arg>
-			<name>ignore</name>
-			<value>/calendars/test/</value>
-		</arg>
-	</verify>
-	
-propfindValues:
-	Performs a regular expression match against property values. The overall
-	response status must be 207.
-
-	Argument: 'props'
-		A set of properties for which a 2xx response status is required. Two forms can be used:
-		
-		'propname$value' - will test for property value match
-		'propname!value' - will test for property value non-match
-	
-	Example:
-	
-	<verify>
-		<callback>propfindValues</callback>
-		<arg>
-			<name>props</name>
-			<value>DAV:getcontenttype$text/.*</value>
-			<value>DAV:getcontenttype!text/calendar</value>
-		</arg>
-	</verify>
-	
-acltems:
-	Performs a check of multi-status response body and checks to see
-	whether the specified privileges are granted or denied on each
-	resource in the response for the current user (i.e. tests the
-	DAV:current-user-privilege-set).
-
-	Argument: 'granted'
-		A set of privileges that must be granted.
-	
-	Argument: 'denied'
-		A set of privileges that must be denied denied.
-
-	Example:
-	
-	<verify>
-		<callback>multistatusitems</callback>
-		<arg>
-			<name>granted</name>
-			<value>DAV:read</value>
-		</arg>
-		<arg>
-			<name>denied</name>
-			<value>DAV:write</value>
-			<value>DAV:write-acl</value>
 		</arg>
 	</verify>
 	
@@ -498,3 +366,270 @@ freeBusy:
 		</arg>
 	</verify>
 
+header:
+	Performs a check of response header and value. This can be used to
+	test for the presence or absence of a header, or the presence of a
+	header with a specific value.
+
+	Argument: 'header'
+		This can be specified in one of three forms:
+		
+			'headername' - will test for the presence of the response
+			header named 'header name'.
+
+			'headername$value' - will test for the presence of the
+			response header named 'headername' and also check that its
+			value matches 'value'.
+
+			'!headername' - will test for the absence of a header named
+			'headername' in the response header.
+	
+	Example:
+	
+	<verify>
+		<callback>header</callback>
+		<arg>
+			<name>header</name>
+			<value>Content-type$text/plain</value>
+		</arg>
+	</verify>
+	
+multistatusItems:
+	Performs a check of multi-status response body and checks to see
+	what hrefs were returned and whether those had a good (2xx) or bad
+	(non-2xx) response code. The overall response status must be 207.
+
+	Argument: 'okhrefs'
+		A set of hrefs for which a 2xx response status is required.
+	
+	Argument: 'badhrefs'
+		A set of hrefs for which a non-2xx response status is required.
+
+	Argument: 'prefix'
+		A prefix that is appended to all of the specified okhrefs and
+		badhrefs values.
+	
+	Example:
+	
+	<verify>
+		<callback>multistatusitems</callback>
+		<arg>
+			<name>okhrefs</name>
+			<value>/calendar/test/1.ics</value>
+			<value>/calendar/test/2.ics</value>
+			<value>/calendar/test/3.ics</value>
+		</arg>
+		<arg>
+			<name>badhrefs</name>
+			<value>/calendar/test/4.ics</value>
+			<value>/calendar/test/5.ics</value>
+			<value>/calendar/test/6.ics</value>
+		</arg>
+	</verify>
+	
+postFreeBusy:
+	Looks for specific FREEBUSY periods for a particular ATTENDEE.
+
+	Argument: 'attendee'
+		Calendar user address for attendee to match.
+	
+	Argument: 'busy'
+		Period for FBTYPE=BUSY to match.
+	
+	Argument: 'tentative'
+		Period for FBTYPE=BUSY-TENTATIVE to match.
+	
+	Argument: 'unavailable'
+		Period for FBTYPE=BUSY-UNAVAILABLE to match.
+	
+	Example:
+	
+	<verify>
+		<callback>postFreeBusy</callback>
+		<arg>
+			<name>attendee</name>
+			<value>$cuaddr1:</value>
+		</arg>
+		<arg>
+			<name>busy</name>
+			<value>20060101T230000Z/20060102T000000Z</value>
+		</arg>
+	</verify>
+	
+prepostcondition:
+	Performs a check of response body and status code to verify that a
+	specific pre-/post-condition error was returned. The response status
+	code has to be one of 403 or 409.
+
+	Argument: 'error'
+		The expected XML element qualified-name to match.
+	
+	Example:
+	
+	<verify>
+		<callback>prepostcondition</callback>
+		<arg>
+			<name>error</name>
+			<value>DAV:too-many-matches</value>
+		</arg>
+	</verify>
+	
+propfindItems:
+	Performs a check of propfind multi-status response body and checks to see
+	whether the returned properties (and optionally their values) are good (2xx) or bad
+	(non-2xx) response code. The overall response status must be 207.
+
+	Argument: 'roor-element'
+		Exepected root element for the XML response. Normally this is DAV:multistatus
+		but, e.g., MKCOL ext uses a different root, but mostly looks like multistatus
+		otherwise.
+
+	Argument: 'okprops'
+		A set of properties for which a 2xx response status is required. Two forms can be used:
+		
+		'propname' - will test for the presence of the property named
+		'propname'. The element data must be a qualified XML element
+		name.
+	
+		'propname$value' - will test for the presence of the property
+		named 'propname' and check that its value matches the provided
+		'value'. The element data must be a qualified XML element name.
+		XML elements in the property value can be tested provided proper
+		XML escaping is used (see example).
+	
+		'propname!value' - will test for the presence of the property
+		named 'propname' and check that its value does not match the provided
+		'value'. The element data must be a qualified XML element name.
+		XML elements in the property value can be tested provided proper
+		XML escaping is used (see example).
+	
+	Argument: 'badhrefs'
+		A set of properties for which a non-2xx response status is
+		required. The same two forms as used for 'okprops' can be used
+		here.
+
+	Example:
+	
+	<verify>
+		<callback>propfindItems</callback>
+		<arg>
+			<name>okprops</name>
+			<value>{DAV:}getetag</value>
+			<value>{DAV:}getcontenttype$text/plain</value>
+			<value>{X:}getstate$&lt;X:ok/&gt;</value>
+		</arg>
+		<arg>
+			<name>badprops</name>
+			<value>{X:}nostate</value>
+		</arg>
+	</verify>
+	
+propfindValues:
+	Performs a regular expression match against property values. The overall
+	response status must be 207.
+
+	Argument: 'props'
+		A set of properties for which a 2xx response status is required. Two forms can be used:
+		
+		'propname$value' - will test for property value match
+		'propname!value' - will test for property value non-match
+	
+	Argument: 'ignore'
+		One or more href values for hrefs in the response which will be
+		ignored. e.g. when doing a PROPFIND Depth:1, you may want to
+		ignore the top-level resource when testing as only the
+		properties on the child resources may be of interest.
+	
+	Example:
+	
+	<verify>
+		<callback>propfindValues</callback>
+		<arg>
+			<name>props</name>
+			<value>{DAV:}getcontenttype$text/.*</value>
+			<value>{DAV:}getcontenttype!text/calendar</value>
+		</arg>
+		<arg>
+			<name>ignore</name>
+			<value>/calendars/test/</value>
+		</arg>
+	</verify>
+	
+statusCode:
+	Performs a simple test of the response status code and returns True
+	if the code matches, otherwise False.
+	
+	Argument: 'status'
+		If the argument is not present, the any 2xx status code response
+		will result in True. The status code value can be specified as
+		'NNN' or 'Nxx' where 'N' is a digit and 'x' the letter x. In the
+		later case, the verifier will return True if the response status
+		code's 'major' digit matches the first digit.
+	
+	Example:
+	
+	<verify>
+		<callback>statusCode</callback>
+		<arg>
+			<name>status</name>
+			<value>2xx</value>
+		</arg>
+	</verify>
+	
+xmlDataMatch:
+	Compares the response with an XML data file and returns TRUE if there
+	is a match, otherwise False.
+	
+	Argument: 'filepath'
+		The file path to a file containing data to match the response body to.
+	
+	Argument: 'filter'
+		Any specified XML elements will have their content removed from the
+		response XML data before the comparison with the file data is done.
+		This can be used to ignore element values that change in each request,
+		e.g., a timestamp.
+	
+	Example:
+	
+	<verify>
+		<callback>xmlDataMatch</callback>
+		<arg>
+			<name>filepath</name>
+			<value>resource/test.xml</value>
+		</arg>
+		<arg>
+			<name>filter</name>
+			<value>{DAV:}getlastmodified</value>
+		</arg>
+	</verify>
+	
+xmlElementMatch:
+	Compares the response with an XML data file and returns TRUE if there
+	is a match, otherwise False.
+	The path is the absolute xpath from the root element down. Attribute, attribute-value
+	and text contents tests of the matched element can be done using [@attr], [@attr="value"],
+	and [="text"] suffixes on the path.
+	
+	Argument: 'exists'
+		ElementTree style path for an XML element to check the presence of
+		in the response.
+	
+	Argument: 'notexists'
+		ElementTree style path for an XML element to check the absence of
+		in the response.
+	
+	Example:
+	
+	<verify>
+		<callback>xmlDataMatch</callback>
+		<arg>
+			<name>exists</name>
+			<value>{DAV:}response/{DAV:}href</value>
+		</arg>
+		<arg>
+			<name>notexists</name>
+			<value>{DAV:}response/{DAV:}getetag</value>
+		</arg>
+	</verify>
+	
+	

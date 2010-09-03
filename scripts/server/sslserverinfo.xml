@@ -76,6 +76,13 @@
 	</features>
 
 	<substitutions>
+		<!-- Useful xpath shortcuts for verifiers -->
+		<substitution>
+			<key>$verify-property-prefix:</key>
+			<value>/{DAV:}multistatus/{DAV:}response/{DAV:}propstat/{DAV:}prop</value>
+		</substitution>
+
+		<!-- Server configuration settings -->
 		<substitution>
 			<key>$host:</key>
 			<value>http://localhost:8443</value>

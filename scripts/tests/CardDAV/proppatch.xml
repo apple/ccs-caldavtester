@@ -40,8 +40,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details</value>
-						<value>DAV:details2</value>
+						<value>{DAV:}details</value>
+						<value>{DAV:}details2</value>
 					</arg>
 				</verify>
 			</request>
@@ -60,8 +60,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details$My Name</value>
-						<value>DAV:details2$My Name 2</value>
+						<value>{DAV:}details$My Name</value>
+						<value>{DAV:}details2$My Name 2</value>
 					</arg>
 				</verify>
 			</request>
@@ -79,7 +79,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>
@@ -98,11 +98,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details2$My Name 2</value>
+						<value>{DAV:}details2$My Name 2</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>
@@ -120,7 +120,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:missing</value>
+						<value>{DAV:}missing</value>
 					</arg>
 				</verify>
 			</request>
@@ -138,9 +138,9 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:details</value>
-						<value>DAV:details2</value>
-						<value>DAV:resourcetype</value>
+						<value>{DAV:}details</value>
+						<value>{DAV:}details2</value>
+						<value>{DAV:}resourcetype</value>
 					</arg>
 				</verify>
 			</request>
@@ -159,11 +159,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details2$My Name 2</value>
+						<value>{DAV:}details2$My Name 2</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>
@@ -181,11 +181,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname</value>
+						<value>{DAV:}displayname</value>
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no' ignore='yes'>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -200,7 +200,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:displayname$addressbook &amp;lt;- &amp;amp; ]]&amp;gt;</value>
+						<value>{DAV:}displayname$addressbook &lt;- &amp; ]]&gt;</value>
 					</arg>
 				</verify>
 			</request>
@@ -220,7 +220,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>
@@ -239,7 +239,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details$My Name</value>
+						<value>{DAV:}details$My Name</value>
 					</arg>
 				</verify>
 				<verify>
@@ -264,7 +264,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>
@@ -283,11 +283,11 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:details2$My Name 2</value>
+						<value>{DAV:}details2$My Name 2</value>
 					</arg>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:details</value>
+						<value>{DAV:}details</value>
 					</arg>
 				</verify>
 			</request>

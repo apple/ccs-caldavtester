@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +18,9 @@
 Verifier that checks a propfind response for regex matches to property values.
 """
 
+from xml.etree.ElementTree import ElementTree, tostring
+from StringIO import StringIO
 import re
-
-from xml.dom.minidom import Element
-import xml.dom.minidom
-
-from utilities.xmlutils import ElementsByName
 
 class Verifier(object):
     
@@ -32,6 +29,18 @@ class Verifier(object):
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
 
+        def normalizeXML(value):
+            
+            if value[0] == '<':
+                value = "<CDTdummy>" + value + "</CDTdummy>"
+                try:
+                    tree = ElementTree(file=StringIO(value))
+                except Exception:
+                    return False, "           Could not parse XML value: %s\n" % (value,)
+                value = tostring(tree.getroot())
+                value = value.replace("<CDTdummy>", "").replace("</CDTdummy>", "")
+            return value
+            
         # Get property arguments and split on $ delimited for name, value tuples
         testprops = args.get("props", [])
         props_match = []
@@ -39,12 +48,12 @@ class Verifier(object):
             p = testprops[i]
             if (p.find("$") != -1):
                 if p.find("$") != len(p) - 1:
-                    props_match.append((p.split("$")[0], p.split("$")[1], True))
+                    props_match.append((p.split("$")[0], normalizeXML(p.split("$")[1]), True))
                 else:
                     props_match.append((p.split("$")[0], "", True))
             elif (p.find("!") != -1):
                 if  p.find("!") != len(p) - 1:
-                    props_match.append((p.split("!")[0], p.split("!")[1], False))
+                    props_match.append((p.split("!")[0], normalizeXML(p.split("!")[1]), False))
                 else:
                     props_match.append((p.split("!")[0], "", False))
 
@@ -57,33 +66,30 @@ class Verifier(object):
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
         
         try:
-            doc = xml.dom.minidom.parseString( respdata )
-        except:
+            tree = ElementTree(file=StringIO(respdata))
+        except Exception:
             return False, "           Could not parse proper XML response\n"
                 
         result = True
         resulttxt = ""
-        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+        for response in tree.findall("{DAV:}response"):
 
             # Get href for this response
-            href = ElementsByName(response, "DAV:", "href")
+            href = response.findall("{DAV:}href")
             if len(href) != 1:
                 return False, "           Wrong number of DAV:href elements\n"
-            if href[0].firstChild is not None:
-                href = href[0].firstChild.data
-            else:
-                href = ""
+            href = href[0].text
             if href in ignores:
                 continue
             
             # Get all property status
             ok_status_props = {}
-            propstatus = ElementsByName(response, "DAV:", "propstat")
+            propstatus = response.findall("{DAV:}propstat")
             for props in propstatus:
                 # Determine status for this propstat
-                status = ElementsByName(props, "DAV:", "status")
+                status = props.findall("{DAV:}status")
                 if len(status) == 1:
-                    statustxt = status[0].firstChild.data
+                    statustxt = status[0].text
                     status = False
                     if statustxt.startswith("HTTP/1.1 ") and (len(statustxt) >= 10):
                         status = (statustxt[9] == "2")
@@ -91,34 +97,31 @@ class Verifier(object):
                     status = False
                 
                 # Get properties for this propstat
-                prop = ElementsByName(props, "DAV:", "prop")
+                prop = props.findall("{DAV:}prop")
                 if len(prop) != 1:
                     return False, "           Wrong number of DAV:prop elements\n"
 
-                def _removeEmptyNodes(node):
-                    for child in tuple(node._get_childNodes()):
-                        temp = child.toprettyxml("", "")
-                        temp = temp.strip()
-                        if not temp:
-                            node.removeChild(child)
-                        else:
-                            _removeEmptyNodes(child)
+                def _removeWhitespace(node):
                     
-                for child in prop[0]._get_childNodes():
-                    if isinstance(child, Element):
-                        qname = (child.namespaceURI, child.localName)
-                        fqname = qname[0] + qname[1]
-                        if child.firstChild is not None:
-                            # Copy sub-element data as text into one long string and strip leading/trailing space
-                            _removeEmptyNodes(child)
-                            value = ""
-                            for p in child._get_childNodes():
-                                value += p.toprettyxml("", "")
-                        else:
-                            value = None
-                        
-                        if status:
-                            ok_status_props[fqname] = value
+                    for child in node.getchildren():
+                        child.text = child.text.strip() if child.text else child.text
+                        child.tail = child.tail.strip() if child.tail else child.tail
+                        _removeWhitespace(child)
+                         
+                for child in prop[0].getchildren():
+                    fqname = child.tag
+                    if len(child):
+                        value = ""
+                        _removeWhitespace(child)
+                        for p in child.getchildren():
+                            value += tostring(p)
+                    elif child.text:
+                        value = child.text
+                    else:
+                        value = None
+                    
+                    if status:
+                        ok_status_props[fqname] = value
     
             # Look at each property we want to test and see if present
             for propname, value, match in props_match:

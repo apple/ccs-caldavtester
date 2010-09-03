@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@ Verifier that checks a propfind response to make sure that the specified ACL pri
 are available for the currently authenticated user.
 """
 
-from xml.dom.minidom import Element
-import xml.dom.minidom
-
-from utilities.xmlutils import ElementsByName
+from xml.etree.ElementTree import ElementTree
+from StringIO import StringIO
 
 class Verifier(object):
     
@@ -38,32 +36,30 @@ class Verifier(object):
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
             
-        doc = xml.dom.minidom.parseString( respdata )
+        try:
+            tree = ElementTree(file=StringIO(respdata))
+        except Exception:
+            return False, "           HTTP response is not valid XML: %d\n" % (respdata,)
+
         result = True
         resulttxt = ""
-        for response in doc.getElementsByTagNameNS( "DAV:", "response" ):
+        for response in tree.findall("{DAV:}response"):
 
             # Get href for this response
-            href = ElementsByName(response, "DAV:", "href")
+            href = response.findall("{DAV:}href")
             if len(href) != 1:
                 return False, "           Wrong number of DAV:href elements\n"
-            if href[0].firstChild is not None:
-                href = href[0].firstChild.data
-            else:
-                href = ""
+            href = href[0].text
 
             # Get all privileges
             granted_privs = []
-            privset = response.getElementsByTagNameNS("DAV:", "current-user-privilege-set")
+            privset = response.getiterator("{DAV:}current-user-privilege-set")
             for props in privset:
                 # Determine status for this propstat
-                privileges = ElementsByName(props, "DAV:", "privilege")
+                privileges = props.findall("{DAV:}privilege")
                 for privilege in privileges:
-                    for child in privilege._get_childNodes():
-                        if isinstance(child, Element):
-                            qname = (child.namespaceURI, child.localName)
-                            fqname = qname[0] + qname[1]
-                            granted_privs.append( fqname )
+                    for child in privilege.getchildren():
+                        granted_privs.append(child.tag)
     
             granted_result_set = set( granted_privs )
             granted_test_set = set( granted )

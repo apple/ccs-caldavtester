@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-import xml.dom.minidom
+from xml.etree.ElementTree import ElementTree, tostring
+from StringIO import StringIO
 
 class Verifier(object):
     
@@ -65,10 +66,13 @@ class Verifier(object):
                         result = False
                 elif files[0].endswith(".xml"):
                     try:
-                        respdata = xml.dom.minidom.parseString( respdata ).toprettyxml("", "")
-                        data = xml.dom.minidom.parseString( data ).toprettyxml("", "")
-                    except Exception, ex:
-                        return False, "        Could not parse XML: %s" %(ex,)
+                        respdata = tostring(ElementTree(file=StringIO(respdata)).getroot())
+                    except Exception:
+                        return False, "        Could not parse XML response: %s" %(respdata,)
+                    try:
+                        data = tostring(ElementTree(file=StringIO(data)).getroot())
+                    except Exception:
+                        return False, "        Could not parse XML data: %s" %(data,)
                     if data != respdata:
                         result = False
                 else:

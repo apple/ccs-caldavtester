@@ -42,7 +42,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavorganizer-allowed</value>
+						<value>{urn:ietf:params:xml:ns:caldav}organizer-allowed</value>
 					</arg>
 				</verify>
 			</request>
@@ -351,7 +351,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:getcontenttype$text/calendar;charset=utf-8</value>
+						<value>{DAV:}getcontenttype$text/calendar;charset=utf-8</value>
 					</arg>
 				</verify>
 			</request>
@@ -438,7 +438,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:getcontenttype$text/calendar;charset=utf-8</value>
+						<value>{DAV:}getcontenttype$text/calendar;charset=utf-8</value>
 					</arg>
 				</verify>
 			</request>
@@ -478,8 +478,8 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>urn:ietf:params:xml:ns:caldavattendee-allowed</value>
-						<value>http://twistedmatrix.com/xml_namespace/dav/error-description</value>
+						<value>{urn:ietf:params:xml:ns:caldav}attendee-allowed</value>
+						<value>{http://twistedmatrix.com/xml_namespace/dav/}error-description</value>
 					</arg>
 				</verify>
 			</request>

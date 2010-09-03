@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -72,29 +72,29 @@ class serverinfo( object ):
         self.addsubs(items, self.extrasubsdict)
         
     def parseXML( self, node ):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_HOST:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_HOST:
                 try:
-                    self.host = child.firstChild.data.encode("utf-8")
+                    self.host = child.text.encode("utf-8")
                 except:
                     self.host = "localhost"
-            elif child._get_localName() == src.xmlDefs.ELEMENT_PORT:
-                self.port = int( child.firstChild.data )
-            elif child._get_localName() == src.xmlDefs.ELEMENT_AUTHTYPE:
-                self.authtype = child.firstChild.data.encode("utf-8")
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SSL:
+            elif child.tag == src.xmlDefs.ELEMENT_PORT:
+                self.port = int( child.text )
+            elif child.tag == src.xmlDefs.ELEMENT_AUTHTYPE:
+                self.authtype = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_SSL:
                 self.ssl = True
-            elif child._get_localName() == src.xmlDefs.ELEMENT_FEATURES:
+            elif child.tag == src.xmlDefs.ELEMENT_FEATURES:
                 self.parseFeatures(child)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
+            elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
    
         self.updateParams()
 
     def parseFeatures(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_FEATURE:
-                self.features.add(child.firstChild.data.encode("utf-8"))
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                self.features.add(child.text.encode("utf-8"))
 
     def updateParams(self):         
         # Now cache some useful substitutions
@@ -107,27 +107,27 @@ class serverinfo( object ):
 
     def parseRepeatXML(self, node):
         # Look for count
-        count = node.getAttribute( src.xmlDefs.ATTR_COUNT )
+        count = node.get(src.xmlDefs.ATTR_COUNT)
 
-        for child in node._get_childNodes():
+        for child in node.getchildren():
             self.parseSubstitutionXML(child, count)
 
     def parseSubstitutionsXML(self, node):
-        for child in node._get_childNodes():
-            if child._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_SUBSTITUTION:
                 self.parseSubstitutionXML(child)
-            elif child._get_localName() == src.xmlDefs.ELEMENT_REPEAT:
+            elif child.tag == src.xmlDefs.ELEMENT_REPEAT:
                 self.parseRepeatXML(child)
 
     def parseSubstitutionXML(self, node, repeat=None):
-        if node._get_localName() == src.xmlDefs.ELEMENT_SUBSTITUTION:
+        if node.tag == src.xmlDefs.ELEMENT_SUBSTITUTION:
             key = None
             value = None
-            for schild in node._get_childNodes():
-                if schild._get_localName() == src.xmlDefs.ELEMENT_KEY:
-                    key = schild.firstChild.data.encode("utf-8")
-                elif schild._get_localName() == src.xmlDefs.ELEMENT_VALUE:
-                    value = schild.firstChild.data.encode("utf-8") if schild.firstChild else ""
+            for schild in node.getchildren():
+                if schild.tag == src.xmlDefs.ELEMENT_KEY:
+                    key = schild.text.encode("utf-8")
+                elif schild.tag == src.xmlDefs.ELEMENT_VALUE:
+                    value = schild.text.encode("utf-8") if schild.text else ""
 
             if key and value:
                 if repeat:

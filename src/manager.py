@@ -20,6 +20,8 @@ Class to manage the testing process.
 
 from src.populate import populate
 from src.serverinfo import serverinfo
+from xml.etree.ElementTree import ElementTree
+from xml.parsers.expat import ExpatError
 import getopt
 import httplib
 import os
@@ -27,7 +29,6 @@ import random
 import src.xmlDefs
 import sys
 import time
-import xml.dom.minidom
 
 # Exceptions
 
@@ -79,15 +80,16 @@ class manager(object):
         self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
     
         # Open and parse the server config file
-        fd = open(serverfile, "r")
-        doc = xml.dom.minidom.parse( fd )
-        fd.close()
+        try:
+            tree = ElementTree(file=serverfile)
+        except ExpatError, e:
+            raise RuntimeError("Unable to parse file '%s' because: %s" % (serverfile, e,))
 
         # Verify that top-level element is correct
-        serverinfo_node = doc._get_documentElement()
-        if serverinfo_node._get_localName() != src.xmlDefs.ELEMENT_SERVERINFO:
+        serverinfo_node = tree.getroot()
+        if serverinfo_node.tag != src.xmlDefs.ELEMENT_SERVERINFO:
             raise EX_INVALID_CONFIG_FILE
-        if not serverinfo_node.hasChildNodes():
+        if not len(serverinfo_node):
             raise EX_INVALID_CONFIG_FILE
         self.server_info.parseXML(serverinfo_node)
         self.server_info.addsubs(moresubs)
@@ -96,32 +98,34 @@ class manager(object):
         if populatorfile:
             self.log(manager.LOG_HIGH, "Reading Populator Info from \"%s\"" % populatorfile, after=2)
     
-            fd = open(populatorfile, "r")
-            doc = xml.dom.minidom.parse( fd )
-            fd.close()
+            try:
+                tree = ElementTree(file=populatorfile)
+            except ExpatError, e:
+                raise RuntimeError("Unable to parse file '%s' because: %s" % (populatorfile, e,))
 
             # Verify that top-level element is correct
-            populate_node = doc._get_documentElement()
-            if populate_node._get_localName() != src.xmlDefs.ELEMENT_POPULATE:
+            populate_node = tree.getroot()
+            if populate_node.tag != src.xmlDefs.ELEMENT_POPULATE:
                 raise EX_INVALID_CONFIG_FILE
-            if not populate_node.hasChildNodes():
+            if not len(populate_node):
                 raise EX_INVALID_CONFIG_FILE
             self.populator = populate(self)
             self.populator.parseXML(populate_node)
 
         for testfile in testfiles:
             # Open and parse the config file
-            fd = open( testfile, "r" )
-            doc = xml.dom.minidom.parse( fd )
-            fd.close()
+            try:
+                tree = ElementTree(file=testfile)
+            except ExpatError, e:
+                raise RuntimeError("Unable to parse file '%s' because: %s" % (testfile, e,))
             
             # Verify that top-level element is correct
             from src.caldavtest import caldavtest
-            caldavtest_node = doc._get_documentElement()
-            if caldavtest_node._get_localName() != src.xmlDefs.ELEMENT_CALDAVTEST:
+            caldavtest_node = tree.getroot()
+            if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
                 self.log(manager.LOG_HIGH, "Ignoring file \"%s\" because it is not a test file" % (testfile,), after=2)
                 continue
-            if not caldavtest_node.hasChildNodes():
+            if not len(caldavtest_node):
                 raise EX_INVALID_CONFIG_FILE
             self.log(manager.LOG_HIGH, "Reading Test Details from \"%s\"" % testfile, after=2)
                 

@@ -77,7 +77,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[http://calendarserver.org/ns/allowed-sharing-modes$<can-be-shared/>]]></value>
+						<value><![CDATA[{http://calendarserver.org/ns/}allowed-sharing-modes$<CS:can-be-shared xmlns:CS="http://calendarserver.org/ns/"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -116,7 +116,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value>DAV:resourcetype!.*shared-owner.*</value>
+						<value>{DAV:}resourcetype!.*shared-owner.*</value>
 					</arg>
 				</verify>
 			</request>
@@ -134,7 +134,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype</value>
+						<value>{DAV:}resourcetype</value>
 					</arg>
 				</verify>
 			</request>
@@ -156,7 +156,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value>DAV:resourcetype$.*shared-owner.*</value>
+						<value>{DAV:}resourcetype$.*shared-owner.*</value>
 					</arg>
 				</verify>
 			</request>
@@ -195,7 +195,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value>DAV:resourcetype$.*shared-owner.*</value>
+						<value>{DAV:}resourcetype$.*shared-owner.*</value>
 					</arg>
 				</verify>
 			</request>
@@ -231,7 +231,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>props</name>
-						<value>DAV:resourcetype!.*shared-owner.*</value>
+						<value>{DAV:}resourcetype!.*shared-owner.*</value>
 					</arg>
 				</verify>
 			</request>

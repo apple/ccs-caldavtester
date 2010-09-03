@@ -100,10 +100,10 @@
 					<filepath>Resource/CalDAV/sharing/invites/new/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/notificationtype$<invite-notification shared-type="calendar"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}notificationtype/{http://calendarserver.org/ns/}invite-notification[@shared-type="calendar"]</value>
 					</arg>
 				</verify>
 			</request>
@@ -162,10 +162,10 @@
 					<filepath>Resource/CalDAV/sharing/invites/updatenew/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[http://calendarserver.org/ns/notificationtype$<invite-notification shared-type="calendar"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}notificationtype/{http://calendarserver.org/ns/}invite-notification[@shared-type="calendar"]</value>
 					</arg>
 				</verify>
 			</request>

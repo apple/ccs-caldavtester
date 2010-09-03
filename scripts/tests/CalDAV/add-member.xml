@@ -46,7 +46,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[DAV:add-member$<href>$calendarpath1:/;add-member</href>]]></value>
+						<value><![CDATA[{DAV:}add-member$<href xmlns="DAV:">$calendarpath1:/;add-member</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -68,7 +68,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>DAV:add-member</value>
+						<value>{DAV:}add-member</value>
 					</arg>
 				</verify>
 			</request>

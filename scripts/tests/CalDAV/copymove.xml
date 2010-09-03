@@ -387,7 +387,7 @@
 					<filepath>Resource/Common/PROPFIND/getetag.xml</filepath>
 				</data>
 				<grabproperty>
-					<property>DAV:getetag</property>
+					<property>{DAV:}getetag</property>
 					<variable>$getetag:</variable>
 				</grabproperty>
 			</request>
@@ -413,7 +413,7 @@
 		</test>
 		<test name='5'>
 			<description>MOVE to different calendar, existing resource with overwrite</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
@@ -425,7 +425,7 @@
 					<filepath>Resource/Common/PROPFIND/getetag.xml</filepath>
 				</data>
 				<grabproperty>
-					<property>DAV:getetag</property>
+					<property>{DAV:}getetag</property>
 					<variable>$getetag:</variable>
 				</grabproperty>
 			</request>
@@ -508,7 +508,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><calendar xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -538,7 +538,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><calendar xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -567,7 +567,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+						<value><![CDATA[{DAV:}resourcetype$<D:collection xmlns:D="DAV:"/><CS:calendar xmlns:CS="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -597,7 +597,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$&lt;collection/&gt;&lt;calendar xmlns="urn:ietf:params:xml:ns:caldav"/&gt;</value>
+						<value><![CDATA[{DAV:}resourcetype$<D:collection xmlns:D="DAV:"/><CS:calendar xmlns:CS="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>

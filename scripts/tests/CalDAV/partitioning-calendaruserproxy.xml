@@ -62,8 +62,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -81,8 +81,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -114,7 +114,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -129,8 +129,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$otherprincipaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set$<href xmlns="DAV:">$otherprincipaluri2:</href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -139,11 +139,11 @@
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -152,8 +152,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -162,11 +162,11 @@
 			<description>Verify single group membership</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -175,8 +175,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-read/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership<href xmlns="DAV:">$principaluri1:calendar-proxy-read/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -199,6 +199,7 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$otherprincipal2:</value>
@@ -207,7 +208,6 @@
 					<name>Recipient</name>
 					<value>$otherprincipal2:, $principal3:</value>
 				</header>
-				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/3.ics</filepath>
@@ -234,7 +234,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -249,8 +249,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -268,8 +268,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -287,8 +287,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -320,7 +320,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -335,8 +335,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$otherprincipaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set<href xmlns="DAV:">$otherprincipaluri2:</href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -345,11 +345,11 @@
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -358,8 +358,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -368,11 +368,11 @@
 			<description>Verify single group membership</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -381,8 +381,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$principaluri1:calendar-proxy-write/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership<href xmlns="DAV:">$principaluri1:calendar-proxy-write/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -419,6 +419,7 @@
 			<description>Verify access for scheduling</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$othercuaddralt2:</value>
@@ -427,7 +428,6 @@
 					<name>Recipient</name>
 					<value>$othercuaddralt2:, $cuaddralt3:</value>
 				</header>
-				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/3.ics</filepath>
@@ -441,6 +441,7 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$principal1:</value>
@@ -449,7 +450,6 @@
 					<name>Recipient</name>
 					<value>$otherprincipal2:, $principal3:</value>
 				</header>
-				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/3.ics</filepath>
@@ -476,7 +476,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -491,8 +491,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -510,8 +510,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -529,8 +529,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -565,8 +565,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -584,8 +584,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -617,7 +617,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -632,8 +632,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set<href xmlns="DAV:">$principaluri2:</href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -642,11 +642,11 @@
 			<description>Verify no group memberships right now</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -655,8 +655,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -665,11 +665,11 @@
 			<description>Verify single group membership</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$principal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -678,8 +678,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$otherprincipaluri2:calendar-proxy-read/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership<href xmlns="DAV:">$otherprincipaluri2:calendar-proxy-read/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -702,6 +702,7 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$principal2:</value>
@@ -710,7 +711,6 @@
 					<name>Recipient</name>
 					<value>$principal2:, $principal3:</value>
 				</header>
-				<ruri>$otheroutboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/7.ics</filepath>
@@ -737,7 +737,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -752,8 +752,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -771,8 +771,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -790,8 +790,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -823,7 +823,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -838,8 +838,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
-						<value>DAV:group-membership$</value>
+						<value><![CDATA[{DAV:}group-member-set<href xmlns="DAV:">$principaluri2:</href>]]></value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -848,11 +848,11 @@
 			<description>Verify no group memberships right now</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -861,8 +861,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -871,11 +871,11 @@
 			<description>Verify single group membership</description>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
 				<method>PROPFIND</method>
+				<ruri>$principal2:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal2:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/1.xml</filepath>
@@ -884,8 +884,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$&lt;href&gt;$otherprincipaluri2:calendar-proxy-write/&lt;/href&gt;</value>
+						<value>{DAV:}group-member-set$</value>
+						<value><![CDATA[{DAV:}group-membership<href xmlns="DAV:">$otherprincipaluri2:calendar-proxy-write/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -922,6 +922,7 @@
 			<description>Verify access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$cuaddralt2:</value>
@@ -930,7 +931,6 @@
 					<name>Recipient</name>
 					<value>$cuaddralt2:, $cuaddralt3:</value>
 				</header>
-				<ruri>$otheroutboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/7.ics</filepath>
@@ -944,6 +944,7 @@
 			<description>Verify no access for scheduling</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
+				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$otherprincipal2:</value>
@@ -952,7 +953,6 @@
 					<name>Recipient</name>
 					<value>$principal2:, $principal3:</value>
 				</header>
-				<ruri>$otheroutboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/calendaruserproxy/3.ics</filepath>
@@ -979,7 +979,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set</value>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -994,8 +994,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -1013,8 +1013,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>
@@ -1032,8 +1032,8 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:group-member-set$</value>
-						<value>DAV:group-membership$</value>
+						<value>{DAV:}group-member-set$</value>
+						<value>{DAV:}group-membership$</value>
 					</arg>
 				</verify>
 			</request>

@@ -46,7 +46,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:carddavdirectory-gateway</value>
+						<value>{urn:ietf:params:xml:ns:carddav}directory-gateway</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -72,9 +72,9 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>okprops</name>
-						<value>DAV:resourcetype$.*collection[^-].*</value>
-						<value>DAV:resourcetype$.*addressbook[^-].*</value>
-						<value>DAV:resourcetype$.*directory[^-].*</value>
+						<value>{DAV:}resourcetype$.*collection[^-].*</value>
+						<value>{DAV:}resourcetype$.*addressbook[^-].*</value>
+						<value>{DAV:}resourcetype$.*directory[^-].*</value>
 					</arg>
 				</verify>
 			</request>

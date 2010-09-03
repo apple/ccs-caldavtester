@@ -45,9 +45,9 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavschedule-inbox-URL</value>
-						<value>urn:ietf:params:xml:ns:caldavschedule-outbox-URL</value>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-user-address-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-inbox-URL</value>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-outbox-URL</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-user-address-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -72,7 +72,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set$&lt;href xmlns="DAV:"&gt;$calendarpath1:&lt;/href&gt;</value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set$<href xmlns="DAV:">$calendarpath1:</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -90,7 +90,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -108,7 +108,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -126,7 +126,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -144,7 +144,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -179,7 +179,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -207,7 +207,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -225,7 +225,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>badprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
@@ -243,7 +243,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>urn:ietf:params:xml:ns:caldavcalendar-free-busy-set</value>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-free-busy-set</value>
 					</arg>
 				</verify>
 			</request>
