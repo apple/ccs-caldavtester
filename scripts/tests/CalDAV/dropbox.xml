@@ -61,6 +61,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<test-suite name='Collection properties'>
 		<test name='1'>
 			<description>Look for properties</description>
@@ -85,6 +86,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<test-suite name='Drop Box Collection Create'>
 		<test name='1'>
 			<description>Create drop box</description>
@@ -123,6 +125,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<test-suite name='Drop Box Collection ACLs'>
 		<test name='1'>
 			<description>Create drop box resource</description>
@@ -413,6 +416,56 @@
 			</request>
 		</test>
 	</test-suite>
+
+	<test-suite name='Drop Box Object ETags'>
+		<test name='1'>
+			<description>Create drop box resource and verify etag header</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>ETag</name>
+					<variable>$etag:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Update drop box resource and verify change in etag header</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag!$etag:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Drop Box Home Restrictions'>
 		<test name='1'>
 			<description>Try to create a calendar</description>
@@ -447,6 +500,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<test-suite name='Drop Box Restrictions'>
 		<test name='1'>
 			<description>Try to create a calendar</description>
