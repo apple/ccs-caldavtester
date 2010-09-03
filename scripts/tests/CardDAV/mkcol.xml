@@ -74,6 +74,14 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+					<arg>
+						<name>root-element</name>
+						<value>{DAV:}mkcol-response</value>
+					</arg>
+					<arg>
 						<name>badprops</name>
 						<value>{DAV:}resourcetype</value>
 						<value>{DAV:}getetag</value>

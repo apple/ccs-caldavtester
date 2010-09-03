@@ -43,6 +43,13 @@ class Verifier(object):
         else:
             root = "{DAV:}multistatus"
 
+        # Check how many responses are returned
+        status = args.get("status", [])
+        if len(status) == 1:
+            status = int(status[0])
+        else:
+            status = 207
+
         def normalizeXML(value):
             
             if value[0] == '<':
@@ -89,7 +96,7 @@ class Verifier(object):
         # mismatches.
         
         # Must have MULTISTATUS response code
-        if response.status != 207:
+        if response.status != status:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
 
         # Read in XML
