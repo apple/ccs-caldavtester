@@ -51,7 +51,7 @@
 			<ruri>$pathprefix1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
+				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
 			</data>
 		</request>
 	</start>
@@ -151,7 +151,7 @@
 		</test>
 		<test name='5'>
 			<description>Original calendar unchanged</description>
-			<request print-response='yes'>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$pathprefix1:/shared/</ruri>
 				<header>
