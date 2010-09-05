@@ -46,6 +46,14 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
+		<request print-response='no'>
+			<method>PROPPATCH</method>
+			<ruri>$pathprefix1:/shared/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
+			</data>
+		</request>
 	</start>
 	
 	<test-suite name='Read-write calendar'>
@@ -142,6 +150,29 @@
 			</request>
 		</test>
 		<test name='5'>
+			<description>Original calendar unchanged</description>
+			<request print-response='yes'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/calendars/read-write/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp/{urn:ietf:params:xml:ns:caldav}opaque</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
 			<description>Sharee creates event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
@@ -155,7 +186,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='7'>
 			<description>Sharer sees event</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -169,7 +200,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='8'>
 			<description>Sharer changes event</description>
 			<request print-response='no'>
 				<method>PUT</method>
@@ -183,7 +214,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='9'>
 			<description>Sharee sees changed event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
@@ -197,7 +228,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='10'>
 			<description>Sharer creates event</description>
 			<request print-response='no'>
 				<method>PUT</method>
@@ -211,7 +242,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='11'>
 			<description>Sharee sees new event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
@@ -225,7 +256,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='12'>
 			<description>Sharee changes event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
@@ -239,7 +270,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='13'>
 			<description>Sharer sees changed event</description>
 			<request print-response='no'>
 				<method>GET</method>
