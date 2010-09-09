@@ -102,17 +102,39 @@ class Verifier(object):
                     if tzinfo:
                         component.tzinfo = tzinfo
 
+        def sortComponents(calobj):
+            for compType in ('vevent', 'vtodo', 'vjournal', 'vavailability'):
+                try:
+                    comps = calobj.contents[compType]
+                    
+                    def _key(comp):
+                        try:
+                            uid = comp.contents['uid'][0].valueRepr()
+                        except KeyError:
+                            uid = ""
+                        try:
+                            rid = comp.contents['recurrence-id'][0].valueRepr()
+                        except KeyError:
+                            rid = ""
+                        return uid + ":" + rid
+        
+                    comps.sort(key=_key)
+                except KeyError:
+                    pass
+
         s = StringIO.StringIO(respdata)
         try:
             resp_calendar = readOne(s)
             removePropertiesParameters(resp_calendar)
             normalizeRRULE(resp_calendar)
+            sortComponents(resp_calendar)
             respdata = resp_calendar.serialize()
             
             s = StringIO.StringIO(data)
             data_calendar = readOne(s)
             removePropertiesParameters(data_calendar)
             normalizeRRULE(data_calendar)
+            sortComponents(data_calendar)
             data = data_calendar.serialize()
             
             result = respdata == data
