@@ -1007,6 +1007,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='7'>
+			<description>POST on resource trailing slash - simple range</description>
+			<request>
+				<method>POST</method>
+				<ruri>$timezoneservice:/?method=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>20080101T0000</value>
+						<value>-0500</value>
+						<value>20080309T0200</value>
+						<value>-0400</value>
+						<value>20081102T0200</value>
+						<value>-0500</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<end/>
