@@ -77,10 +77,11 @@
 					<filepath>Resource/CalDAV/dropbox/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><dropbox-home xmlns="http://calendarserver.org/ns/"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}dropbox-home</value>
 					</arg>
 				</verify>
 			</request>
@@ -116,10 +117,11 @@
 					<filepath>Resource/CalDAV/dropbox/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><dropbox xmlns="http://calendarserver.org/ns/"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}dropbox</value>
 					</arg>
 				</verify>
 			</request>

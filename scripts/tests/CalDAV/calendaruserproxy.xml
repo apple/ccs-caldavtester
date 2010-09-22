@@ -89,10 +89,12 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<D:principal xmlns:D="DAV:"/><D:collection xmlns:D="DAV:"/><CS:calendar-proxy-read xmlns:CS="http://calendarserver.org/ns/"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}principal</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}calendar-proxy-read</value>
 					</arg>
 				</verify>
 			</request>
@@ -107,10 +109,12 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<D:principal xmlns:D="DAV:"/><D:collection xmlns:D="DAV:"/><CS:calendar-proxy-write xmlns:CS="http://calendarserver.org/ns/"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}principal</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}calendar-proxy-write</value>
 					</arg>
 				</verify>
 			</request>

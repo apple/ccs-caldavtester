@@ -505,10 +505,11 @@
 					<filepath>Resource/CalDAV/copymove/7.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><calendar xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
 					</arg>
 				</verify>
 			</request>
@@ -535,10 +536,11 @@
 					<filepath>Resource/CalDAV/copymove/7.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<collection xmlns="DAV:"/><calendar xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
 					</arg>
 				</verify>
 			</request>
@@ -564,10 +566,11 @@
 					<filepath>Resource/CalDAV/copymove/7.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<D:collection xmlns:D="DAV:"/><CS:calendar xmlns:CS="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
 					</arg>
 				</verify>
 			</request>
@@ -594,10 +597,11 @@
 					<filepath>Resource/CalDAV/copymove/7.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}resourcetype$<D:collection xmlns:D="DAV:"/><CS:calendar xmlns:CS="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
 					</arg>
 				</verify>
 			</request>

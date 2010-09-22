@@ -53,13 +53,11 @@ class Verifier(object):
         def normalizeXML(value):
             
             if value[0] == '<':
-                value = "<CDTdummy>" + value + "</CDTdummy>"
                 try:
                     tree = ElementTree(file=StringIO(value))
                 except Exception:
                     return False, "           Could not parse XML value: %s\n" % (value,)
                 value = tostring(tree.getroot())
-                value = value.replace("<CDTdummy>", "").replace("</CDTdummy>", "")
             return value
 
         # Get property arguments and split on $ delimited for name, value tuples

@@ -97,10 +97,13 @@
 					<filepath>Resource/CalDAV/availability/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set$<comp name="VEVENT" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VTODO" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VTIMEZONE" xmlns="urn:ietf:params:xml:ns:caldav"/><comp name="VFREEBUSY" xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VEVENT"]</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VTODO"]</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VTIMEZONE"]</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VFREEBUSY"]</value>
 					</arg>
 				</verify>
 			</request>

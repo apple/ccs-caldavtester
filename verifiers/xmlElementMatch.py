@@ -65,37 +65,47 @@ class Verifier(object):
                 root_path, child_path = actual_path.split('/', 1)
                 if tree.getroot().tag != root_path:
                     resulttxt += "        Items not returned in XML for %s\n" % (path,)
-                node = tree.find(child_path)
+                nodes = tree.findall(child_path)
             else:
                 root_path = actual_path
                 child_path = None
-                node = tree.getroot()
+                nodes = (tree.getroot(),)
             
-            if node is None:
+            if len(nodes) == 0:
                 resulttxt += "        Items not returned in XML for %s\n" % (path,)
                 result = False
                 continue
             if tests:
                 tests = [item[:-1] for item in tests.split('[')]
                 for test in tests:
-                    if test[0] == '@':
-                        if '=' in test:
-                            attr, value = test[1:].split('=')
-                            value = value[1:-1]
-                        else:
-                            attr = test[1:]
-                            value = None
-                        if attr not in node.keys():
-                            resulttxt += "        Missing attribute returned in XML for %s\n" % (path,)
-                            result = False
+                    for node in nodes:
+                        
+                        def _doTest():
+                            result = None
+                            if test[0] == '@':
+                                if '=' in test:
+                                    attr, value = test[1:].split('=')
+                                    value = value[1:-1]
+                                else:
+                                    attr = test[1:]
+                                    value = None
+                                if attr not in node.keys():
+                                    result = "        Missing attribute returned in XML for %s\n" % (path,)
+                                if value is not None and node.get(attr) != value:
+                                    result = "        Incorrect attribute value returned in XML for %s\n" % (path,)
+                            elif test[0] == '=':
+                                if node.text != test[1:]:
+                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
+                            return result
+                        
+                        testresult = _doTest()
+                        if testresult is None:
                             break
-                        if value is not None and node.get(attr) != value:
-                            resulttxt += "        Incorrect attribute value returned in XML for %s\n" % (path,)
-                            result = False
-                            break
-                    elif test[0] == '=':
-                        if node.text != test[1:]:
-                            resulttxt += "        Incorrect value returned in XML for %s\n" % (path,)
+                    if testresult is not None:
+                        resulttxt += testresult
+                        result = False
+                        break
+                         
                             
         for path in notexists:
             if tree.find(path) is not None:
