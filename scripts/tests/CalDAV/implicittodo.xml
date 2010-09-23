@@ -106,10 +106,10 @@
 					<filepath>Resource/CalDAV/implicit/todo/simple/12.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><create/></action>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}create</value>
 					</arg>
 				</verify>
 			</request>
@@ -210,10 +210,13 @@
 					<filepath>Resource/CalDAV/implicit/todo/simple/12.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}attendee[=$cuaddrurn2:]</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}master</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property[@name="ATTENDEE"]</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property/{$CS:}changed-parameter[@name="PARTSTAT"]</value>
 					</arg>
 				</verify>
 			</request>
@@ -321,10 +324,12 @@
 					<filepath>Resource/CalDAV/implicit/todo/simple/12.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><update><recurrence><master/><changes><changed-property name="ATTENDEE"/><changed-property name="DUE"/></changes></recurrence></update></action>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}update/{$CS:}recurrence/{$CS:}master</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}update/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property[@name="ATTENDEE"]</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}update/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property[@name="DUE"]</value>
 					</arg>
 				</verify>
 			</request>
@@ -425,10 +430,13 @@
 					<filepath>Resource/CalDAV/implicit/todo/simple/12.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><reply><attendee>$cuaddrurn2:</attendee><recurrence><master/><changes><changed-property name="ATTENDEE"><changed-parameter name="PARTSTAT"/></changed-property></changes></recurrence></reply></action>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}attendee[=$cuaddrurn2:]</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}master</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property[@name="ATTENDEE"]</value>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}reply/{$CS:}recurrence/{$CS:}changes/{$CS:}changed-property/{$CS:}changed-parameter[@name="PARTSTAT"]</value>
 					</arg>
 				</verify>
 			</request>
@@ -724,10 +732,10 @@
 					<filepath>Resource/CalDAV/implicit/todo/simple/12.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}schedule-changes$<dtstamp xmlns="http://calendarserver.org/ns/">.*</dtstamp><action xmlns="http://calendarserver.org/ns/"><cancel/></action>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CS:}schedule-changes/{$CS:}action/{$CS:}cancel</value>
 					</arg>
 				</verify>
 			</request>

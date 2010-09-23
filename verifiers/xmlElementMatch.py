@@ -52,6 +52,7 @@ class Verifier(object):
         result = True
         resulttxt = ""
         for path in exists:
+            
             if '[' in path:
                 actual_path, tests = path.split('[', 1)
             else:
