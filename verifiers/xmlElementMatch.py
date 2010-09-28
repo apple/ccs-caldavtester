@@ -109,8 +109,8 @@ class Verifier(object):
                          
                             
         for path in notexists:
-            if tree.find(path) is not None:
-                resulttxt += "        Items returned in XML for %s: %s\n" % (path,)
+            if tree.findall(path):
+                resulttxt += "        Items returned in XML for %s\n" % (path,)
                 result = False
             
                 

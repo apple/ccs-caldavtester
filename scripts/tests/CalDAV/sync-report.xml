@@ -67,10 +67,43 @@
 		</request>
 	</start>
 	
-	<test-suite name='support-report-set' ignore='no'>
+	<test-suite name='support-report-set/sync-token property' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>Not on calendar-home</description>
-			<request>
+			<description>Not on calendars</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendars:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>{DAV:}sync-token</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>On calendar-home</description>
+			<request print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$pathprefix1:/</ruri>
 				<header>
@@ -82,15 +115,23 @@
 					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>{DAV:}supported-report-set!.*sync-collection.*</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+						<value>{DAV:}sync-token</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='3' ignore='no'>
 			<description>On calendar</description>
 			<request>
 				<method>PROPFIND</method>
@@ -104,15 +145,23 @@
 					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>{DAV:}supported-report-set$.*sync-collection.*</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+						<value>{DAV:}sync-token</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='4' ignore='no'>
 			<description>On inbox</description>
 			<request>
 				<method>PROPFIND</method>
@@ -126,10 +175,18 @@
 					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>props</name>
-						<value>{DAV:}supported-report-set$.*sync-collection.*</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+						<value>{DAV:}sync-token</value>
 					</arg>
 				</verify>
 			</request>
@@ -138,10 +195,14 @@
 	
 	<test-suite name='simple reports - empty token - no props' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>initial query</description>
+			<description>initial query - calenar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -157,7 +218,61 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>new resource</description>
+			<description>initial query - home depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>initial query - home depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>add new resource</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
@@ -169,9 +284,16 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>new resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -187,8 +309,63 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
-			<description>remove resource new resource</description>
+		<test name='6' ignore='no'>
+			<description>new resource - home depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>new resource - home depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>remove new resource</description>
 			<request>
 				<method>DELETE</method>
 				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
@@ -196,9 +373,16 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='9' ignore='no'>		
+			<description>remove new resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -213,7 +397,61 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='10' ignore='no'>
+			<description>remove new resource - home depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<description>remove new resource - home depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -226,9 +464,16 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>changed resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -243,14 +488,72 @@
 				</verify>
 			</request>
 		</test>
+		<test name='14' ignore='no'>
+			<description>changed resource - home depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15' ignore='no'>
+			<description>changed resource - home depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - calendar depth:1' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
@@ -285,6 +588,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -314,6 +621,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -332,6 +643,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
@@ -365,6 +680,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -387,6 +706,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
@@ -408,6 +731,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
@@ -446,6 +773,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
@@ -481,6 +812,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
@@ -519,6 +854,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
@@ -549,6 +888,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
@@ -591,6 +934,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
@@ -628,6 +975,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
@@ -646,6 +997,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/7.xml</filepath>
@@ -682,6 +1037,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
@@ -712,6 +1071,10 @@
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
@@ -735,12 +1098,639 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='simple reports - diff token - no props - home depth:infinity' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>Initialize</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar1/</ruri>
+			</request>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar2/</ruri>
+			</request>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/synccalendar3/</ruri>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar3/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
+				</data>
+			</request>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/synccalendar4/</ruri>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar4/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+			</request>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar4/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
+				</data>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar3/</value>
+						<value>synccalendar3/1.ics</value>
+						<value>synccalendar3/2.ics</value>
+						<value>synccalendar4/</value>
+						<value>synccalendar4/1.ics</value>
+						<value>synccalendar4/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar3/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+						<value>synccalendar3/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar3/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>synccalendar3/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>synccalendar3/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+						<value>synccalendar3/1.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - diff token - props - home depth:infinity' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar3/</value>
+						<value>synccalendar3/1.ics</value>
+						<value>synccalendar3/2.ics</value>
+						<value>synccalendar4/</value>
+						<value>synccalendar4/1.ics</value>
+						<value>synccalendar4/2.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar4/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar4/</value>
+						<value>synccalendar4/3.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar4/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar4/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>synccalendar4/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar4/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>synccalendar4/3.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>ignore</name>
+						<value>$pathprefix1:/synccalendar4/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>ignore</name>
+						<value>$pathprefix1:/synccalendar4/3.ics</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/synccalendar4/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar4/</value>
+						<value>synccalendar4/1.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - diff token - delete/create calendar - home depth:infinity' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>synccalendar3/</value>
+						<value>synccalendar3/1.ics</value>
+						<value>synccalendar3/2.ics</value>
+						<value>synccalendar4/</value>
+						<value>synccalendar4/1.ics</value>
+						<value>synccalendar4/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>remove resource then calendar</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/synccalendar3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>synccalendar3/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>add calendar - test last sync</description>
+			<request>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/synccalendar3/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>add calendar - test previous sync</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>synccalendar3/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='simple reports - empty inbox' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/2.xml</filepath>
