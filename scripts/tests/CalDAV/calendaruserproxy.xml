@@ -1298,6 +1298,24 @@
 			</request>
 		</test>
 		<test name='2'>
+			<description>Add user04 as read proxy for user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
 			<description>Create drop box</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -1326,7 +1344,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='4'>
 			<description>Create drop box resource</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>PUT</method>
@@ -1340,7 +1358,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4'>
+		<test name='5'>
 			<description>Verify that user01 can read it</description>
 			<request>
 				<method>GET</method>
@@ -1350,7 +1368,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='6'>
 			<description>Verify that user03 cannot read it</description>
 			<request user='$userid3:' pswd='$pswd3:'>
 				<method>GET</method>
@@ -1364,8 +1382,22 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
-			<description>Add user03 read privilege on collection</description>
+		<test name='7'>
+			<description>Verify that user04 cannot read it</description>
+			<request user='$userid4:' pswd='$pswd4:'>
+				<method>GET</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Add user03 as attendee for dropbox</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/dropbox-abcefg.ics</ruri>
@@ -1393,7 +1425,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='9'>
 			<description>Verify that user03 can now read it</description>
 			<request user='$userid3:' pswd='$pswd3:'>
 				<method>GET</method>
@@ -1403,7 +1435,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='10'>
+			<description>Verify that user04 can now read it</description>
+			<request user='$userid4:' pswd='$pswd4:'>
+				<method>GET</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
 			<description>Delete drop box</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>DELETE</method>
@@ -1420,11 +1462,29 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='12'>
 			<description>Clear user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Clear user04 as read-write proxy for user03</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$principal3:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/calendaruserproxy/4.xml</filepath>
