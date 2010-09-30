@@ -45,10 +45,6 @@ details = {
         "config": "/etc/caldavd/caldavd.plist",
         "serverinfo": "scripts/server/serverinfo-caldav.xml"
     },
-    "carddav": {
-        "config": "/etc/carddavd/carddavd.plist",
-        "serverinfo": "scripts/server/serverinfo-carddav.xml"
-    }
 }
 
 base_dir = "../CalendarServer/"
@@ -227,8 +223,6 @@ Options:
     -c users  number of user accounts to create (default: 10)
     -v        verbose logging
     -V        very verbose logging
-    --caldav  testing CalDAV server
-    --carddav testing CardDAV server
 """
 
 def cmd(args, input=None, raiseOnFail=True):
@@ -331,6 +325,13 @@ def patchConfig(config, admin):
     # No SACLs
     plist["EnableSACLs"] = False
 
+    # Enable CardDAV and CalDAV
+    plist["EnableCardDAV"] = True
+    plist["EnableCalDAV"] = True
+
+    # Needed for CDT
+    plist["EnableAnonymousReadRoot"] = True
+
     writePlist(plist, config)
 
 def patchSudoers(sudoers):
@@ -413,17 +414,12 @@ def addLargeCalendars(hostname, docroot):
         largeGuid,
     )
 
-    result = cmd("curl --digest -u %s:%s 'http://%s:8008/calendars/users/%s/'" % (
-        largeCalendarUser,
-        largeCalendarUser,
-        hostname,
-        largeCalendarUser,
-    ), raiseOnFail=False)
-
-    if result[1] == 0:
-        for calendar in calendars:
-            cmd("tar -C %s -zx -f data/%s.tgz" % (path, calendar,))
-            cmd("chown -R calendar:calendar %s" % (os.path.join(path, calendar) ,))
+    cmd("mkdir -p \"%s\"" % (docroot))
+    cmd("chown calendar:calendar \"%s\"" % (docroot))
+    for calendar in calendars:
+        cmd("sudo -u calendar mkdir -p \"%s\"" % (path))
+        cmd("sudo -u calendar tar -C \"%s\" -zx -f data/%s.tgz" % (path, calendar,))
+        cmd("chown -R calendar:calendar \"%s\"" % (os.path.join(path, calendar) ,))
 
 def loadLists(config, path, records):
     if path == "/Places":
@@ -607,10 +603,10 @@ def removeUserViaGateway(config, path, user):
 if __name__ == "__main__":
 
     config = None
-    protocol = None
+    protocol = "caldav"
     serverinfo_default = None
     try:
-        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV", ["carddav", "caldav", "old"])
+        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV")
 
         for option, value in options:
             if option == "-h":
@@ -631,23 +627,14 @@ if __name__ == "__main__":
             elif option == "-V":
                 verbose = True
                 veryverbose = True
-            elif option == "--carddav":
-                protocol = "carddav"
-            elif option == "--caldav":
-                protocol = "caldav"
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
                 raise ValueError
 
-        if not protocol:
-            print "One of --carddav or --caldav MUST be specified"
-            usage()
-            raise ValueError
-        else:
-            if not config:
-                config = details[protocol]["config"]
-                serverinfo_default = details[protocol]["serverinfo"]
+        if not config:
+            config = details[protocol]["config"]
+            serverinfo_default = details[protocol]["serverinfo"]
             
         if not diradmin_pswd:
             diradmin_pswd = getpass("Password: ")
