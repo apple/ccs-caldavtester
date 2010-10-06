@@ -82,7 +82,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='initial tokens' ignore='no'>
+	<test-suite name='initial tokens - depth 1' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
@@ -137,7 +137,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Read-write calendar'>
+	<test-suite name='Read-write calendar - depth 1' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -215,6 +215,714 @@
 					<arg>
 						<name>badhrefs</name>
 						<value>$href2:</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='initial tokens - depth infinity' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>shared/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>initial query - grab token</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Read-write calendar - depth infinity'>
+		<test name='1' ignore='no'>
+			<description>POST invitation</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$notificationpath2:/</ruri>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/notification-sync/6.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{http://calendarserver.org/ns/}dtstamp</value>
+						<value>{http://calendarserver.org/ns/}uid</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>totalcount</name>
+						<value>1</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}response/{DAV:}href</name>
+					<variable>$href2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Remove notification</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>deleted resource</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$href2:</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Sharee replies ACCEPTED</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$sharedcalendar:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>new calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$sharedcalendar:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Sharee removes calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$sharedcalendar:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>removed calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$sharedcalendar:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Shared calendar data - depth infinity'>
+		<test name='1'>
+			<description>Sharer creates event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>POST invitation</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>new resource</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$notificationpath2:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Remove notification</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Sharee replies ACCEPTED</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$sharedcalendar:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>new calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$sharedcalendar:/</value>
+						<value>$sharedcalendar:/1.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$href2:</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>Grab sharer's sync token'</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Sharer creates event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/shared/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/8.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>Sharer change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>shared/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<description>Sharee change</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$sharedcalendar:/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Sharee creates event</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$sharedcalendar:/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<description>Sharer change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>shared/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>Sharee change</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$sharedcalendar:/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Sharer deletes event</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/shared/3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='15' ignore='no'>
+			<description>Sharer change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>shared/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='16' ignore='no'>
+			<description>Sharee change</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$sharedcalendar:/3.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17'>
+			<description>Sharee deletes event</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETE</method>
+				<ruri>$sharedcalendar:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='18' ignore='no'>
+			<description>Sharer change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>shared/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='19' ignore='no'>
+			<description>Sharee change</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$sharedcalendar:/2.ics</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='20'>
+			<description>Sharee removes calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$sharedcalendar:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='21' ignore='no'>
+			<description>removed calendar</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$sharedcalendar:/</value>
 					</arg>
 				</verify>
 				<grabelement>
