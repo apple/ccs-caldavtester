@@ -21,7 +21,7 @@ Class to encapsulate a single caldav test run.
 from cStringIO import StringIO
 from src.httpshandler import SmartHTTPConnection
 from src.manager import manager
-from src.request import data
+from src.request import data, pause
 from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
@@ -381,6 +381,12 @@ class caldavtest(object):
     
     def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "" ):
         
+        if isinstance(req, pause):
+            # Useful for pausing at a particular point
+            print "Paused"
+            sys.stdin.readline()
+            return True, "", None, None
+            
         if len(req.missingFeatures()) != 0:
             #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             #self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(req.missingFeatures())),))

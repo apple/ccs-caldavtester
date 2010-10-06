@@ -121,6 +121,9 @@ def calcResponse(
     respHash = m.digest().encode('hex')
     return respHash
 
+class pause ( object ):
+    pass
+
 class request( object ):
     """
     Represents the HTTP request to be executed, and verifcation information to
@@ -324,6 +327,8 @@ class request( object ):
                 req = request(manager)
                 req.parseXML( child )
                 requests.append( req )
+            elif child.tag == src.xmlDefs.ELEMENT_PAUSE:
+                requests.append(pause())
         return requests
                 
     parseList = staticmethod( parseList )

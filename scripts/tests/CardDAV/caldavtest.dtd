@@ -25,6 +25,8 @@
 	<!ELEMENT start (request*)>
 	<!ELEMENT end (request*)>
 
+	<!ELEMENT pause EMPTY>
+
 	<!ELEMENT request (require-feature?, method, ruri*, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
@@ -59,7 +61,7 @@
 		<!ATTLIST test-suite name CDATA #REQUIRED
 							ignore (yes|no) "no">
 	
-		<!ELEMENT test (require-feature?, description?, request+)>
+		<!ELEMENT test (require-feature?, description?, (request|pause)+)>
 			<!ATTLIST test name CDATA #REQUIRED
 						  count CDATA "1"
 						  stats (yes|no) "no"
