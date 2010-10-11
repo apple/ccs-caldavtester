@@ -393,7 +393,7 @@
 			</request>
 		</test>
 		<test name='8'>
-			<description>Sharee canoot change vcard</description>
+			<description>Sharee cannot change vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
 				<ruri>$sharedaddressbook:/4.vcf</ruri>
@@ -412,6 +412,14 @@
 		</test>
 	</test-suite>
 	
-	<end/>
-	
+	<end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+			<ruri>$notificationpath2:/</ruri>
+			<ruri>$notificationpath3:/</ruri>
+			<ruri>$notificationpath4:/</ruri>
+		</request>
+	</end>
+
 </caldavtest>

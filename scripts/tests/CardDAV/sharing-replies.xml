@@ -277,14 +277,13 @@
 	</test-suite>
 	
 	<end>
-		<request user="$userid1:" pswd="$pswd1:">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
+			<ruri>$notificationpath3:/</ruri>
+			<ruri>$notificationpath4:/</ruri>
 		</request>
 	</end>
-	
+
 </caldavtest>
