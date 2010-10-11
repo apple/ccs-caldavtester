@@ -147,7 +147,8 @@ class manager(object):
         subdir = None
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "random"])
+        random_seed = str(random.randint(0, 1000000))
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "random", "random-seed="])
         
         # Process single options
         for option, value in options:
@@ -171,6 +172,8 @@ class manager(object):
                 pidfile = value
             elif option == "--random":
                 random_order = True
+            elif option == "--random-seed":
+                random_seed = value
                 
         if all:
             files = []
@@ -191,12 +194,9 @@ class manager(object):
         
         # Randomize file list
         if random_order:
-            new_fnames = []
-            while fnames:
-                element = random.choice(fnames)
-                new_fnames.append(element)
-                fnames.remove(element)
-            fnames = new_fnames
+            print "Randomizing order using seed '%s'" % (random_seed,)
+            random.seed(random_seed)
+            random.shuffle(fnames)
 
         self.readXML(sname, pname, fnames, all)
             
