@@ -118,6 +118,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3' ignore='no'>
+			<description>re-POST simple vCard - UID conflict failure</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/;add-member</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/1.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<end>
