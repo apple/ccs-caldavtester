@@ -404,6 +404,13 @@
 						<value>bogus-resource.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-bad-response:[*404]</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 	</test-suite>

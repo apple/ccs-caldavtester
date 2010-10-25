@@ -159,6 +159,30 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<require-feature>
+				<feature>directory listing</feature>
+			</require-feature>
+			<description>GET on calendar collection with listing</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>User-Agent</name>
+					<value>Mozilla/Gecko</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value><![CDATA[<td>text/calendar</td>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<end/>
