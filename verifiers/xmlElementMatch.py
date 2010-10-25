@@ -97,6 +97,9 @@ class Verifier(object):
                             elif test[0] == '=':
                                 if node.text != test[1:]:
                                     result = "        Incorrect value returned in XML for %s\n" % (path,)
+                            elif test[0] == '*':
+                                if node.text.find(test[1:]) == -1:
+                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
                             return result
                         
                         testresult = _doTest()
