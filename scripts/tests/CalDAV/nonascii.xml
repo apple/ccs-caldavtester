@@ -512,6 +512,7 @@
 			<description>POST with utf-8 data</description>
 			<request print-response='no'>
 				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
 				<header>
 					<name>Originator</name>
 					<value>$cuaddralt1:</value>
@@ -520,7 +521,6 @@
 					<name>Recipient</name>
 					<value>$cuaddralt2:</value>
 				</header>
-				<ruri>$outboxpath1:/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/nonascii/12.ics</filepath>
