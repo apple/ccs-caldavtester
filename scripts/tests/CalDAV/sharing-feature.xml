@@ -38,7 +38,8 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>*DAV$.*calendarserver-sharing.*</value>
+						<value>*DAV$.*calendarserver-sharing[^-]*</value>
+						<value>*DAV$.*calendarserver-sharing-no-scheduling.*</value>
 					</arg>
 				</verify>
 			</request>
@@ -52,7 +53,8 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>*DAV$.*calendarserver-sharing.*</value>
+						<value>*DAV$.*calendarserver-sharing[^-]*</value>
+						<value>*DAV$.*calendarserver-sharing-no-scheduling.*</value>
 					</arg>
 				</verify>
 			</request>
