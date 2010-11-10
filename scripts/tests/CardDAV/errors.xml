@@ -185,6 +185,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='8'>
+			<description>Illegal controls</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/8.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcarderrors/8.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>					
+					</arg>
+				</verify>
+			</request>
+		</test>
 
 	</test-suite>
 

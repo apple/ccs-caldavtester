@@ -496,6 +496,24 @@
 			</request>
 		</test>
 		 -->
+		<test name='19'>
+			<description>Illegal controls</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/4.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/errors/41.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>					
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='COPY' ignore='no'>
