@@ -26,6 +26,7 @@ from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
 from xml.etree.ElementTree import ElementTree, tostring
+import commands
 import rfc822
 import socket
 import src.xmlDefs
@@ -104,6 +105,7 @@ class caldavtest(object):
             ignored = len(suite.tests)
         else:
             self.manager.log(manager.LOG_HIGH, "")
+            postgresCount = self.postgresInit()
             if self.manager.memUsage:
                 start_usage = self.manager.getMemusage()
             etags = {}
@@ -120,6 +122,7 @@ class caldavtest(object):
                 print start_usage, end_usage
                 self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100)/start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100)/start_usage[0]))) 
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
+        self.postgresResult(postgresCount, indent=4)
         return (ok, failed, ignored)
             
     def run_test( self, test, etags, label = "" ):
@@ -136,6 +139,7 @@ class caldavtest(object):
         else:
             result = False
             resulttxt = ""
+            postgresCount = self.postgresInit()
             if test.stats:
                 reqstats = stats()
             else:
@@ -152,6 +156,7 @@ class caldavtest(object):
             if result and test.stats:
                 self.manager.log(manager.LOG_MEDIUM, "Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
                 self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
+            self.postgresResult(postgresCount, indent=8)
             return ["f", "t"][result]
     
     def dorequests( self, description, list, doverify = True, forceverify = False, label = "" ):
@@ -662,3 +667,18 @@ class caldavtest(object):
             return e.text
         else:
             return None
+
+    def postgresInit(self):
+        """
+        Initialize postgres statement counter
+        """
+        if self.manager.postgresLog:
+            return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+        else:
+            return 0
+        
+    def postgresResult(self, startCount, indent):
+        
+        if self.manager.postgresLog:
+            newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+            self.manager.log(manager.LOG_HIGH, "Postgres Stataments: %d" % (newCount - startCount,), indent=indent)

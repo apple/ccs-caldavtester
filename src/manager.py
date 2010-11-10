@@ -58,6 +58,7 @@ class manager(object):
         self.logLevel = level
         self.logFile = log_file
         self.digestCache = {}
+        self.postgresLog = ""
     
     def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
         if self.textMode and level <= self.logLevel:
@@ -148,7 +149,7 @@ class manager(object):
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
         random_seed = str(random.randint(0, 1000000))
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "random", "random-seed="])
+        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "postgres-log=", "random", "random-seed="])
         
         # Process single options
         for option, value in options:
@@ -170,6 +171,8 @@ class manager(object):
                 self.memUsage = True
             elif option == "--pid":
                 pidfile = value
+            elif option == "--postgres-log":
+                self.postgresLog = value
             elif option == "--random":
                 random_order = True
             elif option == "--random-seed":
