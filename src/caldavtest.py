@@ -96,6 +96,7 @@ class caldavtest(object):
         ok = 0
         failed = 0
         ignored = 0
+        postgresCount = None
         if suite.ignore:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             ignored = len(suite.tests)
@@ -122,7 +123,8 @@ class caldavtest(object):
                 print start_usage, end_usage
                 self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100)/start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100)/start_usage[0]))) 
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
-        self.postgresResult(postgresCount, indent=4)
+        if postgresCount is not None:
+            self.postgresResult(postgresCount, indent=4)
         return (ok, failed, ignored)
             
     def run_test( self, test, etags, label = "" ):
