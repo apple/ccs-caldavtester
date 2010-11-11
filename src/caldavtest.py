@@ -27,6 +27,7 @@ from src.request import stats
 from src.testsuite import testsuite
 from xml.etree.ElementTree import ElementTree, tostring
 import commands
+import os
 import rfc822
 import socket
 import src.xmlDefs
@@ -675,12 +676,16 @@ class caldavtest(object):
         Initialize postgres statement counter
         """
         if self.manager.postgresLog:
-            return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
-        else:
-            return 0
+            if os.path.exists(self.manager.postgresLog):
+                return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+
+        return 0
         
     def postgresResult(self, startCount, indent):
         
         if self.manager.postgresLog:
-            newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
-            self.manager.log(manager.LOG_HIGH, "Postgres Stataments: %d" % (newCount - startCount,), indent=indent)
+            if os.path.exists(self.manager.postgresLog):
+                newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+            else:
+                newCount = 0
+            self.manager.log(manager.LOG_HIGH, "Postgres Statements: %d" % (newCount - startCount,), indent=indent)
