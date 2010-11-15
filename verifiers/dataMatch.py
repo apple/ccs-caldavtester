@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+from difflib import unified_diff
 
 """
 Verifier that checks the response body for an exact match to data in a file.
@@ -81,4 +82,5 @@ class Verifier(object):
         if result:
             return True, ""
         else:
-            return False, "        Response data does not exactly match file data"
+            error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
+            return False, "        Response data does not exactly match file data %s" % (error_diff,)
