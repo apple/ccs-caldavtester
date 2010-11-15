@@ -18,7 +18,6 @@
 Class to manage the testing process.
 """
 
-from src.populate import populate
 from src.serverinfo import serverinfo
 from xml.etree.ElementTree import ElementTree
 from xml.parsers.expat import ExpatError
@@ -49,8 +48,6 @@ class manager(object):
 
     def __init__( self, text=True, level=LOG_HIGH, log_file=None ):
         self.server_info = serverinfo()
-        self.populator = None
-        self.depopulate = False
         self.tests = []
         self.textMode = text
         self.pid = 0
@@ -76,7 +73,7 @@ class manager(object):
         else:
             print str,
 
-    def readXML( self, serverfile, populatorfile, testfiles, all, moresubs = {} ):
+    def readXML( self, serverfile, testfiles, all, moresubs = {} ):
 
         self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
     
@@ -95,24 +92,6 @@ class manager(object):
         self.server_info.parseXML(serverinfo_node)
         self.server_info.addsubs(moresubs)
         
-        # Open and parse the populator config file
-        if populatorfile:
-            self.log(manager.LOG_HIGH, "Reading Populator Info from \"%s\"" % populatorfile, after=2)
-    
-            try:
-                tree = ElementTree(file=populatorfile)
-            except ExpatError, e:
-                raise RuntimeError("Unable to parse file '%s' because: %s" % (populatorfile, e,))
-
-            # Verify that top-level element is correct
-            populate_node = tree.getroot()
-            if populate_node.tag != src.xmlDefs.ELEMENT_POPULATE:
-                raise EX_INVALID_CONFIG_FILE
-            if not len(populate_node):
-                raise EX_INVALID_CONFIG_FILE
-            self.populator = populate(self)
-            self.populator.parseXML(populate_node)
-
         for testfile in testfiles:
             # Open and parse the config file
             try:
@@ -140,7 +119,6 @@ class manager(object):
 
     def readCommandLine(self):
         sname = "scripts/server/serverinfo.xml"
-        pname = None
         dname = "scripts/tests"
         fnames = []
         all = False
@@ -149,16 +127,12 @@ class manager(object):
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
         random_seed = str(random.randint(0, 1000000))
-        options, args = getopt.getopt(sys.argv[1:], "s:p:dmx:", ["all", "subdir=", "exclude=", "pid=", "postgres-log=", "random", "random-seed="])
+        options, args = getopt.getopt(sys.argv[1:], "s:mx:", ["all", "subdir=", "exclude=", "pid=", "postgres-log=", "random", "random-seed="])
         
         # Process single options
         for option, value in options:
             if option == "-s":
                 sname = value
-            elif option == "-p":
-                pname = value
-            elif option == "-d":
-                self.depopulate = True
             elif option == "-x":
                 dname = value
             elif option == "--all":
@@ -187,7 +161,7 @@ class manager(object):
                         fnames.append(file)
 
         # Remove any server info file from files enumerated by --all
-        fnames[:] = [x for x in fnames if (x != sname) and (not pname or (x != pname))]
+        fnames[:] = [x for x in fnames if (x != sname)]
 
         # Process any file arguments as test configs
         for f in args:
@@ -201,25 +175,21 @@ class manager(object):
             random.seed(random_seed)
             random.shuffle(fnames)
 
-        self.readXML(sname, pname, fnames, all)
+        self.readXML(sname, fnames, all)
             
         if self.memUsage:
             fd = open(pidfile, "r")
             s = fd.read()
             self.pid = int(s)
 
-    def runWithOptions(self, sname, pname, fnames, moresubs, pid=0, memUsage=False, all = False, depopulate = False):
-        self.depopulate = depopulate
-        self.readXML(sname, pname, fnames, all, moresubs)
+    def runWithOptions(self, sname, fnames, moresubs, pid=0, memUsage=False, all = False):
+        self.readXML(sname, fnames, all, moresubs)
         self.pid = pid
         self.memUsage = memUsage
         return self.runAll()
 
     def runAll(self):
         
-        if self.populator:
-            self.runPopulate();
-
         startTime = time.time()
         ok = 0
         failed = 0
@@ -237,19 +207,10 @@ class manager(object):
 
         endTime = time.time()
 
-        if self.populator and self.depopulate:
-            self.runDepopulate()
-
         self.log(manager.LOG_LOW, "Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
         self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime- startTime,))
 
         return failed, endTime - startTime
-
-    def runPopulate(self):
-        self.populator.generateAccounts()
-    
-    def runDepopulate(self):
-        self.populator.removeAccounts()
 
     def httpRequest(self, method, uri, headers, data):
 
