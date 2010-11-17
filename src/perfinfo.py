@@ -33,8 +33,6 @@ class perfinfo( object ):
     """
     Maintains information about the performance test scenario.
     """
-    __slots__  = ['clients', 'threads', 'logging', 'tests', 'serverinfo', 'startscript', 'testinfo', 'endscript', 'subsdict']
-
     def __init__( self ):
         self.clients = 20
         self.threads = True

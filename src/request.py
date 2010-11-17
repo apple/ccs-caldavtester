@@ -21,9 +21,12 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 from hashlib import md5, sha1
 from src.xmlUtils import getYesNoAttributeValue
 import base64
+import datetime
 import httplib
+import re
 import src.xmlDefs
 import time
+import uuid
 
 algorithms = {
     'md5': md5,
@@ -129,9 +132,6 @@ class request( object ):
     Represents the HTTP request to be executed, and verifcation information to
     be used to determine a satisfactory output or not.
     """
-    __slots__  = ['manager', 'auth', 'user', 'pswd', 'end_delete', 'print_response',
-                  'method', 'headers', 'ruris', 'ruri', 'data', 'datasubs', 'verifiers',
-                  'grabheader', 'grabproperty', 'grabelement', 'require_features']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -146,7 +146,7 @@ class request( object ):
         self.ruris = []
         self.ruri = ""
         self.data = None
-        self.datasubs = True
+        self.count = 1
         self.verifiers = []
         self.grabheader = []
         self.grabproperty = []
@@ -159,7 +159,12 @@ class request( object ):
         return self.require_features - self.manager.server_info.features
 
     def getURI( self, si ):
-        return si.extrasubs(self.ruri)
+        uri = si.extrasubs(self.ruri)
+        if "**" in uri:
+            uri = uri.replace("**", str(uuid.uuid4()))
+        elif "##" in uri:
+            uri = uri.replace("##", str(self.count))
+        return uri
         
     def getHeaders( self, si ):
         hdrs = self.headers
@@ -266,11 +271,31 @@ class request( object ):
                     data = fd.read()
                 finally:
                     fd.close()
-            if self.datasubs:
+            if self.data.substitute:
                 data = str(self.manager.server_info.subs(data))
                 data = self.manager.server_info.extrasubs(data)
+            if self.data.generate:
+                if self.data.content_type.startswith("text/calendar"):
+                    data = self.generateCalendarData(data)
         return data
     
+    def generateCalendarData( self, data ):
+        """
+        FIXME: does not work for events with recurrence overrides.
+        """
+        
+        # Change the following iCalendar data values:
+        # DTSTART, DTEND, RECURRENCE-ID, UID
+        
+        data = re.sub("UID:.*", "UID:%s" % (uuid.uuid4(),), data)
+        data = re.sub("SUMMARY:(.*)", "SUMMARY:\\1 #%s" % (self.count,), data)
+        
+        now = datetime.date.today()
+        data = re.sub("(DTSTART;[^:]*):[0-9]{8,8}", "\\1:%04d%02d%02d" % (now.year, now.month, now.day,), data)
+        data = re.sub("(DTEND;[^:]*):[0-9]{8,8}", "\\1:%04d%02d%02d" % (now.year, now.month, now.day,), data)
+
+        return data
+
     def parseXML( self, node ):
         self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
         self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
@@ -291,7 +316,7 @@ class request( object ):
                     self.ruri = self.ruris[0]
             elif child.tag == src.xmlDefs.ELEMENT_DATA:
                 self.data = data()
-                self.datasubs = self.data.parseXML( child )
+                self.data.parseXML( child )
             elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
@@ -350,24 +375,24 @@ class data( object ):
     """
     Represents the data/body portion of an HTTP request.
     """
-    __slots__  = ['content_type', 'filepath', 'value']
-    
+
     def __init__( self ):
         self.content_type = ""
         self.filepath = ""
         self.value = ""
+        self.substitute = False
+        self.generate = False
     
     def parseXML( self, node ):
 
-        subs = node.get(src.xmlDefs.ATTR_SUBSTITUTIONS, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
+        self.substitute = node.get(src.xmlDefs.ATTR_SUBSTITUTIONS, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
+        self.generate = node.get(src.xmlDefs.ATTR_GENERATE, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_CONTENTTYPE:
                 self.content_type = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
                 self.filepath = child.text.encode("utf-8")
-
-        return subs
 
 class verify( object ):
     """
@@ -376,7 +401,6 @@ class verify( object ):
     specified in the test XML config file. The callback name is in the XML config
     file also and is dynamically loaded to do the verification.
     """
-    __slots__  = ['manager', 'callback', 'args']
     
     def __init__( self, manager ):
         self.manager = manager
@@ -428,7 +452,6 @@ class stats( object ):
     """
     Maintains stats about the current test.
     """
-    __slots__ = ['count', 'totaltime', 'currenttime']
     
     def __init__(self):
         self.count = 0

@@ -149,7 +149,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
                 for req in test.requests:
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags, label=label )
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags, label=label, count=ctr+1 )
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -162,14 +162,14 @@ class caldavtest(object):
             self.postgresResult(postgresCount, indent=8)
             return ["f", "t"][result]
     
-    def dorequests( self, description, list, doverify = True, forceverify = False, label = "" ):
+    def dorequests( self, description, list, doverify = True, forceverify = False, label = "", count = 1 ):
         if len(list) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         ctr = 1
         for req in list:
-            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify, label=label )
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify, label=label, count=count )
             if not result:
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
@@ -387,8 +387,10 @@ class caldavtest(object):
             self.dorequest( req, False, False, label=label )
         self.manager.log(manager.LOG_HIGH, "[DONE]")
     
-    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "" ):
+    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "", count = 1 ):
         
+        req.count = count
+
         if isinstance(req, pause):
             # Useful for pausing at a particular point
             print "Paused"

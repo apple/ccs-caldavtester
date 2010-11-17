@@ -28,25 +28,6 @@ class monitorinfo( object ):
     """
     Maintains information about the monitoring test scenario.
     """
-    __slots__  = [
-        'name',
-        'logging',
-        'period',
-        'timeout',
-        'serverinfo',
-        'startscript',
-        'testinfo',
-        'endscript',
-        'warningtime',
-        'notify',
-        'notify_from',
-        'notify_time_exceeded',
-        'notify_request_failed',
-        'notify_interval',
-        'notify_subject',
-        'notify_body',
-    ]
-
     def __init__( self ):
         self.name = ""
         self.logging = False

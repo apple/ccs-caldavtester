@@ -22,7 +22,7 @@ testcaldav.py [-s filename] [-p filename] [-d] [--all] [--random] \
 	data. Server data population only occurs when this option is
 	present.
 
-	-d : in conjuntion with -p, if present specifies that the populated
+	-d : in conjunction with -p, if present specifies that the populated
 	data be removed after all tests have completed.
 
 	--all : execute all tests found in the working directory. Each .xml
@@ -181,10 +181,13 @@ caldavtest.dtd:
 			2) DELAY - pause for the number of seconds specified by the <ruri> element.
 			3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 					    into the $ variable for later use in an <ruri> element.
-			3) WAITCOUNT - wait until at least a certain numner of resources appear in a collection.
+			3) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
 
 	ELEMENT <ruri>
 		the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
+		The characters "**" may be used to cause a random uuid to be inserted where
+		those two characters appear. The characters "##" may be used to insert the
+		current test count iteration where those two characters occur.
 
 	ELEMENT <header>
 		can be used to specify additional headers in the request.
@@ -203,6 +206,10 @@ caldavtest.dtd:
 			if set to 'yes' then '$host:' and '$pathprefix1:'
 			substitutions will be performed on the data before it is sent
 			in the request.
+
+		ATTRIBUTE generate
+			if set to 'yes' then a basic calendar data "fuzzing" is done to
+			the source data to make it unique and up to date.
 
 		ELEMENT <content-type>
 			the MIME content type for the request body.

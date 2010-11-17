@@ -28,7 +28,6 @@ class test( object ):
     be run more than once, and timing information gathered and averaged across
     all runs.
     """
-    __slots__  = ['manager', 'name', 'details', 'count', 'stats', 'ignore', 'require_features', 'description', 'requests']
     
     def __init__( self, manager ):
         self.manager = manager

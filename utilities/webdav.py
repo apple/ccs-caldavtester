@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2007 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,8 +28,6 @@ class WebDAVRequest(object):
     Class that encapsulates the details of a request.
     """
 
-    __slots__ = ['host', 'port', 'method', 'uri', 'user', 'pswd', 'headers', 'body']
-    
     def __init__(self, **kwargs):
         self.host = kwargs.get("host", "")
         self.port = kwargs.get("port", 80)
