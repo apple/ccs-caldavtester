@@ -126,6 +126,20 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>Create non-existent drop box</description>
+			<request end-delete='yes' user="$userid1:" pswd="$pswd1:">
+				<method>MKCOL</method>
+				<ruri>$dropboxpath1:/NoDropboxHere/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Drop Box Collection ACLs'>
@@ -478,7 +492,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>405</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
