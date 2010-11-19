@@ -450,10 +450,6 @@ class caldavtest(object):
         response = None
         respdata = None
 
-        # Cache delayed delete
-        if req.end_delete:
-            self.end_deletes.append( (req.ruri, req.user, req.pswd) )
-
         method = req.method
         uri = req.getURI( self.manager.server_info )
         if (uri == "$"):
@@ -461,6 +457,10 @@ class caldavtest(object):
         headers = req.getHeaders( self.manager.server_info )
         data = req.getData()
         
+        # Cache delayed delete
+        if req.end_delete:
+            self.end_deletes.append( (uri, req.user, req.pswd) )
+
         if details:
             resulttxt += "        %s: %s\n" % ( method, uri )
 
