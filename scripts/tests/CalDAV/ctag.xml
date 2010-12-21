@@ -65,7 +65,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='PUT/DELETE/COPY/MOVE'>
+	<test-suite name='PUT/DELETE/COPY/MOVE' ignore='no'>
 		<test name='1'>
 			<description>Check for CTag</description>
 			<request>
@@ -446,7 +446,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Scheduling'>
+	<test-suite name='Scheduling' ignore='no'>
 		<test name='1'>
 			<description>Check for CTag on calendar</description>
 			<request print-response='no'>
@@ -559,6 +559,189 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Same for each Depth'>
+		<test name='1'>
+			<description>Check for CTag Depth:0</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>{http://calendarserver.org/ns/}getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Check for CTag Depth:1</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarpath1:/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag$$getctag1:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Add/update resource</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/delete/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Check for CTag Depth:0</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>{http://calendarserver.org/ns/}getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Check for CTag Depth:1</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarpath1:/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag$$getctag1:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Delete resource</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Check for CTag Depth:0</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag</value>
+					</arg>
+				</verify>
+				<grabproperty>
+					<property>{http://calendarserver.org/ns/}getctag</property>
+					<variable>$getctag1:</variable>
+				</grabproperty>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Check for CTag Depth:1</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/ctag/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarpath1:/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}getctag$$getctag1:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request>
 			<method>DELETE</method>
