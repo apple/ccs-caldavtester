@@ -639,7 +639,7 @@ class caldavtest(object):
                             temp = temp.strip()
                             value += temp
                     else:
-                        value = ""
+                        value = child.text
                     
                     if fqname == propertyname:
                         return value

@@ -28,6 +28,7 @@ class Verifier(object):
 
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
+        only = args.get("only", [])
 
         # Check how many responses are returned
         counts = args.get("count", [])
@@ -118,6 +119,8 @@ class Verifier(object):
                 return False, "           Wrong number of DAV:href elements\n"
             href = href.text
             if href in ignores:
+                continue
+            if only and href not in only:
                 continue
             
             if count is not None:
