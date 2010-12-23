@@ -139,7 +139,7 @@ class Verifier(object):
             ok_extras = ok_result_set.difference( ok_test_set ) if not ignoremissing else set()
             no_extras = ok_result_set.intersection( no_test_set )
             bad_missing = bad_test_set.difference( bad_result_set )
-            bad_extras = bad_result_set.difference( bad_test_set )
+            bad_extras = bad_result_set.difference( bad_test_set ) if not ignoremissing else set()
             
             if len( ok_missing ) + len( ok_extras ) + len( no_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
                 if len( ok_missing ) != 0:
