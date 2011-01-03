@@ -355,10 +355,10 @@
 			<description>PUT simple person contact</description>
 			<request end-delete='yes' print-response='yes'>
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/11.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vcardput/1.vcf</filepath>
+					<filepath>Resource/CardDAV/vcardput/11.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -373,12 +373,12 @@
 			</request>
 			<request>
 				<method>GET</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/11.vcf</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CardDAV/vcardput/1.vcf</value>
+						<value>Resource/CardDAV/vcardput/11.vcf</value>
 					</arg>
 				</verify>
 			</request>
