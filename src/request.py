@@ -141,6 +141,7 @@ class request( object ):
         self.end_delete = False
         self.print_response = False
         self.require_features = set()
+        self.exclude_features = set()
         self.method = ""
         self.headers = {}
         self.ruris = []
@@ -157,6 +158,9 @@ class request( object ):
 
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
+    def excludedFeatures(self):
+        return self.exclude_features & self.manager.server_info.features
 
     def getURI( self, si ):
         uri = si.extrasubs(self.ruri)
@@ -305,7 +309,9 @@ class request( object ):
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child )
+                self.parseFeatures( child, require=True )
+            elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
+                self.parseFeatures( child, require=False )
             elif child.tag == src.xmlDefs.ELEMENT_METHOD:
                 self.method = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_HEADER:
@@ -327,10 +333,10 @@ class request( object ):
             elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseGrab(child, self.grabelement)
 
-    def parseFeatures(self, node):
+    def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
     def parseHeader(self, node):
         

@@ -43,6 +43,7 @@ class caldavtest(object):
         self.name = name
         self.description = ""
         self.require_features = set()
+        self.exclude_features = set()
         self.ignore_all = False
         self.start_requests = []
         self.end_requests = []
@@ -53,10 +54,17 @@ class caldavtest(object):
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
+    def excludedFeatures(self):
+        return self.exclude_features & self.manager.server_info.features
+
     def run( self ):
         if len(self.missingFeatures()) != 0:
             self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
             self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
+            return 0, 0, 1
+        if len(self.excludedFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
+            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(self.excludedFeatures())),))
             return 0, 0, 1
             
         try:
@@ -105,6 +113,10 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),))
             ignored = len(suite.tests)
+        elif len(suite.excludedFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(suite.excludedFeatures())),))
+            ignored = len(suite.tests)
         else:
             self.manager.log(manager.LOG_HIGH, "")
             postgresCount = self.postgresInit()
@@ -138,6 +150,10 @@ class caldavtest(object):
         elif len(test.missingFeatures()) != 0:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),))
+            return "i"
+        elif len(test.excludedFeatures()) != 0:
+            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),))
             return "i"
         else:
             result = False
@@ -401,6 +417,10 @@ class caldavtest(object):
             #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             #self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(req.missingFeatures())),))
             return True, "", None, None
+        if len(req.excludedFeatures()) != 0:
+            #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            #self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(req.excludedFeatures())),))
+            return True, "", None, None
 
         # Special check for DELETEALL
         if req.method == "DELETEALL":
@@ -585,7 +605,9 @@ class caldavtest(object):
             if child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
                 self.description = child.text
             elif child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures(child)
+                self.parseFeatures(child, require=True)
+            elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
+                self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_START:
                 self.start_requests = request.parseList(self.manager, child)
             elif child.tag == src.xmlDefs.ELEMENT_TESTSUITE:
@@ -595,10 +617,10 @@ class caldavtest(object):
             elif child.tag == src.xmlDefs.ELEMENT_END:
                 self.end_requests = request.parseList(self.manager, child)
     
-    def parseFeatures(self, node):
+    def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
     def extractProperty(self, propertyname, respdata):
 

@@ -32,10 +32,14 @@ class testsuite( object ):
         self.name = ""
         self.ignore = False
         self.require_features = set()
+        self.exclude_features = set()
         self.tests = []
     
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
+    def excludedFeatures(self):
+        return self.exclude_features & self.manager.server_info.features
 
     def parseXML( self, node ):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
@@ -43,16 +47,18 @@ class testsuite( object ):
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child )
+                self.parseFeatures( child, require=True )
+            elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
+                self.parseFeatures( child, require=False )
             elif child.tag == src.xmlDefs.ELEMENT_TEST:
                 t = test(self.manager)
                 t.parseXML( child )
                 self.tests.append( t )
 
-    def parseFeatures(self, node):
+    def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                self.require_features.add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
     def dump( self ):
         print "\nTest Suite:"
