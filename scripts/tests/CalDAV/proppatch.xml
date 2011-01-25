@@ -204,6 +204,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='6' ignore='no'>
+			<description>PROPPATCH non-existent calendar</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$pathprefix1:/bogus-calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/proppatches/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='prop patch property attributes'>
