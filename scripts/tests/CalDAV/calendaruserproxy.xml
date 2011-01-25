@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -1449,6 +1449,13 @@
 			<description>Delete drop box</description>
 			<request user='$userid2:' pswd='$pswd2:'>
 				<method>DELETE</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user='$userid2:' pswd='$pswd2:'>
+				<method>DELETE</method>
 				<ruri>$dropboxpath1:/ABCEFG/</ruri>
 				<verify>
 					<callback>statusCode</callback>
@@ -1500,6 +1507,22 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<end>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath3:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
+		</request>
+	</end>
 
 </caldavtest>

@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -34,6 +34,16 @@
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>GET</method>
 			<ruri>$calendarpath2:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</start>
 	

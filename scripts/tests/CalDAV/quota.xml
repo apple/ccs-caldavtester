@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -315,6 +315,9 @@
 		<test name='3' ignore='no'>
 			<description>Quota check</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<require-feature>
+					<feature>quota-on-resources</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$pathprefix2:/</ruri>
 				<header>
@@ -335,12 +338,36 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<exclude-feature>
+					<feature>quota-on-resources</feature>
+				</exclude-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104857600</value>
+						<value>{DAV:}quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 	</test-suite>
 
 	<test-suite name='Quota after non-empty collection delete' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>Create new calendar</description>
+			<description>Delete the calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
 				<ruri>$pathprefix2:/newcalendar/</ruri>
@@ -375,6 +402,233 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<test-suite name='Quota on dropbox' ignore='no'>
+		<require-feature>
+			<feature>dropbox</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>Create event with attachment</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Create drop box</description>
+			<request end-delete='yes'>
+				<method>MKCOL</method>
+				<ruri>$dropboxpath1:/ABCEFG/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Quota check</description>
+			<request print-response='no'>
+				<require-feature>
+					<feature>quota-on-resources</feature>
+				</require-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104856385</value>
+						<value>{DAV:}quota-used-bytes$1215</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<exclude-feature>
+					<feature>quota-on-resources</feature>
+				</exclude-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104857600</value>
+						<value>{DAV:}quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Create drop box resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/dropbox/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>Quota check</description>
+			<request print-response='no'>
+				<require-feature>
+					<feature>quota-on-resources</feature>
+				</require-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104856266</value>
+						<value>{DAV:}quota-used-bytes$1334</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<exclude-feature>
+					<feature>quota-on-resources</feature>
+				</exclude-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104857481</value>
+						<value>{DAV:}quota-used-bytes$119</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>DELETE attachment</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$dropboxpath1:/ABCEFG/test.xml</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>Quota check</description>
+			<request print-response='no'>
+				<require-feature>
+					<feature>quota-on-resources</feature>
+				</require-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104856385</value>
+						<value>{DAV:}quota-used-bytes$1215</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<exclude-feature>
+					<feature>quota-on-resources</feature>
+				</exclude-feature>
+				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/quota/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}resourcetype</value>
+						<value>{DAV:}quota-available-bytes$104857600</value>
+						<value>{DAV:}quota-used-bytes$0</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>
+		<request>
+			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
+			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath3:/</ruri>
+			<ruri>$inboxpath3:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
