@@ -26,44 +26,36 @@
 	</require-feature>
 
 	<start>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$addressbookpath1:/1.vcf</ruri>
-			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/vcardput/1.vcf</filepath>
-			</data>
-		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$addressbookpath1:/1.vcf</ruri>
+			<ruri>$addressbookpath1:/</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
 				<filepath>Resource/CardDAV/vaclreports/10.xml</filepath>
 			</data>
 		</request>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$addressbookpath1:/2.vcf</ruri>
+		<request end-delete='yes'>
+			<method>MKCOL</method>
+			<ruri>$addressbookhome1:/adbktest2/</ruri>
 			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/vcardput/2.vcf</filepath>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/mkcol/1.xml</filepath>
 			</data>
 		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$addressbookpath1:/2.vcf</ruri>
+			<ruri>$addressbookhome1:/adbktest2/</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
 				<filepath>Resource/CardDAV/vaclreports/9.xml</filepath>
 			</data>
 		</request>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$addressbookpath1:/3.vcf</ruri>
+		<request end-delete='yes'>
+			<method>MKCOL</method>
+			<ruri>$addressbookhome1:/adbktest3/</ruri>
 			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/vcardput/3.vcf</filepath>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/mkcol/1.xml</filepath>
 			</data>
 		</request>
 	</start>
@@ -73,7 +65,7 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -95,7 +87,7 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -117,7 +109,7 @@
 			<description>No DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -139,7 +131,7 @@
 			<description>Too many DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/3.xml</filepath>
@@ -175,7 +167,7 @@
 			<description>Valid report</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/1.xml</filepath>
@@ -307,7 +299,7 @@
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/7.xml</filepath>
@@ -316,7 +308,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2.vcf</value>
+						<value>adbktest2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -325,7 +317,7 @@
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/8.xml</filepath>
@@ -334,7 +326,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2.vcf</value>
+						<value>adbktest2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -455,7 +447,7 @@
 			<description>Valid apply-to report with DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/14.xml</filepath>
@@ -481,7 +473,7 @@
 			<description>Valid non-apply-to report without DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/15.xml</filepath>
@@ -506,7 +498,7 @@
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.ics</ruri>
+				<ruri>$addressbookpath1:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/aclreports/21.xml</filepath>
@@ -528,7 +520,7 @@
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.ics</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/aclreports/22.xml</filepath>
@@ -551,7 +543,7 @@
 			<description>Valid ROOM displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.ics</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/aclreports/23.xml</filepath>
@@ -573,7 +565,7 @@
 			<description>Valid RESOURCE displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/1.ics</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/aclreports/24.xml</filepath>
@@ -642,7 +634,7 @@
 			<description>Report on non-principal collection</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$addressbookpath1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vaclreports/16.xml</filepath>
@@ -686,7 +678,7 @@
 			<description>Regular resource</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>

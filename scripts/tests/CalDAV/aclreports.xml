@@ -26,45 +26,29 @@
 	</require-feature>
 
 	<start>
-		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath1:/1.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/delete/1.txt</filepath>
-			</data>
-		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$calendarpath1:/1.ics</ruri>
+			<ruri>$calendarpath1:/</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/aclreports/10.xml</filepath>
 			</data>
 		</request>
 		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath1:/2.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/delete/2.txt</filepath>
-			</data>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/calendar2/</ruri>
 		</request>
 		<request>
 			<method>PROPPATCH</method>
-			<ruri>$calendarpath1:/2.ics</ruri>
+			<ruri>$pathprefix1:/calendar2/</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/aclreports/9.xml</filepath>
 			</data>
 		</request>
 		<request end-delete="yes">
-			<method>PUT</method>
-			<ruri>$calendarpath1:/1todo.ics</ruri>
-			<data>
-				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/todo/1.txt</filepath>
-			</data>
+			<method>MKCALENDAR</method>
+			<ruri>$pathprefix1:/calendar3/</ruri>
 		</request>
 	</start>
 	
@@ -78,7 +62,7 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -100,7 +84,7 @@
 			<description>Wrong Depth</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -122,7 +106,7 @@
 			<description>No DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -144,7 +128,7 @@
 			<description>Too many DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/3.xml</filepath>
@@ -180,7 +164,7 @@
 			<description>Valid report</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/1.xml</filepath>
@@ -320,7 +304,7 @@
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/7.xml</filepath>
@@ -329,7 +313,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2.ics</value>
+						<value>calendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -338,7 +322,7 @@
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/8.xml</filepath>
@@ -347,7 +331,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2.ics</value>
+						<value>calendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -472,7 +456,7 @@
 			<description>Valid apply-to report with DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/14.xml</filepath>
@@ -498,7 +482,7 @@
 			<description>Valid non-apply-to report without DAV:prop</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/15.xml</filepath>
@@ -532,7 +516,7 @@
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/21.xml</filepath>
@@ -554,7 +538,7 @@
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/22.xml</filepath>
@@ -577,7 +561,7 @@
 			<description>Valid ROOM displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/23.xml</filepath>
@@ -599,7 +583,7 @@
 			<description>Valid RESOURCE displayname search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/24.xml</filepath>
@@ -621,7 +605,7 @@
 			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/25.xml</filepath>
@@ -638,7 +622,7 @@
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$calendarpath1:/1.ics</value>
+						<value>$calendarpath1:/</value>
 					</arg>
 				</verify>
 				<verify>
@@ -654,7 +638,7 @@
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/26.xml</filepath>
@@ -672,7 +656,7 @@
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/27.xml</filepath>
@@ -690,7 +674,7 @@
 			<description>Invalid search report - test attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/28.xml</filepath>
@@ -708,7 +692,7 @@
 			<description>Invalid search report - type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/29.xml</filepath>
@@ -726,7 +710,7 @@
 			<description>Invalid search report - caseless attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/30.xml</filepath>
@@ -744,7 +728,7 @@
 			<description>Invalid search report - match-type attribute bogus</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/31.xml</filepath>
@@ -762,7 +746,7 @@
 			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/32.xml</filepath>
@@ -787,7 +771,7 @@
 			<description>"equals" calendar-user-address-set REPORT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/33.xml</filepath>
@@ -809,7 +793,7 @@
 			<description>Invalid CUA in calendar-user-address-set REPORT</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/aclreports/34.xml</filepath>
@@ -922,7 +906,7 @@
 			<description>Regular resource</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
