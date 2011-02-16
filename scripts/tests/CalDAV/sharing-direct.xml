@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -591,10 +591,10 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>Clear user02 as read-only proxy for user01</description>
+			<description>Clear user02 as read-write proxy for user01</description>
 			<request print-response="no">
 				<method>PROPPATCH</method>
-				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/calendaruserproxy/4.xml</filepath>
