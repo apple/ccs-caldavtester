@@ -18,6 +18,7 @@
 Class that encapsulates the server information for a CalDAV test run.
 """
 
+import datetime
 import src.xmlDefs
 
 class serverinfo( object ):
@@ -35,6 +36,14 @@ class serverinfo( object ):
         self.pswd = ""
         self.subsdict = {}
         self.extrasubsdict = {}
+        
+        # Insert a bunch of date values
+        dtnow = datetime.date.today()
+        for dayoffset in xrange(-21, 21):
+            dtoffset = dtnow + datetime.timedelta(days=dayoffset)
+            key = "$now.%d:" % (dayoffset,)
+            value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+            self.subsdict[key] = value
 
     def subs(self, str, db=None):
         if db is None:
