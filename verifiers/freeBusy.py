@@ -17,11 +17,9 @@
 """
 Verifier that checks the response of a free-busy-query.
 """
-import StringIO
-from vobject.icalendar import periodToString
-import datetime
-from vobject.base import VObjectError
-from vobject.base import readOne
+
+from pycalendar.calendar import PyCalendar
+from pycalendar.exceptions import PyCalendarInvalidData
 
 class Verifier(object):
     
@@ -38,37 +36,33 @@ class Verifier(object):
         
         # Parse data as calendar object
         try:
-            s = StringIO.StringIO(respdata)
-            calendar = readOne(s)
+            calendar = PyCalendar.parseText(respdata)
             
             # Check for calendar
-            if calendar.name != "VCALENDAR":
-                raise ValueError("Top-level component is not a calendar: %s" % (calendar.name, ))
+            if calendar is None:
+                raise ValueError("Not a calendar: %s" % (respdata, ))
             
             # Only one component
-            comps = list(calendar.components())
+            comps = calendar.getComponents("VFREEBUSY")
             if len(comps) != 1:
-                raise ValueError("Wrong number of components in calendar")
+                raise ValueError("Wrong number or unexpected components in calendar")
             
             # Must be VFREEBUSY
             fb = comps[0]
-            if fb.name != "VFREEBUSY":
-                raise ValueError("Calendar contains unexpected component: %s" % (fb.name, ))
             
             # Extract periods
             busyp = []
             tentativep = []
             unavailablep = []
-            for fp in [x for x in fb.lines() if x.name == "FREEBUSY"]:
-                periods = fp.value
+            for fp in fb.getProperties("FREEBUSY"):
+                periods = fp.getValue().getValues()
                 # Convert start/duration to start/end
                 for i in range(len(periods)):
-                    if isinstance(periods[i][1], datetime.timedelta):
-                        periods[i] = (periods[i][0], periods[i][0] + periods[i][1])
+                    periods[i].getValue().setUseDuration(False)
                 # Check param
                 fbtype = "BUSY"
-                if "FBTYPE" in fp.params:
-                    fbtype = fp.params["FBTYPE"][0]
+                if fp.hasAttribute("FBTYPE"):
+                    fbtype = fp.getAttributeValue("FBTYPE")
                 if fbtype == "BUSY":
                     busyp.extend(periods)
                 elif fbtype == "BUSY-TENTATIVE":
@@ -86,13 +80,13 @@ class Verifier(object):
             
             # Convert to string sets
             busy = set(busy)
-            busyp[:] = [periodToString(x) for x in busyp]
+            busyp = [x.getValue().getText() for x in busyp]
             busyp = set(busyp)
             tentative = set(tentative)
-            tentativep[:] = [periodToString(x) for x in tentativep]
+            tentativep = [x.getValue().getText() for x in tentativep]
             tentativep = set(tentativep)
             unavailable = set(unavailable)
-            unavailablep[:] = [periodToString(x) for x in unavailablep]
+            unavailablep = [x.getValue().getText() for x in unavailablep]
             unavailablep = set(unavailablep)
 
             # Compare all periods
@@ -103,7 +97,7 @@ class Verifier(object):
             elif len(unavailablep.symmetric_difference(unavailable)):
                 raise ValueError("Busy-unavailable periods do not match")
                 
-        except VObjectError:
+        except PyCalendarInvalidData:
             return False, "        HTTP response data is not a calendar"
         except ValueError, txt:
             return False, "        HTTP response data is invalid: %s" % (txt,)

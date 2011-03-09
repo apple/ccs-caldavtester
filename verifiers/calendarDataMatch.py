@@ -14,11 +14,8 @@
 # limitations under the License.
 ##
 
-from vobject.base import readOne, ContentLine
-from vobject.base import Component
 from difflib import unified_diff
-import StringIO
-from vobject.icalendar import RecurringComponent, TimezoneComponent
+from pycalendar.calendar import PyCalendar
 
 """
 Verifier that checks the response body for an exact match to data in a file.
@@ -68,74 +65,38 @@ class Verifier(object):
         
         def removePropertiesParameters(component):
             
-            for item in tuple(component.getChildren()):
-                if isinstance(item, Component):
-                    removePropertiesParameters(item)
-                elif isinstance(item, ContentLine):
-                    
-                    # Always remove DTSTAMP
-                    if item.name == "DTSTAMP":
-                        component.remove(item)
-                    elif item.name == "X-CALENDARSERVER-ATTENDEE-COMMENT":
-                        if item.params.has_key("X-CALENDARSERVER-DTSTAMP"):
-                            item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
-                            
-                    for filter in filters:
-                        if ":" in filter:
-                            property, parameter = filter.split(":")
-                            if item.name == property:
-                                if item.params.has_key(parameter):
-                                    del item.params[parameter]
-                        else:
-                            if item.name == filter:
-                                component.remove(item)
+            for component in component.getComponents():
+                removePropertiesParameters(component)
 
-        def normalizeRRULE(calobj):
-            
-            for component in calobj.getChildren():
-                if isinstance(component, RecurringComponent):
-                    rruleset = component.rruleset
-                    if rruleset:
-                        component.rruleset = rruleset
-                elif isinstance(component, TimezoneComponent):
-                    tzinfo = component.tzinfo
-                    if tzinfo:
-                        component.tzinfo = tzinfo
+            allProps = []
+            for properties in component.getProperties().itervalues():
+                allProps.extend(properties)
+            for property in allProps:                    
+                # Always remove DTSTAMP
+                if property.getName() == "DTSTAMP":
+                    component.removeProperty(property)
+                elif property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
+                    if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
+                        property.setAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z")
+                        
+                for filter in filters:
+                    if ":" in filter:
+                        propname, parameter = filter.split(":")
+                        if property.getName() == propname:
+                            if property.hasAttribute(parameter):
+                                property.removeAttribute(parameter)
+                    else:
+                        if property.getName() == filter:
+                            component.removeProperty(property)
 
-        def sortComponents(calobj):
-            for compType in ('vevent', 'vtodo', 'vjournal', 'vavailability'):
-                try:
-                    comps = calobj.contents[compType]
-                    
-                    def _key(comp):
-                        try:
-                            uid = comp.contents['uid'][0].valueRepr()
-                        except KeyError:
-                            uid = ""
-                        try:
-                            rid = comp.contents['recurrence-id'][0].valueRepr()
-                        except KeyError:
-                            rid = ""
-                        return uid + ":" + rid
-        
-                    comps.sort(key=_key)
-                except KeyError:
-                    pass
-
-        s = StringIO.StringIO(respdata)
         try:
-            resp_calendar = readOne(s)
+            resp_calendar = PyCalendar.parseText(respdata)
             removePropertiesParameters(resp_calendar)
-            normalizeRRULE(resp_calendar)
-            sortComponents(resp_calendar)
-            respdata = resp_calendar.serialize()
+            respdata = resp_calendar.getText()
             
-            s = StringIO.StringIO(data)
-            data_calendar = readOne(s)
+            data_calendar = PyCalendar.parseText(data)
             removePropertiesParameters(data_calendar)
-            normalizeRRULE(data_calendar)
-            sortComponents(data_calendar)
-            data = data_calendar.serialize()
+            data = data_calendar.getText()
             
             result = respdata == data
                     
