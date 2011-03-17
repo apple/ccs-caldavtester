@@ -14,9 +14,10 @@
 # limitations under the License.
 ##
 
+from vobject.base import readOne, ContentLine
+from vobject.base import Component
 from difflib import unified_diff
-from pycalendar.calendar import PyCalendar
-from pycalendar.attribute import PyCalendarAttribute
+import StringIO
 
 """
 Verifier that checks the response body for an exact match to data in a file.
@@ -27,7 +28,6 @@ class Verifier(object):
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
-        caldata = args.get("data", [])
         filters = args.get("filter", [])
         
         if "EMAIL parameter" not in manager.server_info.features:
@@ -47,21 +47,18 @@ class Verifier(object):
             return False, "        No response body"
         
         # look for one file
-        if len(files) != 1 and len(caldata) != 1:
+        if len(files) != 1:
             return False, "        No file to compare response to"
         
-        # read in all data from specified file or use provided data
-        if len(files):
-            fd = open( files[0], "r" )
+        # read in all data from specified file
+        fd = open( files[0], "r" )
+        try:
             try:
-                try:
-                    data = fd.read()
-                finally:
-                    fd.close()
-            except:
-                data = None
-        else:
-            data = caldata[0] if len(caldata) else None
+                data = fd.read()
+            finally:
+                fd.close()
+        except:
+            data = None
 
         if data is None:
             return False, "        Could not read data file"
@@ -70,40 +67,38 @@ class Verifier(object):
         
         def removePropertiesParameters(component):
             
-            for subcomponent in component.getComponents():
-                removePropertiesParameters(subcomponent)
+            for item in tuple(component.getChildren()):
+                if isinstance(item, Component):
+                    removePropertiesParameters(item)
+                elif isinstance(item, ContentLine):
+                    
+                    # Always remove DTSTAMP
+                    if item.name == "DTSTAMP":
+                        component.remove(item)
+                    elif item.name == "X-CALENDARSERVER-ATTENDEE-COMMENT":
+                        if item.params.has_key("X-CALENDARSERVER-DTSTAMP"):
+                            item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
+                            
+                    for filter in filters:
+                        if ":" in filter:
+                            property, parameter = filter.split(":")
+                            if item.name == property:
+                                if item.params.has_key(parameter):
+                                    del item.params[parameter]
+                        else:
+                            if item.name == filter:
+                                component.remove(item)
 
-            allProps = []
-            for properties in component.getProperties().itervalues():
-                allProps.extend(properties)
-            for property in allProps:                    
-                # Always remove DTSTAMP
-                if property.getName() == "DTSTAMP":
-                    component.removeProperty(property)
-                elif property.getName() == "PRODID":
-                    component.removeProperty(property)
-                elif property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
-                    if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
-                        property.replaceAttribute(PyCalendarAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
-                        
-                for filter in filters:
-                    if ":" in filter:
-                        propname, parameter = filter.split(":")
-                        if property.getName() == propname:
-                            if property.hasAttribute(parameter):
-                                property.removeAttributes(parameter)
-                    else:
-                        if property.getName() == filter:
-                            component.removeProperty(property)
-
+        s = StringIO.StringIO(respdata)
         try:
-            resp_calendar = PyCalendar.parseText(respdata)
+            resp_calendar = readOne(s)
             removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.getText()
+            respdata = resp_calendar.serialize()
             
-            data_calendar = PyCalendar.parseText(data)
+            s = StringIO.StringIO(data)
+            data_calendar = readOne(s)
             removePropertiesParameters(data_calendar)
-            data = data_calendar.getText()
+            data = data_calendar.serialize()
             
             result = respdata == data
                     
@@ -114,4 +109,3 @@ class Verifier(object):
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
         except Exception, e:
             return False, "        Response data is not calendar data data: %s" % (e,)
-            
