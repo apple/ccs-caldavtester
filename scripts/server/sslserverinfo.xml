@@ -38,6 +38,7 @@
 		<feature>principal-search-property-set REPORT</feature>	<!-- ACL principal-search-property-set REPORT -->
 
 		<feature>add-member</feature>					<!-- Add-member used to create resources -->
+		<feature>bulk-post</feature>					<!-- Bulk POST requests -->
 		<feature>ctag</feature>							<!-- ctag extension -->
 		<feature>current-user-principal</feature>		<!-- current-user-principal extension -->
 		<feature>directory listing</feature> 			<!-- GET on collection -->
@@ -80,12 +81,20 @@
 	<substitutions>
 		<!-- Useful xpath shortcuts for verifiers -->
 		<substitution>
+			<key>$multistatus-href-prefix:</key>
+			<value>/{DAV:}multistatus/{DAV:}response/{DAV:}href</value>
+		</substitution>
+		<substitution>
 			<key>$verify-property-prefix:</key>
 			<value>/{DAV:}multistatus/{DAV:}response/{DAV:}propstat/{DAV:}prop</value>
 		</substitution>
 		<substitution>
 			<key>$verify-bad-response:</key>
 			<value>/{DAV:}multistatus/{DAV:}response/{DAV:}status</value>
+		</substitution>
+		<substitution>
+			<key>$verify-error-response:</key>
+			<value>/{DAV:}multistatus/{DAV:}response/{DAV:}error</value>
 		</substitution>
 		<substitution>
 			<key>$CALDAV:</key>
