@@ -331,7 +331,7 @@ class request( object ):
             elif child.tag == src.xmlDefs.ELEMENT_GRABPROPERTY:
                 self.parseGrab(child, self.grabproperty)
             elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
-                self.parseGrab(child, self.grabelement)
+                self.parseMultiGrab(child, self.grabelement)
 
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
@@ -376,7 +376,22 @@ class request( object ):
         
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
-            
+
+    def parseMultiGrab(self, node, appendto):
+        
+        name = None
+        variable = None
+        for child in node.getchildren():
+            if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
+                name = self.manager.server_info.subs(child.text.encode("utf-8"))
+            elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
+                if variable is None:
+                    variable = []
+                variable.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+        
+        if (name is not None) and (variable is not None):
+            appendto.append((name, variable))
+    
 class data( object ):
     """
     Represents the data/body portion of an HTTP request.
