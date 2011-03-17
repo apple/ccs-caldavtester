@@ -27,6 +27,7 @@ class Verifier(object):
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
+        caldata = args.get("data", [])
         filters = args.get("filter", [])
         
         if "EMAIL parameter" not in manager.server_info.features:
@@ -46,18 +47,21 @@ class Verifier(object):
             return False, "        No response body"
         
         # look for one file
-        if len(files) != 1:
+        if len(files) != 1 and len(caldata) != 1:
             return False, "        No file to compare response to"
         
-        # read in all data from specified file
-        fd = open( files[0], "r" )
-        try:
+        # read in all data from specified file or use provided data
+        if len(files):
+            fd = open( files[0], "r" )
             try:
-                data = fd.read()
-            finally:
-                fd.close()
-        except:
-            data = None
+                try:
+                    data = fd.read()
+                finally:
+                    fd.close()
+            except:
+                data = None
+        else:
+            data = caldata[0] if len(caldata) else None
 
         if data is None:
             return False, "        Could not read data file"

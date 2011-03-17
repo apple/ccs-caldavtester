@@ -559,14 +559,18 @@ class caldavtest(object):
                         self.manager.server_info.addextrasubs({variable: propvalue.encode("utf-8")})
 
         if req.grabelement:
-            for elementpath, variable in req.grabelement:
+            for elementpath, variables in req.grabelement:
                 # grab the property here
-                elementvalue = self.extractElement(elementpath, respdata)
-                if elementvalue == None:
+                elementvalues = self.extractElements(elementpath, respdata)
+                if elementvalues == None:
                     result = False
-                    resulttxt += "\Element %s was not extracted from response\n" % (elementpath,)
+                    resulttxt += "\nElement %s was not extracted from response\n" % (elementpath,)
+                elif len(variables) != len(elementvalues):
+                    result = False
+                    resulttxt += "\n%d found but expecting %d for element %s from response\n" % (len(elementvalues), len(variables), elementpath,)
                 else:
-                    self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8")})
+                    for variable, elementvalue in zip(variables, elementvalues):
+                        self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8") if elementvalue else ""})
 
         return result, resulttxt, response, respdata
 
@@ -692,6 +696,32 @@ class caldavtest(object):
         e = tree.find(elementpath)
         if e is not None:
             return e.text
+        else:
+            return None
+
+    def extractElements(self, elementpath, respdata):
+
+        try:
+            tree = ElementTree()
+            tree.parse(StringIO(respdata))
+        except:
+            return None
+        
+        # Strip off the top-level item
+        if elementpath[0] == '/':
+            elementpath = elementpath[1:]
+            splits = elementpath.split('/', 1)
+            root = splits[0]
+            if tree.getroot().tag != root:
+                return None
+            elif len(splits) == 1:
+                return tree.getroot().text
+            else:
+                elementpath = splits[1]
+                
+        e = tree.findall(elementpath)
+        if e is not None:
+            return [item.text for item in e]
         else:
             return None
 

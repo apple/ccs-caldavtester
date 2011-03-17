@@ -48,7 +48,8 @@ class Verifier(object):
         expected = set(teststatus)
         got = set()
         for child in tree.getroot().getchildren():
-            got.add(child.tag)
+            if child.tag != "{http://twistedmatrix.com/xml_namespace/dav/}error-description":
+                got.add(child.tag)
         
         missing = expected.difference(got)
         extras = got.difference(expected)
