@@ -33,11 +33,11 @@
 			<description>PROPFIND of user on node #1 as user on node #1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$principal1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -51,11 +51,11 @@
 			<description>PROPFIND of user on node #2 as user on node #1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -69,11 +69,11 @@
 			<description>PROPFIND of user on node #1 as user on node #2</description>
 			<request user='$otherid1:' pswd='$otherpswd1:'>
 				<method>PROPFIND</method>
+				<ruri>$principal1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$principal1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -87,11 +87,11 @@
 			<description>PROPFIND of user on node #2 as user on node #2</description>
 			<request user='$otherid1:' pswd='$otherpswd1:'>
 				<method>PROPFIND</method>
+				<ruri>$otherprincipal1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherprincipal1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -108,11 +108,11 @@
 			<description>PROPFIND of user on node #1 as user on node #1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -126,11 +126,11 @@
 			<description>PROPFIND of user on node #2 as user on node #1</description>
 			<request>
 				<method>PROPFIND</method>
+				<ruri>$otherpathprefix1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherpathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -148,11 +148,11 @@
 			<description>PROPFIND of user on node #1 as user on node #2</description>
 			<request user='$otherid1:' pswd='$otherpswd1:'>
 				<method>PROPFIND</method>
+				<ruri>$pathprefix1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$pathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
@@ -170,11 +170,11 @@
 			<description>PROPFIND of user on node #2 as user on node #2</description>
 			<request user='$otherid1:' pswd='$otherpswd1:'>
 				<method>PROPFIND</method>
+				<ruri>$otherpathprefix1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<ruri>$otherpathprefix1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/partitioning/simple/1.xml</filepath>
