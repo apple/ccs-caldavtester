@@ -64,6 +64,7 @@ class Verifier(object):
                     # Check for attendee value
                 for attendee in fb.getProperties("ATTENDEE"):
                     if attendee.getValue().getValue() in users:
+                        users.remove(attendee.getValue().getValue())
                         break
                 else:
                     continue
@@ -121,5 +122,9 @@ class Verifier(object):
                 return False, "        HTTP response data is not a calendar"
             except ValueError, txt:
                 return False, "        HTTP response data is invalid: %s" % (txt,)
+
+
+        if len(users):
+            return False, "           Could not find attendee/calendar data in XML response\n"
             
         return True, ""
