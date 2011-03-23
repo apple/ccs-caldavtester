@@ -14,13 +14,11 @@
 # limitations under the License.
 ##
 
-from vobject.base import readOne, ContentLine
-from vobject.base import Component
 from difflib import unified_diff
-import StringIO
+from pycalendar.vcard.card import Card
 
 """
-Verifier that checks the response body for an exact match to data in a file.
+Verifier that checks the response body for a semantic match to data in a file.
 """
 
 class Verifier(object):
@@ -28,15 +26,12 @@ class Verifier(object):
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
+        carddata = args.get("data", [])
         filters = args.get("filter", [])
         
-        if "EMAIL parameter" not in manager.server_info.features:
-            filters.append("ATTENDEE:EMAIL") 
-            filters.append("ORGANIZER:EMAIL")
-        filters.append("CALSCALE")
+        # Always remove these
         filters.append("PRODID")
-        filters.append("CREATED")
-        filters.append("LAST-MODIFIED")
+        filters.append("REV")
  
         # status code must be 200, 207
         if response.status not in (200,207):
@@ -47,18 +42,21 @@ class Verifier(object):
             return False, "        No response body"
         
         # look for one file
-        if len(files) != 1:
+        if len(files) != 1 and len(carddata) != 1:
             return False, "        No file to compare response to"
         
-        # read in all data from specified file
-        fd = open( files[0], "r" )
-        try:
+        # read in all data from specified file or use provided data
+        if len(files):
+            fd = open( files[0], "r" )
             try:
-                data = fd.read()
-            finally:
-                fd.close()
-        except:
-            data = None
+                try:
+                    data = fd.read()
+                finally:
+                    fd.close()
+            except:
+                data = None
+        else:
+            data = carddata[0] if len(carddata) else None
 
         if data is None:
             return False, "        Could not read data file"
@@ -67,38 +65,28 @@ class Verifier(object):
         
         def removePropertiesParameters(component):
             
-            for item in tuple(component.getChildren()):
-                if isinstance(item, Component):
-                    removePropertiesParameters(item)
-                elif isinstance(item, ContentLine):
-                    
-                    # Always remove DTSTAMP
-                    if item.name == "DTSTAMP":
-                        component.remove(item)
-                    elif item.name == "X-CALENDARSERVER-ATTENDEE-COMMENT":
-                        if item.params.has_key("X-CALENDARSERVER-DTSTAMP"):
-                            item.params["X-CALENDARSERVER-DTSTAMP"] = ["20080101T000000Z"]
-                            
-                    for filter in filters:
-                        if ":" in filter:
-                            property, parameter = filter.split(":")
-                            if item.name == property:
-                                if item.params.has_key(parameter):
-                                    del item.params[parameter]
-                        else:
-                            if item.name == filter:
-                                component.remove(item)
+            allProps = []
+            for properties in component.getProperties().itervalues():
+                allProps.extend(properties)
+            for property in allProps:                                            
+                for filter in filters:
+                    if ":" in filter:
+                        propname, parameter = filter.split(":")
+                        if property.getName() == propname:
+                            if property.hasAttribute(parameter):
+                                property.removeAttributes(parameter)
+                    else:
+                        if property.getName() == filter:
+                            component.removeProperty(property)
 
-        s = StringIO.StringIO(respdata)
         try:
-            resp_calendar = readOne(s)
-            removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.serialize()
+            resp_adbk = Card.parseText(respdata)
+            removePropertiesParameters(resp_adbk)
+            respdata = resp_adbk.getText()
             
-            s = StringIO.StringIO(data)
-            data_calendar = readOne(s)
-            removePropertiesParameters(data_calendar)
-            data = data_calendar.serialize()
+            data_adbk = Card.parseText(data)
+            removePropertiesParameters(data_adbk)
+            data = data_adbk.getText()
             
             result = respdata == data
                     
@@ -108,4 +96,4 @@ class Verifier(object):
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
         except Exception, e:
-            return False, "        Response data is not calendar data data: %s" % (e,)
+            return False, "        Response data is not address data: %s" % (e,)

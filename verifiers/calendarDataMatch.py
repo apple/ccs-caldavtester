@@ -19,7 +19,7 @@ from pycalendar.calendar import PyCalendar
 from pycalendar.attribute import PyCalendarAttribute
 
 """
-Verifier that checks the response body for an exact match to data in a file.
+Verifier that checks the response body for a semantic match to data in a file.
 """
 
 class Verifier(object):
@@ -35,6 +35,7 @@ class Verifier(object):
             filters.append("ORGANIZER:EMAIL")
         filters.append("CALSCALE")
         filters.append("PRODID")
+        filters.append("DTSTAMP")
         filters.append("CREATED")
         filters.append("LAST-MODIFIED")
  
@@ -77,12 +78,8 @@ class Verifier(object):
             for properties in component.getProperties().itervalues():
                 allProps.extend(properties)
             for property in allProps:                    
-                # Always remove DTSTAMP
-                if property.getName() == "DTSTAMP":
-                    component.removeProperty(property)
-                elif property.getName() == "PRODID":
-                    component.removeProperty(property)
-                elif property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
+                # Always reset DTSTAMP on this X- prop
+                if property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
                     if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
                         property.replaceAttribute(PyCalendarAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
                         
@@ -113,5 +110,4 @@ class Verifier(object):
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
         except Exception, e:
-            return False, "        Response data is not calendar data data: %s" % (e,)
-            
+            return False, "        Response data is not calendar data: %s" % (e,)
