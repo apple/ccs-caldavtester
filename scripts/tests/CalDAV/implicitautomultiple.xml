@@ -69,12 +69,12 @@
 				</verify>
 			</request>
 			<request>
-				<method>WAITCOUNT 3</method>
+				<method>WAITCOUNT 2</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>Three item in user01 Inbox</description>
+			<description>Two items in user01 Inbox</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
@@ -86,7 +86,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>3</value>
+						<value>2</value>
 					</arg>
 				</verify>
 			</request>
