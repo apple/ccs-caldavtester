@@ -257,6 +257,53 @@
 				</verify>
 			</request>
 		</test>
+		<test name='13'>
+			<description>Sharee does direct share again</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$pathprefix1:/shared/?action=share</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$sharedcalendar:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Shared calendar exists</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$sharedcalendar:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/calendars/read-write/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp/{urn:ietf:params:xml:ns:caldav}transparent</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Change to read-only calendar' ignore='no'>
