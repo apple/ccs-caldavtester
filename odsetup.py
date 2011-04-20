@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+# coding=utf-8
 #
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -100,6 +101,13 @@ publicattrs = {
     "dsAttrTypeStandard:State":           "Testshire",
     "dsAttrTypeStandard:PostalCode":      "RFC 4791",
     "dsAttrTypeStandard:Country":         "AAA",
+}
+
+i18nattrs = {
+    "dsAttrTypeStandard:RealName":        "まだ",
+    "dsAttrTypeStandard:FirstName":       "ま",
+    "dsAttrTypeStandard:LastName":        "だ",
+    "dsAttrTypeStandard:EMailAddress":    "i18nuser@example.com",
 }
 
 locationcreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
@@ -205,6 +213,7 @@ groupattrs = {
 records = (
     ("/Users", "testadmin", "testadmin", adminattrs, 1),
     ("/Users", "apprentice", "apprentice", apprenticeattrs, 1),
+    ("/Users", "i18nuser", "i18nuser", i18nattrs, 1),
     ("/Users", "user%02d", "user%02d", userattrs, None),
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
@@ -370,6 +379,7 @@ def buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docro
     subs = [
         ("$useradminguid:",      guids["testadmin"]),
         ("$userapprenticeguid:", guids["apprentice"]),
+        ("$i18nguid:",           guids["i18nuser"]),
         ("$groupguid1:",         guids["group01"]),
     ]
     

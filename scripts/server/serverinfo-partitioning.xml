@@ -677,6 +677,45 @@
 			</substitution>
 		</repeat>
 
+		<!--  User with non-ascii name -->
+		<substitution>
+			<key>$i18nid:</key>
+			<value>i18nuser</value>
+		</substitution>
+		<!-- group guid-->
+		<substitution>
+			<key>$i18nguid:</key>
+			<value>i18nuser</value>
+		</substitution>
+		<!-- group name-->
+		<substitution>
+			<key>$i18nname:</key>
+			<value>まだ</value>
+		</substitution>
+		<!-- password -->
+		<substitution>
+			<key>$i18npswd:</key>
+			<value>i18nuser</value>
+		</substitution>
+		<!-- relative path to user calendar-->
+		<substitution>
+			<key>$i18ncalendarpath:</key>
+			<value>$calendars_uids:$i18nguid:/$calendar:</value>
+		</substitution>
+		<substitution>
+			<key>$i18nemail:</key>
+			<value>$i18nid:@example.com</value>
+		</substitution>
+		<!-- CUAddrs -->
+		<substitution>
+			<key>$i18ncuaddr:</key>
+			<value>mailto:$i18nemail:</value>
+		</substitution>
+		<substitution>
+			<key>$i18ncuaddrurn:</key>
+			<value>urn:uuid:$i18nguid:</value>
+		</substitution>
+
 		<!-- relative path to disabled group principal resource-->
 		<substitution>
 			<key>$principaldisabled:</key>
