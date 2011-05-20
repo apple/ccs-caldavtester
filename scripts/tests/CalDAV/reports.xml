@@ -1156,6 +1156,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
+						<value>101.ics</value>
 						<value>102.ics</value>
 						<value>103.ics</value>
 					</arg>
@@ -1193,6 +1194,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
+						<value>101.ics</value>
 						<value>105.ics</value>
 						<value>106.ics</value>
 					</arg>
@@ -1354,6 +1356,106 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>23.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='18' ignore='no'>
+			<description>query for VEVENTS and VTODOs within time range</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/201.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>19.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='19' ignore='no'>
+			<description>query for VEVENTS and VTODOs with start only</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/202.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+						<value>22.ics</value>
+						<value>23.ics</value>
+						<value>101.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20' ignore='no'>
+			<description>query for VEVENTS with start only and all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/203.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+						<value>22.ics</value>
+						<value>23.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
 					</arg>
 				</verify>
 			</request>
