@@ -25,6 +25,7 @@ from plistlib import writePlist
 import getopt
 import os
 import sys
+import traceback
 import uuid
 from getpass import getpass
 from subprocess import Popen, PIPE
@@ -55,6 +56,7 @@ number_of_users = 40
 guids = {
     "testadmin"  : "",
     "apprentice" : "",
+    "i18nuser"   : "",
 }
 
 for i in range(1, number_of_users + 1):
@@ -711,4 +713,5 @@ if __name__ == "__main__":
             doToAccounts(config, protocol, removeUser)
             
     except Exception, e:
-        sys.exit(str(e))
+        traceback.print_exc()
+        sys.exit(1)
