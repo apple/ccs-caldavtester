@@ -50,6 +50,7 @@ class caldavtest(object):
         self.end_deletes = []
         self.suites = []
         self.grabbedlocation = None
+        self.foundnew = []
         
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
@@ -96,6 +97,7 @@ class caldavtest(object):
             ok += o
             failed += f
             ignored += i
+        self.foundnew = []
         return (ok, failed, ignored)
     
     def run_test_suite( self, suite, label = "" ):
@@ -279,6 +281,7 @@ class caldavtest(object):
 
             latest = 0
             request_uri = req.getURI( self.manager.server_info )
+            same = []
             for response in tree.findall("{DAV:}response" ):
     
                 # Get href for this response
@@ -315,7 +318,26 @@ class caldavtest(object):
                             if value > latest:
                                 hresult = href
                                 latest = value
+                                same = []
+                            elif value == latest:
+                                if len(same) == 0:
+                                    same.append(hresult)
+                                same.append(value)
+                                
 
+        if same:
+            high_index = -1
+            for href in same:
+                try:
+                    index = self.foundnew.index(href)
+                except ValueError:
+                    hresult = href
+                    break
+                if index > high_index:
+                    hresult = href
+                    high_index = index
+        if hresult:
+            self.foundnew.append(hresult)
         return hresult
 
     def dowaitcount( self, collection, count, label = ""):
