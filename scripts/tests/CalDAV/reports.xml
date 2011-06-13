@@ -637,7 +637,7 @@
 			</request>
 		</test>
 		<test name='9' ignore='no'>
-			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' or 'Moun'</description>
+			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' and 'Moun'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -649,14 +649,12 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2.ics</value>
-						<value>3.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='10' ignore='no'>
-			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' or has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
+			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' and has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -668,22 +666,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
-						<value>2.ics</value>
-						<value>4.ics</value>
-						<value>5.ics</value>
-						<value>6.ics</value>
-						<value>7.ics</value>
-						<value>8.ics</value>
-						<value>9.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
 						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>19.ics</value>
-						<value>20.ics</value>
-						<value>21.ics</value>
 						<value>22.ics</value>
 					</arg>
 				</verify>
@@ -770,7 +753,7 @@
 			</request>
 		</test>
 		<test name='15' ignore='no'>
-			<description>query for resources with VCALENDAR &amp; VEVENT or VTODO defined</description>
+			<description>query for resources with VCALENDAR &amp; VEVENT and VTODO defined</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -782,37 +765,12 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
-						<value>2.ics</value>
-						<value>3.ics</value>
-						<value>4.ics</value>
-						<value>5.ics</value>
-						<value>6.ics</value>
-						<value>7.ics</value>
-						<value>8.ics</value>
-						<value>9.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
-						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>18.ics</value>
-						<value>19.ics</value>
-						<value>20.ics</value>
-						<value>21.ics</value>
-						<value>22.ics</value>
-						<value>101.ics</value>
-						<value>102.ics</value>
-						<value>103.ics</value>
-						<value>104.ics</value>
-						<value>105.ics</value>
-						<value>106.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='16' ignore='no'>
-			<description>query for resources where the SUMMARY in a VEVENT or VTODO contains the character '1'</description>
+			<description>query for resources where the SUMMARY in a VEVENT and VTODO contains the character '1'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -824,22 +782,12 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
-						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>18.ics</value>
-						<value>20.ics</value>
-						<value>21.ics</value>
-						<value>101.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='17' ignore='no'>
-			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' or a DUE in a VTODO with TZID containing 'East'</description>
+			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' and a DUE in a VTODO with TZID containing 'East'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -851,10 +799,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>3.ics</value>
-						<value>102.ics</value>
-						<value>104.ics</value>
-						<value>106.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1029,7 +973,7 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>query for VEVENT/VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
+			<description>query for VEVENT and VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -1041,18 +985,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
-						<value>2.ics</value>
-						<value>3.ics</value>
-						<value>4.ics</value>
-						<value>8.ics</value>
-						<value>9.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
-						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>15.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1373,13 +1305,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>5.ics</value>
-						<value>6.ics</value>
-						<value>7.ics</value>
-						<value>19.ics</value>
-						<value>101.ics</value>
-						<value>102.ics</value>
-						<value>103.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1397,26 +1322,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>5.ics</value>
-						<value>6.ics</value>
-						<value>7.ics</value>
-						<value>8.ics</value>
-						<value>9.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
-						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>18.ics</value>
-						<value>19.ics</value>
-						<value>20.ics</value>
-						<value>21.ics</value>
-						<value>22.ics</value>
-						<value>23.ics</value>
-						<value>101.ics</value>
-						<value>104.ics</value>
-						<value>105.ics</value>
-						<value>106.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1434,28 +1339,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>5.ics</value>
-						<value>6.ics</value>
-						<value>7.ics</value>
-						<value>8.ics</value>
-						<value>9.ics</value>
-						<value>10.ics</value>
-						<value>11.ics</value>
-						<value>12.ics</value>
-						<value>13.ics</value>
-						<value>14.ics</value>
-						<value>18.ics</value>
-						<value>19.ics</value>
-						<value>20.ics</value>
-						<value>21.ics</value>
-						<value>22.ics</value>
-						<value>23.ics</value>
-						<value>101.ics</value>
-						<value>102.ics</value>
-						<value>103.ics</value>
-						<value>104.ics</value>
-						<value>105.ics</value>
-						<value>106.ics</value>
 					</arg>
 				</verify>
 			</request>
