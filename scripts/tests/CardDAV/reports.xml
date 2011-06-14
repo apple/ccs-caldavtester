@@ -772,7 +772,83 @@
 				</verify>
 			</request>
 		</test>
-	</test-suite><test-suite name='multiget reports' ignore='no'>
+		<test name="30" ignore="no">
+			<description>query for resources with UID starts with" </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/basicquery/30.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.vcf</value>
+						<value>14.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name="31" ignore="no">
+			<description>query for resources with UID ends with" </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/basicquery/31.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>6.vcf</value>
+						<value>14.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name="32" ignore="no">
+			<description>query for resources with UID equals" </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/basicquery/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>11.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name="33" ignore="no">
+			<description>query for resources with UID contains" </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/basicquery/33.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>6.vcf</value>
+						<value>12.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	<test-suite name='multiget reports' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>basic multiget of 6 resources returning etag and entire vcf data</description>
 			<request print-response="no">

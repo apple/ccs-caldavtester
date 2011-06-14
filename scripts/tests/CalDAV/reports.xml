@@ -234,6 +234,26 @@
 		</request>
 	</start>
 	
+	<test-suite name='OPTIONS header' ignore='no'>
+		<test name='1'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>Look for options header tag</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendar-query-extended*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='multiget reports' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>basic multiget of 4 resources returning etag and entire ics data</description>
@@ -637,7 +657,7 @@
 			</request>
 		</test>
 		<test name='9' ignore='no'>
-			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' or 'Moun'</description>
+			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' and 'Moun'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -649,20 +669,62 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' or 'Moun'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
 						<value>2.ics</value>
 						<value>3.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
-			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' or has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
+		<test name='11' ignore='no'>
+			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' and has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/6.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>12.ics</value>
+						<value>22.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' or has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/17.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -689,7 +751,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='13' ignore='no'>
 			<description>query for resources where the RECURRENCE-ID in a VEVENT does not contain a RANGE parameter</description>
 			<request>
 				<method>REPORT</method>
@@ -708,7 +770,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='14' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VTODO defined</description>
 			<request>
 				<method>REPORT</method>
@@ -731,7 +793,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='15' ignore='no'>
 			<description>query for resources where the SUMMARY in a VTODO contains the character '1'</description>
 			<request>
 				<method>REPORT</method>
@@ -749,7 +811,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='16' ignore='no'>
 			<description>query for resources that have a DUE in a VTODO that contains a TZID parameter containing the text 'East'</description>
 			<request>
 				<method>REPORT</method>
@@ -769,14 +831,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
-			<description>query for resources with VCALENDAR &amp; VEVENT or VTODO defined</description>
+		<test name='17' ignore='no'>
+			<description>query for resources with VCALENDAR &amp; VEVENT and VTODO defined</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/201.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='18' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VEVENT or VTODO defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/204.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -811,14 +893,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
-			<description>query for resources where the SUMMARY in a VEVENT or VTODO contains the character '1'</description>
+		<test name='19' ignore='no'>
+			<description>query for resources where the SUMMARY in a VEVENT and VTODO contains the character '1'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/202.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for resources where the SUMMARY in a VEVENT or VTODO contains the character '1'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/205.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -838,14 +940,34 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
-			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' or a DUE in a VTODO with TZID containing 'East'</description>
+		<test name='21' ignore='no'>
+			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' and a DUE in a VTODO with TZID containing 'East'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/203.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' or a DUE in a VTODO with TZID containing 'East'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/206.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -859,7 +981,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='23' ignore='no'>
 			<description>query for VEVENTs that do not contain VALARMs</description>
 			<request>
 				<method>REPORT</method>
@@ -893,7 +1015,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='24' ignore='no'>
 			<description>query for VEVENTs that contain a CATEGORY and filter by CATEGORY</description>
 			<request>
 				<method>REPORT</method>
@@ -915,7 +1037,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='25' ignore='no'>
 			<description>query for VEVENTs that contain a CATEGORY but test with uppercase string</description>
 			<request>
 				<method>REPORT</method>
@@ -937,7 +1059,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21' ignore='no'>
+		<test name='26' ignore='no'>
 			<description>empty query</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -948,6 +1070,191 @@
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='27' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a UID starts with</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='28' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a UID ends with</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>14.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='29' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a UID equals</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/20.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='30' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a UID contains</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/21.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='31' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a SUMMARY starts with</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='32' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a SUMMARY ends with</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/23.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>11.ics</value>
+						<value>18.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='33' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a SUMMARY equals</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='34' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTs that contain a SUMMARY contains</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/25.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.ics</value>
+						<value>22.ics</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -1029,13 +1336,33 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>query for VEVENT/VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
+			<description>query for VEVENT and VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENT or VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/14.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -1057,7 +1384,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='4' ignore='no'>
 			<description>query for VEVENTs within time range with specific SUMMARY text</description>
 			<request>
 				<method>REPORT</method>
@@ -1075,7 +1402,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='5' ignore='no'>
 			<description>query for VEVENT recurrence instance within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1093,7 +1420,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>query for overridden VEVENT instance within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1111,7 +1438,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='7' ignore='no'>
 			<description>query for overridden VEVENT not within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1125,7 +1452,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='8' ignore='no'>
 			<description>query for overridden this-and-future VEVENT within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1143,7 +1470,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='9' ignore='no'>
 			<description>query for VTODOs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1163,7 +1490,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='10' ignore='no'>
 			<description>query for VTODOs within time range with specific SUMMARY text</description>
 			<request>
 				<method>REPORT</method>
@@ -1181,7 +1508,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='11' ignore='no'>
 			<description>query for VTODO recurrence instance within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1201,7 +1528,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='12' ignore='no'>
 			<description>Invalid VTIMEZONE check</description>
 			<request>
 				<method>REPORT</method>
@@ -1219,7 +1546,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='13' ignore='no'>
 			<description>query for VEVENTs within time range in distant future</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -1238,7 +1565,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='14' ignore='no'>
 			<description>query for VEVENTs within time range - no end</description>
 			<request>
 				<method>REPORT</method>
@@ -1270,7 +1597,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='15' ignore='no'>
 			<description>query for VEVENTs within time range - no start</description>
 			<request>
 				<method>REPORT</method>
@@ -1295,7 +1622,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='16' ignore='no'>
 			<description>query for VEVENTs within time range - no start and no end</description>
 			<request>
 				<method>REPORT</method>
@@ -1313,7 +1640,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='yes'> <!-- RRULE's now truncated -->
+		<test name='17' ignore='yes'> <!-- RRULE's now truncated -->
 			<description>query for VEVENTs within time range - too many</description>
 			<request>
 				<method>REPORT</method>
@@ -1331,7 +1658,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='18' ignore='no'>
 			<description>query for free busy with overlapping and consecutive events</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -1360,7 +1687,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='19' ignore='no'>
 			<description>query for VEVENTS and VTODOs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1368,6 +1695,26 @@
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/201.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTS or VTODOs within time range</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/204.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -1384,7 +1731,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='21' ignore='no'>
 			<description>query for VEVENTS and VTODOs with start only</description>
 			<request>
 				<method>REPORT</method>
@@ -1392,6 +1739,26 @@
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/202.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTS or VTODOs with start only</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/205.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -1421,7 +1788,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='23' ignore='no'>
 			<description>query for VEVENTS with start only and all VTODOs</description>
 			<request>
 				<method>REPORT</method>
@@ -1429,6 +1796,26 @@
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/203.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='24' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTS with start only or all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/206.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
