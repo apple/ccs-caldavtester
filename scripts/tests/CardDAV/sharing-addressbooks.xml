@@ -254,6 +254,52 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Default address book cannot be shared calendar' ignore='no'>
+		<require-feature>
+			<feature>default-addressbook</feature>
+		</require-feature>
+		<test name='1'>
+			<description>Set property on home</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/addressbooks/defaultaddressbook/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>{urn:ietf:params:xml:ns:carddav}default-addressbook-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on home</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/addressbooks/defaultaddressbook/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[{urn:ietf:params:xml:ns:carddav}default-addressbook-URL$<href xmlns="DAV:">$addressbookpath2:</href>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Change to read-only address book' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>

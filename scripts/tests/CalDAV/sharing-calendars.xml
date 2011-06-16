@@ -286,6 +286,49 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Default calendar cannot be shared calendar' ignore='no'>
+		<test name='1'>
+			<description>Set property on Inbox</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath2:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/calendars/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on inbox</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/calendars/defaultcalendar/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarpath2:</href>]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Change to read-only calendar' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
