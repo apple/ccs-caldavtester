@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -56,6 +56,9 @@ class manager(object):
         self.logFile = log_file
         self.digestCache = {}
         self.postgresLog = ""
+        self.print_request = False
+        self.print_response = False
+        self.print_request_response_on_error = False
     
     def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
         if self.textMode and level <= self.logLevel:
@@ -127,7 +130,22 @@ class manager(object):
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
         random_seed = str(random.randint(0, 1000000))
-        options, args = getopt.getopt(sys.argv[1:], "s:mx:", ["all", "subdir=", "exclude=", "pid=", "postgres-log=", "random", "random-seed="])
+        options, args = getopt.getopt(
+            sys.argv[1:],
+            "s:mx:",
+            [
+                "all",
+                "subdir=",
+                "exclude=",
+                "pid=",
+                "postgres-log=",
+                "random",
+                "random-seed=",
+                "print-details-onfail",
+                "always-print-request",
+                "always-print-response",
+            ],
+        )
         
         # Process single options
         for option, value in options:
@@ -147,6 +165,12 @@ class manager(object):
                 pidfile = value
             elif option == "--postgres-log":
                 self.postgresLog = value
+            elif option == "--print-details-onfail":
+                self.print_request_response_on_error = True
+            elif option == "--always-print-request":
+                self.print_request = True
+            elif option == "--always-print-response":
+                self.print_response = True
             elif option == "--random":
                 random_order = True
             elif option == "--random-seed":

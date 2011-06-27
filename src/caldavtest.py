@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ from src.request import stats
 from src.testsuite import testsuite
 from xml.etree.ElementTree import ElementTree, tostring
 import commands
+import httplib
 import os
 import rfc822
 import socket
@@ -35,6 +36,31 @@ import sys
 import time
 
 STATUSTXT_WIDTH    = 60
+
+"""
+Patch the HTTPConnection.send to record full request details
+"""
+    
+httplib.HTTPConnection._send = httplib.HTTPConnection.send
+
+def recordRequestHeaders(self, str):
+    if not hasattr(self, "requestData"):
+        self.requestData = ""
+    self.requestData += str
+    httplib.HTTPConnection._send(self, str) #@UndefinedVariable
+
+httplib.HTTPConnection.send = recordRequestHeaders
+
+def getVersionStringFromResponse(response):
+    
+    if response.version == 9:
+        return "HTTP/0.9"
+    elif response.version == 10:
+        return "HTTP/1.0"
+    elif response.version == 11:
+        return "HTTP/1.1"
+    else:
+        return "HTTP/?.?"
 
 class caldavtest(object):
     
@@ -527,9 +553,14 @@ class caldavtest(object):
             if not result:
                 resulttxt += "Status Code Error: %d" % response.status
         
-        if req.print_response:
+        if req.print_request or (self.manager.print_request_response_on_error and not result):
+            resulttxt += "\n-------BEGIN:REQUEST-------\n"
+            resulttxt += http.requestData
+            resulttxt += "\n--------END:REQUEST--------\n"
+        
+        if req.print_response or (self.manager.print_request_response_on_error and not result):
             resulttxt += "\n-------BEGIN:RESPONSE-------\n"
-            resulttxt += "Status = %d\n" % response.status
+            resulttxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
             resulttxt += str(response.msg) + "\n" + respdata
             resulttxt += "\n--------END:RESPONSE--------\n"
         

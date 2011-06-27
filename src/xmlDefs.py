@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,6 +81,7 @@ ATTR_IGNORE = "ignore"
 ATTR_IGNORE_ALL = "ignore-all"
 ATTR_INTERVAL = "interval"
 ATTR_NAME = "name"
+ATTR_PRINT_REQUEST = "print-request"
 ATTR_PRINT_RESPONSE = "print-response"
 ATTR_PSWD = "pswd"
 ATTR_REQUEST_FAILED = "request-failed"

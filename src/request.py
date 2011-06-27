@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -139,6 +139,7 @@ class request( object ):
         self.user = ""
         self.pswd = ""
         self.end_delete = False
+        self.print_request = False
         self.print_response = False
         self.require_features = set()
         self.exclude_features = set()
@@ -305,7 +306,8 @@ class request( object ):
         self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
         self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, "").encode("utf-8"))
         self.end_delete = getYesNoAttributeValue(node, src.xmlDefs.ATTR_END_DELETE)
-        self.print_response = getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
+        self.print_request = self.manager.print_request or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_REQUEST)
+        self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
