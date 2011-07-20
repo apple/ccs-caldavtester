@@ -366,10 +366,13 @@
 			</request>
 		</test>
 		<test name='3'>
+			<exclude-feature>
+				<feature>only-proxy-groups</feature>
+			</exclude-feature>
 			<description>Non-expanding group-membership query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri6:/</ruri>
+				<ruri>$principaluri21:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/11.xml</filepath>
@@ -382,23 +385,33 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri6:/</value>
+						<value>$principaluri21:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>delegategroup</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$groupname2:</value>
+						<value>delegatesubgroup</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='4'>
+			<exclude-feature>
+				<feature>only-proxy-groups</feature>
+			</exclude-feature>
 			<description>Expanding group-membership query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri6:/</ruri>
+				<ruri>$principaluri21:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/12.xml</filepath>
@@ -411,21 +424,99 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri6:/</value>
+						<value>$principaluri21:/</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$groupname2:</value>
+						<value>delegategroup</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$groupname4:</value>
+						<value>delegatesubgroup</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<require-feature>
+				<feature>only-proxy-groups</feature>
+			</require-feature>
+			<description>Non-expanding group-membership query limited to proxy groups</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$principaluri21:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/expandproperty/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principaluri21:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>delegategroup</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>delegatesubgroup</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<require-feature>
+				<feature>only-proxy-groups</feature>
+			</require-feature>
+			<description>Expanding group-membership query limited to proxy groups</description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$principaluri21:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/expandproperty/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value>-</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$principaluri21:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>delegategroup</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>delegatesubgroup</value>
 					</arg>
 				</verify>
 			</request>
