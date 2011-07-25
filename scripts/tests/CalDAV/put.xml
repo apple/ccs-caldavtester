@@ -216,6 +216,31 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5' ignore='no'>
+			<description>Plain VTODO with COMPLETED only</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/5todo.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/todo/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/5todo.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/todo/12.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Problem VEVENTs - EXDATE &amp; various combinations of date-time/date values' ignore='no'>
