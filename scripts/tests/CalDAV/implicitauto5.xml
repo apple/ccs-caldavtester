@@ -56,27 +56,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>DELAY</method>
-				<ruri>4</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/auto5/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
@@ -256,27 +241,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>DELAY</method>
-				<ruri>4</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/auto5/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
@@ -356,27 +326,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>DELAY</method>
-				<ruri>4</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/auto5/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
