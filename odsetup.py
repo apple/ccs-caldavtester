@@ -52,6 +52,7 @@ details = {
 base_dir = "../CalendarServer/"
 
 number_of_users = 40
+number_of_groups = 10
 
 guids = {
     "testadmin"  : "",
@@ -65,7 +66,7 @@ for i in range(1, number_of_users + 1):
     guids["resource%02d" % (i,)] = ""
     guids["location%02d" % (i,)] = ""
 
-for i in range(1, 5):
+for i in range(1, number_of_groups + 1):
     guids["group%02d" % (i,)] = ""
 
 locations = {}
@@ -204,6 +205,10 @@ locationattrs = {
     "dsAttrTypeStandard:RealName":        "Room %02d",
 }
 
+delegatedroomattrs = {
+    "dsAttrTypeStandard:RealName":        "Delegated Conference Room",
+}
+
 resourceattrs = {
     "dsAttrTypeStandard:RealName":        "Resource %02d",
 }
@@ -219,8 +224,9 @@ records = (
     ("/Users", "user%02d", "user%02d", userattrs, None),
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
+    ("/Places", "delegatedroom", "delegatedroom", delegatedroomattrs, 1),
     ("/Resources", "resource%02d", "resource%02d", resourceattrs, 10),
-    ("/Groups", "group%02d", "group%02d", groupattrs, 4),
+    ("/Groups", "group%02d", "group%02d", groupattrs, number_of_groups),
 )
 
 def usage():
@@ -274,11 +280,11 @@ def readConfig(config):
         writePlist(plist,config)
 
     try:
-        sudoerspl = readPlist('/etc/caldavd/sudoers.plist')
+        sudoerspl = readPlist(plist["SudoersFile"])
     except IOError:
         # create a new sudoers.plist with empty 'users' array
         sudoerspl = {'users': []}
-        writePlist(sudoerspl,'/etc/caldavd/sudoers.plist')
+        writePlist(sudoerspl, plist["SudoersFile"])
 
     plist = readPlist(config)
     hostname = plist["ServerHostName"]
@@ -287,7 +293,11 @@ def readConfig(config):
     docroot = plist["DocumentRoot"]
     docroot = os.path.join(serverroot, docroot) if docroot and docroot[0] not in ('/', '.',) else docroot
 
+    configroot = plist["ConfigRoot"]
+    configroot = os.path.join(serverroot, configroot) if configroot and configroot[0] not in ('/', '.',) else configroot
+
     sudoers = plist["SudoersFile"]
+    sudoers = os.path.join(configroot, sudoers) if sudoers and sudoers[0] not in ('/', '.',) else sudoers
 
     port = plist["HTTPPort"]
     sslport = plist["SSLPort"]
@@ -382,7 +392,6 @@ def buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docro
         ("$useradminguid:",      guids["testadmin"]),
         ("$userapprenticeguid:", guids["apprentice"]),
         ("$i18nguid:",           guids["i18nuser"]),
-        ("$groupguid1:",         guids["group01"]),
     ]
     
     for i in range(1, number_of_users + 1):
@@ -393,7 +402,7 @@ def buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docro
         subs.append(("$resourceguid%d:" % (i,), guids["resource%02d" % (i,)]))
     for i in range(1, 11):
         subs.append(("$locationguid%d:" % (i,), guids["location%02d" % (i,)]))
-    for i in range(1, 5):
+    for i in range(1, number_of_groups + 1):
         subs.append(("$groupguid%d:" % (i,), guids["group%02d" % (i,)]))
     
     subs_str = ""
@@ -488,6 +497,9 @@ def doGroupMemberships():
         ("group02", ("user06", "user07",), (),),
         ("group03", ("user08", "user09",), (),),
         ("group04", ("user10",), ("group02", "group03",),),
+        ("group05", ("user20",), ("group06",),),
+        ("group06", ("user21",), (),),
+        ("group07", ("user22", "user23", "user24",), (),),
     )
     
     for groupname, users, nestedgroups in memberships:
@@ -508,10 +520,16 @@ def createUser(config, path, user):
     # Do caldav_utility setup
     if path in ("/Places", "/Resources",):
         if path in ("/Places",):
-            cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
-                utility,
-                user[0],
-            ))
+            if user[0] == "delegatedroom":
+                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule=false locations:%s" % (
+                    utility,
+                    user[0],
+                ))
+            else:
+                cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
+                    utility,
+                    user[0],
+                ))
         else:
             cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
                 utility,

@@ -248,7 +248,7 @@
 			<description>Non-expanding group-member-set query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$gprincipaluri4:/</ruri>
+				<ruri>$gprincipaluri4:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/9.xml</filepath>
@@ -261,7 +261,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$gprincipaluri4:/</value>
+						<value>$gprincipaluri4:</value>
 					</arg>
 				</verify>
 				<verify>
@@ -298,7 +298,7 @@
 			<description>Expanding group-member-set query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$gprincipaluri4:/</ruri>
+				<ruri>$gprincipaluri4:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/10.xml</filepath>
@@ -311,7 +311,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$gprincipaluri4:/</value>
+						<value>$gprincipaluri4:</value>
 					</arg>
 				</verify>
 				<verify>
@@ -372,7 +372,7 @@
 			<description>Non-expanding group-membership query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri21:/</ruri>
+				<ruri>$principaluri21:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/11.xml</filepath>
@@ -385,21 +385,21 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri21:/</value>
+						<value>$principaluri21:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>delegategroup</value>
+						<value>$gprincipaluri5:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>delegatesubgroup</value>
+						<value>$gprincipaluri6:</value>
 					</arg>
 				</verify>
 			</request>
@@ -411,7 +411,7 @@
 			<description>Expanding group-membership query</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri21:/</ruri>
+				<ruri>$principaluri21:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/12.xml</filepath>
@@ -424,21 +424,21 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri21:/</value>
+						<value>$principaluri21:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>delegategroup</value>
+						<value>$gprincipaluri5:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>delegatesubgroup</value>
+						<value>$gprincipaluri6:</value>
 					</arg>
 				</verify>
 			</request>
@@ -450,7 +450,7 @@
 			<description>Non-expanding group-membership query limited to proxy groups</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri21:/</ruri>
+				<ruri>$principaluri21:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/11.xml</filepath>
@@ -463,21 +463,21 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri21:/</value>
+						<value>$principaluri21:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>delegategroup</value>
+						<value>$gprincipaluri5:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>delegatesubgroup</value>
+						<value>$gprincipaluri6:</value>
 					</arg>
 				</verify>
 			</request>
@@ -489,7 +489,7 @@
 			<description>Expanding group-membership query limited to proxy groups</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$principaluri21:/</ruri>
+				<ruri>$principaluri21:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/expandproperty/12.xml</filepath>
@@ -502,21 +502,21 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$principaluri21:/</value>
+						<value>$principaluri21:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>delegategroup</value>
+						<value>$gprincipaluri5:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>delegatesubgroup</value>
+						<value>$gprincipaluri6:</value>
 					</arg>
 				</verify>
 			</request>
