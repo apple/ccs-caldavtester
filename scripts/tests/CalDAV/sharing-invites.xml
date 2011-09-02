@@ -329,6 +329,87 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Uninvite invalid invite'>
+		<test name='1' ignore='no'>
+			<description>POST invitation</description>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>POST valid invitation</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>POST single invalid uninvitate</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>403</name>
+						<value>mailto:bogus@example.com</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>POST invalid and valid uninvitate</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>200</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>403</name>
+						<value>mailto:bogus@example.com</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>DELETE collection</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$pathprefix1:/shared/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
