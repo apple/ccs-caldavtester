@@ -326,7 +326,14 @@ def readConfig(config):
 
 def patchConfig(config, admin):
     """
-    Patch the caldavd.plist file to make sure the proper admin principal is configured.
+    Patch the caldavd.plist file to make sure:
+       * the proper admin principal is configured
+       * DS Search node is set to /LDAPv3/127.0.0.1
+       * iMIP is disabled
+       * SACLs are disabled
+       * CalDAV and CardDAV are enabled
+       * EnableAnonymousReadRoot is enabled
+       * AugmentService is configured
 
     @param config: file path to caldavd.plist
     @type config: str
@@ -353,6 +360,7 @@ def patchConfig(config, admin):
 
     # Needed for CDT
     plist["EnableAnonymousReadRoot"] = True
+    plist["AugmentService"] = {'params': {'xmlFiles': ['augments.xml']}, 'type': 'twistedcaldav.directory.augment.AugmentXMLDB'}
 
     writePlist(plist, config)
 
@@ -692,6 +700,9 @@ if __name__ == "__main__":
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
     
+            # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
+            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
                 loadLists(config, "/Places", locations)
@@ -699,9 +710,6 @@ if __name__ == "__main__":
 
             doToAccounts(config, protocol, createUser)
             doGroupMemberships()
-            
-            # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
             
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
