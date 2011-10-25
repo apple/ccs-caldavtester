@@ -427,9 +427,17 @@ class verify( object ):
     
     def __init__( self, manager ):
         self.manager = manager
+        self.require_features = set()
+        self.exclude_features = set()
         self.callback = None
         self.args = {}
     
+    def missingFeatures(self):
+        return self.require_features - self.manager.server_info.features
+
+    def excludedFeatures(self):
+        return self.exclude_features & self.manager.server_info.features
+
     def doVerify(self, uri, response, respdata):
         
         # Re-do substitutions from values generated during the current test run
@@ -452,10 +460,19 @@ class verify( object ):
     def parseXML( self, node ):
 
         for child in node.getchildren():
-            if child.tag == src.xmlDefs.ELEMENT_CALLBACK:
+            if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
+                self.parseFeatures( child, require=True )
+            elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
+                self.parseFeatures( child, require=False )
+            elif child.tag == src.xmlDefs.ELEMENT_CALLBACK:
                 self.callback = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
+
+    def parseFeatures(self, node, require=True):
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_FEATURE:
+                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
     def parseArgXML(self, node):
         name = None

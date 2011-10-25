@@ -617,6 +617,10 @@ class caldavtest(object):
             result = True
             resulttxt = ""
             for verifier in req.verifiers:
+                if len(verifier.missingFeatures()) != 0:
+                    continue
+                if len(verifier.excludedFeatures()) != 0:
+                    continue
                 iresult, iresulttxt = verifier.doVerify(uri, response, respdata)
                 if not iresult:
                     result = False
