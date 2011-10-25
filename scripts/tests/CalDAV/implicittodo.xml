@@ -29,15 +29,15 @@
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>GET</method>
-			<ruri>$calendarpath1:/</ruri>
+			<ruri>$taskspath1:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>GET</method>
-			<ruri>$calendarpath2:/</ruri>
+			<ruri>$taskspath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>GET</method>
-			<ruri>$calendarpath3:/</ruri>
+			<ruri>$taskspath3:/</ruri>
 		</request>
 	</start>
 	
@@ -46,7 +46,7 @@
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/simple/1.ics</filepath>
@@ -60,7 +60,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -122,7 +122,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -157,7 +157,7 @@
 			<description>Attendee -> Accepted</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -229,7 +229,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -264,7 +264,7 @@
 			<description>Organizer adds DUE</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/simple/7.ics</filepath>
@@ -278,7 +278,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -342,7 +342,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -377,7 +377,7 @@
 			<description>Attendee -> Declined</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -449,7 +449,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -484,7 +484,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -492,7 +492,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -506,7 +506,7 @@
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$taskspath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/organizerdelete/1.ics</filepath>
@@ -520,7 +520,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$taskspath1:/2.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -568,7 +568,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -603,7 +603,7 @@
 			<description>Attendee -> Accepted</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -646,7 +646,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$taskspath1:/2.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -681,7 +681,7 @@
 			<description>Organizer deletes data</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$taskspath1:/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -748,7 +748,7 @@
 			<description>Attendee has cancelled data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -793,7 +793,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -801,7 +801,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -815,7 +815,7 @@
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
+				<ruri>$taskspath1:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/attendeedelete/1.ics</filepath>
@@ -829,7 +829,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
+				<ruri>$taskspath1:/3.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -865,7 +865,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -900,7 +900,7 @@
 			<description>Attendee -> Accepted</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -943,7 +943,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
+				<ruri>$taskspath1:/3.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -978,7 +978,7 @@
 			<description>Attendee deletes data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1021,7 +1021,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
+				<ruri>$taskspath1:/3.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1056,7 +1056,7 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1064,7 +1064,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1078,7 +1078,7 @@
 			<description>Organizer invites two Attendees</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/completed/1.ics</filepath>
@@ -1092,7 +1092,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1128,7 +1128,7 @@
 			<description>Attendee 2 has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1185,7 +1185,7 @@
 			<description>Attendee 3 has data</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath3:/</ruri>
+				<ruri>$taskspath3:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1220,7 +1220,7 @@
 			<description>Attendee 2 -> Completed</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1263,7 +1263,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1298,7 +1298,7 @@
 			<description>Attendee 3 data changed</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath3:/</ruri>
+				<ruri>$taskspath3:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1312,7 +1312,7 @@
 			<description>Attendee 3 -> Completed</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath3:/</ruri>
+				<ruri>$taskspath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1355,7 +1355,7 @@
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1390,7 +1390,7 @@
 			<description>Attendee 2 data changed</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1404,17 +1404,17 @@
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath3:/</ruri>
+				<ruri>$taskspath3:/</ruri>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
@@ -1425,7 +1425,7 @@
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/missing/1.ics</filepath>
@@ -1439,7 +1439,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1475,7 +1475,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1510,7 +1510,7 @@
 			<description>Organizer updates but loses properties</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/todo/missing/4.ics</filepath>
@@ -1524,7 +1524,7 @@
 			<description>Organizer checks data - properties are back</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
+				<ruri>$taskspath1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1538,7 +1538,7 @@
 			<description>Attendee -> Completed and loses properties</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1559,7 +1559,7 @@
 			<description>Attendee has data - properties are back</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1569,11 +1569,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1'>
+		<test name='10'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1581,7 +1581,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
+				<ruri>$taskspath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

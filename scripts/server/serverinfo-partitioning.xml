@@ -69,6 +69,7 @@
 		<feature>query-extended</feature>				<!-- calendar-query-extended extension -->
 		<feature>shared-calendars</feature>				<!-- Shared calendars extension -->
 		<feature>schedule-changes</feature>				<!-- schedule-changes property extension -->
+		<feature>split-calendars</feature>				<!-- Calendars are split by component type -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 		<feature>webcal</feature>						<!-- Internet calendar subscription via GET on calendar collection -->
@@ -211,6 +212,12 @@
 		<substitution>
 			<key>$calendar:</key>
 			<value>calendar</value>
+		</substitution>
+
+		<!-- primary tasks-only calendar name-->
+		<substitution>
+			<key>$tasks:</key>
+			<value>tasks</value>
 		</substitution>
 
 		<!-- inbox name-->
@@ -402,10 +409,25 @@
 				<key>$pathprefix%d:</key>
 				<value>$calendars_uids:$userguid%d:</value>
 			</substitution>
+			<!-- relative path to user alternate calendar home-->
+			<substitution>
+				<key>$pathprefixalt%d:</key>
+				<value>$calendars_users:$userid%d:</value>
+			</substitution>
 			<!-- relative path to user calendar-->
 			<substitution>
 				<key>$calendarpath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$calendar:</value>
+			</substitution>
+			<!-- relative path to user alternate calendar-->
+			<substitution>
+				<key>$calendarpathalt%d:</key>
+				<value>$calendars_users:$userid%d:/$calendar:</value>
+			</substitution>
+			<!-- relative path to user tasks calendar-->
+			<substitution>
+				<key>$taskspath%d:</key>
+				<value>$calendars_uids:$userguid%d:/$tasks:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
@@ -431,16 +453,6 @@
 			<substitution>
 				<key>$freebusypath%d:</key>
 				<value>$calendars_uids:$userguid%d:/$freebusy:</value>
-			</substitution>
-			<!-- relative path to user alternate calendar home-->
-			<substitution>
-				<key>$pathprefixalt%d:</key>
-				<value>$calendars_users:$userid%d:</value>
-			</substitution>
-			<!-- relative path to user alternate calendar-->
-			<substitution>
-				<key>$calendarpathalt%d:</key>
-				<value>$calendars_users:$userid%d:/$calendar:</value>
 			</substitution>
 			<substitution>
 				<key>$email%d:</key>

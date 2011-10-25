@@ -206,6 +206,156 @@
 			</request>
 		</test>
 	</test-suite>
-	<end/>
 
+	<test-suite name='MKCALENDAR supported-component-set'>
+		<test name='1'>
+			<description>MKCALENDAR with VEVENT only</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/vevent-only/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT vevent</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vevent-only/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT vtodo</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vevent-only/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-component</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>MKCALENDAR with VTODO only</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/vtodo-only/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>PUT vevent</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vtodo-only/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-component</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>PUT vtodo</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vtodo-only/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>MKCALENDAR with VTODO only</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/vevent-vtodo/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>PUT vevent</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vevent-vtodo/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/8.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>PUT vtodo</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$pathprefix1:/vevent-vtodo/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/restrictions/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end/>
+	
 </caldavtest>
