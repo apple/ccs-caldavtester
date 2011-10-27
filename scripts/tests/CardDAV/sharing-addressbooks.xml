@@ -254,7 +254,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Default address book cannot be shared calendar' ignore='no'>
+	<test-suite name='Default address book cannot be shared address book' ignore='no'>
 		<require-feature>
 			<feature>default-addressbook</feature>
 		</require-feature>
@@ -293,7 +293,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:carddav}default-addressbook-URL$<href xmlns="DAV:">$addressbookpath2:</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:carddav}default-addressbook-URL$<href xmlns="DAV:">$addressbookpath2:/</href>]]></value>
 					</arg>
 				</verify>
 			</request>
