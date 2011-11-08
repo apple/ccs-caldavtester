@@ -20,7 +20,7 @@
 #
 
 export PYTHONPATH=/usr/share/caldavd/lib/python
-./testcaldav.py -s scripts/server/serverinfo-caldav.xml \
+./testcaldav.py --print-details-onfail -s scripts/server/serverinfo-caldav.xml \
 	CalDAV/caldavIOP.xml \
 	CalDAV/errors.xml \
 	CalDAV/get.xml \
@@ -28,4 +28,3 @@ export PYTHONPATH=/usr/share/caldavd/lib/python
 	CalDAV/propfind.xml \
 	CalDAV/put.xml \
 	CalDAV/reports.xml
-
