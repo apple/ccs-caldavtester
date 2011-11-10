@@ -21,8 +21,8 @@
 #
 
 export PYTHONPATH=/usr/share/caldavd/lib/python
-./testcaldav.py -s scripts/server/serverinfo-caldav.xml --all \
+./testcaldav.py --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all \
 	--exclude CalDAV/directory.xml \
 	--exclude CalDAV/proxyauthz.xml \
-	--exclude CalDAV/quota.xml
- 	--exclude CardDAV/directory.xml	
+	--exclude CalDAV/quota.xml \
+ 	--exclude CardDAV/directory.xml
