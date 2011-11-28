@@ -333,7 +333,6 @@ def patchConfig(config, admin):
        * SACLs are disabled
        * CalDAV and CardDAV are enabled
        * EnableAnonymousReadRoot is enabled
-       * AugmentService is configured
 
     @param config: file path to caldavd.plist
     @type config: str
@@ -360,8 +359,18 @@ def patchConfig(config, admin):
 
     # Needed for CDT
     plist["EnableAnonymousReadRoot"] = True
-    plist["AugmentService"] = {'params': {'xmlFiles': ['augments.xml']}, 'type': 'twistedcaldav.directory.augment.AugmentXMLDB'}
 
+    writePlist(plist, config)
+
+def patchConfigForAugmentService(config):
+    """
+    Patch the caldavd.plist file to configure AugmentService
+
+    @param config: file path to caldavd.plist
+    @type config: str
+    """
+    plist = readPlist(config)
+    plist["AugmentService"] = {'params': {'xmlFiles': ['augments.xml']}, 'type': 'twistedcaldav.directory.augment.AugmentXMLDB'}
     writePlist(plist, config)
 
 def patchSudoers(sudoers):
@@ -700,8 +709,8 @@ if __name__ == "__main__":
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
     
-            # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+            # Patch caldavd.plist to configure AugmentService, needed before creating resources
+            patchConfigForAugmentService(config)
 
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
@@ -711,6 +720,9 @@ if __name__ == "__main__":
             doToAccounts(config, protocol, createUser)
             doGroupMemberships()
             
+            # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
+            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
 

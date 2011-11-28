@@ -39,6 +39,7 @@ class Verifier(object):
                 pass
         count = args.get("count", [])
         totalcount = args.get("totalcount", [])
+        responsecount = args.get("responsecount", [])
         prefix = args.get("prefix", [])
         ignoremissing = args.get("ignoremissing", [])
         if len(prefix):
@@ -53,6 +54,7 @@ class Verifier(object):
             args[k] = v
         count = [int(i) for i in count]
         totalcount = [int(i) for i in totalcount]
+        responsecount = [int(i) for i in responsecount]
         
         if "okhrefs" in args or "nohrefs" in args or "badhrefs" in args:
             doOKBad = True
@@ -131,6 +133,14 @@ class Verifier(object):
             if len(ok_result_set) != totalcount[0]:
                 result = False
                 resulttxt +=  "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0], )
+            return result, resulttxt
+
+        # Check for response count
+        if len(responsecount) == 1:
+            responses = len(ok_result_set) + len(bad_result_set)
+            if responses != responsecount[0]:
+                result = False
+                resulttxt +=  "        %d responses returned, but %d responses expected" % (responses, responsecount[0], )
             return result, resulttxt
 
         if doOKBad:
