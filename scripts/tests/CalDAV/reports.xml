@@ -137,6 +137,9 @@
 			</data>
 		</request>
 		<request end-delete="yes">
+			<exclude-feature>
+				<feature>split-calendars</feature>
+			</exclude-feature>
 			<method>PUT</method>
 			<ruri>$calendarpath1:/15.ics</ruri>
 			<data>
@@ -186,7 +189,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/101.ics</ruri>
+			<ruri>$taskspath1:/101.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/101.txt</filepath>
@@ -194,7 +197,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/102.ics</ruri>
+			<ruri>$taskspath1:/102.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/102.txt</filepath>
@@ -202,7 +205,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/103.ics</ruri>
+			<ruri>$taskspath1:/103.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/103.txt</filepath>
@@ -210,7 +213,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/104.ics</ruri>
+			<ruri>$taskspath1:/104.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/104.txt</filepath>
@@ -218,7 +221,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/105.ics</ruri>
+			<ruri>$taskspath1:/105.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/105.txt</filepath>
@@ -226,7 +229,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
-			<ruri>$calendarpath1:/106.ics</ruri>
+			<ruri>$taskspath1:/106.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/106.txt</filepath>
@@ -255,7 +258,7 @@
 	</test-suite>
 
 	<test-suite name='multiget reports' ignore='no'>
-		<test name='1' ignore='no'>
+		<test name='1a' ignore='no'>
 			<description>basic multiget of 4 resources returning etag and entire ics data</description>
 			<request>
 				<method>REPORT</method>
@@ -265,6 +268,9 @@
 					<filepath>Resource/CalDAV/reports/multiget/1.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -272,6 +278,53 @@
 						<value>2.ics</value>
 						<value>3.ics</value>
 						<value>4.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='1b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>basic multiget of 4 resources returning etag and entire ics data</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/multiget/1b.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
 						<value>101.ics</value>
 						<value>102.ics</value>
 					</arg>
@@ -320,7 +373,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4a' ignore='no'>
 			<description>basic multiget of 4 resources returning etag and only SUMMARY/UID properties inside VEVENT components and VALARMs</description>
 			<request>
 				<method>REPORT</method>
@@ -330,6 +383,9 @@
 					<filepath>Resource/CalDAV/reports/multiget/4.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -341,9 +397,56 @@
 						<value>102.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='4b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>basic multiget of 4 resources returning etag and only SUMMARY/UID properties inside VEVENT components and VALARMs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/multiget/4b.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5a' ignore='no'>
 			<description>as 4.txt except that the SUMMARY property value is not returned</description>
 			<request>
 				<method>REPORT</method>
@@ -353,6 +456,9 @@
 					<filepath>Resource/CalDAV/reports/multiget/5.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -360,6 +466,53 @@
 						<value>2.ics</value>
 						<value>3.ics</value>
 						<value>4.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>as 4.txt except that the SUMMARY property value is not returned</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/multiget/5b.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
 						<value>101.ics</value>
 						<value>102.ics</value>
 					</arg>
@@ -436,7 +589,7 @@
 	</test-suite>
 	
 	<test-suite name='basic query reports' ignore='no'>
-		<test name='1' ignore='no'>
+		<test name='1a' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VEVENT defined</description>
 			<request>
 				<method>REPORT</method>
@@ -472,7 +625,27 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='1b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VEVENT defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/1.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2a' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VEVENT not defined</description>
 			<request>
 				<method>REPORT</method>
@@ -482,10 +655,48 @@
 					<filepath>Resource/CalDAV/reports/basicquery/8.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
 						<value>15.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VEVENT not defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/8.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
 						<value>101.ics</value>
 						<value>102.ics</value>
 						<value>103.ics</value>
@@ -770,11 +981,49 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14a' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VTODO defined</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/101.txt</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VTODO defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/101.txt</filepath>
@@ -797,7 +1046,7 @@
 			<description>query for resources where the SUMMARY in a VTODO contains the character '1'</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/102.txt</filepath>
@@ -815,7 +1064,7 @@
 			<description>query for resources that have a DUE in a VTODO that contains a TZID parameter containing the text 'East'</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/103.txt</filepath>
@@ -831,7 +1080,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='17a' ignore='no'>
 			<description>query for resources with VCALENDAR &amp; VEVENT and VTODO defined</description>
 			<request>
 				<method>REPORT</method>
@@ -848,7 +1097,27 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='17b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VEVENT and VTODO defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/201.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='18a' ignore='no'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -861,6 +1130,9 @@
 					<filepath>Resource/CalDAV/reports/basicquery/204.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -891,9 +1163,64 @@
 						<value>106.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+						<value>22.ics</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='18b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources with VCALENDAR &amp; VEVENT or VTODO defined</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/204.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='19a' ignore='no'>
 			<description>query for resources where the SUMMARY in a VEVENT and VTODO contains the character '1'</description>
 			<request>
 				<method>REPORT</method>
@@ -910,7 +1237,27 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='19b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources where the SUMMARY in a VEVENT and VTODO contains the character '1'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/202.txt</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20a' ignore='no'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -923,6 +1270,9 @@
 					<filepath>Resource/CalDAV/reports/basicquery/205.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -938,13 +1288,53 @@
 						<value>101.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources where the SUMMARY in a VEVENT or VTODO contains the character '1'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/205.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
 		<test name='21' ignore='no'>
 			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' and a DUE in a VTODO with TZID containing 'East'</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/203.txt</filepath>
@@ -957,7 +1347,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22' ignore='no'>
+		<test name='22a' ignore='no'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -970,10 +1360,47 @@
 					<filepath>Resource/CalDAV/reports/basicquery/206.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
 						<value>3.ics</value>
+						<value>102.ics</value>
+						<value>104.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' or a DUE in a VTODO with TZID containing 'East'</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/basicquery/206.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
 						<value>102.ics</value>
 						<value>104.ics</value>
 						<value>106.ics</value>
@@ -1365,6 +1792,9 @@
 					<filepath>Resource/CalDAV/reports/timerangequery/14.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -1380,6 +1810,26 @@
 						<value>13.ics</value>
 						<value>14.ics</value>
 						<value>15.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>3.ics</value>
+						<value>4.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1474,7 +1924,7 @@
 			<description>query for VTODOs within time range</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/101.txt</filepath>
@@ -1494,7 +1944,7 @@
 			<description>query for VTODOs within time range with specific SUMMARY text</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/102.txt</filepath>
@@ -1512,7 +1962,7 @@
 			<description>query for VTODO recurrence instance within time range</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/timerangequery/103.txt</filepath>
@@ -1687,7 +2137,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='19a' ignore='no'>
 			<description>query for VEVENTS and VTODOs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -1704,7 +2154,27 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='19b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS and VTODOs within time range</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/201.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20a' ignore='no'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1717,6 +2187,9 @@
 					<filepath>Resource/CalDAV/reports/timerangequery/204.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -1729,9 +2202,46 @@
 						<value>103.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>19.ics</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='21' ignore='no'>
+		<test name='20b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS or VTODOs within time range</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/204.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='21a' ignore='no'>
 			<description>query for VEVENTS and VTODOs with start only</description>
 			<request>
 				<method>REPORT</method>
@@ -1748,7 +2258,27 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22' ignore='no'>
+		<test name='21b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS and VTODOs with start only</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/202.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22a' ignore='no'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1761,6 +2291,9 @@
 					<filepath>Resource/CalDAV/reports/timerangequery/205.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -1786,38 +2319,10 @@
 						<value>106.ics</value>
 					</arg>
 				</verify>
-			</request>
-		</test>
-		<test name='23' ignore='no'>
-			<description>query for VEVENTS with start only and all VTODOs</description>
-			<request>
-				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/reports/timerangequery/203.xml</filepath>
-				</data>
 				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>okhrefs</name>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='24' ignore='no'>
-			<require-feature>
-				<feature>query-extended</feature>
-			</require-feature>
-			<description>query for VEVENTS with start only or all VTODOs</description>
-			<request>
-				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/reports/timerangequery/206.xml</filepath>
-				</data>
-				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
@@ -1837,6 +2342,159 @@
 						<value>21.ics</value>
 						<value>22.ics</value>
 						<value>23.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='22b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS or VTODOs with start only</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/205.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>101.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='23a' ignore='no'>
+			<description>query for VEVENTS with start only and all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/203.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='23b' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS with start only and all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/203.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='24a' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+			</require-feature>
+			<description>query for VEVENTS with start only or all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/206.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+						<value>22.ics</value>
+						<value>23.ics</value>
+						<value>101.ics</value>
+						<value>102.ics</value>
+						<value>103.ics</value>
+						<value>104.ics</value>
+						<value>105.ics</value>
+						<value>106.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>5.ics</value>
+						<value>6.ics</value>
+						<value>7.ics</value>
+						<value>8.ics</value>
+						<value>9.ics</value>
+						<value>10.ics</value>
+						<value>11.ics</value>
+						<value>12.ics</value>
+						<value>13.ics</value>
+						<value>14.ics</value>
+						<value>18.ics</value>
+						<value>19.ics</value>
+						<value>20.ics</value>
+						<value>21.ics</value>
+						<value>22.ics</value>
+						<value>23.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='24b' ignore='no'>
+			<require-feature>
+				<feature>query-extended</feature>
+				<feature>split-calendars</feature>
+			</require-feature>
+			<description>query for VEVENTS with start only or all VTODOs</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$taskspath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/206.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
 						<value>101.ics</value>
 						<value>102.ics</value>
 						<value>103.ics</value>
@@ -1928,7 +2586,7 @@
 			<description>query for VALARMS on VTODO within time range</description>
 			<request>
 				<method>REPORT</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$taskspath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/alarmtimerangequery/5.txt</filepath>
@@ -1991,6 +2649,9 @@
 					<filepath>Resource/CalDAV/reports/freebusy/2.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
@@ -2007,6 +2668,22 @@
 						<name>tentative</name>
 						<value>20060108T160000Z/20060108T170000Z</value>
 						<value>20060108T210000Z/20060108T213000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>busy</name>
+						<value>20060107T010000Z/20060107T020000Z</value>
+						<value>20060107T150000Z/20060107T163000Z</value>
+						<value>20060108T150000Z/20060108T170000Z</value>
+					</arg>
+					<arg>
+						<name>tentative</name>
+						<value>20060108T160000Z/20060108T170000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -2106,10 +2783,22 @@
 					<filepath>Resource/CalDAV/reports/limitexpand/5.txt</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
 						<value>15.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
 					</arg>
 				</verify>
 			</request>

@@ -101,10 +101,10 @@ class Verifier(object):
                                 if node.text == test[1:]:
                                     result = "        Incorrect value returned in XML for %s\n" % (path,)
                             elif test[0] == '*':
-                                if node.text.find(test[1:]) == -1:
+                                if node.text is None or node.text.find(test[1:]) == -1:
                                     result = "        Incorrect value returned in XML for %s\n" % (path,)
                             elif test[0] == '+':
-                                if not node.text.startswith(test[1:]):
+                                if node.text is None or not node.text.startswith(test[1:]):
                                     result = "        Incorrect value returned in XML for %s\n" % (path,)
                             return result
                         

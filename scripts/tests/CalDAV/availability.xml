@@ -97,6 +97,9 @@
 					<filepath>Resource/CalDAV/availability/1.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
 					<callback>xmlElementMatch</callback>
 					<arg>
 						<name>exists</name>
@@ -104,6 +107,16 @@
 						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VTODO"]</value>
 						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VTIMEZONE"]</value>
 						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VFREEBUSY"]</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set/{urn:ietf:params:xml:ns:caldav}comp[@name="VEVENT"]</value>
 					</arg>
 				</verify>
 			</request>

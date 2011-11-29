@@ -76,7 +76,27 @@
 	</test-suite>
 
 	<test-suite name='Collection limit' ignore='no'>
-		<test name='1' count='48' ignore='no'>
+		<test name='1a' count='48' ignore='no'>
+			<exclude-feature>
+				<feature>split-calendars</feature>
+			</exclude-feature>
+			<description>Create collections to one below the limit</description>
+			<request end-delete='yes' print-response='no'>
+				<method>MKCALENDAR</method>
+				<ruri>$pathprefix1:/caltest-##/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='1b' count='47' ignore='no'>
+			<require-feature>
+				<feature>split-calendars</feature>
+			</require-feature>
 			<description>Create collections to one below the limit</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCALENDAR</method>
@@ -91,7 +111,7 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>Create collections to one below the limit</description>
+			<description>Create collections to the limit</description>
 			<request print-response='no'>
 				<method>MKCALENDAR</method>
 				<ruri>$pathprefix1:/caltest-49/</ruri>
