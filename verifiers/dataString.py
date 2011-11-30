@@ -42,7 +42,7 @@ class Verifier(object):
                 return False, "        Response data does not contain \"%s\"" % (item,)
         for item in notcontains:
             item = manager.server_info.subs(item)
-            if newrespdata.find(item.replace("\n", "\r\n")) != -1 or newrespdata.find(item) == -1:
+            if newrespdata.find(item.replace("\n", "\r\n")) != -1 or newrespdata.find(item) != -1:
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 
         return True, ""
