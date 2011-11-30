@@ -38,11 +38,11 @@ class Verifier(object):
         # Check each contains and not-contains (AND operation)
         for item in contains:
             item = manager.server_info.subs(item)
-            if newrespdata.find(item.replace("\n", "\r\n")) == -1:
+            if newrespdata.find(item.replace("\n", "\r\n")) == -1 and newrespdata.find(item) == -1:
                 return False, "        Response data does not contain \"%s\"" % (item,)
         for item in notcontains:
             item = manager.server_info.subs(item)
-            if newrespdata.find(item.replace("\n", "\r\n")) != -1:
+            if newrespdata.find(item.replace("\n", "\r\n")) != -1 or newrespdata.find(item) == -1:
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 
         return True, ""
