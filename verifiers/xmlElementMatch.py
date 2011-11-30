@@ -53,75 +53,85 @@ class Verifier(object):
         resulttxt = ""
         for path in exists:
             
-            if '[' in path:
-                actual_path, tests = path.split('[', 1)
-            else:
-                actual_path = path
-                tests = None
-            
-            # Handle absolute root element
-            if actual_path[0] == '/':
-                actual_path = actual_path[1:]
-            if '/' in actual_path:
-                root_path, child_path = actual_path.split('/', 1)
-                if tree.getroot().tag != root_path:
-                    resulttxt += "        Items not returned in XML for %s\n" % (path,)
-                nodes = tree.findall(child_path)
-            else:
-                root_path = actual_path
-                child_path = None
-                nodes = (tree.getroot(),)
-            
-            if len(nodes) == 0:
-                resulttxt += "        Items not returned in XML for %s\n" % (path,)
-                result = False
-                continue
-            if tests:
-                tests = [item[:-1] for item in tests.split('[')]
-                for test in tests:
-                    for node in nodes:
-                        
-                        def _doTest():
-                            result = None
-                            if test[0] == '@':
-                                if '=' in test:
-                                    attr, value = test[1:].split('=')
-                                    value = value[1:-1]
-                                else:
-                                    attr = test[1:]
-                                    value = None
-                                if attr not in node.keys():
-                                    result = "        Missing attribute returned in XML for %s\n" % (path,)
-                                if value is not None and node.get(attr) != value:
-                                    result = "        Incorrect attribute value returned in XML for %s\n" % (path,)
-                            elif test[0] == '=':
-                                if node.text != test[1:]:
-                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
-                            elif test[0] == '!':
-                                if node.text == test[1:]:
-                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
-                            elif test[0] == '*':
-                                if node.text is None or node.text.find(test[1:]) == -1:
-                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
-                            elif test[0] == '+':
-                                if node.text is None or not node.text.startswith(test[1:]):
-                                    result = "        Incorrect value returned in XML for %s\n" % (path,)
-                            return result
-                        
-                        testresult = _doTest()
-                        if testresult is None:
-                            break
-                    if testresult is not None:
-                        resulttxt += testresult
-                        result = False
-                        break
-                         
+            matched, txt = self.matchPath(tree, path)
+            result |= matched
+            resulttxt += txt
                             
         for path in notexists:
-            if tree.findall(path):
+            matched, _ignore_txt = self.matchPath(tree, path)
+            if matched:
                 resulttxt += "        Items returned in XML for %s\n" % (path,)
                 result = False
-            
                 
         return result, resulttxt
         
+    def matchPath(self, tree, path):
+        
+        result = True
+        resulttxt = ""
+
+        if '[' in path:
+            actual_path, tests = path.split('[', 1)
+        else:
+            actual_path = path
+            tests = None
+        
+        # Handle absolute root element
+        if actual_path[0] == '/':
+            actual_path = actual_path[1:]
+        if '/' in actual_path:
+            root_path, child_path = actual_path.split('/', 1)
+            if tree.getroot().tag != root_path:
+                resulttxt += "        Items not returned in XML for %s\n" % (path,)
+            nodes = tree.findall(child_path)
+        else:
+            root_path = actual_path
+            child_path = None
+            nodes = (tree.getroot(),)
+        
+        if len(nodes) == 0:
+            resulttxt += "        Items not returned in XML for %s\n" % (path,)
+            result = False
+            return result, resulttxt
+
+        if tests:
+            tests = [item[:-1] for item in tests.split('[')]
+            for test in tests:
+                for node in nodes:
+                    
+                    def _doTest():
+                        result = None
+                        if test[0] == '@':
+                            if '=' in test:
+                                attr, value = test[1:].split('=')
+                                value = value[1:-1]
+                            else:
+                                attr = test[1:]
+                                value = None
+                            if attr not in node.keys():
+                                result = "        Missing attribute returned in XML for %s\n" % (path,)
+                            if value is not None and node.get(attr) != value:
+                                result = "        Incorrect attribute value returned in XML for %s\n" % (path,)
+                        elif test[0] == '=':
+                            if node.text != test[1:]:
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        elif test[0] == '!':
+                            if node.text == test[1:]:
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        elif test[0] == '*':
+                            if node.text is None or node.text.find(test[1:]) == -1:
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        elif test[0] == '+':
+                            if node.text is None or not node.text.startswith(test[1:]):
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        return result
+                    
+                    testresult = _doTest()
+                    if testresult is None:
+                        break
+                if testresult is not None:
+                    resulttxt += testresult
+                    result = False
+                    break
+
+        return result, resulttxt
