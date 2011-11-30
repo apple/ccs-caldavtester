@@ -203,7 +203,7 @@ caldavtest.dtd:
 		request body, if there is one.
 		
 		ATTRIBUTE substitutions
-			if set to 'yes' then '$host:' and '$pathprefix1:'
+			if set to 'yes' then '$host:' and '$calendarhome1:'
 			substitutions will be performed on the data before it is sent
 			in the request.
 

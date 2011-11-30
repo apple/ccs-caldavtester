@@ -38,7 +38,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -54,7 +54,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharinginvite23.xml</filepath>
@@ -86,7 +86,7 @@
 			<description>Sharee 2 replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
@@ -122,7 +122,7 @@
 			<description>Sharee 3 replies ACCEPTED</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
@@ -143,7 +143,7 @@
 			<description>GET on empty calendar collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -160,7 +160,7 @@
 			<description>GET on empty calendar collection - 2nd time from cache</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -248,7 +248,7 @@
 			<description>GET on calendar collection after initial PUT</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/webcal/rolled/2.ics</filepath>
@@ -259,7 +259,7 @@
 			</request>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -276,7 +276,7 @@
 			<description>GET on calendar collection after initial PUT - 2nd time from cache</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -375,7 +375,7 @@
 			</request>
 			<request print-response="no">
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -392,7 +392,7 @@
 			<description>GET on calendar collection after sharee PUT - 2nd time from cache</description>
 			<request print-response="no">
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

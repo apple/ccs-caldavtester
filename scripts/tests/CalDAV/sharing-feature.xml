@@ -113,7 +113,7 @@
 			<description>Create new calendar</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/shared1/</ruri>
+				<ruri>$calendarhome1:/shared1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -123,7 +123,7 @@
 			<description>Not shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared1/</ruri>
+				<ruri>$calendarhome1:/shared1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -145,7 +145,7 @@
 			<description>Upgrade via PROPPATCH</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/shared1/</ruri>
+				<ruri>$calendarhome1:/shared1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/feature/upgrade_collection/1.xml</filepath>
@@ -163,7 +163,7 @@
 			<description>Is shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared1/</ruri>
+				<ruri>$calendarhome1:/shared1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -188,7 +188,7 @@
 			<description>Create new shared calendar</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/feature/mkcalendar/1.xml</filepath>
@@ -202,7 +202,7 @@
 			<description>Is shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -224,7 +224,7 @@
 			<description>Downgrade via PROPPATCH</description>
 			<request>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/feature/downgrade_collection/2.xml</filepath>
@@ -238,7 +238,7 @@
 			<description>Is not shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -263,7 +263,7 @@
 			<description>Create new calendar</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/shared3/</ruri>
+				<ruri>$calendarhome1:/shared3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/feature/mkcalendar/1.xml</filepath>
@@ -277,7 +277,7 @@
 			<description>Is shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared3/</ruri>
+				<ruri>$calendarhome1:/shared3/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -305,7 +305,7 @@
 			<description>Create new calendar</description>
 			<request end-delete="yes">
 				<method>MKCOL</method>
-				<ruri>$pathprefix1:/shared4/</ruri>
+				<ruri>$calendarhome1:/shared4/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/feature/mkcol/1.xml</filepath>
@@ -319,7 +319,7 @@
 			<description>Is shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared4/</ruri>
+				<ruri>$calendarhome1:/shared4/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

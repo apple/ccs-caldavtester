@@ -28,11 +28,11 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix1:/top-collection/</ruri>
+			<ruri>$calendarhome1:/top-collection/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/</ruri>
+			<ruri>$calendarhome1:/top-collection/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/1.xml</filepath>
@@ -41,11 +41,11 @@
 		<!--  Calendar with DAV:read only -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/1.xml</filepath>
@@ -53,7 +53,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal1.ics</filepath>
@@ -61,7 +61,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/1.xml</filepath>
@@ -69,7 +69,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal2.ics</filepath>
@@ -77,7 +77,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/2.xml</filepath>
@@ -85,7 +85,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal3.ics</filepath>
@@ -93,7 +93,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar1/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar1/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/3.xml</filepath>
@@ -102,11 +102,11 @@
 		<!--  Calendar with no privileges -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/2.xml</filepath>
@@ -114,7 +114,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal4.ics</filepath>
@@ -122,7 +122,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/1.xml</filepath>
@@ -130,7 +130,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal5.ics</filepath>
@@ -138,7 +138,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/2.xml</filepath>
@@ -146,7 +146,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal6.ics</filepath>
@@ -154,7 +154,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar2/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar2/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/3.xml</filepath>
@@ -163,11 +163,11 @@
 		<!--  Calendar with CALDAV:read-free-busy only -->
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/</ruri>
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/3.xml</filepath>
@@ -175,7 +175,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal7.ics</filepath>
@@ -183,7 +183,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/1.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/1.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/1.xml</filepath>
@@ -191,7 +191,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal8.ics</filepath>
@@ -199,7 +199,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/2.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/2.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/2.xml</filepath>
@@ -207,7 +207,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/cal9.ics</filepath>
@@ -215,7 +215,7 @@
 		</request>
 		<request>
 			<method>ACL</method>
-			<ruri>$pathprefix1:/top-collection/calendar3/3.ics</ruri>
+			<ruri>$calendarhome1:/top-collection/calendar3/3.ics</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/depthreportsacl/3.xml</filepath>

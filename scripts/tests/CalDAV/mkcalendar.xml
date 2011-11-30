@@ -30,7 +30,7 @@
 			<description>Simple MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -44,7 +44,7 @@
 			<description>MKCALENDAR on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -58,7 +58,7 @@
 			<description>MKCALENDAR inside another calendar</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest1/caltest2/</ruri>
+				<ruri>$calendarhome1:/caltest1/caltest2/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -72,7 +72,7 @@
 			<description>MKCOL inside a calendar</description>
 			<request>
 				<method>MKCOL</method>
-				<ruri>$pathprefix1:/caltest1/collection/</ruri>
+				<ruri>$calendarhome1:/caltest1/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -89,7 +89,7 @@
 			<description>MKCALENDAR with correct request body</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest2/</ruri>
+				<ruri>$calendarhome1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/1.txt</filepath>
@@ -107,7 +107,7 @@
 			<description>MKCALENDAR with correct request body on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest2/</ruri>
+				<ruri>$calendarhome1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/1.txt</filepath>
@@ -125,7 +125,7 @@
 			<description>MKCALENDAR with incorrect request body</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/2.txt</filepath>
@@ -142,7 +142,7 @@
 			</request>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -156,7 +156,7 @@
 			<description>MKCALENDAR with incorrect request body on existing resource</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest2/</ruri>
+				<ruri>$calendarhome1:/caltest2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/2.txt</filepath>
@@ -177,7 +177,7 @@
 			<description>MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -191,7 +191,7 @@
 			<description>REPORT free-busy on new collection as another user</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/3.xml</filepath>
@@ -212,7 +212,7 @@
 			<description>MKCALENDAR with VEVENT only</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/vevent-only/</ruri>
+				<ruri>$calendarhome1:/vevent-only/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/1.xml</filepath>
@@ -230,7 +230,7 @@
 			<description>PUT vevent</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vevent-only/1.ics</ruri>
+				<ruri>$calendarhome1:/vevent-only/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/2.ics</filepath>
@@ -244,7 +244,7 @@
 			<description>PUT vtodo</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vevent-only/2.ics</ruri>
+				<ruri>$calendarhome1:/vevent-only/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/3.ics</filepath>
@@ -262,7 +262,7 @@
 			<description>MKCALENDAR with VTODO only</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/vtodo-only/</ruri>
+				<ruri>$calendarhome1:/vtodo-only/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/4.xml</filepath>
@@ -280,7 +280,7 @@
 			<description>PUT vevent</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vtodo-only/1.ics</ruri>
+				<ruri>$calendarhome1:/vtodo-only/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/5.ics</filepath>
@@ -298,7 +298,7 @@
 			<description>PUT vtodo</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vtodo-only/2.ics</ruri>
+				<ruri>$calendarhome1:/vtodo-only/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/6.ics</filepath>
@@ -312,7 +312,7 @@
 			<description>MKCALENDAR with VEVENT and VTODO</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/vevent-vtodo/</ruri>
+				<ruri>$calendarhome1:/vevent-vtodo/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/7.xml</filepath>
@@ -346,7 +346,7 @@
 			<description>PUT vevent</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vevent-vtodo/1.ics</ruri>
+				<ruri>$calendarhome1:/vevent-vtodo/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/8.ics</filepath>
@@ -363,7 +363,7 @@
 			<description>PUT vtodo</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/vevent-vtodo/2.ics</ruri>
+				<ruri>$calendarhome1:/vevent-vtodo/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/mkcalendar/restrictions/9.ics</filepath>
@@ -383,7 +383,7 @@
 			<description>Check calendar home for property</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -477,7 +477,7 @@
 			<description>Simple MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/nobody/</ruri>
+				<ruri>$calendarhome1:/nobody/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -488,7 +488,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/nobody/</ruri>
+				<ruri>$calendarhome1:/nobody/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

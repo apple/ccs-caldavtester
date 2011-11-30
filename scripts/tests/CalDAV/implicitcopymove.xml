@@ -33,11 +33,11 @@
 		</request>
 		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/calendar-2/</ruri>
+			<ruri>$calendarhome1:/calendar-2/</ruri>
 		</request>
 		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix1:/collection/</ruri>
+			<ruri>$calendarhome1:/collection/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>GET</method>
@@ -45,11 +45,11 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/calendar-2/</ruri>
+			<ruri>$calendarhome2:/calendar-2/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>MKCOL</method>
-			<ruri>$pathprefix2:/collection/</ruri>
+			<ruri>$calendarhome2:/collection/</ruri>
 		</request>
 	</start>
 	
@@ -143,7 +143,7 @@
 			<description>Organizer tries PUT of same resource to another calendar</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/calendar-2/2.ics</ruri>
+				<ruri>$calendarhome1:/calendar-2/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -161,7 +161,7 @@
 			<description>Organizer tries PUT of same resource to a collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/2.ics</ruri>
+				<ruri>$calendarhome1:/collection/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -175,7 +175,7 @@
 			<description>Organizer tries PUT of same resource without Organizer/Attendee to another calendar</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/calendar-2/3.ics</ruri>
+				<ruri>$calendarhome1:/calendar-2/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/5.ics</filepath>
@@ -193,7 +193,7 @@
 			<description>Organizer tries PUT of same resource without Organizer/Attendee to a collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/3.ics</ruri>
+				<ruri>$calendarhome1:/collection/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/5.ics</filepath>
@@ -304,11 +304,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -320,11 +320,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -366,7 +366,7 @@
 			<description>Organizer stores without Attendeeinto another calendar</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/calendar-2/1.ics</ruri>
+				<ruri>$calendarhome1:/calendar-2/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/5.ics</filepath>
@@ -380,7 +380,7 @@
 			<description>Organizer checks data</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix1:/calendar-2/1.ics</ruri>
+				<ruri>$calendarhome1:/calendar-2/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -398,11 +398,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -414,11 +414,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -517,7 +517,7 @@
 			<description>Attendee tries PUT of same resource to another calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix2:/calendar-2/2.ics</ruri>
+				<ruri>$calendarhome2:/calendar-2/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/4.ics</filepath>
@@ -535,7 +535,7 @@
 			<description>Attendee tries PUT of same resource to a collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix2:/collection/2.ics</ruri>
+				<ruri>$calendarhome2:/collection/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/4.ics</filepath>
@@ -549,7 +549,7 @@
 			<description>Attendee tries PUT of same resource without Organizer/Attendee to another calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix2:/calendar-2/3.ics</ruri>
+				<ruri>$calendarhome2:/calendar-2/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/6.ics</filepath>
@@ -567,7 +567,7 @@
 			<description>Attendee tries PUT of same resource without Organizer/Attendee to a collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix2:/collection/3.ics</ruri>
+				<ruri>$calendarhome2:/collection/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/6.ics</filepath>
@@ -632,11 +632,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -648,11 +648,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -827,11 +827,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -843,11 +843,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -949,7 +949,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+					<value>$host:$calendarhome1:/calendar-2/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -986,11 +986,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1002,11 +1002,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1115,7 +1115,7 @@
 				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
+					<value>$host:$calendarhome2:/calendar-2/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -1152,11 +1152,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1168,11 +1168,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1186,7 +1186,7 @@
 			<description>Organizer stores to collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -1222,7 +1222,7 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -1310,7 +1310,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/collection/1.ics</value>
+					<value>$host:$calendarhome1:/collection/1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -1390,11 +1390,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1406,11 +1406,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1424,7 +1424,7 @@
 			<description>Organizer stores to collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -1496,7 +1496,7 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -1581,7 +1581,7 @@
 			<description>Organizer stores to collection without Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/5.ics</filepath>
@@ -1617,7 +1617,7 @@
 			<description>Organizer MOVES to calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -1714,11 +1714,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1730,11 +1730,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1779,7 +1779,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/collection/2.ics</value>
+					<value>$host:$calendarhome1:/collection/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -1815,7 +1815,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+					<value>$host:$calendarhome1:/calendar-2/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -1892,11 +1892,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1908,11 +1908,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -1979,7 +1979,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/collection/2.ics</value>
+					<value>$host:$calendarhome1:/collection/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -2015,7 +2015,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar-2/2.ics</value>
+					<value>$host:$calendarhome1:/calendar-2/2.ics</value>
 				</header>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -2069,7 +2069,7 @@
 				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/collection/2.ics</value>
+					<value>$host:$calendarhome2:/collection/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -2105,7 +2105,7 @@
 				<ruri>$</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/calendar-2/2.ics</value>
+					<value>$host:$calendarhome2:/calendar-2/2.ics</value>
 				</header>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -2146,11 +2146,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2162,11 +2162,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -2180,7 +2180,7 @@
 			<description>Organizer stores to collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -2216,7 +2216,7 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -2304,7 +2304,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/collection/2.ics</value>
+					<value>$host:$calendarhome1:/collection/2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -2341,11 +2341,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2357,11 +2357,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
@@ -2375,7 +2375,7 @@
 			<description>Organizer stores to collection</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/1.ics</filepath>
@@ -2447,7 +2447,7 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -2532,7 +2532,7 @@
 			<description>Organizer stores to collection without Attendee</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/5.ics</filepath>
@@ -2568,7 +2568,7 @@
 			<description>Organizer COPIES to calendar</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/collection/1.ics</ruri>
+				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -2665,11 +2665,11 @@
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/calendar-2/</ruri>
+				<ruri>$calendarhome1:/calendar-2/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -2681,11 +2681,11 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/calendar-2/</ruri>
+				<ruri>$calendarhome2:/calendar-2/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
-				<ruri>$pathprefix2:/collection/</ruri>
+				<ruri>$calendarhome2:/collection/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>

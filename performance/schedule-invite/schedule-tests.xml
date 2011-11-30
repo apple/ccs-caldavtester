@@ -22,27 +22,27 @@
 	<start>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/outbox/</ruri>
+			<ruri>$calendarhome1:/outbox/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>
-			<ruri>$pathprefix1:/inbox/</ruri>
+			<ruri>$calendarhome1:/inbox/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/outbox/</ruri>
+			<ruri>$calendarhome2:/outbox/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix2:/inbox/</ruri>
+			<ruri>$calendarhome2:/inbox/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/outbox/</ruri>
+			<ruri>$calendarhome3:/outbox/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$pathprefix3:/inbox/</ruri>
+			<ruri>$calendarhome3:/inbox/</ruri>
 		</request>
 	</start>
 	
@@ -53,7 +53,7 @@
 			<request>
 				<method>POST</method>
 				<header>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$calendarhome1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/performance/schedule/1.ics</filepath>
@@ -65,7 +65,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix1:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$calendarhome1:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 			</request>
@@ -74,7 +74,7 @@
 			<description>POST to Outbox of regular invite - medium</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$calendarhome1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/performance/schedule/2.ics</filepath>
@@ -86,7 +86,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix1:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$calendarhome1:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 			</request>
@@ -95,7 +95,7 @@
 			<description>POST to Outbox of regular invite - large</description>
 			<request>
 				<method>POST</method>
-				<ruri>$pathprefix1:/outbox/</ruri>
+				<ruri>$calendarhome1:/outbox/</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/performance/schedule/3.ics</filepath>
@@ -107,7 +107,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$^$pathprefix1:/outbox/[^/]+\.ics$</value>
+						<value>Location$^$calendarhome1:/outbox/[^/]+\.ics$</value>
 					</arg>
 				</verify>
 			</request>

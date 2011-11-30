@@ -37,7 +37,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -48,7 +48,7 @@
 		</request>
 		<request print-response='no'>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
@@ -61,7 +61,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-write/1.xml</filepath>
@@ -102,7 +102,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-write/3.xml</filepath>
@@ -153,7 +153,7 @@
 			<description>Original calendar unchanged</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -190,7 +190,7 @@
 			<description>Sharer sees event</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -204,7 +204,7 @@
 			<description>Sharer changes event</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-write/6.ics</filepath>
@@ -232,7 +232,7 @@
 			<description>Sharer creates event</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/2.ics</ruri>
+				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-write/7.ics</filepath>
@@ -274,7 +274,7 @@
 			<description>Sharer sees changed event</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix1:/shared/2.ics</ruri>
+				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -334,7 +334,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-only/1.xml</filepath>
@@ -375,7 +375,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-only/3.xml</filepath>
@@ -443,7 +443,7 @@
 			<description>Sharer creates event</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/4.ics</ruri>
+				<ruri>$calendarhome1:/shared/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/calendars/read-only/6.ics</filepath>

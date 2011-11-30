@@ -37,7 +37,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -53,7 +53,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/new/1.xml</filepath>
@@ -115,7 +115,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/updatenew/1.xml</filepath>
@@ -177,7 +177,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/uninvitenew/1.xml</filepath>
@@ -216,7 +216,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/broken/1.xml</filepath>
@@ -263,7 +263,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/new/1.xml</filepath>
@@ -299,7 +299,7 @@
 			<description>DELETE collection</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -334,7 +334,7 @@
 			<description>POST invitation</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -348,7 +348,7 @@
 			<description>POST valid invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/1.xml</filepath>
@@ -362,7 +362,7 @@
 			<description>POST single invalid uninvitate</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/2.xml</filepath>
@@ -380,7 +380,7 @@
 			<description>POST invalid and valid uninvitate</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/3.xml</filepath>
@@ -402,7 +402,7 @@
 			<description>DELETE collection</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

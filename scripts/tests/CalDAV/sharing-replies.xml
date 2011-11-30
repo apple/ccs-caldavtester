@@ -37,7 +37,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -53,7 +53,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/replies/accept/1.xml</filepath>
@@ -94,7 +94,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/replies/accept/3.xml</filepath>
@@ -120,7 +120,7 @@
 			<description>Check accept status</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -182,7 +182,7 @@
 					<arg>
 						<name>okprops</name>
 						<value>{DAV:}displayname$The Shared Calendar</value>
-						<value>{http://calendarserver.org/ns/}sharedurl$$pathprefix1:/shared</value>
+						<value>{http://calendarserver.org/ns/}sharedurl$$calendarhome1:/shared</value>
 					</arg>
 				</verify>
 			</request>
@@ -191,7 +191,7 @@
 			<description>Check sharer calendar displyname</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -216,7 +216,7 @@
 			<description>Sharee replies DECLINED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/replies/decline/1.xml</filepath>
@@ -230,7 +230,7 @@
 			<description>Check declined status</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

@@ -27,11 +27,11 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/synccalendar1/</ruri>
+			<ruri>$calendarhome1:/synccalendar1/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
+			<ruri>$calendarhome1:/synccalendar1/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -39,7 +39,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar1/2.ics</ruri>
+			<ruri>$calendarhome1:/synccalendar1/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
@@ -47,11 +47,11 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/synccalendar2/</ruri>
+			<ruri>$calendarhome1:/synccalendar2/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+			<ruri>$calendarhome1:/synccalendar2/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -59,7 +59,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/synccalendar2/2.ics</ruri>
+			<ruri>$calendarhome1:/synccalendar2/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
@@ -105,7 +105,7 @@
 			<description>On calendar-home</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -136,7 +136,7 @@
 			<description>On calendar</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -200,7 +200,7 @@
 			<description>initial query - calenar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -223,7 +223,7 @@
 			<description>initial query - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -279,7 +279,7 @@
 			<description>initial query - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -343,7 +343,7 @@
 			<description>add new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -357,7 +357,7 @@
 			<description>new resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -381,7 +381,7 @@
 			<description>new resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -437,7 +437,7 @@
 			<description>new resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -503,7 +503,7 @@
 			<description>remove new resource</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -513,7 +513,7 @@
 			<description>remove new resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -536,7 +536,7 @@
 			<description>remove new resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -592,7 +592,7 @@
 			<description>remove new resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -656,7 +656,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -670,7 +670,7 @@
 			<description>changed resource - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -693,7 +693,7 @@
 			<description>changed resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -749,7 +749,7 @@
 			<description>changed resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -816,7 +816,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -843,7 +843,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -854,7 +854,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -880,14 +880,14 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar1/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -909,7 +909,7 @@
 			<description>remove resource (treated as old)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -935,7 +935,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar1/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar1/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -946,7 +946,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -972,7 +972,7 @@
 			<description>no change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -997,7 +997,7 @@
 			<description>initial query</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1028,7 +1028,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -1039,7 +1039,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1071,14 +1071,14 @@
 			<description>remove resource new resource</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1109,7 +1109,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1120,7 +1120,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1154,7 +1154,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1189,7 +1189,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -1200,7 +1200,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1234,14 +1234,14 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar2/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1263,7 +1263,7 @@
 			<description>remove resource (treated as old)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1292,7 +1292,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar2/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar2/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1303,7 +1303,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1337,7 +1337,7 @@
 			<description>no change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1370,19 +1370,19 @@
 			<description>Initialize</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar1/</ruri>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
 			</request>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar2/</ruri>
+				<ruri>$calendarhome1:/synccalendar2/</ruri>
 			</request>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/synccalendar3/</ruri>
+				<ruri>$calendarhome1:/synccalendar3/</ruri>
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1390,7 +1390,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar3/2.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
@@ -1398,11 +1398,11 @@
 			</request>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/synccalendar4/</ruri>
+				<ruri>$calendarhome1:/synccalendar4/</ruri>
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar4/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar4/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1410,7 +1410,7 @@
 			</request>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar4/2.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar4/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/2.txt</filepath>
@@ -1421,7 +1421,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1489,7 +1489,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar3/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -1500,7 +1500,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1526,14 +1526,14 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar3/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1555,7 +1555,7 @@
 			<description>remove resource (treated as old)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1581,7 +1581,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1592,7 +1592,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1618,7 +1618,7 @@
 			<description>no change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1643,7 +1643,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1705,10 +1705,10 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>ignore</name>
-						<value>$pathprefix1:/$outbox:/</value>
-						<value>$pathprefix1:/$freebusy:</value>
-						<value>$pathprefix1:/$notification:/</value>
-						<value>$pathprefix1:/$dropbox:/</value>
+						<value>$calendarhome1:/$outbox:/</value>
+						<value>$calendarhome1:/$freebusy:</value>
+						<value>$calendarhome1:/$notification:/</value>
+						<value>$calendarhome1:/$dropbox:/</value>
 					</arg>
 					<arg>
 						<name>okprops</name>
@@ -1726,7 +1726,7 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar4/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar4/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/3.txt</filepath>
@@ -1737,7 +1737,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1771,14 +1771,14 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar4/3.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar4/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1800,7 +1800,7 @@
 			<description>remove resource (treated as old)</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1829,7 +1829,7 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/synccalendar4/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar4/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/put/1.txt</filepath>
@@ -1840,7 +1840,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1874,7 +1874,7 @@
 			<description>no change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1907,7 +1907,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1975,21 +1975,21 @@
 			<description>remove resource then calendar</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar3/1.ics</ruri>
+				<ruri>$calendarhome1:/synccalendar3/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/synccalendar3/</ruri>
+				<ruri>$calendarhome1:/synccalendar3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -2015,14 +2015,14 @@
 			<description>add calendar - test last sync</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/synccalendar3/</ruri>
+				<ruri>$calendarhome1:/synccalendar3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -2044,7 +2044,7 @@
 			<description>add calendar - test previous sync</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>

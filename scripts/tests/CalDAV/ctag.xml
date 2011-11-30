@@ -37,11 +37,11 @@
 		</request>
 		<request>
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/movecopy/</ruri>
+			<ruri>$calendarhome1:/movecopy/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/movecopy/2.ics</ruri>
+			<ruri>$calendarhome1:/movecopy/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/delete/2.txt</filepath>
@@ -49,7 +49,7 @@
 		</request>
 		<request>
 			<method>PROPFIND</method>
-			<ruri>$pathprefix1:/movecopy/</ruri>
+			<ruri>$calendarhome1:/movecopy/</ruri>
 			<header>
 				<name>Depth</name>
 				<value>0</value>
@@ -222,7 +222,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/movecopy/3.ics</value>
+					<value>$host:$calendarhome1:/movecopy/3.ics</value>
 				</header>
 			</request>
 			<request>
@@ -250,7 +250,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/movecopy/</ruri>
+				<ruri>$calendarhome1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -279,7 +279,7 @@
 			<description>Check for CTag change on COPY of new resource</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
+				<ruri>$calendarhome1:/movecopy/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -310,7 +310,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/movecopy/</ruri>
+				<ruri>$calendarhome1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -335,7 +335,7 @@
 			<description>Check for CTag change on COPY of existing resource</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/movecopy/2.ics</ruri>
+				<ruri>$calendarhome1:/movecopy/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -366,7 +366,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/movecopy/</ruri>
+				<ruri>$calendarhome1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -394,7 +394,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/movecopy/2.ics</value>
+					<value>$host:$calendarhome1:/movecopy/2.ics</value>
 				</header>
 			</request>
 			<request>
@@ -422,7 +422,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/movecopy/</ruri>
+				<ruri>$calendarhome1:/movecopy/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -590,7 +590,7 @@
 			<description>Check for CTag Depth:1</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -656,7 +656,7 @@
 			<description>Check for CTag Depth:1</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -718,7 +718,7 @@
 			<description>Check for CTag Depth:1</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -745,7 +745,7 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/movecopy/</ruri>
+			<ruri>$calendarhome1:/movecopy/</ruri>
 		</request>
 		<request>
 			<method>DELETEALL</method>

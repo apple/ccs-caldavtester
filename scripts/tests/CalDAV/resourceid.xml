@@ -31,7 +31,7 @@
 			<description>Simple MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -45,7 +45,7 @@
 			<description>Check property</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -67,10 +67,10 @@
 			<description>MOVE to new calendar</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/caltest-moved/</value>
+					<value>$host:$calendarhome1:/caltest-moved/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -85,7 +85,7 @@
 			<description>Check property</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest-moved/</ruri>
+				<ruri>$calendarhome1:/caltest-moved/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -155,7 +155,7 @@
 	<end>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/caltest-moved/</ruri>
+			<ruri>$calendarhome1:/caltest-moved/</ruri>
 		</request>
 	</end>
 

@@ -39,15 +39,15 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>MKCOL</method>
-			<ruri>$pathprefix1:/collection/</ruri>
+			<ruri>$calendarhome1:/collection/</ruri>
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/calendar2/</ruri>
+			<ruri>$calendarhome1:/calendar2/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/calendar2/6.ics</ruri>
+			<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/6.ics</filepath>
@@ -55,7 +55,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/calendar2/7.ics</ruri>
+			<ruri>$calendarhome1:/calendar2/7.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/7.ics</filepath>
@@ -66,7 +66,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/1.xml</ruri>
+			<ruri>$calendarhome1:/1.xml</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/1.xml</filepath>
@@ -77,7 +77,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/2.ics</ruri>
+			<ruri>$calendarhome1:/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/2.ics</filepath>
@@ -88,7 +88,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/3.ics</ruri>
+			<ruri>$calendarhome1:/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/3.ics</filepath>
@@ -99,7 +99,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/4.ics</ruri>
+			<ruri>$calendarhome1:/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/4.ics</filepath>
@@ -110,7 +110,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/5.ics</ruri>
+			<ruri>$calendarhome1:/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/5.ics</filepath>
@@ -121,7 +121,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/6.ics</ruri>
+			<ruri>$calendarhome1:/6.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/6.ics</filepath>
@@ -132,7 +132,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/7.ics</ruri>
+			<ruri>$calendarhome1:/7.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/7.ics</filepath>
@@ -143,7 +143,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/8.ics</ruri>
+			<ruri>$calendarhome1:/8.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/8.ics</filepath>
@@ -154,7 +154,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/9.ics</ruri>
+			<ruri>$calendarhome1:/9.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/errors/9.ics</filepath>
@@ -521,7 +521,7 @@
 			<description>COPY non-calendar data</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/1.xml</ruri>
+				<ruri>$calendarhome1:/1.xml</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -542,7 +542,7 @@
 			<description>COPY invalid calendar data</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/2.ics</ruri>
+				<ruri>$calendarhome1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -563,7 +563,7 @@
 			<description>COPY with multiple component types</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/3.ics</ruri>
+				<ruri>$calendarhome1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -584,7 +584,7 @@
 			<description>COPY with METHOD property</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/4.ics</ruri>
+				<ruri>$calendarhome1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -605,7 +605,7 @@
 			<description>COPY with different uids in same resource</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/5.ics</ruri>
+				<ruri>$calendarhome1:/5.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -626,7 +626,7 @@
 			<description>COPY with duplicate uids</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/6.ics</ruri>
+				<ruri>$calendarhome1:/6.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -644,7 +644,7 @@
 			<description>COPY from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
+				<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
@@ -665,7 +665,7 @@
 			<description>COPY with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/7.ics</ruri>
+				<ruri>$calendarhome1:/7.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -683,7 +683,7 @@
 			<description>COPY from calendar with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
+				<ruri>$calendarhome1:/calendar2/7.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -701,7 +701,7 @@
 			<description>COPY with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/8.ics</ruri>
+				<ruri>$calendarhome1:/8.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -719,7 +719,7 @@
 			<description>COPY with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/9.ics</ruri>
+				<ruri>$calendarhome1:/9.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -737,7 +737,7 @@
 			<description>COPY calendar into calendar</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/calendar2/</ruri>
+				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/calendar2/</value>
@@ -758,7 +758,7 @@
 			<description>COPY collection into calendar</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/collection/</value>
@@ -785,7 +785,7 @@
 			<description>MOVE non-calendar data</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/1.xml</ruri>
+				<ruri>$calendarhome1:/1.xml</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -806,7 +806,7 @@
 			<description>MOVE invalid calendar data</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/2.ics</ruri>
+				<ruri>$calendarhome1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -827,7 +827,7 @@
 			<description>MOVE with multiple component types</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/3.ics</ruri>
+				<ruri>$calendarhome1:/3.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -848,7 +848,7 @@
 			<description>MOVE with METHOD property</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/4.ics</ruri>
+				<ruri>$calendarhome1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -869,7 +869,7 @@
 			<description>MOVE with different uids in same resource</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/5.ics</ruri>
+				<ruri>$calendarhome1:/5.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -890,7 +890,7 @@
 			<description>MOVE with duplicate uids</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/6.ics</ruri>
+				<ruri>$calendarhome1:/6.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -908,7 +908,7 @@
 			<description>MOVE from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/calendar2/6.ics</ruri>
+				<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/move1.ics</value>
@@ -929,7 +929,7 @@
 			<description>MOVE with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/7.ics</ruri>
+				<ruri>$calendarhome1:/7.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -947,7 +947,7 @@
 			<description>MOVE from calendar with different uid onto existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/calendar2/7.ics</ruri>
+				<ruri>$calendarhome1:/calendar2/7.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -965,7 +965,7 @@
 			<description>MOVE with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/8.ics</ruri>
+				<ruri>$calendarhome1:/8.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
@@ -983,7 +983,7 @@
 			<description>MOVE with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/9.ics</ruri>
+				<ruri>$calendarhome1:/9.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/1.ics</value>
@@ -1001,7 +1001,7 @@
 			<description>MOVE calendar into calendar</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/calendar2/</ruri>
+				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/calendar2/</value>
@@ -1022,7 +1022,7 @@
 			<description>MOVE collection into calendar</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/collection/</value>

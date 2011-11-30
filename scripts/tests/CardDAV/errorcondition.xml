@@ -406,10 +406,10 @@
 			<description>COPY with too many recurrence instances to new resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/8.vcf</ruri>
+				<ruri>$calendarhome1:/8.vcf</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/2.vcf</value>
+					<value>$host:$calendarhome1:/calendar/2.vcf</value>
 				</header>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -424,10 +424,10 @@
 			<description>COPY with too many recurrence instances to existing resource</description>
 			<request print-response='no'>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/9.vcf</ruri>
+				<ruri>$calendarhome1:/9.vcf</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/1.vcf</value>
+					<value>$host:$calendarhome1:/calendar/1.vcf</value>
 				</header>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -442,10 +442,10 @@
 			<description>COPY calendar into calendar</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/calendar2/</ruri>
+				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/calendar2/</value>
+					<value>$host:$calendarhome1:/calendar/calendar2/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -460,10 +460,10 @@
 			<description>COPY collection into calendar</description>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar/collection/</value>
+					<value>$host:$calendarhome1:/calendar/collection/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>

@@ -58,6 +58,7 @@
 		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
 		<feature>auto-accept</feature>					<!-- Auto-accept for rooms & locations -->
 		<feature>dropbox</feature>						<!-- dropbox extension -->
+		<feature>default-alarms</feature>				<!-- default alarms extension -->
 		<feature>EMAIL parameter</feature>				<!-- Server normalizes cuaddress and adds EMAIL parameter -->
 		<feature>implicit-scheduling</feature>			<!-- CalDAV scheduling - implicit -->
 		<feature>maskuid</feature>						<!-- maskuid extension -->
@@ -407,12 +408,12 @@
 			</substitution>
 			<!-- relative path to user calendar home-->
 			<substitution>
-				<key>$pathprefix%%d:</key>
+				<key>$calendarhome%%d:</key>
 				<value>$calendars_uids:$userguid%%d:</value>
 			</substitution>
 			<!-- relative path to user alternate calendar home-->
 			<substitution>
-				<key>$pathprefixalt%%d:</key>
+				<key>$calendarhomealt%%d:</key>
 				<value>$calendars_users:$userid%%d:</value>
 			</substitution>
 			<!-- relative path to user calendar-->
@@ -522,7 +523,7 @@
 			</substitution>
 			<!-- relative path to user calendar home-->
 			<substitution>
-				<key>$publicpathprefix%%d:</key>
+				<key>$publiccalendarhome%%d:</key>
 				<value>$calendars_uids:$publicuserguid%%d:</value>
 			</substitution>
 			<!-- relative path to user calendar-->
@@ -567,7 +568,7 @@
 			</substitution>
 			<!-- relative path to first resource calendar home-->
 			<substitution>
-				<key>$rpathprefix%%d:</key>
+				<key>$rcalendarhome%%d:</key>
 				<value>$calendars_uids:$resourceguid%%d:</value>
 			</substitution>
 			<!-- relative path to first resource calendar home-->
@@ -622,7 +623,7 @@
 			</substitution>
 			<!-- relative path to first location calendar home-->
 			<substitution>
-				<key>$lpathprefix%%d:</key>
+				<key>$lcalendarhome%%d:</key>
 				<value>$calendars_uids:$locationguid%%d:</value>
 			</substitution>
 			<!-- relative path to first location calendar home-->

@@ -67,7 +67,7 @@
 			<description>PUT not in calendar collection</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/1.ics</ruri>
+				<ruri>$calendarhome1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/1.txt</filepath>
@@ -78,7 +78,7 @@
 			</request>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/1.ics</ruri>
+				<ruri>$calendarhome1:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -625,7 +625,7 @@
 			<description>MKCOL</description>
 			<request end-delete="yes">
 				<method>MKCOL</method>
-				<ruri>$pathprefix1:/collection/</ruri>
+				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -638,7 +638,7 @@
 			<description>PUT</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/1234</ruri>
+				<ruri>$calendarhome1:/collection/1234</ruri>
 				<data>
 					<content-type>text/calendar; x-mac-auto-archive=yes</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/9.ics</filepath>
@@ -655,7 +655,7 @@
 			<description>GET</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/collection/1234</ruri>
+				<ruri>$calendarhome1:/collection/1234</ruri>
 				<verify>
 					<callback>header</callback>
 					<arg>
@@ -672,7 +672,7 @@
 			<description>PROPFIND</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/collection/1234</ruri>
+				<ruri>$calendarhome1:/collection/1234</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/10.xml</filepath>

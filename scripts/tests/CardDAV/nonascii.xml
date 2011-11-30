@@ -244,7 +244,7 @@
 			<description>REPORT with non-ascii - match parent, different child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/Tást/</ruri>
+				<ruri>$calendarhome1:/Tást/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/3.xml</filepath>
@@ -262,7 +262,7 @@
 			<description>REPORT with non-ascii - different parent, match child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
+				<ruri>$calendarhome1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/4.xml</filepath>
@@ -280,7 +280,7 @@
 			<description>REPORT with non-ascii - different parent, different child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/Te%cc%81st/</ruri>
+				<ruri>$calendarhome1:/Te%cc%81st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/5.xml</filepath>
@@ -298,7 +298,7 @@
 			<description>REPORT with non-ascii - match parent, match child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
+				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/2.xml</filepath>
@@ -316,7 +316,7 @@
 			<description>REPORT with non-ascii - match parent, different child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
+				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/3.xml</filepath>
@@ -334,7 +334,7 @@
 			<description>REPORT with non-ascii - different parent, match child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
+				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/4.xml</filepath>
@@ -352,7 +352,7 @@
 			<description>REPORT with non-ascii - different parent, different child</description>
 			<request print-response="no">
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/T%c3%a9st/</ruri>
+				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/nonascii/5.xml</filepath>
@@ -492,7 +492,7 @@
 			<description>PUT with non-utf-8 data to regular collection</description>
 			<request end-delete="yes">
 				<method>PUT</method>
-				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
+				<ruri>$calendarhome1:/collection/nonutf8.ics</ruri>
 				<data>
 					<content-type>text/calendar</content-type>
 					<filepath>Resource/CardDAV/nonascii/10.ics</filepath>
@@ -510,7 +510,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
+				<ruri>$calendarhome1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -528,7 +528,7 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/copy1.ics</value>
 				</header>
-				<ruri>$pathprefix1:/collection/nonutf8.ics</ruri>
+				<ruri>$calendarhome1:/collection/nonutf8.ics</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>

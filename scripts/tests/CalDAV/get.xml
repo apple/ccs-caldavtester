@@ -39,7 +39,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/1todo.ics</ruri>
+			<ruri>$calendarhome1:/1todo.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/todo/1.txt</filepath>
@@ -72,7 +72,7 @@
 			<description>Get from regular collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/1todo.ics</ruri>
+				<ruri>$calendarhome1:/1todo.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -115,7 +115,7 @@
 			<description>Get on regular collection</description>
 			<request>
 				<method>GET</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

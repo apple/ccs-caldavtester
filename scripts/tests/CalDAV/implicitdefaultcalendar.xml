@@ -29,7 +29,7 @@
 	<start>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/calendar-test/</ruri>
+			<ruri>$calendarhome1:/calendar-test/</ruri>
 		</request>
 	</start>
 	
@@ -159,7 +159,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$pathprefix1:/calendar-test</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-test</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -202,7 +202,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$pathprefix1:/calendar-test</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-test</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -214,10 +214,10 @@
 			<description>Move calendar</description>
 			<request print-response='no'>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/calendar-test/</ruri>
+				<ruri>$calendarhome1:/calendar-test/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar-moved/</value>
+					<value>$host:$calendarhome1:/calendar-moved/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -241,7 +241,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$pathprefix1:/calendar-moved</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-moved</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -253,7 +253,7 @@
 			<description>Delete calendar</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/calendar-moved/</ruri>
+				<ruri>$calendarhome1:/calendar-moved/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
@@ -280,7 +280,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$pathprefix1:/calendar-moved</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-moved</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -310,7 +310,7 @@
 			<description>Delete calendar</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/calendar-moved/</ruri>
+				<ruri>$calendarhome1:/calendar-moved/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -364,7 +364,7 @@
 			</request>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefixalt1:/calendar-test/</ruri>
+				<ruri>$calendarhomealt1:/calendar-test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -405,7 +405,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$pathprefix1:/calendar-test</href>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-test</href>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -432,7 +432,7 @@
 			<description>Delete calendar</description>
 			<request print-response='no'>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/calendar-test/</ruri>
+				<ruri>$calendarhome1:/calendar-test/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

@@ -45,11 +45,11 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/calendar2/</ruri>
+			<ruri>$calendarhome1:/calendar2/</ruri>
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/calendar2/2_2.ics</ruri>
+			<ruri>$calendarhome1:/calendar2/2_2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/copymove/2.txt</filepath>
@@ -65,7 +65,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/calendar2/3.ics</ruri>
+			<ruri>$calendarhome1:/calendar2/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/copymove/3.txt</filepath>
@@ -81,7 +81,7 @@
 		</request>
 		<request>
 			<method>PUT</method>
-			<ruri>$pathprefix1:/calendar2/4.ics</ruri>
+			<ruri>$calendarhome1:/calendar2/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/copymove/4.txt</filepath>
@@ -183,7 +183,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -201,7 +201,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_2.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -220,7 +220,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -242,7 +242,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -265,7 +265,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -287,7 +287,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/copy2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/copy2_1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -400,7 +400,7 @@
 				</header>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/move2_1.ics</value>
+					<value>$host:$calendarhome1:/calendar2/move2_1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -438,7 +438,7 @@
 				</header>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/3.ics</value>
+					<value>$host:$calendarhome1:/calendar2/3.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -460,7 +460,7 @@
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/calendar2/4.ics</value>
+					<value>$host:$calendarhome1:/calendar2/4.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -488,14 +488,14 @@
 			<description>Verify that COPY'ing a calendar preserves the calendar resource type</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -515,10 +515,10 @@
 			</request>
 			<request>
 				<method>COPY</method>
-				<ruri>$pathprefix1:/caltest1/</ruri>
+				<ruri>$calendarhome1:/caltest1/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/caltest2/</value>
+					<value>$host:$calendarhome1:/caltest2/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -526,7 +526,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest2/</ruri>
+				<ruri>$calendarhome1:/caltest2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -549,14 +549,14 @@
 			<description>Verify that MOVE'ing a calendar preserves the calendar resource type</description>
 			<request>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -576,10 +576,10 @@
 			</request>
 			<request>
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/caltest3/</ruri>
+				<ruri>$calendarhome1:/caltest3/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix1:/caltest4/</value>
+					<value>$host:$calendarhome1:/caltest4/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -587,7 +587,7 @@
 			</request>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/caltest4/</ruri>
+				<ruri>$calendarhome1:/caltest4/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -619,19 +619,19 @@
 		</request>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/caltest1/</ruri>
+			<ruri>$calendarhome1:/caltest1/</ruri>
 		</request>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/caltest2/</ruri>
+			<ruri>$calendarhome1:/caltest2/</ruri>
 		</request>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/caltest3/</ruri>
+			<ruri>$calendarhome1:/caltest3/</ruri>
 		</request>
 		<request>
 			<method>DELETE</method>
-			<ruri>$pathprefix1:/caltest4/</ruri>
+			<ruri>$calendarhome1:/caltest4/</ruri>
 		</request>
 	</end>
 	

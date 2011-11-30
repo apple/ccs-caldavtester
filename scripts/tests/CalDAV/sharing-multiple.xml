@@ -37,7 +37,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared1/</ruri>
+			<ruri>$calendarhome1:/shared1/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -48,7 +48,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared2/</ruri>
+			<ruri>$calendarhome1:/shared2/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -64,7 +64,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared1/</ruri>
+				<ruri>$calendarhome1:/shared1/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/1.xml</filepath>
@@ -96,7 +96,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/2.xml</filepath>
@@ -114,7 +114,7 @@
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -174,7 +174,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/1.xml</filepath>
@@ -206,7 +206,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/3.xml</filepath>
@@ -224,7 +224,7 @@
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
@@ -280,7 +280,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared2/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/4.xml</filepath>
@@ -316,7 +316,7 @@
 			<description>One less calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>

@@ -33,7 +33,7 @@
 			<description>max-collections property</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -83,7 +83,7 @@
 			<description>Create collections to one below the limit</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest-##/</ruri>
+				<ruri>$calendarhome1:/caltest-##/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -100,7 +100,7 @@
 			<description>Create collections to one below the limit</description>
 			<request end-delete='yes' print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest-##/</ruri>
+				<ruri>$calendarhome1:/caltest-##/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -114,7 +114,7 @@
 			<description>Create collections to the limit</description>
 			<request print-response='no'>
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/caltest-49/</ruri>
+				<ruri>$calendarhome1:/caltest-49/</ruri>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>

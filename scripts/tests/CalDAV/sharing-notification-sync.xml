@@ -38,7 +38,7 @@
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -49,7 +49,7 @@
 		</request>
 		<request print-response='no'>
 			<method>PROPPATCH</method>
-			<ruri>$pathprefix1:/shared/</ruri>
+			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
@@ -142,7 +142,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
@@ -230,7 +230,7 @@
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -288,7 +288,7 @@
 			<description>initial query - grab token</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -347,7 +347,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
@@ -385,7 +385,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -422,7 +422,7 @@
 			<description>deleted resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -452,7 +452,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
@@ -470,7 +470,7 @@
 			<description>new calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -510,7 +510,7 @@
 			<description>removed calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -543,7 +543,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
@@ -581,7 +581,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -618,7 +618,7 @@
 			<description>deleted resource</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -648,7 +648,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
@@ -666,7 +666,7 @@
 			<description>new calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -696,7 +696,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/11.xml</filepath>
@@ -707,7 +707,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -733,7 +733,7 @@
 			<description>removed calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -767,7 +767,7 @@
 			<description>no calendar change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -789,7 +789,7 @@
 			<description>no calendar change</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -810,7 +810,7 @@
 			<description>Sharer creates event</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/1.ics</ruri>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/7.ics</filepath>
@@ -824,7 +824,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
@@ -857,7 +857,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -879,7 +879,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
@@ -897,7 +897,7 @@
 			<description>new calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -928,7 +928,7 @@
 			<description>Grab sharer's sync token'</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -950,7 +950,7 @@
 			<description>Sharer creates event</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$pathprefix1:/shared/2.ics</ruri>
+				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/8.ics</filepath>
@@ -964,7 +964,7 @@
 			<description>Sharer change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -990,7 +990,7 @@
 			<description>Sharee change</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1034,7 +1034,7 @@
 			<description>Sharer change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1060,7 +1060,7 @@
 			<description>Sharee change</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1090,7 +1090,7 @@
 			<description>Sharer deletes event</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/shared/3.ics</ruri>
+				<ruri>$calendarhome1:/shared/3.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1100,7 +1100,7 @@
 			<description>Sharer change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1126,7 +1126,7 @@
 			<description>Sharee change</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1166,7 +1166,7 @@
 			<description>Sharer change</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1192,7 +1192,7 @@
 			<description>Sharee change</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1232,7 +1232,7 @@
 			<description>removed calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
@@ -1287,7 +1287,7 @@
 			<description>PROPFIND of home</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1309,7 +1309,7 @@
 			<description>PROPFIND of home again - to cache it</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1331,7 +1331,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/3.xml</filepath>
@@ -1345,7 +1345,7 @@
 			<description>PROPFIND of home - token changed</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1389,7 +1389,7 @@
 			<description>PROPFIND of home</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1415,7 +1415,7 @@
 			<description>PROPFIND of home again - to cache it</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -1448,7 +1448,7 @@
 			<description>PROPFIND of home - token changed</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>

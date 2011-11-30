@@ -153,14 +153,14 @@
 			<description>Setup some calendars</description>
 			<request  end-delete='yes' print-response="no">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/test1/</ruri>
+				<ruri>$calendarhome1:/test1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request end-delete='yes' print-response="no">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/test2/</ruri>
+				<ruri>$calendarhome1:/test2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -188,7 +188,7 @@
 			<description>Delete a calendar</description>
 			<request print-response="no">
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/test2/</ruri>
+				<ruri>$calendarhome1:/test2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>

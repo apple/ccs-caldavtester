@@ -53,11 +53,11 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/visibletouser01/</ruri>
+			<ruri>$calendarhome2:/visibletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>ACL</method>
-			<ruri>$pathprefix2:/visibletouser01/</ruri>
+			<ruri>$calendarhome2:/visibletouser01/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/3.xml</filepath>
@@ -65,7 +65,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
+			<ruri>$calendarhome2:/visibletouser01/hidden1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
@@ -73,7 +73,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/visibletouser01/visible2.ics</ruri>
+			<ruri>$calendarhome2:/visibletouser01/visible2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/17.ics</filepath>
@@ -81,11 +81,11 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/notvisibletouser01/</ruri>
+			<ruri>$calendarhome2:/notvisibletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>ACL</method>
-			<ruri>$pathprefix2:/notvisibletouser01/</ruri>
+			<ruri>$calendarhome2:/notvisibletouser01/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/4.xml</filepath>
@@ -93,7 +93,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/notvisibletouser01/hidden1.ics</ruri>
+			<ruri>$calendarhome2:/notvisibletouser01/hidden1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
@@ -101,11 +101,11 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/writeabletouser01/</ruri>
+			<ruri>$calendarhome2:/writeabletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>ACL</method>
-			<ruri>$pathprefix2:/writeabletouser01/</ruri>
+			<ruri>$calendarhome2:/writeabletouser01/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/13.xml</filepath>
@@ -113,11 +113,11 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/calreadtoauth/</ruri>
+			<ruri>$calendarhome2:/calreadtoauth/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>ACL</method>
-			<ruri>$pathprefix2:/calreadtoauth/</ruri>
+			<ruri>$calendarhome2:/calreadtoauth/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/18.xml</filepath>
@@ -125,7 +125,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
-			<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
+			<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
@@ -136,14 +136,14 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>MKCOL</method>
-			<ruri>$pathprefix2:/colreadtoauth/</ruri>
+			<ruri>$calendarhome2:/colreadtoauth/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>ACL</method>
-			<ruri>$pathprefix2:/colreadtoauth/</ruri>
+			<ruri>$calendarhome2:/colreadtoauth/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/18.xml</filepath>
@@ -154,7 +154,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<method>PUT</method>
-			<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
+			<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
@@ -325,7 +325,7 @@
 			<description>PROPFIND all calendars</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -372,7 +372,7 @@
 			<description>Failure when DAV:write-acl not granted</description>
 			<request print-response='no'>
 				<method>ACL</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/4.xml</filepath>
@@ -393,7 +393,7 @@
 			<description>DAV:no-ace-conflict precondition failure - attempt to set protected ACE</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
-				<ruri>$pathprefix2:/visibletouser01/hidden1.ics</ruri>
+				<ruri>$calendarhome2:/visibletouser01/hidden1.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/20.xml</filepath>
@@ -593,7 +593,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/visibletouser01/copy1.ics</value>
+					<value>$host:$calendarhome2:/visibletouser01/copy1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -611,7 +611,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/notvisibletouser01/copy1.ics</value>
+					<value>$host:$calendarhome2:/notvisibletouser01/copy1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -629,7 +629,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/notvisibletouser01/hidden1.ics</value>
+					<value>$host:$calendarhome2:/notvisibletouser01/hidden1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -651,7 +651,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/writeabletouser01/1.ics</value>
+					<value>$host:$calendarhome2:/writeabletouser01/1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -669,7 +669,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/writeabletouser01/copy1.ics</value>
+					<value>$host:$calendarhome2:/writeabletouser01/copy1.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -687,7 +687,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/visibletouser01/move2.ics</value>
+					<value>$host:$calendarhome2:/visibletouser01/move2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -705,7 +705,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/notvisibletouser01/move2.ics</value>
+					<value>$host:$calendarhome2:/notvisibletouser01/move2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -723,7 +723,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/notvisibletouser01/hidden1.ics</value>
+					<value>$host:$calendarhome2:/notvisibletouser01/hidden1.ics</value>
 				</header>
 				<header>
 					<name>Overwrite</name>
@@ -745,7 +745,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$pathprefix2:/writeabletouser01/move2.ics</value>
+					<value>$host:$calendarhome2:/writeabletouser01/move2.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -811,7 +811,7 @@
 			<description>Get calendar home collection</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -829,7 +829,7 @@
 			<description>Get calendar collection</description>
 			<request print-response='no'>
 				<method>GET</method>
-				<ruri>$pathprefix2:/visibletouser01/</ruri>
+				<ruri>$calendarhome2:/visibletouser01/</ruri>
 				<verify>
 					<callback>dataString</callback>
 					<arg>
@@ -850,7 +850,7 @@
 			<description>Check that read is not set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -872,7 +872,7 @@
 			<description>Check that read is not inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -894,7 +894,7 @@
 			<description>Set read on collection only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/19.xml</filepath>
@@ -908,7 +908,7 @@
 			<description>Check that read is set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -930,7 +930,7 @@
 			<description>Check that read is inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/1.ics</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -958,7 +958,7 @@
 			<description>Check that read is not set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/colreadtoauth/</ruri>
+				<ruri>$calendarhome2:/colreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -980,7 +980,7 @@
 			<description>Check that read is not inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
+				<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1002,7 +1002,7 @@
 			<description>Set read on collection only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
-				<ruri>$pathprefix2:/colreadtoauth/</ruri>
+				<ruri>$calendarhome2:/colreadtoauth/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/19.xml</filepath>
@@ -1016,7 +1016,7 @@
 			<description>Check that read is set</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/colreadtoauth/</ruri>
+				<ruri>$calendarhome2:/colreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1038,7 +1038,7 @@
 			<description>Check that read is inherited</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/colreadtoauth/1.ics</ruri>
+				<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1063,7 +1063,7 @@
 			<description>Set read/read-current-user-privilege-set on home only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/23.xml</filepath>
@@ -1081,7 +1081,7 @@
 			<description>Check for current-user-privilege-set on calendar home as user01</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1103,7 +1103,7 @@
 			<description>Check that calendar privileges are still inherited for user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1126,7 +1126,7 @@
 			<description>Remove read/read-current-user-privilege-set on home only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/acls/25.xml</filepath>
@@ -1144,7 +1144,7 @@
 			<description>Check property access on calendar home as user01</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1166,7 +1166,7 @@
 			<description>Check that calendar privileges are still inherited for user02</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/calreadtoauth/</ruri>
+				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1231,7 +1231,7 @@
 			<description>Unauthenticated get on non-existent inaccessible resource</description>
 			<request auth="no">
 				<method>GET</method>
-				<ruri>$pathprefix1:/calendar-bogus/1.ics</ruri>
+				<ruri>$calendarhome1:/calendar-bogus/1.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1259,7 +1259,7 @@
 			<description>Bogus authenticated get on non-existent inaccessible resource</description>
 			<request user="$useradmin:" pswd="foobar">
 				<method>GET</method>
-				<ruri>$pathprefix1:/calendar-bogus/</ruri>
+				<ruri>$calendarhome1:/calendar-bogus/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -1288,23 +1288,23 @@
 	<end>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
-			<ruri>$pathprefix2:/visibletouser01/</ruri>
+			<ruri>$calendarhome2:/visibletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
-			<ruri>$pathprefix2:/notvisibletouser01/</ruri>
+			<ruri>$calendarhome2:/notvisibletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
-			<ruri>$pathprefix2:/writeabletouser01/</ruri>
+			<ruri>$calendarhome2:/writeabletouser01/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
-			<ruri>$pathprefix2:/calreadtoauth/</ruri>
+			<ruri>$calendarhome2:/calreadtoauth/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETE</method>
-			<ruri>$pathprefix2:/colreadtoauth/</ruri>
+			<ruri>$calendarhome2:/colreadtoauth/</ruri>
 		</request>
 	</end>
 	

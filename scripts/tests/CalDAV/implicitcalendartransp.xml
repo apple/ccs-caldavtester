@@ -33,7 +33,7 @@
 			<description>Create new calendar</description>
 			<request print-response="no" end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
+				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -43,7 +43,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
+				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -65,7 +65,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
+				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
@@ -83,7 +83,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar/</ruri>
+				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -133,7 +133,7 @@
 			<description>Create new calendar</description>
 			<request print-response="no" end-delete="yes">
 				<method>MKCALENDAR</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -143,7 +143,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -178,7 +178,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix1:/testcalendar2/</value>
+						<value>$calendarhome1:/testcalendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -187,7 +187,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
@@ -205,7 +205,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -240,7 +240,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix1:/testcalendar2</value>
+						<value>$calendarhome1:/testcalendar2</value>
 					</arg>
 				</verify>
 			</request>
@@ -249,7 +249,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/calendartransp/4.xml</filepath>
@@ -267,7 +267,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -302,7 +302,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix1:/testcalendar2/</value>
+						<value>$calendarhome1:/testcalendar2/</value>
 					</arg>
 				</verify>
 			</request>
@@ -311,7 +311,7 @@
 			<description>Set property on new calendar</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
@@ -329,7 +329,7 @@
 			<description>Look for property on new calendar</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -351,10 +351,10 @@
 			<description>Move new calendar</description>
 			<request print-response="no">
 				<method>MOVE</method>
-				<ruri>$pathprefix1:/testcalendar2/</ruri>
+				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$pathprefix1:/testcalendar3/</value>
+					<value>$calendarhome1:/testcalendar3/</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -378,11 +378,11 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix1:/testcalendar2</value>
+						<value>$calendarhome1:/testcalendar2</value>
 					</arg>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix1:/testcalendar3</value>
+						<value>$calendarhome1:/testcalendar3</value>
 					</arg>
 				</verify>
 			</request>
@@ -391,7 +391,7 @@
 			<description>Delete new calendar</description>
 			<request print-response="no">
 				<method>DELETE</method>
-				<ruri>$pathprefix1:/testcalendar3/</ruri>
+				<ruri>$calendarhome1:/testcalendar3/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -418,8 +418,8 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>notcontains</name>
-						<value>$pathprefix1:/testcalendar2/</value>
-						<value>$pathprefix1:/testcalendar3/</value>
+						<value>$calendarhome1:/testcalendar2/</value>
+						<value>$calendarhome1:/testcalendar3/</value>
 					</arg>
 				</verify>
 			</request>
@@ -441,7 +441,7 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>$pathprefix1:/calendar</value>
+						<value>$calendarhome1:/calendar</value>
 					</arg>
 				</verify>
 			</request>

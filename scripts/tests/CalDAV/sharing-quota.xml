@@ -43,7 +43,7 @@
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>MKCALENDAR</method>
-			<ruri>$pathprefix2:/shared/</ruri>
+			<ruri>$calendarhome2:/shared/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/MKCALENDAR/sharedcalendar.xml</filepath>
@@ -59,7 +59,7 @@
 			<description>POST invitation</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharinginvite234.xml</filepath>
@@ -91,7 +91,7 @@
 			<description>Sharee 2 replies ACCEPTED</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply23.xml</filepath>
@@ -127,7 +127,7 @@
 			<description>Sharee 3 replies ACCEPTED</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>POST</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply24.xml</filepath>
@@ -163,7 +163,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -186,7 +186,7 @@
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -209,7 +209,7 @@
 			<description>User 4</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -232,7 +232,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -304,7 +304,7 @@
 			<description>PUT by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
-				<ruri>$pathprefix2:/shared/1.ics</ruri>
+				<ruri>$calendarhome2:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/quota/1.ics</filepath>
@@ -318,7 +318,7 @@
 			<description>User 1</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -341,7 +341,7 @@
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -364,7 +364,7 @@
 			<description>User 4</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -387,7 +387,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -473,7 +473,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -496,7 +496,7 @@
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -519,7 +519,7 @@
 			<description>User 4</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -542,7 +542,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -624,7 +624,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -647,7 +647,7 @@
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -670,7 +670,7 @@
 			<description>User 4</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -693,7 +693,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -765,7 +765,7 @@
 			<description>DELETE by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
-				<ruri>$pathprefix2:/shared/2.ics</ruri>
+				<ruri>$calendarhome2:/shared/2.ics</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -775,7 +775,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/</ruri>
+				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -798,7 +798,7 @@
 			<description>User 3</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix3:/</ruri>
+				<ruri>$calendarhome3:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -821,7 +821,7 @@
 			<description>User 4</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix4:/</ruri>
+				<ruri>$calendarhome4:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -844,7 +844,7 @@
 			<description>User 2</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$pathprefix2:/shared/</ruri>
+				<ruri>$calendarhome2:/shared/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
