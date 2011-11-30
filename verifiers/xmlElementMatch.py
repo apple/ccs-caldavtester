@@ -54,7 +54,7 @@ class Verifier(object):
         for path in exists:
             
             matched, txt = self.matchPath(tree, path)
-            result |= matched
+            result &= matched
             resulttxt += txt
                             
         for path in notexists:
