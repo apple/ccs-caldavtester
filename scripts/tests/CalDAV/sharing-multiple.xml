@@ -225,6 +225,10 @@
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
@@ -317,6 +321,10 @@
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>

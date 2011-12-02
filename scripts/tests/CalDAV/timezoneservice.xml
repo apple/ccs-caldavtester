@@ -44,6 +44,10 @@
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$timezoneservice:</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/propfinds/1.txt</filepath>

@@ -605,6 +605,10 @@
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/10.xml</filepath>
@@ -673,6 +677,10 @@
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/collection/1234</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/10.xml</filepath>

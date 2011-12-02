@@ -425,6 +425,10 @@
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/availability/15.xml</filepath>

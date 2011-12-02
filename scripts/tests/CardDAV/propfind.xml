@@ -77,7 +77,11 @@
 					<filepath>Resource/CardDAV/vpropfinds/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}propfind-finite-depth</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -156,7 +160,11 @@
 					<filepath>Resource/CardDAV/vpropfinds/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}propfind-finite-depth</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -213,7 +221,11 @@
 					<filepath>Resource/CardDAV/vpropfinds/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}propfind-finite-depth</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
