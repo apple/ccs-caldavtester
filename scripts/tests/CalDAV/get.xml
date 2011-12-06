@@ -106,6 +106,22 @@
 						<value>BEGIN:VEVENT</value>
 					</arg>
 				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Etag</value>
+						<value>Last-Modified</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Etag</name>
+					<variable>$etag:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Last-Modified</name>
+					<variable>$last-modified:</variable>
+				</grabheader>
 			</request>
 		</test>
 		<test name='2'>
@@ -118,6 +134,14 @@
 				<ruri>$calendarhome1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Etag</value>
+						<value>Last-Modified</value>
+					</arg>
 				</verify>
 				<verify>
 					<callback>dataString</callback>
@@ -133,6 +157,10 @@
 		</test>
 		<test name='3'>
 			<description>GET on calendar collection without multiple VTIMEZONEs</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>1</ruri>
+			</request>
 			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
@@ -157,6 +185,22 @@
 						<value>Resource/CalDAV/get/1.ics</value>
 					</arg>
 				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag!$etag:</value>
+						<value>Last-Modified!$last-modified:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Etag</name>
+					<variable>$etag2:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Last-Modified</name>
+					<variable>$last-modified2:</variable>
+				</grabheader>
 			</request>
 		</test>
 		<test name='4'>
@@ -183,8 +227,184 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>Conditional GET on calendar collection</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>If-None-Match</name>
+					<value>$etag2:</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>304</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Conditional GET on calendar collection</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>If-Modified-Since</name>
+					<value>$last-modified2:</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>304</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
+	<test-suite name='GET on home'>
+		<require-feature>
+			<feature>directory listing</feature>
+		</require-feature>
+		<test name='1'>
+			<description>GET on calendar home</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Etag</value>
+						<value>Last-Modified</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Etag</name>
+					<variable>$etag1:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Last-Modified</name>
+					<variable>$last-modified1:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Create a calendar</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>1</ruri>
+			</request>
+			<request end-delete="yes">
+				<method>MKCALENDAR</method>
+				<ruri>$calendarhome1:/testcal/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET on calendar home, changed headers</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Etag!$etag1:</value>
+						<value>Last-Modified!$last-modified1:</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Etag</name>
+					<variable>$etag2:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Last-Modified</name>
+					<variable>$last-modified2:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Conditional GET on calendar home</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>If-None-Match</name>
+					<value>$etag2:</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>304</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Conditional GET on calendar home</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>If-Modified-Since</name>
+					<value>$last-modified2:</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>304</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Delete a calendar</description>
+			<request>
+				<method>DELAY</method>
+				<ruri>1</ruri>
+			</request>
+			<request end-delete="yes">
+				<method>DELETE</method>
+				<ruri>$calendarhome1:/testcal/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>GET on calendar home, changed headers</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Etag!$etag2:</value>
+						<value>Last-Modified!$last-modified2:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
