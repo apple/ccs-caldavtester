@@ -533,25 +533,6 @@ def createUser(config, path, user):
         createUserViaDS(config, path, user)
     elif protocol == "caldav":
         createUserViaGateway(config, path, user)
-        
-    # Do caldav_utility setup
-    if path in ("/Places", "/Resources",):
-        if path in ("/Places",):
-            if user[0] == "delegatedroom":
-                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule=false locations:%s" % (
-                    utility,
-                    user[0],
-                ))
-            else:
-                cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
-                    utility,
-                    user[0],
-                ))
-        else:
-            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
-                utility,
-                user[0],
-            ))
 
 def createUserViaDS(config, path, user):
     # Do dscl command line operations to create a calendar user
@@ -649,6 +630,30 @@ def removeUserViaGateway(config, path, user):
     else:
         raise ValueError()
 
+def manageRecords(config, path, user):
+    """
+    Set proxies and auto-schedule for locations and resources
+    """
+    
+    # Do caldav_utility setup
+    if path in ("/Places", "/Resources",):
+        if path in ("/Places",):
+            if user[0] == "delegatedroom":
+                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule=false locations:%s" % (
+                    utility,
+                    user[0],
+                ))
+            else:
+                cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
+                    utility,
+                    user[0],
+                ))
+        else:
+            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
+                utility,
+                user[0],
+            ))
+
 if __name__ == "__main__":
 
     config = None
@@ -719,6 +724,7 @@ if __name__ == "__main__":
 
             doToAccounts(config, protocol, createUser)
             doGroupMemberships()
+            doToAccounts(config, protocol, manageRecords)
             
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
             patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
