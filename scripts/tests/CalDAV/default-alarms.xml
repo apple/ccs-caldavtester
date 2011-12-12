@@ -19,7 +19,7 @@
  -->
 
 <caldavtest ignore-all='yes'>
-	<description>Test default alarml behavior</description>
+	<description>Test default alarm behavior</description>
 
 	<require-feature>
 		<feature>caldav</feature>
@@ -518,7 +518,7 @@ END:VALARM
 		</test>
 	</test-suite>
 
-	<test-suite name='Shared calendars - no default' ignore='no'>
+	<test-suite name='Shared calendars - initially empty default' ignore='no'>
 		<test name='1'>
 			<description>Good property on home</description>
 			<request user="$userid2:" pswd="$pswd2:">
@@ -631,7 +631,7 @@ END:VALARM
 			</request>
 		</test>
 		<test name='7'>
-			<description>Protected property on calendar</description>
+			<description>Not protected property on calendar</description>
 			<request>
 				<method>PROPPATCH</method>
 				<ruri>$sharedcalendar:/</ruri>
@@ -646,7 +646,7 @@ END:VALARM
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>badprops</name>
+						<name>okprops</name>
 						<value>{urn:ietf:params:xml:ns:caldav}default-alarm-vevent-datetime</value>
 					</arg>
 				</verify>
@@ -734,6 +734,28 @@ END:VALARM
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/default-alarms/sharing/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Empty property on calendar</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$sharedcalendar:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/default-alarms/sharing/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}default-alarm-vevent-datetime</value>
 					</arg>
 				</verify>
 			</request>
