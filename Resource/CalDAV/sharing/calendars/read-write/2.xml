@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?><notification xmlns='http://calendarserver.org/ns/'>
+<?xml version='1.0' encoding='UTF-8'?>
+<notification xmlns='http://calendarserver.org/ns/'>
   <dtstamp></dtstamp>
   <invite-notification shared-type='calendar'>
     <uid></uid>
@@ -15,5 +16,8 @@
       <common-name>User 01</common-name>
     </organizer>
     <summary>My Shared Calendar</summary>
+    <supported-calendar-component-set xmlns='urn:ietf:params:xml:ns:caldav'>
+      <comp name="VEVENT" />
+    </supported-calendar-component-set>
   </invite-notification>
 </notification>
