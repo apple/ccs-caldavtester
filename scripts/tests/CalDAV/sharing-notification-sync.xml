@@ -227,6 +227,9 @@
 
 	<test-suite name='initial tokens - depth infinity' ignore='no'>
 		<test name='1' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -285,6 +288,9 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>initial query - grab token</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
@@ -343,6 +349,9 @@
 	</test-suite>
 
 	<test-suite name='Read-write calendar - depth infinity - sharee delete'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -539,6 +548,9 @@
 	</test-suite>
 
 	<test-suite name='Read-write calendar - depth infinity - sharer removes'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -806,6 +818,9 @@
 	</test-suite>
 
 	<test-suite name='Shared calendar data - depth infinity'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1'>
 			<description>Sharer creates event</description>
 			<request>
@@ -1261,6 +1276,9 @@
 	</test-suite>
 
 	<test-suite name='Response cache' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>PROPFIND of current sync-token - direct</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>

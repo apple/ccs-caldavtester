@@ -115,6 +115,9 @@
 					<filepath>Resource/CalDAV/reports/sync/1.xml</filepath>
 				</data>
 				<verify>
+					<require-feature>
+						<feature>sync-report-home</feature>
+					</require-feature>
 					<callback>xmlElementMatch</callback>
 					<arg>
 						<name>exists</name>
@@ -123,10 +126,37 @@
 					</arg>
 				</verify>
 				<verify>
+					<require-feature>
+						<feature>sync-report-home</feature>
+					</require-feature>
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
 						<value>{DAV:}supported-report-set</value>
+						<value>{DAV:}sync-token</value>
+					</arg>
+				</verify>
+				<verify>
+					<exclude-feature>
+						<feature>sync-report-home</feature>
+					</exclude-feature>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+					</arg>
+				</verify>
+				<verify>
+					<exclude-feature>
+						<feature>sync-report-home</feature>
+					</exclude-feature>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
 						<value>{DAV:}sync-token</value>
 					</arg>
 				</verify>
@@ -197,7 +227,7 @@
 	
 	<test-suite name='simple reports - empty token - no props' ignore='no'>
 		<test name='1' ignore='no'>
-			<description>initial query - calenar collection depth:1</description>
+			<description>initial query - calendar collection depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
@@ -220,6 +250,9 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>initial query - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -276,6 +309,9 @@
 			</request>
 		</test>
 		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>initial query - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -378,6 +414,9 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>new resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -434,6 +473,9 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>new resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -533,6 +575,9 @@
 			</request>
 		</test>
 		<test name='10' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>remove new resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -589,6 +634,9 @@
 			</request>
 		</test>
 		<test name='11' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>remove new resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -690,6 +738,9 @@
 			</request>
 		</test>
 		<test name='14' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>changed resource - home depth:1</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -746,6 +797,9 @@
 			</request>
 		</test>
 		<test name='15' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
 			<description>changed resource - home depth:infinity</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -1366,6 +1420,9 @@
 	</test-suite>
 
 	<test-suite name='simple reports - diff token - no props - home depth:infinity' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>Initialize</description>
 			<request print-response='no'>
@@ -1639,6 +1696,9 @@
 	</test-suite>
 
 	<test-suite name='simple reports - diff token - props - home depth:infinity' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
@@ -1903,6 +1963,9 @@
 	</test-suite>
 
 	<test-suite name='simple reports - diff token - delete/create calendar - home depth:infinity' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
