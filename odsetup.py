@@ -31,11 +31,13 @@ from getpass import getpass
 from subprocess import Popen, PIPE
 import xml.parsers.expat
 
+sys_root         = "/Applications/Server.app/Contents/ServerRoot"
+
 diradmin_user    = "admin"
 diradmin_pswd    = ""
 directory_node   = "/LDAPv3/127.0.0.1"
-utility          = "/usr/sbin/calendarserver_manage_principals"
-cmdutility       = "/usr/sbin/calendarserver_command_gateway"
+utility          = sys_root + "/usr/sbin/calendarserver_manage_principals"
+cmdutility       = sys_root + "/usr/sbin/calendarserver_command_gateway"
 
 verbose = False
 veryverbose = False
@@ -44,7 +46,7 @@ serverinfo_template = "scripts/server/serverinfo-template.xml"
 
 details = {
     "caldav": {
-        "config": "/etc/caldavd/caldavd.plist",
+        "config": sys_root + "/etc/caldavd/caldavd.plist",
         "serverinfo": "scripts/server/serverinfo-caldav.xml"
     },
 }
@@ -276,7 +278,7 @@ def readConfig(config):
         plist["SudoersFile"]
     except KeyError:
         # add SudoersFile entry to caldavd.plist
-        plist["SudoersFile"] = "/etc/caldavd/sudoers.plist"
+        plist["SudoersFile"] = sys_root + "/etc/caldavd/sudoers.plist"
         writePlist(plist,config)
 
     try:
