@@ -19,7 +19,7 @@
 # Runs a subset of tests as a quick check that the server is functional.
 #
 
-export PYTHONPATH=/usr/share/caldavd/lib/python
+export PYTHONPATH=/usr/share/caldavd/lib/python:/Applications/Server.app/Contents/ServerRoot/usr/share/caldavd/lib/python/
 ./testcaldav.py --print-details-onfail -s scripts/server/serverinfo-caldav.xml \
 	CardDAV/ab-client.xml \
 	CardDAV/errors.xml \

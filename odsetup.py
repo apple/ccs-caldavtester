@@ -32,6 +32,7 @@ from subprocess import Popen, PIPE
 import xml.parsers.expat
 
 sys_root         = "/Applications/Server.app/Contents/ServerRoot"
+conf_root        = "/Library/Server/Calendar and Contacts/Config"
 
 diradmin_user    = "admin"
 diradmin_pswd    = ""
@@ -46,7 +47,7 @@ serverinfo_template = "scripts/server/serverinfo-template.xml"
 
 details = {
     "caldav": {
-        "config": sys_root + "/etc/caldavd/caldavd.plist",
+        "config": conf_root + "/caldavd.plist",
         "serverinfo": "scripts/server/serverinfo-caldav.xml"
     },
 }
@@ -278,7 +279,7 @@ def readConfig(config):
         plist["SudoersFile"]
     except KeyError:
         # add SudoersFile entry to caldavd.plist
-        plist["SudoersFile"] = sys_root + "/etc/caldavd/sudoers.plist"
+        plist["SudoersFile"] = conf_root + "/sudoers.plist"
         writePlist(plist,config)
 
     try:
@@ -361,6 +362,9 @@ def patchConfig(config, admin):
 
     # Needed for CDT
     plist["EnableAnonymousReadRoot"] = True
+    if "Options" not in plist["Scheduling"]:
+        plist["Scheduling"]["Options"] = dict()
+    plist["Scheduling"]["Options"]["AttendeeRefreshBatch"] = 0
 
     writePlist(plist, config)
 
@@ -466,12 +470,12 @@ def addLargeCalendars(hostname, docroot):
 def loadLists(config, path, records):
     if path == "/Places":
         result = cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             locationlistcmd,
         )
     elif path == "/Resources":
         result = cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             resourcelistcmd
         )
     else:
@@ -551,7 +555,7 @@ def createUserViaDS(config, path, user):
         # Other attributes
         for key, value in user[2].iteritems():
             if key == "dsAttrTypeStandard:GeneratedUID":
-                value = uuid.uuid4()
+                value = str(uuid.uuid4()).upper()
             cmd("dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value))
     else:
         print "%s/%s already exists" % (path, user[0],)
@@ -574,12 +578,12 @@ def createUserViaGateway(config, path, user):
             guids[user[0]] = resources[user[0]]
             return
     
-    guid = uuid.uuid4()
+    guid = str(uuid.uuid4()).upper()
     if guids.has_key(user[0]):
         guids[user[0]] = guid
     if path == "/Places":
         cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             locationcreatecmd % {
                 "guid":guid,
                 "realname":user[2]["dsAttrTypeStandard:RealName"],
@@ -588,7 +592,7 @@ def createUserViaGateway(config, path, user):
         )
     elif path == "/Resources":
         cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             resourcecreatecmd % {
                 "guid":guid,
                 "realname":user[2]["dsAttrTypeStandard:RealName"],
@@ -606,8 +610,8 @@ def removeUser(config, path, user):
         removeUserViaGateway(config, path, user)
 
 def removeUserViaDS(config, path, user):
-    # Do dscl command line operations to create a calendar user
-    
+    # Do dscl command line operations to remove a calendar user
+
     # Create the user
     cmd("dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]), raiseOnFail=False)
 
@@ -618,7 +622,7 @@ def removeUserViaGateway(config, path, user):
             return
         guid = locations[user[0]]
         cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             locationremovecmd % {"guid":guid,}
         )
     elif path == "/Resources":
@@ -626,7 +630,7 @@ def removeUserViaGateway(config, path, user):
             return
         guid = resources[user[0]]
         cmd(
-            "%s -f %s" % (cmdutility, config,),
+            "%s -f \"%s\"" % (cmdutility, config,),
             resourceremovecmd % {"guid":guid,}
         )
     else:
