@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2011 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  limitations under the License.
  -->
 
-<caldavtest ignore-all='yes'>
+<caldavtest>
 	<description>Test default alarm behavior</description>
 
 	<require-feature>
@@ -842,6 +842,63 @@ END:VALARM
 		</test>
 	</test-suite>
 
+	<test-suite name='PUT with ACTION:NONE' ignore='no'>
+		<test name='1'>
+			<description>Set ACTION:NONE on home</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/default-alarms/properties/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}default-alarm-vevent-datetime</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT non-recurring timed event - no alarm added from home</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/9.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/default-alarms/put/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/9.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/default-alarms/put/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request>
 			<method>PROPPATCH</method>
@@ -858,6 +915,18 @@ END:VALARM
 		<request>
 			<method>PROPPATCH</method>
 			<ruri>$calendarpath1:/</ruri>
+			<header>
+				<name>Depth</name>
+				<value>0</value>
+			</header>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/default-alarms/cleanup/1.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>PROPPATCH</method>
+			<ruri>$taskspath1:/</ruri>
 			<header>
 				<name>Depth</name>
 				<value>0</value>
@@ -884,8 +953,10 @@ END:VALARM
 			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
 			<ruri>$calendarpath1:/</ruri>
+			<ruri>$taskspath1:/</ruri>
 			<ruri>$inboxpath1:/</ruri>
 			<ruri>$calendarpath2:/</ruri>
+			<ruri>$taskspath2:/</ruri>
 			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</end>
