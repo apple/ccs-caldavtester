@@ -2,7 +2,7 @@
 # coding=utf-8
 #
 ##
-# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -655,10 +655,29 @@ def manageRecords(config, path, user):
                     user[0],
                 ))
         else:
+            # Default options for all resources
             cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
                 utility,
                 user[0],
             ))
+            
+            # Some resources have unique auto-schedule mode set
+            automodes = {
+                "resource05" : "none", 
+                "resource06" : "accept-always", 
+                "resource07" : "decline-always", 
+                "resource08" : "accept-if-free", 
+                "resource09" : "decline-if-busy", 
+                "resource10" : "automatic", 
+            }
+            
+            if user[0] in automodes:
+                cmd("%s --set-auto-schedule-mode=%s resources:%s" % (
+                    utility,
+                    automodes[user[0]],
+                    user[0],
+                ))
+                
 
 if __name__ == "__main__":
 
