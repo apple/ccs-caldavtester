@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -225,6 +225,568 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='simple reports - sync-level' ignore='no'>
+		<test name='1' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar2/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>synccalendar1/</value>
+						<value>synccalendar1/1.ics</value>
+						<value>synccalendar1/2.ics</value>
+						<value>synccalendar1/3.ics</value>
+						<value>synccalendar2/</value>
+						<value>synccalendar2/1.ics</value>
+						<value>synccalendar2/2.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>sync-level:1, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>Bad sync-level</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/synccalendar1/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='simple reports - empty token - no props' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - calendar collection depth:1</description>
