@@ -52,7 +52,26 @@
 				</verify>
 			</request>
 		</test>
+		<test name='2' ignore='no'>
+			<description>Change the color</description>
+			<request print-response="no">
+				<method>PROPPATCH</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/direct/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
+
 	<test-suite name='Generate invite' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
@@ -121,6 +140,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$sharedcalendar2:</variable>
+				</grabelement>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
@@ -159,6 +182,28 @@
 					<arg>
 						<name>filter</name>
 						<value>{http://calendarserver.org/ns/}dtstamp</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Shared calendar exists without color</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$sharedcalendar2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/direct/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
 					</arg>
 				</verify>
 			</request>
