@@ -1306,6 +1306,57 @@
 				</verify>
 			</request>
 		</test>
+		<test name="15" ignore="no">
+			<description>query for resources with (KIND equal "group") and (FN contains "0"), no eTag " </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$directory:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/searchquery/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$groupguid0:.vcf</value>
+						<value>$groupguid1:.vcf</value>
+						<value>$groupguid2:.vcf</value>
+						<value>$groupguid3:.vcf</value>
+						<value>$groupguid4:.vcf</value>
+						<value>$groupguid5:.vcf</value>
+						<value>$groupguid6:.vcf</value>
+					</arg>
+					<arg>
+						<name>totalcount</name>
+						<value>7</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name="16" ignore="no">
+			<description>query for resources with (KIND equal "group") and (X-ADDRESSBOOKSERVER-MEMBER contains "group"), no eTag, no props " </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$directory:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/searchquery/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$groupguid4:.vcf</value>
+						<value>$groupguid5:.vcf</value>
+					</arg>
+					<arg>
+						<name>totalcount</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='directory gateway multiget reports' ignore='no'>
