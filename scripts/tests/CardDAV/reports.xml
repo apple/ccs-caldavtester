@@ -1357,6 +1357,29 @@
 				</verify>
 			</request>
 		</test>
+		<test name="17" ignore="no">
+			<description>query for resources with ((KIND equal "individual") or (KIND is-not-defined)) and (FN contains "03")" </description>
+			<request print-response="no">
+				<method>REPORT</method>
+				<ruri>$directory:</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/searchquery/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userguid3:.vcf</value>
+						<value>$publicuserguid3:.vcf</value>
+					</arg>
+					<arg>
+						<name>totalcount</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='directory gateway multiget reports' ignore='no'>
