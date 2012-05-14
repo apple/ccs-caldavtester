@@ -2838,11 +2838,40 @@
 					<arg>
 						<name>contains</name>
 						<value>VEVENT</value>
+						<value>DTSTART;VALUE=DATE:20081017</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='8' ignore='no'>
+			<description>query with expand all-day - recurrence</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/limitexpand/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>18.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>VEVENT</value>
+						<value>DTSTART;VALUE=DATE:20081017</value>
+						<value>DTSTART;VALUE=DATE:20081018</value>
+						<value>RECURRENCE-ID;VALUE=DATE:20081018</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
 			<description>time-range query with expand for one event - DURATION test</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -2877,7 +2906,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='10' ignore='no'>
 			<description>time-range query with expand for one recurring event skipping cancelled first instance</description>
 			<request end-delete="yes">
 				<method>PUT</method>
