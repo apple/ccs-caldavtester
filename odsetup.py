@@ -20,17 +20,17 @@
 # Creates some test accounts on an OpenDirectory server for use with CalDAVTester
 #
 
+from getpass import getpass
 from plistlib import readPlist, readPlistFromString
 from plistlib import writePlist
+from subprocess import Popen, PIPE
 import getopt
 import os
+import socket
 import sys
 import traceback
 import uuid
-from getpass import getpass
-from subprocess import Popen, PIPE
 import xml.parsers.expat
-
 sys_root         = "/Applications/Server.app/Contents/ServerRoot"
 conf_root        = "/Library/Server/Calendar and Contacts/Config"
 
@@ -319,7 +319,9 @@ def readConfig(config):
         authtype = "digest"
     
     if not hostname:
-        hostname = "localhost"
+        hostname = socket.getfqdn()
+        if not hostname:
+            hostname = "localhost"
     if docroot[0] != "/":
         docroot = base_dir + docroot
     if sudoers[0] != "/":
