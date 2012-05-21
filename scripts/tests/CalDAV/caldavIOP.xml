@@ -95,6 +95,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_1.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.2'>
@@ -106,6 +109,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_2.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.3'>
@@ -117,6 +123,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_3.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.4'>
@@ -128,6 +137,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_4.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.5'>
@@ -139,6 +151,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_5.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.6'>
@@ -150,6 +165,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_6.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.7'>
@@ -161,6 +179,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_7.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.8'>
@@ -172,17 +193,23 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_8.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='2.9'>
 			<description>One client changes "Meeting 1.1bis" to a different time, second client 'refreshes' its display to see the modification.</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/2-2_9.ics</ruri>
+				<ruri>$calendarpath1:/1-1_1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/2/2_9.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 	</test-suite>
@@ -197,10 +224,16 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_1.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/4-4_1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='4.2'>
@@ -212,10 +245,16 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_2.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/4-4_2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='4.3'>
@@ -227,10 +266,16 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_3.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/4-4_3.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='4.4'>
@@ -242,6 +287,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_4a.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>PUT</method>
@@ -250,6 +298,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_4b.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 		<test name='4.5'>
@@ -261,6 +312,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_5a.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>PUT</method>
@@ -269,6 +323,9 @@
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/caldaviop/4/4_5b.txt</filepath>
 				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 		</test>
 	</test-suite>
