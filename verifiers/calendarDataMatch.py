@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,8 +39,8 @@ class Verifier(object):
         filters.append("CREATED")
         filters.append("LAST-MODIFIED")
  
-        # status code must be 200, 207
-        if response.status not in (200,207):
+        # status code must be 200, 201, 207
+        if response.status not in (200,201,207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
         
         # look for response data

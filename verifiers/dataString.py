@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2008 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +25,15 @@ class Verifier(object):
         contains = args.get("contains", [])
         notcontains = args.get("notcontains", [])
         unwrap = args.get("unwrap")
+        empty = args.get("empty")
         
+        # Test empty
+        if empty:
+            if respdata:
+                return False, "        Response data has a body"
+            else:
+                return True, ""
+                
         # look for response data
         if not respdata:
             return False, "        No response body"

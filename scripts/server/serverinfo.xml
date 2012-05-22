@@ -3,7 +3,7 @@
 <!DOCTYPE serverinfo SYSTEM "serverinfo.dtd">
 
 <!--
- Copyright (c) 2006-2011 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -46,6 +46,10 @@
 		<feature>expand-property</feature>				<!-- Expand property REPORT -->
 		<feature>only-proxy-groups</feature>			<!-- Group-membership only includes delegated-to groups -->
 		<feature>limits</feature>						<!-- max-collections and max-resources limits -->
+		<feature>prefer</feature>						<!-- Prefer header overall support -->
+		<feature>prefer-minimal</feature>				<!-- Prefer header return-minimal -->
+		<feature>prefer-representation</feature>		<!-- Prefer header return-representation -->
+		<feature>prefer-noroot</feature>				<!-- Prefer header depth-noroot -->
 		<feature>quota</feature>						<!-- WebDAV QUOTA -->
 		<!-- <feature>quota-on-resources</feature> -->	<!-- WebDAV QUOTA on calendar and address book object resources -->
 		<feature>resource-id</feature>					<!-- WebDAV BIND DAV:resource-id property -->
@@ -306,6 +310,12 @@
 			<value>global-addressbook</value>
 		</substitution>
 
+		<!-- POST add-member URI suffix -->
+		<substitution>
+			<key>$add-member:</key>
+			<value>;add-member</value>
+		</substitution>
+
 		<!-- user id for admin user -->
 		<substitution>
 			<key>$useradmin:</key>
@@ -433,42 +443,42 @@
 			<!-- relative path to user calendar-->
 			<substitution>
 				<key>$calendarpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$calendar:</value>
+				<value>$calendarhome%d:/$calendar:</value>
 			</substitution>
 			<!-- relative path to user alternate calendar-->
 			<substitution>
 				<key>$calendarpathalt%d:</key>
-				<value>$calendars_users:$userid%d:/$calendar:</value>
+				<value>$calendarhomealt%d:/$calendar:</value>
 			</substitution>
 			<!-- relative path to user tasks calendar-->
 			<substitution>
 				<key>$taskspath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$tasks:</value>
+				<value>$calendarhome%d:/$tasks:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
 				<key>$inboxpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$inbox:</value>
+				<value>$calendarhome%d:/$inbox:</value>
 			</substitution>
 			<!-- relative path to user outbox-->
 			<substitution>
 				<key>$outboxpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$outbox:</value>
+				<value>$calendarhome%d:/$outbox:</value>
 			</substitution>
 			<!-- relative path to user dropbox-->
 			<substitution>
 				<key>$dropboxpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$dropbox:</value>
+				<value>$calendarhome%d:/$dropbox:</value>
 			</substitution>
 			<!-- relative path to user notification-->
 			<substitution>
 				<key>$notificationpath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$notification:</value>
+				<value>$calendarhome%d:/$notification:</value>
 			</substitution>
 			<!-- relative path to user freebusy-->
 			<substitution>
 				<key>$freebusypath%d:</key>
-				<value>$calendars_uids:$userguid%d:/$freebusy:</value>
+				<value>$calendarhome%d:/$freebusy:</value>
 			</substitution>
 			<substitution>
 				<key>$email%d:</key>
