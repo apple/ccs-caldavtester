@@ -3,7 +3,7 @@
 <prop xmlns='DAV:'>
 <getetag/>
 <calendar-data xmlns='urn:ietf:params:xml:ns:caldav'>
-<expand start='20060102T000000Z' end='20060105T000000Z'/>
+<expand start='$now.year.1:0102T000000Z' end='$now.year.1:0105T000000Z'/>
 <comp name='VCALENDAR'>
 <allprop/>
 <comp name='VEVENT'>
@@ -31,7 +31,7 @@
 <filter>
 <comp-filter name='VCALENDAR'>
 <comp-filter name='VEVENT'>
-<time-range start='20060102T000000Z' end='20060105T000000Z'/>
+<time-range start='$now.year.1:0102T000000Z' end='$now.year.1:0105T000000Z'/>
 <prop-filter name="SUMMARY">
 <text-match>event 6</text-match>
 </prop-filter>

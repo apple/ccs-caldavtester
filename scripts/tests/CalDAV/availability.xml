@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -321,13 +321,13 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>20060102T170000Z/20060102T180000Z</value>
+						<value>$now.year.1:0102T170000Z/$now.year.1:0102T180000Z</value>
 					</arg>
 					<arg>
 						<name>unavailable</name>
-						<value>20060101T000000Z/20060102T140000Z</value>
-						<value>20060102T170000Z/20060104T140000Z</value>
-						<value>20060104T170000Z/20060105T000000Z</value>
+						<value>$now.year.1:0101T000000Z/$now.year.1:0102T140000Z</value>
+						<value>$now.year.1:0102T170000Z/$now.year.1:0104T140000Z</value>
+						<value>$now.year.1:0104T170000Z/$now.year.1:0105T000000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -344,9 +344,9 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>unavailable</name>
-						<value>20060104T000000Z/20060104T140000Z</value>
-						<value>20060104T170000Z/20060106T170000Z</value>
-						<value>20060106T220000Z/20060108T000000Z</value>
+						<value>$now.year.1:0104T000000Z/$now.year.1:0104T140000Z</value>
+						<value>$now.year.1:0104T170000Z/$now.year.1:0106T170000Z</value>
+						<value>$now.year.1:0106T220000Z/$now.year.1:0108T000000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -385,12 +385,12 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>unavailable</name>
-						<value>20061001T000000Z/20061002T130000Z</value>
-						<value>20061002T210000Z/20061003T130000Z</value>
-						<value>20061003T210000Z/20061004T130000Z</value>
-						<value>20061004T210000Z/20061005T130000Z</value>
-						<value>20061005T210000Z/20061006T130000Z</value>
-						<value>20061006T210000Z/20061008T000000Z</value>
+						<value>$now.year.1:1001T000000Z/$now.year.1:1002T130000Z</value>
+						<value>$now.year.1:1002T210000Z/$now.year.1:1003T130000Z</value>
+						<value>$now.year.1:1003T210000Z/$now.year.1:1004T130000Z</value>
+						<value>$now.year.1:1004T210000Z/$now.year.1:1005T130000Z</value>
+						<value>$now.year.1:1005T210000Z/$now.year.1:1006T130000Z</value>
+						<value>$now.year.1:1006T210000Z/$now.year.1:1008T000000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -494,9 +494,9 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>FREEBUSY;FBTYPE=BUSY:20060102T170000Z/PT1H</value>
-						<value>FREEBUSY;FBTYPE=BUSY-UNAVAILABLE:20060102T000000Z/20060102T140000Z,2006010
- 2T220000Z/20060103T000000Z</value>
+						<value>FREEBUSY;FBTYPE=BUSY:$now.year.1:0102T170000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY-UNAVAILABLE:$now.year.1:0102T000000Z/$now.year.1:0102T140000Z,$now.year.1:010
+ 2T220000Z/$now.year.1:0103T000000Z</value>
 					</arg>
 				</verify>
 			</request>

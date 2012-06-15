@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>20070401T143000Z/20070401T153000Z</value>
+						<value>$now.year.0:0401T143000Z/$now.year.0:0401T153000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -87,8 +87,8 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>20070401T143000Z/20070401T153000Z</value>
-						<value>20071210T153000Z/20071210T163000Z</value>
+						<value>$now.year.0:0401T143000Z/$now.year.0:0401T153000Z</value>
+						<value>$now.year.0:1210T153000Z/$now.year.0:1210T163000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -123,9 +123,9 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>20070401T143000Z/20070401T153000Z</value>
-						<value>20071210T153000Z/20071210T163000Z</value>
-						<value>20070402T150000Z/20070402T160000Z</value>
+						<value>$now.year.0:0401T143000Z/$now.year.0:0401T153000Z</value>
+						<value>$now.year.0:1210T153000Z/$now.year.0:1210T163000Z</value>
+						<value>$now.year.0:0402T150000Z/$now.year.0:0402T160000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -157,10 +157,10 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>20070401T143000Z/20070401T153000Z</value>
-						<value>20071210T153000Z/20071210T163000Z</value>
-						<value>20070402T150000Z/20070402T160000Z</value>
-						<value>20071211T140000Z/20071211T150000Z</value>
+						<value>$now.year.0:0401T143000Z/$now.year.0:0401T153000Z</value>
+						<value>$now.year.0:1210T153000Z/$now.year.0:1210T163000Z</value>
+						<value>$now.year.0:0402T150000Z/$now.year.0:0402T160000Z</value>
+						<value>$now.year.0:1211T140000Z/$now.year.0:1211T150000Z</value>
 					</arg>
 				</verify>
 			</request>

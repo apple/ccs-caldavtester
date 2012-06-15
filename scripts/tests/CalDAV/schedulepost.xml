@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -578,8 +578,8 @@
 					<arg>
 						<name>contains</name>
 						<value>METHOD:REPLY</value>
-						<value>FREEBUSY;FBTYPE=BUSY:20060101T170000Z/PT1H,20060101T190000Z/PT1H,20060101T220000Z/PT1H</value>
-						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY:$now.year.1:0101T170000Z/PT1H,$now.year.1:0101T190000Z/PT1H,$now.year.1:0101T220000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY:$now.year.1:0101T190000Z/PT2H,$now.year.1:0101T220000Z/PT1H</value>
 					</arg>
 					<arg>
 						<name>unwrap</name>
@@ -605,7 +605,7 @@
 					<arg>
 						<name>contains</name>
 						<value><![CDATA[<recipient-exists xmlns='urn:ietf:params:xml:ns:caldav'/>]]></value>
-						<value>FREEBUSY;FBTYPE=BUSY:20060101T190000Z/PT2H,20060101T220000Z/PT1H</value>
+						<value>FREEBUSY;FBTYPE=BUSY:$now.year.1:0101T190000Z/PT2H,$now.year.1:0101T220000Z/PT1H</value>
 					</arg>
 					<arg>
 						<name>unwrap</name>

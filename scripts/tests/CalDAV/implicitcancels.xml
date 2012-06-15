@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -1272,12 +1272,12 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
-						<value>RECURRENCE-ID;TZID=US/Eastern:20060103T100000</value>
+						<value>RECURRENCE-ID;TZID=US/Eastern:$now.year.1:0103T100000</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
 						<value>FREQ=DAILY</value>
-						<value>RECURRENCE-ID;TZID=US/Eastern:20060104T100000</value>
+						<value>RECURRENCE-ID;TZID=US/Eastern:$now.year.1:0104T100000</value>
 						<value>STATUS:CANCELLED</value>
 					</arg>
 				</verify>

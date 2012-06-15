@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -43,6 +43,10 @@ class serverinfo( object ):
             dtoffset = dtnow + datetime.timedelta(days=dayoffset)
             key = "$now.%d:" % (dayoffset,)
             value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+            self.subsdict[key] = value
+        for yearoffset in xrange(-5, 20):
+            key = "$now.year.%d:" % (yearoffset,)
+            value = "%d" % (dtnow.year + yearoffset,)
             self.subsdict[key] = value
 
     def subs(self, str, db=None):
