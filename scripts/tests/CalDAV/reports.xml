@@ -2010,7 +2010,9 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>19.ics</value>
+						<value>20.ics</value>
 						<value>21.ics</value>
+						<value>22.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -2501,6 +2503,153 @@
 						<value>104.ics</value>
 						<value>105.ics</value>
 						<value>106.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='25' ignore='no'>
+			<require-feature>
+				<feature>timerange-low-limit</feature>
+			</require-feature>
+			<description>query with both start/end below lower limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}min-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='26' ignore='no'>
+			<require-feature>
+				<feature>timerange-low-limit</feature>
+			</require-feature>
+			<description>query with start only below lower limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}min-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='27' ignore='no'>
+			<require-feature>
+				<feature>timerange-low-limit</feature>
+			</require-feature>
+			<description>query with end only below lower limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}min-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='28' ignore='no'>
+			<require-feature>
+				<feature>timerange-high-limit</feature>
+			</require-feature>
+			<description>query with both start/end above upper limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}max-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='29' ignore='no'>
+			<require-feature>
+				<feature>timerange-high-limit</feature>
+			</require-feature>
+			<description>query with start only above upper limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}max-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='30' ignore='no'>
+			<require-feature>
+				<feature>timerange-high-limit</feature>
+			</require-feature>
+			<description>query with end only above upper limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/20.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}max-date-time</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='31' ignore='no'>
+			<require-feature>
+				<feature>timerange-high-limit</feature>
+			</require-feature>
+			<description>query with start lower, end above upper limit</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}max-date-time</value>
 					</arg>
 				</verify>
 			</request>
