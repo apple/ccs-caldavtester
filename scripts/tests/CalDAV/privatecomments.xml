@@ -330,6 +330,17 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/privatecomments/43.ics</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
