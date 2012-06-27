@@ -44,7 +44,7 @@ class Verifier(object):
         except ExpatError:
             return False, "           Could not parse proper XML response\n"
 
-        for calendar in tree.findall("/{urn:ietf:params:xml:ns:caldav}response/{urn:ietf:params:xml:ns:caldav}calendar-data"):
+        for calendar in tree.findall("./{urn:ietf:params:xml:ns:caldav}response/{urn:ietf:params:xml:ns:caldav}calendar-data"):
             # Parse data as calendar object
             try:
                 calendar = PyCalendar.parseText(calendar.text)
