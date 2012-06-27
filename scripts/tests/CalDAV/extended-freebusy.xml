@@ -30,7 +30,7 @@
 	<start>
 		<request user="$userid2:" pswd="$pswd2:" print-response="no">
 			<method>PROPPATCH</method>
-			<ruri>$principal2:calendar-proxy-write/</ruri>
+			<ruri>$principal2:calendar-proxy-read/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/extended-freebusy/1.xml</filepath>
@@ -505,6 +505,23 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<end>
+		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<method>PROPPATCH</method>
+			<ruri>$principal2:calendar-proxy-read/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/extended-freebusy/9.xml</filepath>
+			</data>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<method>PROPPATCH</method>
+			<ruri>$principal3:calendar-proxy-write/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/extended-freebusy/9.xml</filepath>
+			</data>
+		</request>
+	</end>
 
 </caldavtest>
