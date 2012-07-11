@@ -1,22 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?><notification xmlns='http://calendarserver.org/ns/'>
   <dtstamp></dtstamp>
-  <invite-notification shared-type='calendar'>
+  <invite-notification shared-type='addressbook'>
     <uid></uid>
     <href xmlns='DAV:'>$cuaddrurn2:</href>
-    <invite-declined/>
+    <invite-deleted/>
     <access>
       <read-write/>
     </access>
     <hosturl>
-      <href xmlns='DAV:'>$calendarhome1:/shared</href>
+      <href xmlns='DAV:'>$addressbookpath1:</href>
     </hosturl>
     <organizer>
       <href xmlns='DAV:'>$principaluri1:</href>
       <common-name>User 01</common-name>
     </organizer>
-    <summary>My Shared Calendar</summary>
-    <supported-calendar-component-set xmlns='urn:ietf:params:xml:ns:caldav'>
-      <comp name="VEVENT" />
-    </supported-calendar-component-set>
+    <summary>The Shared Address Book</summary>
   </invite-notification>
 </notification>
