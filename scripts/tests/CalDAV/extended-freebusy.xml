@@ -76,6 +76,10 @@
 				<filepath>Resource/CalDAV/extended-freebusy/5.ics</filepath>
 			</data>
 		</request>
+		<request>
+			<method>DELAY</method>
+			<ruri>1</ruri>
+		</request>
 	</start>
 	
 	<test-suite name='Freebusy by delegate' ignore="no">
@@ -136,12 +140,12 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
+						<value>Event #1</value>
 						<value>Event #2</value>
 						<value>Event #3</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>Event #1</value>
 						<value>Event #4</value>
 					</arg>
 				</verify>
@@ -204,12 +208,12 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
+						<value>Event #1</value>
 						<value>Event #2</value>
 						<value>Event #3</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>Event #1</value>
 						<value>Event #4</value>
 					</arg>
 				</verify>
@@ -274,10 +278,13 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>VEVENT</value>
-						<value>Event #1</value>
 						<value>Event #2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #1</value>
 						<value>Event #3</value>
 						<value>Event #4</value>
 					</arg>
@@ -340,10 +347,13 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>VEVENT</value>
-						<value>Event #1</value>
 						<value>Event #2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #1</value>
 						<value>Event #3</value>
 						<value>Event #4</value>
 					</arg>
@@ -410,19 +420,19 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
+						<value>Event #1</value>
 						<value>Event #2</value>
 						<value>Event #3</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
-						<value>Event #1</value>
 						<value>Event #4</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>Invalid duration value</description>
+			<description>New event</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath2:/2.ics</ruri>
@@ -492,12 +502,206 @@
 					<callback>dataString</callback>
 					<arg>
 						<name>contains</name>
+						<value>Event #1</value>
 						<value>Event #2</value>
 						<value>Event #3</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
+						<value>Event #4</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Freebusy on location by delegate' ignore="no">
+		<test name='1'>
+			<description>POST free busy for all attendees</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T120000Z/$now.year.1:0101T130000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$rcuaddralt1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
 						<value>Event #1</value>
+						<value>Event #4</value>
+						<value>CN=$username4:</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #2</value>
+						<value>Event #3</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST free busy for all attendees - repeat to check on any caching</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath1:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T120000Z/$now.year.1:0101T130000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$rcuaddralt1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Event #1</value>
+						<value>Event #4</value>
+						<value>CN=$username4:</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #2</value>
+						<value>Event #3</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Freebusy on location by non-delegate' ignore="no">
+		<test name='1'>
+			<description>POST free busy for all attendees</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath2:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T130000Z/$now.year.1:0101T150000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$rcuaddralt1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Event #2</value>
+						<value>CN=$username4:</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #1</value>
+						<value>Event #3</value>
+						<value>Event #4</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST free busy for all attendees - repeat to check on any caching</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath2:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/11.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T130000Z/$now.year.1:0101T150000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$rcuaddralt1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Event #2</value>
+						<value>CN=$username4:</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #1</value>
+						<value>Event #3</value>
 						<value>Event #4</value>
 					</arg>
 				</verify>
@@ -521,6 +725,13 @@
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/extended-freebusy/9.xml</filepath>
 			</data>
+		</request>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$inboxpath4:/</ruri>
+			<ruri>$calendarpath4:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
+			<ruri>$rcalendarpath1:/</ruri>
 		</request>
 	</end>
 
