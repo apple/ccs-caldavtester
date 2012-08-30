@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -966,6 +966,34 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/put/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='PUTs with ^ parameter encoding'>
+		<test name='1' ignore='no'>
+			<description>Roundtrip encoded CN=</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/106.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/put/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/106.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/put/7.ics</value>
 					</arg>
 				</verify>
 			</request>
