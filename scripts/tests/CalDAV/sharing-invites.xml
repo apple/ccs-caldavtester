@@ -390,11 +390,7 @@
 					<filepath>Resource/CalDAV/sharing/invites/uninvitebad/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>403</name>
-						<value>mailto:bogus@example.com</value>
-					</arg>
+					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>

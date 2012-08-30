@@ -3,7 +3,7 @@
 <!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
 
 <!--
- Copyright (c) 2006-2009 Apple Inc. All rights reserved.
+ Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -446,6 +446,35 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CardDAV/vcardput/13.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+
+	<test-suite name='PUTs with ^ parameter encoding'>
+		<test name='1' ignore='no'>
+			<description>Roundtrip encoded CN=</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/14.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/14.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookpath1:/14.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/vcardput/15.vcf</value>
 					</arg>
 				</verify>
 			</request>
