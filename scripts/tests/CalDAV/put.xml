@@ -1000,6 +1000,62 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='PUTs with duplicate alarms'>
+		<require-feature>
+			<feature>remove-duplicate-alarms</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>Roundtrip encoded CN=</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/107.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/put/8.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/107.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/put/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Roundtrip encoded CN=</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/108.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/put/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/108.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/put/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
