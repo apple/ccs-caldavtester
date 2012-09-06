@@ -20,7 +20,8 @@
 
 <serverinfo>
 	<host>%(hostname)s</host>
-	<port>%(port)s</port>
+	<nonsslport>%(nonsslport)s</nonsslport>
+	<sslport>%(sslport)s</sslport>
 	<authtype>%(authtype)s</authtype>
 
 	<features>
@@ -129,14 +130,8 @@
 		</substitution>
 
 		<!-- Server configuration settings -->
-		<substitution>
-			<key>$host:</key>
-			<value>http://%(hostname)s:%(port)s</value>
-		</substitution>
-		<substitution>
-			<key>$hostssl:</key>
-			<value>http://%(hostname)s:%(port)s</value>
-		</substitution>
+		<!-- $host: and $hostssl: are implicitly added by CalDAVTester based
+		     on the host/nonsslport/sslport values and ssl command line switch -->
 
 		<!-- relative path to caldav root-->
 		<substitution>

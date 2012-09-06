@@ -19,10 +19,10 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 """
 
 from hashlib import md5, sha1
+from src.httpshandler import SmartHTTPConnection
 from src.xmlUtils import getYesNoAttributeValue
 import base64
 import datetime
-import httplib
 import re
 import src.xmlDefs
 import time
@@ -206,10 +206,7 @@ class request( object ):
         if self.manager.digestCache.has_key(user):
             details = self.manager.digestCache[user]
         else:
-            if si.ssl:
-                http = httplib.HTTPSConnection( self.manager.server_info.host, self.manager.server_info.port )
-            else:
-                http = httplib.HTTPConnection( self.manager.server_info.host, self.manager.server_info.port )
+            http = SmartHTTPConnection( si.host, si.port, si.ssl )
             try:
                 http.request( "OPTIONS", self.getURI(si) )
             

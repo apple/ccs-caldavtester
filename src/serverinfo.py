@@ -28,9 +28,9 @@ class serverinfo( object ):
 
     def __init__( self ):
         self.host = ""
-        self.port = 80
+        self.nonsslport = 80
+        self.sslport = 443
         self.authtype = "basic"
-        self.ssl = False
         self.features = set()
         self.user = ""
         self.pswd = ""
@@ -91,12 +91,12 @@ class serverinfo( object ):
                     self.host = child.text.encode("utf-8")
                 except:
                     self.host = "localhost"
-            elif child.tag == src.xmlDefs.ELEMENT_PORT:
-                self.port = int( child.text )
+            elif child.tag == src.xmlDefs.ELEMENT_NONSSLPORT:
+                self.nonsslport = int( child.text )
+            elif child.tag == src.xmlDefs.ELEMENT_SSLPORT:
+                self.sslport = int( child.text )
             elif child.tag == src.xmlDefs.ELEMENT_AUTHTYPE:
                 self.authtype = child.text.encode("utf-8")
-            elif child.tag == src.xmlDefs.ELEMENT_SSL:
-                self.ssl = True
             elif child.tag == src.xmlDefs.ELEMENT_FEATURES:
                 self.parseFeatures(child)
             elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTIONS:

@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -76,7 +76,7 @@ class manager(object):
         else:
             print str,
 
-    def readXML( self, serverfile, testfiles, all, moresubs = {} ):
+    def readXML( self, serverfile, testfiles, ssl, all, moresubs = {} ):
 
         self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
     
@@ -93,6 +93,16 @@ class manager(object):
         if not len(serverinfo_node):
             raise EX_INVALID_CONFIG_FILE
         self.server_info.parseXML(serverinfo_node)
+        
+        # Setup ssl stuff
+        self.server_info.ssl = ssl
+        self.server_info.port = self.server_info.sslport if ssl else self.server_info.nonsslport
+        moresubs["$host:"] = "%s://%s:%d" % (
+            "https" if ssl else "http",
+            self.server_info.host,
+            self.server_info.port,
+        )
+        moresubs["$hostssl:"] = "https://%s:%d" % (self.server_info.host, self.server_info.sslport,)
         self.server_info.addsubs(moresubs)
         
         for testfile in testfiles:
@@ -124,6 +134,7 @@ class manager(object):
         sname = "scripts/server/serverinfo.xml"
         dname = "scripts/tests"
         fnames = []
+        ssl = False
         all = False
         excludes = set()
         subdir = None
@@ -134,6 +145,7 @@ class manager(object):
             sys.argv[1:],
             "s:mx:",
             [
+                "ssl",
                 "all",
                 "subdir=",
                 "exclude=",
@@ -153,6 +165,8 @@ class manager(object):
                 sname = value
             elif option == "-x":
                 dname = value
+            elif option == "--ssl":
+                ssl = True
             elif option == "--all":
                 all = True
             elif option == "--subdir":
@@ -199,18 +213,12 @@ class manager(object):
             random.seed(random_seed)
             random.shuffle(fnames)
 
-        self.readXML(sname, fnames, all)
+        self.readXML(sname, fnames, ssl, all)
             
         if self.memUsage:
             fd = open(pidfile, "r")
             s = fd.read()
             self.pid = int(s)
-
-    def runWithOptions(self, sname, fnames, moresubs, pid=0, memUsage=False, all = False):
-        self.readXML(sname, fnames, all, moresubs)
-        self.pid = pid
-        self.memUsage = memUsage
-        return self.runAll()
 
     def runAll(self):
         
