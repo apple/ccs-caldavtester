@@ -569,6 +569,9 @@ class caldavtest(object):
             if hdrs:
                 etags[uri] = hdrs[0].encode("utf-8")
 
+        if req.graburi:
+            self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
+            
         if req.grabheader:
             for hdrname, variable in req.grabheader:
                 hdrs = response.msg.getheaders(hdrname)

@@ -150,6 +150,7 @@ class request( object ):
         self.data = None
         self.count = 1
         self.verifiers = []
+        self.graburi = None
         self.grabheader = []
         self.grabproperty = []
         self.grabelement = []
@@ -324,6 +325,8 @@ class request( object ):
             elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
+            elif child.tag == src.xmlDefs.ELEMENT_GRABURI:
+                self.graburi = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_GRABHEADER:
                 self.parseGrab(child, self.grabheader)
             elif child.tag == src.xmlDefs.ELEMENT_GRABPROPERTY:
