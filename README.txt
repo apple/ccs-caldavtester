@@ -12,7 +12,7 @@ Many tests are included in this package.
 
 COMMAND LINE OPTIONS
 
-testcaldav.py [-s filename] [-p filename] [-d] [--all] [--random] \
+testcaldav.py [-s filename] [-p filename] [-d] [--ssl] [--all] [--random] \
 	file1 file2 ...
 
 	-s : filename specifies the file to use for server information
@@ -24,6 +24,8 @@ testcaldav.py [-s filename] [-p filename] [-d] [--all] [--random] \
 
 	-d : in conjunction with -p, if present specifies that the populated
 	data be removed after all tests have completed.
+
+	--ssl : run tests using SSL/https connections to the server.
 
 	--all : execute all tests found in the working directory. Each .xml
 	file in that directory is examined and those corresponding to the
@@ -58,14 +60,14 @@ serverinfo.dtd
 	ELEMENT <host>
 		host name for server to test.
 
-	ELEMENT <port>
-		port to use to connect to server.
+	ELEMENT <nonsslport>
+		port to use to connect to server (non-SSL).
+
+	ELEMENT <sslport>
+		port to use to connect to server (SSL).
 
 	ELEMENT <authtype>
 		HTTP authentication method to use.
-
-	ELEMENT <ssl>
-		if present, use SSL to connect to the server.
 
 	ELEMENT <features>
 		list of features for the server under test.

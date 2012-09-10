@@ -19,10 +19,10 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 """
 
 from hashlib import md5, sha1
+from src.httpshandler import SmartHTTPConnection
 from src.xmlUtils import getYesNoAttributeValue
 import base64
 import datetime
-import httplib
 import re
 import src.xmlDefs
 import time
@@ -150,6 +150,7 @@ class request( object ):
         self.data = None
         self.count = 1
         self.verifiers = []
+        self.graburi = None
         self.grabheader = []
         self.grabproperty = []
         self.grabelement = []
@@ -206,10 +207,7 @@ class request( object ):
         if self.manager.digestCache.has_key(user):
             details = self.manager.digestCache[user]
         else:
-            if si.ssl:
-                http = httplib.HTTPSConnection( self.manager.server_info.host, self.manager.server_info.port )
-            else:
-                http = httplib.HTTPConnection( self.manager.server_info.host, self.manager.server_info.port )
+            http = SmartHTTPConnection( si.host, si.port, si.ssl )
             try:
                 http.request( "OPTIONS", self.getURI(si) )
             
@@ -327,6 +325,8 @@ class request( object ):
             elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML( child )
+            elif child.tag == src.xmlDefs.ELEMENT_GRABURI:
+                self.graburi = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_GRABHEADER:
                 self.parseGrab(child, self.grabheader)
             elif child.tag == src.xmlDefs.ELEMENT_GRABPROPERTY:

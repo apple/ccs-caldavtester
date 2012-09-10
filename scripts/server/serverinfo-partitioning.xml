@@ -20,7 +20,8 @@
 
 <serverinfo>
 	<host>localhost</host>
-	<port>8008</port>
+	<nonsslport>8008</nonsslport>
+	<sslport>8443</sslport>
 	<authtype>basic</authtype>
 
 	<features>
@@ -129,14 +130,8 @@
 		</substitution>
 
 		<!-- Server configuration settings -->
-		<substitution>
-			<key>$host:</key>
-			<value>http://localhost:8008</value>
-		</substitution>
-		<substitution>
-			<key>$hostssl:</key>
-			<value>https://localhost:8443</value>
-		</substitution>
+		<!-- $host: and $hostssl: are implicitly added by CalDAVTester based
+		     on the host/nonsslport/sslport values and ssl command line switch -->
 
 		<!-- relative path to caldav root-->
 		<substitution>
@@ -404,6 +399,16 @@
 			<substitution>
 				<key>$username-encoded%d:</key>
 				<value>User%%20%02d</value>
+			</substitution>
+			<!-- first name -->
+			<substitution>
+				<key>$firstname%d:</key>
+				<value>User</value>
+			</substitution>
+			<!-- last name -->
+			<substitution>
+				<key>$lastname%d:</key>
+				<value>%02d</value>
 			</substitution>
 			<!-- password -->
 			<substitution>

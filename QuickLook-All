@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 ##
-# Copyright (c) 2009 Apple Inc. All rights reserved.
+# Copyright (c) 2009-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,18 +20,18 @@
 #
 
 export PYTHONPATH=/usr/share/caldavd/lib/python:/Applications/Server.app/Contents/ServerRoot/usr/share/caldavd/lib/python/
-./testcaldav.py --print-details-onfail -s scripts/server/serverinfo-caldav.xml \
-CalDAV/caldavIOP.xml \
-CalDAV/errors.xml \
-CalDAV/get.xml \
-CalDAV/ical-client.xml \
-CalDAV/propfind.xml \
-CalDAV/put.xml \
-CalDAV/reports.xml \
-CardDAV/ab-client.xml \
-CardDAV/errors.xml \
-CardDAV/get.xml \
-CardDAV/propfind.xml \
-CardDAV/put.xml \
-CardDAV/reports.xml
+./testcaldav.py $@ --print-details-onfail -s scripts/server/serverinfo-caldav.xml \
+    CalDAV/caldavIOP.xml \
+    CalDAV/errors.xml \
+    CalDAV/get.xml \
+    CalDAV/ical-client.xml \
+    CalDAV/propfind.xml \
+    CalDAV/put.xml \
+    CalDAV/reports.xml \
+    CardDAV/ab-client.xml \
+    CardDAV/errors.xml \
+    CardDAV/get.xml \
+    CardDAV/propfind.xml \
+    CardDAV/put.xml \
+    CardDAV/reports.xml
 

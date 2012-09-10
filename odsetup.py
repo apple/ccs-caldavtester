@@ -250,7 +250,7 @@ def cmd(args, input=None, raiseOnFail=True):
     if veryverbose:
         print "-----"
     if verbose:
-        print args
+        print args.replace(diradmin_pswd, "xxxx")
     if input:
         p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         result = p.communicate(input)
@@ -302,7 +302,7 @@ def readConfig(config):
     sudoers = plist["SudoersFile"]
     sudoers = os.path.join(configroot, sudoers) if sudoers and sudoers[0] not in ('/', '.',) else sudoers
 
-    port = plist["HTTPPort"]
+    nonsslport = plist["HTTPPort"]
     sslport = plist["SSLPort"]
 
     try:
@@ -327,7 +327,7 @@ def readConfig(config):
     if sudoers[0] != "/":
         sudoers = base_dir + sudoers
 
-    return hostname, port, sslport, authtype, docroot, sudoers
+    return hostname, nonsslport, sslport, authtype, docroot, sudoers
 
 def patchConfig(config, admin):
     """
@@ -397,7 +397,7 @@ def patchSudoers(sudoers):
         users.append({"username":"superuser", "password": "superuser"})
         writePlist(plist, sudoers)
 
-def buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot):
+def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype, docroot):
     
     # Read in the serverinfo-template.xml file
     fd = open(serverinfo_template, "r")
@@ -436,7 +436,7 @@ def buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docro
 
     data = data % {
         "hostname"       : hostname,
-        "port"           : str(port),
+        "nonsslport"     : str(nonsslport),
         "sslport"        : str(sslport),
         "authtype"       : authtype,
         "overrides"      : subs_str,
@@ -718,7 +718,7 @@ if __name__ == "__main__":
             serverinfo_default = details[protocol]["serverinfo"]
             
         if not diradmin_pswd:
-            diradmin_pswd = getpass("Password: ")
+            diradmin_pswd = getpass("Directory Admin Password: ")
 
         # Process arguments
         if len(args) == 0:
