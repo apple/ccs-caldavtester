@@ -333,7 +333,6 @@ def patchConfig(config, admin):
     """
     Patch the caldavd.plist file to make sure:
        * the proper admin principal is configured
-       * DS Search node is set to /LDAPv3/127.0.0.1
        * iMIP is disabled
        * SACLs are disabled
        * CalDAV and CardDAV are enabled
@@ -348,9 +347,6 @@ def patchConfig(config, admin):
 
     admins = plist["AdminPrincipals"]
     admins[:] = [admin]
-
-    # Only concern ourselves with the OD records we care about
-    plist["DirectoryService"]["params"]["node"] = "/LDAPv3/127.0.0.1"
 
     # For testing do not send iMIP messages!
     plist["Scheduling"]["iMIP"]["Enabled"] = False
