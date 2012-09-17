@@ -581,6 +581,27 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Self invite error'>
+		<test name='1' ignore='no'>
+			<description>POST invitation #2</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/self-error/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>403</name>
+						<value>$cuaddr1:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
