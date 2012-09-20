@@ -263,6 +263,114 @@
 				</verify>
 			</request>
 		</test>
+        <test name='7'>
+            <require-feature>
+                <feature>directory listing</feature>
+            </require-feature>
+            <description>Update of displayname property</description>
+            <request print-response="no">
+                <method>PROPPATCH</method>
+                <ruri>$calendarpath1:/</ruri>
+                <data>
+                    <content-type>text/xml; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/proppatches/10.xml</filepath>
+                </data>
+                <verify>
+                    <callback>propfindItems</callback>
+                    <arg>
+                        <name>okprops</name>
+                        <value>{DAV:}displayname</value>
+                    </arg>
+                </verify>
+            </request>
+            <request print-response="no">
+                <method>PROPFIND</method>
+                <ruri>$calendarpath1:/</ruri>
+                <header>
+                    <name>Depth</name>
+                    <value>0</value>
+                </header>
+                <data>
+                    <content-type>text/xml; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/proppatches/12.xml</filepath>
+                </data>
+                <verify>
+                    <callback>propfindItems</callback>
+                    <arg>
+                        <name>okprops</name>
+                        <value>{DAV:}displayname$LompyWickets</value>
+                    </arg>
+                </verify>
+            </request>
+            <request print-response="no">
+                <method>GET</method>
+                <ruri>$calendarpath1:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <verify>
+                    <callback>dataString</callback>
+                    <arg>
+                        <name>contains</name>
+                        <value>X-WR-CALNAME:LompyWickets</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+        <test name='8'>
+            <require-feature>
+                <feature>directory listing</feature>
+            </require-feature>
+            <description>Another update of displayname property</description>
+            <request print-response="no">
+                <method>PROPPATCH</method>
+                <ruri>$calendarpath1:/</ruri>
+                <data>
+                    <content-type>text/xml; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/proppatches/11.xml</filepath>
+                </data>
+                <verify>
+                    <callback>propfindItems</callback>
+                    <arg>
+                        <name>okprops</name>
+                        <value>{DAV:}displayname</value>
+                    </arg>
+                </verify>
+            </request>
+            <request print-response="no">
+                <method>PROPFIND</method>
+                <ruri>$calendarpath1:/</ruri>
+                <header>
+                    <name>Depth</name>
+                    <value>0</value>
+                </header>
+                <data>
+                    <content-type>text/xml; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/proppatches/12.xml</filepath>
+                </data>
+                <verify>
+                    <callback>propfindItems</callback>
+                    <arg>
+                        <name>okprops</name>
+                        <value>{DAV:}displayname$calendar</value>
+                    </arg>
+                </verify>
+            </request>
+            <request print-response="no">
+                <method>GET</method>
+                <ruri>$calendarpath1:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <verify>
+                    <callback>dataString</callback>
+                    <arg>
+                        <name>contains</name>
+                        <value>X-WR-CALNAME:calendar</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
 	</test-suite>
 	
 	<test-suite name='GET on home'>

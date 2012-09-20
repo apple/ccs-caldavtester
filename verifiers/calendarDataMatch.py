@@ -38,6 +38,7 @@ class Verifier(object):
         filters.append("DTSTAMP")
         filters.append("CREATED")
         filters.append("LAST-MODIFIED")
+        filters.append("X-WR-CALNAME")
 
         # status code must be 200, 201, 207
         if response.status not in (200, 201, 207):
