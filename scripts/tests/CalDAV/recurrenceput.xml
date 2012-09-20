@@ -141,6 +141,27 @@
 				</verify>
 			</request>
 		</test>
+		<test name='9' ignore='no'>
+			<description>PUT recurring with two exceptions 365 days apart</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/9.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrenceput/22.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/9.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='VTODOs' ignore='no'>
