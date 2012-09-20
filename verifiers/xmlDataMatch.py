@@ -23,26 +23,26 @@ from xml.etree.ElementTree import ElementTree, tostring
 import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         filters = args.get("filter", [])
- 
+
         # status code must be 200, 207
-        if response.status not in (200,207):
+        if response.status not in (200, 207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
+
         # look for response data
         if not respdata:
             return False, "        No response body"
-        
+
         # look for one file
         if len(files) != 1:
             return False, "        No file to compare response to"
-        
+
         # read in all data from specified file
-        fd = open( files[0], "r" )
+        fd = open(files[0], "r")
         try:
             try:
                 data = fd.read()
@@ -56,14 +56,14 @@ class Verifier(object):
 
         data = manager.server_info.subs(data)
         data = manager.server_info.extrasubs(data)
-        
+
         def normalizeXMLData(data):
             # Read in XML
             try:
                 tree = ElementTree(file=StringIO.StringIO(data))
             except Exception:
                 raise ValueError("Could not parse XML data")
-            
+
             # Apply filters
             for filter in filters:
                 for node in tree.getiterator(filter):
@@ -73,9 +73,9 @@ class Verifier(object):
         try:
             respdata = normalizeXMLData(respdata)
             data = normalizeXMLData(data)
-            
+
             result = respdata == data
-                    
+
             if result:
                 return True, ""
             else:

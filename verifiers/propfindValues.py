@@ -23,14 +23,14 @@ from StringIO import StringIO
 import re
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
 
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
 
         def normalizeXML(value):
-            
+
             if value[0] == '<':
                 try:
                     tree = ElementTree(file=StringIO(value))
@@ -38,7 +38,7 @@ class Verifier(object):
                     return False, "           Could not parse XML value: %s\n" % (value,)
                 value = tostring(tree.getroot())
             return value
-            
+
         # Get property arguments and split on $ delimited for name, value tuples
         testprops = args.get("props", [])
         props_match = []
@@ -58,16 +58,16 @@ class Verifier(object):
         # Process the multistatus response, extracting all hrefs
         # and comparing with the properties defined for this test. Report any
         # mismatches.
-        
+
         # Must have MULTISTATUS response code
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
-        
+
         try:
             tree = ElementTree(file=StringIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
-                
+
         result = True
         resulttxt = ""
         for response in tree.findall("{DAV:}response"):
@@ -79,7 +79,7 @@ class Verifier(object):
             href = href[0].text
             if href in ignores:
                 continue
-            
+
             # Get all property status
             ok_status_props = {}
             propstatus = response.findall("{DAV:}propstat")
@@ -93,19 +93,19 @@ class Verifier(object):
                         status = (statustxt[9] == "2")
                 else:
                     status = False
-                
+
                 # Get properties for this propstat
                 prop = props.findall("{DAV:}prop")
                 if len(prop) != 1:
                     return False, "           Wrong number of DAV:prop elements\n"
 
                 def _removeWhitespace(node):
-                    
+
                     for child in node.getchildren():
                         child.text = child.text.strip() if child.text else child.text
                         child.tail = child.tail.strip() if child.tail else child.tail
                         _removeWhitespace(child)
-                         
+
                 for child in prop[0].getchildren():
                     fqname = child.tag
                     if len(child):
@@ -117,10 +117,10 @@ class Verifier(object):
                         value = child.text
                     else:
                         value = None
-                    
+
                     if status:
                         ok_status_props[fqname] = value
-    
+
             # Look at each property we want to test and see if present
             for propname, value, match in props_match:
                 if propname not in ok_status_props:

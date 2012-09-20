@@ -22,9 +22,9 @@ from pycalendar.calendar import PyCalendar
 from pycalendar.exceptions import PyCalendarInvalidData
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
-        
+
         # Must have status 200
         if response.status != 200:
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
@@ -33,23 +33,23 @@ class Verifier(object):
         busy = args.get("busy", [])
         tentative = args.get("tentative", [])
         unavailable = args.get("unavailable", [])
-        
+
         # Parse data as calendar object
         try:
             calendar = PyCalendar.parseText(respdata)
-            
+
             # Check for calendar
             if calendar is None:
-                raise ValueError("Not a calendar: %s" % (respdata, ))
-            
+                raise ValueError("Not a calendar: %s" % (respdata,))
+
             # Only one component
             comps = calendar.getComponents("VFREEBUSY")
             if len(comps) != 1:
                 raise ValueError("Wrong number or unexpected components in calendar")
-            
+
             # Must be VFREEBUSY
             fb = comps[0]
-            
+
             # Extract periods
             busyp = []
             tentativep = []
@@ -71,13 +71,13 @@ class Verifier(object):
                     unavailablep.extend(periods)
                 else:
                     raise ValueError("Unknown FBTYPE: %s" % (fbtype,))
-            
+
             # Set sizes must match
             if ((len(busy) != len(busyp)) or
                 (len(unavailable) != len(unavailablep)) or
                 (len(tentative) != len(tentativep))):
                 raise ValueError("Period list sizes do not match.")
-            
+
             # Convert to string sets
             busy = set(busy)
             busyp = [x.getValue().getText() for x in busyp]
@@ -96,10 +96,10 @@ class Verifier(object):
                 raise ValueError("Busy-tentative periods do not match")
             elif len(unavailablep.symmetric_difference(unavailable)):
                 raise ValueError("Busy-unavailable periods do not match")
-                
+
         except PyCalendarInvalidData:
             return False, "        HTTP response data is not a calendar"
         except ValueError, txt:
             return False, "        HTTP response data is invalid: %s" % (txt,)
-            
+
         return True, ""

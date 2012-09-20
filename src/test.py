@@ -22,14 +22,14 @@ from src.request import request
 from src.xmlUtils import getYesNoAttributeValue
 import src.xmlDefs
 
-class test( object ):
+class test(object):
     """
     A single test which can be comprised of multiple requests. The test can
     be run more than once, and timing information gathered and averaged across
     all runs.
     """
-    
-    def __init__( self, manager ):
+
+    def __init__(self, manager):
         self.manager = manager
         self.name = ""
         self.details = False
@@ -40,14 +40,17 @@ class test( object ):
         self.exclude_features = set()
         self.description = ""
         self.requests = []
-    
+
+
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
 
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
 
-    def parseXML( self, node ):
+
+    def parseXML(self, node):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
         self.details = getYesNoAttributeValue(node, src.xmlDefs.ATTR_DETAILS)
         self.count = int(node.get(src.xmlDefs.ATTR_COUNT, 1))
@@ -56,21 +59,23 @@ class test( object ):
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child, require=True )
+                self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
-                self.parseFeatures( child, require=False )
+                self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
                 self.description = child.text
 
         # get request
-        self.requests = request.parseList( self.manager, node )
+        self.requests = request.parseList(self.manager, node)
+
 
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
-    def dump( self ):
+
+    def dump(self):
         print "\nTEST: %s" % self.name
         print "    description: %s" % self.description
         for req in self.requests:

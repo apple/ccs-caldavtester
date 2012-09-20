@@ -22,45 +22,50 @@ from src.test import test
 from src.xmlUtils import getYesNoAttributeValue
 import src.xmlDefs
 
-class testsuite( object ):
+class testsuite(object):
     """
     Maintains a list of tests to run as part of a 'suite'.
     """
-    
-    def __init__( self, manager ):
+
+    def __init__(self, manager):
         self.manager = manager
         self.name = ""
         self.ignore = False
         self.require_features = set()
         self.exclude_features = set()
         self.tests = []
-    
+
+
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
 
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
 
-    def parseXML( self, node ):
+
+    def parseXML(self, node):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
         self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child, require=True )
+                self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
-                self.parseFeatures( child, require=False )
+                self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_TEST:
                 t = test(self.manager)
-                t.parseXML( child )
-                self.tests.append( t )
+                t.parseXML(child)
+                self.tests.append(t)
+
 
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
-    def dump( self ):
+
+    def dump(self):
         print "\nTest Suite:"
         print "    name: %s" % self.name
         for iter in self.tests:

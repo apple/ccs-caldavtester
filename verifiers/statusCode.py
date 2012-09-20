@@ -19,11 +19,11 @@ Verifier that chec ks the response status code for a specific value.
 """
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
-        # If no status veriffication requested, then assume all 2xx codes are OK
+        # If no status verification requested, then assume all 2xx codes are OK
         teststatus = args.get("status", ["2xx"])
-        
+
         for test in teststatus:
             if test[1:3] == "xx":
                 test = int(test[0])
@@ -33,7 +33,7 @@ class Verifier(object):
                 result = ((response.status / 100) == test)
             else:
                 result = (response.status == test)
-            if result: return True, ""
-        
+            if result:
+                return True, ""
+
         return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-            

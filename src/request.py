@@ -87,6 +87,8 @@ def calcHA1(
 
     return HA1.encode('hex')
 
+
+
 # DigestCalcResponse
 def calcResponse(
     HA1,
@@ -124,16 +126,20 @@ def calcResponse(
     respHash = m.digest().encode('hex')
     return respHash
 
-class pause ( object ):
+
+
+class pause (object):
     pass
 
-class request( object ):
+
+
+class request(object):
     """
     Represents the HTTP request to be executed, and verifcation information to
     be used to determine a satisfactory output or not.
     """
-    
-    def __init__( self, manager ):
+
+    def __init__(self, manager):
         self.manager = manager
         self.auth = True
         self.user = ""
@@ -154,65 +160,72 @@ class request( object ):
         self.grabheader = []
         self.grabproperty = []
         self.grabelement = []
-    
+
+
     def __str__(self):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
+
 
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
+
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
 
-    def getURI( self, si ):
+
+    def getURI(self, si):
         uri = si.extrasubs(self.ruri)
         if "**" in uri:
             uri = uri.replace("**", str(uuid.uuid4()))
         elif "##" in uri:
             uri = uri.replace("##", str(self.count))
         return uri
-        
-    def getHeaders( self, si ):
+
+
+    def getHeaders(self, si):
         hdrs = self.headers
         for key, value in hdrs.items():
             hdrs[key] = si.extrasubs(value)
-        
+
         # Content type
         if self.data != None:
             hdrs["Content-Type"] = self.data.content_type
-        
+
         # Auth
         if self.auth:
             if si.authtype.lower() == "digest":
-                hdrs["Authorization"] = self.gethttpdigestauth( si )
+                hdrs["Authorization"] = self.gethttpdigestauth(si)
             else:
-                hdrs["Authorization"] = self.gethttpbasicauth( si )
-        
+                hdrs["Authorization"] = self.gethttpbasicauth(si)
+
         return hdrs
 
-    def gethttpbasicauth( self, si ):
+
+    def gethttpbasicauth(self, si):
         basicauth = [self.user, si.user][self.user == ""]
         basicauth += ":"
         basicauth += [self.pswd, si.pswd][self.pswd == ""]
-        basicauth = "Basic " + base64.encodestring( basicauth )
-        basicauth = basicauth.replace( "\n", "" )
+        basicauth = "Basic " + base64.encodestring(basicauth)
+        basicauth = basicauth.replace("\n", "")
         return basicauth
 
-    def gethttpdigestauth( self, si, wwwauthorize=None ):
-        
+
+    def gethttpdigestauth(self, si, wwwauthorize=None):
+
         # Check the nonce cache to see if we've used this user before
         user = [self.user, si.user][self.user == ""]
         pswd = [self.pswd, si.pswd][self.pswd == ""]
         details = None
-        if self.manager.digestCache.has_key(user):
+        if user in self.manager.digestCache:
             details = self.manager.digestCache[user]
         else:
-            http = SmartHTTPConnection( si.host, si.port, si.ssl )
+            http = SmartHTTPConnection(si.host, si.port, si.ssl)
             try:
-                http.request( "OPTIONS", self.getURI(si) )
-            
+                http.request("OPTIONS", self.getURI(si))
+
                 response = http.getresponse()
-    
+
             finally:
                 http.close()
 
@@ -228,12 +241,12 @@ class request( object ):
                             return s[1:-1]
                         return s
                     parts = wwwauthorize.split(',')
-            
+
                     details = {}
-        
+
                     for (k, v) in [p.split('=', 1) for p in parts]:
                         details[k.strip()] = unq(v.strip())
-                        
+
                     self.manager.digestCache[user] = details
                     break
 
@@ -242,34 +255,36 @@ class request( object ):
                 calcHA1(details.get('algorithm'), user, details.get('realm'), pswd, details.get('nonce'), details.get('cnonce')),
                 details.get('algorithm'), details.get('nonce'), details.get('nc'), details.get('cnonce'), details.get('qop'), self.method, self.getURI(si), None
             )
-    
+
             if details.get('qop'):
                 response = ('Digest username="%s", realm="%s", '
                         'nonce="%s", uri="%s", '
-                        'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'), ))
+                        'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'),))
             else:
                 response = ('Digest username="%s", realm="%s", '
                         'nonce="%s", uri="%s", '
-                        'response=%s, algorithm=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), ))
-    
+                        'response=%s, algorithm=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'),))
+
             return response
         else:
             return ""
 
-    def getFilePath( self ):
+
+    def getFilePath(self):
         if self.data != None:
             return self.data.filepath
         else:
             return ""
 
-    def getData( self ):
+
+    def getData(self):
         data = ""
         if self.data != None:
             if len(self.data.value) != 0:
                 data = self.data.value
             else:
                 # read in the file data
-                fd = open( self.data.filepath, "r" )
+                fd = open(self.data.filepath, "r")
                 try:
                     data = fd.read()
                 finally:
@@ -280,25 +295,27 @@ class request( object ):
                 if self.data.content_type.startswith("text/calendar"):
                     data = self.generateCalendarData(data)
         return data
-    
-    def generateCalendarData( self, data ):
+
+
+    def generateCalendarData(self, data):
         """
         FIXME: does not work for events with recurrence overrides.
         """
-        
+
         # Change the following iCalendar data values:
         # DTSTART, DTEND, RECURRENCE-ID, UID
-        
+
         data = re.sub("UID:.*", "UID:%s" % (uuid.uuid4(),), data)
         data = re.sub("SUMMARY:(.*)", "SUMMARY:\\1 #%s" % (self.count,), data)
-        
+
         now = datetime.date.today()
         data = re.sub("(DTSTART;[^:]*):[0-9]{8,8}", "\\1:%04d%02d%02d" % (now.year, now.month, now.day,), data)
         data = re.sub("(DTEND;[^:]*):[0-9]{8,8}", "\\1:%04d%02d%02d" % (now.year, now.month, now.day,), data)
 
         return data
 
-    def parseXML( self, node ):
+
+    def parseXML(self, node):
         self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
         self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
         self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, "").encode("utf-8"))
@@ -308,9 +325,9 @@ class request( object ):
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child, require=True )
+                self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
-                self.parseFeatures( child, require=False )
+                self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_METHOD:
                 self.method = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_HEADER:
@@ -321,10 +338,10 @@ class request( object ):
                     self.ruri = self.ruris[0]
             elif child.tag == src.xmlDefs.ELEMENT_DATA:
                 self.data = data()
-                self.data.parseXML( child )
+                self.data.parseXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
-                self.verifiers[-1].parseXML( child )
+                self.verifiers[-1].parseXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_GRABURI:
                 self.graburi = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_GRABHEADER:
@@ -334,13 +351,15 @@ class request( object ):
             elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseMultiGrab(child, self.grabelement)
 
+
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
 
+
     def parseHeader(self, node):
-        
+
         name = None
         value = None
         for child in node.getchildren():
@@ -348,25 +367,26 @@ class request( object ):
                 name = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_VALUE:
                 value = self.manager.server_info.subs(child.text.encode("utf-8"))
-        
+
         if (name is not None) and (value is not None):
             self.headers[name] = value
-            
-    def parseList( manager, node ):
+
+
+    def parseList(manager, node):
         requests = []
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUEST:
                 req = request(manager)
-                req.parseXML( child )
-                requests.append( req )
+                req.parseXML(child)
+                requests.append(req)
             elif child.tag == src.xmlDefs.ELEMENT_PAUSE:
                 requests.append(pause())
         return requests
-                
-    parseList = staticmethod( parseList )
+
+    parseList = staticmethod(parseList)
 
     def parseGrab(self, node, appendto):
-        
+
         name = None
         variable = None
         for child in node.getchildren():
@@ -374,12 +394,13 @@ class request( object ):
                 name = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
                 variable = self.manager.server_info.subs(child.text.encode("utf-8"))
-        
+
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
 
+
     def parseMultiGrab(self, node, appendto):
-        
+
         name = None
         variable = None
         for child in node.getchildren():
@@ -389,23 +410,26 @@ class request( object ):
                 if variable is None:
                     variable = []
                 variable.append(self.manager.server_info.subs(child.text.encode("utf-8")))
-        
+
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
-    
-class data( object ):
+
+
+
+class data(object):
     """
     Represents the data/body portion of an HTTP request.
     """
 
-    def __init__( self ):
+    def __init__(self):
         self.content_type = ""
         self.filepath = ""
         self.value = ""
         self.substitute = False
         self.generate = False
-    
-    def parseXML( self, node ):
+
+
+    def parseXML(self, node):
 
         self.substitute = node.get(src.xmlDefs.ATTR_SUBSTITUTIONS, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
         self.generate = node.get(src.xmlDefs.ATTR_GENERATE, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
@@ -416,62 +440,71 @@ class data( object ):
             elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
                 self.filepath = child.text.encode("utf-8")
 
-class verify( object ):
+
+
+class verify(object):
     """
     Defines how the result of a request should be verified. This is done
     by passing the response and response data to a callback with a set of arguments
     specified in the test XML config file. The callback name is in the XML config
     file also and is dynamically loaded to do the verification.
     """
-    
-    def __init__( self, manager ):
+
+    def __init__(self, manager):
         self.manager = manager
         self.require_features = set()
         self.exclude_features = set()
         self.callback = None
         self.args = {}
-    
+
+
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
 
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
 
+
     def doVerify(self, uri, response, respdata):
-        
+
         # Re-do substitutions from values generated during the current test run
         if self.manager.server_info.hasextrasubs():
             for name, values in self.args.iteritems():
                 newvalues = [self.manager.server_info.extrasubs(value) for value in values]
                 self.args[name] = newvalues
-                
+
         verifierClass = self._importName("verifiers." + self.callback, "Verifier")
         verifier = verifierClass()
         return verifier.verify(self.manager, uri, response, respdata, self.args)
+
 
     def _importName(self, modulename, name):
         """
         Import a named object from a module in the context of this function.
         """
-        module = __import__(modulename, globals( ), locals( ), [name])
+        module = __import__(modulename, globals(), locals(), [name])
         return getattr(module, name)
 
-    def parseXML( self, node ):
+
+    def parseXML(self, node):
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
-                self.parseFeatures( child, require=True )
+                self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
-                self.parseFeatures( child, require=False )
+                self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_CALLBACK:
                 self.callback = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
 
+
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+
 
     def parseArgXML(self, node):
         name = None
@@ -487,19 +520,23 @@ class verify( object ):
         if name and len(values):
             self.args[name] = values
 
-class stats( object ):
+
+
+class stats(object):
     """
     Maintains stats about the current test.
     """
-    
+
     def __init__(self):
         self.count = 0
         self.totaltime = 0.0
         self.currenttime = 0.0
-        
+
+
     def startTimer(self):
         self.currenttime = time.time()
-        
+
+
     def endTimer(self):
         self.count += 1
         self.totaltime += time.time() - self.currenttime

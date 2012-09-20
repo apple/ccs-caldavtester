@@ -23,37 +23,37 @@ Verifier that checks the response body for a semantic match to data in a file.
 """
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         caldata = args.get("data", [])
         filters = args.get("filter", [])
-        
+
         if "EMAIL parameter" not in manager.server_info.features:
-            filters.append("ATTENDEE:EMAIL") 
+            filters.append("ATTENDEE:EMAIL")
             filters.append("ORGANIZER:EMAIL")
         filters.append("CALSCALE")
         filters.append("PRODID")
         filters.append("DTSTAMP")
         filters.append("CREATED")
         filters.append("LAST-MODIFIED")
- 
+
         # status code must be 200, 201, 207
-        if response.status not in (200,201,207):
+        if response.status not in (200, 201, 207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
+
         # look for response data
         if not respdata:
             return False, "        No response body"
-        
+
         # look for one file
         if len(files) != 1 and len(caldata) != 1:
             return False, "        No file to compare response to"
-        
+
         # read in all data from specified file or use provided data
         if len(files):
-            fd = open( files[0], "r" )
+            fd = open(files[0], "r")
             try:
                 try:
                     data = fd.read()
@@ -68,21 +68,21 @@ class Verifier(object):
             return False, "        Could not read data file"
 
         data = manager.server_info.subs(data)
-        
+
         def removePropertiesParameters(component):
-            
+
             for subcomponent in component.getComponents():
                 removePropertiesParameters(subcomponent)
 
             allProps = []
             for properties in component.getProperties().itervalues():
                 allProps.extend(properties)
-            for property in allProps:                    
+            for property in allProps:
                 # Always reset DTSTAMP on this X- prop
                 if property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
                     if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
                         property.replaceAttribute(PyCalendarAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
-                        
+
                 for filter in filters:
                     if ":" in filter:
                         propname, parameter = filter.split(":")
@@ -97,13 +97,13 @@ class Verifier(object):
             resp_calendar = PyCalendar.parseText(respdata)
             removePropertiesParameters(resp_calendar)
             respdata = resp_calendar.getText()
-            
+
             data_calendar = PyCalendar.parseText(data)
             removePropertiesParameters(data_calendar)
             data = data_calendar.getText()
-            
+
             result = respdata == data
-                    
+
             if result:
                 return True, ""
             else:

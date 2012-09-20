@@ -23,19 +23,19 @@ from xml.etree.ElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
 
         granted = args.get("granted", [])
         denied = args.get("denied", [])
-        
+
         # Process the multistatus response, extracting all current-user-privilege-set elements
         # and check to see that each required privilege is present, or that denied ones are not.
-        
+
         # Must have MULTISTATUS response code
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
-            
+
         try:
             tree = ElementTree(file=StringIO(respdata))
         except Exception:
@@ -60,28 +60,28 @@ class Verifier(object):
                 for privilege in privileges:
                     for child in privilege.getchildren():
                         granted_privs.append(child.tag)
-    
-            granted_result_set = set( granted_privs )
-            granted_test_set = set( granted )
-            denied_test_set = set( denied )
-            
+
+            granted_result_set = set(granted_privs)
+            granted_test_set = set(granted)
+            denied_test_set = set(denied)
+
             # Now do set difference
-            granted_missing = granted_test_set.difference( granted_result_set )
-            denied_present = granted_result_set.intersection( denied_test_set )
-            
-            if len( granted_missing ) + len( denied_present ) != 0:
-                if len( granted_missing ) != 0:
-                    l = list( granted_missing )
+            granted_missing = granted_test_set.difference(granted_result_set)
+            denied_present = granted_result_set.intersection(denied_test_set)
+
+            if len(granted_missing) + len(denied_present) != 0:
+                if len(granted_missing) != 0:
+                    l = list(granted_missing)
                     resulttxt += "        Missing privileges not granted for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( denied_present ) != 0:
-                    l = list( denied_present )
+                if len(denied_present) != 0:
+                    l = list(denied_present)
                     resulttxt += "        Available privileges that should be denied for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
                 result = False
-            
+
         return result, resulttxt

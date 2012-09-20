@@ -22,24 +22,24 @@ from xml.etree.ElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # If no status verification requested, then assume all 2xx codes are OK
         teststatus = args.get("error", [])
         statusCode = args.get("status", ["403", "409", "507"])
-        
+
         # status code could be anything, but typically 403, 409 or 507
         if str(response.status) not in statusCode:
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
+
         # look for pre-condition data
         if not respdata:
             return False, "        No pre/post condition response body"
-            
+
         try:
             tree = ElementTree(file=StringIO(respdata))
         except Exception, ex:
-            return False, "        Could not parse XML: %s" %(ex,)
+            return False, "        Could not parse XML: %s" % (ex,)
 
         if tree.getroot().tag != "{DAV:}error":
             return False, "        Missing <DAV:error> element in response"
@@ -50,10 +50,10 @@ class Verifier(object):
         for child in tree.getroot().getchildren():
             if child.tag != "{http://twistedmatrix.com/xml_namespace/dav/}error-description":
                 got.add(child.tag)
-        
+
         missing = expected.difference(got)
         extras = got.difference(expected)
-        
+
         err_txt = ""
         if len(missing):
             err_txt += "        Items not returned in error: element %s" % str(missing)
@@ -65,4 +65,3 @@ class Verifier(object):
             return False, err_txt
 
         return True, ""
-            

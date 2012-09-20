@@ -21,7 +21,7 @@ Verifier that checks the response headers for a specific value.
 import re
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Split into header/value tuples
         testheader = args.get("header", [])[:]
@@ -40,7 +40,7 @@ class Verifier(object):
                 testheader[i] = (p.split("!", 1)[0], p.split("!", 1)[1], present, False,)
             else:
                 testheader[i] = (p, None, present, True,)
-        
+
         result = True
         resulttxt = ""
         for hdrname, hdrvalue, presence, matchvalue in testheader:
@@ -61,21 +61,21 @@ class Verifier(object):
                     resulttxt += "\n"
                 resulttxt += "        Response Header was present one or more times: %s" % (hdrname,)
                 continue
-               
+
             if (len(hdrs) != 1) and (presence == "single"):
                 result = False
                 if len(resulttxt):
                     resulttxt += "\n"
                 resulttxt += "        Multiple Response Headers: %s" % (hdrname,)
                 continue
-            
+
             if (hdrvalue is not None):
                 matched = False
                 for hdr in hdrs:
                     if (re.match(hdrvalue, hdr) is not None):
                         matched = True
                         break
-                        
+
                 if matchvalue and not matched or not matchvalue and matched:
                     result = False
                     if len(resulttxt):
@@ -83,4 +83,3 @@ class Verifier(object):
                     resulttxt += "        Wrong Response Header Value: %s: %s" % (hdrname, str(hdrs))
 
         return result, resulttxt
-            

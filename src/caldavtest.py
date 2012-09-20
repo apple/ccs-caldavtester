@@ -35,12 +35,12 @@ import src.xmlDefs
 import sys
 import time
 
-STATUSTXT_WIDTH    = 60
+STATUSTXT_WIDTH = 60
 
 """
 Patch the HTTPConnection.send to record full request details
 """
-    
+
 httplib.HTTPConnection._send = httplib.HTTPConnection.send
 
 def recordRequestHeaders(self, str):
@@ -52,7 +52,7 @@ def recordRequestHeaders(self, str):
 httplib.HTTPConnection.send = recordRequestHeaders
 
 def getVersionStringFromResponse(response):
-    
+
     if response.version == 9:
         return "HTTP/0.9"
     elif response.version == 10:
@@ -62,9 +62,11 @@ def getVersionStringFromResponse(response):
     else:
         return "HTTP/?.?"
 
+
+
 class caldavtest(object):
-    
-    def __init__( self, manager, name ):
+
+    def __init__(self, manager, name):
         self.manager = manager
         self.name = name
         self.description = ""
@@ -76,14 +78,17 @@ class caldavtest(object):
         self.end_deletes = []
         self.suites = []
         self.grabbedlocation = None
-        
+
+
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
+
 
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
 
-    def run( self ):
+
+    def run(self):
         if len(self.missingFeatures()) != 0:
             self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
             self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
@@ -92,10 +97,10 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
             self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(self.excludedFeatures())),))
             return 0, 0, 1
-            
+
         try:
             self.manager.log(manager.LOG_HIGH, "----- Running Tests from \"%s\"... -----" % self.name, before=1)
-            result = self.dorequests( "Executing Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS") )
+            result = self.dorequests("Executing Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
             if not result:
                 self.manager.log(manager.LOG_ERROR, "Start items failed - tests will not be run.")
                 ok = 0
@@ -103,8 +108,8 @@ class caldavtest(object):
                 ignored = 0
             else:
                 ok, failed, ignored = self.run_tests(label=self.name)
-            self.doenddelete( "Deleting Requests...", label="%s | %s" % (self.name, "END_DELETE"))
-            self.dorequests( "Executing End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
+            self.doenddelete("Deleting Requests...", label="%s | %s" % (self.name, "END_DELETE"))
+            self.dorequests("Executing End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
             return ok, failed, ignored
         except socket.error, msg:
             self.manager.log(manager.LOG_ERROR, "SOCKET ERROR: %s" % (msg,), before=2)
@@ -112,19 +117,21 @@ class caldavtest(object):
         except Exception, e:
             self.manager.log(manager.LOG_ERROR, "FATAL ERROR: %s" % (e,), before=2)
             return 0, 1, 0
-        
-    def run_tests( self, label = "" ):
+
+
+    def run_tests(self, label=""):
         ok = 0
         failed = 0
         ignored = 0
         for suite in self.suites:
-            o, f, i = self.run_test_suite( suite, label="%s | %s" % (label, suite.name) )
+            o, f, i = self.run_test_suite(suite, label="%s | %s" % (label, suite.name))
             ok += o
             failed += f
             ignored += i
         return (ok, failed, ignored)
-    
-    def run_test_suite( self, suite, label = "" ):
+
+
+    def run_test_suite(self, suite, label=""):
         descriptor = "    Test Suite: %s" % suite.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
@@ -150,7 +157,7 @@ class caldavtest(object):
                 start_usage = self.manager.getMemusage()
             etags = {}
             for test in suite.tests:
-                result = self.run_test( test, etags, label="%s | %s" % (label, test.name) )
+                result = self.run_test(test, etags, label="%s | %s" % (label, test.name))
                 if result == "t":
                     ok += 1
                 elif result == "f":
@@ -160,13 +167,14 @@ class caldavtest(object):
             if self.manager.memUsage:
                 end_usage = self.manager.getMemusage()
                 print start_usage, end_usage
-                self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100)/start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100)/start_usage[0]))) 
+                self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100) / start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100) / start_usage[0])))
         self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
         if postgresCount is not None:
             self.postgresResult(postgresCount, indent=4)
         return (ok, failed, ignored)
-            
-    def run_test( self, test, etags, label = "" ):
+
+
+    def run_test(self, test, etags, label=""):
         descriptor = "        Test: %s" % test.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
@@ -191,7 +199,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
                 for req in test.requests:
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, test.details, True, False, reqstats, etags = etags, label=label, count=ctr+1 )
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label=label, count=ctr + 1)
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -200,18 +208,19 @@ class caldavtest(object):
                 self.manager.log(loglevel, resulttxt)
             if result and test.stats:
                 self.manager.log(manager.LOG_MEDIUM, "Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
-                self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime/reqstats.count,), indent=8)
+                self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8)
             self.postgresResult(postgresCount, indent=8)
             return ["f", "t"][result]
-    
-    def dorequests( self, description, list, doverify = True, forceverify = False, label = "", count = 1 ):
+
+
+    def dorequests(self, description, list, doverify=True, forceverify=False, label="", count=1):
         if len(list) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
         ctr = 1
         for req in list:
-            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest( req, False, doverify, forceverify, label=label, count=count )
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, False, doverify, forceverify, label=label, count=count)
             if not result:
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
                 break
@@ -221,8 +230,9 @@ class caldavtest(object):
         if len(resulttxt) > 0:
             self.manager.log(loglevel, resulttxt)
         return result
-    
-    def dofindall( self, collection, label = "" ):
+
+
+    def dofindall(self, collection, label=""):
         hrefs = []
         req = request(self.manager)
         req.method = "PROPFIND"
@@ -242,26 +252,27 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label=label )
+        result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label=label)
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
                 tree = ElementTree(file=StringIO(respdata))
             except Exception:
                 return ()
 
-            request_uri = req.getURI( self.manager.server_info )
+            request_uri = req.getURI(self.manager.server_info)
             for response in tree.findall("{DAV:}response"):
-    
+
                 # Get href for this response
                 href = response.findall("{DAV:}href")
                 if len(href) != 1:
                     return False, "           Wrong number of DAV:href elements\n"
                 href = href[0].text
                 if href != request_uri:
-                    hrefs.append((href, collection[1], collection[2]) )
+                    hrefs.append((href, collection[1], collection[2]))
         return hrefs
 
-    def dodeleteall( self, deletes, label = "" ):
+
+    def dodeleteall(self, deletes, label=""):
         if len(deletes) == 0:
             return True
         for deleter in deletes:
@@ -273,9 +284,10 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            self.dorequest( req, False, False, label=label )
+            self.dorequest(req, False, False, label=label)
 
-    def dofindnew( self, collection, label = "" ):
+
+    def dofindnew(self, collection, label=""):
         hresult = ""
         req = request(self.manager)
         req.method = "PROPFIND"
@@ -296,7 +308,7 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s" % (label, "FINDNEW") )
+        result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
                 tree = ElementTree(file=StringIO(respdata))
@@ -304,9 +316,9 @@ class caldavtest(object):
                 return hresult
 
             latest = 0
-            request_uri = req.getURI( self.manager.server_info )
-            for response in tree.findall("{DAV:}response" ):
-    
+            request_uri = req.getURI(self.manager.server_info)
+            for response in tree.findall("{DAV:}response"):
+
                 # Get href for this response
                 href = response.findall("{DAV:}href")
                 if len(href) != 1:
@@ -326,7 +338,7 @@ class caldavtest(object):
                                 status = (statustxt[9] == "2")
                         else:
                             status = False
-                        
+
                         # Get properties for this propstat
                         prop = props.findall("{DAV:}prop")
                         for el in prop:
@@ -344,8 +356,9 @@ class caldavtest(object):
 
         return hresult
 
-    def dowaitcount( self, collection, count, label = ""):
-        
+
+    def dowaitcount(self, collection, count, label=""):
+
         for _ignore in range(30):
             req = request(self.manager)
             req.method = "PROPFIND"
@@ -365,14 +378,14 @@ class caldavtest(object):
 </D:propfind>
 """
             req.data.content_type = "text/xml"
-            result, _ignore_resulttxt, response, respdata = self.dorequest( req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count) )
+            result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count))
             ctr = 0
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
                 tree = ElementTree(file=StringIO(respdata))
 
                 for response in tree.findall("{DAV:}response"):
                     ctr += 1
-                
+
                 if ctr - 1 == count:
                     return True
             delay = 1
@@ -382,8 +395,9 @@ class caldavtest(object):
         else:
             return False
 
-    def dowaitchanged( self, uri, etag, user, pswd, label = "" ):
-        
+
+    def dowaitchanged(self, uri, etag, user, pswd, label=""):
+
         for _ignore in range(30):
             req = request(self.manager)
             req.method = "HEAD"
@@ -393,7 +407,7 @@ class caldavtest(object):
                 req.user = user
             if pswd:
                 req.pswd = pswd
-            result, _ignore_resulttxt, response,  _ignore_respdata = self.dorequest( req, False, False, label="%s | %s" % (label, "WAITCHANGED") )
+            result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "WAITCHANGED"))
             if result and (response is not None):
                 if response.status / 100 == 2:
                     hdrs = response.msg.getheaders("Etag")
@@ -412,7 +426,8 @@ class caldavtest(object):
 
         return True
 
-    def doenddelete( self, description, label = "" ):
+
+    def doenddelete(self, description, label=""):
         if len(self.end_deletes) == 0:
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
@@ -426,11 +441,12 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            self.dorequest( req, False, False, label=label )
+            self.dorequest(req, False, False, label=label)
         self.manager.log(manager.LOG_HIGH, "[DONE]")
-    
-    def dorequest( self, req, details=False, doverify = True, forceverify = False, stats = None, etags = None, label = "", count = 1 ):
-        
+
+
+    def dorequest(self, req, details=False, doverify=True, forceverify=False, stats=None, etags=None, label="", count=1):
+
         req.count = count
 
         if isinstance(req, pause):
@@ -438,7 +454,7 @@ class caldavtest(object):
             print "Paused"
             sys.stdin.readline()
             return True, "", None, None
-            
+
         if len(req.missingFeatures()) != 0:
             #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             #self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(req.missingFeatures())),))
@@ -455,7 +471,7 @@ class caldavtest(object):
                 hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
                 self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
             return True, "", None, None
-        
+
         # Special for delay
         elif req.method == "DELAY":
             # self.ruri contains a numeric delay in seconds
@@ -471,7 +487,7 @@ class caldavtest(object):
             self.grabbedlocation = self.dofindnew(collection, label=label)
             req.method = "GET"
             req.ruri = "$"
-            
+
         # Special check for WAITCOUNT
         elif req.method.startswith("WAITCOUNT"):
             count = int(req.method[10:])
@@ -491,24 +507,24 @@ class caldavtest(object):
             sys.stdin.readline()
             return True, "", None, None
 
-        result = True;
+        result = True
         resulttxt = ""
         response = None
         respdata = None
 
         method = req.method
-        uri = req.getURI( self.manager.server_info )
+        uri = req.getURI(self.manager.server_info)
         if (uri == "$"):
             uri = self.grabbedlocation
-        headers = req.getHeaders( self.manager.server_info )
+        headers = req.getHeaders(self.manager.server_info)
         data = req.getData()
-        
+
         # Cache delayed delete
         if req.end_delete:
-            self.end_deletes.append( (uri, req.user, req.pswd) )
+            self.end_deletes.append((uri, req.user, req.pswd))
 
         if details:
-            resulttxt += "        %s: %s\n" % ( method, uri )
+            resulttxt += "        %s: %s\n" % (method, uri)
 
         # Special for GETCHANGED
         if req.method == "GETCHANGED":
@@ -522,48 +538,48 @@ class caldavtest(object):
             stats.startTimer()
 
         # Do the http request
-        http = SmartHTTPConnection( self.manager.server_info.host, self.manager.server_info.port, self.manager.server_info.ssl )
+        http = SmartHTTPConnection(self.manager.server_info.host, self.manager.server_info.port, self.manager.server_info.ssl)
 
-        if not headers.has_key('User-Agent') and label is not None:
+        if not 'User-Agent' in headers and label is not None:
             headers['User-Agent'] = label.encode("utf-8")
 
         try:
             #self.manager.log(manager.LOG_LOW, "Sending request")
-            http.request( method, uri, data, headers )
+            http.request(method, uri, data, headers)
             #self.manager.log(manager.LOG_LOW, "Sent request")
-        
+
             response = http.getresponse()
-        
+
             respdata = None
             respdata = response.read()
             #self.manager.log(manager.LOG_LOW, "Read response")
 
         finally:
             http.close()
-        
+
             # Stop request timer before verification
             if stats:
                 stats.endTimer()
 
         if doverify and (respdata != None):
-            result, txt = self.verifyrequest( req, uri, response, respdata )
+            result, txt = self.verifyrequest(req, uri, response, respdata)
             resulttxt += txt
         elif forceverify:
             result = (response.status / 100 == 2)
             if not result:
                 resulttxt += "Status Code Error: %d" % response.status
-        
+
         if req.print_request or (self.manager.print_request_response_on_error and not result):
             resulttxt += "\n-------BEGIN:REQUEST-------\n"
             resulttxt += http.requestData
             resulttxt += "\n--------END:REQUEST--------\n"
-        
+
         if req.print_response or (self.manager.print_request_response_on_error and not result):
             resulttxt += "\n-------BEGIN:RESPONSE-------\n"
             resulttxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
             resulttxt += str(response.msg) + "\n" + respdata
             resulttxt += "\n--------END:RESPONSE--------\n"
-        
+
         if etags is not None and req.method == "GET":
             hdrs = response.msg.getheaders("Etag")
             if hdrs:
@@ -571,7 +587,7 @@ class caldavtest(object):
 
         if req.graburi:
             self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
-            
+
         if req.grabheader:
             for hdrname, variable in req.grabheader:
                 hdrs = response.msg.getheaders(hdrname)
@@ -608,11 +624,12 @@ class caldavtest(object):
 
         return result, resulttxt, response, respdata
 
-    def verifyrequest( self, req, uri, response, respdata ):
-        
-        result = True;
+
+    def verifyrequest(self, req, uri, response, respdata):
+
+        result = True
         resulttxt = ""
-        
+
         # check for response
         if len(req.verifiers) == 0:
             return result, resulttxt
@@ -640,7 +657,8 @@ class caldavtest(object):
                 resulttxt = ""
             return result, resulttxt
 
-    def parseXML( self, node ):
+
+    def parseXML(self, node):
         self.ignore_all = node.get(src.xmlDefs.ATTR_IGNORE_ALL, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
         for child in node.getchildren():
@@ -658,11 +676,13 @@ class caldavtest(object):
                 self.suites.append(suite)
             elif child.tag == src.xmlDefs.ELEMENT_END:
                 self.end_requests = request.parseList(self.manager, child)
-    
+
+
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+
 
     def extractProperty(self, propertyname, respdata):
 
@@ -670,7 +690,7 @@ class caldavtest(object):
             tree = ElementTree(file=StringIO(respdata))
         except Exception:
             return None
-                
+
         for response in tree.findall("{DAV:}response"):
             # Get all property status
             propstatus = response.findall("{DAV:}propstat")
@@ -684,7 +704,7 @@ class caldavtest(object):
                         status = (statustxt[9] == "2")
                 else:
                     status = False
-                
+
                 if not status:
                     continue
 
@@ -704,12 +724,12 @@ class caldavtest(object):
                             value += temp
                     else:
                         value = child.text
-                    
+
                     if fqname == propertyname:
                         return value
 
         return None
-    
+
 
     def extractElement(self, elementpath, respdata):
 
@@ -718,7 +738,7 @@ class caldavtest(object):
             tree.parse(StringIO(respdata))
         except:
             return None
-        
+
         # Strip off the top-level item
         if elementpath[0] == '/':
             elementpath = elementpath[1:]
@@ -730,12 +750,13 @@ class caldavtest(object):
                 return tree.getroot().text
             else:
                 elementpath = splits[1]
-                
+
         e = tree.find(elementpath)
         if e is not None:
             return e.text
         else:
             return None
+
 
     def extractElements(self, elementpath, respdata):
 
@@ -744,7 +765,7 @@ class caldavtest(object):
             tree.parse(StringIO(respdata))
         except:
             return None
-        
+
         # Strip off the top-level item
         if elementpath[0] == '/':
             elementpath = elementpath[1:]
@@ -756,12 +777,13 @@ class caldavtest(object):
                 return tree.getroot().text
             else:
                 elementpath = splits[1]
-                
+
         e = tree.findall(elementpath)
         if e is not None:
             return [item.text for item in e]
         else:
             return None
+
 
     def postgresInit(self):
         """
@@ -772,9 +794,10 @@ class caldavtest(object):
                 return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
 
         return 0
-        
+
+
     def postgresResult(self, startCount, indent):
-        
+
         if self.manager.postgresLog:
             if os.path.exists(self.manager.postgresLog):
                 newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
