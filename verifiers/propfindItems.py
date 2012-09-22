@@ -23,7 +23,7 @@ from xml.etree.ElementTree import ElementTree, tostring
 from StringIO import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
 
         # If no status verification requested, then assume all 2xx codes are OK
@@ -52,7 +52,7 @@ class Verifier(object):
             status = 207
 
         def normalizeXML(value):
-            
+
             if value[0] == '<':
                 try:
                     tree = ElementTree(file=StringIO(value))
@@ -87,13 +87,13 @@ class Verifier(object):
             else:
                 badprops[i] = (p, None)
 
-        ok_test_set = set( ok_props_match )
-        bad_test_set = set( badprops )
-        
+        ok_test_set = set(ok_props_match)
+        bad_test_set = set(badprops)
+
         # Process the multistatus response, extracting all hrefs
         # and comparing with the set defined for this test. Report any
         # mismatches.
-        
+
         # Must have MULTISTATUS response code
         if response.status != status:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
@@ -103,7 +103,7 @@ class Verifier(object):
             tree = ElementTree(file=StringIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
-        
+
         # Test root element
         if tree.getroot().tag != root:
             return False, "           Invalid root-element specified: %s\n" % (root,)
@@ -122,7 +122,7 @@ class Verifier(object):
                 continue
             if only and href not in only:
                 continue
-            
+
             if count is not None:
                 ctr += 1
                 continue
@@ -141,7 +141,7 @@ class Verifier(object):
                         status = (statustxt[9] == "2")
                 else:
                     status = False
-                
+
                 # Get properties for this propstat
                 prop = props.find("{DAV:}prop")
                 if not prop:
@@ -172,53 +172,53 @@ class Verifier(object):
                                 value = None
                     else:
                         value = None
-                    
+
                     if status:
-                        ok_status_props.append( (fqname, value,) )
+                        ok_status_props.append((fqname, value,))
                     else:
-                        bad_status_props.append( (fqname, value,) )
-    
-            ok_result_set = set( ok_status_props )
-            bad_result_set = set( bad_status_props )
-            
+                        bad_status_props.append((fqname, value,))
+
+            ok_result_set = set(ok_status_props)
+            bad_result_set = set(bad_status_props)
+
             # Now do set difference
-            ok_missing = ok_test_set.difference( ok_result_set )
-            ok_extras = ok_result_set.difference( ok_test_set )
-            bad_missing = bad_test_set.difference( bad_result_set )
-            bad_extras = bad_result_set.difference( bad_test_set )
-            
+            ok_missing = ok_test_set.difference(ok_result_set)
+            ok_extras = ok_result_set.difference(ok_test_set)
+            bad_missing = bad_test_set.difference(bad_result_set)
+            bad_extras = bad_result_set.difference(bad_test_set)
+
             # Now remove extras that are in the no-match set
             for name, value in [p for p in ok_extras]:
-                if okprops_nomatch.has_key(name) and okprops_nomatch[name] != value:
+                if name in okprops_nomatch and okprops_nomatch[name] != value:
                     ok_extras.remove((name, value))
-                    
-            if len( ok_missing ) + len( ok_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
-                if len( ok_missing ) != 0:
-                    l = list( ok_missing )
+
+            if len(ok_missing) + len(ok_extras) + len(bad_missing) + len(bad_extras) != 0:
+                if len(ok_missing) != 0:
+                    l = list(ok_missing)
                     resulttxt += "        Items not returned in report (OK) for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( ok_extras ) != 0:
-                    l = list( ok_extras )
+                if len(ok_extras) != 0:
+                    l = list(ok_extras)
                     resulttxt += "        Unexpected items returned in report (OK) for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( bad_missing ) != 0:
-                    l = list( bad_missing )
+                if len(bad_missing) != 0:
+                    l = list(bad_missing)
                     resulttxt += "        Items not returned in report (BAD) for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( bad_extras ) != 0:
-                    l = list( bad_extras )
+                if len(bad_extras) != 0:
+                    l = list(bad_extras)
                     resulttxt += "        Unexpected items returned in report (BAD) for %s:" % href
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
                 result = False
-        
+
         if count is not None and count != ctr:
             result = False
             resulttxt = "        Expected %d response items but got %d." % (count, ctr,)

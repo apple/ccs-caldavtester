@@ -21,15 +21,19 @@ XML processing utilities.
 import src.xmlDefs
 
 def readStringElementList(node, ename):
-    
+
     results = []
     for child in node.getchildren():
         if child.tag == ename:
             results.append(child.text.decode("utf-8"))
     return results
 
+
+
 def getYesNoAttributeValue(node, attr):
     return node.get(attr, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
+
+
 
 def getDefaultAttributeValue(node, attr, default):
     result = node.getAttribute(attr)
@@ -38,8 +42,10 @@ def getDefaultAttributeValue(node, attr, default):
     else:
         return default
 
+
+
 def readOneStringElement(node, ename):
-    
+
     for child in node.getchildren():
         if child.tag == ename:
             return child.text.decode("utf-8")

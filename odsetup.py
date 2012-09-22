@@ -31,14 +31,14 @@ import sys
 import traceback
 import uuid
 import xml.parsers.expat
-sys_root         = "/Applications/Server.app/Contents/ServerRoot"
-conf_root        = "/Library/Server/Calendar and Contacts/Config"
+sys_root = "/Applications/Server.app/Contents/ServerRoot"
+conf_root = "/Library/Server/Calendar and Contacts/Config"
 
-diradmin_user    = "admin"
-diradmin_pswd    = ""
-directory_node   = "/LDAPv3/127.0.0.1"
-utility          = sys_root + "/usr/sbin/calendarserver_manage_principals"
-cmdutility       = sys_root + "/usr/sbin/calendarserver_command_gateway"
+diradmin_user = "admin"
+diradmin_pswd = ""
+directory_node = "/LDAPv3/127.0.0.1"
+utility = sys_root + "/usr/sbin/calendarserver_manage_principals"
+cmdutility = sys_root + "/usr/sbin/calendarserver_command_gateway"
 
 verbose = False
 veryverbose = False
@@ -77,43 +77,43 @@ resources = {}
 
 # List of users as a tuple: (<<name>>, <<pswd>>, <<repeat count>>)
 adminattrs = {
-    "dsAttrTypeStandard:RealName":        "Super User",
-    "dsAttrTypeStandard:FirstName":       "Super",
-    "dsAttrTypeStandard:LastName":        "User",
-    "dsAttrTypeStandard:EMailAddress":    "testadmin@example.com",
+    "dsAttrTypeStandard:RealName": "Super User",
+    "dsAttrTypeStandard:FirstName": "Super",
+    "dsAttrTypeStandard:LastName": "User",
+    "dsAttrTypeStandard:EMailAddress": "testadmin@example.com",
 }
 
 apprenticeattrs = {
-    "dsAttrTypeStandard:RealName":        "Apprentice Super User",
-    "dsAttrTypeStandard:FirstName":       "Apprentice",
-    "dsAttrTypeStandard:LastName":        "Super User",
-    "dsAttrTypeStandard:EMailAddress":    "apprentice@example.com",
+    "dsAttrTypeStandard:RealName": "Apprentice Super User",
+    "dsAttrTypeStandard:FirstName": "Apprentice",
+    "dsAttrTypeStandard:LastName": "Super User",
+    "dsAttrTypeStandard:EMailAddress": "apprentice@example.com",
 }
 
 userattrs = {
-    "dsAttrTypeStandard:RealName":        "User %02d",
-    "dsAttrTypeStandard:FirstName":       "User",
-    "dsAttrTypeStandard:LastName":        "%02d",
-    "dsAttrTypeStandard:EMailAddress":    "user%02d@example.com",
+    "dsAttrTypeStandard:RealName": "User %02d",
+    "dsAttrTypeStandard:FirstName": "User",
+    "dsAttrTypeStandard:LastName": "%02d",
+    "dsAttrTypeStandard:EMailAddress": "user%02d@example.com",
 }
 
 publicattrs = {
-    "dsAttrTypeStandard:RealName":        "Public %02d",
-    "dsAttrTypeStandard:FirstName":       "Public",
-    "dsAttrTypeStandard:LastName":        "%02d",
-    "dsAttrTypeStandard:EMailAddress":    "public%02d@example.com",
-    "dsAttrTypeStandard:Street":          "%d Public Row",
-    "dsAttrTypeStandard:City":            "Exampleville",
-    "dsAttrTypeStandard:State":           "Testshire",
-    "dsAttrTypeStandard:PostalCode":      "RFC 4791",
-    "dsAttrTypeStandard:Country":         "AAA",
+    "dsAttrTypeStandard:RealName": "Public %02d",
+    "dsAttrTypeStandard:FirstName": "Public",
+    "dsAttrTypeStandard:LastName": "%02d",
+    "dsAttrTypeStandard:EMailAddress": "public%02d@example.com",
+    "dsAttrTypeStandard:Street": "%d Public Row",
+    "dsAttrTypeStandard:City": "Exampleville",
+    "dsAttrTypeStandard:State": "Testshire",
+    "dsAttrTypeStandard:PostalCode": "RFC 4791",
+    "dsAttrTypeStandard:Country": "AAA",
 }
 
 i18nattrs = {
-    "dsAttrTypeStandard:RealName":        "まだ",
-    "dsAttrTypeStandard:FirstName":       "ま",
-    "dsAttrTypeStandard:LastName":        "だ",
-    "dsAttrTypeStandard:EMailAddress":    "i18nuser@example.com",
+    "dsAttrTypeStandard:RealName": "まだ",
+    "dsAttrTypeStandard:FirstName": "ま",
+    "dsAttrTypeStandard:LastName": "だ",
+    "dsAttrTypeStandard:EMailAddress": "i18nuser@example.com",
 }
 
 locationcreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
@@ -205,19 +205,19 @@ resourcelistcmd = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 locationattrs = {
-    "dsAttrTypeStandard:RealName":        "Room %02d",
+    "dsAttrTypeStandard:RealName": "Room %02d",
 }
 
 delegatedroomattrs = {
-    "dsAttrTypeStandard:RealName":        "Delegated Conference Room",
+    "dsAttrTypeStandard:RealName": "Delegated Conference Room",
 }
 
 resourceattrs = {
-    "dsAttrTypeStandard:RealName":        "Resource %02d",
+    "dsAttrTypeStandard:RealName": "Resource %02d",
 }
 
 groupattrs = {
-        "dsAttrTypeStandard:RealName":        "Group %02d",
+        "dsAttrTypeStandard:RealName": "Group %02d",
 }
 
 records = (
@@ -245,8 +245,10 @@ Options:
     -V        very verbose logging
 """
 
+
+
 def cmd(args, input=None, raiseOnFail=True):
-    
+
     if veryverbose:
         print "-----"
     if verbose:
@@ -265,6 +267,8 @@ def cmd(args, input=None, raiseOnFail=True):
         raise RuntimeError(result[1])
     return result[0], p.returncode
 
+
+
 def readConfig(config):
     """
     Read useful information from the server's caldavd.plist file.
@@ -280,7 +284,7 @@ def readConfig(config):
     except KeyError:
         # add SudoersFile entry to caldavd.plist
         plist["SudoersFile"] = conf_root + "/sudoers.plist"
-        writePlist(plist,config)
+        writePlist(plist, config)
 
     try:
         sudoerspl = readPlist(plist["SudoersFile"])
@@ -317,7 +321,7 @@ def readConfig(config):
         authtype = "basic"
     elif digest_ok:
         authtype = "digest"
-    
+
     if not hostname:
         hostname = socket.getfqdn()
         if not hostname:
@@ -329,11 +333,12 @@ def readConfig(config):
 
     return hostname, nonsslport, sslport, authtype, docroot, sudoers
 
+
+
 def patchConfig(config, admin):
     """
     Patch the caldavd.plist file to make sure:
        * the proper admin principal is configured
-       * DS Search node is set to /LDAPv3/127.0.0.1
        * iMIP is disabled
        * SACLs are disabled
        * CalDAV and CardDAV are enabled
@@ -348,9 +353,6 @@ def patchConfig(config, admin):
 
     admins = plist["AdminPrincipals"]
     admins[:] = [admin]
-
-    # Only concern ourselves with the OD records we care about
-    plist["DirectoryService"]["params"]["node"] = "/LDAPv3/127.0.0.1"
 
     # For testing do not send iMIP messages!
     plist["Scheduling"]["iMIP"]["Enabled"] = False
@@ -370,6 +372,8 @@ def patchConfig(config, admin):
 
     writePlist(plist, config)
 
+
+
 def patchConfigForAugmentService(config):
     """
     Patch the caldavd.plist file to configure AugmentService
@@ -380,6 +384,8 @@ def patchConfigForAugmentService(config):
     plist = readPlist(config)
     plist["AugmentService"] = {'params': {'xmlFiles': ['augments.xml']}, 'type': 'twistedcaldav.directory.augment.AugmentXMLDB'}
     writePlist(plist, config)
+
+
 
 def patchSudoers(sudoers):
     """
@@ -394,11 +400,13 @@ def patchSudoers(sudoers):
         if user["username"] == "superuser" and user["password"] == "superuser":
             break
     else:
-        users.append({"username":"superuser", "password": "superuser"})
+        users.append({"username": "superuser", "password": "superuser"})
         writePlist(plist, sudoers)
 
+
+
 def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype, docroot):
-    
+
     # Read in the serverinfo-template.xml file
     fd = open(serverinfo_template, "r")
     try:
@@ -414,11 +422,11 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
 """
 
     subs = [
-        ("$useradminguid:",      guids["testadmin"]),
+        ("$useradminguid:", guids["testadmin"]),
         ("$userapprenticeguid:", guids["apprentice"]),
-        ("$i18nguid:",           guids["i18nuser"]),
+        ("$i18nguid:", guids["i18nuser"]),
     ]
-    
+
     for i in range(1, number_of_users + 1):
         subs.append(("$userguid%d:" % (i,), guids["user%02d" % (i,)]))
     for i in range(1, 11):
@@ -429,7 +437,7 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
         subs.append(("$locationguid%d:" % (i,), guids["location%02d" % (i,)]))
     for i in range(1, number_of_groups + 1):
         subs.append(("$groupguid%d:" % (i,), guids["group%02d" % (i,)]))
-    
+
     subs_str = ""
     for x, y in subs:
         subs_str += subs_template % (x, y,)
@@ -441,12 +449,13 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
         "authtype"       : authtype,
         "overrides"      : subs_str,
     }
-    
+
     fd = open(serverinfo_default, "w")
     try:
         fd.write(data)
     finally:
         fd.close()
+
 
 
 def addLargeCalendars(hostname, docroot):
@@ -469,6 +478,8 @@ def addLargeCalendars(hostname, docroot):
         cmd("sudo -u calendar tar -C \"%s\" -zx -f data/%s.tgz" % (path, calendar,))
         cmd("chown -R calendar:calendar \"%s\"" % (os.path.join(path, calendar) ,))
 
+
+
 def loadLists(config, path, records):
     if path == "/Places":
         result = cmd(
@@ -490,10 +501,12 @@ def loadLists(config, path, records):
         raise
 
     for record in plist["result"]:
-        records[record["RecordName"][0]] = record["GeneratedUID"] 
+        records[record["RecordName"][0]] = record["GeneratedUID"]
+
+
 
 def doToAccounts(config, protocol, f, users_only=False):
-    
+
     for record in records:
         if protocol == "carddav" and record[0] in ("/Places", "/Resources"):
             continue
@@ -515,8 +528,10 @@ def doToAccounts(config, protocol, f, users_only=False):
         else:
             f(config, record[0], record[1:])
 
+
+
 def doGroupMemberships():
-    
+
     memberships = (
         ("group01", ("user01",), (),),
         ("group02", ("user06", "user07",), (),),
@@ -526,34 +541,38 @@ def doGroupMemberships():
         ("group06", ("user21",), (),),
         ("group07", ("user22", "user23", "user24",), (),),
     )
-    
+
     for groupname, users, nestedgroups in memberships:
-        
+
         memberGUIDs = [guids[user] for user in users]
         nestedGUIDs = [guids[group] for group in nestedgroups]
-        
+
         cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs])), raiseOnFail=False)
         cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs])), raiseOnFail=False)
 
+
+
 def createUser(config, path, user):
-    
+
     if path in ("/Users", "/Groups",):
         createUserViaDS(config, path, user)
     elif protocol == "caldav":
         createUserViaGateway(config, path, user)
 
+
+
 def createUserViaDS(config, path, user):
     # Do dscl command line operations to create a calendar user
-    
+
     # Only create if it does not exist
     if cmd("dscl %s -list %s/%s" % (directory_node, path, user[0]), raiseOnFail=False)[1] != 0:
         # Create the user
         cmd("dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]))
-        
+
         # Set the password (only for /Users)
         if path == "/Users":
             cmd("dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1]))
-    
+
         # Other attributes
         for key, value in user[2].iteritems():
             if key == "dsAttrTypeStandard:GeneratedUID":
@@ -563,13 +582,15 @@ def createUserViaDS(config, path, user):
         print "%s/%s already exists" % (path, user[0],)
 
     # Now read the guid for this record
-    if guids.has_key(user[0]):
-        result = cmd("dscl %s -read %s/%s GeneratedUID"  % (directory_node, path, user[0]))
+    if user[0] in guids:
+        result = cmd("dscl %s -read %s/%s GeneratedUID" % (directory_node, path, user[0]))
         guid = result[0].split()[1]
         guids[user[0]] = guid
 
+
+
 def createUserViaGateway(config, path, user):
-    
+
     # Check for existing
     if path == "/Places":
         if user[0] in locations:
@@ -579,37 +600,41 @@ def createUserViaGateway(config, path, user):
         if user[0] in resources:
             guids[user[0]] = resources[user[0]]
             return
-    
+
     guid = str(uuid.uuid4()).upper()
-    if guids.has_key(user[0]):
+    if user[0] in guids:
         guids[user[0]] = guid
     if path == "/Places":
         cmd(
             "%s -f \"%s\"" % (cmdutility, config,),
             locationcreatecmd % {
-                "guid":guid,
-                "realname":user[2]["dsAttrTypeStandard:RealName"],
-                "recordname":user[0]
+                "guid": guid,
+                "realname": user[2]["dsAttrTypeStandard:RealName"],
+                "recordname": user[0]
             }
         )
     elif path == "/Resources":
         cmd(
             "%s -f \"%s\"" % (cmdutility, config,),
             resourcecreatecmd % {
-                "guid":guid,
-                "realname":user[2]["dsAttrTypeStandard:RealName"],
-                "recordname":user[0]
+                "guid": guid,
+                "realname": user[2]["dsAttrTypeStandard:RealName"],
+                "recordname": user[0]
             }
         )
     else:
         raise ValueError()
-    
+
+
+
 def removeUser(config, path, user):
-    
+
     if path in ("/Users", "/Groups",):
         removeUserViaDS(config, path, user)
     else:
         removeUserViaGateway(config, path, user)
+
+
 
 def removeUserViaDS(config, path, user):
     # Do dscl command line operations to remove a calendar user
@@ -617,15 +642,17 @@ def removeUserViaDS(config, path, user):
     # Create the user
     cmd("dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]), raiseOnFail=False)
 
+
+
 def removeUserViaGateway(config, path, user):
-    
+
     if path == "/Places":
         if user[0] not in locations:
             return
         guid = locations[user[0]]
         cmd(
             "%s -f \"%s\"" % (cmdutility, config,),
-            locationremovecmd % {"guid":guid,}
+            locationremovecmd % {"guid": guid, }
         )
     elif path == "/Resources":
         if user[0] not in resources:
@@ -633,16 +660,18 @@ def removeUserViaGateway(config, path, user):
         guid = resources[user[0]]
         cmd(
             "%s -f \"%s\"" % (cmdutility, config,),
-            resourceremovecmd % {"guid":guid,}
+            resourceremovecmd % {"guid": guid, }
         )
     else:
         raise ValueError()
+
+
 
 def manageRecords(config, path, user):
     """
     Set proxies and auto-schedule for locations and resources
     """
-    
+
     # Do caldav_utility setup
     if path in ("/Places", "/Resources",):
         if path in ("/Places",):
@@ -662,24 +691,24 @@ def manageRecords(config, path, user):
                 utility,
                 user[0],
             ))
-            
+
             # Some resources have unique auto-schedule mode set
             automodes = {
-                "resource05" : "none", 
-                "resource06" : "accept-always", 
-                "resource07" : "decline-always", 
-                "resource08" : "accept-if-free", 
-                "resource09" : "decline-if-busy", 
-                "resource10" : "automatic", 
+                "resource05" : "none",
+                "resource06" : "accept-always",
+                "resource07" : "decline-always",
+                "resource08" : "accept-if-free",
+                "resource09" : "decline-if-busy",
+                "resource10" : "automatic",
             }
-            
+
             if user[0] in automodes:
                 cmd("%s --set-auto-schedule-mode=%s resources:%s" % (
                     utility,
                     automodes[user[0]],
                     user[0],
                 ))
-                
+
 
 if __name__ == "__main__":
 
@@ -716,7 +745,7 @@ if __name__ == "__main__":
         if not config:
             config = details[protocol]["config"]
             serverinfo_default = details[protocol]["serverinfo"]
-            
+
         if not diradmin_pswd:
             diradmin_pswd = getpass("Directory Admin Password: ")
 
@@ -733,14 +762,14 @@ if __name__ == "__main__":
             print "Wrong arguments given: %s" % (args[0],)
             usage()
             raise ValueError
-        
+
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
             hostname, port, sslport, authtype, docroot, sudoers = readConfig(config)
-            
+
             # Patch the sudoers file for the superuser principal.
             patchSudoers(sudoers)
-    
+
             # Patch caldavd.plist to configure AugmentService, needed before creating resources
             patchConfigForAugmentService(config)
 
@@ -752,7 +781,7 @@ if __name__ == "__main__":
             doToAccounts(config, protocol, createUser)
             doGroupMemberships()
             doToAccounts(config, protocol, manageRecords)
-            
+
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
             patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
 
@@ -766,14 +795,14 @@ if __name__ == "__main__":
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
             hostname, port, sslport, authtype, docroot, sudoers = readConfig(config)
-            
+
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
                 loadLists(config, "/Places", locations)
                 loadLists(config, "/Resources", resources)
 
             doToAccounts(config, protocol, createUser, users_only=True)
-            
+
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
 
@@ -782,7 +811,7 @@ if __name__ == "__main__":
                 loadLists(config, "/Places", locations)
                 loadLists(config, "/Resources", resources)
             doToAccounts(config, protocol, removeUser)
-            
+
     except Exception, e:
         traceback.print_exc()
         sys.exit(1)

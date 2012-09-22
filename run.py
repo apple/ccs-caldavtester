@@ -33,7 +33,7 @@ svn = "/usr/bin/svn"
 
 packages = [
     ("pycalendar", "pycalendar/src", "http://svn.mulberrymail.com/repos/PyCalendar/branches/server", "146"),
-    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(),get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.5", "1013"),
+    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(), get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.5", "1013"),
 ]
 
 def usage():
@@ -44,6 +44,8 @@ Options:
     -r       Run tests only - do not do setup
     -p       Print PYTHONPATH
 """
+
+
 
 def setup():
     for package in packages:
@@ -68,6 +70,8 @@ def setup():
 
         add_paths.append("%s/%s" % (top, package[1],))
 
+
+
 def pythonpath():
     for package in packages:
         add_paths.append("%s/%s" % (top, package[1],))
@@ -75,9 +79,13 @@ def pythonpath():
     pypaths.extend(add_paths)
     return ":".join(pypaths)
 
+
+
 def runit():
-    pythonpath= ":".join(add_paths)
-    return subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH":pythonpath}).wait()
+    pythonpath = ":".join(add_paths)
+    return subprocess.Popen(["./testcaldav.py", "--all"], env={"PYTHONPATH": pythonpath}).wait()
+
+
 
 if __name__ == "__main__":
 

@@ -23,7 +23,7 @@ from xml.etree.ElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args):
 
         # If no hrefs requested, then assume none should come back
@@ -49,13 +49,13 @@ class Verifier(object):
         okhrefs = [prefix + i for i in okhrefs]
         nohrefs = [prefix + i for i in nohrefs]
         badhrefs = [prefix + i for i in badhrefs]
-        for k,v in args.items():
+        for k, v in args.items():
             v = [prefix + i for i in v]
             args[k] = v
         count = [int(i) for i in count]
         totalcount = [int(i) for i in totalcount]
         responsecount = [int(i) for i in responsecount]
-        
+
         if "okhrefs" in args or "nohrefs" in args or "badhrefs" in args:
             doOKBad = True
         elif statushrefs:
@@ -66,11 +66,11 @@ class Verifier(object):
         # Process the multistatus response, extracting all hrefs
         # and comparing with the set defined for this test. Report any
         # mismatches.
-        
+
         # Must have MULTISTATUS response code
         if response.status != 207:
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
-            
+
         try:
             tree = ElementTree(file=StringIO(respdata))
         except Exception:
@@ -106,7 +106,7 @@ class Verifier(object):
                 else:
                     status = False
                 code = 0
-            
+
             if status:
                 ok_status_hrefs.append(href)
             else:
@@ -117,7 +117,7 @@ class Verifier(object):
         no_test_set = set(nohrefs)
         bad_result_set = set(bad_status_hrefs)
         bad_test_set = set(badhrefs)
-        
+
         result = True
         resulttxt = ""
 
@@ -125,14 +125,14 @@ class Verifier(object):
         if len(count) == 1:
             if len(ok_result_set) != count[0] + 1:
                 result = False
-                resulttxt +=  "        %d items returned, but %d items expected" % (len(ok_result_set) - 1, count[0], )
+                resulttxt += "        %d items returned, but %d items expected" % (len(ok_result_set) - 1, count[0],)
             return result, resulttxt
 
         # Check for total count
         if len(totalcount) == 1:
             if len(ok_result_set) != totalcount[0]:
                 result = False
-                resulttxt +=  "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0], )
+                resulttxt += "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0],)
             return result, resulttxt
 
         # Check for response count
@@ -140,82 +140,82 @@ class Verifier(object):
             responses = len(ok_result_set) + len(bad_result_set)
             if responses != responsecount[0]:
                 result = False
-                resulttxt +=  "        %d responses returned, but %d responses expected" % (responses, responsecount[0], )
+                resulttxt += "        %d responses returned, but %d responses expected" % (responses, responsecount[0],)
             return result, resulttxt
 
         if doOKBad:
             # Now do set difference
-            ok_missing = ok_test_set.difference( ok_result_set )
-            ok_extras = ok_result_set.difference( ok_test_set ) if not ignoremissing else set()
-            no_extras = ok_result_set.intersection( no_test_set )
-            bad_missing = bad_test_set.difference( bad_result_set )
-            bad_extras = bad_result_set.difference( bad_test_set ) if not ignoremissing else set()
-            
-            if len( ok_missing ) + len( ok_extras ) + len( no_extras ) + len( bad_missing ) + len( bad_extras )!= 0:
-                if len( ok_missing ) != 0:
-                    l = list( ok_missing )
-                    resulttxt += "        %d Items not returned in report (OK):" % (len( ok_missing ), )
+            ok_missing = ok_test_set.difference(ok_result_set)
+            ok_extras = ok_result_set.difference(ok_test_set) if not ignoremissing else set()
+            no_extras = ok_result_set.intersection(no_test_set)
+            bad_missing = bad_test_set.difference(bad_result_set)
+            bad_extras = bad_result_set.difference(bad_test_set) if not ignoremissing else set()
+
+            if len(ok_missing) + len(ok_extras) + len(no_extras) + len(bad_missing) + len(bad_extras) != 0:
+                if len(ok_missing) != 0:
+                    l = list(ok_missing)
+                    resulttxt += "        %d Items not returned in report (OK):" % (len(ok_missing),)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( ok_extras ) != 0:
-                    l = list( ok_extras )
-                    resulttxt += "        %d Unexpected items returned in report (OK):" % (len( ok_extras ), )
+                if len(ok_extras) != 0:
+                    l = list(ok_extras)
+                    resulttxt += "        %d Unexpected items returned in report (OK):" % (len(ok_extras),)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( no_extras ) != 0:
-                    l = list( no_extras )
-                    resulttxt += "        %d Unwanted items returned in report (OK):" % (len( no_extras ), )
+                if len(no_extras) != 0:
+                    l = list(no_extras)
+                    resulttxt += "        %d Unwanted items returned in report (OK):" % (len(no_extras),)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( bad_missing ) != 0:
-                    l = list( bad_missing )
-                    resulttxt += "        %d Items not returned in report (BAD):" % (len( bad_missing ), )
+                if len(bad_missing) != 0:
+                    l = list(bad_missing)
+                    resulttxt += "        %d Items not returned in report (BAD):" % (len(bad_missing),)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
-                if len( bad_extras ) != 0:
-                    l = list( bad_extras )
-                    resulttxt += "        %d Unexpected items returned in report (BAD):" % (len( bad_extras ), )
+                if len(bad_extras) != 0:
+                    l = list(bad_extras)
+                    resulttxt += "        %d Unexpected items returned in report (BAD):" % (len(bad_extras),)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
                 result = False
-        
+
         if not doOKBad:
             l = list(set(statushrefs.keys()) - set(status_code_hrefs.keys()))
             if l:
-                resulttxt += "        %d Status Codes not returned in report:" % (len( l ), )
+                resulttxt += "        %d Status Codes not returned in report:" % (len(l),)
                 for i in l:
-                    resulttxt += " " + str(i) 
+                    resulttxt += " " + str(i)
                 resulttxt += "\n"
                 result = False
-            
+
             l = list(set(status_code_hrefs.keys()) - set(statushrefs.keys()))
             if l:
-                resulttxt += "        %d Unexpected Status Codes returned in report:" % (len( l ), )
+                resulttxt += "        %d Unexpected Status Codes returned in report:" % (len(l),)
                 for i in l:
-                    resulttxt += " " + str(i) 
+                    resulttxt += " " + str(i)
                 resulttxt += "\n"
                 result = False
-            
+
             for code in set(statushrefs.keys()) & set(status_code_hrefs.keys()):
                 l = list(set(*statushrefs[code]) - status_code_hrefs[code])
                 if l:
-                    resulttxt += "        %d Items not returned in report for %d:" % (len( l ), code,)
+                    resulttxt += "        %d Items not returned in report for %d:" % (len(l), code,)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
                     result = False
-                
+
                 l = list(status_code_hrefs[code] - set(*statushrefs[code]))
                 if l:
-                    resulttxt += "        %d Unexpected items returned in report for %d:" % (len( l ), code, )
+                    resulttxt += "        %d Unexpected items returned in report for %d:" % (len(l), code,)
                     for i in l:
-                        resulttxt += " " + str(i) 
+                        resulttxt += " " + str(i)
                     resulttxt += "\n"
                     result = False
-                
+
         return result, resulttxt

@@ -23,50 +23,51 @@ from xml.etree.ElementTree import ElementTree
 import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         exists = args.get("exists", [])
         notexists = args.get("notexists", [])
- 
+
         # status code must be 200, 207
-        if response.status not in (200,207):
+        if response.status not in (200, 207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
+
         # look for response data
         if not respdata:
             return False, "        No response body"
-                
+
         # Read in XML
         try:
             tree = ElementTree(file=StringIO.StringIO(respdata))
         except Exception, e:
             return False, "        Response data is not xml data: %s" % (e,)
-        
+
         def _splitPathTests(path):
             if '[' in path:
                 return path.split('[', 1)
             else:
                 return path, None
-            
+
         result = True
         resulttxt = ""
         for path in exists:
-            
+
             matched, txt = self.matchPath(tree, path)
             result &= matched
             resulttxt += txt
-                            
+
         for path in notexists:
             matched, _ignore_txt = self.matchPath(tree, path)
             if matched:
                 resulttxt += "        Items returned in XML for %s\n" % (path,)
                 result = False
-                
+
         return result, resulttxt
-        
+
+
     def matchPath(self, tree, path):
-        
+
         result = True
         resulttxt = ""
 
@@ -75,7 +76,7 @@ class Verifier(object):
         else:
             actual_path = path
             tests = None
-        
+
         # Handle absolute root element
         if actual_path[0] == '/':
             actual_path = actual_path[1:]
@@ -88,7 +89,7 @@ class Verifier(object):
             root_path = actual_path
             child_path = None
             nodes = (tree.getroot(),)
-        
+
         if len(nodes) == 0:
             resulttxt += "        Items not returned in XML for %s\n" % (path,)
             result = False
@@ -98,7 +99,7 @@ class Verifier(object):
             tests = [item[:-1] for item in tests.split('[')]
             for test in tests:
                 for node in nodes:
-                    
+
                     def _doTest():
                         result = None
                         if test[0] == '@':
@@ -125,7 +126,7 @@ class Verifier(object):
                             if node.text is None or not node.text.startswith(test[1:]):
                                 result = "        Incorrect value returned in XML for %s\n" % (path,)
                         return result
-                    
+
                     testresult = _doTest()
                     if testresult is None:
                         break

@@ -23,25 +23,25 @@ from xml.etree.ElementTree import ElementTree, tostring
 from StringIO import StringIO
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
-        
+
         # status code must be 200, 207
-        if response.status not in (200,207):
+        if response.status not in (200, 207):
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
-        
+
         # look for response data
         if not respdata:
             return False, "        No response body"
-        
+
         # look for one file
         if len(files) != 1:
             return False, "        No file to compare response to"
-        
+
         # read in all data from specified file
-        fd = open( files[0], "r" )
+        fd = open(files[0], "r")
         try:
             try:
                 data = fd.read()
@@ -69,11 +69,11 @@ class Verifier(object):
                     try:
                         respdata = tostring(ElementTree(file=StringIO(respdata)).getroot())
                     except Exception:
-                        return False, "        Could not parse XML response: %s" %(respdata,)
+                        return False, "        Could not parse XML response: %s" % (respdata,)
                     try:
                         data = tostring(ElementTree(file=StringIO(data)).getroot())
                     except Exception:
-                        return False, "        Could not parse XML data: %s" %(data,)
+                        return False, "        Could not parse XML data: %s" % (data,)
                     if data != respdata:
                         result = False
                 else:

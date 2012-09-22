@@ -19,25 +19,25 @@ Verifier that checks the response body for an exact match to data in a file.
 """
 
 class Verifier(object):
-    
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         contains = args.get("contains", [])
         notcontains = args.get("notcontains", [])
         unwrap = args.get("unwrap")
         empty = args.get("empty")
-        
+
         # Test empty
         if empty:
             if respdata:
                 return False, "        Response data has a body"
             else:
                 return True, ""
-                
+
         # look for response data
         if not respdata:
             return False, "        No response body"
-        
+
         # Un wrap if required
         if unwrap is not None:
             newrespdata = respdata.replace("\r\n ", "")
@@ -54,4 +54,3 @@ class Verifier(object):
                 return False, "        Response data incorrectly contains \"%s\"" % (item,)
 
         return True, ""
-            

@@ -40,13 +40,13 @@ class manager(object):
     Main class that runs test suites defined in an XML config file.
     """
 
-    LOG_NONE    = 0
-    LOG_ERROR   = 1
-    LOG_LOW     = 2
-    LOG_MEDIUM  = 3
-    LOG_HIGH    = 4
+    LOG_NONE = 0
+    LOG_ERROR = 1
+    LOG_LOW = 2
+    LOG_MEDIUM = 3
+    LOG_HIGH = 4
 
-    def __init__( self, text=True, level=LOG_HIGH, log_file=None ):
+    def __init__(self, text=True, level=LOG_HIGH, log_file=None):
         self.server_info = serverinfo()
         self.tests = []
         self.textMode = text
@@ -59,8 +59,9 @@ class manager(object):
         self.print_request = False
         self.print_response = False
         self.print_request_response_on_error = False
-    
-    def log(self, level, str, indent = 0, indentStr = " ", after = 1, before = 0):
+
+
+    def log(self, level, str, indent=0, indentStr=" ", after=1, before=0):
         if self.textMode and level <= self.logLevel:
             if before:
                 self.logit("\n" * before)
@@ -70,16 +71,18 @@ class manager(object):
             if after:
                 self.logit("\n" * after)
 
+
     def logit(self, str):
         if self.logFile:
             self.logFile.write(str)
         else:
             print str,
 
-    def readXML( self, serverfile, testfiles, ssl, all, moresubs = {} ):
+
+    def readXML(self, serverfile, testfiles, ssl, all, moresubs={}):
 
         self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
-    
+
         # Open and parse the server config file
         try:
             tree = ElementTree(file=serverfile)
@@ -93,7 +96,7 @@ class manager(object):
         if not len(serverinfo_node):
             raise EX_INVALID_CONFIG_FILE
         self.server_info.parseXML(serverinfo_node)
-        
+
         # Setup ssl stuff
         self.server_info.ssl = ssl
         self.server_info.port = self.server_info.sslport if ssl else self.server_info.nonsslport
@@ -104,14 +107,14 @@ class manager(object):
         )
         moresubs["$hostssl:"] = "https://%s:%d" % (self.server_info.host, self.server_info.sslport,)
         self.server_info.addsubs(moresubs)
-        
+
         for testfile in testfiles:
             # Open and parse the config file
             try:
                 tree = ElementTree(file=testfile)
             except ExpatError, e:
                 raise RuntimeError("Unable to parse file '%s' because: %s" % (testfile, e,))
-            
+
             # Verify that top-level element is correct
             from src.caldavtest import caldavtest
             caldavtest_node = tree.getroot()
@@ -121,14 +124,15 @@ class manager(object):
             if not len(caldavtest_node):
                 raise EX_INVALID_CONFIG_FILE
             self.log(manager.LOG_HIGH, "Reading Test Details from \"%s\"" % testfile, after=2)
-                
+
             # parse all the config data
             test = caldavtest(self, testfile)
             test.parseXML(caldavtest_node)
-            
+
             # ignore if all mode and ignore-all is set
             if not all or not test.ignore_all:
                 self.tests.append(test)
+
 
     def readCommandLine(self):
         sname = "scripts/server/serverinfo.xml"
@@ -158,7 +162,7 @@ class manager(object):
                 "always-print-response",
             ],
         )
-        
+
         # Process single options
         for option, value in options:
             if option == "-s":
@@ -189,13 +193,13 @@ class manager(object):
                 random_order = True
             elif option == "--random-seed":
                 random_seed = value
-                
+
         if all:
             files = []
-            os.path.walk(dname, lambda arg,dir,names:files.extend([os.path.join(dir, name) for name in names]), None)
+            os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]), None)
             for file in files:
-                if file.endswith(".xml") and file[len(dname)+1:] not in excludes:
-                    if subdir is None or file[len(dname)+1:].startswith(subdir):
+                if file.endswith(".xml") and file[len(dname) + 1:] not in excludes:
+                    if subdir is None or file[len(dname) + 1:].startswith(subdir):
                         fnames.append(file)
 
         # Remove any server info file from files enumerated by --all
@@ -206,7 +210,7 @@ class manager(object):
             if f[0] != '/':
                 f = os.path.join(dname, f)
             fnames.append(f)
-        
+
         # Randomize file list
         if random_order:
             print "Randomizing order using seed '%s'" % (random_seed,)
@@ -214,14 +218,15 @@ class manager(object):
             random.shuffle(fnames)
 
         self.readXML(sname, fnames, ssl, all)
-            
+
         if self.memUsage:
             fd = open(pidfile, "r")
             s = fd.read()
             self.pid = int(s)
 
+
     def runAll(self):
-        
+
         startTime = time.time()
         ok = 0
         failed = 0
@@ -240,37 +245,38 @@ class manager(object):
         endTime = time.time()
 
         self.log(manager.LOG_LOW, "Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
-        self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime- startTime,))
+        self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime - startTime,))
 
         return failed, endTime - startTime
+
 
     def httpRequest(self, method, uri, headers, data):
 
         # Do the http request
-        http = httplib.HTTPConnection( self.server_info.host, self.server_info.port )
+        http = httplib.HTTPConnection(self.server_info.host, self.server_info.port)
         try:
-            http.request( method, uri, data, headers )
-        
+            http.request(method, uri, data, headers)
+
             response = http.getresponse()
-        
+
             respdata = response.read()
 
         finally:
             http.close()
-        
+
         return response.status, respdata
-        
+
+
     def getMemusage(self):
         """
-        
+
         @param pid: numeric pid of process to get memory usage for
         @type pid:  int
         @retrun:    tuple of (RSS, VSZ) values for the process
         """
-        
+
         fd = os.popen("ps -l -p %d" % (self.pid,))
         data = fd.read()
         lines = data.split("\n")
         procdata = lines[1].split()
         return int(procdata[6]), int(procdata[7])
-
