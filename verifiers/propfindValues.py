@@ -28,6 +28,7 @@ class Verifier(object):
 
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
+        only = args.get("only", [])
 
         def normalizeXML(value):
 
@@ -78,6 +79,8 @@ class Verifier(object):
                 return False, "           Wrong number of DAV:href elements\n"
             href = href[0].text
             if href in ignores:
+                continue
+            if only and href not in only:
                 continue
 
             # Get all property status

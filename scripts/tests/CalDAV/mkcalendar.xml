@@ -474,6 +474,65 @@
 			</request>
 		</test>
 		<test name='3'>
+			<description>Calendar Home checkj</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/mkcalendar/single-components/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarpath1:/</value>
+					</arg>
+					<arg>
+						<name>props</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set$.*VEVENT.*</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarpath1:/</value>
+					</arg>
+					<arg>
+						<name>props</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set!.*VTODO.*</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>only</name>
+						<value>$taskspath1:/</value>
+					</arg>
+					<arg>
+						<name>props</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set!.*VEVENT.*</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindValues</callback>
+					<arg>
+						<name>only</name>
+						<value>$taskspath1:/</value>
+					</arg>
+					<arg>
+						<name>props</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set$.*VTODO.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
 			<description>Simple MKCALENDAR</description>
 			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
