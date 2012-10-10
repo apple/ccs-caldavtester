@@ -616,8 +616,21 @@ xmlElementMatch:
 	Compares the response with an XML data file and returns TRUE if there
 	is a match, otherwise False.
 	The path is the absolute xpath from the root element down. Attribute, attribute-value
-	and text contents tests of the matched element can be done using [@attr], [@attr="value"],
-	and [="text"] suffixes on the path.
+	and text contents tests of the matched element can be done using:
+	
+	[@attr] - "attr" is present as an attribute
+	[@attr=value] - "attr" is present as an attribute with the value "value"
+	[=text] - node text is "text".
+	[!text] - node text is not "text".
+	[*text] - node text contains "text".
+	[+text] - node text starts with "text".
+	[^tag] - node has child element "tag".
+	[^tag=text] - node has child element "tag" with text "text".
+	
+	Argument: 'parent'
+		ElementTree style path for an XML element to use as the root for any
+		subsequent "exists" or "notexists" tests. This is useful for targeting
+		a specific resource in a Depth:1 multistatus response.
 	
 	Argument: 'exists'
 		ElementTree style path for an XML element to check the presence of

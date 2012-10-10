@@ -26,6 +26,7 @@ class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
+        parent = args.get("parent", [])
         exists = args.get("exists", [])
         notexists = args.get("notexists", [])
 
@@ -49,16 +50,26 @@ class Verifier(object):
             else:
                 return path, None
 
+        if parent:
+            nodes = self.nodeForPath(tree.getroot(), parent[0])
+            if len(nodes) == 0:
+                return False, "        Response data is missing parent node: %s" % (parent[0],)
+            elif len(nodes) > 1:
+                return False, "        Response data has too many parent nodes: %s" % (parent[0],)
+            root = nodes[0]
+        else:
+            root = tree.getroot()
+
         result = True
         resulttxt = ""
         for path in exists:
 
-            matched, txt = self.matchPath(tree, path)
+            matched, txt = self.matchPath(root, path)
             result &= matched
             resulttxt += txt
 
         for path in notexists:
-            matched, _ignore_txt = self.matchPath(tree, path)
+            matched, _ignore_txt = self.matchPath(root, path)
             if matched:
                 resulttxt += "        Items returned in XML for %s\n" % (path,)
                 result = False
@@ -66,7 +77,72 @@ class Verifier(object):
         return result, resulttxt
 
 
-    def matchPath(self, tree, path):
+    def nodeForPath(self, root, path):
+        if '[' in path:
+            actual_path, tests = path.split('[', 1)
+        else:
+            actual_path = path
+            tests = None
+
+        # Handle absolute root element
+        if actual_path[0] == '/':
+            actual_path = actual_path[1:]
+        if '/' in actual_path:
+            root_path, child_path = actual_path.split('/', 1)
+            if root.tag != root_path:
+                return None
+            nodes = root.findall(child_path)
+        else:
+            root_path = actual_path
+            child_path = None
+            nodes = (root,)
+
+        if len(nodes) == 0:
+            return None
+
+        results = []
+
+        if tests:
+            tests = [item[:-1] for item in tests.split('[')]
+            for test in tests:
+                for node in nodes:
+                    if test[0] == '@':
+                        if '=' in test:
+                            attr, value = test[1:].split('=')
+                            value = value[1:-1]
+                        else:
+                            attr = test[1:]
+                            value = None
+                        if attr in node.keys() and (value is None or node.get(attr) == value):
+                            results.append(node)
+                    elif test[0] == '=':
+                        if node.text == test[1:]:
+                            results.append(node)
+                    elif test[0] == '!':
+                        if node.text != test[1:]:
+                            results.append(node)
+                    elif test[0] == '*':
+                        if node.text is not None and node.text.find(test[1:]) != -1:
+                            results.append(node)
+                    elif test[0] == '+':
+                        if node.text is not None and node.text.startswith(test[1:]):
+                            results.append(node)
+                    elif test[0] == '^':
+                        if "=" in test:
+                            element, value = test[1:].split("=", 1)
+                        else:
+                            element = test[1:]
+                            value = None
+                        for child in node.getchildren():
+                            if child.tag == element and (value is None or child.text == value):
+                                results.append(node)
+        else:
+            results = nodes
+
+        return results
+
+
+    def matchPath(self, root, path):
 
         result = True
         resulttxt = ""
@@ -82,13 +158,11 @@ class Verifier(object):
             actual_path = actual_path[1:]
         if '/' in actual_path:
             root_path, child_path = actual_path.split('/', 1)
-            if tree.getroot().tag != root_path:
+            if root.tag != root_path:
                 resulttxt += "        Items not returned in XML for %s\n" % (path,)
-            nodes = tree.findall(child_path)
+            nodes = root.findall(child_path)
         else:
-            root_path = actual_path
-            child_path = None
-            nodes = (tree.getroot(),)
+            nodes = (root,)
 
         if len(nodes) == 0:
             resulttxt += "        Items not returned in XML for %s\n" % (path,)
@@ -125,6 +199,17 @@ class Verifier(object):
                         elif test[0] == '+':
                             if node.text is None or not node.text.startswith(test[1:]):
                                 result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        elif test[0] == '^':
+                            if "=" in test:
+                                element, value = test[1:].split("=", 1)
+                            else:
+                                element = test[1:]
+                                value = None
+                            for child in node.getchildren():
+                                if child.tag == element and (value is None or child.text == value):
+                                    break
+                            else:
+                                result = "        Missing child returned in XML for %s\n" % (path,)
                         return result
 
                     testresult = _doTest()
