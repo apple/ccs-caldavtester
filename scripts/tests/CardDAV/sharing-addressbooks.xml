@@ -147,6 +147,44 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4a'>
+			<description>Shared address book exists Depth:1</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/addressbooks/read-write/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>parent</name>
+						<value>$multistatus-response-prefix:[^{DAV:}href=$sharedaddressbook:/]</value>
+					</arg>
+					<arg>
+						<name>exists</name>
+						<value>$verify-response-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-response-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-response-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:carddav}addressbook</value>
+						<value>$verify-response-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-response-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+						<value>$verify-response-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-response-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-response-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 		<test name='5'>
 			<description>Sharee creates vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
@@ -488,11 +526,11 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-request='no' print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-request='no' print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -533,7 +571,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>Shared address book exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-request='no' print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$sharedaddressbook:/</ruri>
 				<header>
@@ -677,7 +715,7 @@
 		</test>
 		<test name='13' ignore='no'>
 			<description>Unshare main address book</description>
-			<request print-request='no' print-response='no'>
+			<request print-response='no'>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -699,7 +737,7 @@
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-request='no' print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
