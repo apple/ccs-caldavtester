@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2011 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -73,6 +73,7 @@ class caldavtest(object):
         self.require_features = set()
         self.exclude_features = set()
         self.ignore_all = False
+        self.only = False
         self.start_requests = []
         self.end_requests = []
         self.end_deletes = []
@@ -98,6 +99,7 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(self.excludedFeatures())),))
             return 0, 0, 1
 
+        self.only = any([suite.only for suite in self.suites])
         try:
             self.manager.log(manager.LOG_HIGH, "----- Running Tests from \"%s\"... -----" % self.name, before=1)
             result = self.dorequests("Executing Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
@@ -139,7 +141,7 @@ class caldavtest(object):
         failed = 0
         ignored = 0
         postgresCount = None
-        if suite.ignore:
+        if self.only and not suite.only or suite.ignore:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             ignored = len(suite.tests)
         elif len(suite.missingFeatures()) != 0:

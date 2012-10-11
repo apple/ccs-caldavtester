@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2010 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ class testsuite(object):
         self.manager = manager
         self.name = ""
         self.ignore = False
+        self.only = False
         self.require_features = set()
         self.exclude_features = set()
         self.tests = []
@@ -47,6 +48,7 @@ class testsuite(object):
     def parseXML(self, node):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
         self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
+        self.only = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ONLY)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

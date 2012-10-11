@@ -29,7 +29,7 @@
 
 	<!ELEMENT pause EMPTY>
 
-	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*, grabheader*, grabproperty*, grabelement*)>
+	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*, graburi?, grabheader*, grabproperty*, grabelement*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -52,6 +52,8 @@
 				<!ELEMENT callback (#PCDATA)>
 				<!ELEMENT arg (name, value*)>
 		
+		<!ELEMENT graburi (#PCDATA)>
+
 		<!ELEMENT grabheader (name, variable)>
 	
 		<!ELEMENT grabproperty (property, variable)>
@@ -62,7 +64,8 @@
 
 	<!ELEMENT test-suite (require-feature?, exclude-feature?, test*)>
 		<!ATTLIST test-suite name CDATA #REQUIRED
-							ignore (yes|no) "no">
+							ignore (yes|no) "no"
+							only (yes|no) "no">
 	
 		<!ELEMENT test (require-feature?, exclude-feature?, description?, (request|pause)+)>
 			<!ATTLIST test name CDATA #REQUIRED
