@@ -144,7 +144,7 @@ class Verifier(object):
 
                 # Get properties for this propstat
                 prop = props.find("{DAV:}prop")
-                if not prop:
+                if len(prop) == 0:
                     return False, "           Wrong number of DAV:prop elements\n"
 
                 for child in prop.getchildren():
