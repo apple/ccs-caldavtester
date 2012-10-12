@@ -1461,6 +1461,16 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>GET //</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$root://</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Unauthenticated versus Forbidden' ignore='no'>
