@@ -237,6 +237,31 @@
 				</verify>
 			</request>
 		</test>
+		<test name='8'>
+			<description>PUT with bad PHOTO property</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/17.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/verrors/17.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$addressbookpath1:/17.vcf</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/verrors/18.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	<!--
 	<test-suite name='COPY' ignore='no'>
