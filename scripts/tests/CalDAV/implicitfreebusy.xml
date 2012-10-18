@@ -354,7 +354,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Cancel an instance - auto-accept' ignore='no' only="yes">
+	<test-suite name='Cancel an instance - auto-accept' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Resource</description>
 			<request print-response='no'>
@@ -464,7 +464,7 @@
 		</test>
 		<test name='7'>
 			<description>Resource has data</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response='yes'>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
