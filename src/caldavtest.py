@@ -499,16 +499,6 @@ class caldavtest(object):
             else:
                 return False, "Count did not change", None, None
 
-        elif req.method == "BREAK":
-            # Useful for setting a break point
-            return True, "", None, None
-
-        elif req.method == "PAUSE":
-            # Useful for pausing at a particular point
-            print "Paused"
-            sys.stdin.readline()
-            return True, "", None, None
-
         result = True
         resulttxt = ""
         response = None

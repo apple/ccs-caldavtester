@@ -111,7 +111,14 @@ caldavtest.dtd:
 		set of features.
 
 		ELEMENT <feature>
-			feature that server has to support for this entire test
+			feature that server must support for this entire test
+			script to run.
+
+	ELEMENT <exclude-feature>
+		set of features.
+
+		ELEMENT <feature>
+			feature that server must not support for this entire test
 			script to run.
 
 	ELEMENT <start>
@@ -131,11 +138,26 @@ caldavtest.dtd:
 		defines a group of tests to be run. The suite is given a name
 		and has an 'ignore' attribute that can be used to disable it.
 
+		ATTRIBUTE name
+			name/description of test-suite.
+		ATTRIBUTE ignore
+			if set to 'yes' then the entire test-suite will be skipped.
+		ATTRIBUTE only
+			if set to 'yes' then all other test-suites (except others with
+			the same attribute value set) will be skipped.
+
 		ELEMENT <require-feature>
 			set of features.
 	
 			ELEMENT <feature>
-				feature that server has to support for this test
+				feature that server must support for this test
+				suite to run.
+
+		ELEMENT <exclude-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server must not support for this test
 				suite to run.
 
 	ELEMENT <test>
@@ -146,13 +168,37 @@ caldavtest.dtd:
 		value greater than 1. Timing information about the test can be
 		printed out by setting the 'stats' attribute to 'yes'.
 
+		ATTRIBUTE name
+			name of test.
+		ATTRIBUTE count
+			number of times to run the test. This allows tests to be
+			easily repeated.
+		ATTRIBUTE stats
+			if set to 'yes' then timing information for the test will be
+			printed.
+		ATTRIBUTE ignore
+			if set to 'yes' then the entire test will be skipped.
+
 		ELEMENT <require-feature>
 			set of features.
 	
 			ELEMENT <feature>
-				feature that server has to support for this test
+				feature that server must support for this test
 				to run.
 
+		ELEMENT <exclude-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server must not support for this test
+				to run.
+
+	ELEMENT <description>
+		detailed description of the test.
+
+	ELEMENT <pause>
+		halt tests and wait for user input. Useful for stopping tests to set a
+		break point or examine server state, and then continue on.
 
 	ELEMENT <request>
 		defines an HTTP request to send to the server. Attributes on the
@@ -177,80 +223,112 @@ caldavtest.dtd:
 			if set to 'yes' then the HTTP response (header and body) is
 			printed along with test results.
 
-	ELEMENT <method>
-		the HTTP method for this request. There are some 'special' methods that do some useful 'compound' operations:
-			1) DELETEALL - deletes all resources within the collections specified by the <ruri> elements.
-			2) DELAY - pause for the number of seconds specified by the <ruri> element.
-			3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
-					    into the $ variable for later use in an <ruri> element.
-			3) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
+		ELEMENT <require-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server must support for this request
+				to run.
 
-	ELEMENT <ruri>
-		the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
-		The characters "**" may be used to cause a random uuid to be inserted where
-		those two characters appear. The characters "##" may be used to insert the
-		current test count iteration where those two characters occur.
+		ELEMENT <exclude-feature>
+			set of features.
+	
+			ELEMENT <feature>
+				feature that server must not support for this request
+				to run.
 
-	ELEMENT <header>
-		can be used to specify additional headers in the request.
-		
-		ELEMENT <name>
-			the header name.
-
-		ELEMENT <value>
-			the header value.
-
-	ELEMENT <data>
-		used to specify the source and nature of data used in the
-		request body, if there is one.
-		
-		ATTRIBUTE substitutions
-			if set to 'yes' then '$host:' and '$calendarhome1:'
-			substitutions will be performed on the data before it is sent
-			in the request.
-
-		ATTRIBUTE generate
-			if set to 'yes' then a basic calendar data "fuzzing" is done to
-			the source data to make it unique and up to date.
-
-		ELEMENT <content-type>
-			the MIME content type for the request body.
-
-		ELEMENT <filepath>
-			the relative path for the file containing the request body
-			data.
-
-	ELEMENT <verify>
-		if present, used to specify a procedures for verifying that the
-		request executed as expected.
-		
-		ELEMENT <callback>
-			the name of the verification method to execute.
-
-		ELEMENT <arg>
-			arguments sent to the verification method.
-
+		ELEMENT <method>
+			the HTTP method for this request. There are some 'special' methods that do some useful 'compound' operations:
+				1) DELETEALL - deletes all resources within the collections specified by the <ruri> elements.
+				2) DELAY - pause for the number of seconds specified by the <ruri> element.
+				3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
+						    into the $ variable for later use in an <ruri> element.
+				4) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
+	
+		ELEMENT <ruri>
+			the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
+			The characters "**" may be used to cause a random uuid to be inserted where
+			those two characters appear. The characters "##" may be used to insert the
+			current test count iteration where those two characters occur.
+	
+		ELEMENT <header>
+			can be used to specify additional headers in the request.
+			
 			ELEMENT <name>
-				the name of the argument.
-
+				the header name.
+	
 			ELEMENT <value>
-				values for the argument.
+				the header value.
+	
+		ELEMENT <data>
+			used to specify the source and nature of data used in the
+			request body, if there is one.
+			
+			ATTRIBUTE substitutions
+				if set to 'yes' then '$xxx:' style variable substitutions
+				will be performed on the data before it is sent in the request.
+			ATTRIBUTE generate
+				if set to 'yes' then a basic calendar data "fuzzing" is done to
+				the source data to make it unique and up to date.
+	
+			ELEMENT <content-type>
+				the MIME content type for the request body.
+	
+			ELEMENT <filepath>
+				the relative path for the file containing the request body
+				data.
 
-	ELEMENT <grabheader>
-		if present, this stores the value of the specified header
-		returned in the response in a named variable which can be used
-		in subsequent requests.
+		ELEMENT <verify>
+			if present, used to specify a procedures for verifying that the
+			request executed as expected.
+
+			ELEMENT <require-feature>
+				set of features.
 		
-	ELEMENT <grabproperty>
-		if present, this stores the value of the specified property
-		returned in a PROPFIND response in a named variable which can
-		be used in subsequent requests.
-		
-	ELEMENT <grabelement>
-		if present, this stores the text representation of an XML
-		element extracted from the response body in a named variable
-		which can be used in subsequent requests.
-		
+				ELEMENT <feature>
+					feature that server must support for this verification
+					to be checked.
+	
+			ELEMENT <exclude-feature>
+				set of features.
+	
+			ELEMENT <feature>
+				feature that server must not support for this verification
+				to be checked.
+			
+			ELEMENT <callback>
+				the name of the verification method to execute.
+	
+			ELEMENT <arg>
+				arguments sent to the verification method.
+	
+				ELEMENT <name>
+					the name of the argument.
+	
+				ELEMENT <value>
+					values for the argument.
+	
+		ELEMENT <graburi>
+			if present, this stores the value of the actual request URI
+			used in a named variable which can be used in subsequent requests.
+			Useful for capturing URIs when the GETNEW method is used.
+			
+		ELEMENT <grabheader>
+			if present, this stores the value of the specified header
+			returned in the response in a named variable which can be used
+			in subsequent requests.
+			
+		ELEMENT <grabproperty>
+			if present, this stores the value of the specified property
+			returned in a PROPFIND response in a named variable which can
+			be used in subsequent requests.
+			
+		ELEMENT <grabelement>
+			if present, this stores the text representation of an XML
+			element extracted from the response body in a named variable
+			which can be used in subsequent requests.
+
+
 VERIFICATION Methods
 
 acltems:
