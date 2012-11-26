@@ -29,7 +29,8 @@
 
 	<!ELEMENT pause EMPTY>
 
-	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*, graburi?, grabheader*, grabproperty*, grabelement*)>
+	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*,
+						graburi?, grabheader*, grabproperty*, grabelement*, grabcalproperty*, grabcalparameter*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -61,6 +62,9 @@
 			<!ELEMENT variable (#PCDATA)>
 
 		<!ELEMENT grabelement (name, variable+)>
+
+		<!ELEMENT grabcalproperty (name, variable)>
+		<!ELEMENT grabcalparameter (name, variable)>
 
 	<!ELEMENT test-suite (require-feature?, exclude-feature?, test*)>
 		<!ATTLIST test-suite name CDATA #REQUIRED

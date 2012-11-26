@@ -135,7 +135,7 @@ class pause (object):
 
 class request(object):
     """
-    Represents the HTTP request to be executed, and verifcation information to
+    Represents the HTTP request to be executed, and verification information to
     be used to determine a satisfactory output or not.
     """
 
@@ -160,6 +160,8 @@ class request(object):
         self.grabheader = []
         self.grabproperty = []
         self.grabelement = []
+        self.grabcalprop = []
+        self.grabcalparam = []
 
 
     def __str__(self):
@@ -350,6 +352,10 @@ class request(object):
                 self.parseGrab(child, self.grabproperty)
             elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseMultiGrab(child, self.grabelement)
+            elif child.tag == src.xmlDefs.ELEMENT_GRABCALPROP:
+                self.parseGrab(child, self.grabcalprop)
+            elif child.tag == src.xmlDefs.ELEMENT_GRABCALPARAM:
+                self.parseGrab(child, self.grabcalparam)
 
 
     def parseFeatures(self, node, require=True):

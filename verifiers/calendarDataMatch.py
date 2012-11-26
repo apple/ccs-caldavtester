@@ -68,7 +68,7 @@ class Verifier(object):
         if data is None:
             return False, "        Could not read data file"
 
-        data = manager.server_info.subs(data)
+        data = manager.server_info.extrasubs(manager.server_info.subs(data))
 
         def removePropertiesParameters(component):
 
