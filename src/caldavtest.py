@@ -581,6 +581,18 @@ class caldavtest(object):
         if req.graburi:
             self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
 
+        if req.grabcount:
+            ctr = None
+            if result and (response is not None) and (response.status == 207) and (respdata is not None):
+                tree = ElementTree(file=StringIO(respdata))
+                ctr = len(tree.findall("{DAV:}response")) - 1
+
+            if ctr == None or ctr == -1:
+                result = False
+                resulttxt += "\nCould not count resources in response\n"
+            else:
+                self.manager.server_info.addextrasubs({req.grabcount: str(ctr)})
+
         if req.grabheader:
             for hdrname, variable in req.grabheader:
                 hdrs = response.msg.getheaders(hdrname)

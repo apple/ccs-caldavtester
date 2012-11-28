@@ -30,7 +30,7 @@
 	<!ELEMENT pause EMPTY>
 
 	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*,
-						graburi?, grabheader*, grabproperty*, grabelement*, grabcalproperty*, grabcalparameter*)>
+						graburi?, grabcount?, grabheader*, grabproperty*, grabelement*, grabcalproperty*, grabcalparameter*)>
 		<!ATTLIST request auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
@@ -54,6 +54,8 @@
 				<!ELEMENT arg (name, value*)>
 		
 		<!ELEMENT graburi (#PCDATA)>
+
+		<!ELEMENT grabcount (#PCDATA)>
 
 		<!ELEMENT grabheader (name, variable)>
 	
