@@ -60,6 +60,37 @@
 		</test>
 	</test-suite>
 
+	<test-suite name="Privileges on Attachments Collection">
+		<test name='1' ignore='no'>
+			<description>Check for schedule privilege on iTIP Inbox</description>
+			<request print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/$attachments:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/current-user-privilege-set.xml</filepath>
+				</data>
+				<verify>
+					<callback>aclItems</callback>
+					<arg>
+						<name>granted</name>
+						<value>{DAV:}read</value>
+						<value>{DAV:}read-current-user-privilege-set</value>
+					</arg>
+					<arg>
+						<name>denied</name>
+						<value>{DAV:}write</value>
+						<value>{DAV:}write-acl</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Simple non-recurring, non-scheduled add attachment no prefer'>
 		<test name='1' ignore='no'>
 			<description>PUT event</description>

@@ -953,10 +953,10 @@
 					<value>$host:$calendarpath1:/1.ics</value>
 				</header>
 				<verify>
-					<callback>prepostcondition</callback>
+					<callback>statusCode</callback>
 					<arg>
-						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:caldav}no-uid-conflict</value>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>

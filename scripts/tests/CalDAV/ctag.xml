@@ -388,7 +388,7 @@
 			<require-feature>
 				<feature>MOVE Method</feature>
 			</require-feature>
-			<description>Check for CTag change on MOVE of existing resource</description>
+			<description>Check for no CTag change on failed MOVE of existing resource</description>
 			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
@@ -396,6 +396,13 @@
 					<name>Destination</name>
 					<value>$host:$calendarhome1:/movecopy/2.ics</value>
 				</header>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -412,7 +419,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>{http://calendarserver.org/ns/}getctag!$getctag1:</value>
+						<value>{http://calendarserver.org/ns/}getctag$$getctag1:</value>
 					</arg>
 				</verify>
 				<grabproperty>
@@ -435,7 +442,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value>{http://calendarserver.org/ns/}getctag!$getctag2:</value>
+						<value>{http://calendarserver.org/ns/}getctag$$getctag2:</value>
 					</arg>
 				</verify>
 				<grabproperty>
