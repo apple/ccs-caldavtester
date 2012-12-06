@@ -1605,15 +1605,75 @@
 					<filepath>Resource/CalDAV/managedattachments/simple/4.ics</filepath>
 				</data>
 				<verify>
-					<callback>prepostcondition</callback>
+					<callback>calendarDataMatch</callback>
 					<arg>
-						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:caldav}valid-managed-id</value>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/9.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='5' ignore='no'>
+			<description>Check for attachment</description>
+			<request>
+				<method>GET</method>
+				<ruri>$attach1:</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$attach1:</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}need-privileges</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>Delete calendar data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETE</method>
+				<ruri>$calendarpath2:/2.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>Check for attachment</description>
+			<request>
+				<method>GET</method>
+				<ruri>$attach1:</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$attach1:</ruri>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}need-privileges</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
 			<description>Delete original calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1623,7 +1683,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='9' ignore='no'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
