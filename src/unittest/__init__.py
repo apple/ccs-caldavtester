@@ -1,7 +1,5 @@
-#!/bin/bash
-#
 ##
-# Copyright (c) 2009-2012 Apple Inc. All rights reserved.
+# Copyright (c) 2012 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,14 +13,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-#
-# Runs a full set of tests to verify that the server is functional.
-#
-
-export PYTHONPATH=/usr/share/caldavd/lib/python:/Applications/Server.app/Contents/ServerRoot/usr/share/caldavd/lib/python/
-./testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all \
-	--subdir CalDAV \
-	--exclude CalDAV/directory.xml \
-	--exclude CalDAV/proxyauthz.xml \
-	--exclude CalDAV/quota.xml \
-	--exclude CalDAV/sharing-quota.xml
