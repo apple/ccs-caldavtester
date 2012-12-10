@@ -53,6 +53,25 @@
 	
 	<test-suite name='Send new invite #1'>
 		<test name='1' ignore='no'>
+			<description>Initial collection count</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabcount>$calendarhome2count:</grabcount>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
@@ -66,7 +85,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2'>
+		<test name='3'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>WAITCOUNT 1</method>
@@ -84,7 +103,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
@@ -102,7 +121,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='5' ignore='no'>
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -116,28 +135,15 @@
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
 				</data>
 				<verify>
-					<exclude-feature>
-						<feature>split-calendars</feature>
-					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>7</value>
-					</arg>
-				</verify>
-				<verify>
-					<require-feature>
-						<feature>split-calendars</feature>
-					</require-feature>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>8</value>
+						<value>$calendarhome2count:+1</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -163,6 +169,25 @@
 	
 	<test-suite name='Send new invite #2'>
 		<test name='1' ignore='no'>
+			<description>Initial collection count</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabcount>$calendarhome2count:</grabcount>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
@@ -176,7 +201,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2'>
+		<test name='3'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>WAITCOUNT 2</method>
@@ -194,7 +219,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
@@ -212,7 +237,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='5' ignore='no'>
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -226,28 +251,15 @@
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
 				</data>
 				<verify>
-					<exclude-feature>
-						<feature>split-calendars</feature>
-					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>8</value>
-					</arg>
-				</verify>
-				<verify>
-					<require-feature>
-						<feature>split-calendars</feature>
-					</require-feature>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>9</value>
+						<value>$calendarhome2count:+1</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>One more calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>PROPFIND</method>
@@ -273,6 +285,25 @@
 	
 	<test-suite name='Uninvite #2'>
 		<test name='1' ignore='no'>
+			<description>Initial collection count</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabcount>$calendarhome2count:</grabcount>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
@@ -286,7 +317,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2'>
+		<test name='3'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
@@ -322,23 +353,10 @@
 					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
 				</data>
 				<verify>
-					<exclude-feature>
-						<feature>split-calendars</feature>
-					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>7</value>
-					</arg>
-				</verify>
-				<verify>
-					<require-feature>
-						<feature>split-calendars</feature>
-					</require-feature>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>8</value>
+						<value>$calendarhome2count:-1</value>
 					</arg>
 				</verify>
 			</request>

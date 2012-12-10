@@ -33,7 +33,7 @@ class Verifier(object):
         # Check how many responses are returned
         counts = args.get("count", [])
         if len(counts) == 1:
-            count = int(counts[0])
+            count = int(eval(counts[0]))
         else:
             count = None
 

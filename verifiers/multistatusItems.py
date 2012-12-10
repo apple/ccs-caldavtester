@@ -52,9 +52,9 @@ class Verifier(object):
         for k, v in args.items():
             v = [prefix + i for i in v]
             args[k] = v
-        count = [int(i) for i in count]
-        totalcount = [int(i) for i in totalcount]
-        responsecount = [int(i) for i in responsecount]
+        count = [int(eval(i)) for i in count]
+        totalcount = [int(eval(i)) for i in totalcount]
+        responsecount = [int(eval(i)) for i in responsecount]
 
         if "okhrefs" in args or "nohrefs" in args or "badhrefs" in args:
             doOKBad = True

@@ -19,6 +19,7 @@ Class to encapsulate a single caldav test run.
 """
 
 from cStringIO import StringIO
+from pycalendar.calendar import PyCalendar
 from src.httpshandler import SmartHTTPConnection
 from src.manager import manager
 from src.request import data, pause
@@ -580,6 +581,18 @@ class caldavtest(object):
         if req.graburi:
             self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
 
+        if req.grabcount:
+            ctr = None
+            if result and (response is not None) and (response.status == 207) and (respdata is not None):
+                tree = ElementTree(file=StringIO(respdata))
+                ctr = len(tree.findall("{DAV:}response")) - 1
+
+            if ctr == None or ctr == -1:
+                result = False
+                resulttxt += "\nCould not count resources in response\n"
+            else:
+                self.manager.server_info.addextrasubs({req.grabcount: str(ctr)})
+
         if req.grabheader:
             for hdrname, variable in req.grabheader:
                 hdrs = response.msg.getheaders(hdrname)
@@ -613,6 +626,26 @@ class caldavtest(object):
                 else:
                     for variable, elementvalue in zip(variables, elementvalues):
                         self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8") if elementvalue else ""})
+
+        if req.grabcalprop:
+            for propname, variable in req.grabcalprop:
+                # grab the property here
+                propvalue = self.extractCalProperty(propname, respdata)
+                if propvalue == None:
+                    result = False
+                    resulttxt += "\nCalendar property %s was not extracted from response\n" % (propname,)
+                else:
+                    self.manager.server_info.addextrasubs({variable: propvalue.encode("utf-8")})
+
+        if req.grabcalparam:
+            for paramname, variable in req.grabcalparam:
+                # grab the property here
+                paramvalue = self.extractCalParameter(paramname, respdata)
+                if paramvalue == None:
+                    result = False
+                    resulttxt += "\nCalendar Parameter %s was not extracted from response\n" % (paramname,)
+                else:
+                    self.manager.server_info.addextrasubs({variable: paramvalue.encode("utf-8")})
 
         return result, resulttxt, response, respdata
 
@@ -775,6 +808,57 @@ class caldavtest(object):
             return [item.text for item in e]
         else:
             return None
+
+
+    def extractCalProperty(self, propertyname, respdata):
+
+        prop = self._calProperty(propertyname, respdata)
+        return prop.getValue().getValue() if prop else None
+
+
+    def extractCalParameter(self, parametername, respdata):
+
+        # propname is a path consisting of component names and the last one a property name
+        # e.g. VEVENT/ATTACH
+        bits = parametername.split("/")
+        propertyname = "/".join(bits[:-1])
+        pname = bits[-1]
+
+        prop = self._calProperty(propertyname, respdata)
+
+        try:
+            return prop.getAttributeValue(pname) if prop else None
+        except KeyError:
+            return None
+
+
+    def _calProperty(self, propertyname, respdata):
+
+        try:
+            cal = PyCalendar.parseText(respdata)
+        except Exception:
+            return None
+
+        # propname is a path consisting of component names and the last one a property name
+        # e.g. VEVENT/ATTACH
+        bits = propertyname.split("/")
+        components = bits[:-1]
+        pname = bits[-1]
+
+        while components:
+            for c in cal.getComponents():
+                if c.getType() == components[0]:
+                    cal = c
+                    components = components[1:]
+                    break
+            else:
+                break
+
+        if components:
+            return None
+
+        props = cal.getProperties(pname)
+        return props[0] if props else None
 
 
     def postgresInit(self):
