@@ -107,6 +107,72 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>PROPFIND of non-existent addressbook depth=1</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome1:/foobar/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vpropfinds/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>PROPFIND of non-existent addressbook child depth=1</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome1:/foobar/foo.ics</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vpropfinds/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>PROPFIND of non-existent addressbook child collection depth=1</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome1:/foobar/example/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vpropfinds/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='prop names'>
