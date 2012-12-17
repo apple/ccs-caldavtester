@@ -327,6 +327,19 @@ caldavtest.dtd:
 			if present, this stores the text representation of an XML
 			element extracted from the response body in a named variable
 			which can be used in subsequent requests.
+			
+		ELEMENT <grabcalproperty>
+			if present, this stores a calendar property value in a named
+			variable which can be used in subsequent request. The syntax for
+			<name> element is component/propname (e.g. "VEVENT/SUMMARY").
+
+		ELEMENT <grabcalparameter>
+			if present, this stores a calendar parameter value in a named
+			variable which can be used in subsequent request. The syntax for
+			<name> element is component/propname/paramname$propvalue where
+			the option $propvalue allows a specific property to be selected 
+			(e.g. "VEVENT/DTSTART/TZID", or
+			"VEVENT/ATTENDEE/PARTSTAT$mailto:user01@example.com").
 
 
 VERIFICATION Methods
@@ -478,6 +491,41 @@ header:
 		<arg>
 			<name>header</name>
 			<value>Content-type$text/plain</value>
+		</arg>
+	</verify>
+	
+jsonPointerMatch:
+	Compares the response with a JSON pointer and returns TRUE if there
+	is a match, otherwise False.
+	The pointer is the absolute pointer from the root down. A JSON object's
+	string value can be checked by append "~$" and the string value to test
+	to the JSON pointer value. A single "." can be used as a reference-token
+	in the JSON pointer to match against any member or array item at that
+	poisition in the document.
+	
+	Argument: 'exists'
+		JSON pointer for a JSON item to check the presence of
+		in the response.
+	
+	Argument: 'notexists'
+		JSON pointer for a JSON item to check the absence of
+		in the response.
+	
+	Example:
+	
+	<verify>
+		<callback>jsonPointerMatch</callback>
+		<arg>
+			<name>exists</name>
+			<value>/responses/response</value>
+		</arg>
+		<arg>
+			<name>notexists</name>
+			<value>/responses/response/name~$ABC</value>
+		</arg>
+		<arg>
+			<name>exists</name>
+			<value>/responses/./name~$XYZ</value>
 		</arg>
 	</verify>
 	
@@ -691,7 +739,7 @@ xmlDataMatch:
 	</verify>
 	
 xmlElementMatch:
-	Compares the response with an XML data file and returns TRUE if there
+	Compares the response with an XML path and returns TRUE if there
 	is a match, otherwise False.
 	The path is the absolute xpath from the root element down. Attribute, attribute-value
 	and text contents tests of the matched element can be done using:
