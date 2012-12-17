@@ -33,12 +33,18 @@ class Verifier(object):
         if "EMAIL parameter" not in manager.server_info.features:
             filters.append("ATTENDEE:EMAIL")
             filters.append("ORGANIZER:EMAIL")
+        filters.append("ATTENDEE:X-CALENDARSERVER-DTSTAMP")
         filters.append("CALSCALE")
         filters.append("PRODID")
         filters.append("DTSTAMP")
         filters.append("CREATED")
         filters.append("LAST-MODIFIED")
         filters.append("X-WR-CALNAME")
+
+        for afilter in tuple(filters):
+            if afilter[0] == "!" and afilter[1:] in filters:
+                filters.remove(afilter[1:])
+        filters = filter(lambda x: x[0] != "!", filters)
 
         # status code must be 200, 201, 207
         if response.status not in (200, 201, 207):
@@ -79,8 +85,8 @@ class Verifier(object):
             for properties in component.getProperties().itervalues():
                 allProps.extend(properties)
             for property in allProps:
-                # Always reset DTSTAMP on this X- prop
-                if property.getName() == "X-CALENDARSERVER-ATTENDEE-COMMENT":
+                # Always reset DTSTAMP on these properties
+                if property.getName() in ("ATTENDEE", "X-CALENDARSERVER-ATTENDEE-COMMENT"):
                     if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
                         property.replaceAttribute(PyCalendarAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
 

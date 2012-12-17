@@ -630,6 +630,8 @@ class caldavtest(object):
         if req.grabcalprop:
             for propname, variable in req.grabcalprop:
                 # grab the property here
+                propname = self.manager.server_info.subs(propname)
+                propname = self.manager.server_info.extrasubs(propname)
                 propvalue = self.extractCalProperty(propname, respdata)
                 if propvalue == None:
                     result = False
@@ -640,6 +642,8 @@ class caldavtest(object):
         if req.grabcalparam:
             for paramname, variable in req.grabcalparam:
                 # grab the property here
+                paramname = self.manager.server_info.subs(paramname)
+                paramname = self.manager.server_info.extrasubs(paramname)
                 paramvalue = self.extractCalParameter(paramname, respdata)
                 if paramvalue == None:
                     result = False
@@ -822,7 +826,11 @@ class caldavtest(object):
         # e.g. VEVENT/ATTACH
         bits = parametername.split("/")
         propertyname = "/".join(bits[:-1])
-        pname = bits[-1]
+        param = bits[-1]
+        bits = param.split("$")
+        pname = bits[0]
+        if len(bits) > 1:
+            propertyname += "$%s" % (bits[1],)
 
         prop = self._calProperty(propertyname, respdata)
 
@@ -843,7 +851,10 @@ class caldavtest(object):
         # e.g. VEVENT/ATTACH
         bits = propertyname.split("/")
         components = bits[:-1]
-        pname = bits[-1]
+        prop = bits[-1]
+        bits = prop.split("$")
+        pname = bits[0]
+        pvalue = bits[1] if len(bits) > 1 else None
 
         while components:
             for c in cal.getComponents():
@@ -858,7 +869,14 @@ class caldavtest(object):
             return None
 
         props = cal.getProperties(pname)
-        return props[0] if props else None
+        if pvalue:
+            for prop in props:
+                if prop.getValue().getValue() == pvalue:
+                    return prop
+            else:
+                return None
+        else:
+            return props[0] if props else None
 
 
     def postgresInit(self):
