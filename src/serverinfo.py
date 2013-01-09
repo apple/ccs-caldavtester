@@ -1,5 +1,5 @@
 ##
-# Copyright (c) 2006-2012 Apple Inc. All rights reserved.
+# Copyright (c) 2006-2013 Apple Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import src.xmlDefs
 
 class serverinfo(object):
     """
-    Maintains information about the server being targetted.
+    Maintains information about the server being targeted.
     """
 
     def __init__(self):
@@ -37,33 +37,48 @@ class serverinfo(object):
         self.subsdict = {}
         self.extrasubsdict = {}
 
-        # Insert a bunch of date values
-        dtnow = datetime.date.today()
-        for dayoffset in xrange(-21, 21):
-            dtoffset = dtnow + datetime.timedelta(days=dayoffset)
-            key = "$now.%d:" % (dayoffset,)
-            value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
-            self.subsdict[key] = value
-        for yearoffset in xrange(-5, 20):
-            key = "$now.year.%d:" % (yearoffset,)
-            value = "%d" % (dtnow.year + yearoffset,)
-            self.subsdict[key] = value
+        # dtnow needs to be fixed to a single date at the start of the tests just in case the tests
+        # run over a day boundary.
+        self.dtnow = datetime.date.today()
 
 
-    def subs(self, str, db=None):
+    def subs(self, sub, db=None):
+
+        # Special handling for relative date-times
+        pos = sub.find("$now.")
+        while pos != -1:
+            endpos = pos + sub[pos:].find(":")
+            if sub[pos:].startswith("$now.year."):
+                yearoffset = int(sub[pos + 10:endpos])
+                value = "%d" % (self.dtnow.year + yearoffset,)
+            elif sub[pos:].startswith("$now.month."):
+                monthoffset = int(sub[pos + 11:endpos])
+                dtoffset = self.dtnow + datetime.timedelta(months=monthoffset)
+                value = "%d%02d" % (dtoffset.year, dtoffset.month,)
+            elif sub[pos:].startswith("$now.week."):
+                weekoffset = int(sub[pos + 10:endpos])
+                dtoffset = self.dtnow + datetime.timedelta(days=7 * weekoffset)
+                value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+            else:
+                dayoffset = int(sub[pos + 5:endpos])
+                dtoffset = self.dtnow + datetime.timedelta(days=dayoffset)
+                value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+            sub = "%s%s%s" % (sub[:pos], value, sub[endpos + 1:])
+            pos = sub.find("$now.")
+
         if db is None:
             db = self.subsdict
         count = 0
         while count < 10:
             do_again = False
             for key, value in db.iteritems():
-                newstr = str.replace(key, value)
-                do_again = do_again or (newstr != str)
-                str = newstr
+                newstr = sub.replace(key, value)
+                do_again = do_again or (newstr != sub)
+                sub = newstr
             if not do_again:
                 break
             count += 1
-        return str
+        return sub
 
 
     def addsubs(self, items, db=None):
