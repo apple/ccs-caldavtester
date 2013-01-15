@@ -912,7 +912,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='12' ignore='no'>
 			<description>Remove attachment</description>
 			<request>
 				<method>POST</method>
@@ -930,7 +930,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='13'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>WAITCOUNT 1</method>
@@ -955,7 +955,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='14'>
 			<description>Attendee has data</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -969,7 +969,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='15' ignore='no'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -978,7 +978,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -986,10 +986,10 @@
 				<method>GET</method>
 				<ruri>$attach2:</ruri>
 				<verify>
-					<callback>prepostcondition</callback>
+					<callback>statusCode</callback>
 					<arg>
-						<name>error</name>
-						<value>{DAV:}need-privileges</value>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>

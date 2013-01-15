@@ -342,20 +342,23 @@ class caldavtest(object):
                         else:
                             status = False
 
-                        # Get properties for this propstat
-                        prop = props.findall("{DAV:}prop")
-                        for el in prop:
-
+                        if status:
                             # Get properties for this propstat
-                            glm = el.findall("{DAV:}getlastmodified")
-                            if len(glm) != 1:
-                                continue
-                            value = glm[0].text
-                            value = rfc822.parsedate(value)
-                            value = time.mktime(value)
-                            if value > latest:
-                                hresult = href
-                                latest = value
+                            prop = props.findall("{DAV:}prop")
+                            for el in prop:
+
+                                # Get properties for this propstat
+                                glm = el.findall("{DAV:}getlastmodified")
+                                if len(glm) != 1:
+                                    continue
+                                value = glm[0].text
+                                value = rfc822.parsedate(value)
+                                value = time.mktime(value)
+                                if value > latest:
+                                    hresult = href
+                                    latest = value
+                        elif not hresult:
+                            hresult = href
 
         return hresult
 
@@ -490,6 +493,14 @@ class caldavtest(object):
             self.grabbedlocation = self.dofindnew(collection, label=label)
             req.method = "GET"
             req.ruri = "$"
+
+        # Special for FINDNEW
+        elif req.method == "FINDNEW":
+            collection = (req.ruri, req.user, req.pswd)
+            self.grabbedlocation = self.dofindnew(collection, label=label)
+            if req.graburi:
+                self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
+            return True, "", None, None
 
         # Special check for WAITCOUNT
         elif req.method.startswith("WAITCOUNT"):

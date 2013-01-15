@@ -282,7 +282,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -498,7 +498,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -639,7 +639,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -789,7 +789,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -813,7 +813,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1026,7 +1026,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1189,13 +1189,17 @@
 						<value>Cal-Managed-ID$$managed-id:</value>
 					</arg>
 				</verify>
+				<grabheader>
+					<name>Location</name>
+					<variable>$location2:</variable>
+				</grabheader>
 			</request>
 		</test>
 		<test name='5' ignore='no'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
-				<ruri>$location:</ruri>
+				<ruri>$location2:</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -1224,7 +1228,21 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>Check for attachment</description>
+			<request>
+				<method>GET</method>
+				<ruri>$location2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1441,7 +1459,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1692,7 +1710,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -1944,13 +1962,17 @@
 						<value>;MANAGED-ID=$managed_id1:</value>
 					</arg>
 				</verify>
+				<grabheader>
+					<name>Location</name>
+					<variable>$location2:</variable>
+				</grabheader>
 			</request>
 		</test>
 		<test name='7' ignore='no'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
-				<ruri>$attach1:</ruri>
+				<ruri>$location2:</ruri>
 				<verify>
 					<callback>dataMatch</callback>
 					<arg>
@@ -2017,7 +2039,21 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>Check for attachment</description>
+			<request>
+				<method>GET</method>
+				<ruri>$location2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -2317,7 +2353,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -2379,7 +2415,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -2563,7 +2599,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>404</value>
+						<value>403</value>
 					</arg>
 				</verify>
 			</request>
