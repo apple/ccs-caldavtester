@@ -106,7 +106,7 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>PROPFIND depth=0 with Prefer:return-minimal</description>
+			<description>PROPFIND depth=0 with Prefer:return=minimal</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -116,7 +116,7 @@
 				</header>
 				<header>
 					<name>Prefer</name>
-					<value>return-minimal</value>
+					<value>return=minimal</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -186,13 +186,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>REPORT with Prefer=return-minimal</description>
+			<description>REPORT with Prefer=return=minimal</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-minimal</value>
+					<value>return=minimal</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -262,13 +262,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>REPORT with Prefer=return-minimal</description>
+			<description>REPORT with Prefer=return=minimal</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-minimal</value>
+					<value>return=minimal</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -332,13 +332,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>PROPPATCH with Prefer:return-minimal</description>
+			<description>PROPPATCH with Prefer:return=minimal</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-minimal</value>
+					<value>return=minimal</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -499,13 +499,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>PUT with Prefer=return-representation</description>
+			<description>PUT with Prefer=return=representation</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-representation</value>
+					<value>return=representation</value>
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -535,13 +535,13 @@
 			</request>
 		</test>
 		<test name='4'>
-			<description>PUT with Prefer=return-representation</description>
+			<description>PUT with Prefer=return=representation</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-representation</value>
+					<value>return=representation</value>
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -631,13 +631,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>PUT with Prefer=return-representation</description>
+			<description>PUT with Prefer=return=representation</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/7.ics</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-representation</value>
+					<value>return=representation</value>
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -667,13 +667,13 @@
 			</request>
 		</test>
 		<test name='4'>
-			<description>PUT with Prefer=return-representation</description>
+			<description>PUT with Prefer=return=representation</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/7.ics</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-representation</value>
+					<value>return=representation</value>
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
@@ -792,13 +792,13 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>POST with Prefer=return-representation</description>
+			<description>POST with Prefer=return=representation</description>
 			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/$add-member:</ruri>
 				<header>
 					<name>Prefer</name>
-					<value>return-representation</value>
+					<value>return=representation</value>
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
