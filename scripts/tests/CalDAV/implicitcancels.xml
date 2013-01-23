@@ -1447,6 +1447,517 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Non-recurring with time-shift - remove' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer removes attendee and changes time</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has cancelled data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Recurring with time-shift - remove' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer removes attendee and changes time</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has cancelled data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee has valid data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Recurring (override) with time-shift - remove' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring-override/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-override/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer removes attendee and changes time</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring-override/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has cancelled data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-override/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee has valid data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-override/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Recurring (override) with time-shift - removed from master only' ignore='no'>
+		<test name='1'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring-master-remove/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-master-remove/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer removes attendee and changes time</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/cancels/time-shift-recurring-master-remove/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITCOUNT 2</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$inboxpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has cancelled data</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-master-remove/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee has valid data</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarpath3:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/cancels/time-shift-recurring-master-remove/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath3:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
 	<end/>
 	
 </caldavtest>

@@ -162,6 +162,48 @@
 				</verify>
 			</request>
 		</test>
+		<test name='10' ignore='no'>
+			<description>PUT recurring with invalid override and master cancel</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/10.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrenceput/23.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/10.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<description>PUT recurring with invalid cancelled override and master</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/10.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrenceput/23.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/10.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
 	<test-suite name='VTODOs' ignore='no'>
