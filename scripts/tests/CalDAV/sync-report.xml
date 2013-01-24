@@ -2707,6 +2707,31 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='simple reports - valid token' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}valid-sync-token</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
