@@ -53,8 +53,10 @@ class serverinfo(object):
                 value = "%d" % (self.dtnow.year + yearoffset,)
             elif sub[pos:].startswith("$now.month."):
                 monthoffset = int(sub[pos + 11:endpos])
-                dtoffset = self.dtnow + datetime.timedelta(months=monthoffset)
-                value = "%d%02d" % (dtoffset.year, dtoffset.month,)
+                month = self.dtnow.month + monthoffset
+                year = self.dtnow.year + divmod(month - 1, 12)[0]
+                month = divmod(month - 1, 12)[1] + 1
+                value = "%d%02d" % (year, month,)
             elif sub[pos:].startswith("$now.week."):
                 weekoffset = int(sub[pos + 10:endpos])
                 dtoffset = self.dtnow + datetime.timedelta(days=7 * weekoffset)
