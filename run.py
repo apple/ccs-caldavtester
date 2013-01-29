@@ -19,8 +19,6 @@
 # Runs the CalDAVTester test suite ensuring that required packages are available.
 #
 
-from distutils.util import get_platform
-from distutils.sysconfig import get_python_version
 import getopt
 import os
 import subprocess
@@ -30,10 +28,10 @@ cwd = os.getcwd()
 top = cwd[:cwd.rfind("/")]
 add_paths = []
 svn = "/usr/bin/svn"
+uri_base = "http://svn.calendarserver.org/repository/calendarserver"
 
 packages = [
-    ("pycalendar", "pycalendar/src", "http://svn.mulberrymail.com/repos/PyCalendar/branches/server", "146"),
-    ("xattr", "xattr/build/lib.%s-%s" % (get_platform(), get_python_version()), "http://svn.red-bean.com/bob/xattr/releases/xattr-0.5", "1013"),
+    ("pycalendar", "pycalendar/src", uri_base + "/PyCalendar/trunk", "HEAD"),
 ]
 
 def usage():
