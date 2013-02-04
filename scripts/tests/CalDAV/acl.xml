@@ -66,7 +66,7 @@
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$calendarhome2:/visibletouser01/hidden1.ics</ruri>
-			<data>
+			<data generate="yes">
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
 			</data>
@@ -94,7 +94,7 @@
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$calendarhome2:/notvisibletouser01/hidden1.ics</ruri>
-			<data>
+			<data generate="yes">
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
 			</data>
@@ -126,7 +126,7 @@
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
-			<data>
+			<data generate="yes">
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
 			</data>
@@ -155,7 +155,7 @@
 			</require-feature>
 			<method>PUT</method>
 			<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
-			<data>
+			<data generate="yes">
 				<content-type>text/calendar; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/acls/16.ics</filepath>
 			</data>

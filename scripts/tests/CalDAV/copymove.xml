@@ -48,6 +48,9 @@
 			<ruri>$calendarhome1:/calendar2/</ruri>
 		</request>
 		<request>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<method>PUT</method>
 			<ruri>$calendarhome1:/calendar2/2_2.ics</ruri>
 			<data>
@@ -64,6 +67,9 @@
 			</data>
 		</request>
 		<request>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<method>PUT</method>
 			<ruri>$calendarhome1:/calendar2/3.ics</ruri>
 			<data>
@@ -80,6 +86,9 @@
 			</data>
 		</request>
 		<request>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<method>PUT</method>
 			<ruri>$calendarhome1:/calendar2/4.ics</ruri>
 			<data>
@@ -110,6 +119,9 @@
 		<require-feature>
 			<feature>COPY Method</feature>
 		</require-feature>
+		<exclude-feature>
+			<feature>no-duplicate-uids</feature>
+		</exclude-feature>
 
 		<test name='1' ignore='no'>
 			<description>COPY within same calendar to new resource</description>
@@ -412,6 +424,9 @@
 			</request>
 		</test>
 		<test name='5'>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>MOVE to different calendar, existing resource with overwrite</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
@@ -454,6 +469,9 @@
 			</request>
 		</test>
 		<test name='6'>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>MOVE to different calendar, existing resource without overwrite</description>
 			<request>
 				<method>MOVE</method>

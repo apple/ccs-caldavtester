@@ -224,6 +224,9 @@
 					<name>Destination</name>
 					<value>$host:$calendarhome1:/movecopy/3.ics</value>
 				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -276,6 +279,9 @@
 			<require-feature>
 				<feature>COPY Method</feature>
 			</require-feature>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>Check for CTag change on COPY of new resource</description>
 			<request>
 				<method>COPY</method>
@@ -284,6 +290,9 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -332,6 +341,9 @@
 			<require-feature>
 				<feature>COPY Method</feature>
 			</require-feature>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>Check for CTag change on COPY of existing resource</description>
 			<request>
 				<method>COPY</method>
@@ -340,6 +352,9 @@
 					<name>Destination</name>
 					<value>$host:$calendarpath1:/2.ics</value>
 				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
 				<method>PROPFIND</method>
@@ -388,10 +403,13 @@
 			<require-feature>
 				<feature>MOVE Method</feature>
 			</require-feature>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>Check for no CTag change on failed MOVE of existing resource</description>
 			<request>
 				<method>MOVE</method>
-				<ruri>$calendarpath1:/2.ics</ruri>
+				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
 					<name>Destination</name>
 					<value>$host:$calendarhome1:/movecopy/2.ics</value>
@@ -449,6 +467,13 @@
 					<property>{http://calendarserver.org/ns/}getctag</property>
 					<variable>$getctag2:</variable>
 				</grabproperty>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$calendarhome1:/movecopy/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -750,10 +775,6 @@
 	</test-suite>
 
 	<end>
-		<request>
-			<method>DELETE</method>
-			<ruri>$calendarhome1:/movecopy/</ruri>
-		</request>
 		<request>
 			<method>DELETEALL</method>
 			<ruri>$calendarpath1:/</ruri>

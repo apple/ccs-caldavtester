@@ -116,7 +116,7 @@
 			<ruri>$calendarhome1:/rolledcalendar/1.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/privateevents/5.ics</filepath>
+				<filepath>Resource/CalDAV/privateevents/51.ics</filepath>
 			</data>
 		</request>
 		<request>
@@ -124,7 +124,7 @@
 			<ruri>$calendarhome1:/rolledcalendar/2.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/privateevents/6.ics</filepath>
+				<filepath>Resource/CalDAV/privateevents/52.ics</filepath>
 			</data>
 		</request>
 		<request>
@@ -132,7 +132,7 @@
 			<ruri>$calendarhome1:/rolledcalendar/3.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/privateevents/8.ics</filepath>
+				<filepath>Resource/CalDAV/privateevents/53.ics</filepath>
 			</data>
 		</request>
 		<request>
@@ -140,7 +140,7 @@
 			<ruri>$calendarhome1:/rolledcalendar/4.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/privateevents/10.ics</filepath>
+				<filepath>Resource/CalDAV/privateevents/54.ics</filepath>
 			</data>
 		</request>
 		<request>
@@ -148,7 +148,7 @@
 			<ruri>$calendarhome1:/rolledcalendar/5.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/privateevents/12.ics</filepath>
+				<filepath>Resource/CalDAV/privateevents/55.ics</filepath>
 			</data>
 		</request>
 		<request end-delete="yes">
@@ -3164,6 +3164,9 @@
 	</test-suite>
 
 	<test-suite name='COPY tests' ignore='no'>
+		<exclude-feature>
+			<feature>no-duplicate-uids</feature>
+		</exclude-feature>
 		<test name='1'>
 			<description>copy to calendar</description>
 			<request print-response="no">
@@ -3309,6 +3312,9 @@
 	</test-suite>
 
 	<test-suite name='COPY PUBLIC tests' ignore='no'>
+		<exclude-feature>
+			<feature>no-duplicate-uids</feature>
+		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
 			<request print-response="no">
@@ -3390,6 +3396,9 @@
 	</test-suite>
 
 	<test-suite name='COPY CONFIDENTIAL all data tests' ignore='no'>
+		<exclude-feature>
+			<feature>no-duplicate-uids</feature>
+		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
 			<request print-response="no">
@@ -3480,6 +3489,9 @@
 	</test-suite>
 
 	<test-suite name='COPY RESTRICTED all data tests' ignore='no'>
+		<exclude-feature>
+			<feature>no-duplicate-uids</feature>
+		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
 			<request print-response="no">

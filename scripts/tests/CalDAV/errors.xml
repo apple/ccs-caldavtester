@@ -46,6 +46,9 @@
 			<ruri>$calendarhome1:/calendar2/</ruri>
 		</request>
 		<request>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<method>PUT</method>
 			<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 			<data>
@@ -641,6 +644,9 @@
 			</request>
 		</test>
 		<test name='7'>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>COPY from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>COPY</method>
@@ -905,6 +911,9 @@
 			</request>
 		</test>
 		<test name='7'>
+			<exclude-feature>
+				<feature>no-duplicate-uids</feature>
+			</exclude-feature>
 			<description>MOVE from calendar with duplicate uids</description>
 			<request print-response='no'>
 				<method>MOVE</method>
