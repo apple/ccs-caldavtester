@@ -131,6 +131,31 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>PROPFIND depth=0 with Prefer:return=minimal nothing returned</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<header>
+					<name>Prefer</name>
+					<value>return=minimal</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/prefer/minimal/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='minimal: multiget'>
@@ -207,6 +232,27 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>REPORT with Prefer=return=minimal no results</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=minimal</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/prefer/minimal/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='minimal: query'>
@@ -279,6 +325,27 @@
 					<arg>
 						<name>okprops</name>
 						<value>{DAV:}resourcetype</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>REPORT with Prefer=return=minimal no results</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=minimal</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/prefer/minimal/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
 					</arg>
 				</verify>
 			</request>

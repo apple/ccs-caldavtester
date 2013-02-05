@@ -23,6 +23,17 @@ from xml.etree.ElementTree import ElementTree, tostring
 from StringIO import StringIO
 
 class Verifier(object):
+    """
+    Arguments for verifier:
+
+    ignore: list of hrefs to ignore
+    only: list of specific hrefs to test, others ignored
+    count: match the number of href elements
+    root-element: Qname for the root element of the response
+    status: test the overall response status code (default: 207)
+    okprops: list of properties with propstat status of 200 to test
+    badprops: list of properties with propstat status of 4xx to test
+    """
 
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
 
@@ -144,8 +155,6 @@ class Verifier(object):
 
                 # Get properties for this propstat
                 prop = props.find("{DAV:}prop")
-                if len(prop) == 0:
-                    return False, "           Wrong number of DAV:prop elements\n"
 
                 for child in prop.getchildren():
                     fqname = child.tag

@@ -148,6 +148,31 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>PROPFIND depth=0 with brief=t no results</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<header>
+					<name>Brief</name>
+					<value>t</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/brief/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='multiget'>
@@ -247,6 +272,27 @@
 				</verify>
 			</request>
 		</test>
+		<test name='5'>
+			<description>REPORT with brief=t no results</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Brief</name>
+					<value>t</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/brief/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='query'>
@@ -342,6 +388,27 @@
 					<arg>
 						<name>badprops</name>
 						<value>{DAV:}bogus</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>REPORT with brief=t no results</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Brief</name>
+					<value>t</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/brief/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
 					</arg>
 				</verify>
 			</request>
