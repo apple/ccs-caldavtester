@@ -189,6 +189,14 @@
 		</request>
 		<request end-delete="yes">
 			<method>PUT</method>
+			<ruri>$calendarpath1:/27.ics</ruri>
+			<data>
+				<content-type>text/calendar; charset=utf-8</content-type>
+				<filepath>Resource/CalDAV/reports/put/27.ics</filepath>
+			</data>
+		</request>
+		<request end-delete="yes">
+			<method>PUT</method>
 			<ruri>$taskspath1:/101.ics</ruri>
 			<data>
 				<content-type>text/calendar; charset=utf-8</content-type>
@@ -621,6 +629,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -756,6 +765,7 @@
 						<value>9.ics</value>
 						<value>19.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -811,6 +821,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -929,7 +940,7 @@
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
-			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' or has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
+			<description>query for resources where the SUMMARY in a VEVENT contains the character '2' or has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -958,6 +969,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1189,6 +1201,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1437,6 +1450,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1680,6 +1694,7 @@
 						<name>okhrefs</name>
 						<value>2.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -2044,6 +2059,7 @@
 						<value>20.ics</value>
 						<value>21.ics</value>
 						<value>22.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -2314,6 +2330,7 @@
 						<value>21.ics</value>
 						<value>22.ics</value>
 						<value>23.ics</value>
+						<value>27.ics</value>
 						<value>101.ics</value>
 						<value>104.ics</value>
 						<value>105.ics</value>
@@ -2343,6 +2360,7 @@
 						<value>21.ics</value>
 						<value>22.ics</value>
 						<value>23.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -2444,6 +2462,7 @@
 						<value>21.ics</value>
 						<value>22.ics</value>
 						<value>23.ics</value>
+						<value>27.ics</value>
 						<value>101.ics</value>
 						<value>102.ics</value>
 						<value>103.ics</value>
@@ -2475,6 +2494,7 @@
 						<value>21.ics</value>
 						<value>22.ics</value>
 						<value>23.ics</value>
+						<value>27.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -2952,7 +2972,7 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>query with expand all-day - no timezone</description>
+			<description>query with expand all-day - no timezone no match</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -2966,6 +2986,58 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
+			<description>query with expand all-day non-recurring - no timezone match</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/limitexpand/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>27.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>VEVENT</value>
+						<value>DTSTART;VALUE=DATE:$now.year.2:1015</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>query with expand all-day recurring - no timezone match</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/limitexpand/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>18.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>VEVENT</value>
+						<value>DTSTART;VALUE=DATE:$now.year.2:1017</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
 			<description>query with expand all-day - timezone</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -2991,7 +3063,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='10' ignore='no'>
 			<description>query with expand all-day - recurrence</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -3019,7 +3091,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='11' ignore='no'>
 			<description>time-range query with expand for one event - DURATION test</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -3054,7 +3126,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='12' ignore='no'>
 			<description>time-range query with expand for one recurring event skipping cancelled first instance</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -3112,7 +3184,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='13' ignore='no'>
 			<description>time-range query with expand for one recurring event shifted into time-range</description>
 			<request end-delete="yes">
 				<method>PUT</method>
