@@ -159,8 +159,9 @@ class caldavtest(object):
             if self.manager.memUsage:
                 start_usage = self.manager.getMemusage()
             etags = {}
+            only_tests = any([test.only for test in suite.tests])
             for test in suite.tests:
-                result = self.run_test(test, etags, label="%s | %s" % (label, test.name))
+                result = self.run_test(test, etags, only_tests, label="%s | %s" % (label, test.name))
                 if result == "t":
                     ok += 1
                 elif result == "f":
@@ -177,11 +178,11 @@ class caldavtest(object):
         return (ok, failed, ignored)
 
 
-    def run_test(self, test, etags, label=""):
+    def run_test(self, test, etags, only, label=""):
         descriptor = "        Test: %s" % test.name
         descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
         self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
-        if test.ignore:
+        if test.ignore or only and not test.only:
             self.manager.log(manager.LOG_HIGH, "[IGNORED]")
             return "i"
         elif len(test.missingFeatures()) != 0:

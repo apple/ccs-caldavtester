@@ -36,6 +36,7 @@ class test(object):
         self.count = 1
         self.stats = False
         self.ignore = False
+        self.only = False
         self.require_features = set()
         self.exclude_features = set()
         self.description = ""
@@ -56,6 +57,7 @@ class test(object):
         self.count = int(node.get(src.xmlDefs.ATTR_COUNT, 1))
         self.stats = getYesNoAttributeValue(node, src.xmlDefs.ATTR_STATS)
         self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
+        self.only = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ONLY)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
