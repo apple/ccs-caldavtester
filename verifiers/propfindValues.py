@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import urllib
 
 """
 Verifier that checks a propfind response for regex matches to property values.
@@ -77,7 +78,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if len(href) != 1:
                 return False, "           Wrong number of DAV:href elements\n"
-            href = href[0].text
+            href = urllib.unquote(href[0].text)
             if href in ignores:
                 continue
             if only and href not in only:

@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import urllib
+import urlparse
 
 """
 Class to encapsulate a single caldav test run.
@@ -550,7 +552,11 @@ class caldavtest(object):
 
         try:
             #self.manager.log(manager.LOG_LOW, "Sending request")
-            http.request(method, uri, data, headers)
+            puri = list(urlparse.urlparse(uri))
+            puri[2] = urllib.quote(puri[2])
+            quri = urlparse.urlunparse(puri)
+
+            http.request(method, quri, data, headers)
             #self.manager.log(manager.LOG_LOW, "Sent request")
 
             response = http.getresponse()

@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import urllib
 
 """
 Verifier that checks a propfind response to make sure that the specified properties
@@ -128,7 +129,7 @@ class Verifier(object):
             href = response.find("{DAV:}href")
             if href is None:
                 return False, "           Wrong number of DAV:href elements\n"
-            href = href.text
+            href = urllib.unquote(href.text)
             if href in ignores:
                 continue
             if only and href not in only:

@@ -26,11 +26,11 @@
 	<start>
 		<request end-delete='yes'>
 			<method>MKCALENDAR</method>
-			<ruri>$calendarhome1:/calendar%202/</ruri>
+			<ruri>$calendarhome1:/calendar 2/</ruri>
 		</request>
 		<request end-delete='yes'>
 			<method>MKCALENDAR</method>
-			<ruri>$calendarhome1:/calendar%203/</ruri>
+			<ruri>$calendarhome1:/calendar 3/</ruri>
 		</request>
 	</start>
 
@@ -42,11 +42,11 @@
 			<description>PUT</description>
 			<request end-delete='yes'>
 				<method>MKCOL</method>
-				<ruri>$calendarhome1:/collection%201/</ruri>
+				<ruri>$calendarhome1:/collection 1/</ruri>
 			</request>
 			<request print-response='no' end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$calendarhome1:/collection%201/2%20a.ics</ruri>
+				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/2.txt</filepath>
@@ -71,10 +71,10 @@
 			<description>COPY</description>
 			<request print-response='no' end-delete='yes'>
 				<method>COPY</method>
-				<ruri>$calendarhome1:/collection%201/2%20a.ics</ruri>
+				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/collection%201/2_2%20a.ics</value>
+					<value>$host:$calendarhome1:/collection 1/2_2 a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -83,13 +83,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/collection%201/2_2%20a.ics</value>
+						<value>Location$$host:$calendarhome1:/collection 1/2_2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/collection%201/2_2%20a.ics</ruri>
+				<ruri>$calendarhome1:/collection 1/2_2 a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -109,7 +109,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/collection%201/2_2%20a.ics</value>
+						<value>$calendarhome1:/collection 1/2_2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -121,10 +121,10 @@
 			<description>MOVE</description>
 			<request print-response='no' end-delete='yes'>
 				<method>MOVE</method>
-				<ruri>$calendarhome1:/collection%201/2%20a.ics</ruri>
+				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/collection%201/2_3%20a.ics</value>
+					<value>$host:$calendarhome1:/collection 1/2_3 a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -133,13 +133,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/collection%201/2_3%20a.ics</value>
+						<value>Location$$host:$calendarhome1:/collection 1/2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/collection%201/2_2%20a.ics</ruri>
+				<ruri>$calendarhome1:/collection 1/2_2 a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -159,7 +159,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/collection%201/2_2%20a.ics</value>
+						<value>$calendarhome1:/collection 1/2_2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -171,7 +171,7 @@
 			<description>PUT</description>
 			<request print-response='no' end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/2%20a.ics</ruri>
+				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/2.txt</filepath>
@@ -209,7 +209,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value></value>
-						<value>2%20a.ics</value>
+						<value>2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -230,7 +230,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2%20a.ics</value>
+						<value>2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -245,10 +245,10 @@
 			<description>COPY</description>
 			<request print-response='no' end-delete='yes'>
 				<method>COPY</method>
-				<ruri>$calendarpath1:/2%20a.ics</ruri>
+				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/calendar%202/2_2%20a.ics</value>
+					<value>$host:$calendarhome1:/calendar 2/2_2 a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -257,13 +257,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/calendar%202/2_2%20a.ics</value>
+						<value>Location$$host:$calendarhome1:/calendar 2/2_2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/calendar%202/2_2%20a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 2/2_2 a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -283,7 +283,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/calendar%202/2_2%20a.ics</value>
+						<value>$calendarhome1:/calendar 2/2_2 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -295,10 +295,10 @@
 			<description>MOVE</description>
 			<request print-response='no' end-delete='yes'>
 				<method>MOVE</method>
-				<ruri>$calendarpath1:/2%20a.ics</ruri>
+				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/calendar%203/2_3%20a.ics</value>
+					<value>$host:$calendarhome1:/calendar 3/2_3 a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -307,13 +307,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/calendar%203/2_3%20a.ics</value>
+						<value>Location$$host:$calendarhome1:/calendar 3/2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/calendar%203/2_3%20a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 3/2_3 a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -333,7 +333,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/calendar%203/2_3%20a.ics</value>
+						<value>$calendarhome1:/calendar 3/2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -345,7 +345,7 @@
 			<description>multiget REPORT on encoded calendar collection path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/encoded2.xml</filepath>
@@ -357,7 +357,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2_3%20a.ics</value>
+						<value>2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -369,7 +369,7 @@
 			<description>multiget REPORT on encoded calendar resource path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/2_3%20a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 3/2_3 a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/encoded2.xml</filepath>
@@ -405,7 +405,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>calendar%203/2_3%20a.ics</value>
+						<value>calendar 3/2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -417,7 +417,7 @@
 			<description>query REPORT on encoded calendar path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/1.txt</filepath>
@@ -429,7 +429,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2_3%20a.ics</value>
+						<value>2_3 a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -441,7 +441,7 @@
 			<description>free-busy REPORT on encoded calendar path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/freebusy/1.txt</filepath>
@@ -458,7 +458,7 @@
 			<description>PUT</description>
 			<request print-response='no' end-delete='yes'>
 				<method>PUT</method>
-				<ruri>$calendarpath1:/3%2520a.ics</ruri>
+				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/recurrenceput/3.txt</filepath>
@@ -496,7 +496,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value></value>
-						<value>3%2520a.ics</value>
+						<value>3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -517,7 +517,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>3%2520a.ics</value>
+						<value>3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -532,10 +532,10 @@
 			<description>COPY</description>
 			<request print-response='no' end-delete='yes'>
 				<method>COPY</method>
-				<ruri>$calendarpath1:/3%2520a.ics</ruri>
+				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/calendar%202/3_2%2520a.ics</value>
+					<value>$host:$calendarhome1:/calendar 2/3_2%2520a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -544,13 +544,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/calendar%202/3_2%2520a.ics</value>
+						<value>Location$$host:$calendarhome1:/calendar 2/3_2%2520a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/calendar%202/3_2%2520a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 2/3_2%20a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -570,7 +570,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/calendar%202/3_2%2520a.ics</value>
+						<value>$calendarhome1:/calendar 2/3_2%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -582,10 +582,10 @@
 			<description>MOVE</description>
 			<request print-response='no' end-delete='yes'>
 				<method>MOVE</method>
-				<ruri>$calendarpath1:/3%2520a.ics</ruri>
+				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<header>
 					<name>Destination</name>
-					<value>$host:$calendarhome1:/calendar%203/3_3%2520a.ics</value>
+					<value>$host:$calendarhome1:/calendar 3/3_3%2520a.ics</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -594,13 +594,13 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Location$$host:$calendarhome1:/calendar%203/3_3%2520a.ics</value>
+						<value>Location$$host:$calendarhome1:/calendar 3/3_3%2520a.ics</value>
 					</arg>
 				</verify>
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/calendar%203/3_3%2520a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 3/3_3%20a.ics</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -620,7 +620,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>$calendarhome1:/calendar%203/3_3%2520a.ics</value>
+						<value>$calendarhome1:/calendar 3/3_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -632,7 +632,7 @@
 			<description>multiget REPORT on encoded calendar collection path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/doubleencoded2.xml</filepath>
@@ -644,7 +644,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>3_3%2520a.ics</value>
+						<value>3_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -656,7 +656,7 @@
 			<description>multiget REPORT on encoded calendar resource path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/3_3%2520a.ics</ruri>
+				<ruri>$calendarhome1:/calendar 3/3_3%20a.ics</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/doubleencoded2.xml</filepath>
@@ -692,7 +692,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>calendar%203/3_3%2520a.ics</value>
+						<value>calendar 3/3_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -704,7 +704,7 @@
 			<description>query REPORT on encoded calendar path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/basicquery/1.txt</filepath>
@@ -716,8 +716,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>2_3%20a.ics</value>
-						<value>3_3%2520a.ics</value>
+						<value>2_3 a.ics</value>
+						<value>3_3%20a.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -729,7 +729,7 @@
 			<description>free-busy REPORT on encoded calendar path</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/calendar%203/</ruri>
+				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/freebusy/1.txt</filepath>

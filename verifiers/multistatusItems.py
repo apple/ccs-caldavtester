@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import urllib
 
 """
 Verifier that checks a multistatus response to make sure that the specified hrefs
@@ -85,7 +86,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if href is None or len(href) != 1:
                 return False, "        Incorrect/missing DAV:Href element in response"
-            href = href[0].text
+            href = urllib.unquote(href[0].text)
 
             # Verify status
             status = response.findall("{DAV:}status")

@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+import urllib
 
 """
 Verifier that checks a propfind response to make sure that the specified ACL privileges
@@ -49,7 +50,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if len(href) != 1:
                 return False, "           Wrong number of DAV:href elements\n"
-            href = href[0].text
+            href = urllib.unquote(href[0].text)
 
             # Get all privileges
             granted_privs = []
