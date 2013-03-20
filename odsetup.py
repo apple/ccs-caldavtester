@@ -26,7 +26,6 @@ from plistlib import writePlist
 from subprocess import Popen, PIPE
 import getopt
 import os
-import socket
 import sys
 import traceback
 import uuid
@@ -39,6 +38,7 @@ diradmin_pswd = ""
 directory_node = "/LDAPv3/127.0.0.1"
 utility = sys_root + "/usr/sbin/calendarserver_manage_principals"
 cmdutility = sys_root + "/usr/sbin/calendarserver_command_gateway"
+configutility = sys_root + "/usr/sbin/calendarserver_config"
 
 verbose = False
 veryverbose = False
@@ -47,7 +47,6 @@ serverinfo_template = "scripts/server/serverinfo-template.xml"
 
 details = {
     "caldav": {
-        "config": conf_root + "/caldavd.plist",
         "serverinfo": "scripts/server/serverinfo-caldav.xml"
     },
 }
@@ -239,7 +238,6 @@ Options:
     -n node   OpenDirectory node to target
     -u uid    OpenDirectory Admin user id
     -p pswd   OpenDirectory Admin user password
-    -f file   .plist config file used by the server
     -c users  number of user accounts to create (default: 10)
     -v        verbose logging
     -V        very verbose logging
@@ -269,52 +267,32 @@ def cmd(args, input=None, raiseOnFail=True):
 
 
 
-def readConfig(config):
+def readConfig():
     """
-    Read useful information from the server's caldavd.plist file.
-
-    @param config: file path to caldavd.plist
-    @type config: str
+    Read useful information from calendarserver_config
     """
 
-    # SudoersFile was removed from the default caldavd.plist. Cope.
-    plist = readPlist(config)
+    args = [
+        configutility,
+        "ServerHostName",
+        "DocumentRoot",
+        "HTTPPort",
+        "SSLPort",
+        "Authentication.Basic.Enabled",
+        "Authentication.Digest.Enabled",
+    ]
+    currentConfig = {}
+    output, code = cmd(" ".join(args), input=None)
+    for line in output.split("\n"):
+        if line:
+            key, value = line.split("=")
+            currentConfig[key] = value
     try:
-        plist["SudoersFile"]
-    except KeyError:
-        # add SudoersFile entry to caldavd.plist
-        plist["SudoersFile"] = conf_root + "/sudoers.plist"
-        writePlist(plist, config)
-
-    try:
-        sudoerspl = readPlist(plist["SudoersFile"])
-    except IOError:
-        # create a new sudoers.plist with empty 'users' array
-        sudoerspl = {'users': []}
-        writePlist(sudoerspl, plist["SudoersFile"])
-
-    plist = readPlist(config)
-    hostname = plist["ServerHostName"]
-
-    serverroot = plist["ServerRoot"]
-    docroot = plist["DocumentRoot"]
-    docroot = os.path.join(serverroot, docroot) if docroot and docroot[0] not in ('/', '.',) else docroot
-
-    configroot = plist["ConfigRoot"]
-    configroot = os.path.join(serverroot, configroot) if configroot and configroot[0] not in ('/', '.',) else configroot
-
-    sudoers = plist["SudoersFile"]
-    sudoers = os.path.join(configroot, sudoers) if sudoers and sudoers[0] not in ('/', '.',) else sudoers
-
-    nonsslport = plist["HTTPPort"]
-    sslport = plist["SSLPort"]
-
-    try:
-        basic_ok = plist["Authentication"]["Basic"]["Enabled"]
+        basic_ok = currentConfig["Authentication.Basic.Enabled"]
     except KeyError:
         pass
     try:
-        digest_ok = plist["Authentication"]["Digest"]["Enabled"]
+        digest_ok = currentConfig["Authentication.Digest.Enabled"]
     except KeyError:
         pass
     if basic_ok:
@@ -322,47 +300,39 @@ def readConfig(config):
     elif digest_ok:
         authtype = "digest"
 
-    if not hostname:
-        hostname = socket.getfqdn()
-        if not hostname:
-            hostname = "localhost"
-    if docroot[0] != "/":
-        docroot = base_dir + docroot
-    if sudoers[0] != "/":
-        sudoers = base_dir + sudoers
-
-    return hostname, nonsslport, sslport, authtype, docroot, sudoers
+    return (
+        currentConfig["ServerHostName"],
+        int(currentConfig["HTTPPort"]),
+        int(currentConfig["SSLPort"]),
+        authtype,
+        currentConfig["DocumentRoot"],
+    )
 
 
 
-def patchConfig(config, admin):
+def patchConfig(admin):
     """
-    Patch the caldavd.plist file to make sure:
+    Patch the caldavd-user.plist file to make sure:
        * the proper admin principal is configured
        * iMIP is disabled
        * SACLs are disabled
-       * CalDAV and CardDAV are enabled
        * EnableAnonymousReadRoot is enabled
 
-    @param config: file path to caldavd.plist
-    @type config: str
     @param admin: admin principal-URL value
     @type admin: str
     """
-    plist = readPlist(config)
-
-    admins = plist["AdminPrincipals"]
-    admins[:] = [admin]
+    plist = {}
+    plist["AdminPrincipals"] = [admin]
 
     # For testing do not send iMIP messages!
-    plist["Scheduling"]["iMIP"]["Enabled"] = False
+    plist["Scheduling"] = {
+        "iMIP" : {
+            "Enabled" : False,
+        },
+    }
 
     # No SACLs
     plist["EnableSACLs"] = False
-
-    # Enable CardDAV and CalDAV
-    plist["EnableCardDAV"] = True
-    plist["EnableCalDAV"] = True
 
     # Needed for CDT
     plist["EnableAnonymousReadRoot"] = True
@@ -370,38 +340,8 @@ def patchConfig(config, admin):
         plist["Scheduling"]["Options"] = dict()
     plist["Scheduling"]["Options"]["AttendeeRefreshBatch"] = 0
 
-    writePlist(plist, config)
+    writePlist(plist, conf_root + "/caldavd-user.plist")
 
-
-
-def patchConfigForAugmentService(config):
-    """
-    Patch the caldavd.plist file to configure AugmentService
-
-    @param config: file path to caldavd.plist
-    @type config: str
-    """
-    plist = readPlist(config)
-    plist["AugmentService"] = {'params': {'xmlFiles': ['augments.xml']}, 'type': 'twistedcaldav.directory.augment.AugmentXMLDB'}
-    writePlist(plist, config)
-
-
-
-def patchSudoers(sudoers):
-    """
-    Patch the sudoers.plist file to add the superuser we need to test proxy authentication.
-
-    @param sudoers: file path of sudoers file
-    @type sudoers: str
-    """
-    plist = readPlist(sudoers)
-    users = plist["users"]
-    for user in users:
-        if user["username"] == "superuser" and user["password"] == "superuser":
-            break
-    else:
-        users.append({"username": "superuser", "password": "superuser"})
-        writePlist(plist, sudoers)
 
 
 
@@ -480,17 +420,11 @@ def addLargeCalendars(hostname, docroot):
 
 
 
-def loadLists(config, path, records):
+def loadLists(path, records):
     if path == "/Places":
-        result = cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
-            locationlistcmd,
-        )
+        result = cmd(cmdutility, locationlistcmd)
     elif path == "/Resources":
-        result = cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
-            resourcelistcmd
-        )
+        result = cmd(cmdutility, resourcelistcmd)
     else:
         raise ValueError()
 
@@ -505,7 +439,7 @@ def loadLists(config, path, records):
 
 
 
-def doToAccounts(config, protocol, f, users_only=False):
+def doToAccounts(protocol, f, users_only=False):
 
     for record in records:
         if protocol == "carddav" and record[0] in ("/Places", "/Resources"):
@@ -524,9 +458,9 @@ def doToAccounts(config, protocol, f, users_only=False):
                         value = value % (ctr,)
                     attrs[key] = value
                 ruser = (record[1] % (ctr,), record[2] % (ctr,), attrs, 1)
-                f(config, record[0], ruser)
+                f(record[0], ruser)
         else:
-            f(config, record[0], record[1:])
+            f(record[0], record[1:])
 
 
 
@@ -552,16 +486,16 @@ def doGroupMemberships():
 
 
 
-def createUser(config, path, user):
+def createUser(path, user):
 
     if path in ("/Users", "/Groups",):
-        createUserViaDS(config, path, user)
+        createUserViaDS(path, user)
     elif protocol == "caldav":
-        createUserViaGateway(config, path, user)
+        createUserViaGateway(path, user)
 
 
 
-def createUserViaDS(config, path, user):
+def createUserViaDS(path, user):
     # Do dscl command line operations to create a calendar user
 
     # Only create if it does not exist
@@ -589,7 +523,7 @@ def createUserViaDS(config, path, user):
 
 
 
-def createUserViaGateway(config, path, user):
+def createUserViaGateway(path, user):
 
     # Check for existing
     if path == "/Places":
@@ -605,8 +539,7 @@ def createUserViaGateway(config, path, user):
     if user[0] in guids:
         guids[user[0]] = guid
     if path == "/Places":
-        cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
+        cmd(cmdutility,
             locationcreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
@@ -614,8 +547,7 @@ def createUserViaGateway(config, path, user):
             }
         )
     elif path == "/Resources":
-        cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
+        cmd(cmdutility,
             resourcecreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
@@ -627,16 +559,16 @@ def createUserViaGateway(config, path, user):
 
 
 
-def removeUser(config, path, user):
+def removeUser(path, user):
 
     if path in ("/Users", "/Groups",):
-        removeUserViaDS(config, path, user)
+        removeUserViaDS(path, user)
     else:
-        removeUserViaGateway(config, path, user)
+        removeUserViaGateway(path, user)
 
 
 
-def removeUserViaDS(config, path, user):
+def removeUserViaDS(path, user):
     # Do dscl command line operations to remove a calendar user
 
     # Create the user
@@ -644,22 +576,20 @@ def removeUserViaDS(config, path, user):
 
 
 
-def removeUserViaGateway(config, path, user):
+def removeUserViaGateway(path, user):
 
     if path == "/Places":
         if user[0] not in locations:
             return
         guid = locations[user[0]]
-        cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
+        cmd(cmdutility,
             locationremovecmd % {"guid": guid, }
         )
     elif path == "/Resources":
         if user[0] not in resources:
             return
         guid = resources[user[0]]
-        cmd(
-            "%s -f \"%s\"" % (cmdutility, config,),
+        cmd(cmdutility,
             resourceremovecmd % {"guid": guid, }
         )
     else:
@@ -667,7 +597,7 @@ def removeUserViaGateway(config, path, user):
 
 
 
-def manageRecords(config, path, user):
+def manageRecords(path, user):
     """
     Set proxies and auto-schedule for locations and resources
     """
@@ -712,9 +642,8 @@ def manageRecords(config, path, user):
 
 if __name__ == "__main__":
 
-    config = None
     protocol = "caldav"
-    serverinfo_default = None
+    serverinfo_default = details[protocol]["serverinfo"]
     try:
         options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV")
 
@@ -728,8 +657,6 @@ if __name__ == "__main__":
                 diradmin_user = value
             elif option == "-p":
                 diradmin_pswd = value
-            elif option == "-f":
-                config = value
             elif option == "-c":
                 number_of_users = int(value)
             elif option == "-v":
@@ -742,9 +669,6 @@ if __name__ == "__main__":
                 usage()
                 raise ValueError
 
-        if not config:
-            config = details[protocol]["config"]
-            serverinfo_default = details[protocol]["serverinfo"]
 
         if not diradmin_pswd:
             diradmin_pswd = getpass("Directory Admin Password: ")
@@ -765,25 +689,19 @@ if __name__ == "__main__":
 
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, port, sslport, authtype, docroot, sudoers = readConfig(config)
-
-            # Patch the sudoers file for the superuser principal.
-            patchSudoers(sudoers)
-
-            # Patch caldavd.plist to configure AugmentService, needed before creating resources
-            patchConfigForAugmentService(config)
+            hostname, port, sslport, authtype, docroot = readConfig()
 
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
-                loadLists(config, "/Places", locations)
-                loadLists(config, "/Resources", resources)
+                loadLists("/Places", locations)
+                loadLists("/Resources", resources)
 
-            doToAccounts(config, protocol, createUser)
+            doToAccounts(protocol, createUser)
             doGroupMemberships()
-            doToAccounts(config, protocol, manageRecords)
+            doToAccounts(protocol, manageRecords)
 
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            patchConfig(config, "/principals/__uids__/%s/" % (guids["testadmin"],))
+            patchConfig("/principals/__uids__/%s/" % (guids["testadmin"],))
 
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
@@ -794,23 +712,23 @@ if __name__ == "__main__":
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, port, sslport, authtype, docroot, sudoers = readConfig(config)
+            hostname, port, sslport, authtype, docroot = readConfig()
 
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
-                loadLists(config, "/Places", locations)
-                loadLists(config, "/Resources", resources)
+                loadLists("/Places", locations)
+                loadLists("/Resources", resources)
 
-            doToAccounts(config, protocol, createUser, users_only=True)
+            doToAccounts(protocol, createUser, users_only=True)
 
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
 
         elif args[0] == "remove":
             if protocol == "caldav":
-                loadLists(config, "/Places", locations)
-                loadLists(config, "/Resources", resources)
-            doToAccounts(config, protocol, removeUser)
+                loadLists("/Places", locations)
+                loadLists("/Resources", resources)
+            doToAccounts(protocol, removeUser)
 
     except Exception, e:
         traceback.print_exc()
