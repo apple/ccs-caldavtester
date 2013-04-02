@@ -37,7 +37,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='OPTIONS header' ignore="no">
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag</description>
 			<request print-response="no">
@@ -58,7 +58,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Principal resources' ignore="no">
+	<test-suite name='Principal resources'>
 		<test name='1'>
 			<description>Look for proxy principals</description>
 			<request print-response="no">
@@ -133,7 +133,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Group membership' ignore="no">
+	<test-suite name='Group membership'>
 		<test name='1'>
 			<description>Verify no group memberships right now</description>
 			<request print-response="no">
@@ -778,7 +778,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Principal report' ignore="no">
+	<test-suite name='Principal report'>
 		<test name='1'>
 			<description>Add user02 and user03 as read-write proxy for user01</description>
 			<request print-response="no">
@@ -825,7 +825,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Valid self report with DAV:prop</description>
 			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
 				<method>REPORT</method>
@@ -868,7 +868,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Proxy For properties' ignore="no">
+	<test-suite name='Proxy For properties'>
 		<test name='1'>
 			<description>Default setup</description>
 			<request print-response="no">
@@ -1000,7 +1000,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Expand properties' ignore="no">
+	<test-suite name='Expand properties'>
 		<test name='1'>
 			<description>OK property query</description>
 			<request print-response="no">
@@ -1129,7 +1129,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Calendar Home cache invalidation' ignore="no">
+	<test-suite name='Calendar Home cache invalidation'>
 		<test name='1'>
 			<description>Cannot access user2 calendar home</description>
 			<request print-response="no">
@@ -1228,7 +1228,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Calendar Home properties' ignore="no">
+	<test-suite name='Calendar Home properties'>
 		<test name='1'>
 			<description>Cannot access user2 calendar home</description>
 			<request print-response="no">
@@ -1557,6 +1557,40 @@
 					<arg>
 						<name>okprops</name>
 						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Location/Resource tracking'>
+		<require-feature>
+			<feature>location-resource-tracking</feature>
+		</require-feature>
+		<test name='1'>
+			<description>Store in resource collections</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$rcalendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/put/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Store in resource collections</description>
+			<request print-response="no">
+				<method>GET</method>
+				<ruri>$rcalendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/put/12.ics</value>
 					</arg>
 				</verify>
 			</request>
