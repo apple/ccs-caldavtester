@@ -21,7 +21,7 @@
 #
 
 from getpass import getpass
-from plistlib import readPlist, readPlistFromString
+from plistlib import readPlistFromString
 from plistlib import writePlist
 from subprocess import Popen, PIPE
 import getopt
@@ -282,7 +282,7 @@ def readConfig():
         "Authentication.Digest.Enabled",
     ]
     currentConfig = {}
-    output, code = cmd(" ".join(args), input=None)
+    output, _ignore_code = cmd(" ".join(args), input=None)
     for line in output.split("\n"):
         if line:
             key, value = line.split("=")
@@ -341,7 +341,6 @@ def patchConfig(admin):
     plist["Scheduling"]["Options"]["AttendeeRefreshBatch"] = 0
 
     writePlist(plist, conf_root + "/caldavd-user.plist")
-
 
 
 
@@ -668,7 +667,6 @@ if __name__ == "__main__":
                 print "Unrecognized option: %s" % (option,)
                 usage()
                 raise ValueError
-
 
         if not diradmin_pswd:
             diradmin_pswd = getpass("Directory Admin Password: ")
