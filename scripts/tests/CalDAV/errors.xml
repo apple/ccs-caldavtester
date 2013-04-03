@@ -165,7 +165,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='PUT' ignore='no'>
+	<test-suite name='PUT'>
 		<test name='1'>
 			<description>PUT non-calendar data</description>
 			<request>
@@ -454,7 +454,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore="no">
+		<test name='17'>
 			<description>PUT with invalid recurrence id</description>
 			<request print-response='no'>
 				<method>PUT</method>
@@ -511,9 +511,30 @@
 				</verify>
 			</request>
 		</test>
+		<test name='20'>
+			<description>Illegal \n parameter value</description>
+			<request end-delete="yes">
+				<method>PUT</method>
+				<ruri>$calendarpath1:/5.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/errors/43.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/5.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
-	<test-suite name='COPY' ignore='no'>
+	<test-suite name='COPY'>
 		<require-feature>
 			<feature>COPY Method</feature>
 		</require-feature>
@@ -780,7 +801,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE' ignore='no'>
+	<test-suite name='MOVE'>
 		<require-feature>
 			<feature>MOVE Method</feature>
 		</require-feature>
@@ -1047,7 +1068,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='REPORT/calendar-data' ignore='no'>
+	<test-suite name='REPORT/calendar-data'>
 		<test name='1'>
 			<description>query with invalid calendar-data content-type</description>
 			<request print-response='no'>
@@ -1122,7 +1143,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='REPORT/filter' ignore='no'>
+	<test-suite name='REPORT/filter'>
 		<test name='1'>
 			<description>query with invalid filter</description>
 			<request print-response='no'>
@@ -1359,7 +1380,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Invalid CalDAV:timezone' ignore='no'>
+	<test-suite name='Invalid CalDAV:timezone'>
 		<test name='1'>
 			<description>query with invalid timezone</description>
 			<request print-response='no'>
@@ -1398,7 +1419,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Invalid urn: calendar user address' ignore='no'>
+	<test-suite name='Invalid urn: calendar user address'>
 		<test name='1'>
 			<description>POST free busy</description>
 			<request print-response='no'>
@@ -1419,7 +1440,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Root resource' ignore='no'>
+	<test-suite name='Root resource'>
 		<test name='1'>
 			<description>DELETE /</description>
 			<request print-response='no'>
@@ -1482,7 +1503,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Unauthenticated versus Forbidden' ignore='no'>
+	<test-suite name='Unauthenticated versus Forbidden'>
 		<test name='1'>
 			<description>Existing user with incorrect password</description>
 			<request user="$userid1:" pswd="bogus" print-response='no'>
