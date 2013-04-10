@@ -411,17 +411,20 @@ class request(object):
     def parseMultiGrab(self, node, appendto):
 
         name = None
+        parent = None
         variable = None
         for child in node.getchildren():
             if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
                 name = self.manager.server_info.subs(child.text.encode("utf-8"))
+            elif child.tag == src.xmlDefs.ELEMENT_PARENT:
+                parent = self.manager.server_info.subs(child.text.encode("utf-8"))
             elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
                 if variable is None:
                     variable = []
                 variable.append(self.manager.server_info.subs(child.text.encode("utf-8")))
 
         if (name is not None) and (variable is not None):
-            appendto.append((name, variable))
+            appendto.append((name, variable,) if parent is None else (name, parent, variable,))
 
 
 

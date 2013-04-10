@@ -15,6 +15,7 @@
 ##
 import urllib
 import urlparse
+from src.xmlUtils import nodeForPath, xmlPathSplit
 
 """
 Class to encapsulate a single caldav test run.
@@ -632,9 +633,15 @@ class caldavtest(object):
                         self.manager.server_info.addextrasubs({variable: propvalue.encode("utf-8")})
 
         if req.grabelement:
-            for elementpath, variables in req.grabelement:
+            for item in req.grabelement:
+                if len(item) == 2:
+                    elementpath, variables = item
+                    parent = None
+                else:
+                    elementpath, parent, variables = item
+                    parent = self.manager.server_info.extrasubs(parent)
                 # grab the property here
-                elementvalues = self.extractElements(elementpath, respdata)
+                elementvalues = self.extractElements(elementpath, parent, respdata)
                 if elementvalues == None:
                     result = False
                     resulttxt += "\nElement %s was not extracted from response\n" % (elementpath,)
@@ -805,7 +812,7 @@ class caldavtest(object):
             return None
 
 
-    def extractElements(self, elementpath, respdata):
+    def extractElements(self, elementpath, parent, respdata):
 
         try:
             tree = ElementTree()
@@ -813,19 +820,38 @@ class caldavtest(object):
         except:
             return None
 
-        # Strip off the top-level item
-        if elementpath[0] == '/':
-            elementpath = elementpath[1:]
-            splits = elementpath.split('/', 1)
-            root = splits[0]
-            if tree.getroot().tag != root:
+        if parent:
+            tree_root = nodeForPath(tree.getroot(), parent)
+            if not tree_root:
                 return None
-            elif len(splits) == 1:
-                return tree.getroot().text
-            else:
-                elementpath = splits[1]
+            tree_root = tree_root[0]
 
-        e = tree.findall(elementpath)
+            # Handle absolute root element
+            if elementpath[0] == '/':
+                elementpath = elementpath[1:]
+            root_path, child_path = xmlPathSplit(elementpath)
+            if child_path:
+                if tree_root.tag != root_path:
+                    return None
+                e = tree_root.findall(child_path)
+            else:
+                e = (tree_root,)
+
+        else:
+            # Strip off the top-level item
+            if elementpath[0] == '/':
+                elementpath = elementpath[1:]
+                splits = elementpath.split('/', 1)
+                root = splits[0]
+                if tree.getroot().tag != root:
+                    return None
+                elif len(splits) == 1:
+                    return tree.getroot().text
+                else:
+                    elementpath = splits[1]
+
+            e = tree.findall(elementpath)
+
         if e is not None:
             return [item.text for item in e]
         else:
