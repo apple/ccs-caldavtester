@@ -28,6 +28,10 @@
 
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETE</method>
+			<ruri>$addressbookpath1:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath1:/</ruri>
 		</request>
@@ -35,25 +39,14 @@
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request end-delete="yes">
-			<method>MKCOL</method>
-			<ruri>$addressbookhome1:/shared/</ruri>
-			<data>
-				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/Common/MKCOL/addressbook.xml</filepath>
-			</data>
-			<verify>
-				<callback>statusCode</callback>
-			</verify>
-		</request>
 	</start>
 	
-	<test-suite name='Set up share'>
+	<test-suite name='Set up share' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/setup/1.xml</filepath>
@@ -120,7 +113,7 @@
 			<description>Check accept status</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -166,12 +159,12 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Delete'>
+	<test-suite name='Delete' ignore='no'>
 		<test name='1'>
 			<description>Sharer adds event</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$addressbookhome1:/shared/1.vcf</ruri>
+				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/unshare/shareedelete/1.vcf</filepath>
@@ -221,7 +214,7 @@
 			<description>Sharer still has addressbook data</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
