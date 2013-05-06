@@ -289,7 +289,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name="Set ACLs">
+		<test name="Set ACLs" ignore="yes">
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>ACL</method>
 				<ruri>$calendarpath2:/</ruri>
@@ -315,7 +315,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Writer as organizer - no scheduling' ignore='no'>
+	<test-suite name='Writer as organizer - no scheduling' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>Writer can read existing event</description>
 			<request print-response="no">
@@ -372,7 +372,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Writer as attendee - no scheduling' ignore='no'>
+	<test-suite name='Writer as attendee - no scheduling' ignore='yes'>
 		<test name='1' ignore='no'>
 			<description>Writer can read existing item</description>
 			<request print-response="no">

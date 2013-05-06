@@ -56,7 +56,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<transparent xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<opaque xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -156,7 +156,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<transparent xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<opaque xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -177,7 +177,7 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>$calendarhome1:/testcalendar2/</value>
 					</arg>
 				</verify>
@@ -190,7 +190,7 @@
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/calendartransp/2.xml</filepath>
+					<filepath>Resource/CalDAV/implicit/calendartransp/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -218,7 +218,7 @@
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<opaque xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp$<transparent xmlns="urn:ietf:params:xml:ns:caldav"/>]]></value>
 					</arg>
 				</verify>
 			</request>
@@ -239,7 +239,7 @@
 				<verify>
 					<callback>dataString</callback>
 					<arg>
-						<name>contains</name>
+						<name>notcontains</name>
 						<value>$calendarhome1:/testcalendar2</value>
 					</arg>
 				</verify>

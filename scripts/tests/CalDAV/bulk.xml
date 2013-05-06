@@ -418,6 +418,9 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}getetag</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
 						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</value>
 					</arg>
 				</verify>
@@ -428,10 +431,6 @@
 				<grabelement>
 					<name>$verify-property-prefix:/{DAV:}getetag</name>
 					<variable>$etag:</variable>
-				</grabelement>
-				<grabelement>
-					<name>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</name>
-					<variable>$data:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -445,27 +444,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/bulk/simple/10.ics</value>
-					</arg>
-				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>ETag</name>
-						<value>$etag:</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3' ignore='no'>
-			<description>Check valid data against returned data</description>
-			<request>
-				<method>GET</method>
-				<ruri>$href:</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>data</name>
-						<value>$data:</value>
 					</arg>
 				</verify>
 				<verify>
@@ -560,7 +538,6 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}getetag</value>
-						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</value>
 					</arg>
 				</verify>
 				<grabheader>
