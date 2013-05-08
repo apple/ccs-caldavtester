@@ -529,7 +529,7 @@ class verify(object):
                     values.append(self.manager.server_info.subs(child.text.encode("utf-8")))
                 else:
                     values.append("")
-        if name and len(values):
+        if name:
             self.args[name] = values
 
 

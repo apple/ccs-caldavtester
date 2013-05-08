@@ -248,45 +248,6 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Delete default calendar' ignore='no'>
-		<test name='1'>
-			<description>Delete calendar</description>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$calendarhome1:/calendar-moved/</ruri>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:caldav}default-calendar-delete-allowed</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Verify property on inbox</description>
-			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/defaultcalendar/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$<href xmlns="DAV:">$calendarhome1:/calendar-moved</href>]]></value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-	
 	<test-suite name='Delete previously default calendar' ignore='no'>
 		<test name='1'>
 			<description>Set property on Inbox</description>
@@ -340,7 +301,178 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Set valid Property' ignore='no'>
+	<test-suite name='Delete default calendar' ignore='no'>
+		<test name='1'>
+			<description>Delete calendar</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$calendarpath10:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Verify property on inbox</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response="no">
+				<method>PROPFIND</method>
+				<ruri>$inboxpath10:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/defaultcalendar/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value><![CDATA[{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL$]]></value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Auto-create default calendar on scheduling' ignore='no'>
+		<test name='1'>
+			<description>Attendee has no calendar</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome10:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>ignoremissing</name>
+					</arg>
+					<arg>
+						<name>nohrefs</name>
+						<value>events/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Organizer invites Attendee</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/defaultcalendar/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/defaultcalendar/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath10:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath10:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee has calendar</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome10:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>ignoremissing</name>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>events/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$calendarhome10:/events/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/defaultcalendar/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:">
+				<method>DELETEALL</method>
+				<ruri>$calendarhome10:/events/</ruri>
+			</request>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath10:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+				<method>MKCALENDAR</method>
+				<ruri>$calendarpath10:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:">
+				<method>DELETE</method>
+				<ruri>$calendarhome10:/events/</ruri>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Set valid Property' ignore='yes'>
 		<test name='1'>
 			<description>Look for existing property on inbox</description>
 			<request print-response="no">
