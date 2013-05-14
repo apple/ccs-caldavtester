@@ -30,7 +30,9 @@ import sys
 import traceback
 import uuid
 import xml.parsers.expat
+
 sys_root = "/Applications/Server.app/Contents/ServerRoot"
+os.environ["PATH"] = "%s/usr/bin:%s" % (sys_root, os.environ["PATH"])
 conf_root = "/Library/Server/Calendar and Contacts/Config"
 
 diradmin_user = "admin"
