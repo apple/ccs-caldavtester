@@ -28,6 +28,10 @@
 
 	<start>
 		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETE</method>
+			<ruri>$addressbookpath1:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath1:/</ruri>
 		</request>
@@ -35,25 +39,14 @@
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request end-delete="yes">
-			<method>MKCOL</method>
-			<ruri>$addressbookhome1:/shared/</ruri>
-			<data>
-				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/Common/MKCOL/addressbook.xml</filepath>
-			</data>
-			<verify>
-				<callback>statusCode</callback>
-			</verify>
-		</request>
 	</start>
 	
-	<test-suite name='Set up share'>
+	<test-suite name='Set up share' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/setup/1.xml</filepath>
@@ -120,7 +113,7 @@
 			<description>Check accept status</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -171,7 +164,7 @@
 			<description>PROPPATCH of displayname</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/peruser-properties/nonglobal/1.xml</filepath>
@@ -186,7 +179,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -220,8 +213,8 @@
 				<verify>
 					<callback>propfindItems</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}displayname$The Shared Address Book</value>
+						<name>badprops</name>
+						<value>{DAV:}displayname</value>
 					</arg>
 				</verify>
 			</request>
@@ -267,7 +260,7 @@
 			<description>PROPFIND of shared displayname</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -292,7 +285,7 @@
 			<description>PROPPATCH of addressbook-description</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/peruser-properties/shadowable/1.xml</filepath>
@@ -307,7 +300,7 @@
 			</request>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -388,7 +381,7 @@
 			<description>PROPFIND of shared addressbook-description</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>

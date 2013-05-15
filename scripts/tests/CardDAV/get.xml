@@ -230,7 +230,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='GET on home'>
+	<test-suite name='GET on home' ignore='no'>
 		<require-feature>
 			<feature>directory listing</feature>
 		</require-feature>
@@ -260,51 +260,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2'>
-			<description>Create a addressbook</description>
-			<request>
-				<method>DELAY</method>
-				<ruri>1</ruri>
-			</request>
-			<request end-delete="yes">
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/testadbk/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/MKCOL/addressbook.xml</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>GET on addressbook home, changed headers</description>
-			<request>
-				<method>GET</method>
-				<ruri>$addressbookhome1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<verify>
-					<callback>header</callback>
-					<arg>
-						<name>header</name>
-						<value>Etag!$etag1:</value>
-						<value>Last-Modified!$last-modified1:</value>
-					</arg>
-				</verify>
-				<grabheader>
-					<name>Etag</name>
-					<variable>$etag2:</variable>
-				</grabheader>
-				<grabheader>
-					<name>Last-Modified</name>
-					<variable>$last-modified2:</variable>
-				</grabheader>
-			</request>
-		</test>
-		<test name='4'>
+		<test name='4' ignore='no'>
 			<description>Conditional GET on addressbook home</description>
 			<request print-response="no">
 				<method>GET</method>
@@ -329,7 +285,7 @@
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>If-Modified-Since</name>
-					<value>$last-modified2:</value>
+					<value>$last-modified1:</value>
 				</header>
 				<verify>
 					<callback>statusCode</callback>
@@ -341,14 +297,14 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Delete a addressbook</description>
+			<description>Delete the addressbook</description>
 			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
 			<request end-delete="yes">
 				<method>DELETE</method>
-				<ruri>$addressbookhome1:/testadbk/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -366,8 +322,8 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Etag!$etag2:</value>
-						<value>Last-Modified!$last-modified2:</value>
+						<value>Etag!$etag1:</value>
+						<value>Last-Modified!$last-modified1:</value>
 					</arg>
 				</verify>
 			</request>

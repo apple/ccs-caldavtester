@@ -26,7 +26,16 @@
 		<feature>shared-addressbooks</feature>
 	</require-feature>
 
-	<start/>
+	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETE</method>
+			<ruri>$addressbookpath1:/</ruri>
+		</request>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+	</start>
 	
 	<test-suite name='OPTIONS header' ignore='no'>
 		<test name='1'>
@@ -84,16 +93,12 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Upgrade addressbook to shared'>
+	<test-suite name='Upgrade addressbook to shared' ignore='no'>
 		<test name='1'>
-			<description>Create new addressbook</description>
-			<request end-delete="yes">
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/shared1/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/MKCOL/addressbook.xml</filepath>
-				</data>
+			<description>clear addressbook</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -103,7 +108,7 @@
 			<description>Not shared</description>
 			<request print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome1:/shared1/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -125,7 +130,7 @@
 			<description>Upgrade via PROPPATCH</description>
 			<request print-response='no'>
 				<method>PROPPATCH</method>
-				<ruri>$addressbookhome1:/shared1/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/feature/upgrade_collection/1.xml</filepath>

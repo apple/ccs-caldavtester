@@ -34,6 +34,7 @@
 				<filepath>Resource/CardDAV/vaclreports/10.xml</filepath>
 			</data>
 		</request>
+<!--
 		<request end-delete='yes'>
 			<method>MKCOL</method>
 			<ruri>$addressbookhome1:/adbktest2/</ruri>
@@ -58,6 +59,7 @@
 				<filepath>Resource/CardDAV/mkcol/1.xml</filepath>
 			</data>
 		</request>
+-->
 	</start>
 	
 	<test-suite name='acl-principal-prop-set REPORT' ignore='no'>
@@ -295,7 +297,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6' ignore='yes'>
 			<description>Valid principal-search report with DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -313,7 +315,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7' ignore='yes'>
 			<description>Valid principal-search report without DAV:prop</description>
 			<request print-response='no'>
 				<method>REPORT</method>
