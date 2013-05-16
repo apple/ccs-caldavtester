@@ -26,8 +26,8 @@
 	<start/>
 	
 	<test-suite name='OPTIONS header' ignore='no'>
-		<test name='1'>
-			<description>Look for options header tag</description>
+		<test name='1' ignore='yes'>
+			<description>OPTIONS DAV: header does not contain extended-mkcol</description>
 			<request print-response="no">
 				<method>OPTIONS</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -35,7 +35,35 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>*DAV$.*extended-mkcol.*</value>
+						<value>*DAV!.*extended-mkcol.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>OPTIONS Allow: header does not contain MKCOL</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*Allow!.*MKCOL.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>OPTIONS Allow: header does not contain MKCALENDAR</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*Allow!.*MKCALENDAR.*</value>
 					</arg>
 				</verify>
 			</request>
@@ -56,101 +84,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
-						<value>201</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>MKCOL with correct request body on existing resource</description>
-			<request>
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/adbktest1/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/mkcol/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>{DAV:}resource-must-be-null</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
- 		<test name='3'>
-			<description>MKCOL with incorrect request body</description>
-			<request end-delete='yes' print-response='no'>
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/adbktest2/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/mkcol/2.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>status</name>
 						<value>403</value>
-					</arg>
-					<arg>
-						<name>root-element</name>
-						<value>{DAV:}mkcol-response</value>
-					</arg>
-					<arg>
-						<name>badprops</name>
-						<value>{DAV:}resourcetype</value>
-						<value>{DAV:}getetag</value>
-						<value>{DAV:}displayname</value>
-						<value>{urn:ietf:params:xml:ns:carddav}addressbook-description</value>
-					</arg>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$addressbookhome1:/adbktest2/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>404</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>MKCOL with incorrect request body on existing resource</description>
-			<request>
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/adbktest1/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/mkcol/2.xml</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>{DAV:}resource-must-be-null</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>MKCOL with incorrect resourcetype on new resource</description>
-			<request>
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/adbktest3/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/mkcol/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>400</value>
 					</arg>
 				</verify>
 			</request>

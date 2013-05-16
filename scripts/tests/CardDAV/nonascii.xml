@@ -27,7 +27,8 @@
 
 	<start/>
 
-	<test-suite name='non-ascii' ignore="no">
+<!--
+	<test-suite name='non-ascii' ignore="yes">
 		<test name='1' ignore="no">
 			<description>MKCOL with high-ascii</description>
 			<request print-response="no">
@@ -42,7 +43,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2' ignore="yes">
 			<description>MKCOL with non-ascii - duplicate</description>
 			<request print-response="no">
 				<method>MKCOL</method>
@@ -81,8 +82,10 @@
 			</request>
 		</test>
 	</test-suite>
+ -->
 	
-	<test-suite name='double byte' ignore="no">
+<!--
+	<test-suite name='double byte' ignore="yes">
 		<test name='1' ignore="no">
 			<description>MKCOL with double byte</description>
 			<request end-delete="no">
@@ -136,6 +139,7 @@
 			</request>
 		</test>
 	</test-suite>
+ -->
 <!--
 	<test-suite name='Non-ascii resource URI' ignore="no">
 		<test name='1' ignore="no">

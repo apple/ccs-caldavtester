@@ -26,7 +26,12 @@
 		<feature>add-member</feature>
 	</require-feature>
 
-	<start/>
+	<start>
+		<request print-response='no'>
+			<method>DELETE</method>
+			<ruri>$addressbookpath1:/</ruri>
+		</request>
+	</start>
 	
 	<test-suite name='DAV:add-member property'>
 		<test name='1'>
