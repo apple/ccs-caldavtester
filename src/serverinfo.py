@@ -104,7 +104,19 @@ class serverinfo(object):
 
 
     def addextrasubs(self, items):
-        self.addsubs(items, self.extrasubsdict)
+        processed = {}
+
+        # Various "functions" might be applied to a variable name to cause the value to
+        # be changed in various ways
+        for variable, value in items.items():
+
+            # basename() - extract just the URL last path segment from the value
+            if variable.startswith("basename("):
+                variable = variable[len("basename("):-1]
+                value = value.rstrip("/").split("/")[-1]
+            processed[variable] = value
+
+        self.addsubs(processed, self.extrasubsdict)
 
 
     def parseXML(self, node):
