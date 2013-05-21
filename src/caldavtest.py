@@ -205,8 +205,8 @@ class caldavtest(object):
             else:
                 reqstats = None
             for ctr in range(test.count): #@UnusedVariable
-                for req in test.requests:
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label=label, count=ctr + 1)
+                for req_count, req in enumerate(test.requests):
+                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
                     if not result:
                         break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
@@ -225,13 +225,11 @@ class caldavtest(object):
             return True
         description += " " * max(1, STATUSTXT_WIDTH - len(description))
         self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
-        ctr = 1
-        for req in list:
-            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, False, doverify, forceverify, label=label, count=count)
+        for req_count, req in enumerate(list):
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, False, doverify, forceverify, label="%s | #%s" % (label, req_count + 1), count=count)
             if not result:
-                resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (ctr, len(list), str(req))
+                resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (req_count + 1, len(list), str(req))
                 break
-            ctr += 1
         loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
         self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
         if len(resulttxt) > 0:
