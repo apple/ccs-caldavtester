@@ -19,15 +19,19 @@
  -->
 
 <caldavtest>
-	<description>Test calendar sharing and cached home sync tokens</description>
+	<description>Test address book/group sharing and cached home sync tokens</description>
 
 	<require-feature>
-		<feature>caldav</feature>
-		<feature>shared-calendars</feature>
+		<feature>carddav</feature>
+		<feature>shared-addressbooks</feature>
 		<feature>sync-report</feature>
 	</require-feature>
 
 	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<method>DELETE</method>
+			<ruri>$addressbookpath1:/</ruri>
+		</request>
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
 			<ruri>$notificationpath1:/</ruri>
@@ -36,29 +40,14 @@
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request end-delete="yes">
-			<method>MKCALENDAR</method>
-			<ruri>$calendarhome1:/shared/</ruri>
-			<verify>
-				<callback>statusCode</callback>
-			</verify>
-		</request>
-		<request print-response='no'>
-			<method>PROPPATCH</method>
-			<ruri>$calendarhome1:/shared/</ruri>
-			<data>
-				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
-			</data>
-		</request>
 	</start>
 	
-	<test-suite name='Read-write calendar'>
+	<test-suite name='Read-write addressbook'>
 		<test name='1' ignore='no'>
 			<description>Initial sync tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
@@ -73,7 +62,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-infinite.xml</filepath>
@@ -88,7 +77,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
@@ -103,7 +92,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
@@ -118,7 +107,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-infinite.xml</filepath>
@@ -136,7 +125,7 @@
 			<description>POST invitation</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharinginvite2.xml</filepath>
@@ -159,7 +148,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/sync/depth1-cache/2.xml</value>
+						<value>Resource/CardDAV/sharing/sync/addressbook/1.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -181,7 +170,7 @@
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
@@ -191,7 +180,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>basename($sharedcalendar:)</variable>
+					<variable>basename($sharedaddressbook:)</variable>
 				</grabelement>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -204,7 +193,7 @@
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
@@ -213,8 +202,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
-						<value>$notification:/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -224,7 +212,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
@@ -232,13 +220,8 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>ignoremissing</name>
-						<value>1</value>
-					</arg>
-					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
-						<value>$notification:/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -248,7 +231,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
@@ -266,7 +249,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
@@ -275,8 +258,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
-						<value>$notification:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -286,7 +268,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
@@ -294,13 +276,8 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>ignoremissing</name>
-						<value>1</value>
-					</arg>
-					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
-						<value>$notification:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -310,7 +287,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
@@ -325,13 +302,13 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Sharee creates event</description>
+			<description>Sharee creates vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/1.ics</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/1.vcf</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/sync/depth1-cache/4.ics</filepath>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/sync/addressbook/2.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -342,7 +319,7 @@
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
@@ -351,7 +328,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -361,7 +338,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
@@ -370,8 +347,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
-						<value>shared/1.ics</value>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -381,7 +358,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
@@ -390,7 +367,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -400,7 +377,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
@@ -409,7 +386,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -419,7 +396,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
@@ -428,8 +405,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
-						<value>$sharedcalendar:/1.ics</value>
+						<value>$sharedaddressbook:/</value>
+						<value>$sharedaddressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -439,7 +416,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
@@ -448,7 +425,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -461,10 +438,10 @@
 			<description>Sharer changes event</description>
 			<request print-response='no'>
 				<method>PUT</method>
-				<ruri>$calendarhome1:/shared/1.ics</ruri>
+				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/sync/depth1-cache/5.ics</filepath>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/sync/addressbook/3.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -475,7 +452,7 @@
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
@@ -484,7 +461,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -494,7 +471,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
@@ -503,8 +480,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
-						<value>shared/1.ics</value>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -514,7 +491,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
@@ -523,7 +500,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -533,7 +510,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
@@ -542,7 +519,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -552,7 +529,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
@@ -561,8 +538,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
-						<value>$sharedcalendar:/1.ics</value>
+						<value>$sharedaddressbook:/</value>
+						<value>$sharedaddressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -572,7 +549,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
@@ -581,7 +558,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -594,7 +571,7 @@
 			<description>Sharee deletes event</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/1.ics</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/1.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -604,7 +581,7 @@
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
@@ -613,7 +590,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -623,7 +600,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
@@ -632,11 +609,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>shared/1.ics</value>
+						<value>$addressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -646,7 +623,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
@@ -655,7 +632,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>badhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -665,7 +642,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
@@ -674,7 +651,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -684,7 +661,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
@@ -693,11 +670,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$sharedcalendar:/1.ics</value>
+						<value>$sharedaddressbook:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -707,7 +684,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
@@ -716,7 +693,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>badhrefs</name>
-						<value>1.ics</value>
+						<value>1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -729,7 +706,7 @@
 			<description>Sharer unshares</description>
 			<request print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingremove2.xml</filepath>
@@ -743,7 +720,7 @@
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
@@ -752,7 +729,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -762,7 +739,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/</ruri>
+				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
@@ -771,7 +748,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>shared/</value>
+						<value>$addressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -781,7 +758,7 @@
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
@@ -796,7 +773,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
@@ -804,12 +781,8 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>okhrefs</name>
-						<value>$notification:/</value>
-					</arg>
-					<arg>
 						<name>badhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -819,7 +792,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
@@ -827,16 +800,8 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>ignoremissing</name>
-						<value>1</value>
-					</arg>
-					<arg>
-						<name>okhrefs</name>
-						<value>$notification:/</value>
-					</arg>
-					<arg>
 						<name>badhrefs</name>
-						<value>$sharedcalendar:/</value>
+						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -846,7 +811,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
-				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
+				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>

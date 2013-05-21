@@ -383,6 +383,7 @@
 						<value>{http://calendarserver.org/ns/}uid</value>
 					</arg>
 				</verify>
+				<graburi>basename($notification2:)</graburi>
 				<grabelement>
 					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
 					<variable>$inviteuid:</variable>
@@ -403,16 +404,12 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>totalcount</name>
-						<value>1</value>
+						<value>2</value>
 					</arg>
 				</verify>
 				<grabelement>
 					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
 					<variable>$synctoken2:</variable>
-				</grabelement>
-				<grabelement>
-					<name>/{DAV:}multistatus/{DAV:}response/{DAV:}href</name>
-					<variable>$href2:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -439,12 +436,12 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>prefix</name>
-						<value/>
+						<name>okhrefs</name>
+						<value>$notification:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$href2:</value>
+						<value>$notification:/$notification2:</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -582,6 +579,7 @@
 						<value>{http://calendarserver.org/ns/}uid</value>
 					</arg>
 				</verify>
+				<graburi>basename($notification2:)</graburi>
 				<grabelement>
 					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
 					<variable>$inviteuid:</variable>
@@ -602,16 +600,12 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>totalcount</name>
-						<value>1</value>
+						<value>2</value>
 					</arg>
 				</verify>
 				<grabelement>
 					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
 					<variable>$synctoken2:</variable>
-				</grabelement>
-				<grabelement>
-					<name>/{DAV:}multistatus/{DAV:}response/{DAV:}href</name>
-					<variable>$href2:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -638,12 +632,12 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>prefix</name>
-						<value/>
+						<name>okhrefs</name>
+						<value>$notification:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$href2:</value>
+						<value>$notification:/$notification2:</value>
 					</arg>
 				</verify>
 				<grabelement>

@@ -55,6 +55,10 @@
 				<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
 				<variable>$inviteuid2:</variable>
 			</grabelement>
+			<grabelement>
+				<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}hosturl/{DAV:}href</name>
+				<variable>$hosturl2:</variable>
+			</grabelement>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 			<method>POST</method>
@@ -78,6 +82,10 @@
 			<grabelement>
 				<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
 				<variable>$inviteuid3:</variable>
+			</grabelement>
+			<grabelement>
+				<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}hosturl/{DAV:}href</name>
+				<variable>$hosturl3:</variable>
 			</grabelement>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
