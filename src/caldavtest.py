@@ -13,9 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-import urllib
-import urlparse
-from src.xmlUtils import nodeForPath, xmlPathSplit
 
 """
 Class to encapsulate a single caldav test run.
@@ -29,6 +26,7 @@ from src.request import data, pause
 from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
+from src.xmlUtils import nodeForPath, xmlPathSplit
 from xml.etree.ElementTree import ElementTree, tostring
 import commands
 import httplib
@@ -38,6 +36,8 @@ import socket
 import src.xmlDefs
 import sys
 import time
+import urllib
+import urlparse
 
 STATUSTXT_WIDTH = 60
 
@@ -83,6 +83,7 @@ class caldavtest(object):
         self.end_deletes = []
         self.suites = []
         self.grabbedlocation = None
+        self.previously_found = set()
 
 
     def missingFeatures(self):
@@ -320,6 +321,7 @@ class caldavtest(object):
             except Exception:
                 return hresult
 
+            possible_matches = set()
             latest = 0
             request_uri = req.getURI(self.manager.server_info)
             for response in tree.findall("{DAV:}response"):
@@ -357,11 +359,22 @@ class caldavtest(object):
                                 value = rfc822.parsedate(value)
                                 value = time.mktime(value)
                                 if value > latest:
-                                    hresult = href
+                                    possible_matches.clear()
+                                    possible_matches.add(href)
                                     latest = value
+                                elif value == latest:
+                                    possible_matches.add(href)
                         elif not hresult:
-                            hresult = href
+                            possible_matches.add(href)
 
+        if len(possible_matches) == 1:
+            hresult = possible_matches.pop()
+        elif len(possible_matches) > 1:
+            not_seen_before = possible_matches - self.previously_found
+            if len(not_seen_before) == 1:
+                hresult = not_seen_before.pop()
+        if hresult:
+            self.previously_found.add(hresult)
         return hresult
 
 
