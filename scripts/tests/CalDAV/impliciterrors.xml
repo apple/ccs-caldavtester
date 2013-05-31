@@ -985,7 +985,7 @@
 		</test>
 	</test-suite>	
 	
-	<test-suite name='Attempt to remove Organizer' only="yes">
+	<test-suite name='Attempt to remove Organizer'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1073,7 +1073,6 @@
 		</test>
 		<test name='6'>
 			<description>Organizer removes ORGANIZER and ATTENDEE properties</description>
-			<pause/>
 			<request print-response='no'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
