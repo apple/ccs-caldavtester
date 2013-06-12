@@ -27,6 +27,7 @@ class Verifier(object):
         # If no status verification requested, then assume all 2xx codes are OK
         teststatus = args.get("error", [])
         statusCode = args.get("status", ["403", "409", "507"])
+        ignoreextras = args.get("ignoreextras", None)
 
         # status code could be anything, but typically 403, 409 or 507
         if str(response.status) not in statusCode:
@@ -57,11 +58,11 @@ class Verifier(object):
         err_txt = ""
         if len(missing):
             err_txt += "        Items not returned in error: element %s" % str(missing)
-        if len(extras):
+        if len(extras) and not ignoreextras:
             if len(err_txt):
                 err_txt += "\n"
             err_txt += "        Unexpected items returned in error element: %s" % str(extras)
-        if len(missing) or len(extras):
+        if len(missing) or len(extras) and not ignoreextras:
             return False, err_txt
 
         return True, ""
