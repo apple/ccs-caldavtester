@@ -185,7 +185,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -260,24 +259,27 @@
 						<value>;FILENAME=test2.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
-						<value>;MANAGED-ID=$managed-id:</value>
 					</arg>
 					<arg>
 						<name>notcontains</name>
 						<value>;FILENAME=test.txt</value>
+						<value>;MANAGED-ID=$managed-id:</value>
 					</arg>
 				</verify>
 				<verify>
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Cal-Managed-ID$$managed-id:</value>
+						<value>Cal-Managed-ID!$managed-id:</value>
 					</arg>
 				</verify>
 				<grabheader>
 					<name>Location</name>
 					<variable>$location2:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Cal-Managed-ID</name>
+					<variable>$managed-id:</variable>
 				</grabheader>
 			</request>
 		</test>

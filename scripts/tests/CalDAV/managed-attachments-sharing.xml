@@ -679,10 +679,6 @@
 					<variable>$managed_id1:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag1:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
 					<variable>$filename1:</variable>
 				</grabcalparameter>
@@ -780,7 +776,7 @@
 						<value/>
 					</arg>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>;MANAGED-ID=$managed_id1:</value>
 					</arg>
 				</verify>
@@ -795,10 +791,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id2:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag2:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>

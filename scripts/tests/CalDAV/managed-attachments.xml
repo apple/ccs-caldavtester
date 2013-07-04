@@ -189,7 +189,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=$managed-id:</value>
 						<value>:$location:</value>
 					</arg>
@@ -369,7 +368,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -425,7 +423,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=$managed-id:</value>
 						<value>:$location:</value>
 					</arg>
@@ -585,7 +582,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -716,7 +712,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -890,7 +885,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -986,7 +980,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=$managed-id:</value>
 						<value>:$location:</value>
 					</arg>
@@ -1103,7 +1096,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -1178,7 +1170,10 @@
 						<value>;FILENAME=test2.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
+						<value>;MANAGED-ID=</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
 						<value>;MANAGED-ID=$managed-id:</value>
 					</arg>
 				</verify>
@@ -1186,12 +1181,16 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>Cal-Managed-ID$$managed-id:</value>
+						<value>Cal-Managed-ID!$managed-id:</value>
 					</arg>
 				</verify>
 				<grabheader>
 					<name>Location</name>
 					<variable>$location2:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Cal-Managed-ID</name>
+					<variable>$managed-id:</variable>
 				</grabheader>
 			</request>
 		</test>
@@ -1319,7 +1318,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -1419,7 +1417,6 @@
 						<value>;FILENAME=</value>
 						<value>;FMTTYPE=</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=$managed-id:</value>
 						<value>:$location:</value>
 					</arg>
@@ -1554,7 +1551,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -1576,10 +1572,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id1:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag1:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
@@ -1784,7 +1776,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -1806,10 +1797,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id1:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag1:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
@@ -1870,7 +1857,7 @@
 						<value/>
 					</arg>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>;MANAGED-ID=$managed_id1:</value>
 					</arg>
 				</verify>
@@ -1885,10 +1872,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id2:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag2:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
@@ -1958,7 +1941,9 @@
 						<value>;FILENAME=test2.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
 						<value>;MANAGED-ID=$managed_id1:</value>
 					</arg>
 				</verify>
@@ -2162,7 +2147,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -2184,10 +2168,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id1:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag1:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
@@ -2274,9 +2254,8 @@
 						<value/>
 					</arg>
 					<arg>
-						<name>notcontains</name>
+						<name>contains</name>
 						<value>;MANAGED-ID=$managed_id1:</value>
-						<value>None</value>
 					</arg>
 				</verify>
 				<grabheader>
@@ -2290,10 +2269,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id2:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag2:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
@@ -2490,7 +2465,6 @@
 						<value>;FILENAME=test.txt</value>
 						<value>;FMTTYPE=text/plain</value>
 						<value>;SIZE=</value>
-						<value>;MTAG=</value>
 						<value>;MANAGED-ID=</value>
 					</arg>
 				</verify>
@@ -2512,10 +2486,6 @@
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/MANAGED-ID</name>
 					<variable>$managed_id1:</variable>
-				</grabcalparameter>
-				<grabcalparameter>
-					<name>VEVENT/ATTACH/MTAG</name>
-					<variable>$mtag1:</variable>
 				</grabcalparameter>
 				<grabcalparameter>
 					<name>VEVENT/ATTACH/FILENAME</name>
