@@ -25,10 +25,17 @@
 	</require-feature>
 
 	<start>
-		<request print-response='no'>
-			<method>DELETE</method>
-			<ruri>$addressbookpath1:/</ruri>
+		<!-- clean up old data -->
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
+			<ruri>$addressbookhome3:/</ruri>
+			<ruri>$addressbookhome4:/</ruri>
+			<ruri>$notificationpath1:/</ruri>
 		</request>
+
+		<!-- add 2 vcards to user1 address book -->
 		<request>
 			<method>PUT</method>
 			<ruri>$addressbookpath1:/1.vcf</ruri>
@@ -45,9 +52,63 @@
 				<filepath>Resource/CardDAV/vreports/put/2.vcf</filepath>
 			</data>
 		</request>
+		
+		<!-- share user2 address book with user1 -->
+		<!-- user2 POSTs invitation -->
+		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<method>POST</method>
+			<ruri>$addressbookpath2:/</ruri>
+			<data>
+				<content-type>text/xml; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/vreports/sharing/1.xml</filepath>
+			</data>
+		</request>
+		<!-- Check user1 notification collection and get invite uid -->
+		<request print-response="no">
+			<method>WAITCOUNT 1</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request print-response="no">
+			<method>GETNEW</method>
+			<ruri>$notificationpath1:/</ruri>
+			<grabelement>
+				<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+				<variable>$inviteuid:</variable>
+			</grabelement>
+		</request>
+		<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+		<request print-response="no">
+			<method>POST</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<data substitutions="yes">
+				<content-type>application/xml; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/vreports/sharing/2.xml</filepath>
+			</data>
+		</request>
+		<request>
+			<method>DELETE</method>
+			<ruri>$notificationpath1:/$inviteuid:</ruri>
+		</request>
+		<!-- add 2 vcards to user2 address book -->
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>PUT</method>
+			<ruri>$addressbookpath2:/1.vcf</ruri>
+			<data>
+				<content-type>text/vcard; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/vreports/put/3.vcf</filepath>
+			</data>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>PUT</method>
+			<ruri>$addressbookpath2:/2.vcf</ruri>
+			<data>
+				<content-type>text/vcard; charset=utf-8</content-type>
+				<filepath>Resource/CardDAV/vreports/put/4.vcf</filepath>
+			</data>
+		</request>
 	</start>
 	
-	<test-suite name='support-report-set' ignore='no'>
+	<test-suite name='support-report-set/sync-token property' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Not on addressbooks</description>
 			<request>
@@ -173,8 +234,399 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4' ignore='no'>
+			<description>On shared addressbook</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$addressbookhome1:/$userid2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}supported-report-set/{DAV:}supported-report/{DAV:}report/{DAV:}sync-collection</value>
+						<value>$verify-property-prefix:/{DAV:}sync-token[+data:,]</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}supported-report-set</value>
+						<value>{DAV:}sync-token</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Look for options header tag on principal</description>
+			<request print-response="no">
+				<method>OPTIONS</method>
+				<ruri>$principal1:</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendarserver-home-sync[^-]*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 	
+	<test-suite name='simple reports - sync-level' ignore='no'>
+		<test name='1' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/1.vcf</value>
+						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/1.vcf</value>
+						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/1.vcf</value>
+						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>sync-level:1, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:1, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:0</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:1</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore='no'>
+			<require-feature>
+				<feature>sync-report-home</feature>
+			</require-feature>
+			<description>sync-level:infinity, depth:infinity</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/9.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.vcf</value>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore='no'>
+			<description>Bad sync-level</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/10.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='simple reports - empty token - no props' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - addressbook depth:1</description>
@@ -220,6 +672,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -247,6 +700,9 @@
 						<value>$addressbook:/</value>
 						<value>$addressbook:/1.vcf</value>
 						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -310,6 +766,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -338,6 +795,9 @@
 						<value>$addressbook:/1.vcf</value>
 						<value>$addressbook:/2.vcf</value>
 						<value>$addressbook:/3.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -396,6 +856,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -423,6 +884,9 @@
 						<value>$addressbook:/</value>
 						<value>$addressbook:/1.vcf</value>
 						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -485,6 +949,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
+						<value>$userid2:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -512,13 +977,16 @@
 						<value>$addressbook:/</value>
 						<value>$addressbook:/1.vcf</value>
 						<value>$addressbook:/2.vcf</value>
+						<value>$userid2:/</value>
+						<value>$userid2:/1.vcf</value>
+						<value>$userid2:/2.vcf</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - addressbook depth:1' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>initial query - grab token</description>
 			<request print-response='no'>
@@ -1078,24 +1546,133 @@
 		</require-feature>
 		<test name='1' ignore='no'>
 			<description>Initialize</description>
-			<request print-response='no'>
+			<!-- clear user1 address book and unshare user2 address book -->
+			<request>
 				<method>DELETE</method>
-				<ruri>$addressbookpath1:/</ruri>
+					<ruri>$addressbookpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$addressbookpath2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
 			</request>
 			<request>
-				<method>PUT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<method>DELETEALL</method>
+				<ruri>$notificationpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath3:/</ruri>
 				<data>
-					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/1.vcf</filepath>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
+				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/4.xml</filepath>
 				</data>
 			</request>
 			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+			<!-- add 2 vcards to user3 address book -->
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/2.vcf</ruri>
+				<ruri>$addressbookpath3:/1.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/2.vcf</filepath>
+					<filepath>Resource/CardDAV/vreports/put/5.vcf</filepath>
+				</data>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PUT</method>
+				<ruri>$addressbookpath3:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/6.vcf</filepath>
+				</data>
+			</request>
+	
+			<!-- share user4 address book with user1 -->
+			<!-- user4 POSTs invitation -->
+			<request user="$userid4:" pswd="$pswd4:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath4:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/5.xml</filepath>
+				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/6.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+			<!-- add 2 vcards to user4 address book -->
+			<request user="$userid4:" pswd="$pswd4:">
+				<method>PUT</method>
+				<ruri>$addressbookpath4:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/7.vcf</filepath>
+				</data>
+			</request>
+			<request user="$userid4:" pswd="$pswd4:">
+				<method>PUT</method>
+				<ruri>$addressbookpath4:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/8.vcf</filepath>
 				</data>
 			</request>
 		</test>
@@ -1117,8 +1694,12 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
-						<value>$addressbook:/1.vcf</value>
-						<value>$addressbook:/2.vcf</value>
+						<value>$userid3:/</value>
+						<value>$userid3:/1.vcf</value>
+						<value>$userid3:/2.vcf</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/1.vcf</value>
+						<value>$userid4:/2.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1131,10 +1712,10 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid3:/3.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/3.vcf</filepath>
+					<filepath>Resource/CardDAV/vreports/put/9.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1155,8 +1736,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
-						<value>$addressbook:/3.vcf</value>
+						<value>$userid3:/</value>
+						<value>$userid3:/3.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1169,7 +1750,7 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid3:/3.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1189,11 +1770,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$addressbook:/3.vcf</value>
+						<value>$userid3:/3.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -1215,11 +1796,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$addressbook:/3.vcf</value>
+						<value>$userid3:/3.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1232,10 +1813,10 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid3:/1.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/1.vcf</filepath>
+					<filepath>Resource/CardDAV/vreports/put/5.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1256,8 +1837,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
-						<value>$addressbook:/1.vcf</value>
+						<value>$userid3:/</value>
+						<value>$userid3:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1312,8 +1893,12 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
-						<value>$addressbook:/1.vcf</value>
-						<value>$addressbook:/2.vcf</value>
+						<value>$userid3:/</value>
+						<value>$userid3:/1.vcf</value>
+						<value>$userid3:/2.vcf</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/1.vcf</value>
+						<value>$userid4:/2.vcf</value>
 					</arg>
 				</verify>
 				<verify>
@@ -1334,10 +1919,10 @@
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid4:/3.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/3.vcf</filepath>
+					<filepath>Resource/CardDAV/vreports/put/12.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1358,8 +1943,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
-						<value>$addressbook:/3.vcf</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/3.vcf</value>
 					</arg>
 				</verify>
 				<verify>
@@ -1380,7 +1965,7 @@
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
-				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid4:/3.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1400,30 +1985,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
+						<value>$userid4:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$addressbook:/3.vcf</value>
-					</arg>
-				</verify>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>ignore</name>
-						<value>$addressbookpath1:/</value>
-					</arg>
-				</verify>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>ignore</name>
-						<value>$addressbookpath1:/3.vcf</value>
-					</arg>
-					<arg>
-						<name>okprops</name>
-						<value>{DAV:}getcontenttype</value>
-						<value>{DAV:}getetag</value>
+						<value>$userid4:/3.vcf</value>
 					</arg>
 				</verify>
 			</request>
@@ -1445,11 +2011,11 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
+						<value>$userid4:/</value>
 					</arg>
 					<arg>
 						<name>badhrefs</name>
-						<value>$addressbook:/3.vcf</value>
+						<value>$userid4:/3.vcf</value>
 					</arg>
 				</verify>
 				<verify>
@@ -1469,10 +2035,10 @@
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid4:/1.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/vreports/put/1.vcf</filepath>
+					<filepath>Resource/CardDAV/vreports/put/7.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1493,8 +2059,8 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
-						<value>$addressbook:/1.vcf</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/1.vcf</value>
 					</arg>
 				</verify>
 				<verify>
@@ -1543,7 +2109,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - delete/create addressbook - home depth:infinity' ignore='yes'>
+	<test-suite name='simple reports - diff token - delete/create addressbook - home depth:infinity' ignore='no'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
@@ -1565,12 +2131,12 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
-						<value>syncaddressbook3/</value>
-						<value>syncaddressbook3/1.vcf</value>
-						<value>syncaddressbook3/2.vcf</value>
-						<value>syncaddressbook4/</value>
-						<value>syncaddressbook4/1.vcf</value>
-						<value>syncaddressbook4/2.vcf</value>
+						<value>$userid3:/</value>
+						<value>$userid3:/1.vcf</value>
+						<value>$userid3:/2.vcf</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/1.vcf</value>
+						<value>$userid4:/2.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1581,16 +2147,16 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>remove resource then addressbook</description>
-			<request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>DELETE</method>
-				<ruri>$addressbookhome1:/syncaddressbook3/1.vcf</ruri>
+				<ruri>$addressbookpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 			<request>
-				<method>DELETE</method>
-				<ruri>$addressbookhome1:/syncaddressbook3/</ruri>
+				<method>DELETEALL</method>
+				<ruri>$notificationpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1610,7 +2176,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>badhrefs</name>
-						<value>syncaddressbook3/</value>
+						<value>$userid3:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1621,13 +2187,41 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>add addressbook - test last sync</description>
-			<request end-delete="yes">
-				<method>MKCOL</method>
-				<ruri>$addressbookhome1:/syncaddressbook3/</ruri>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath3:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/MKCOL/addressbook.xml</filepath>
+					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
 				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/4.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -1644,7 +2238,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>syncaddressbook3/</value>
+						<value>$userid3:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -1666,7 +2260,534 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>syncaddressbook3/</value>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='simple reports - diff token - no props - home depth:1' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>Initialize</description>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<ruri>$addressbookhome2:/</ruri>
+				<ruri>$addressbookhome3:/</ruri>
+				<ruri>$addressbookhome4:/</ruri>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath3:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
+				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/4.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+			<!-- add 2 vcards to user3 address book -->
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PUT</method>
+				<ruri>$addressbookpath3:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/5.vcf</filepath>
+				</data>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PUT</method>
+				<ruri>$addressbookpath3:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/6.vcf</filepath>
+				</data>
+			</request>
+	
+			<!-- share user4 address book with user1 -->
+			<!-- user4 POSTs invitation -->
+			<request user="$userid4:" pswd="$pswd4:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath4:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/5.xml</filepath>
+				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/6.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+			<!-- add 2 vcards to user4 address book -->
+			<request user="$userid4:" pswd="$pswd4:">
+				<method>PUT</method>
+				<ruri>$addressbookpath4:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/7.vcf</filepath>
+				</data>
+			</request>
+			<request user="$userid4:" pswd="$pswd4:">
+				<method>PUT</method>
+				<ruri>$addressbookpath4:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/8.vcf</filepath>
+				</data>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid3:/3.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/9.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid3:/3.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid3:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/5.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - diff token - props - home depth:1' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>new resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid4:/3.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/10.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>remove resource (treated as new)</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid4:/3.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>remove resource (treated as old)</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>changed resource</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid4:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/put/7.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='6' ignore='no'>
+			<description>no change</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/15.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+				</verify>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}getcontenttype</value>
+						<value>{DAV:}getetag</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1677,6 +2798,605 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<test-suite name='simple reports - diff token - delete/create addressbook - home depth:1' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>remove resource then addressbook</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid3:/1.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid3:/2.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>add addressbook - test last sync</description>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
+			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath3:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
+				</data>
+			</request>
+			<!-- Check user1 notification collection and get invite uid -->
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sharing/4.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/13.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>add addressbook - test previous sync</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - empty inbox' ignore='yes'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='simple reports - valid token' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>initial query</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/11.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}valid-sync-token</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='addressbook webdav property change - home depth:infinity' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+						<value>$userid4:/1.vcf</value>
+						<value>$userid4:/2.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Change a property</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$addressbookhome1:/$userid3:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Remove a property</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$addressbookhome1:/$userid3:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='addressbook webdav property change - home depth:1' ignore='no'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Change a property</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$addressbookhome1:/$userid3:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Remove a property</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$addressbookhome1:/$userid3:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userid3:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+
+	<test-suite name='default addressbook property change - home depth:1' ignore='yes'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1' ignore='no'>
+			<description>initial query - grab token</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$outbox:/</value>
+						<value>$freebusy:</value>
+						<value>$notification:/</value>
+						<value>$userid3:/</value>
+						<value>$userid4:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Change property on Inbox</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$inbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>Reset the property</description>
+			<request print-response='no'>
+				<method>PROPPATCH</method>
+				<ruri>$inboxpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/20.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-default-calendar-URL</value>
+					</arg>
+				</verify>
+			</request>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vreports/sync/12.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$inbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+	<end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
+			<ruri>$addressbookhome3:/</ruri>
+			<ruri>$addressbookhome4:/</ruri>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+	</end>
+
 	
 </caldavtest>
