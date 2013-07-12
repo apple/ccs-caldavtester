@@ -28,6 +28,7 @@
 	</require-feature>
 
 	<start>
+		<!-- Add user01 as read delegate for user02 -->
 		<request user="$userid2:" pswd="$pswd2:" print-response="no">
 			<method>PROPPATCH</method>
 			<ruri>$principal2:calendar-proxy-read/</ruri>
@@ -36,6 +37,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/1.xml</filepath>
 			</data>
 		</request>
+		<!-- Add user01 as read-write delegate for user03 -->
 		<request user="$userid3:" pswd="$pswd3:" print-response="no">
 			<method>PROPPATCH</method>
 			<ruri>$principal3:calendar-proxy-write/</ruri>
@@ -44,6 +46,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/1.xml</filepath>
 			</data>
 		</request>
+		<!-- Add Event #1 to user01 calendar -->
 		<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 			<method>PUT</method>
 			<ruri>$calendarpath1:/1.ics</ruri>
@@ -52,6 +55,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/2.ics</filepath>
 			</data>
 		</request>
+		<!-- Add Event #2 to user02 calendar -->
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>PUT</method>
 			<ruri>$calendarpath2:/1.ics</ruri>
@@ -60,6 +64,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/3.ics</filepath>
 			</data>
 		</request>
+		<!-- Add Event #3 to user03 calendar -->
 		<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 			<method>PUT</method>
 			<ruri>$calendarpath3:/1.ics</ruri>
@@ -68,6 +73,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/4.ics</filepath>
 			</data>
 		</request>
+		<!-- Add Event #3 to user03 calendar -->
 		<request user="$userid4:" pswd="$pswd4:" end-delete="yes">
 			<method>PUT</method>
 			<ruri>$calendarpath4:/1.ics</ruri>
@@ -82,7 +88,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Freebusy by delegate' ignore="no">
+	<test-suite name='Freebusy by organizer as a delegate' ignore="no">
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
 			<request print-response='no'>
@@ -159,6 +165,145 @@
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/extended-freebusy/6.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T120000Z/$now.year.1:0101T130000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T130000Z/$now.year.1:0101T140000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr3:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T140000Z/$now.year.1:0101T150000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr4:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Event #1</value>
+						<value>Event #2</value>
+						<value>Event #3</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #4</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Freebusy by delegate as an organizer' only="yes">
+		<test name='1'>
+			<description>POST free busy by delegate for all attendees</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath3:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/12.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr1:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T120000Z/$now.year.1:0101T130000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T130000Z/$now.year.1:0101T140000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr3:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T140000Z/$now.year.1:0101T150000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddr4:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0101T150000Z/$now.year.1:0101T160000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>Event #1</value>
+						<value>Event #2</value>
+						<value>Event #3</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>Event #4</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST free busy for all attendees - repeat to check on any caching</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$outboxpath3:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/extended-freebusy/12.ics</filepath>
 				</data>
 				<verify>
 					<callback>postFreeBusy</callback>
