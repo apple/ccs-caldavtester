@@ -560,7 +560,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Sharee DELETE shared calender to unshare'>
+	<test-suite name='Reshare after sharee DELETE shared calendar' ignore='yes'>
 		<test name='0' ignore='no'>
 			<description>Sharee deletes calendar</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
@@ -599,7 +599,6 @@
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
-				<!--  ignore for now
 				<verify>
 					<callback>xmlDataMatch</callback>
 					<arg>
@@ -612,7 +611,6 @@
 						<value>{http://calendarserver.org/ns/}uid</value>
 					</arg>
 				</verify>
-				-->
 				<grabelement>
 					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
 					<variable>$inviteuid:</variable>
