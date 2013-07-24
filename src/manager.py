@@ -207,12 +207,22 @@ class manager(object):
 
         # Process any file arguments as test configs
         for f in args:
-            if f[0] != '/':
+            # paths starting with . or .. or /
+            if f[0] in ('.', '/'):
+                f = os.path.abspath(f)
+
+                # remove unneeded leading path
+                fsplit = f.split(dname)
+                if 2 == len(fsplit):
+                    f = dname + fsplit[1]
+
+            # relative paths
+            else:
                 f = os.path.join(dname, f)
             fnames.append(f)
 
         # Randomize file list
-        if random_order:
+        if random_order and len(fnames) > 1:
             print "Randomizing order using seed '%s'" % (random_seed,)
             random.seed(random_seed)
             random.shuffle(fnames)
