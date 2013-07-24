@@ -25,7 +25,7 @@
 	</require-feature>
 
 	<start>
-		<!-- clean up old data -->
+		<description>clean up old data</description>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>$addressbookhome1:/</ruri>
@@ -35,7 +35,7 @@
 			<ruri>$notificationpath1:/</ruri>
 		</request>
 
-		<!-- add 2 vcards to user1 address book -->
+		<description>add 2 vcards to user1 address book</description>
 		<request>
 			<method>PUT</method>
 			<ruri>$addressbookpath1:/1.vcf</ruri>
@@ -53,8 +53,8 @@
 			</data>
 		</request>
 		
-		<!-- share user2 address book with user1 -->
-		<!-- user2 POSTs invitation -->
+		<description>share user2 address book with user1</description>
+		<description>user2 POSTs invitation</description>
 		<request user="$userid2:" pswd="$pswd2:" print-response="no">
 			<method>POST</method>
 			<ruri>$addressbookpath2:/</ruri>
@@ -63,7 +63,7 @@
 				<filepath>Resource/CardDAV/vreports/sharing/1.xml</filepath>
 			</data>
 		</request>
-		<!-- Check user1 notification collection and get invite uid -->
+		<description>Check user1 notification collection and get invite uid</description>
 		<request print-response="no">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath1:/</ruri>
@@ -76,7 +76,7 @@
 				<variable>$inviteuid:</variable>
 			</grabelement>
 		</request>
-		<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+		<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 		<request print-response="no">
 			<method>POST</method>
 			<ruri>$addressbookhome1:/</ruri>
@@ -89,7 +89,7 @@
 			<method>DELETE</method>
 			<ruri>$notificationpath1:/$inviteuid:</ruri>
 		</request>
-		<!-- add 2 vcards to user2 address book -->
+		<description>add 2 vcards to user2 address book</description>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$addressbookpath2:/1.vcf</ruri>
@@ -1546,7 +1546,7 @@
 		</require-feature>
 		<test name='1' ignore='no'>
 			<description>Initialize</description>
-			<!-- clear user1 address book and unshare user2 address book -->
+			<description>clear user1 address book and unshare user2 address book</description>
 			<request>
 				<method>DELETE</method>
 					<ruri>$addressbookpath1:/</ruri>
@@ -1568,8 +1568,8 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<!-- share user3 address book with user1 -->
-			<!-- user3 POSTs invitation -->
+			<description>share user3 address book with user1</description>
+			<description>user3 POSTs invitation</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -1578,7 +1578,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -1591,7 +1591,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1604,7 +1604,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			<!-- add 2 vcards to user3 address book -->
+			<description>add 2 vcards to user3 address book</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$addressbookpath3:/1.vcf</ruri>
@@ -1622,8 +1622,8 @@
 				</data>
 			</request>
 	
-			<!-- share user4 address book with user1 -->
-			<!-- user4 POSTs invitation -->
+			<description>share user4 address book with user1</description>
+			<description>user4 POSTs invitation</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath4:/</ruri>
@@ -1632,7 +1632,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/5.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -1645,7 +1645,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1658,7 +1658,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			<!-- add 2 vcards to user4 address book -->
+			<description>add 2 vcards to user4 address book</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>PUT</method>
 				<ruri>$addressbookpath4:/1.vcf</ruri>
@@ -2187,8 +2187,8 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>add addressbook - test last sync</description>
-			<!-- share user3 address book with user1 -->
-			<!-- user3 POSTs invitation -->
+			<description>share user3 address book with user1</description>
+			<description>user3 POSTs invitation</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -2197,7 +2197,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -2210,7 +2210,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -2285,8 +2285,8 @@
 				<ruri>$addressbookhome4:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<!-- share user3 address book with user1 -->
-			<!-- user3 POSTs invitation -->
+			<description>share user3 address book with user1</description>
+			<description>user3 POSTs invitation</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -2295,7 +2295,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -2308,7 +2308,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -2321,7 +2321,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			<!-- add 2 vcards to user3 address book -->
+			<description>add 2 vcards to user3 address book</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$addressbookpath3:/1.vcf</ruri>
@@ -2339,8 +2339,8 @@
 				</data>
 			</request>
 	
-			<!-- share user4 address book with user1 -->
-			<!-- user4 POSTs invitation -->
+			<description>share user4 address book with user1</description>
+			<description>user4 POSTs invitation</description>
 			<request user="$userid4:" pswd="$pswd4:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath4:/</ruri>
@@ -2349,7 +2349,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/5.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -2362,7 +2362,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -2375,7 +2375,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			<!-- add 2 vcards to user4 address book -->
+			<description>add 2 vcards to user4 address book</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>PUT</method>
 				<ruri>$addressbookpath4:/1.vcf</ruri>
@@ -2879,8 +2879,8 @@
 		</test>
 		<test name='3' ignore='no'>
 			<description>add addressbook - test last sync</description>
-			<!-- share user3 address book with user1 -->
-			<!-- user3 POSTs invitation -->
+			<description>share user3 address book with user1</description>
+			<description>user3 POSTs invitation</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -2889,7 +2889,7 @@
 					<filepath>Resource/CardDAV/vreports/sharing/3.xml</filepath>
 				</data>
 			</request>
-			<!-- Check user1 notification collection and get invite uid -->
+			<description>Check user1 notification collection and get invite uid</description>
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -2902,7 +2902,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
+			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
