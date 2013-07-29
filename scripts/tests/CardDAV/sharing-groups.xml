@@ -27,16 +27,11 @@
 	</require-feature>
 
 	<start>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETE</method>
-			<ruri>$addressbookpath1:/</ruri>
-		</request>
-		<request user="$userid1:" pswd="$pswd1:">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
 	</start>
@@ -111,7 +106,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3a' ignore='yes'>
+		<test name='3a' ignore='no'>
 			<description>Sharer sees group as shared-owner</description>
 			<request user="$userid1:" pswd="$pswd1:" print-response='no'>
 				<method>PROPFIND</method>
@@ -134,11 +129,11 @@
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
 					</arg>
 					<arg>
 						<name>notexists</name>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
 					</arg>
 				</verify>
 			</request>
@@ -308,7 +303,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9' ignore='yes'>
 			<description>Sharee cannot delete shared group vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
@@ -408,6 +403,20 @@
 				</data>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='14+' ignore='no'>
+			<description>Sharee sees changed vcard</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookpath1:/4.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/groups/read-write/12.vcf</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -644,23 +653,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='26' ignore='no'>
-			<description>Clean up main addressbook</description>
-			<request>
-				<method>DELETEALL</method>
-				<ruri>$addressbookpath1:/</ruri>
-			</request>
-		</test>
 	</test-suite>
-
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$addressbookpath1:/</ruri>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
-			<ruri>$notificationpath3:/</ruri>
-			<ruri>$notificationpath4:/</ruri>
 		</request>
 	</end>
 

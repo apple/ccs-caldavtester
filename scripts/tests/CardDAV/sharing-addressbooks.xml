@@ -280,7 +280,7 @@
 			</request>
 		</test>
 		<test name='14' ignore='no'>
-			<description>Sharee sees group with shared address book members</description>
+			<description>Sharee sees group for shared address book</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>GET</method>
 				<ruri>$sharedaddressbook:/addressbook.vcf</ruri>
@@ -293,20 +293,6 @@
 					<arg>
 						<name>filter</name>
 						<value>UID</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='15' ignore='no'>
-			<description>Sharee cannot delete special group</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>DELETE</method>
-				<ruri>$sharedaddressbook:/addressbook.vcf</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
 					</arg>
 				</verify>
 			</request>
@@ -640,8 +626,6 @@
 			<method>DELETEALL</method>
 			<ruri>$addressbookhome1:/</ruri>
 			<ruri>$addressbookhome2:/</ruri>
-			<ruri>$addressbookhome3:/</ruri>
-			<ruri>$addressbookhome4:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
 		</request>

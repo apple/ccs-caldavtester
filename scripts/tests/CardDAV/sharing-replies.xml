@@ -27,16 +27,11 @@
 	</require-feature>
 
 	<start>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETE</method>
-			<ruri>$addressbookpath1:/</ruri>
-		</request>
-		<request user="$userid1:" pswd="$pswd1:">
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
 	</start>
@@ -174,7 +169,7 @@
 					<callback>propfindValues</callback>
 					<arg>
 						<name>okprops</name>
-						<value>{DAV:}displayname$The Shared Address Book</value>
+						<value>{DAV:}displayname$My Shared Address Book</value>
 						<value>{http://calendarserver.org/ns/}sharedurl$$calendarhome1:/shared</value>
 					</arg>
 				</verify>
@@ -272,10 +267,10 @@
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
-			<ruri>$notificationpath3:/</ruri>
-			<ruri>$notificationpath4:/</ruri>
 		</request>
 	</end>
 

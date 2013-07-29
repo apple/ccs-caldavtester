@@ -28,18 +28,15 @@
 	</require-feature>
 
 	<start>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETE</method>
-			<ruri>$addressbookpath1:/</ruri>
-		</request>
-		<request user="$userid1:" pswd="$pswd1:">
+	<end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
+	</end>
 	</start>
 	
 	<test-suite name='Read-write addressbook' ignore='yes'>
@@ -830,10 +827,10 @@
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
-			<ruri>$notificationpath3:/</ruri>
-			<ruri>$notificationpath4:/</ruri>
 		</request>
 	</end>
 	

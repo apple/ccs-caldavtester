@@ -33,6 +33,7 @@
 			<ruri>$addressbookhome1:/</ruri>
 			<ruri>$addressbookhome2:/</ruri>
 			<ruri>$notificationpath1:/</ruri>
+			<ruri>$notificationpath2:/</ruri>
 		</request>
 
 		<description>add 7 persons and 3 groups to user2 address book</description>
@@ -41,7 +42,7 @@
 			<ruri>$addressbookpath2:/1.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/1.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/1.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -49,7 +50,7 @@
 			<ruri>$addressbookpath2:/2.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/2.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -57,7 +58,7 @@
 			<ruri>$addressbookpath2:/3.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/3.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/3.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -65,7 +66,7 @@
 			<ruri>$addressbookpath2:/4.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/4.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/4.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -73,23 +74,7 @@
 			<ruri>$addressbookpath2:/5.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/5.vcf</filepath>
-			</data>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>PUT</method>
-			<ruri>$addressbookpath2:/6.vcf</ruri>
-			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/6.vcf</filepath>
-			</data>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>PUT</method>
-			<ruri>$addressbookpath2:/7.vcf</ruri>
-			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/7.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/5.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -97,7 +82,7 @@
 			<ruri>$addressbookpath2:/g123.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/g123.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/g123.vcf</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -105,15 +90,7 @@
 			<ruri>$addressbookpath2:/g345.vcf</ruri>
 			<data>
 				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/g345.vcf</filepath>
-			</data>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>PUT</method>
-			<ruri>$addressbookpath2:/g567.vcf</ruri>
-			<data>
-				<content-type>text/vcard; charset=utf-8</content-type>
-				<filepath>Resource/CardDAV/sharing/acls/setup/g567.vcf</filepath>
+				<filepath>Resource/CardDAV/sharing/access/setup/g345.vcf</filepath>
 			</data>
 		</request>
 	</start>
@@ -133,7 +110,7 @@
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/1.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/1.xml</filepath>
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
@@ -149,13 +126,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/2.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -174,7 +151,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -198,7 +175,7 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>shared address book is read-write</description>
+			<description>Group for shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookhome1:/$userid2:/addressbook.vcf</ruri>
@@ -208,7 +185,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -216,9 +193,6 @@
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri2:]</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
 					</arg>
 					<arg>
 						<name>notexists</name>
@@ -227,6 +201,9 @@
 						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
 					</arg>
 				</verify>
 			</request>
@@ -242,7 +219,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -266,6 +243,24 @@
 			</request>
 		</test>
 		<test name='4' ignore='no'>
+			<description>Cannot change group address book</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid2:/addressbook.vcf</ruri>
+				<data substitutions="yes">
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/gAddressBook.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
 			<description>vCard in shared address book can be deleted</description>
 			<request>
 				<method>DELETE</method>
@@ -275,14 +270,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>vCard in shared address book can be added</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$addressbookhome1:/$userid2:/2.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/2.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -297,6 +292,7 @@
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
+				<ruri>$notificationpath2:/</ruri>
 			</request>
 			<description>user2 POSTs invitation</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -304,7 +300,7 @@
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/4.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/4.xml</filepath>
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
@@ -320,13 +316,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/2.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -345,7 +341,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -369,7 +365,7 @@
 			</request>
 		</test>
 		<test name='2' ignore='no'>
-			<description>Shared address book group is read-only</description>
+			<description>Group for shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookhome1:/$userid2:/addressbook.vcf</ruri>
@@ -379,7 +375,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -413,7 +409,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -457,7 +453,7 @@
 				<ruri>$addressbookhome1:/$userid2:/2.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/2.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -485,7 +481,7 @@
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/1.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -504,13 +500,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/2.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -532,7 +528,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -566,7 +562,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -597,7 +593,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -634,7 +630,7 @@
 				<ruri>$addressbookhome1:/$userid2:/9.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/2.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
 				</data>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -652,7 +648,7 @@
 				<ruri>$addressbookhome1:/$userid2:/2.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/8.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -667,10 +663,10 @@
 			<description>vCard with new UID shared read-write group can be added</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookhome1:/$userid2:/8.vcf</ruri>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/8.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -684,7 +680,7 @@
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/g123.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/g123.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -701,6 +697,7 @@
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
+				<ruri>$notificationpath2:/</ruri>
 			</request>
 			<description>user2 POSTs invitation</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -708,7 +705,7 @@
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/4.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -727,13 +724,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/5.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/5.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -752,7 +749,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -786,7 +783,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -817,7 +814,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -858,7 +855,7 @@
 				<ruri>$addressbookhome1:/$userid2:/4.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/setup/4.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/4.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -871,9 +868,9 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='overlapping read-only and read-write shared groups and addressbook' ignore='no'>
+	<test-suite name='overlapping read-only, read-write shared groups, addressbooks' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 group 345 read-only, group g567 read-write with user1</description>
+			<description>reset user1 home and share user2 group g123 read-write, group 345 read-only with user1</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -885,7 +882,7 @@
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/1.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -904,13 +901,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/2.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -924,7 +921,7 @@
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/4.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -943,13 +940,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/groups/5.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/groups/5.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -968,7 +965,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1002,7 +999,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1033,7 +1030,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1064,7 +1061,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1095,7 +1092,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1126,7 +1123,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1154,7 +1151,7 @@
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/1.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/1.xml</filepath>
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
@@ -1170,13 +1167,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/2.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -1195,7 +1192,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1223,7 +1220,7 @@
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/4.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/4.xml</filepath>
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
@@ -1239,13 +1236,13 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<description>user1 replies ACCEPTED and deletes notification</description>
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/2.xml</filepath>
 				</data>
 			</request>
 			<request>
@@ -1264,7 +1261,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1298,7 +1295,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/acls/addressbook/3.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/access/addressbook/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
