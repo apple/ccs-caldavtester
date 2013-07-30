@@ -98,7 +98,7 @@
 
 	<test-suite name='fully-shared read-write addressbook' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 addressbook read-write with user1</description>
+			<description>reset user1 home and share user2 addressbook read-write</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -261,24 +261,42 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>vCard in shared address book can be deleted</description>
+			<description>add vCard</description>
 			<request>
-				<method>DELETE</method>
-				<ruri>$addressbookhome1:/$userid2:/2.vcf</ruri>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>vCard in shared address book can be added</description>
+			<description>New vCard is member of addressbook group</description>
 			<request>
-				<method>PUT</method>
-				<ruri>$addressbookhome1:/$userid2:/2.vcf</ruri>
-				<data>
-					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
-				</data>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/addressbook.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/gAddressBook6.vcf</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>UID</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7' ignore='no'>
+			<description>Clean up</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -287,7 +305,7 @@
 	</test-suite>
 	<test-suite name='fully-shared read-only addressbook' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 addressbook read-only with user1</description>
+			<description>reset user1 home and share user2 addressbook read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -469,7 +487,7 @@
 
 	<test-suite name='read-write shared group' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 group read-write with user1</description>
+			<description>reset user1 home and share user2 group read-write</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -674,6 +692,20 @@
 			</request>
 		</test>
 		<test name='8' ignore='no'>
+			<description>New vCard is member of shared group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g123.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g136.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1' ignore='no'>
 			<description>restore group membership</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -686,13 +718,33 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<description>delete added vCard</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETE</method>
+				<ruri>$addressbookpath2:/6.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<description>add back removed vCard</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$addressbookpath2:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
 		</test>
 	</test-suite>
 
 
 	<test-suite name='read-only shared group' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 group 345 read-only with user1</description>
+			<description>reset user1 home and share user2 group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -868,9 +920,9 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='overlapping read-only, read-write shared groups, addressbooks' ignore='no'>
+	<test-suite name='overlapping read-only, read-write shared group' ignore='no'>
 		<test name='0' ignore='no'>
-			<description>reset user1 home and share user2 group g123 read-write, group 345 read-only with user1</description>
+			<description>reset user1 home and share user2 group g123 read-write, group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1144,7 +1196,62 @@
 			</request>
 		</test>
 		<test name='7' ignore='no'>
-			<description>share user2 addressbook read-write with user1</description>
+			<description>add vCard</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8' ignore='no'>
+			<description>New vCard is member of shared read-write group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g123.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g1236.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9' ignore='no'>
+			<description>New vCard is not member of read-only group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g345.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g345.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1' ignore='no'>
+			<description>Clean up</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='overlapping read-only, read-write shared groups, read-write addressbook' ignore='no'>
+		<test name='0' ignore='no'>
+			<description>share user2 addressbook read-write</description>
 			<description>user2 POSTs invitation</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
@@ -1181,7 +1288,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='1' ignore='no'>
 			<description>vCard in read-only group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1212,8 +1319,81 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
-			<description>share user2 addressbook read-only with user1</description>
+		<test name='2' ignore='no'>
+			<description>add vCard</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>New vCard is NOT member of shared read-write group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g123.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g123.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>New vCard is not member of read-only group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g345.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g345.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5' ignore='no'>
+			<description>New vCard is member of addressbook group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/addressbook.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/gAddressBook6.vcf</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>UID</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1' ignore='no'>
+			<description>Clean up</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='overlapping read-only, read-write shared groups, read-only addressbook' ignore='no'>
+		<test name='0' ignore='no'>
+			<description>share user2 addressbook read-only</description>
 			<description>user2 POSTs invitation</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
@@ -1250,7 +1430,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='1' ignore='no'>
 			<description>shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1284,7 +1464,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='2' ignore='no'>
 			<description>vCard in shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1311,6 +1491,99 @@
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='add to ab with two read-write shared groups' ignore='no'>
+		<test name='0' ignore='no'>
+			<description>unshare address book, share 345 read-write</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$addressbookhome1:/$userid2:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<description>user2 POSTs invitation read-write to group 345</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookpath2:/g345.vcf</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/groups/6.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<description>Check user1 notification collection and get invite uid</description>
+			<request print-response="no">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath1:/</ruri>
+			</request>
+			<request print-response="no">
+				<method>GETNEW</method>
+				<ruri>$notificationpath1:/</ruri>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid:</variable>
+				</grabelement>
+			</request>
+			<description>user1 replies ACCEPTED and deletes notification</description>
+			<request print-response="no">
+				<method>POST</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions="yes">
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/groups/7.xml</filepath>
+				</data>
+			</request>
+			<request>
+				<method>DELETE</method>
+				<ruri>$notificationpath1:/$inviteuid:</ruri>
+			</request>
+		</test>
+		<test name='1' ignore='no'>
+			<description>vCard with new UID shared read-write group can be added</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/$userid2:/6.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>New vCard is member of shared group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g123.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g1236.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>New vCard is member of shared group</description>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookhome1:/$userid2:/g345.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/sharing/access/setup/g3456.vcf</value>
 					</arg>
 				</verify>
 			</request>
