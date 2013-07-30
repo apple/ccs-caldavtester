@@ -229,12 +229,12 @@ records = (
     ("/Users", "public%02d", "public%02d", publicattrs, 10),
     ("/Places", "location%02d", "location%02d", locationattrs, 10),
     ("/Places", "delegatedroom", "delegatedroom", delegatedroomattrs, 1),
-    ("/Resources", "resource%02d", "resource%02d", resourceattrs, 10),
+    ("/Resources", "resource%02d", "resource%02d", resourceattrs, 20),
     ("/Groups", "group%02d", "group%02d", groupattrs, number_of_groups),
 )
 
 def usage():
-    print """Usage: odsteup [options] create|create-users|remove
+    print """Usage: odsetup [options] create|create-users|remove
 Options:
     -h        Print this help and exit
     -n node   OpenDirectory node to target
@@ -253,6 +253,9 @@ def cmd(args, input=None, raiseOnFail=True):
         print "-----"
     if verbose:
         print args.replace(diradmin_pswd, "xxxx")
+    if veryverbose and input:
+        print input
+        print "*****"
     if input:
         p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         result = p.communicate(input)
