@@ -28,7 +28,7 @@
 
 	<start/>
 	
-	<test-suite name='bulk-requests property'>
+	<test-suite name='bulk-requests property' ignore='yes'>
 		<test name='1'>
 			<description>PROPFIND on address book</description>
 			<request>
@@ -444,6 +444,138 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CardDAV/bulk/simple/10.vcf</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>ETag</name>
+						<value>$etag:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1' ignore='no'>
+			<description>Clean up</description>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='Simple POST - group vcard with return data' ignore='no'>
+		<test name='1' ignore='no'>
+			<description>POST new group vcard with unordered and duplicate members</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>X-MobileMe-DAV-Options</name>
+					<value>return-changed-data</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/bulk/simple/11.vcf</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}getetag</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:carddav}address-data</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/bulk/simple/12.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{DAV:}href</value>
+						<value>{DAV:}getetag</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>$multistatus-href-prefix:</name>
+					<variable>$href:</variable>
+				</grabelement>
+				<grabelement>
+					<name>$verify-property-prefix:/{DAV:}getetag</name>
+					<variable>$etag:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>Check valid data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href:</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/bulk/simple/13.vcf</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>ETag</name>
+						<value>$etag:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>POST new group vcard with ordered unique members</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<header>
+					<name>X-MobileMe-DAV-Options</name>
+					<value>return-changed-data</value>
+				</header>
+				<data substitutions='yes'>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/bulk/simple/14.vcf</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}getetag</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:carddav}address-data</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>$multistatus-href-prefix:</name>
+					<variable>$href:</variable>
+				</grabelement>
+				<grabelement>
+					<name>$verify-property-prefix:/{DAV:}getetag</name>
+					<variable>$etag:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Check valid data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href:</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/bulk/simple/14.vcf</value>
 					</arg>
 				</verify>
 				<verify>
