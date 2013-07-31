@@ -634,12 +634,24 @@ def manageRecords(path, user):
                 "resource08" : "accept-if-free",
                 "resource09" : "decline-if-busy",
                 "resource10" : "automatic",
+                "resource11" : "decline-always",
             }
 
             if user[0] in automodes:
                 cmd("%s --set-auto-schedule-mode=%s resources:%s" % (
                     utility,
                     automodes[user[0]],
+                    user[0],
+                ))
+
+            # Some resources have unique auto-accept-groups assigned
+            autoAcceptGroups = {
+                "resource11" : "group01",
+            }
+            if user[0] in autoAcceptGroups:
+                cmd("%s --set-auto-accept-group=groups:%s resources:%s" % (
+                    utility,
+                    autoAcceptGroups[user[0]],
                     user[0],
                 ))
 
