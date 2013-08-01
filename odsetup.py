@@ -57,6 +57,9 @@ base_dir = "../CalendarServer/"
 
 number_of_users = 40
 number_of_groups = 10
+number_of_publics = 10
+number_of_resources = 20
+number_of_locations = 10
 
 guids = {
     "testadmin"  : "",
@@ -66,12 +69,18 @@ guids = {
 
 for i in range(1, number_of_users + 1):
     guids["user%02d" % (i,)] = ""
+
+for i in range(1, number_of_publics + 1):
     guids["public%02d" % (i,)] = ""
-    guids["resource%02d" % (i,)] = ""
-    guids["location%02d" % (i,)] = ""
 
 for i in range(1, number_of_groups + 1):
     guids["group%02d" % (i,)] = ""
+
+for i in range(1, number_of_resources + 1):
+    guids["resource%02d" % (i,)] = ""
+
+for i in range(1, number_of_locations + 1):
+    guids["location%02d" % (i,)] = ""
 
 locations = {}
 resources = {}
@@ -226,10 +235,10 @@ records = (
     ("/Users", "apprentice", "apprentice", apprenticeattrs, 1),
     ("/Users", "i18nuser", "i18nuser", i18nattrs, 1),
     ("/Users", "user%02d", "user%02d", userattrs, None),
-    ("/Users", "public%02d", "public%02d", publicattrs, 10),
-    ("/Places", "location%02d", "location%02d", locationattrs, 10),
+    ("/Users", "public%02d", "public%02d", publicattrs, number_of_publics),
+    ("/Places", "location%02d", "location%02d", locationattrs, number_of_locations),
     ("/Places", "delegatedroom", "delegatedroom", delegatedroomattrs, 1),
-    ("/Resources", "resource%02d", "resource%02d", resourceattrs, 20),
+    ("/Resources", "resource%02d", "resource%02d", resourceattrs, number_of_resources),
     ("/Groups", "group%02d", "group%02d", groupattrs, number_of_groups),
 )
 
@@ -373,11 +382,11 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
 
     for i in range(1, number_of_users + 1):
         subs.append(("$userguid%d:" % (i,), guids["user%02d" % (i,)]))
-    for i in range(1, 11):
+    for i in range(1, number_of_publics + 1):
         subs.append(("$publicuserguid%d:" % (i,), guids["public%02d" % (i,)]))
-    for i in range(1, 11):
+    for i in range(1, number_of_resources + 1):
         subs.append(("$resourceguid%d:" % (i,), guids["resource%02d" % (i,)]))
-    for i in range(1, 11):
+    for i in range(1, number_of_locations + 1):
         subs.append(("$locationguid%d:" % (i,), guids["location%02d" % (i,)]))
     for i in range(1, number_of_groups + 1):
         subs.append(("$groupguid%d:" % (i,), guids["group%02d" % (i,)]))
