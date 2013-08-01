@@ -187,7 +187,7 @@
 			<description>Sharee sees shared address book</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome2:/$userid1:/</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -221,7 +221,7 @@
 			<description>Sharee sees shared address book and shared vCards</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome2:/$userid1:/</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
@@ -268,7 +268,7 @@
 					<callback>xmlElementMatch</callback>
 					<arg>
 						<name>parent</name>
-						<value>$multistatus-response-prefix:[^{DAV:}href=$addressbookhome2:/$userid1:/]</value>
+						<value>$multistatus-response-prefix:[^{DAV:}href=$addressbookhome2:/$userguid1:/]</value>
 					</arg>
 					<arg>
 						<name>exists</name>
@@ -321,7 +321,7 @@
 			<description>Sharee creates group vcard with unknown member UID</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$addressbookhome2:/$userid1:/4.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/4.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/groups/read-write/8.vcf</filepath>
@@ -339,7 +339,7 @@
 			<description>Sharee creates group vcard with member UID in ab but not in group</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$addressbookhome2:/$userid1:/4.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/4.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/groups/read-write/9.vcf</filepath>
@@ -357,7 +357,7 @@
 			<description>Sharee creates vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$addressbookhome2:/$userid1:/4.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/4.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/groups/read-write/10.vcf</filepath>
@@ -424,7 +424,7 @@
 			<description>Sharee sees changed vcard</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
-				<ruri>$addressbookhome2:/$userid1:/4.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/4.vcf</ruri>
 				<verify>
 					<callback>addressDataMatch</callback>
 					<arg>
@@ -452,7 +452,7 @@
 			<description>Sharee sees new vcards</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
-				<ruri>$addressbookhome2:/$userid1:/5.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/5.vcf</ruri>
 				<verify>
 					<callback>addressDataMatch</callback>
 					<arg>
@@ -463,7 +463,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
-				<ruri>$addressbookhome2:/$userid1:/2.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/2.vcf</ruri>
 				<verify>
 					<callback>addressDataMatch</callback>
 					<arg>
@@ -474,7 +474,7 @@
 			</request>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
-				<ruri>$addressbookhome2:/$userid1:/1.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
 				<verify>
 					<callback>addressDataMatch</callback>
 					<arg>
@@ -488,7 +488,7 @@
 			<description>Sharee removes vCard from subgroup</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PUT</method>
-				<ruri>$addressbookhome2:/$userid1:/5.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/5.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/groups/read-write/14.vcf</filepath>
@@ -502,7 +502,7 @@
 			<description>Sharee cannot access removed sub group member</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GET</method>
-				<ruri>$addressbookhome2:/$userid1:/1.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 					<arg>
@@ -541,7 +541,7 @@
 			<description>Sharee deletes vCard in subgroup</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>DELETE</method>
-				<ruri>$addressbookhome2:/$userid1:/2.vcf</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/2.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -635,7 +635,7 @@
 			<description>No more shared addressbook</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>PROPFIND</method>
-				<ruri>$addressbookhome2:/$userid1:/</ruri>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
