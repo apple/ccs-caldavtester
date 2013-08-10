@@ -650,7 +650,7 @@
 				<ruri>$addressbookhome1:/$userguid2:/9.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
+					<filepath>Resource/CardDAV/sharing/access/setup/4.vcf</filepath>
 				</data>
 				<verify>
 					<callback>prepostcondition</callback>
@@ -665,7 +665,7 @@
 			<description>adding vCard with name in owner's address book fails</description>
 			<request>
 				<method>PUT</method>
-				<ruri>$addressbookhome1:/$userguid2:/2.vcf</ruri>
+				<ruri>$addressbookhome1:/$userguid2:/5.vcf</ruri>
 				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
@@ -709,6 +709,17 @@
 		</test>
 		<test name='-1' ignore='no'>
 			<description>restore group membership</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$addressbookpath2:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/access/setup/2.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
