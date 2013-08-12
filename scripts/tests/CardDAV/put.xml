@@ -25,7 +25,13 @@
 		<feature>carddav</feature>
 	</require-feature>
 
-	<start/>	
+	<start>	
+		<description>clean up old data</description>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+		</request>
+	</start>
 
 	<test-suite name='PUT VCARD' ignore='no'>
 		<test name='1' ignore='no'>
@@ -481,6 +487,115 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<test-suite name='PUT groups'>
+		<test name='1' ignore='no'>
+			<description>PUT group with circular reference, unknown members, group data changed</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/16.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/16.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookpath1:/16.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/vcardput/17.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2' ignore='no'>
+			<description>PUT user over group</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/16.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/18.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3' ignore='no'>
+			<description>PUT group over user</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/1.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/19.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>PUT group over group, no data change</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/16.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcardput/19.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$addressbookpath1:/16.vcf</ruri>
+				<verify>
+					<callback>addressDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CardDAV/vcardput/19.vcf</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<end>	
+		<description>clean up old data</description>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$addressbookhome1:/</ruri>
+		</request>
+	</end>
 
 </caldavtest>
