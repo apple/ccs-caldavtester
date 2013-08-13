@@ -644,42 +644,6 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>adding vCard with UID in owner's address book fails</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$addressbookhome1:/$userguid2:/9.vcf</ruri>
-				<data>
-					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/access/setup/4.vcf</filepath>
-				</data>
-				<verify>
-					<callback>prepostcondition</callback>
-					<arg>
-						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:carddav}no-uid-conflict</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='6' ignore='no'>
-			<description>adding vCard with name in owner's address book fails</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$addressbookhome1:/$userguid2:/5.vcf</ruri>
-				<data>
-					<content-type>text/vcard; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/access/setup/6.vcf</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7' ignore='no'>
 			<description>vCard with new UID shared read-write group can be added</description>
 			<request>
 				<method>PUT</method>
@@ -693,7 +657,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='6' ignore='no'>
 			<description>New vCard is member of shared group</description>
 			<request>
 				<method>GET</method>
