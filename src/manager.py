@@ -46,14 +46,15 @@ class manager(object):
     LOG_MEDIUM = 3
     LOG_HIGH = 4
 
-    def __init__(self, text=True, level=LOG_HIGH, log_file=None):
+    def __init__(self, text=True, level=LOG_HIGH):
         self.server_info = serverinfo()
         self.tests = []
         self.textMode = text
         self.pid = 0
         self.memUsage = None
+        self.randomSeed = None
         self.logLevel = level
-        self.logFile = log_file
+        self.logFile = None
         self.digestCache = {}
         self.postgresLog = ""
         self.print_request = False
@@ -75,8 +76,7 @@ class manager(object):
     def logit(self, str):
         if self.logFile:
             self.logFile.write(str)
-        else:
-            print str,
+        print str,
 
 
     def readXML(self, serverfile, testfiles, ssl, all, moresubs={}):
@@ -147,7 +147,7 @@ class manager(object):
         random_seed = str(random.randint(0, 1000000))
         options, args = getopt.getopt(
             sys.argv[1:],
-            "s:mx:",
+            "s:mo:x:",
             [
                 "ssl",
                 "all",
@@ -179,6 +179,8 @@ class manager(object):
                 excludes.add(value)
             elif option == "-m":
                 self.memUsage = True
+            elif option == "-o":
+                self.logFile = open(value, "w")
             elif option == "--pid":
                 pidfile = value
             elif option == "--postgres-log":
@@ -223,9 +225,9 @@ class manager(object):
 
         # Randomize file list
         if random_order and len(fnames) > 1:
-            print "Randomizing order using seed '%s'" % (random_seed,)
             random.seed(random_seed)
             random.shuffle(fnames)
+            self.randomSeed = random_seed
 
         self.readXML(sname, fnames, ssl, all)
 
@@ -238,6 +240,10 @@ class manager(object):
     def runAll(self):
 
         startTime = time.time()
+
+        if self.randomSeed is not None:
+            self.log(manager.LOG_LOW, "Randomizing order using seed '%s'" % (self.randomSeed,))
+
         ok = 0
         failed = 0
         ignored = 0
@@ -256,6 +262,9 @@ class manager(object):
 
         self.log(manager.LOG_LOW, "Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
         self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime - startTime,))
+
+        if self.logFile is not None:
+            self.logFile.close()
 
         return failed, endTime - startTime
 

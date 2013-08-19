@@ -20,7 +20,6 @@
 #
 
 export PYTHONPATH=/usr/share/caldavd/lib/python:/Applications/Server.app/Contents/ServerRoot/usr/share/caldavd/lib/python/
-./testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all \
+./testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all -o cdt.txt \
 	--subdir CardDAV \
-	--exclude CardDAV/directory.xml \
- 	
+	--exclude CardDAV/directory.xml
