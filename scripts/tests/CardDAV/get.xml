@@ -212,6 +212,10 @@
 		</test>
 		<test name='6'>
 			<description>Conditional GET on addressbook collection</description>
+			<request print-response='no'>
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
 			<request print-response="no">
 				<method>GET</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -280,6 +284,10 @@
 		</test>
 		<test name='5'>
 			<description>Conditional GET on addressbook home</description>
+			<request print-response='no'>
+				<method>DELAY</method>
+				<ruri>2</ruri>
+			</request>
 			<request print-response="no">
 				<method>GET</method>
 				<ruri>$addressbookpath1:/</ruri>
