@@ -271,10 +271,6 @@
 		</test>
 		<test name='7'>
 			<description>Conditional GET on calendar collection</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 			<request print-response="no">
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -491,13 +487,9 @@
 		</test>
 		<test name='5'>
 			<description>Conditional GET on calendar home</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 			<request print-response="no">
 				<method>GET</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>If-Modified-Since</name>
 					<value>$last-modified2:</value>
