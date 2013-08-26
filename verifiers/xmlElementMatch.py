@@ -19,7 +19,9 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
+from pycalendar.calendar import PyCalendar
 from xml.etree.ElementTree import ElementTree
+import json
 import StringIO
 
 class Verifier(object):
@@ -124,6 +126,9 @@ class Verifier(object):
                     elif test[0] == '*':
                         if node.text is not None and node.text.find(test[1:]) != -1:
                             results.append(node)
+                    elif test[0] == '$':
+                        if node.text is not None and node.text.find(test[1:]) == -1:
+                            results.append(node)
                     elif test[0] == '+':
                         if node.text is not None and node.text.startswith(test[1:]):
                             results.append(node)
@@ -196,6 +201,9 @@ class Verifier(object):
                         elif test[0] == '*':
                             if node.text is None or node.text.find(test[1:]) == -1:
                                 result = "        Incorrect value returned in XML for %s\n" % (path,)
+                        elif test[0] == '$':
+                            if node.text is None or node.text.find(test[1:]) != -1:
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
                         elif test[0] == '+':
                             if node.text is None or not node.text.startswith(test[1:]):
                                 result = "        Incorrect value returned in XML for %s\n" % (path,)
@@ -210,6 +218,20 @@ class Verifier(object):
                                     break
                             else:
                                 result = "        Missing child returned in XML for %s\n" % (path,)
+
+                        # Try to parse as iCalendar
+                        elif test == 'icalendar':
+                            try:
+                                PyCalendar.parseText(node.text)
+                            except:
+                                result = "        Incorrect value returned in iCalendar for %s\n" % (path,)
+
+                        # Try to parse as JSON
+                        elif test == 'json':
+                            try:
+                                json.loads(node.text)
+                            except:
+                                result = "        Incorrect value returned in XML for %s\n" % (path,)
                         return result
 
                     testresult = _doTest()

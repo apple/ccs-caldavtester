@@ -493,7 +493,10 @@ header:
 			<value>Content-type$text/plain</value>
 		</arg>
 	</verify>
-	
+
+jcalDataMatch:
+	Like calendarDataMatch except that comparison is done using jCal data.
+
 jsonPointerMatch:
 	Compares the response with a JSON pointer and returns TRUE if there
 	is a match, otherwise False.
@@ -749,9 +752,12 @@ xmlElementMatch:
 	[=text] - node text is "text".
 	[!text] - node text is not "text".
 	[*text] - node text contains "text".
+	[$text] - node text does not contain "text".
 	[+text] - node text starts with "text".
 	[^tag] - node has child element "tag".
 	[^tag=text] - node has child element "tag" with text "text".
+	[json] - node contains valid JSON data.
+	[icalendar] - node contains valid iCalendare data.
 	
 	Argument: 'parent'
 		ElementTree style path for an XML element to use as the root for any
