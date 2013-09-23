@@ -197,18 +197,24 @@ class caldavtest(object):
             self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),))
             return "i"
         else:
-            result = False
+            result = True
             resulttxt = ""
             postgresCount = self.postgresInit()
             if test.stats:
                 reqstats = stats()
             else:
                 reqstats = None
-            for ctr in range(test.count): #@UnusedVariable
+            for ctr in range(test.count):
                 for req_count, req in enumerate(test.requests):
-                    result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
-                    if not result:
-                        break
+                    if req.iterate_data:
+                        while req.getNextData():
+                            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
+                            if not result:
+                                break
+                    else:
+                        result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
+                        if not result:
+                            break
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
             self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
             if len(resulttxt) > 0:
