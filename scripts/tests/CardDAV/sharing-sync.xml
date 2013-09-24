@@ -2982,7 +2982,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3' ignore='yes'>
 			<description>add addressbook - test last sync</description>
 			<description>share user3 address book with user1</description>
 			<description>user3 POSTs invitation</description>
@@ -3040,7 +3040,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4' ignore='yes'>
 			<description>add addressbook - test previous sync</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -3674,7 +3674,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='-3' ignore='no'>
 			<description>add addressbook - test last sync</description>
 			<description>share user3 address book with user1</description>
 			<description>user3 POSTs invitation</description>
@@ -3712,6 +3712,8 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
+		</test>
+		<test name='3' ignore='yes'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -3732,7 +3734,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4' ignore='yes'>
 			<description>add addressbook - test previous sync</description>
 			<request print-response='no'>
 				<method>REPORT</method>
