@@ -12,11 +12,24 @@ Many tests are included in this package.
 
 COMMAND LINE OPTIONS
 
-testcaldav.py [-s filename] [-p filename] [-d] [--ssl] [--all] [--random] \
+testcaldav.py \
+	[-s filename] \
+	[-x dirpath] \
+	[--ssl] \
+	[--all] \
+	[--random] \
+	[--random-seed SEED] \
+	[--print-details-onfail] \
+	[--always-print-request] \
+	[--always-print-response] \
+	[--exclude filename] \
 	file1 file2 ...
 
 	-s : filename specifies the file to use for server information
 	(default is 'serverinfo.xml').
+
+	-x : directory path for test scripts
+	(default is 'scripts/tests').
 
 	-p : filename specifies the file to use to populate the server with
 	data. Server data population only occurs when this option is
@@ -32,6 +45,16 @@ testcaldav.py [-s filename] [-p filename] [-d] [--ssl] [--all] [--random] \
 	caldavtest.dtd are executed.
 
 	--random : randomize the order in which the tests are run.
+	
+	--random-seed SEED : a specific randon seed to use.
+	
+	--print-details-onfail : print HTTP request/response when a test fails.
+	
+	--always-print-request : always print HTTP request.
+	
+	--always-print-response : always print HTTP response.
+	
+	--exclude FILE : when running with --all, exclude the file from the test run. 
 
 	file1 file2 ...: a list of test files to execute tests from.
 
