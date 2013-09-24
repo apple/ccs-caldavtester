@@ -304,7 +304,7 @@ class request(object):
 
     def getNextData(self):
         if not hasattr(self, "dataList"):
-            self.dataList = sorted(os.listdir(self.data.filepath))
+            self.dataList = sorted([path for path in os.listdir(self.data.filepath) if not path.startswith(".")])
         if len(self.dataList):
             self.data.nextpath = os.path.join(self.data.filepath, self.dataList.pop(0))
             return True
