@@ -37,7 +37,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read-write addressbook' ignore='yes'>
+	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
+	<test-suite name='Read-write addressbook' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Initial sync tokens</description>
 			<request print-response='no'>
@@ -184,7 +185,7 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5a' ignore='no'>
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -205,6 +206,8 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='5b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -224,6 +227,8 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='5c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -242,6 +247,8 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='5d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -261,6 +268,8 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='5e' ignore='yes'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -280,6 +289,8 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='5f' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
@@ -310,7 +321,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7a' ignore='no'>
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -331,6 +342,8 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='7b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -351,6 +364,8 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='7c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -370,6 +385,8 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='7e' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -389,6 +406,8 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='7f' ignore='yes'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -409,6 +428,8 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='7g' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
@@ -443,7 +464,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9a' ignore='no'>
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -464,6 +485,8 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='9b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -484,6 +507,8 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='9c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -503,6 +528,8 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='9d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -522,6 +549,8 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='9e' ignore='yes'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -542,6 +571,8 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='9f' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
@@ -572,7 +603,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11a' ignore='no'>
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -593,6 +624,8 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='11b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -616,6 +649,8 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='11c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -635,6 +670,8 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='11d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -654,6 +691,8 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='11e' ignore='yes'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -677,6 +716,8 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='11f' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
@@ -711,7 +752,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13a' ignore='no'>
 			<description>Updated tokens</description>
 			<request print-response='no'>
 				<method>REPORT</method>
@@ -732,6 +773,8 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='13b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -751,6 +794,8 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='13c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -766,6 +811,8 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='13e' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -785,6 +832,8 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='13f' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -804,6 +853,8 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
+		</test>
+		<test name='13g' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
@@ -821,7 +872,8 @@
 			</request>
 		</test>
 	</test-suite>
-
+	
+	<!-- test suites below are similar to those in ../CalDAV/sync-report.xml but use shared address books of calendars in the home -->
 	<test-suite name='support-report-set/sync-token property' ignore='no'>
 		<test name='0' ignore='no'>
 			<description>clean up old data</description>
@@ -4052,6 +4104,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
