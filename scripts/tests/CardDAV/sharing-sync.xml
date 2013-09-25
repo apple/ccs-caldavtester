@@ -2982,7 +2982,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='yes'>
+		<test name='3' ignore='no'>
 			<description>add addressbook - test last sync</description>
 			<description>share user3 address book with user1</description>
 			<description>user3 POSTs invitation</description>
@@ -3025,7 +3025,7 @@
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
 					<name>Depth</name>
-					<value>infinity</value>
+					<value>1</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -3040,14 +3040,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='yes'>
+		<test name='4' ignore='no'>
 			<description>add addressbook - test previous sync</description>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
 					<name>Depth</name>
-					<value>infinity</value>
+					<value>1</value>
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
