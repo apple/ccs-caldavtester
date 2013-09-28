@@ -1,20 +1,8 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<notification xmlns='http://calendarserver.org/ns/'>
-  <dtstamp></dtstamp>
-  <invite-notification shared-type='group'>
-    <uid></uid>
-    <href xmlns='DAV:'>$cuaddrurn2:</href>
-    <invite-noresponse/>
-    <access>
-      <read-write/>
-    </access>
-    <hosturl>
-      <href xmlns='DAV:'>$addressbookpath1:/3.vcf</href>
-    </hosturl>
-    <organizer>
-      <href xmlns='DAV:'>$cuaddrurn1:</href>
-      <common-name>User 01</common-name>
-    </organizer>
-    <summary>My Shared Calendar</summary>
-  </invite-notification>
-</notification>
+<?xml version="1.0" encoding="utf-8" ?>
+<CS:share xmlns:D="DAV:" xmlns:CS="http://calendarserver.org/ns/">
+    <CS:set>
+        <D:href>$cuaddrurn2:</D:href>
+        <CS:summary>Shared Group</CS:summary>
+        <CS:read-write/>
+    </CS:set>
+</CS:share>
