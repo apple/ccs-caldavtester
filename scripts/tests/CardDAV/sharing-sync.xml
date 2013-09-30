@@ -38,7 +38,7 @@
 	</start>
 	
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
-	<test-suite name='shared addressbook' ignore='no'>
+	<test-suite name='shared addressbook' ignore='yes'>
 		<test name='1a' ignore='no'>
 			<description>Initial sync tokens</description>
 			<request print-response='no'>
@@ -1447,10 +1447,14 @@
 			</request>
 		</test>
 		<test name='10'>
-			<description>Sharee deletes vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
+			<description>Sharer adds unshared vCard</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/2.vcf</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/sync/group-one/2.vcf</filepath>
+				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -1491,10 +1495,7 @@
 					<arg>
 						<name>okhrefs</name>
 						<value>$addressbook:/</value>
-					</arg>
-					<arg>
-						<name>badhrefs</name>
-						<value>$addressbook:/1.vcf</value>
+						<value>$addressbook:/2.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1514,8 +1515,8 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>badhrefs</name>
-						<value>1.vcf</value>
+						<name>okhrefs</name>
+						<value>2.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1536,7 +1537,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$userguid1:/</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1557,11 +1557,6 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$userguid1:/</value>
-					</arg>
-					<arg>
-						<name>badhrefs</name>
-						<value>$userguid1:/1.vcf</value>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1581,8 +1576,7 @@
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>badhrefs</name>
-						<value>1.vcf</value>
+						<name>okhrefs</name>
 					</arg>
 				</verify>
 				<grabelement>
@@ -1592,13 +1586,13 @@
 			</request>
 		</test>
 		<test name='12'>
-			<description>Sharer unshares</description>
+			<description>Sharer changes unshared vCard</description>
 			<request print-response='no'>
-				<method>POST</method>
-				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharingremove2.xml</filepath>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/sharing/sync/group-one/2.vcf</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1627,7 +1621,429 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13b' ignore='no'>
+		<test name='15b' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+						<value>$addressbook:/2.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15c' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken3:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15d' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken4:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15e' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken5:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15f' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken6:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Sharer changes unshared vCard</description>
+			<request print-response='no'>
+				<method>DELETE</method>
+				<ruri>$addressbookpath1:/2.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='15a' ignore='no'>
+			<description>Updated tokens</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15b' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$addressbook:/2.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15c' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>2.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken3:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15d' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken4:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15e' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken5:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='15f' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken6:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='16'>
+			<description>Sharee deletes vcard</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='17a' ignore='no'>
+			<description>Updated tokens</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17b' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$addressbook:/1.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17c' ignore='no'>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken3:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17d' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userguid1:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken4:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17e' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$userguid1:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$userguid1:/1.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken5:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='17f' ignore='no'>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome2:/$userguid1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>badhrefs</name>
+						<value>1.vcf</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken6:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='18'>
+			<description>Sharer unshares</description>
+			<request print-response='no'>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/3.vcf</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharingremove2.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='19a' ignore='no'>
+			<description>Updated tokens</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$addressbook:/</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='19b' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1648,7 +2064,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13c' ignore='no'>
+		<test name='19c' ignore='no'>
 			<request print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
@@ -1665,7 +2081,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13e' ignore='no'>
+		<test name='19e' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -1686,7 +2102,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13f' ignore='no'>
+		<test name='19f' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -1707,7 +2123,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13g' ignore='no'>
+		<test name='19g' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
@@ -1726,7 +2142,9 @@
 		</test>
 	</test-suite>
 	
-	<!-- test suites below are similar to those in ../CalDAV/sync-report.xml but use shared address books of calendars in the home -->
+	<!-- test suites below are similar to those in ../CalDAV/sync-report.xml but 
+			use shared address books instead of calendars -->
+	
 	<test-suite name='support-report-set/sync-token property' ignore='no'>
 		<test name='0' ignore='no'>
 			<description>clean up old data</description>
