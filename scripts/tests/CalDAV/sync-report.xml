@@ -3933,6 +3933,34 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='limited reports' ignore='no'>
+		<test name='1' ignore='no'>
+			<exclude-feature>
+				<feature>sync-report-limit</feature>
+			</exclude-feature>
+			<description>Limit not allowed</description>
+			<request print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/21.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{DAV:}number-of-matches-within-limits</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
