@@ -29,6 +29,7 @@ class Verifier(object):
         files = args.get("filepath", [])
         caldata = args.get("data", [])
         filters = args.get("filter", [])
+        statusCode = args.get("status", ["200", "201", "207"])
 
         if "EMAIL parameter" not in manager.server_info.features:
             filters.append("ATTENDEE:EMAIL")
@@ -46,8 +47,8 @@ class Verifier(object):
                 filters.remove(afilter[1:])
         filters = filter(lambda x: x[0] != "!", filters)
 
-        # status code must be 200, 201, 207
-        if response.status not in (200, 201, 207):
+        # status code must be 200, 201, 207 or explicitly specified code
+        if str(response.status) not in statusCode:
             return False, "        HTTP Status Code Wrong: %d" % (response.status,)
 
         # look for response data
