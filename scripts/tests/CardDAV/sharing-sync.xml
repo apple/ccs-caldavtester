@@ -38,7 +38,7 @@
 	</start>
 	
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
-	<test-suite name='shared addressbook' ignore='yes'>
+	<test-suite name='shared addressbook' ignore='no'>
 		<test name='1a' ignore='no'>
 			<description>Initial sync tokens</description>
 			<request print-response='no'>
@@ -4281,6 +4281,20 @@
 		</test>
 		<test name='2' ignore='no'>
 			<description>remove resource then addressbook</description>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$addressbookpath3:/2.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$addressbookpath3:/1.vcf</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>DELETE</method>
 				<ruri>$addressbookpath3:/</ruri>
