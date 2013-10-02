@@ -206,7 +206,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count):
                 for req_count, req in enumerate(test.requests):
-                    if req.iterate_data:
+                    if getattr(req, "iterate_data", False):
                         while req.getNextData():
                             result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
                             if not result:
