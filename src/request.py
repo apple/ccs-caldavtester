@@ -23,6 +23,7 @@ from src.httpshandler import SmartHTTPConnection
 from src.xmlUtils import getYesNoAttributeValue
 import base64
 import datetime
+import os
 import re
 import src.xmlDefs
 import time
@@ -154,6 +155,7 @@ class request(object):
         self.ruris = []
         self.ruri = ""
         self.data = None
+        self.iterate_data = False
         self.count = 1
         self.verifiers = []
         self.graburi = None
@@ -287,7 +289,7 @@ class request(object):
                 data = self.data.value
             else:
                 # read in the file data
-                fd = open(self.data.filepath, "r")
+                fd = open(self.data.nextpath if hasattr(self.data, "nextpath") else self.data.filepath, "r")
                 try:
                     data = fd.read()
                 finally:
@@ -298,6 +300,20 @@ class request(object):
                 if self.data.content_type.startswith("text/calendar"):
                     data = self.generateCalendarData(data)
         return data
+
+
+    def getNextData(self):
+        if not hasattr(self, "dataList"):
+            self.dataList = sorted([path for path in os.listdir(self.data.filepath) if not path.startswith(".")])
+        if len(self.dataList):
+            self.data.nextpath = os.path.join(self.data.filepath, self.dataList.pop(0))
+            return True
+        else:
+            if hasattr(self.data, "nextpath"):
+                delattr(self.data, "nextpath")
+            if hasattr(self, "dataList"):
+                delattr(self, "dataList")
+            return False
 
 
     def generateCalendarData(self, data):
@@ -325,6 +341,7 @@ class request(object):
         self.end_delete = getYesNoAttributeValue(node, src.xmlDefs.ATTR_END_DELETE)
         self.print_request = self.manager.print_request or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_REQUEST)
         self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
+        self.iterate_data = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ITERATE_DATA)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

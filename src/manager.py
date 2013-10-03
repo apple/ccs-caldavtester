@@ -198,7 +198,7 @@ class manager(object):
 
         if all:
             files = []
-            os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]), None)
+            os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]) if not dir.startswith("test") else None, None)
             for file in files:
                 if file.endswith(".xml") and file[len(dname) + 1:] not in excludes:
                     if subdir is None or file[len(dname) + 1:].startswith(subdir):

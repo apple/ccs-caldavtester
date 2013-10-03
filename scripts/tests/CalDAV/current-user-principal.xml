@@ -65,10 +65,23 @@
 					<filepath>Resource/CalDAV/current-user-principal/1.xml</filepath>
 				</data>
 				<verify>
+					<exclude-feature>
+						<feature>auth-on-root</feature>
+					</exclude-feature>
 					<callback>propfindItems</callback>
 					<arg>
 						<name>okprops</name>
 						<value><![CDATA[{DAV:}current-user-principal$<unauthenticated xmlns="DAV:"/>]]></value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>auth-on-root</feature>
+					</require-feature>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>401</value>
 					</arg>
 				</verify>
 			</request>
