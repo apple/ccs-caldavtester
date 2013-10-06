@@ -148,6 +148,7 @@ class request(object):
         self.end_delete = False
         self.print_request = False
         self.print_response = False
+        self.wait_for_success = None
         self.require_features = set()
         self.exclude_features = set()
         self.method = ""
@@ -342,6 +343,7 @@ class request(object):
         self.print_request = self.manager.print_request or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_REQUEST)
         self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
         self.iterate_data = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ITERATE_DATA)
+        self.wait_for_success = getYesNoAttributeValue(node, src.xmlDefs.ATTR_WAIT_FOR_SUCCESS)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

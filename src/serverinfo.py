@@ -34,6 +34,7 @@ class serverinfo(object):
         self.features = set()
         self.user = ""
         self.pswd = ""
+        self.wait = 10
         self.subsdict = {}
         self.extrasubsdict = {}
 
@@ -132,6 +133,8 @@ class serverinfo(object):
                 self.sslport = int(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_AUTHTYPE:
                 self.authtype = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_WAITTIME:
+                self.wait = int(child.text.encode("utf-8"))
             elif child.tag == src.xmlDefs.ELEMENT_FEATURES:
                 self.parseFeatures(child)
             elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
