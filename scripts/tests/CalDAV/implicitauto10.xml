@@ -394,7 +394,7 @@
 		</test>
 		<test name='19' ignore='no'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success="yes" print-response="no">
 				<method>GET</method>
 				<ruri>$r2:</ruri>
 				<verify>
@@ -404,7 +404,6 @@
 						<value>Resource/CalDAV/implicit/auto10/suite1/10.ics</value>
 					</arg>
 				</verify>
-				<graburi>$r2:</graburi>
 			</request>
 		</test>
 		<test name='20' ignore='no'>

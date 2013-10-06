@@ -1116,7 +1116,7 @@
 		</test>
 		<test name='6'>
 			<description>Matching property</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response="no">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1607,7 +1607,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>

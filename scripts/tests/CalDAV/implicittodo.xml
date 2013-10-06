@@ -1296,7 +1296,7 @@
 		</test>
 		<test name='13'>
 			<description>Attendee 3 data changed</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$taskspath3:/</ruri>
 				<verify>
@@ -1388,7 +1388,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 data changed</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$taskspath2:/</ruri>
 				<verify>
