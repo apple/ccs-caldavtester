@@ -256,7 +256,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d-' ignore='no'>
+		<test name='5d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -265,27 +265,9 @@
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>REPORT</method>
-				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
-				</data>
-				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
 						<value>$sharedaddressbook:/</value>
 					</arg>
 				</verify>
@@ -301,7 +283,7 @@
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-token5-level-1.xml</filepath>
+					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1154,36 +1136,18 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>REPORT</method>
-				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-token4-level-infinite.xml</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
 		<test name='5d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
+					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
 						<value>$userguid1:/</value>
 					</arg>
 				</verify>
@@ -2545,7 +2509,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d-' ignore='no'>
+		<test name='5d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -2554,27 +2518,9 @@
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>REPORT</method>
-				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
-				</data>
-				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
 						<value>$userguid1:/</value>
 					</arg>
 				</verify>
@@ -2762,7 +2708,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9d-' ignore='no'>
+		<test name='9d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -2771,27 +2717,9 @@
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>REPORT</method>
-				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
-				</data>
-				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
 						<value>$userguid1:/</value>
 					</arg>
 				</verify>
@@ -3417,7 +3345,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16d-' ignore='no'>
+		<test name='16d' ignore='no'>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
@@ -3426,27 +3354,9 @@
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='16d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>REPORT</method>
-				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
-				</data>
-				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>okhrefs</name>
-						<value>$addressbook:/</value>
 						<value>$userguid1:/</value>
 					</arg>
 				</verify>
@@ -3462,7 +3372,7 @@
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/REPORT/sync-token5-level-1.xml</filepath>
+					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
