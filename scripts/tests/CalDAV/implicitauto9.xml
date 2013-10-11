@@ -56,34 +56,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -154,26 +131,7 @@
 		<test name='7' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -294,31 +252,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='15' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='16' ignore='no'>
