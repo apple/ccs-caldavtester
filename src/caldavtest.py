@@ -541,6 +541,17 @@ class caldavtest(object):
             else:
                 return False, "Count did not change", None, None
 
+        # Special check for WAITDELETEALL
+        elif req.method.startswith("WAITDELETEALL"):
+            count = int(req.method[len("WAITDELETEALL"):])
+            collection = (req.ruri, req.user, req.pswd)
+            if self.dowaitcount(collection, count, label=label):
+                hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
+                self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
+                return True, "", None, None
+            else:
+                return False, "Count did not change", None, None
+
         result = True
         resulttxt = ""
         response = None
