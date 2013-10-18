@@ -292,6 +292,21 @@
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
 				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>REPORT</method>
+				<ruri>$calendarhome2:/</ruri>
+				<data substitutions='yes'>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-init-level-infinite.xml</filepath>
+				</data>
+				<verify>
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>ignoremissing</name>
