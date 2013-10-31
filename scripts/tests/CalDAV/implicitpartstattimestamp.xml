@@ -111,15 +111,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -132,27 +125,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/implicit/partstattimestamp/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -217,26 +189,9 @@
 					</arg>
 				</verify>
 			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
 			<request print-response='no'>
-				<method>GETNEW</method>
+				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='10'>
@@ -284,15 +239,8 @@
 		<test name='13'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
 			</request>
 		</test>
 		<test name='14'>
@@ -320,27 +268,6 @@
 					<arg>
 						<name>contains</name>
 						<value>X-CALENDARSERVER-DTSTAMP=$dtstamp1:</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='15'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>

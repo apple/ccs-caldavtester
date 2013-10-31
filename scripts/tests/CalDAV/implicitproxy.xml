@@ -112,23 +112,8 @@
 		<test name='4' ignore='no'>
 			<description>One item in user03 Inbox</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/proxy/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='5' ignore='no'>
@@ -148,27 +133,6 @@
 	</test-suite>
 	
 	<test-suite name='Proxy as Attendee' ignore='no'>
-		<test name='1' ignore='no'>
-			<description>Proxy deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
 		<test name='2' ignore='no'>
 			<description>Proxy updates event</description>
 			<request print-response='no'>
@@ -193,23 +157,8 @@
 		<test name='3' ignore='no'>
 			<description>One item in user02 Inbox</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/proxy/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4' ignore='no'>

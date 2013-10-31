@@ -73,26 +73,8 @@
 		<test name='3'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -120,26 +102,8 @@
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='6'>
@@ -213,26 +177,8 @@
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='11'>
@@ -315,26 +261,8 @@
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='16'>
@@ -420,26 +348,8 @@
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='21'>
@@ -459,26 +369,8 @@
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='23'>
@@ -547,26 +439,8 @@
 		<test name='3'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -594,26 +468,8 @@
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='6'>
@@ -691,26 +547,8 @@
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='11'>
@@ -731,26 +569,8 @@
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='13'>
@@ -784,26 +604,8 @@
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='16'>
@@ -848,7 +650,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -881,26 +683,8 @@
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='21'>
@@ -920,26 +704,8 @@
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='23'>
@@ -969,26 +735,8 @@
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='26'>
@@ -1026,26 +774,8 @@
 		<test name='28'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='29'>
@@ -1114,26 +844,8 @@
 		<test name='3'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -1161,26 +873,8 @@
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='6'>
@@ -1258,26 +952,8 @@
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='11'>
@@ -1298,26 +974,8 @@
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='13'>
@@ -1351,26 +1009,8 @@
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='16'>
@@ -1415,7 +1055,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1448,26 +1088,8 @@
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='21'>
@@ -1487,26 +1109,8 @@
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='23'>
@@ -1536,26 +1140,8 @@
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='26'>
@@ -1593,26 +1179,8 @@
 		<test name='28'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='29'>
@@ -1681,26 +1249,8 @@
 		<test name='3'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -1728,26 +1278,8 @@
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='6'>
@@ -1781,26 +1313,8 @@
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='9'>
@@ -1824,26 +1338,8 @@
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='11'>
@@ -1864,26 +1360,8 @@
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='13'>
@@ -1917,26 +1395,8 @@
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='16'>
@@ -1981,7 +1441,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -2014,26 +1474,8 @@
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='21'>
@@ -2053,26 +1495,8 @@
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='23'>
@@ -2102,26 +1526,8 @@
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='26'>
@@ -2159,26 +1565,8 @@
 		<test name='28'>
 			<description>Attendee 2 Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='29'>

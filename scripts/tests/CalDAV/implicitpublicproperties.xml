@@ -69,26 +69,7 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
-				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
@@ -144,23 +125,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='8'>

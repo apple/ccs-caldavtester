@@ -91,42 +91,12 @@
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -150,45 +120,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/4.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendees delete Inbox Items</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath3:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -217,23 +148,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='8'>
@@ -246,27 +162,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -295,7 +190,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee 2 data changed</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -345,23 +240,8 @@
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -374,27 +254,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/9.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -423,7 +282,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 2 data changed</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -481,23 +340,8 @@
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -510,27 +354,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/11.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -559,7 +382,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 2 data unchanged</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -617,23 +440,8 @@
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -646,27 +454,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/13.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -695,7 +482,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 2 data changed</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -734,23 +521,8 @@
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -763,27 +535,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/16.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -812,7 +563,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 1 data changed</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -851,23 +602,8 @@
 		<test name='2'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3'>
@@ -880,27 +616,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/24.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -929,7 +644,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 2 data changed</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1002,23 +717,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -1031,27 +731,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/20.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Items</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -1080,23 +759,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -1129,6 +793,10 @@
 					</arg>
 				</verify>
 			</request>
+			<request print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
@@ -1140,27 +808,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/22.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -1193,23 +840,8 @@
 		<test name='11'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -1239,6 +871,10 @@
 					</arg>
 				</verify>
 			</request>
+			<request print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name='12'>
 			<description>Organizer data changed</description>
@@ -1250,27 +886,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/41.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='13'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -1337,23 +952,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -1366,27 +966,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/28.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Items</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -1499,23 +1078,8 @@
 		<test name='12'>
 			<description>Organizer Inbox Items</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 2</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='13'>
@@ -1528,20 +1092,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/privatecomments/35.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='14'>
-			<description>Organizer deletes Inbox Items</description>
-			<request print-response='no'>
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>

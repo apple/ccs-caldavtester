@@ -92,6 +92,10 @@ serverinfo.dtd
 	ELEMENT <authtype>
 		HTTP authentication method to use.
 
+	ELEMENT <waittime>
+		For requests with the wait-for-success options, defines how many
+		seconds to wait [Default: 10].
+
 	ELEMENT <features>
 		list of features for the server under test.
 
@@ -245,6 +249,12 @@ caldavtest.dtd:
 		ATTRIBUTE print-response
 			if set to 'yes' then the HTTP response (header and body) is
 			printed along with test results.
+		ATTRIBUTE wait-for-success
+			if set to 'yes' then the HTTP request will repeat over and over
+			for a set amount of time waiting for the verifiers to pass. If
+			time expires without success then the overall request fails. The
+			length of time is controlled by the <waittime> element in the
+			serverinfo file (defaults to 10 seconds).
 
 		ELEMENT <require-feature>
 			set of features.
@@ -267,6 +277,8 @@ caldavtest.dtd:
 				3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 						    into the $ variable for later use in an <ruri> element.
 				4) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
+				4) WAITDELETEALL - wait until at least a certain number of resources appear in a collection, then delete all child
+								   resources in that collection.
 	
 		ELEMENT <ruri>
 			the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.

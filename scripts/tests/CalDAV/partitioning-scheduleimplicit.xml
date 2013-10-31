@@ -68,42 +68,12 @@
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
 			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$otherinboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/partitioning/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$otherinboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/partitioning/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -127,45 +97,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/partitioning/scheduleimplicit/suite1/4.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendees delete Inbox Items</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$otherinboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$otherinboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -194,23 +125,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/partitioning/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='8'>
@@ -223,27 +139,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/partitioning/scheduleimplicit/suite1/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -308,23 +203,8 @@
 		<test name='13'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/partitioning/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='14'>
@@ -337,27 +217,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/partitioning/scheduleimplicit/suite1/9.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='15'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>

@@ -68,34 +68,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -203,27 +180,8 @@
 		<test name='9' ignore='no'>
 			<description>One item in user02 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='10' ignore='no'>
@@ -243,26 +201,7 @@
 		<test name='11' ignore='no'>
 			<description>One item in resource08 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$rinboxpath8:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$rinboxpath8:/</ruri>
 			</request>
 		</test>
@@ -347,34 +286,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='17' ignore='no'>
 			<description>One item in user01 Inbox - no reply from resource</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -394,7 +310,7 @@
 		</test>
 		<test name='19' ignore='no'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success="yes" print-response="no">
 				<method>GET</method>
 				<ruri>$r2:</ruri>
 				<verify>
@@ -404,7 +320,6 @@
 						<value>Resource/CalDAV/implicit/auto10/suite1/10.ics</value>
 					</arg>
 				</verify>
-				<graburi>$r2:</graburi>
 			</request>
 		</test>
 		<test name='20' ignore='no'>
@@ -420,34 +335,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='21' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
-				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
-			</request>
-			<request>
-				<method>DELETEALL</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>

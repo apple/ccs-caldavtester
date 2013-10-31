@@ -57,31 +57,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
@@ -113,7 +94,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>Create new event that immediately preceeds the other</description>
+			<description>Create new event that immediately precedes the other</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
@@ -125,31 +106,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 2</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='6' ignore='no'>
 			<description>Two items in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='7' ignore='no'>
@@ -207,31 +169,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 1</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='2' ignore='no'>
 			<description>One item in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='3' ignore='no'>
@@ -263,7 +206,7 @@
 			</request>
 		</test>
 		<test name='5' ignore='no'>
-			<description>Create new event that immediately preceeds the other</description>
+			<description>Create new event that immediately precedes the other</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
@@ -275,31 +218,12 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>WAITCOUNT 2</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
 		</test>
 		<test name='6' ignore='no'>
 			<description>Two items in user01 Inbox</description>
 			<request print-response="no">
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='7' ignore='no'>

@@ -69,34 +69,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/privateevents/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/privateevents/4.ics</value>
-					</arg>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -109,27 +83,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/implicit/privateevents/5.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>Attendee deletes Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -158,23 +111,8 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>PROPFIND</method>
+				<method>WAITCOUNT 1</method>
 				<ruri>$inboxpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/privateevents/3.xml</filepath>
-				</data>
-				<verify>
-					<callback>propfindItems</callback>
-					<arg>
-						<name>count</name>
-						<value>2</value>
-					</arg>
-				</verify>
 			</request>
 			<request print-response='no'>
 				<method>GETNEW</method>
@@ -187,6 +125,10 @@
 					</arg>
 				</verify>
 			</request>
+			<request print-response='no'>
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
@@ -198,27 +140,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/implicit/privateevents/8.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9'>
-			<description>Organizer deletes Inbox Item</description>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request print-response='no'>
-				<method>DELETE</method>
-				<ruri>$</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>204</value>
 					</arg>
 				</verify>
 			</request>
@@ -262,13 +183,13 @@
 				</header>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/privateevents/3.xml</filepath>
+					<filepath>Resource/CalDAV/implicit/copymove/put-restrictions/3.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>1</value>
+						<value>0</value>
 					</arg>
 				</verify>
 			</request>

@@ -30,6 +30,7 @@ class Verifier(object):
         caldata = args.get("data", [])
         filters = args.get("filter", [])
         statusCode = args.get("status", ["200", "201", "207"])
+        doTimezones = args.get("doTimezones", None)
 
         if "EMAIL parameter" not in manager.server_info.features:
             filters.append("ATTENDEE:EMAIL")
@@ -46,6 +47,11 @@ class Verifier(object):
             if afilter[0] == "!" and afilter[1:] in filters:
                 filters.remove(afilter[1:])
         filters = filter(lambda x: x[0] != "!", filters)
+
+        if doTimezones is None:
+            doTimezones = "timezones-by-reference" not in manager.server_info.features
+        else:
+            doTimezones = doTimezones == "true"
 
         # status code must be 200, 201, 207 or explicitly specified code
         if str(response.status) not in statusCode:
@@ -78,6 +84,11 @@ class Verifier(object):
         data = manager.server_info.extrasubs(manager.server_info.subs(data))
 
         def removePropertiesParameters(component):
+
+            if not doTimezones:
+                for subcomponent in tuple(component.getComponents()):
+                    if subcomponent.getType() == "VTIMEZONE":
+                        component.removeComponent(subcomponent)
 
             for subcomponent in component.getComponents():
                 removePropertiesParameters(subcomponent)

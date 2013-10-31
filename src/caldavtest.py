@@ -206,15 +206,25 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count):
                 for req_count, req in enumerate(test.requests):
-                    if getattr(req, "iterate_data", False):
-                        while req.getNextData():
+                    t = time.time() + (self.manager.server_info.wait if getattr(req, "wait_for_success", False) else 100)
+                    while t > time.time():
+                        failed = False
+                        if getattr(req, "iterate_data", False):
+                            while req.getNextData():
+                                result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
+                                if not result:
+                                    failed = True
+                                    break
+                        else:
                             result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
                             if not result:
-                                break
-                    else:
-                        result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
-                        if not result:
+                                failed = True
+
+                        if not failed or not req.wait_for_success:
                             break
+                    if failed:
+                        break
+
             loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
             self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
             if len(resulttxt) > 0:
@@ -527,6 +537,17 @@ class caldavtest(object):
             count = int(req.method[10:])
             collection = (req.ruri, req.user, req.pswd)
             if self.dowaitcount(collection, count, label=label):
+                return True, "", None, None
+            else:
+                return False, "Count did not change", None, None
+
+        # Special check for WAITDELETEALL
+        elif req.method.startswith("WAITDELETEALL"):
+            count = int(req.method[len("WAITDELETEALL"):])
+            collection = (req.ruri, req.user, req.pswd)
+            if self.dowaitcount(collection, count, label=label):
+                hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
+                self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
                 return True, "", None, None
             else:
                 return False, "Count did not change", None, None

@@ -79,15 +79,8 @@
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
 			</request>
 		</test>
 		<test name='4'>
@@ -128,15 +121,8 @@
 		<test name='6'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath1:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
 			</request>
 		</test>
 		<test name='7'>
@@ -153,16 +139,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
-			<description>Wait for all refreshes</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>20</ruri>
-			</request>
-		</test>
 		<test name='9'>
 			<description>Other attendees have data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -173,7 +152,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath4:/</ruri>
 				<verify>
@@ -184,7 +163,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid5:" pswd="$pswd5:" print-response='no'>
+			<request user="$userid5:" pswd="$pswd5:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath5:/</ruri>
 				<verify>
@@ -195,7 +174,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid6:" pswd="$pswd6:" print-response='no'>
+			<request user="$userid6:" pswd="$pswd6:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath6:/</ruri>
 				<verify>
@@ -206,7 +185,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid7:" pswd="$pswd7:" print-response='no'>
+			<request user="$userid7:" pswd="$pswd7:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath7:/</ruri>
 				<verify>
@@ -217,7 +196,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid8:" pswd="$pswd8:" print-response='no'>
+			<request user="$userid8:" pswd="$pswd8:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath8:/</ruri>
 				<verify>
@@ -228,7 +207,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath9:/</ruri>
 				<verify>
@@ -239,7 +218,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath10:/</ruri>
 				<verify>
@@ -250,7 +229,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid11:" pswd="$pswd11:" print-response='no'>
+			<request user="$userid11:" pswd="$pswd11:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath11:/</ruri>
 				<verify>
@@ -261,7 +240,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid12:" pswd="$pswd12:" print-response='no'>
+			<request user="$userid12:" pswd="$pswd12:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath12:/</ruri>
 				<verify>
@@ -307,11 +286,11 @@
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 2</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 2</method>
+				<method>WAITDELETEALL 2</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
@@ -385,7 +364,7 @@
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 3</method>
+				<method>WAITDELETEALL 2</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -403,16 +382,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
-			<description>Wait for all refreshes</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>20</ruri>
-			</request>
-		</test>
 		<test name='10'>
 			<description>Attendees have data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -423,7 +395,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -434,7 +406,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath4:/</ruri>
 				<verify>
@@ -445,7 +417,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid5:" pswd="$pswd5:" print-response='no'>
+			<request user="$userid5:" pswd="$pswd5:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath5:/</ruri>
 				<verify>
@@ -456,7 +428,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid6:" pswd="$pswd6:" print-response='no'>
+			<request user="$userid6:" pswd="$pswd6:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath6:/</ruri>
 				<verify>
@@ -467,7 +439,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid7:" pswd="$pswd7:" print-response='no'>
+			<request user="$userid7:" pswd="$pswd7:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath7:/</ruri>
 				<verify>
@@ -478,7 +450,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid8:" pswd="$pswd8:" print-response='no'>
+			<request user="$userid8:" pswd="$pswd8:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath8:/</ruri>
 				<verify>
@@ -489,7 +461,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath9:/</ruri>
 				<verify>
@@ -500,7 +472,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath10:/</ruri>
 				<verify>
@@ -511,7 +483,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid11:" pswd="$pswd11:" print-response='no'>
+			<request user="$userid11:" pswd="$pswd11:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath11:/</ruri>
 				<verify>
@@ -522,7 +494,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid12:" pswd="$pswd12:" print-response='no'>
+			<request user="$userid12:" pswd="$pswd12:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath12:/</ruri>
 				<verify>
@@ -568,11 +540,11 @@
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>WAITCOUNT 3</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
-				<method>WAITCOUNT 3</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
@@ -622,16 +594,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
-			<description>Wait for first batch refresh to happen</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>8</ruri>
-			</request>
-		</test>
 		<test name='7'>
 			<description>Attendee #3 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -653,7 +618,7 @@
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITCOUNT 5</method>
+				<method>WAITDELETEALL 2</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
@@ -671,16 +636,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
-			<description>Wait for all refreshes</description>
-			<request print-response='no'>
-				<method>DELAY</method>
-				<ruri>20</ruri>
-			</request>
-		</test>
 		<test name='11'>
 			<description>Attendees have data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -691,7 +649,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -702,7 +660,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath4:/</ruri>
 				<verify>
@@ -713,7 +671,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid5:" pswd="$pswd5:" print-response='no'>
+			<request user="$userid5:" pswd="$pswd5:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath5:/</ruri>
 				<verify>
@@ -724,7 +682,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid6:" pswd="$pswd6:" print-response='no'>
+			<request user="$userid6:" pswd="$pswd6:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath6:/</ruri>
 				<verify>
@@ -735,7 +693,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid7:" pswd="$pswd7:" print-response='no'>
+			<request user="$userid7:" pswd="$pswd7:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath7:/</ruri>
 				<verify>
@@ -746,7 +704,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid8:" pswd="$pswd8:" print-response='no'>
+			<request user="$userid8:" pswd="$pswd8:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath8:/</ruri>
 				<verify>
@@ -757,7 +715,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath9:/</ruri>
 				<verify>
@@ -768,7 +726,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath10:/</ruri>
 				<verify>
@@ -779,7 +737,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid11:" pswd="$pswd11:" print-response='no'>
+			<request user="$userid11:" pswd="$pswd11:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath11:/</ruri>
 				<verify>
@@ -790,7 +748,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid12:" pswd="$pswd12:" print-response='no'>
+			<request user="$userid12:" pswd="$pswd12:" wait-for-success="yes" print-response='no'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath12:/</ruri>
 				<verify>
