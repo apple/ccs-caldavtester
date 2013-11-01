@@ -1006,6 +1006,83 @@
 			</request>
 		</test>
 		<test name='8'>
+			<description>Organizer Inbox Item</description>
+			<request print-response='no'>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Organizer data changed</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/privatecomments/35.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Organizer removes comments entirely</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privatecomments/36.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/privatecomments/37.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12'>
+			<description>Organizer changes comment</description>
+			<request print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privatecomments/38.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>Organizer checks data</description>
+			<request print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath1:/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/privatecomments/38.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
 			<description>Attendee removes comment property entirely</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
 				<method>GETNEW</method>
@@ -1026,63 +1103,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
-			<description>Attendee has data with comment preserved</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/privatecomments/32.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='10'>
-			<description>Attendee changes comment</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>PUT</method>
-				<ruri>$</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/33.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='11'>
-			<description>Attendee has data with comment preserved</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/privatecomments/34.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='12'>
-			<description>Organizer Inbox Items</description>
+		<test name='15'>
+			<description>Organizer Inbox Item</description>
 			<request print-response='no'>
-				<method>WAITDELETEALL 2</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='16'>
 			<description>Organizer data changed</description>
 			<request print-response='no'>
 				<method>GET</method>
@@ -1091,63 +1119,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/privatecomments/35.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='15'>
-			<description>Organizer removes comments entirely</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/36.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='16'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/privatecomments/37.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='17'>
-			<description>Organizer changes comment</description>
-			<request print-response='no'>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privatecomments/38.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='18'>
-			<description>Organizer checks data</description>
-			<request print-response='no'>
-				<method>GET</method>
-				<ruri>$calendarpath1:/3.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/privatecomments/38.ics</value>
+						<value>Resource/CalDAV/privatecomments/32.ics</value>
 					</arg>
 				</verify>
 			</request>
