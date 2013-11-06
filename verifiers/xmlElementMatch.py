@@ -141,6 +141,9 @@ class Verifier(object):
                         for child in node.getchildren():
                             if child.tag == element and (value is None or child.text == value):
                                 results.append(node)
+                    elif test[0] == '|':
+                        if node.text is None and len(node.getchildren()) == 0:
+                            results.append(node)
         else:
             results = nodes
 

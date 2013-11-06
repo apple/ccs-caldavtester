@@ -22,6 +22,11 @@
 	<host>localhost</host>
 	<nonsslport>8008</nonsslport>
 	<sslport>8443</sslport>
+
+	<host2>localhost</host2>
+	<nonsslport2>8108</nonsslport2>
+	<sslport2>8543</sslport2>
+
 	<authtype>basic</authtype>
 
 	<features>
@@ -79,8 +84,8 @@
 		<feature>managed-attachments</feature>			<!-- CalDAV Managed Attachments -->
 		<feature>maskuid</feature>						<!-- maskuid extension -->
 		<feature>no-duplicate-uids</feature>			<!-- duplicate UIDs in same home not supported -->
-		<feature>partitioning</feature>					<!-- Partitioned server -->
 		<feature>partstat-timestamp</feature>			<!-- Time stamps when PARTSTAT changes extension -->
+		<feature>podding</feature>						<!-- Podded server -->
 		<feature>private-comments</feature>				<!-- private-comments extension -->
 		<feature>private-events</feature>				<!-- private-events extension -->
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
@@ -372,44 +377,7 @@
 			<value>$principals_uids:$useradminguid:/</value>
 		</substitution>
 
-		<!-- user id for apprentice user -->
-		<substitution>
-			<key>$userapprentice:</key>
-			<value>apprentice</value>
-		</substitution>
-		<!-- guid for apprentice user -->
-		<substitution>
-			<key>$userapprenticeguid:</key>
-			<value>apprentice</value>
-		</substitution>
-		<!-- password for admin user -->
-		<substitution>
-			<key>$pswdapprentice:</key>
-			<value>apprentice</value>
-		</substitution>
-
-		<!-- relative path to apprentice principal resource-->
-		<substitution>
-			<key>$principal_apprentice:</key>
-			<value>$principals_users:$userapprentice:/</value>
-		</substitution>
-		<substitution>
-			<key>$principaluri_apprentice:</key>
-			<value>$principals_uids:$userapprenticeguid:/</value>
-		</substitution>
-
-		<!-- user id for proxy user -->
-		<substitution>
-			<key>$userproxy:</key>
-			<value>superuser</value>
-		</substitution>
-		<!-- password for proxy user -->
-		<substitution>
-			<key>$pswdproxy:</key>
-			<value>superuser</value>
-		</substitution>
-
-		<!--  Forty user accounts -->
+		<!--  Forty podA user accounts -->
 		<repeat count="40">
 			<!-- user id -->
 			<substitution>
@@ -544,353 +512,140 @@
 			</substitution>
 		</repeat>
 
-		<!--  Ten public accounts -->
-		<repeat count="10">
+		<!--  Forty podB user accounts -->
+		<repeat count="40">
 			<!-- user id -->
 			<substitution>
-				<key>$publicuserid%d:</key>
-				<value>public%02d</value>
+				<key>$puserid%d:</key>
+				<value>puser%02d</value>
 			</substitution>
 			<!-- user guid -->
 			<substitution>
-				<key>$publicuserguid%d:</key>
-				<value>public%02d</value>
+				<key>$puserguid%d:</key>
+				<value>puser%02d</value>
 			</substitution>
 			<!-- user name -->
 			<substitution>
-				<key>$publicusername%d:</key>
-				<value>Public %02d</value>
+				<key>$pusername%d:</key>
+				<value>Puser %02d</value>
+			</substitution>
+			<!-- user name URI encoded -->
+			<substitution>
+				<key>$pusername-encoded%d:</key>
+				<value>Puser%%20%02d</value>
+			</substitution>
+			<!-- first name -->
+			<substitution>
+				<key>$pfirstname%d:</key>
+				<value>Puser</value>
+			</substitution>
+			<!-- last name -->
+			<substitution>
+				<key>$plastname%d:</key>
+				<value>%02d</value>
 			</substitution>
 			<!-- password -->
 			<substitution>
-				<key>$publicpswd%d:</key>
-				<value>public%02d</value>
+				<key>$ppswd%d:</key>
+				<value>puser%02d</value>
 			</substitution>
 			<!-- relative path to user principal resource-->
 			<substitution>
-				<key>$publicprincipal%d:</key>
-				<value>$principals_users:$publicuserid%d:/</value>
+				<key>$pprincipal%d:</key>
+				<value>$principals_users:$puserid%d:/</value>
 			</substitution>
 			<substitution>
-				<key>$publicprincipaluri%d:</key>
-				<value>$principals_uids:$publicuserguid%d:/</value>
+				<key>$pprincipaluri%d:</key>
+				<value>$principals_uids:$puserguid%d:/</value>
 			</substitution>
+			<substitution>
+				<key>$pprincipal%dnoslash:</key>
+				<value>$principals_users:$puserid%d:</value>
+			</substitution>
+
 			<!-- relative path to user calendar home-->
 			<substitution>
-				<key>$publiccalendarhome%d:</key>
-				<value>$calendars_uids:$publicuserguid%d:</value>
+				<key>$pcalendarhome%d:</key>
+				<value>$calendars_uids:$puserguid%d:</value>
+			</substitution>
+			<!-- relative path to user alternate calendar home-->
+			<substitution>
+				<key>$pcalendarhomealt%d:</key>
+				<value>$calendars_users:$puserid%d:</value>
 			</substitution>
 			<!-- relative path to user calendar-->
 			<substitution>
-				<key>$publiccalendarpath%d:</key>
-				<value>$calendars_uids:$publicuserguid%d:/$calendar:</value>
+				<key>$pcalendarpath%d:</key>
+				<value>$pcalendarhome%d:/$calendar:</value>
 			</substitution>
+			<!-- relative path to user alternate calendar-->
 			<substitution>
-				<key>$publicemail%d:</key>
-				<value>$publicuserid%d:@example.com</value>
+				<key>$pcalendarpathalt%d:</key>
+				<value>$pcalendarhomealt%d:/$calendar:</value>
 			</substitution>
-			<!-- calendar user address of user-->
+			<!-- relative path to user tasks calendar-->
 			<substitution>
-				<key>$publiccuaddr%d:</key>
-				<value>mailto:$publicemail%d:</value>
-			</substitution>
-			<substitution>
-				<key>$publiccuaddralt%d:</key>
-				<value>$publicprincipaluri%d:</value>
-			</substitution>
-			<substitution>
-				<key>$publiccuaddrurn%d:</key>
-				<value>urn:uuid:$publicuserguid%d:</value>
-			</substitution>
-		</repeat>
-
-		<!--  Twenty resource accounts -->
-		<repeat count="20">
-			<substitution>
-				<key>$resourceid%d:</key>
-				<value>resource%02d</value>
-			</substitution>
-			<!-- resource guid-->
-			<substitution>
-				<key>$resourceguid%d:</key>
-				<value>resource%02d</value>
-			</substitution>
-			<!-- resource name-->
-			<substitution>
-				<key>$resourcename%d:</key>
-				<value>Resource %02d</value>
-			</substitution>
-			<!-- relative path to first resource calendar home-->
-			<substitution>
-				<key>$rcalendarhome%d:</key>
-				<value>$calendars_uids:$resourceguid%d:</value>
-			</substitution>
-			<!-- relative path to first resource calendar home-->
-			<substitution>
-				<key>$rcalendarpath%d:</key>
-				<value>$calendars_uids:$resourceguid%d:/$calendar:</value>
-			</substitution>
-			<!-- relative path to first resource inbox-->
-			<substitution>
-				<key>$rinboxpath%d:</key>
-				<value>$calendars_uids:$resourceguid%d:/$inbox:</value>
-			</substitution>
-			<!-- relative path to first resource outbox-->
-			<substitution>
-				<key>$routboxpath%d:</key>
-				<value>$calendars_uids:$resourceguid%d:/$outbox:</value>
-			</substitution>
-			<!-- relative path to first resource principal resource-->
-			<substitution>
-				<key>$rprincipal%d:</key>
-				<value>$principals_resources:$resourceid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$rprincipaluri%d:</key>
-				<value>$principals_uids:$resourceguid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$rcuaddralt%d:</key>
-				<value>$rprincipaluri%d:</value>
-			</substitution>
-			<substitution>
-				<key>$rcuaddrurn%d:</key>
-				<value>urn:uuid:$resourceguid%d:</value>
-			</substitution>
-		</repeat>
-
-		<!--  Ten Location accounts -->
-		<repeat count="10">
-			<substitution>
-				<key>$locationid%d:</key>
-				<value>location%02d</value>
-			</substitution>
-			<!-- location guid-->
-			<substitution>
-				<key>$locationguid%d:</key>
-				<value>location%02d</value>
-			</substitution>
-			<!-- location name-->
-			<substitution>
-				<key>$locationname%d:</key>
-				<value>Location %02d</value>
-			</substitution>
-			<!-- relative path to first location calendar home-->
-			<substitution>
-				<key>$lcalendarhome%d:</key>
-				<value>$calendars_uids:$locationguid%d:</value>
-			</substitution>
-			<!-- relative path to first location calendar home-->
-			<substitution>
-				<key>$lcalendarpath%d:</key>
-				<value>$calendars_uids:$locationguid%d:/$calendar:</value>
-			</substitution>
-			<!-- relative path to first location inbox-->
-			<substitution>
-				<key>$linboxpath%d:</key>
-				<value>$calendars_uids:$locationguid%d:/$inbox:</value>
-			</substitution>
-			<!-- relative path to first location outbox-->
-			<substitution>
-				<key>$loutboxpath%d:</key>
-				<value>$calendars_uids:$locationguid%d:/$outbox:</value>
-			</substitution>
-			<!-- relative path to first location principal resource-->
-			<substitution>
-				<key>$lprincipal%d:</key>
-				<value>$principals_resources:$locationid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$lprincipaluri%d:</key>
-				<value>$principals_uids:$locationguid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$lcuaddralt%d:</key>
-				<value>$lprincipaluri%d:</value>
-			</substitution>
-			<substitution>
-				<key>$lcuaddrurn%d:</key>
-				<value>urn:uuid:$locationguid%d:</value>
-			</substitution>
-		</repeat>
-
-
-		<!--  Ten Group accounts -->
-		<repeat count="10">
-			<substitution>
-				<key>$groupid%d:</key>
-				<value>group%02d</value>
-			</substitution>
-			<!-- group guid-->
-			<substitution>
-				<key>$groupguid%d:</key>
-				<value>group%02d</value>
-			</substitution>
-			<!-- group name-->
-			<substitution>
-				<key>$groupname%d:</key>
-				<value>Group %02d</value>
-			</substitution>
-			<!-- relative path to first group principal resource-->
-			<substitution>
-				<key>$gprincipal%d:</key>
-				<value>$principals_resources:$groupid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$gprincipaluri%d:</key>
-				<value>$principals_uids:$groupguid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$gcuaddralt%d:</key>
-				<value>$gprincipaluri%d:</value>
-			</substitution>
-			<substitution>
-				<key>$gcuaddrurn%d:</key>
-				<value>urn:uuid:$groupguid%d:</value>
-			</substitution>
-		</repeat>
-
-		<!--  User with non-ascii name -->
-		<substitution>
-			<key>$i18nid:</key>
-			<value>i18nuser</value>
-		</substitution>
-		<!-- group guid-->
-		<substitution>
-			<key>$i18nguid:</key>
-			<value>i18nuser</value>
-		</substitution>
-		<!-- group name-->
-		<substitution>
-			<key>$i18nname:</key>
-			<value>まだ</value>
-		</substitution>
-		<!-- password -->
-		<substitution>
-			<key>$i18npswd:</key>
-			<value>i18nuser</value>
-		</substitution>
-		<!-- relative path to user calendar-->
-		<substitution>
-			<key>$i18ncalendarpath:</key>
-			<value>$calendars_uids:$i18nguid:/$calendar:</value>
-		</substitution>
-		<substitution>
-			<key>$i18nemail:</key>
-			<value>$i18nid:@example.com</value>
-		</substitution>
-		<!-- CUAddrs -->
-		<substitution>
-			<key>$i18ncuaddr:</key>
-			<value>mailto:$i18nemail:</value>
-		</substitution>
-		<substitution>
-			<key>$i18ncuaddrurn:</key>
-			<value>urn:uuid:$i18nguid:</value>
-		</substitution>
-
-		<!-- relative path to disabled group principal resource-->
-		<substitution>
-			<key>$principaldisabled:</key>
-			<value>$principals_groups:disabledgroup/</value>
-		</substitution>
-		<substitution>
-			<key>$principaluridisabled:</key>
-			<value>$principals_uids:disabledgroup/</value>
-		</substitution>
-		<!-- calendar user address of disabled group-->
-		<substitution>
-			<key>$cuaddrdisabled:</key>
-			<value>$principals_uids:disabledgroup/</value>
-		</substitution>
-
-		<!--  Ten other accounts -->
-		<repeat count="10">
-			<!-- user id -->
-			<substitution>
-				<key>$otherid%d:</key>
-				<value>other%02d</value>
-			</substitution>
-			<!-- user guid -->
-			<substitution>
-				<key>$otherguid%d:</key>
-				<value>other%02d</value>
-			</substitution>
-			<!-- user name -->
-			<substitution>
-				<key>$otherusername%d:</key>
-				<value>Other %02d</value>
-			</substitution>
-			<!-- password -->
-			<substitution>
-				<key>$otherpswd%d:</key>
-				<value>other%02d</value>
-			</substitution>
-			<!-- relative path to user principal resource-->
-			<substitution>
-				<key>$otherprincipal%d:</key>
-				<value>$principals_users:$otherid%d:/</value>
-			</substitution>
-			<substitution>
-				<key>$otherprincipaluri%d:</key>
-				<value>$principals_uids:$otherguid%d:/</value>
-			</substitution>
-			<!-- relative path to user calendar home-->
-			<substitution>
-				<key>$othercalendarhome%d:</key>
-				<value>$calendars_uids:$otherguid%d:</value>
-			</substitution>
-			<!-- relative path to user calendar-->
-			<substitution>
-				<key>$othercalendarpath%d:</key>
-				<value>$calendars_uids:$otherguid%d:/$calendar:</value>
+				<key>$ptaskspath%d:</key>
+				<value>$pcalendarhome%d:/$tasks:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
-				<key>$otherinboxpath%d:</key>
-				<value>$calendars_uids:$otherguid%d:/$inbox:</value>
+				<key>$pinboxpath%d:</key>
+				<value>$pcalendarhome%d:/$inbox:</value>
 			</substitution>
 			<!-- relative path to user outbox-->
 			<substitution>
-				<key>$otheroutboxpath%d:</key>
-				<value>$calendars_uids:$otherguid%d:/$outbox:</value>
+				<key>$poutboxpath%d:</key>
+				<value>$pcalendarhome%d:/$outbox:</value>
 			</substitution>
 			<!-- relative path to user dropbox-->
 			<substitution>
-				<key>$otherdropboxpath%d:</key>
-				<value>$calendars_uids:$otherguid%d:/$dropbox:</value>
+				<key>$pdropboxpath%d:</key>
+				<value>$pcalendarhome%d:/$dropbox:</value>
+			</substitution>
+			<!-- relative path to user notification-->
+			<substitution>
+				<key>$pnotificationpath%d:</key>
+				<value>$pcalendarhome%d:/$notification:</value>
 			</substitution>
 			<!-- relative path to user freebusy-->
 			<substitution>
-				<key>$otherfreebusypath%d:</key>
-				<value>$calendars_uids:$otherguid%d:/$freebusy:</value>
+				<key>$pfreebusypath%d:</key>
+				<value>$pcalendarhome%d:/$freebusy:</value>
+			</substitution>
+			<substitution>
+				<key>$pemail%d:</key>
+				<value>$puserid%d:@example.com</value>
 			</substitution>
 			<!-- calendar user address of user-->
 			<substitution>
-				<key>$otheremail%d:</key>
-				<value>$otherid%d:@example.com</value>
+				<key>$pcuaddr%d:</key>
+				<value>mailto:$pemail%d:</value>
 			</substitution>
 			<substitution>
-				<key>$othercuaddr%d:</key>
-				<value>mailto:$otheremail%d:</value>
+				<key>$pcuaddralt%d:</key>
+				<value>$pprincipaluri%d:</value>
 			</substitution>
 			<substitution>
-				<key>$othercuaddralt%d:</key>
-				<value>$otherprincipaluri%d:</value>
+				<key>$pcuaddraltnoslash%d:</key>
+				<value>$principals_uids:$puserguid%d:</value>
 			</substitution>
 			<substitution>
-				<key>$othercuaddrurn%d:</key>
-				<value>urn:uuid:$otherguid%d:</value>
+				<key>$pcuaddrurn%d:</key>
+				<value>urn:uuid:$puserguid%d:</value>
+			</substitution>
+
+			<!-- relative path to user addressbook home-->
+			<substitution>
+				<key>$paddressbookhome%d:</key>
+				<value>$addressbooks_uids:$puserguid%d:</value>
+			</substitution>
+			<!-- relative path to user addressbook-->
+			<substitution>
+				<key>$paddressbookpath%d:</key>
+				<value>$paddressbookhome%d:/$addressbook:</value>
 			</substitution>
 		</repeat>
-
-		<!--  Override some of the above definitions for special cases -->
-
-		<!-- calendar user address of second user-->
-		<substitution>
-			<key>$cuaddr2:</key>
-			<value>MAILTO:$email2:</value>
-		</substitution>
 
 	</substitutions>
 </serverinfo>

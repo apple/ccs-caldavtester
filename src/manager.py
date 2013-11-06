@@ -100,12 +100,22 @@ class manager(object):
         # Setup ssl stuff
         self.server_info.ssl = ssl
         self.server_info.port = self.server_info.sslport if ssl else self.server_info.nonsslport
+        self.server_info.port2 = self.server_info.sslport2 if ssl else self.server_info.nonsslport2
+
         moresubs["$host:"] = "%s://%s:%d" % (
             "https" if ssl else "http",
             self.server_info.host,
             self.server_info.port,
         )
         moresubs["$hostssl:"] = "https://%s:%d" % (self.server_info.host, self.server_info.sslport,)
+
+        moresubs["$host2:"] = "%s://%s:%d" % (
+            "https" if ssl else "http",
+            self.server_info.host2,
+            self.server_info.port2,
+        )
+        moresubs["$hostssl2:"] = "https://%s:%d" % (self.server_info.host2, self.server_info.sslport2,)
+
         self.server_info.addsubs(moresubs)
 
         for testfile in testfiles:

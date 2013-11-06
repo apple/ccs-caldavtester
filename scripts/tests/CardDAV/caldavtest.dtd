@@ -31,7 +31,8 @@
 
 	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*,
 						graburi?, grabcount?, grabheader*, grabproperty*, grabelement*, grabcalproperty*, grabcalparameter*)>
-		<!ATTLIST request auth (yes|no) "yes"
+		<!ATTLIST request host2 (yes|no) "no"
+						 auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
 						 end-delete (yes|no) "no"
