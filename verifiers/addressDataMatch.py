@@ -73,8 +73,8 @@ class Verifier(object):
                     if ":" in filter:
                         propname, parameter = filter.split(":")
                         if property.getName() == propname:
-                            if property.hasAttribute(parameter):
-                                property.removeAttributes(parameter)
+                            if property.hasParameter(parameter):
+                                property.removeParameters(parameter)
                     else:
                         if property.getName() == filter:
                             component.removeProperty(property)

@@ -15,8 +15,8 @@
 ##
 
 from difflib import unified_diff
-from pycalendar.calendar import PyCalendar
-from pycalendar.attribute import PyCalendarAttribute
+from pycalendar.icalendar.calendar import Calendar
+from pycalendar.parameter import Parameter
 
 """
 Verifier that checks the response body for a semantic match to data in a file.
@@ -99,25 +99,25 @@ class Verifier(object):
             for property in allProps:
                 # Always reset DTSTAMP on these properties
                 if property.getName() in ("ATTENDEE", "X-CALENDARSERVER-ATTENDEE-COMMENT"):
-                    if property.hasAttribute("X-CALENDARSERVER-DTSTAMP"):
-                        property.replaceAttribute(PyCalendarAttribute("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
+                    if property.hasParameter("X-CALENDARSERVER-DTSTAMP"):
+                        property.replaceParameter(Parameter("X-CALENDARSERVER-DTSTAMP", "20080101T000000Z"))
 
                 for filter in filters:
                     if ":" in filter:
                         propname, parameter = filter.split(":")
                         if property.getName() == propname:
-                            if property.hasAttribute(parameter):
-                                property.removeAttributes(parameter)
+                            if property.hasParameter(parameter):
+                                property.removeParameters(parameter)
                     else:
                         if property.getName() == filter:
                             component.removeProperty(property)
 
         try:
-            resp_calendar = PyCalendar.parseText(respdata)
+            resp_calendar = Calendar.parseText(respdata)
             removePropertiesParameters(resp_calendar)
             respdata = resp_calendar.getText()
 
-            data_calendar = PyCalendar.parseText(data)
+            data_calendar = Calendar.parseText(data)
             removePropertiesParameters(data_calendar)
             data = data_calendar.getText()
 

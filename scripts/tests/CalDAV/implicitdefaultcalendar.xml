@@ -357,7 +357,7 @@
 					</arg>
 					<arg>
 						<name>nohrefs</name>
-						<value>events/</value>
+						<value>$calendar:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -424,7 +424,7 @@
 					</arg>
 					<arg>
 						<name>okhrefs</name>
-						<value>events/</value>
+						<value>$calendar:/</value>
 					</arg>
 				</verify>
 			</request>
@@ -433,7 +433,7 @@
 			<description>Attendee has data</description>
 			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$calendarhome10:/events/</ruri>
+				<ruri>$calendarpath10:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -451,7 +451,7 @@
 			</request>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>DELETEALL</method>
-				<ruri>$calendarhome10:/events/</ruri>
+				<ruri>$calendarpath10:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -460,14 +460,6 @@
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>DELETEALL</method>
 				<ruri>$inboxpath10:/</ruri>
-			</request>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
-				<method>MKCALENDAR</method>
-				<ruri>$calendarpath10:/</ruri>
-			</request>
-			<request user="$userid10:" pswd="$pswd10:">
-				<method>DELETE</method>
-				<ruri>$calendarhome10:/events/</ruri>
 			</request>
 		</test>
 	</test-suite>

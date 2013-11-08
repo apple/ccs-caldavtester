@@ -98,6 +98,7 @@
 		<feature>timezone-service</feature>				<!-- Timezone service extension for Wiki -->
 		<feature>timezone-std-service</feature>			<!-- Timezone standard service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
+		<!-- <feature>vpoll</feature> -->				<!-- VPOLL support for store and scheduling -->
 		<feature>webcal</feature>						<!-- Internet calendar subscription via GET on calendar collection -->
 
 		<!-- CardDAV specific extension -->
@@ -246,6 +247,12 @@
 		<substitution>
 			<key>$tasks:</key>
 			<value>tasks</value>
+		</substitution>
+
+		<!-- primary polls-only calendar name-->
+		<substitution>
+			<key>$polls:</key>
+			<value>polls</value>
 		</substitution>
 
 		<!-- inbox name-->
@@ -484,6 +491,11 @@
 			<substitution>
 				<key>$taskspath%d:</key>
 				<value>$calendarhome%d:/$tasks:</value>
+			</substitution>
+			<!-- relative path to user polls calendar-->
+			<substitution>
+				<key>$pollspath%d:</key>
+				<value>$calendarhome%d:/$polls:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>

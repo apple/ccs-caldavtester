@@ -18,8 +18,8 @@
 Verifier that checks the response of a free-busy-query.
 """
 
-from pycalendar.calendar import PyCalendar
-from pycalendar.exceptions import PyCalendarInvalidData
+from pycalendar.icalendar.calendar import Calendar
+from pycalendar.exceptions import InvalidData
 from xml.etree.ElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import StringIO
@@ -47,7 +47,7 @@ class Verifier(object):
         for calendar in tree.findall("./{urn:ietf:params:xml:ns:caldav}response/{urn:ietf:params:xml:ns:caldav}calendar-data"):
             # Parse data as calendar object
             try:
-                calendar = PyCalendar.parseText(calendar.text)
+                calendar = Calendar.parseText(calendar.text)
 
                 # Check for calendar
                 if calendar is None:
@@ -80,8 +80,8 @@ class Verifier(object):
                         periods[i].getValue().setUseDuration(False)
                     # Check param
                     fbtype = "BUSY"
-                    if fp.hasAttribute("FBTYPE"):
-                        fbtype = fp.getAttributeValue("FBTYPE")
+                    if fp.hasParameter("FBTYPE"):
+                        fbtype = fp.getParameterValue("FBTYPE")
                     if fbtype == "BUSY":
                         busyp.extend(periods)
                     elif fbtype == "BUSY-TENTATIVE":
@@ -118,7 +118,7 @@ class Verifier(object):
 
                 break
 
-            except PyCalendarInvalidData:
+            except InvalidData:
                 return False, "        HTTP response data is not a calendar"
             except ValueError, txt:
                 return False, "        HTTP response data is invalid: %s" % (txt,)

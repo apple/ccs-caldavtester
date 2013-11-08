@@ -239,36 +239,12 @@
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
 				<verify>
-					<exclude-feature>
-						<feature>split-calendars</feature>
-					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>okhrefs</name>
-						<value>$calendar:/</value>
-						<value>$inbox:/</value>
-						<value>$outbox:/</value>
-						<value>$freebusy:</value>
-						<value>$notification:/</value>
-						<value>shared/</value>
+						<name>ignoremissing</name>
 					</arg>
 					<arg>
-						<name>badhrefs</name>
-						<value>$dropbox:/</value>
-					</arg>
-				</verify>
-				<verify>
-					<require-feature>
-						<feature>split-calendars</feature>
-					</require-feature>
-					<callback>multistatusItems</callback>
-					<arg>
 						<name>okhrefs</name>
-						<value>$calendar:/</value>
-						<value>$tasks:/</value>
-						<value>$inbox:/</value>
-						<value>$outbox:/</value>
-						<value>$freebusy:</value>
 						<value>$notification:/</value>
 						<value>shared/</value>
 					</arg>
@@ -300,35 +276,12 @@
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
 				<verify>
-					<exclude-feature>
-						<feature>split-calendars</feature>
-					</exclude-feature>
 					<callback>multistatusItems</callback>
 					<arg>
-						<name>okhrefs</name>
-						<value>$calendar:/</value>
-						<value>$inbox:/</value>
-						<value>$outbox:/</value>
-						<value>$freebusy:</value>
-						<value>$notification:/</value>
+						<name>ignoremissing</name>
 					</arg>
 					<arg>
-						<name>badhrefs</name>
-						<value>$dropbox:/</value>
-					</arg>
-				</verify>
-				<verify>
-					<require-feature>
-						<feature>split-calendars</feature>
-					</require-feature>
-					<callback>multistatusItems</callback>
-					<arg>
 						<name>okhrefs</name>
-						<value>$calendar:/</value>
-						<value>$tasks:/</value>
-						<value>$inbox:/</value>
-						<value>$outbox:/</value>
-						<value>$freebusy:</value>
 						<value>$notification:/</value>
 					</arg>
 					<arg>
