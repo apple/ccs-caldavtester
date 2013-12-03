@@ -27,7 +27,7 @@
 	</require-feature>
 
 	<start>
-		<description>clean up old data</description>
+		<!-- clean up old data -->
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>$addressbookhome1:/</ruri>
@@ -36,7 +36,7 @@
 			<ruri>$notificationpath2:/</ruri>
 		</request>
 
-		<description>add 1 person in two groups to user2 address book</description>
+		<!-- add 1 person in two groups to user2 address book -->
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$addressbookpath2:/1.vcf</ruri>
@@ -61,7 +61,7 @@
 				<filepath>Resource/CardDAV/sharing/put/3.vcf</filepath>
 			</data>
 		</request>
-		<description>user2 POSTs invitation</description>
+		<!-- user2 POSTs invitation -->
 		<request user="$userid2:" pswd="$pswd2:" print-response="no">
 			<method>POST</method>
 			<ruri>$addressbookpath2:/2.vcf</ruri>
@@ -73,7 +73,7 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<description>Check user1 notification collection and get invite uid</description>
+		<!-- Check user1 notification collection and get invite uid -->
 		<request print-response="no">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath1:/</ruri>
@@ -86,7 +86,7 @@
 				<variable>$inviteuid:</variable>
 			</grabelement>
 		</request>
-		<description>user1 replies ACCEPTED and deletes notification</description>
+		<!-- user1 replies ACCEPTED and deletes notification -->
 		<request print-response="no">
 			<method>POST</method>
 			<ruri>$addressbookhome1:/</ruri>

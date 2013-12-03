@@ -27,7 +27,7 @@
 	</require-feature>
 
 	<start>
-		<description>clean up old data</description>
+		<!-- clean up old data -->
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
 			<ruri>$addressbookhome1:/</ruri>
@@ -36,7 +36,7 @@
 			<ruri>$notificationpath2:/</ruri>
 		</request>
 
-		<description>add 5 persons and 2 groups to user2 address book</description>
+		<!-- add 5 persons and 2 groups to user2 address book -->
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>PUT</method>
 			<ruri>$addressbookpath2:/1.vcf</ruri>
@@ -104,7 +104,7 @@
 				<ruri>$addressbookhome1:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
@@ -113,7 +113,7 @@
 					<filepath>Resource/CardDAV/sharing/access/addressbook/1.xml</filepath>
 				</data>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -126,7 +126,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -305,6 +305,7 @@
 			</request>
 		</test>
 	</test-suite>
+
 	<test-suite name='fully-shared read-only addressbook' ignore='no'>
 		<test name='0' ignore='no'>
 			<description>reset user1 home and share user2 addressbook read-only</description>
@@ -314,7 +315,7 @@
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
@@ -323,7 +324,7 @@
 					<filepath>Resource/CardDAV/sharing/access/addressbook/4.xml</filepath>
 				</data>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -336,7 +337,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -495,7 +496,7 @@
 				<ruri>$addressbookhome1:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
@@ -507,7 +508,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -520,7 +521,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -695,7 +696,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>delete added vCard</description>
+			<!-- delete added vCard -->
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$addressbookpath2:/6.vcf</ruri>
@@ -703,7 +704,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>add back removed vCard</description>
+			<!-- add back removed vCard -->
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookpath2:/2.vcf</ruri>
@@ -728,7 +729,7 @@
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
@@ -740,7 +741,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -753,7 +754,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -905,7 +906,7 @@
 				<ruri>$addressbookhome1:/</ruri>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<description>user2 POSTs read-write invitation to group</description>
+			<!-- user2 POSTs read-write invitation to group -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
@@ -917,7 +918,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -930,7 +931,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -943,8 +944,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			
-			<description>user2 POSTs invitation read-only to group</description>
+			<!-- user2 POSTs invitation read-only to group -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
@@ -956,7 +956,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -969,7 +969,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1229,7 +1229,7 @@
 	<test-suite name='overlapping read-only, read-write shared groups, read-write addressbook' ignore='no'>
 		<test name='0' ignore='no'>
 			<description>share user2 addressbook read-write</description>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
@@ -1238,7 +1238,7 @@
 					<filepath>Resource/CardDAV/sharing/access/addressbook/1.xml</filepath>
 				</data>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -1251,7 +1251,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1373,7 +1373,7 @@
 	<test-suite name='overlapping read-only, read-write shared groups, read-only addressbook' ignore='no'>
 		<test name='0' ignore='no'>
 			<description>share user2 addressbook read-only</description>
-			<description>user2 POSTs invitation</description>
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
@@ -1382,7 +1382,7 @@
 					<filepath>Resource/CardDAV/sharing/access/addressbook/4.xml</filepath>
 				</data>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -1395,7 +1395,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -1486,7 +1486,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>user2 POSTs invitation read-write to group 345</description>
+			<!-- user2 POSTs invitation read-write to group 345 -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
@@ -1498,7 +1498,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -1511,7 +1511,7 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<description>user1 replies ACCEPTED and deletes notification</description>
+			<!-- user1 replies ACCEPTED and deletes notification -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
