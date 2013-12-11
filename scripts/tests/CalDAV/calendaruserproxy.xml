@@ -148,11 +148,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -171,11 +171,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -223,11 +223,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri2:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -246,11 +246,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -269,11 +269,10 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value><![CDATA[{DAV:}group-membership$<D:href xmlns:D="DAV:">$principaluri1:calendar-proxy-read/</D:href>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-membership/{DAV:}href[=$principaluri1:calendar-proxy-read/]</value>
 					</arg>
 				</verify>
 			</request>
@@ -339,11 +338,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -362,11 +361,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -385,11 +384,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -437,11 +436,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri2:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -460,11 +459,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -483,11 +482,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value><![CDATA[{DAV:}group-membership$<D:href xmlns:D="DAV:">$principaluri1:calendar-proxy-write/</D:href>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership/{DAV:}href[$principaluri1:calendar-proxy-write/]</value>
 					</arg>
 				</verify>
 			</request>
@@ -581,11 +580,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -604,11 +603,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -627,11 +626,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set$</value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -700,11 +699,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri1:</D:href>]]></value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -723,10 +722,10 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>dataString</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>contains</name>
-						<value>&lt;href&gt;$rprincipaluri1:calendar-proxy-write/&lt;/href&gt;</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-membership/{DAV:}href[$rprincipaluri1:calendar-proxy-write/]</value>
 					</arg>
 				</verify>
 			</request>
@@ -745,11 +744,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{DAV:}group-member-set$<D:href xmlns:D="DAV:">$principaluri3:</D:href>]]></value>
-						<value>{DAV:}group-membership$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri3:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -768,10 +767,10 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>dataString</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>contains</name>
-						<value>&lt;href&gt;$rprincipaluri1:calendar-proxy-read/&lt;/href&gt;</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-membership/{DAV:}href[=$rprincipaluri1:calendar-proxy-read/]</value>
 					</arg>
 				</verify>
 			</request>
@@ -808,19 +807,12 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{DAV:}group-member-set</value>
-						<value>{DAV:}group-membership$</value>
-					</arg>
-				</verify>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>contains</name>
-						<value>&lt;href&gt;$principaluri2:&lt;/href&gt;</value>
-						<value>&lt;href&gt;$principaluri3:&lt;/href&gt;</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri2:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri3:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -873,7 +865,7 @@
 			<description>Default setup</description>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal1:/</ruri>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -883,11 +875,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/10.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{http://calendarserver.org/ns/}calendar-proxy-read-for$</value>
-						<value>{http://calendarserver.org/ns/}calendar-proxy-write-for$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-read-for[|]</value>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[|]</value>
 					</arg>
 				</verify>
 			</request>
@@ -926,7 +918,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal1:/</ruri>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -936,11 +928,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/10.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindValues</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value><![CDATA[{http://calendarserver.org/ns/}calendar-proxy-read-for$<D:href xmlns:D="DAV:">$principaluri2:</D:href>]]></value>
-						<value><![CDATA[{http://calendarserver.org/ns/}calendar-proxy-write-for$<D:href xmlns:D="DAV:">$principaluri3:</D:href>]]></value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-read-for/{DAV:}href[=$principaluri2:]</value>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for/{DAV:}href[=$principaluri3:]</value>
 					</arg>
 				</verify>
 			</request>
@@ -979,7 +971,7 @@
 			</request>
 			<request print-response="no">
 				<method>PROPFIND</method>
-				<ruri>$principal1:/</ruri>
+				<ruri>$principal1:</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -989,11 +981,11 @@
 					<filepath>Resource/CalDAV/calendaruserproxy/10.xml</filepath>
 				</data>
 				<verify>
-					<callback>propfindItems</callback>
+					<callback>xmlElementMatch</callback>
 					<arg>
-						<name>okprops</name>
-						<value>{http://calendarserver.org/ns/}calendar-proxy-read-for$</value>
-						<value>{http://calendarserver.org/ns/}calendar-proxy-write-for$</value>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-read-for[|]</value>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[|]</value>
 					</arg>
 				</verify>
 			</request>
