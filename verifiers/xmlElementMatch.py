@@ -19,7 +19,7 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-from pycalendar.calendar import PyCalendar
+from pycalendar.icalendar.calendar import Calendar
 from xml.etree.ElementTree import ElementTree
 import json
 import StringIO
@@ -141,6 +141,9 @@ class Verifier(object):
                         for child in node.getchildren():
                             if child.tag == element and (value is None or child.text == value):
                                 results.append(node)
+                    elif test[0] == '|':
+                        if node.text is None and len(node.getchildren()) == 0:
+                            results.append(node)
         else:
             results = nodes
 
@@ -222,7 +225,7 @@ class Verifier(object):
                         # Try to parse as iCalendar
                         elif test == 'icalendar':
                             try:
-                                PyCalendar.parseText(node.text)
+                                Calendar.parseText(node.text)
                             except:
                                 result = "        Incorrect value returned in iCalendar for %s\n" % (path,)
 

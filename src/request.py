@@ -142,6 +142,8 @@ class request(object):
 
     def __init__(self, manager):
         self.manager = manager
+        self.host = self.manager.server_info.host
+        self.port = self.manager.server_info.port
         self.auth = True
         self.user = ""
         self.pswd = ""
@@ -344,6 +346,10 @@ class request(object):
         self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
         self.iterate_data = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ITERATE_DATA)
         self.wait_for_success = getYesNoAttributeValue(node, src.xmlDefs.ATTR_WAIT_FOR_SUCCESS)
+
+        if node.get(src.xmlDefs.ATTR_HOST2, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES:
+            self.host = self.manager.server_info.host2
+            self.port = self.manager.server_info.port2
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

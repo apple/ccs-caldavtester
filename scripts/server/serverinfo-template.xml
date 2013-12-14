@@ -79,8 +79,8 @@
 		<feature>managed-attachments</feature>			<!-- CalDAV Managed Attachments -->
 		<feature>maskuid</feature>						<!-- maskuid extension -->
 		<feature>no-duplicate-uids</feature>			<!-- duplicate UIDs in same home not supported -->
-		<!-- <feature>partitioning</feature> -->		<!-- Partitioned server -->
 		<feature>partstat-timestamp</feature>			<!-- Time stamps when PARTSTAT changes extension -->
+		<!-- <feature>podding</feature> -->  			<!-- Podded server -->
 		<feature>private-comments</feature>				<!-- private-comments extension -->
 		<feature>private-events</feature>				<!-- private-events extension -->
 		<feature>proxy</feature>						<!-- calendar-user-proxy extension -->
@@ -98,13 +98,14 @@
 		<feature>timezone-service</feature>				<!-- Timezone service extension for Wiki -->
 		<feature>timezone-std-service</feature>			<!-- Timezone standard service extension -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
+		<!-- <feature>vpoll</feature> -->				<!-- VPOLL support for store and scheduling -->
 		<feature>webcal</feature>						<!-- Internet calendar subscription via GET on calendar collection -->
 
 		<!-- CardDAV specific extension -->
 		<feature>carddav</feature> 						<!-- Basic CardDAV feature enabler -->
 		<feature>default-addressbook</feature> 			<!-- Default address book behavior -->
 		<!-- <feature>global-addressbook</feature> --> 	<!-- Global address book for each user -->
-		<!-- <feature>shared-addressbooks</feature> -->	<!-- Shared address books extension -->
+		<!-- <feature>shared-addressbooks</feature> --> <!-- Shared address books extension -->
 		<!-- <feature>directory-gateway</feature> -->	<!-- Directory gateway extension -->
 
 	</features>
@@ -539,7 +540,7 @@
 			<!-- relative path to user addressbook-->
 			<substitution>
 				<key>$addressbookpath%%d:</key>
-				<value>$addressbooks_uids:$userguid%%d:/$addressbook:</value>
+				<value>$addressbookhome%%d:/$addressbook:</value>
 			</substitution>
 		</repeat>
 

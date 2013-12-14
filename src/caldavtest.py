@@ -19,7 +19,7 @@ Class to encapsulate a single caldav test run.
 """
 
 from cStringIO import StringIO
-from pycalendar.calendar import PyCalendar
+from pycalendar.icalendar.calendar import Calendar
 from src.httpshandler import SmartHTTPConnection
 from src.manager import manager
 from src.request import data, pause
@@ -583,7 +583,7 @@ class caldavtest(object):
             stats.startTimer()
 
         # Do the http request
-        http = SmartHTTPConnection(self.manager.server_info.host, self.manager.server_info.port, self.manager.server_info.ssl)
+        http = SmartHTTPConnection(req.host, req.port, self.manager.server_info.ssl)
 
         if not 'User-Agent' in headers and label is not None:
             headers['User-Agent'] = label.encode("utf-8")
@@ -916,7 +916,7 @@ class caldavtest(object):
         prop = self._calProperty(propertyname, respdata)
 
         try:
-            return prop.getAttributeValue(pname) if prop else None
+            return prop.getParameterValue(pname) if prop else None
         except KeyError:
             return None
 
@@ -924,7 +924,7 @@ class caldavtest(object):
     def _calProperty(self, propertyname, respdata):
 
         try:
-            cal = PyCalendar.parseText(respdata)
+            cal = Calendar.parseText(respdata)
         except Exception:
             return None
 
