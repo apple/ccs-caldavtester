@@ -47,9 +47,9 @@ class Verifier(object):
             prefix = prefix[0] if prefix[0] != "-" else ""
         else:
             prefix = uri
-        okhrefs = [prefix + i for i in okhrefs]
-        nohrefs = [prefix + i for i in nohrefs]
-        badhrefs = [prefix + i for i in badhrefs]
+        okhrefs = [(prefix + i).rstrip("/") for i in okhrefs]
+        nohrefs = [(prefix + i).rstrip("/") for i in nohrefs]
+        badhrefs = [(prefix + i).rstrip("/") for i in badhrefs]
         for k, v in args.items():
             v = [prefix + i for i in v]
             args[k] = v
@@ -86,7 +86,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if href is None or len(href) != 1:
                 return False, "        Incorrect/missing DAV:Href element in response"
-            href = urllib.unquote(href[0].text)
+            href = urllib.unquote(href[0].text).rstrip("/")
 
             # Verify status
             status = response.findall("{DAV:}status")
