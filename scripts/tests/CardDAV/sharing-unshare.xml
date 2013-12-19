@@ -1203,7 +1203,7 @@
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CardDAV/sharing/unshare/shareedecline/2.xml</filepath>
+					<filepath>Resource/CardDAV/sharing/unshare/shareedecline/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1245,7 +1245,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CardDAV/sharing/unshare/shareedecline/1.xml</value>
+						<value>Resource/CardDAV/sharing/unshare/shareedecline/3.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1262,6 +1262,7 @@
 			</request>
 		</test>
 	</test-suite>	
+
 	<test-suite name='reshare group, sharee delete addressbook' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
@@ -1458,6 +1459,7 @@
 			</request>
 		</test>
 	</test-suite>	
+
 	<test-suite name='rehare group, sharee delete group' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
@@ -1654,6 +1656,7 @@
 			</request>
 		</test>
 	</test-suite>	
+
 	<test-suite name='reshare group, sharer uninvite' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
@@ -1850,6 +1853,7 @@
 			</request>
 		</test>
 	</test-suite>	
+
 	<test-suite name='reshare group, sharer delete group' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
@@ -2047,6 +2051,7 @@
 			</request>
 		</test>
 	</test-suite>	
+
 	<test-suite name='recreate and share group, sharer delete addressbook' ignore='no'>
 		<test name='0' ignore='no'>
 			<request user="$userid1:" pswd="$pswd1:">
