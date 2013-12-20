@@ -32,13 +32,13 @@
 			<method>DELETEALL</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:">
+		<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 			<method>DELETEALL</method>
-			<ruri>$notificationpath3:/</ruri>
+			<ruri>$pnotificationpath3:/</ruri>
 		</request>
-		<request user="$userid4:" pswd="$pswd4:">
+		<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 			<method>DELETEALL</method>
-			<ruri>$notificationpath4:/</ruri>
+			<ruri>$pnotificationpath4:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 			<method>MKCALENDAR</method>
@@ -57,7 +57,7 @@
 				<ruri>$calendarhome2:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharinginvite234.xml</filepath>
+					<filepath>Resource/Common/POST/sharinginvite234-pod.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -66,13 +66,13 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee 2 notification collection</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
 				<method>WAITCOUNT 1</method>
-				<ruri>$notificationpath3:/</ruri>
+				<ruri>$pnotificationpath3:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$notificationpath3:/</ruri>
+				<ruri>$pnotificationpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -88,12 +88,12 @@
 		</test>
 		<test name='3'>
 			<description>Sharee 2 replies ACCEPTED</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarhome3:/</ruri>
+				<ruri>$pcalendarhome3:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharingreply23.xml</filepath>
+					<filepath>Resource/Common/POST/sharingreply23-pod.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -106,13 +106,13 @@
 		</test>
 		<test name='4'>
 			<description>Check Sharee 3 notification collection</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
 				<method>WAITCOUNT 1</method>
-				<ruri>$notificationpath4:/</ruri>
+				<ruri>$pnotificationpath4:/</ruri>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
 				<method>GETNEW</method>
-				<ruri>$notificationpath4:/</ruri>
+				<ruri>$pnotificationpath4:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -128,12 +128,12 @@
 		</test>
 		<test name='5'>
 			<description>Sharee 3 replies ACCEPTED</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
 				<method>POST</method>
-				<ruri>$calendarhome4:/</ruri>
+				<ruri>$pcalendarhome4:/</ruri>
 				<data substitutions='yes'>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/Common/POST/sharingreply24.xml</filepath>
+					<filepath>Resource/Common/POST/sharingreply24-pod.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -150,13 +150,13 @@
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:">
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>DELETEALL</method>
-				<ruri>$notificationpath3:/</ruri>
+				<ruri>$pnotificationpath3:/</ruri>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:">
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>DELETEALL</method>
-				<ruri>$notificationpath4:/</ruri>
+				<ruri>$pnotificationpath4:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -214,7 +214,7 @@
 		</test>
 		<test name='4' ignore='no'>
 			<description>Attachment exists for User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/</ruri>
 				<header>
@@ -236,7 +236,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT attachment by user 3</description>
-			<request user="$userid3:" pswd="$pswd3:">
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PUT</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/3.xml</ruri>
 				<data>
@@ -250,7 +250,7 @@
 		</test>
 		<test name='6' ignore='no'>
 			<description>Attachments exists for User 4</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/</ruri>
 				<header>
@@ -272,7 +272,7 @@
 		</test>
 		<test name='7'>
 			<description>PUT attachment by user 4</description>
-			<request user="$userid4:" pswd="$pswd4:">
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PUT</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/3.xml</ruri>
 				<data>
@@ -313,10 +313,12 @@
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$notificationpath1:/</ruri>
 			<ruri>$notificationpath2:/</ruri>
-			<ruri>$notificationpath3:/</ruri>
-			<ruri>$notificationpath4:/</ruri>
+		</request>
+		<request host2="yes" user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$pnotificationpath3:/</ruri>
+			<ruri>$pnotificationpath4:/</ruri>
 		</request>
 	</end>
 
