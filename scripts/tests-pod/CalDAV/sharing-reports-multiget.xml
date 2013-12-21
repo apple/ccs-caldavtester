@@ -385,7 +385,6 @@
 	<test-suite name='multiget reports' ignore='no'>
 		<test name='1a' ignore='no'>
 			<description>basic multiget of 4 resources returning etag and entire ics data</description>
-			<pause/>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
@@ -427,7 +426,6 @@
 					</arg>
 				</verify>
 			</request>
-			<pause/>
 		</test>
 		<test name='1b' ignore='no'>
 			<require-feature>
