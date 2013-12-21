@@ -52,10 +52,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read-write calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Read-write calendar'>
+		<test name='1'>
 			<description>Add puser02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -87,7 +87,6 @@
 		</test>
 		<test name='3'>
 			<description>Shared calendar exists</description>
-			<pause/>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
@@ -303,10 +302,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change to read-only calendar' ignore='yes'>
-		<test name='1' ignore='no'>
+	<test-suite name='Change to read-only calendar'>
+		<test name='1'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -322,14 +321,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add user02 as read-only for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
+					<filepath>Resource/CalDAV-pod/sharing/direct/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -438,10 +437,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Removal of direct share' ignore='yes'>
-		<test name='1' ignore='no'>
+	<test-suite name='Removal of direct share'>
+		<test name='1'>
 			<description>Remove direct share</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<verify>
@@ -495,10 +494,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Direct share not allowed' ignore='yes'>
-		<test name='1' ignore='no'>
+	<test-suite name='Direct share not allowed'>
+		<test name='1'>
 			<description>Clear user02 as read-only proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -530,15 +529,15 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Using non __uids__ path' ignore='yes'>
-		<test name='1' ignore='no'>
+	<test-suite name='Using non __uids__ path'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
+					<filepath>Resource/CalDAV-pod/sharing/direct/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -624,9 +623,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Remove direct share</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<verify>
@@ -634,9 +633,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -654,15 +653,15 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Calendar color' ignore='yes'>
-		<test name='1' ignore='no'>
+	<test-suite name='Calendar color'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
+					<filepath>Resource/CalDAV-pod/sharing/direct/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -673,9 +672,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change the color</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhomealt1:/shared/</ruri>
 				<data>
@@ -727,9 +726,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Remove direct share</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<verify>
@@ -737,9 +736,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -757,6 +756,15 @@
 		</test>
 	</test-suite>
 
-	<end/>
+	<end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request host2="yes" user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$pnotificationpath2:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
