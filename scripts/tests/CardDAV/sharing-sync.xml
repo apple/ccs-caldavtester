@@ -38,10 +38,10 @@
 	</start>
 	
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
-	<test-suite name='shared addressbook' ignore='no'>
-		<test name='1a' ignore='no'>
+	<test-suite name='shared addressbook'>
+		<test name='1a'>
 			<description>Initial sync tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -57,8 +57,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1b' ignore='no'>
-			<request print-response='no'>
+		<test name='1b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -74,8 +74,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1c' ignore='no'>
-			<request print-response='no'>
+		<test name='1c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -91,8 +91,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -108,8 +108,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -125,9 +125,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -141,11 +141,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -172,7 +172,7 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -193,9 +193,9 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='5a' ignore='no'>
+		<test name='5a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -215,8 +215,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5b' ignore='no'>
-			<request print-response='no'>
+		<test name='5b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -236,8 +236,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5c' ignore='no'>
-			<request print-response='no'>
+		<test name='5c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -256,8 +256,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -277,8 +277,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5e-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -294,8 +294,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -317,8 +317,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5f-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5f-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -334,8 +334,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
@@ -353,7 +353,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharee creates vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/1.vcf</ruri>
 				<data>
@@ -365,9 +365,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7a' ignore='no'>
+		<test name='7a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -387,8 +387,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7b' ignore='no'>
-			<request print-response='no'>
+		<test name='7b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -409,8 +409,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7c' ignore='no'>
-			<request print-response='no'>
+		<test name='7c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -430,8 +430,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -451,8 +451,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -473,8 +473,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
@@ -496,7 +496,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharer changes vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -508,9 +508,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9a' ignore='no'>
+		<test name='9a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -530,8 +530,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9b' ignore='no'>
-			<request print-response='no'>
+		<test name='9b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -552,8 +552,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9c' ignore='no'>
-			<request print-response='no'>
+		<test name='9c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -573,8 +573,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -594,8 +594,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -616,8 +616,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
@@ -639,7 +639,7 @@
 		</test>
 		<test name='10'>
 			<description>Sharee deletes vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/1.vcf</ruri>
 				<verify>
@@ -647,9 +647,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11a' ignore='no'>
+		<test name='11a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -669,8 +669,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11b' ignore='no'>
-			<request print-response='no'>
+		<test name='11b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -694,8 +694,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11c' ignore='no'>
-			<request print-response='no'>
+		<test name='11c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -715,8 +715,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -736,8 +736,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -761,8 +761,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
@@ -784,7 +784,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharer unshares</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -796,9 +796,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13a' ignore='no'>
+		<test name='13a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -818,8 +818,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13b' ignore='no'>
-			<request print-response='no'>
+		<test name='13b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -839,8 +839,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13c' ignore='no'>
-			<request print-response='no'>
+		<test name='13c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -856,8 +856,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -877,8 +877,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -898,8 +898,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$sharedaddressbook:/</ruri>
 				<data substitutions='yes'>
@@ -918,8 +918,8 @@
 	</test-suite>
 
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
-	<test-suite name='one shared group' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='one shared group'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -928,7 +928,7 @@
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<description>create empty group</description>
+			<!-- create empty group -->
 			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/3.vcf</ruri>
@@ -938,9 +938,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='1a' ignore='no'>
+		<test name='1a'>
 			<description>Initial sync tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -956,8 +956,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1b' ignore='no'>
-			<request print-response='no'>
+		<test name='1b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -973,8 +973,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1c' ignore='no'>
-			<request print-response='no'>
+		<test name='1c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -990,8 +990,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -1007,8 +1007,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -1024,7 +1024,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>user1 POSTs invitation</description>
 			<request print-response="no">
 				<method>POST</method>
@@ -1040,11 +1040,11 @@
 		</test>
 		<test name='3'>
 			<description>Check user2 notification collection and get invite uid</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<grabelement>
@@ -1055,7 +1055,7 @@
 		</test>
 		<test name='4'>
 			<description>user2 replies ACCEPTED and deletes notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions="yes">
@@ -1066,7 +1066,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$notificationpath2:/$inviteuid:</ruri>
 				<verify>
@@ -1074,9 +1074,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5a' ignore='no'>
+		<test name='5a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1096,8 +1096,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5b' ignore='no'>
-			<request print-response='no'>
+		<test name='5b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1117,8 +1117,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5c' ignore='no'>
-			<request print-response='no'>
+		<test name='5c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1137,8 +1137,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1158,8 +1158,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5e-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1175,8 +1175,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1198,8 +1198,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5f-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5f-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1215,8 +1215,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1238,7 +1238,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharee creates vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
 				<data>
@@ -1250,9 +1250,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7a' ignore='no'>
+		<test name='7a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1272,8 +1272,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7b' ignore='no'>
-			<request print-response='no'>
+		<test name='7b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1295,8 +1295,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7c' ignore='no'>
-			<request print-response='no'>
+		<test name='7c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1317,8 +1317,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1338,8 +1338,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1361,8 +1361,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='7f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1385,7 +1385,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharer changes vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -1397,9 +1397,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9a' ignore='no'>
+		<test name='9a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1419,8 +1419,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9b' ignore='no'>
-			<request print-response='no'>
+		<test name='9b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1441,8 +1441,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9c' ignore='no'>
-			<request print-response='no'>
+		<test name='9c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1462,8 +1462,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1483,8 +1483,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1505,8 +1505,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1528,7 +1528,7 @@
 		</test>
 		<test name='10'>
 			<description>Sharer adds unshared vCard</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<data>
@@ -1540,9 +1540,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11a' ignore='no'>
+		<test name='11a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1562,8 +1562,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11b' ignore='no'>
-			<request print-response='no'>
+		<test name='11b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1584,8 +1584,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11c' ignore='no'>
-			<request print-response='no'>
+		<test name='11c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1605,8 +1605,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1625,8 +1625,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1645,8 +1645,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1667,7 +1667,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharer changes unshared vCard</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<data>
@@ -1679,9 +1679,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13a' ignore='no'>
+		<test name='13a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1701,8 +1701,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13b' ignore='no'>
-			<request print-response='no'>
+		<test name='13b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1723,8 +1723,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13c' ignore='no'>
-			<request print-response='no'>
+		<test name='13c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1744,8 +1744,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1764,8 +1764,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1784,8 +1784,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1806,7 +1806,7 @@
 		</test>
 		<test name='14'>
 			<description>Sharer changes unshared vCard</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<verify>
@@ -1814,9 +1814,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15a' ignore='no'>
+		<test name='15a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1836,8 +1836,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15b' ignore='no'>
-			<request print-response='no'>
+		<test name='15b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1861,8 +1861,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15c' ignore='no'>
-			<request print-response='no'>
+		<test name='15c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -1882,8 +1882,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='15d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1902,8 +1902,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='15e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -1922,8 +1922,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='15f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -1944,7 +1944,7 @@
 		</test>
 		<test name='16'>
 			<description>Sharee deletes vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$addressbookhome2:/$userguid1:/1.vcf</ruri>
 				<verify>
@@ -1952,9 +1952,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17a' ignore='no'>
+		<test name='17a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -1974,8 +1974,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='17b' ignore='no'>
-			<request print-response='no'>
+		<test name='17b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2000,8 +2000,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='17c' ignore='no'>
-			<request print-response='no'>
+		<test name='17c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -2025,8 +2025,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='17d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='17d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2046,8 +2046,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='17e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='17e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2072,8 +2072,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='17f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='17f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2099,7 +2099,7 @@
 		</test>
 		<test name='18'>
 			<description>Sharer unshares</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/3.vcf</ruri>
 				<data>
@@ -2111,9 +2111,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19a' ignore='no'>
+		<test name='19a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2133,8 +2133,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19b' ignore='no'>
-			<request print-response='no'>
+		<test name='19b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2154,8 +2154,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19c' ignore='no'>
-			<request print-response='no'>
+		<test name='19c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -2171,8 +2171,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='19d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2192,8 +2192,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='19e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2213,8 +2213,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='19f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2233,8 +2233,8 @@
 	</test-suite>
 	
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
-	<test-suite name='two shared groups' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='two shared groups'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -2243,7 +2243,7 @@
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<description>create users groups</description>
+			<!-- create users groups -->
 			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
@@ -2311,9 +2311,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1a' ignore='no'>
+		<test name='1a'>
 			<description>Initial sync tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -2329,8 +2329,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1b' ignore='no'>
-			<request print-response='no'>
+		<test name='1b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -2346,8 +2346,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1c' ignore='no'>
-			<request print-response='no'>
+		<test name='1c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -2363,8 +2363,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -2380,8 +2380,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='1e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='1e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -2397,7 +2397,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>user1 POSTs invitation</description>
 			<request print-response="no">
 				<method>POST</method>
@@ -2413,11 +2413,11 @@
 		</test>
 		<test name='3'>
 			<description>Check user2 notification collection and get invite uid</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<grabelement>
@@ -2428,7 +2428,7 @@
 		</test>
 		<test name='4'>
 			<description>user2 replies ACCEPTED and deletes notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions="yes">
@@ -2439,7 +2439,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$notificationpath2:/$inviteuid:</ruri>
 				<verify>
@@ -2447,9 +2447,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5a' ignore='no'>
+		<test name='5a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2469,8 +2469,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5b' ignore='no'>
-			<request print-response='no'>
+		<test name='5b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2490,8 +2490,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5c' ignore='no'>
-			<request print-response='no'>
+		<test name='5c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -2510,8 +2510,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2531,8 +2531,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5e-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2548,8 +2548,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2573,8 +2573,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='5f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2596,7 +2596,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>user1 POSTs invitation</description>
 			<request print-response="no">
 				<method>POST</method>
@@ -2612,11 +2612,11 @@
 		</test>
 		<test name='7'>
 			<description>Check user2 notification collection and get invite uid</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<grabelement>
@@ -2627,7 +2627,7 @@
 		</test>
 		<test name='8'>
 			<description>user2 replies ACCEPTED and deletes notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions="yes">
@@ -2638,7 +2638,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$notificationpath2:/$inviteuid:</ruri>
 				<verify>
@@ -2646,9 +2646,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9a' ignore='no'>
+		<test name='9a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2668,8 +2668,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9b' ignore='no'>
-			<request print-response='no'>
+		<test name='9b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2689,8 +2689,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9c' ignore='no'>
-			<request print-response='no'>
+		<test name='9c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -2709,8 +2709,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2730,8 +2730,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9e-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9e-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2747,8 +2747,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2775,8 +2775,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9f-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9f-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2792,8 +2792,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='9f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2821,7 +2821,7 @@
 
 		<test name='10'>
 			<description>Sharee creates vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookhome2:/$userguid1:/3.vcf</ruri>
 				<data>
@@ -2833,9 +2833,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11a' ignore='no'>
+		<test name='11a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2855,8 +2855,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11b' ignore='no'>
-			<request print-response='no'>
+		<test name='11b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -2879,8 +2879,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11c' ignore='no'>
-			<request print-response='no'>
+		<test name='11c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -2902,8 +2902,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2923,8 +2923,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -2947,8 +2947,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='11f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='11f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -2972,7 +2972,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharer changes vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/3.vcf</ruri>
 				<data>
@@ -2984,9 +2984,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13a' ignore='no'>
+		<test name='13a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3006,8 +3006,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13b' ignore='no'>
-			<request print-response='no'>
+		<test name='13b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3028,8 +3028,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13c' ignore='no'>
-			<request print-response='no'>
+		<test name='13c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -3049,8 +3049,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3070,8 +3070,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3092,8 +3092,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='13f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -3115,7 +3115,7 @@
 		</test>
 		<test name='13'>
 			<description>Sharee deletes vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$addressbookhome2:/$userguid1:/3.vcf</ruri>
 				<verify>
@@ -3123,9 +3123,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14a' ignore='no'>
+		<test name='14a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3145,8 +3145,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='14b' ignore='no'>
-			<request print-response='no'>
+		<test name='14b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3172,8 +3172,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='14c' ignore='no'>
-			<request print-response='no'>
+		<test name='14c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -3198,8 +3198,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='14d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='14d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3219,8 +3219,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='14e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='14e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3246,8 +3246,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='14f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='14f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -3274,7 +3274,7 @@
 		</test>
 		<test name='15'>
 			<description>Sharer unshares first group</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/6.vcf</ruri>
 				<data>
@@ -3286,9 +3286,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16a' ignore='no'>
+		<test name='16a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3308,8 +3308,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16b' ignore='no'>
-			<request print-response='no'>
+		<test name='16b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3329,8 +3329,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16c' ignore='no'>
-			<request print-response='no'>
+		<test name='16c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -3346,8 +3346,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='16d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3367,8 +3367,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16e-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='16e-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3384,8 +3384,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='16e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3409,8 +3409,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16f-' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='16f-'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3426,8 +3426,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='16f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -3451,7 +3451,7 @@
 		</test>
 		<test name='17'>
 			<description>Sharer unshares 2nd group</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/7.vcf</ruri>
 				<data>
@@ -3463,9 +3463,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18a' ignore='no'>
+		<test name='18a'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3485,8 +3485,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='18b' ignore='no'>
-			<request print-response='no'>
+		<test name='18b'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions='yes'>
@@ -3506,8 +3506,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='18c' ignore='no'>
-			<request print-response='no'>
+		<test name='18c'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data substitutions='yes'>
@@ -3523,8 +3523,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='18d' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='18d'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3544,8 +3544,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='18e' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='18e'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions='yes'>
@@ -3565,8 +3565,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='18f' ignore='no'>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<test name='18f'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/$userguid1:/</ruri>
 				<data substitutions='yes'>
@@ -3587,8 +3587,8 @@
 	<!-- test suites below are similar to those in ../CalDAV/sync-report.xml but 
 			use shared address books instead of calendars -->
 	
-	<test-suite name='support-report-set/sync-token property' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='support-report-set/sync-token property'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -3599,7 +3599,7 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 	
-			<description>add 2 vcards to user1 address book</description>
+			<!-- add 2 vcards to user1 address book -->
 			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
@@ -3617,8 +3617,8 @@
 				</data>
 			</request>
 			
-			<description>share user2 address book with user1</description>
-			<description>user2 POSTs invitation</description>
+			<!-- share user2 address book with user1 -->
+			<!-- user2 POSTs invitation -->
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
@@ -3628,7 +3628,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -3642,7 +3642,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -3656,7 +3656,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 
-			<description>add 2 vcards to user2 address book</description>
+			<!-- add 2 vcards to user2 address book -->
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
@@ -3674,7 +3674,7 @@
 				</data>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Not on addressbooks</description>
 			<request>
 				<method>PROPFIND</method>
@@ -3707,7 +3707,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>On addressbook-home</description>
 			<request>
 				<method>PROPFIND</method>
@@ -3768,7 +3768,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>On addressbook</description>
 			<request>
 				<method>PROPFIND</method>
@@ -3799,7 +3799,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>On shared addressbook</description>
 			<request>
 				<method>PROPFIND</method>
@@ -3846,13 +3846,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='simple reports - sync-level' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - sync-level'>
+		<test name='1'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -3873,12 +3873,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -3899,12 +3899,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -3925,12 +3925,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -3956,12 +3956,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -3987,12 +3987,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4018,9 +4018,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>sync-level:1, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4041,12 +4041,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4067,12 +4067,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4093,12 +4093,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4119,12 +4119,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4145,12 +4145,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4171,9 +4171,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Bad sync-level</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4195,10 +4195,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - empty token - no props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - empty token - no props'>
+		<test name='1'>
 			<description>initial query - addressbook depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4219,12 +4219,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4245,12 +4245,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4276,7 +4276,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>add new resource</description>
 			<request>
 				<method>PUT</method>
@@ -4290,9 +4290,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>new resource - addressbook depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4314,12 +4314,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>new resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4340,12 +4340,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>new resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4372,7 +4372,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>remove new resource</description>
 			<request>
 				<method>DELETE</method>
@@ -4382,9 +4382,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>remove new resource - addressbook depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4405,12 +4405,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>remove new resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4431,12 +4431,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>remove new resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4462,7 +4462,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -4476,9 +4476,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>changed resource - addressbook depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4499,12 +4499,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>changed resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4525,12 +4525,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>changed resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -4558,10 +4558,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props - addressbook depth:1' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - addressbook depth:1'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4586,7 +4586,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -4599,7 +4599,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4623,7 +4623,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -4632,7 +4632,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4652,9 +4652,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4678,7 +4678,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -4691,7 +4691,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4715,9 +4715,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4739,10 +4739,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - empty token - props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - empty token - props'>
+		<test name='1'>
 			<description>initial query</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4771,7 +4771,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -4784,7 +4784,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4814,7 +4814,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource new resource</description>
 			<request>
 				<method>DELETE</method>
@@ -4823,7 +4823,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4852,7 +4852,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -4865,7 +4865,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4896,10 +4896,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - diff token - props'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4932,7 +4932,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -4945,7 +4945,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -4977,7 +4977,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -4986,7 +4986,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -5006,9 +5006,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -5035,7 +5035,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -5048,7 +5048,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -5080,9 +5080,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -5112,13 +5112,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props - home depth:infinity' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initialize</description>
-			<description>clear user1 address book and unshare user2 address book</description>
+			<!-- clear user1 address book and unshare user2 address book -->
 			<request>
 				<method>DELETE</method>
 					<ruri>$addressbookpath1:/</ruri>
@@ -5126,7 +5126,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$addressbookpath2:/</ruri>
 				<verify>
@@ -5141,8 +5141,8 @@
 				</verify>
 			</request>
 
-			<description>share user3 address book with user1</description>
-			<description>user3 POSTs invitation</description>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -5152,7 +5152,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -5166,7 +5166,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -5180,7 +5180,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 
-			<description>add 2 vcards to user3 address book</description>
+			<!-- add 2 vcards to user3 address book -->
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$addressbookpath3:/1.vcf</ruri>
@@ -5198,8 +5198,8 @@
 				</data>
 			</request>
 	
-			<description>share user4 address book with user1</description>
-			<description>user4 POSTs invitation</description>
+			<!-- share user4 address book with user1 -->
+			<!-- user4 POSTs invitation -->
 			<request user="$userid4:" pswd="$pswd4:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath4:/</ruri>
@@ -5209,7 +5209,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -5223,7 +5223,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -5237,7 +5237,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 
-			<description>add 2 vcards to user4 address book</description>
+			<!-- add 2 vcards to user4 address book -->
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>PUT</method>
 				<ruri>$addressbookpath4:/1.vcf</ruri>
@@ -5255,9 +5255,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5289,7 +5289,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -5302,7 +5302,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5327,7 +5327,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -5336,7 +5336,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5360,9 +5360,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5390,7 +5390,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -5403,7 +5403,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5428,9 +5428,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5452,13 +5452,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props - home depth:infinity' ignore='no'>
+	<test-suite name='simple reports - diff token - props - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5498,7 +5498,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -5511,7 +5511,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5544,7 +5544,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -5553,7 +5553,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5577,9 +5577,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5614,7 +5614,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -5627,7 +5627,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5660,9 +5660,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5696,9 +5696,9 @@
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5728,23 +5728,23 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>remove resource then addressbook</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETE</method>
 				<ruri>$addressbookpath3:/2.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETE</method>
 				<ruri>$addressbookpath3:/1.vcf</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETE</method>
 				<ruri>$addressbookpath3:/</ruri>
 				<verify>
@@ -5758,7 +5758,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5782,10 +5782,10 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>add addressbook - test last sync</description>
-			<description>share user3 address book with user1</description>
-			<description>user3 POSTs invitation</description>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -5795,7 +5795,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -5809,7 +5809,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -5822,7 +5822,7 @@
 				<method>DELETE</method>
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5842,9 +5842,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>add addressbook - test previous sync</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -5870,11 +5870,11 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='simple reports - diff token - no props - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initialize</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -5885,8 +5885,8 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 
-			<description>share user3 address book with user1</description>
-			<description>user3 POSTs invitation</description>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -5896,7 +5896,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -5910,7 +5910,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -5924,7 +5924,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 
-			<description>add 2 vcards to user3 address book</description>
+			<!-- add 2 vcards to user3 address book -->
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$addressbookpath3:/1.vcf</ruri>
@@ -5942,8 +5942,8 @@
 				</data>
 			</request>
 	
-			<description>share user4 address book with user1</description>
-			<description>user4 POSTs invitation</description>
+			<!-- share user4 address book with user1 -->
+			<!-- user4 POSTs invitation -->
 			<request user="$userid4:" pswd="$pswd4:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath4:/</ruri>
@@ -5953,7 +5953,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -5967,7 +5967,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -5981,7 +5981,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 
-			<description>add 2 vcards to user4 address book</description>
+			<!-- add 2 vcards to user4 address book -->
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>PUT</method>
 				<ruri>$addressbookpath4:/1.vcf</ruri>
@@ -5999,9 +5999,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6027,7 +6027,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -6040,7 +6040,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6064,7 +6064,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -6073,7 +6073,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6093,9 +6093,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6119,7 +6119,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -6132,7 +6132,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6156,9 +6156,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6180,13 +6180,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - props - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6220,7 +6220,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -6233,7 +6233,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6265,7 +6265,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -6274,7 +6274,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6294,9 +6294,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6327,7 +6327,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -6340,7 +6340,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6372,9 +6372,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6404,13 +6404,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - delete/create addressbook - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - delete/create addressbook - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6436,7 +6436,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>remove resource then addressbook</description>
 			<request>
 				<method>DELETE</method>
@@ -6459,7 +6459,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6483,10 +6483,10 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='-3' ignore='no'>
+		<test name='-3'>
 			<description>add addressbook - test last sync</description>
-			<description>share user3 address book with user1</description>
-			<description>user3 POSTs invitation</description>
+			<!-- share user3 address book with user1 -->
+			<!-- user3 POSTs invitation -->
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookpath3:/</ruri>
@@ -6496,7 +6496,7 @@
 				</data>
 			</request>
 
-			<description>Check user1 notification collection and get invite uid</description>
+			<!-- Check user1 notification collection and get invite uid -->
 			<request print-response="no">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
@@ -6510,7 +6510,7 @@
 				</grabelement>
 			</request>
 
-			<description>user1 replies ACCEPTED and deletes inviteUID from notification collection</description>
+			<!-- user1 replies ACCEPTED and deletes inviteUID from notification collection -->
 			<request print-response="no">
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
@@ -6525,7 +6525,7 @@
 			</request>
 		</test>
 		<test name='3' ignore='yes'>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6547,7 +6547,7 @@
 		</test>
 		<test name='4' ignore='yes'>
 			<description>add addressbook - test previous sync</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6569,10 +6569,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - valid token' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - valid token'>
+		<test name='1'>
 			<description>initial query</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -6594,13 +6594,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='addressbook webdav property change - home depth:infinity' ignore='no'>
+	<test-suite name='addressbook webdav property change - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6630,7 +6630,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -6643,7 +6643,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6674,7 +6674,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Remove a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -6687,7 +6687,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6720,13 +6720,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='addressbook webdav property change - home depth:1' ignore='no'>
+	<test-suite name='addressbook webdav property change - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6752,7 +6752,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -6765,7 +6765,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -6796,7 +6796,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Remove a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -6809,7 +6809,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
