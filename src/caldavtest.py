@@ -521,6 +521,8 @@ class caldavtest(object):
         elif req.method == "GETNEW":
             collection = (req.ruri, req.user, req.pswd)
             self.grabbedlocation = self.dofindnew(collection, label=label)
+            if req.graburi:
+                self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             req.method = "GET"
             req.ruri = "$"
 
