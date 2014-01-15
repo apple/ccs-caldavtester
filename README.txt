@@ -277,7 +277,7 @@ caldavtest.dtd:
 				3) GETNEW - get the data from the newest resource in the collection specified by the <ruri> element and put its URI
 						    into the $ variable for later use in an <ruri> element.
 				4) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
-				4) WAITDELETEALL - wait until at least a certain number of resources appear in a collection, then delete all child
+				5) WAITDELETEALL - wait until at least a certain number of resources appear in a collection, then delete all child
 								   resources in that collection.
 	
 		ELEMENT <ruri>
