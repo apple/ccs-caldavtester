@@ -204,6 +204,7 @@
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$rinboxpath1:/</ruri>
+				<ruri>$rinboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -212,26 +213,21 @@
 		<request>
 			<method>DELETEALL</method>
 			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request>
-			<method>DELETEALL</method>
 			<ruri>$calendarpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>WAITCOUNT 1</method>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$inboxpath2:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rinboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
+			<method>WAITCOUNT 0</method>
 			<ruri>$rcalendarpath1:/</ruri>
+			<ruri>$rcalendarpath2:/</ruri>
 		</request>
 	</end>
 	

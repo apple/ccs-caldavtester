@@ -505,7 +505,7 @@
 	<test-suite name="POSTs" ignore='no'>
 		<test name='1'>
 			<description>POST with utf-8 data</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -527,7 +527,7 @@
 		</test>
 		<test name='2'>
 			<description>POST with non-utf-8 data</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -548,7 +548,7 @@
 	<test-suite name="PUT with CN re-write" ignore='no'>
 		<test name='1'>
 			<description>PUT without CN</description>
-			<request user="$i18nid:" pswd="$i18npswd:" print-response='no'>
+			<request user="$i18nid:" pswd="$i18npswd:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$i18ncalendarpath:/cntest.ics</ruri>
 				<data substitutions='yes'>
@@ -562,7 +562,7 @@
 		</test>
 		<test name='2'>
 			<description>Check valid CN</description>
-			<request user="$i18nid:" pswd="$i18npswd:" print-response='no'>
+			<request user="$i18nid:" pswd="$i18npswd:">
 				<method>GET</method>
 				<ruri>$i18ncalendarpath:/cntest.ics</ruri>
 				<verify>

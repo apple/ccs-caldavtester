@@ -41,7 +41,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='No schedule-tag' ignore='no'>
+	<test-suite name='No schedule-tag'>
 		<test name='1'>
 			<description>Create new event - no header</description>
 			<request print-response="no">
@@ -87,7 +87,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Update to resource with schedule-tag behavior' ignore='no'>
+	<test-suite name='Update to resource with schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
@@ -187,7 +187,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change to resource with schedule-tag behavior' ignore='no'>
+	<test-suite name='Change to resource with schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
@@ -287,7 +287,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer change to resource with valid If-Schedule-Tag-Match' ignore='no'>
+	<test-suite name='Organizer change to resource with valid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
@@ -391,7 +391,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer change to resource with invalid If-Schedule-Tag-Match' ignore='no'>
+	<test-suite name='Organizer change to resource with invalid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
@@ -499,7 +499,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee non-PARTSTAT change to resource with valid If-Schedule-Tag-Match' ignore='no'>
+	<test-suite name='Attendee non-PARTSTAT change to resource with valid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -621,7 +621,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee change to resource with invalid If-Schedule-Tag-Match' ignore='no'>
+	<test-suite name='Attendee change to resource with invalid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -729,7 +729,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Remove resource schedule-tag behavior' ignore='no'>
+	<test-suite name='Remove resource schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
 			<request print-response="no">
@@ -749,6 +749,10 @@
 						<value>!Schedule-Tag</value>
 					</arg>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='2'>
@@ -773,7 +777,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -785,7 +789,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='New resource schedule-tag behavior' ignore='no'>
+	<test-suite name='New resource schedule-tag behavior'>
 		<test name='1'>
 			<description>New event has schedule tag header</description>
 			<request print-response="no">
@@ -935,7 +939,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer change' ignore='no'>
+	<test-suite name='Organizer change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
 			<request print-response="no">
@@ -1104,7 +1108,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee 02 change' ignore='no'>
+	<test-suite name='Attendee 02 change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
 			<request user="$userid2:" pswd="$pswd2:" print-response="no">
@@ -1265,7 +1269,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee 03 change' ignore='no'>
+	<test-suite name='Attendee 03 change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response="no">
@@ -1426,7 +1430,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer Merge' ignore='no'>
+	<test-suite name='Organizer Merge'>
 		<test name='1'>
 			<description>Updated event that has changed on disk</description>
 			<request print-response="no">
@@ -1618,7 +1622,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee Merge' ignore='no'>
+	<test-suite name='Attendee Merge'>
 		<test name='1'>
 			<description>Get current schedule tag header values</description>
 			<request print-response='no'>
@@ -1776,28 +1780,38 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='-1'>
 			<description>Clean-up</description>
-			<request user="$userid1:" pswd="$pswd1:">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
 				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
+				<ruri>$calendarpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer Delete with ETag' ignore='no'>
+	<test-suite name='Organizer Delete with ETag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -1960,28 +1974,22 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer Delete with Schedule-Tag' ignore='no'>
+	<test-suite name='Organizer Delete with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2144,28 +2152,22 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer MOVE with ETag' ignore='no'>
+	<test-suite name='Organizer MOVE with ETag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2327,28 +2329,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer MOVE with Schedule-Tag' ignore='no'>
+	<test-suite name='Organizer MOVE with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2510,28 +2509,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='Organizer Re-invite with Schedule-Tag' ignore='no'>
+	<test-suite name='Organizer Re-invite with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request print-response='no'>
@@ -2688,28 +2684,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
 		</test>
 	</test-suite>
 
-	<test-suite name='ETag change with Schedule-tag' ignore='no'>
+	<test-suite name='ETag change with Schedule-tag'>
 		<test name='1'>
 			<description>New event</description>
 			<request print-response="no">
@@ -2722,6 +2715,14 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='2'>
@@ -2828,18 +2829,32 @@
 				</verify>
 			</request>
 		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath3:/</ruri>
+			</request>
+		</test>
 	</test-suite>
 
-	<end>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath1:/</ruri>
-			<ruri>$inboxpath1:/</ruri>
-			<ruri>$calendarpath2:/</ruri>
-			<ruri>$inboxpath2:/</ruri>
-			<ruri>$calendarpath3:/</ruri>
-			<ruri>$inboxpath3:/</ruri>
-		</request>
-	</end>
+	<end/>
 	
 </caldavtest>

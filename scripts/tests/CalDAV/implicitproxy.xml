@@ -379,19 +379,17 @@
 	</test-suite>
 
 	<end>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$inboxpath1:/</ruri>
-			<ruri>$calendarpath:/</ruri>
-		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
-			<ruri>$inboxpath2:/</ruri>
 			<ruri>$calendarpath2:/</ruri>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>WAITDELETEALL 1</method>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
-			<ruri>$inboxpath3:/</ruri>
 			<ruri>$calendarpath3:/</ruri>
 		</request>
 

@@ -1146,27 +1146,21 @@
 	<end>
 		<request>
 			<method>DELETEALL</method>
+			<ruri>$calendarpath1:/</ruri>
 			<ruri>$inboxpath1:/</ruri>
 		</request>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$calendarpath1:/</ruri>
-		</request>
 		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
+			<method>WAITDELETEALL 5</method>
 			<ruri>$inboxpath2:/</ruri>
 		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
-			<ruri>$rinboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
 			<ruri>$rcalendarpath1:/</ruri>
+			<ruri>$rinboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>PROPPATCH</method>

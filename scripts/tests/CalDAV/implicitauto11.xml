@@ -207,6 +207,10 @@
 		<test name='12' ignore='no'>
 			<description>No item in resource01 Calendar</description>
 			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+				<method>WAITCOUNT 0</method>
+				<ruri>$rcalendarpath1:/</ruri>
+			</request>
+			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
 				<method>GET</method>
 				<ruri>$r1:</ruri>
 				<verify>
@@ -240,6 +244,10 @@
 			<method>DELETEALL</method>
 			<ruri>$inboxpath1:/</ruri>
 			<ruri>$calendarpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>WAITCOUNT 1</method>
+			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>

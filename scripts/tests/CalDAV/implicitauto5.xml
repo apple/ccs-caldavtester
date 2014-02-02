@@ -27,20 +27,7 @@
 		<feature>implicit-scheduling</feature>
 	</require-feature>
 
-	<start>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rinboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rcalendarpath1:/</ruri>
-		</request>
-	</start>
+	<start/>
 	
 	<test-suite name='#1 Block out one day in a week' ignore='no'>
 		<test name='1' ignore='no'>
@@ -119,10 +106,6 @@
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -209,10 +192,6 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$rinboxpath1:/</ruri>
@@ -297,10 +276,6 @@
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -387,10 +362,6 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$rinboxpath1:/</ruri>
@@ -402,25 +373,10 @@
 		<request>
 			<method>DELETEALL</method>
 			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request>
-			<method>DELETEALL</method>
 			<ruri>$calendarpath1:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath2:/</ruri>
-		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath2:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rinboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
+			<method>WAITCOUNT 0</method>
 			<ruri>$rcalendarpath1:/</ruri>
 		</request>
 	</end>

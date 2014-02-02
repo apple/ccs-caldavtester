@@ -47,10 +47,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Organizer invites Attendee and checks free busy' ignore='no'>
+	<test-suite name='Organizer invites Attendee and checks free busy'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -64,7 +64,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -78,14 +78,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -99,7 +99,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee free</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -131,14 +131,14 @@
 		</test>
 		<test name='7'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -152,14 +152,14 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Attendee busy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -192,14 +192,14 @@
 		</test>
 		<test name='11'>
 			<description>Attendee -> EXDATE one instance</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -213,14 +213,14 @@
 		</test>
 		<test name='12'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='14'>
 			<description>Attendee free</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -258,17 +258,20 @@
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
-				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 	
-	<test-suite name='Organizer invites auto-accept Attendee and checks free busy' ignore='no'>
+	<test-suite name='Organizer invites auto-accept Attendee and checks free busy'>
 		<test name='1'>
 			<description>Organizer invites Resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -280,13 +283,13 @@
 				</verify>
 			</request>
 			<request>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -300,7 +303,7 @@
 		</test>
 		<test name='3'>
 			<description>Resource has data</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response='no'>
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -310,11 +313,12 @@
 						<value>Resource/CalDAV/implicit/freebusy/autocancel/3.ics</value>
 					</arg>
 				</verify>
+				<graburi>$rresource:</graburi>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Resource busy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -347,7 +351,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer cancels one instance</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -361,7 +365,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -375,9 +379,9 @@
 		</test>
 		<test name='7'>
 			<description>Resource has data</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$rcalendarpath1:/</ruri>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>GETCHANGED</method>
+				<ruri>$rresource:</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -389,7 +393,7 @@
 		</test>
 		<test name='8'>
 			<description>Attendee free</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -425,10 +429,9 @@
 				<ruri>$calendarpath1:/</ruri>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
-				<ruri>$inboxpath2:/</ruri>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>WAITCOUNT 0</method>
+				<ruri>$rcalendarpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>

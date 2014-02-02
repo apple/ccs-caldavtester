@@ -32,15 +32,6 @@
 			<method>GET</method>
 			<ruri>$calendarpath1:/</ruri>
 		</request>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rcalendarpath1:/</ruri>
-			<ruri>$rinboxpath1:/</ruri>
-		</request>
 	</start>
 	
 	<test-suite name='#1 Non-recurring' ignore='no'>
@@ -108,7 +99,7 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>Two items in user01 Inbox</description>
+			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
@@ -220,7 +211,7 @@
 			</request>
 		</test>
 		<test name='6' ignore='no'>
-			<description>Two items in user01 Inbox</description>
+			<description>One item in user01 Inbox</description>
 			<request print-response="no">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
@@ -274,9 +265,8 @@
 			<ruri>$inboxpath1:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
+			<method>WAITCOUNT 0</method>
 			<ruri>$rcalendarpath1:/</ruri>
-			<ruri>$rinboxpath1:/</ruri>
 		</request>
 	</end>
 	

@@ -481,7 +481,7 @@
 	<test-suite name='Scheduling' ignore='no'>
 		<test name='1'>
 			<description>Check for CTag on calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -507,7 +507,7 @@
 		</test>
 		<test name='2'>
 			<description>Check for CTag on inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -533,7 +533,7 @@
 		</test>
 		<test name='3'>
 			<description>PUT invite</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath2:/2.ics</ruri>
 				<data>
@@ -544,10 +544,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name="4">
 			<description>Test calendar ctag change</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -569,7 +573,7 @@
 		</test>
 		<test name="5">
 			<description>Test inbox ctag change</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -594,7 +598,7 @@
 	<test-suite name='Same for each Depth'>
 		<test name='1'>
 			<description>Check for CTag Depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -620,7 +624,7 @@
 		</test>
 		<test name='2'>
 			<description>Check for CTag Depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -660,7 +664,7 @@
 		</test>
 		<test name='4'>
 			<description>Check for CTag Depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -686,7 +690,7 @@
 		</test>
 		<test name='5'>
 			<description>Check for CTag Depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -722,7 +726,7 @@
 		</test>
 		<test name='7'>
 			<description>Check for CTag Depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -748,7 +752,7 @@
 		</test>
 		<test name='8'>
 			<description>Check for CTag Depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>

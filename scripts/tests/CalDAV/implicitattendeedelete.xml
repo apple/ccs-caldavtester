@@ -41,10 +41,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Non-recurring' ignore='no'>
+	<test-suite name='Non-recurring'>
 		<test name='1'>
 			<description>Organizer stores event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -58,7 +58,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -72,21 +72,21 @@
 		</test>
 		<test name='3'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee 2 -> Declined</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -101,14 +101,14 @@
 		</test>
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -122,7 +122,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee 2 -> DELETE</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -132,7 +132,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -162,7 +162,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -176,14 +176,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -198,7 +198,7 @@
 		</test>
 		<test name='12'>
 			<description>Attendee 2 No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -246,7 +246,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee 3 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$attendee3_event:</ruri>
 				<data>
@@ -260,14 +260,14 @@
 		</test>
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='16'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -281,7 +281,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee 2 No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -333,7 +333,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -347,14 +347,14 @@
 		</test>
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='21'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$attendee3_event:</ruri>
 				<verify>
@@ -368,14 +368,14 @@
 		</test>
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='23'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -395,9 +395,17 @@
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
@@ -407,10 +415,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring with master' ignore='no'>
+	<test-suite name='Recurring with master'>
 		<test name='1'>
 			<description>Organizer stores event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -424,7 +432,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -437,22 +445,26 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee 2 -> Accept all, except one Declined</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -467,14 +479,14 @@
 		</test>
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -488,7 +500,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee 2 -> EXDATE declined instance</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$attendee2_event:</ruri>
 				<data>
@@ -502,7 +514,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -532,7 +544,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -546,14 +558,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -568,14 +580,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -589,7 +601,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee 3 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$attendee3_event:</ruri>
 				<data>
@@ -603,14 +615,14 @@
 		</test>
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='16'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -624,7 +636,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee 2 No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -650,7 +662,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -668,7 +680,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -682,14 +694,14 @@
 		</test>
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='21'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$attendee3_event:</ruri>
 				<verify>
@@ -703,14 +715,14 @@
 		</test>
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='23'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -724,7 +736,7 @@
 		</test>
 		<test name='24'>
 			<description>Attendee 2 -> DELETE</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -734,14 +746,14 @@
 		</test>
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='26'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -759,7 +771,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -772,15 +784,19 @@
 			</request>
 		</test>
 		<test name='28'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='29'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -800,9 +816,17 @@
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
@@ -812,10 +836,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring without master' ignore='no'>
+	<test-suite name='Recurring without master'>
 		<test name='1'>
 			<description>Organizer stores event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -829,7 +853,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -842,22 +866,26 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee 2 -> Accept one, Decline one</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -872,14 +900,14 @@
 		</test>
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -893,7 +921,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee 2 -> remove declined instance</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$attendee2_event:</ruri>
 				<data>
@@ -907,7 +935,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -937,7 +965,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -951,14 +979,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -973,14 +1001,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -994,7 +1022,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee 3 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$attendee3_event:</ruri>
 				<data>
@@ -1008,14 +1036,14 @@
 		</test>
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='16'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1029,7 +1057,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee 2 No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -1055,7 +1083,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1069,11 +1097,7 @@
 		</test>
 		<test name='19'>
 			<description>Organizer changes time of declined instance</description>
-			<request user="$userid3:" pswd="$pswd3:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1087,14 +1111,14 @@
 		</test>
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='21'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$attendee3_event:</ruri>
 				<verify>
@@ -1108,14 +1132,14 @@
 		</test>
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='23'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1129,7 +1153,7 @@
 		</test>
 		<test name='24'>
 			<description>Attendee 2 -> DELETE</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1139,14 +1163,14 @@
 		</test>
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='26'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1164,7 +1188,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1177,15 +1201,19 @@
 			</request>
 		</test>
 		<test name='28'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='29'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1205,9 +1233,17 @@
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
@@ -1217,10 +1253,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring without master - delete of undeclined instance' ignore='no'>
+	<test-suite name='Recurring without master - delete of undeclined instance'>
 		<test name='1'>
 			<description>Organizer stores event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1234,7 +1270,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1247,22 +1283,26 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee 2 -> Remove one</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -1277,14 +1317,14 @@
 		</test>
 		<test name='5'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1298,7 +1338,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee 2 -> accept remaining instance</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$attendee2_event:</ruri>
 				<data>
@@ -1312,7 +1352,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
@@ -1323,7 +1363,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1337,14 +1377,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1359,14 +1399,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1380,7 +1420,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee 3 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$attendee3_event:</ruri>
 				<data>
@@ -1394,14 +1434,14 @@
 		</test>
 		<test name='15'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='16'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1415,7 +1455,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee 2 No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>DELAY</method>
 				<ruri>1</ruri>
 			</request>
@@ -1441,7 +1481,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1459,7 +1499,7 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1473,14 +1513,14 @@
 		</test>
 		<test name='20'>
 			<description>Attendee 3 Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='21'>
 			<description>Attendee 3 has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$attendee3_event:</ruri>
 				<verify>
@@ -1494,14 +1534,14 @@
 		</test>
 		<test name='22'>
 			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='23'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1515,7 +1555,7 @@
 		</test>
 		<test name='24'>
 			<description>Attendee 2 -> DELETE</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$attendee2_event:</ruri>
 				<verify>
@@ -1525,14 +1565,14 @@
 		</test>
 		<test name='25'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='26'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1546,11 +1586,7 @@
 		</test>
 		<test name='27'>
 			<description>Organizer changes time of one declined instance, summary of other</description>
-			<request user="$userid3:" pswd="$pswd3:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath3:/</ruri>
-			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1563,15 +1599,19 @@
 			</request>
 		</test>
 		<test name='28'>
-			<description>Attendee 2 Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<description>Attendee 2/3 Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='29'>
 			<description>Attendee 2 has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1591,9 +1631,17 @@
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>

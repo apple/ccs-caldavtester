@@ -395,7 +395,7 @@ class caldavtest(object):
 
     def dowaitcount(self, collection, count, label=""):
 
-        for _ignore in range(30):
+        for _ignore in range(120):
             req = request(self.manager)
             req.method = "PROPFIND"
             req.ruris.append(collection[0])
@@ -424,7 +424,7 @@ class caldavtest(object):
 
                 if ctr - 1 == count:
                     return True
-            delay = 1
+            delay = 0.25
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
@@ -434,7 +434,7 @@ class caldavtest(object):
 
     def dowaitchanged(self, uri, etag, user, pswd, label=""):
 
-        for _ignore in range(30):
+        for _ignore in range(120):
             req = request(self.manager)
             req.method = "HEAD"
             req.ruris.append(uri)
@@ -453,7 +453,7 @@ class caldavtest(object):
                             break
                 else:
                     return False
-            delay = 1
+            delay = 0.25
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
@@ -537,22 +537,25 @@ class caldavtest(object):
         # Special check for WAITCOUNT
         elif req.method.startswith("WAITCOUNT"):
             count = int(req.method[10:])
-            collection = (req.ruri, req.user, req.pswd)
-            if self.dowaitcount(collection, count, label=label):
-                return True, "", None, None
+            for ruri in req.ruris:
+                collection = (ruri, req.user, req.pswd)
+                if not self.dowaitcount(collection, count, label=label):
+                    return False, "Count did not change", None, None
             else:
-                return False, "Count did not change", None, None
+                return True, "", None, None
 
         # Special check for WAITDELETEALL
         elif req.method.startswith("WAITDELETEALL"):
             count = int(req.method[len("WAITDELETEALL"):])
-            collection = (req.ruri, req.user, req.pswd)
-            if self.dowaitcount(collection, count, label=label):
-                hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
-                self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
-                return True, "", None, None
+            for ruri in req.ruris:
+                collection = (ruri, req.user, req.pswd)
+                if self.dowaitcount(collection, count, label=label):
+                    hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
+                    self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
+                else:
+                    return False, "Count did not change", None, None
             else:
-                return False, "Count did not change", None, None
+                return True, "", None, None
 
         result = True
         resulttxt = ""

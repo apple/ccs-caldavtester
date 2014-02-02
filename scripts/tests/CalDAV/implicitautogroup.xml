@@ -35,23 +35,6 @@
 			<method>GET</method>
 			<ruri>$calendarpath3:/</ruri>
 		</request>
-		<request>
-			<method>DELETEALL</method>
-			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath2:/</ruri>
-		</request>
-		<request user="$userid3:" pswd="$pswd3:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath3:/</ruri>
-		</request>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$rcalendarpath11:/</ruri>
-			<ruri>$rinboxpath11:/</ruri>
-		</request>
 	</start>
 
 	<test-suite name='#1 Group organizer: accepted' ignore='no'>
@@ -379,6 +362,10 @@
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETEALL</method>
 				<ruri>$inboxpath3:/</ruri>
@@ -390,7 +377,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='#4 Group organizer: accepted ast same time as non-group organizer decline' ignore='no'>
+	<test-suite name='#4 Group organizer: accepted at same time as non-group organizer decline' ignore='no'>
 		<test name='1' ignore='no'>
 			<description>Create new event</description>
 			<request>
@@ -514,14 +501,17 @@
 			<ruri>$calendarpath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
+			<method>WAITCOUNT 4</method>
+			<ruri>$inboxpath3:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
 			<ruri>$inboxpath3:/</ruri>
 			<ruri>$calendarpath3:/</ruri>
 		</request>
 		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
+			<method>WAITCOUNT 0</method>
 			<ruri>$rcalendarpath11:/</ruri>
-			<ruri>$rinboxpath11:/</ruri>
 		</request>
 	</end>
 

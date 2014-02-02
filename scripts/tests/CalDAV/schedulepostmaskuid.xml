@@ -56,13 +56,13 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request>
+				<method>DELAY</method>
+				<ruri>1</ruri>
+			</request>
 		</test>
 		<test name="3">
 			<description>Invite user 1 -> user 2</description>
-			<request>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
@@ -73,6 +73,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name="4">
@@ -95,13 +99,13 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name="5">
 			<description>Invite user 1 -> user 2</description>
-			<request>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
@@ -112,6 +116,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name="6">
@@ -134,13 +142,13 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
 		</test>
 		<test name="7">
 			<description>Invite user 3 -> user 2</description>
-			<request>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 			<request user="$userid3:" pswd="$pswd3:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath3:/5.ics</ruri>
@@ -151,6 +159,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name="8">
@@ -172,6 +184,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -318,26 +334,20 @@
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath1:/</ruri>
-		</request>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETEALL</method>
 			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath2:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath2:/</ruri>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath3:/</ruri>
-		</request>
-		<request user="$userid3:" pswd="$pswd3:">
-			<method>DELETEALL</method>
 			<ruri>$inboxpath3:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>WAITDELETEALL 3</method>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>DELETEALL</method>
+			<ruri>$calendarpath2:/</ruri>
 		</request>
 	</end>
 	

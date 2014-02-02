@@ -525,18 +525,21 @@
 				</verify>
 			</request>
 		</test>
-		<test name='39'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$calendarpath3:/</ruri>
-				<ruri>$calendarpath4:/</ruri>
-				<ruri>$inboxpath1:/</ruri>
-				<ruri>$inboxpath2:/</ruri>
-				<ruri>$inboxpath3:/</ruri>
-				<ruri>$inboxpath4:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -706,16 +709,17 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$calendarpath3:/</ruri>
-				<ruri>$inboxpath1:/</ruri>
-				<ruri>$inboxpath2:/</ruri>
-				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -867,16 +871,25 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<ruri>$calendarpath3:/</ruri>
-				<ruri>$inboxpath1:/</ruri>
-				<ruri>$inboxpath2:/</ruri>
-				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 	</test-suite>

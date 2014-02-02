@@ -36,21 +36,11 @@
 			<method>GET</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath1:/</ruri>
-			<ruri>$inboxpath1:/</ruri>
-		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath2:/</ruri>
-			<ruri>$inboxpath2:/</ruri>
-		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>POST</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -61,11 +51,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath3:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath3:/</ruri>
 			<grabelement>
@@ -77,11 +67,11 @@
 				<variable>$hosturl3:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETE</method>
 			<ruri>$</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
 			<data substitutions='yes'>
@@ -97,7 +87,7 @@
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome2:/shared/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$calendarhome2:/shared/</ruri>
 			<data>
@@ -108,11 +98,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath3:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath3:/</ruri>
 			<grabelement>
@@ -124,11 +114,11 @@
 				<variable>$hosturl23:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETE</method>
 			<ruri>$</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
 			<data substitutions='yes'>
@@ -145,7 +135,7 @@
 	<test-suite name='Organizer shared calendar' ignore='no'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -159,7 +149,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -173,7 +163,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharee checks data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<verify>
@@ -187,14 +177,14 @@
 		</test>
 		<test name='4'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='5'>
 			<description>Attendee has data and moves</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -205,7 +195,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$</ruri>
 				<header>
@@ -216,7 +206,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_2:/move1.ics</ruri>
 				<verify>
@@ -230,7 +220,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharee adds alarm to organizer event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<data>
@@ -241,7 +231,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<verify>
@@ -252,7 +242,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -266,7 +256,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharee tries to change organizer subject</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<data>
@@ -281,7 +271,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<verify>
@@ -292,7 +282,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -306,7 +296,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharee tries to change organizer partstat</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<data>
@@ -321,7 +311,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<verify>
@@ -332,7 +322,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -346,7 +336,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/shared/move1.ics</ruri>
 				<data>
@@ -360,14 +350,14 @@
 		</test>
 		<test name='10'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -381,7 +371,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharee checks data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_1:/1.ics</ruri>
 				<verify>
@@ -395,7 +385,7 @@
 		</test>
 		<test name='13'>
 			<description>Sharee adds alarm to attendee event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar3_2:/move1.ics</ruri>
 				<data>
@@ -406,7 +396,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3_2:/move1.ics</ruri>
 				<verify>
@@ -417,7 +407,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/shared/move1.ics</ruri>
 				<verify>
@@ -434,22 +424,15 @@
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
