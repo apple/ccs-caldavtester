@@ -24,7 +24,7 @@ Verifier that checks the response body for a semantic match to data in a file.
 
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args, is_json=False): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         caldata = args.get("data", [])
@@ -113,13 +113,13 @@ class Verifier(object):
                             component.removeProperty(property)
 
         try:
-            resp_calendar = Calendar.parseText(respdata)
+            resp_calendar = Calendar.parseText(respdata) if not is_json else Calendar.parseJSONData(respdata)
             removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.getText()
+            respdata = resp_calendar.getText() if not is_json else resp_calendar.getTextJSON()
 
-            data_calendar = Calendar.parseText(data)
+            data_calendar = Calendar.parseText(data) if not is_json else Calendar.parseJSONData(data)
             removePropertiesParameters(data_calendar)
-            data = data_calendar.getText()
+            data = data_calendar.getText() if not is_json else data_calendar.getTextJSON()
 
             result = respdata == data
 

@@ -28,8 +28,8 @@
 
 	<start/>
 	
-	<test-suite name='PUT iCal/GET json' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT iCal/GET json'>
+		<test name='1'>
 			<description>PUT iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -43,7 +43,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET jCal</description>
 			<request>
 				<method>GET</method>
@@ -61,7 +61,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -72,8 +72,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT json/GET json/icalendar + Accept/q' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT json/GET json/icalendar + Accept/q'>
+		<test name='1'>
 			<description>PUT jCal</description>
 			<request>
 				<method>PUT</method>
@@ -87,7 +87,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET jCal</description>
 			<request>
 				<method>GET</method>
@@ -105,7 +105,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar - with accept</description>
 			<request>
 				<method>GET</method>
@@ -123,7 +123,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>GET iCalendar - no accept</description>
 			<request>
 				<method>GET</method>
@@ -137,7 +137,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>GET jCal - preferred Accept</description>
 			<request>
 				<method>GET</method>
@@ -155,7 +155,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>GET jCal - q= preferred Accept</description>
 			<request>
 				<method>GET</method>
@@ -173,7 +173,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -184,8 +184,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT + return-rep' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT + return-rep'>
+		<test name='1'>
 			<description>PUT jCal/return iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -210,7 +210,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT jCal/return jCal</description>
 			<request>
 				<method>PUT</method>
@@ -239,7 +239,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PUT iCalendar/return iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -264,7 +264,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT iCalendar/return jCal</description>
 			<request>
 				<method>PUT</method>
@@ -293,7 +293,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -304,8 +304,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Multiget json' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Multiget json'>
+		<test name='1'>
 			<description>PUT iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -319,7 +319,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>multiget jCal</description>
 			<request>
 				<method>REPORT</method>
@@ -343,14 +343,23 @@
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[@content-type="application/calendar+json"]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[json]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vcalendar]</value>
-						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vevent]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*valarm]</value>
 					</arg>
 				</verify>
+				<verify>
+					<exclude-feature>
+						<feature>timezones-by-reference</feature>
+					</exclude-feature>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>multiget with filtered jCal</description>
 			<request>
 				<method>REPORT</method>
@@ -374,14 +383,23 @@
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[@content-type="application/calendar+json"]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[json]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vcalendar]</value>
-						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[$vevent]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[$valarm]</value>
 					</arg>
 				</verify>
+				<verify>
+					<exclude-feature>
+						<feature>timezones-by-reference</feature>
+					</exclude-feature>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -392,8 +410,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Query json' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Query json'>
+		<test name='1'>
 			<description>PUT iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -407,7 +425,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query jCal</description>
 			<request>
 				<method>REPORT</method>
@@ -431,14 +449,23 @@
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[@content-type="application/calendar+json"]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[json]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vcalendar]</value>
-						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vevent]</value>
 						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*valarm]</value>
 					</arg>
 				</verify>
+				<verify>
+					<exclude-feature>
+						<feature>timezones-by-reference</feature>
+					</exclude-feature>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}calendar-data[*vtimezone]</value>
+					</arg>
+				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query with expanded jCal</description>
 			<request>
 				<method>REPORT</method>
@@ -470,7 +497,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -481,8 +508,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Freebusy json' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Freebusy json'>
+		<test name='1'>
 			<description>PUT iCalendar</description>
 			<request>
 				<method>PUT</method>
@@ -496,7 +523,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST json - get back json</description>
 			<request>
 				<method>POST</method>
@@ -517,7 +544,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -528,11 +555,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='POST;add-member' ignore='no'>
+	<test-suite name='POST;add-member'>
 		<require-feature>
 			<feature>add-member</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST;add-member jCal</description>
 			<request>
 				<method>POST</method>
@@ -550,7 +577,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET jCal</description>
 			<request>
 				<method>GET</method>
@@ -568,7 +595,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -586,7 +613,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$posted:</ruri>
@@ -597,11 +624,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='POST;add-member - return' ignore='no'>
+	<test-suite name='POST;add-member - return'>
 		<require-feature>
 			<feature>add-member</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST;add-member jCal</description>
 			<request>
 				<method>POST</method>
@@ -631,7 +658,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET jCal</description>
 			<request>
 				<method>GET</method>
@@ -649,7 +676,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -667,7 +694,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETE</method>
 				<ruri>$posted:</ruri>
@@ -678,11 +705,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple BULK json - no return' ignore='no'>
+	<test-suite name='Simple BULK json - no return'>
 		<require-feature>
 			<feature>bulk-post</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST jCal</description>
 			<request>
 				<method>POST</method>
@@ -711,7 +738,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -725,7 +752,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -739,7 +766,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -750,11 +777,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple BULK json - return' ignore='no'>
+	<test-suite name='Simple BULK json - return'>
 		<require-feature>
 			<feature>bulk-post</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST jCal</description>
 			<request>
 				<method>POST</method>
@@ -787,7 +814,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -801,7 +828,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -815,7 +842,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -826,11 +853,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='CRUD json' ignore='no'>
+	<test-suite name='CRUD json'>
 		<require-feature>
 			<feature>bulk-post</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST jCal</description>
 			<request>
 				<method>POST</method>
@@ -859,7 +886,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -873,7 +900,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar</description>
 			<request>
 				<method>GET</method>
@@ -887,7 +914,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
@@ -898,8 +925,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Timezone prop json' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Timezone prop json'>
+		<test name='1'>
 			<description>PROPPATCH jCal</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -913,7 +940,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND jCal</description>
 			<request>
 				<method>PROPFIND</method>
@@ -938,7 +965,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>GET iCalendar - with accept</description>
 			<request>
 				<method>PROPFIND</method>
@@ -964,7 +991,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Timezone service json' ignore='no'>
+	<test-suite name='Timezone service json'>
 	</test-suite>
 
 	<end/>
