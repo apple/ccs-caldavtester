@@ -70,8 +70,10 @@ class Verifier(object):
                 continue
 
             if (hdrvalue is not None):
+                hdrvalue = hdrvalue.replace(" ", "")
                 matched = False
                 for hdr in hdrs:
+                    hdr = hdr.replace(" ", "")
                     if (re.match(hdrvalue, hdr) is not None):
                         matched = True
                         break
