@@ -92,7 +92,15 @@ serverinfo.dtd
 	ELEMENT <authtype>
 		HTTP authentication method to use.
 
-	ELEMENT <waittime>
+	ELEMENT <waitcount>
+		For requests that wait, defines how many iterations to wait for
+		[Default: 120].
+
+	ELEMENT <waitdelay>
+		For requests that wait, defines how long between iterations to
+		wait for in seconds [Default: 0.25].
+
+	ELEMENT <waitsuccess>
 		For requests with the wait-for-success options, defines how many
 		seconds to wait [Default: 10].
 

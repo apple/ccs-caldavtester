@@ -206,7 +206,7 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count):
                 for req_count, req in enumerate(test.requests):
-                    t = time.time() + (self.manager.server_info.wait if getattr(req, "wait_for_success", False) else 100)
+                    t = time.time() + (self.manager.server_info.waitsuccess if getattr(req, "wait_for_success", False) else 100)
                     while t > time.time():
                         failed = False
                         if getattr(req, "iterate_data", False):
@@ -395,7 +395,7 @@ class caldavtest(object):
 
     def dowaitcount(self, collection, count, label=""):
 
-        for _ignore in range(120):
+        for _ignore in range(self.manager.server_info.waitcount):
             req = request(self.manager)
             req.method = "PROPFIND"
             req.ruris.append(collection[0])
@@ -424,7 +424,7 @@ class caldavtest(object):
 
                 if ctr - 1 == count:
                     return True
-            delay = 0.25
+            delay = self.manager.server_info.waitdelay
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
@@ -434,7 +434,7 @@ class caldavtest(object):
 
     def dowaitchanged(self, uri, etag, user, pswd, label=""):
 
-        for _ignore in range(120):
+        for _ignore in range(self.manager.server_info.waitcount):
             req = request(self.manager)
             req.method = "HEAD"
             req.ruris.append(uri)
@@ -453,7 +453,7 @@ class caldavtest(object):
                             break
                 else:
                     return False
-            delay = 0.25
+            delay = self.manager.server_info.waitdelay
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
