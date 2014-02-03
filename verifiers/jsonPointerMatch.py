@@ -45,7 +45,7 @@ class Verifier(object):
 
         # Must be application/json
         ct = response.msg.getheaders("content-type")
-        if ct[0] != "application/json":
+        if ct[0].split(";")[0] != "application/json":
             return False, "        Wrong Content-Type: %s" % (ct,)
 
         # Read in json
