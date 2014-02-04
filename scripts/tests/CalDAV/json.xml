@@ -186,7 +186,7 @@
 
 	<test-suite name='PUT + return-rep'>
 		<test name='1'>
-			<description>PUT jCal/return iCalendar</description>
+			<description>PUT jCal/return jCal - no Accept</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -202,16 +202,16 @@
 					<callback>statusCode</callback>
 				</verify>
 				<verify>
-					<callback>calendarDataMatch</callback>
+					<callback>jcalDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/json/put/2.ics</value>
+						<value>Resource/CalDAV/json/put/1.json</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>PUT jCal/return jCal</description>
+			<description>PUT jCal/return jCal - with Accept</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -240,7 +240,36 @@
 			</request>
 		</test>
 		<test name='3'>
-			<description>PUT iCalendar/return iCalendar</description>
+			<description>PUT jCal/return iCalendar - with Accept</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<header>
+					<name>Accept</name>
+					<value>text/calendar</value>
+				</header>
+				<data>
+					<content-type>application/calendar+json; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/json/put/1.json</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/json/put/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>PUT iCalendar/return iCalendar - no Accept</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -264,8 +293,37 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4'>
-			<description>PUT iCalendar/return jCal</description>
+		<test name='5'>
+			<description>PUT iCalendar/return iCalendar - with Accept</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<header>
+					<name>Accept</name>
+					<value>text/calendar</value>
+				</header>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/json/put/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/json/put/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>PUT iCalendar/return jCal - with Accept</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
