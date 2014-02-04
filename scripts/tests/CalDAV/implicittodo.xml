@@ -41,7 +41,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Simple Changes' ignore='no'>
+	<test-suite name='Simple Changes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request>
@@ -84,6 +84,9 @@
 				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<require-feature>
+					<feature>schedule-changes</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -156,6 +159,9 @@
 				</verify>
 			</request>
 			<request>
+				<require-feature>
+					<feature>schedule-changes</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -238,6 +244,9 @@
 				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<require-feature>
+					<feature>schedule-changes</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -312,6 +321,9 @@
 				</verify>
 			</request>
 			<request>
+				<require-feature>
+					<feature>schedule-changes</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -370,7 +382,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Organizer Delete' ignore='no'>
+	<test-suite name='Organizer Delete'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request>
@@ -495,6 +507,9 @@
 				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
+				<require-feature>
+					<feature>schedule-changes</feature>
+				</require-feature>
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -557,7 +572,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee Delete' ignore='no'>
+	<test-suite name='Attendee Delete'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request>
@@ -706,7 +721,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Per-attendee completed' ignore='no'>
+	<test-suite name='Per-attendee completed'>
 		<test name='1'>
 			<description>Organizer invites two Attendees</description>
 			<request>
@@ -915,7 +930,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Client removing properties fix' ignore='no'>
+	<test-suite name='Client removing properties fix'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request>
