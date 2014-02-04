@@ -28,7 +28,7 @@
 
 	<start/>
 	
-	<test-suite name='Non-query GET/POST'>
+	<test-suite name='GET well-known'>
 		<test name='1'>
 			<description>GET on well-known resource</description>
 			<request>
@@ -78,6 +78,7 @@
 					<callback>statusCode</callback>
 					<arg>
 						<name>status</name>
+						<value>207</value>
 						<value>403</value>
 						<value>405</value>
 					</arg>
@@ -636,7 +637,7 @@
 			<description>GET on resource - too many start</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;start=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -654,7 +655,7 @@
 			<description>POST on resource - too many start</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;start=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;start=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -672,7 +673,7 @@
 			<description>GET on resource - invalid start</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20070101</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -690,7 +691,7 @@
 			<description>POST on resource - invalid start</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2007</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20070101</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -708,7 +709,7 @@
 			<description>GET on resource - too many end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2009&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -726,7 +727,7 @@
 			<description>POST on resource - too many end</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2009&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -744,7 +745,7 @@
 			<description>GET on resource - invalid end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=20090101</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -762,7 +763,7 @@
 			<description>POST on resource - invalid end</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=2009</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=20090101</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -780,7 +781,7 @@
 			<description>GET on resource - start > end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2009&amp;end=2008</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -798,7 +799,7 @@
 			<description>POST on resource - start > end</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20090101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2009&amp;end=2008</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -816,7 +817,7 @@
 			<description>GET on resource - start == end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2008</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -834,7 +835,7 @@
 			<description>POST on resource - start == end</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2008</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -855,7 +856,7 @@
 			<description>GET on resource - simple range</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -876,7 +877,7 @@
 			<description>POST on resource - simple range</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -897,7 +898,7 @@
 			<description>GET on resource - complex range</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2006&amp;end=2008</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -920,7 +921,7 @@
 			<description>POST on resource - complex range</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20060101&amp;end=20080101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2006&amp;end=2008</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -946,7 +947,7 @@
 			<description>GET on resource - no DST</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Phoenix&amp;start=2006&amp;end=2009</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -969,7 +970,7 @@
 			<description>POST on resource - start == end</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Phoenix&amp;start=20060101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Phoenix&amp;start=2006&amp;end=2009</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -992,7 +993,7 @@
 			<description>POST on resource trailing slash - simple range</description>
 			<request>
 				<method>POST</method>
-				<ruri>$timezonestdservice:/?action=expand&amp;tzid=America/New_York&amp;start=20080101&amp;end=20090101</ruri>
+				<ruri>$timezonestdservice:/?action=expand&amp;tzid=America/New_York&amp;start=2008&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
