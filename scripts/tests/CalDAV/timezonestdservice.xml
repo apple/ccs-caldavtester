@@ -53,6 +53,11 @@
 				<ruri>$timezonestdservice:</ruri>
 				<verify>
 					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>200</value>
+						<value>400</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -71,6 +76,11 @@
 				</data>
 				<verify>
 					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+						<value>405</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -81,6 +91,11 @@
 				<ruri>$timezonestdservice:</ruri>
 				<verify>
 					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>200</value>
+						<value>400</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -98,6 +113,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>405</value>
 					</arg>
 				</verify>
 			</request>
@@ -112,6 +128,7 @@
 					<arg>
 						<name>status</name>
 						<value>403</value>
+						<value>405</value>
 					</arg>
 				</verify>
 			</request>
@@ -352,7 +369,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$missing-tzid</value>
+						<value>/error~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
@@ -370,7 +387,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$missing-tzid</value>
+						<value>/error~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
@@ -592,7 +609,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$missing-tzid</value>
+						<value>/error~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
@@ -610,7 +627,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$missing-tzid</value>
+						<value>/error~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
