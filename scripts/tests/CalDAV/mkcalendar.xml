@@ -123,7 +123,7 @@
 		</test>
 		<test name='3'>
 			<description>MKCALENDAR with incorrect request body</description>
-			<request end-delete='yes' print-response='no'>
+			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/caltest3/</ruri>
 				<data>
@@ -140,7 +140,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/caltest3/</ruri>
 				<verify>
@@ -189,7 +189,7 @@
 		</test>
 		<test name='2'>
 			<description>REPORT free-busy on new collection as another user</description>
-			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/caltest3/</ruri>
 				<data>
@@ -226,7 +226,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT vevent</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -253,7 +253,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:caldav}supported-component</value>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component</value>
 					</arg>
 				</verify>
 			</request>
@@ -276,7 +276,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PUT vevent</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -289,7 +289,7 @@
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
-						<value>{urn:ietf:params:xml:ns:caldav}supported-component</value>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-calendar-component</value>
 					</arg>
 				</verify>
 			</request>
@@ -339,7 +339,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<exclude-feature>
 				<feature>split-calendars</feature>
 			</exclude-feature>
