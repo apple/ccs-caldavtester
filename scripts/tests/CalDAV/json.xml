@@ -138,7 +138,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>GET jCal - preferred Accept</description>
+			<description>GET - preferred Accept - response can be either iCal or jCal</description>
 			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
@@ -147,11 +147,7 @@
 					<value>application/calendar+json, text/calendar</value>
 				</header>
 				<verify>
-					<callback>jcalDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/json/put/1.json</value>
-					</arg>
+					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
