@@ -18,7 +18,7 @@
 Verifier that checks the response for a pre/post-condition <DAV:error> result.
 """
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):

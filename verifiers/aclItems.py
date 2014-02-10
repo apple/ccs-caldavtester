@@ -20,7 +20,7 @@ Verifier that checks a propfind response to make sure that the specified ACL pri
 are available for the currently authenticated user.
 """
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):

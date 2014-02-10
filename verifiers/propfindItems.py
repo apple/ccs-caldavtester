@@ -20,7 +20,7 @@ Verifier that checks a propfind response to make sure that the specified propert
 are returned with appropriate status codes.
 """
 
-from xml.etree.ElementTree import ElementTree, tostring
+from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
 
 class Verifier(object):

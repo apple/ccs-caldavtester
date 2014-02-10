@@ -19,7 +19,7 @@ import urllib
 Verifier that checks a propfind response for regex matches to property values.
 """
 
-from xml.etree.ElementTree import ElementTree, tostring
+from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
 import re
 

@@ -20,7 +20,7 @@ Verifier that checks a multistatus response to make sure that the specified href
 are returned with appropriate status codes.
 """
 
-from xml.etree.ElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 
 class Verifier(object):

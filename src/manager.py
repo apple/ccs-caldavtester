@@ -19,7 +19,7 @@ Class to manage the testing process.
 """
 
 from src.serverinfo import serverinfo
-from xml.etree.ElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import getopt
 import httplib
@@ -40,20 +40,19 @@ class manager(object):
     Main class that runs test suites defined in an XML config file.
     """
 
-    LOG_NONE = 0
-    LOG_ERROR = 1
-    LOG_LOW = 2
-    LOG_MEDIUM = 3
-    LOG_HIGH = 4
+    RESULT_OK = 0
+    RESULT_FAILED = 1
+    RESULT_ERROR = 2
+    RESULT_IGNORED = 3
 
-    def __init__(self, text=True, level=LOG_HIGH):
+
+    def __init__(self, text=True):
         self.server_info = serverinfo()
         self.tests = []
         self.textMode = text
         self.pid = 0
         self.memUsage = None
         self.randomSeed = None
-        self.logLevel = level
         self.logFile = None
         self.digestCache = {}
         self.postgresLog = ""
@@ -61,27 +60,67 @@ class manager(object):
         self.print_response = False
         self.print_request_response_on_error = False
 
-
-    def log(self, level, str, indent=0, indentStr=" ", after=1, before=0):
-        if self.textMode and level <= self.logLevel:
-            if before:
-                self.logit("\n" * before)
-            if indent:
-                self.logit(indentStr * indent)
-            self.logit(str)
-            if after:
-                self.logit("\n" * after)
+        self.results = []
+        self.totals = {
+            self.RESULT_OK: 0,
+            self.RESULT_FAILED: 0,
+            self.RESULT_ERROR: 0,
+            self.RESULT_IGNORED: 0
+        }
+        self.observers = []
 
 
     def logit(self, str):
         if self.logFile:
-            self.logFile.write(str)
-        print str,
+            self.logFile.write(str + "\n")
+        print str
+
+
+    def loadObserver(self, observer_name):
+        module = __import__("observers." + observer_name, globals(), locals(), ["Observer", ])
+        cl = getattr(module, "Observer")
+        self.observers.append(cl(self))
+
+
+    def message(self, message, *args, **kwargs):
+        map(lambda x: x.message(message, *args, **kwargs), self.observers)
+
+
+    def testFile(self, name, details, result=None):
+        self.results.append({
+            "name": name,
+            "details": details,
+            "result": result,
+            "tests": []
+        })
+        self.message("testFile", self.results[-1])
+        return self.results[-1]["tests"]
+
+
+    def testSuite(self, testfile, name, details, result=None):
+        testfile.append({
+            "name": name,
+            "details": details,
+            "result": result,
+            "tests": []
+        })
+        self.message("testSuite", testfile[-1])
+        return testfile[-1]["tests"]
+
+
+    def testResult(self, testsuite, name, details, result,):
+        testsuite.append({
+            "name": name,
+            "result": result,
+            "details": details
+        })
+        self.totals[result] += 1
+        self.message("testResult", testsuite[-1])
 
 
     def readXML(self, serverfile, testfiles, ssl, all, moresubs={}):
 
-        self.log(manager.LOG_HIGH, "Reading Server Info from \"%s\"" % serverfile, after=2)
+        self.message("trace", "Reading Server Info from \"{}\"".format(serverfile))
 
         # Open and parse the server config file
         try:
@@ -118,7 +157,8 @@ class manager(object):
 
         self.server_info.addsubs(moresubs)
 
-        for testfile in testfiles:
+        for ctr, testfile in enumerate(testfiles):
+            print "\rTest File {} of {}".format(ctr + 1, len(testfiles)),
             # Open and parse the config file
             try:
                 tree = ElementTree(file=testfile)
@@ -129,11 +169,11 @@ class manager(object):
             from src.caldavtest import caldavtest
             caldavtest_node = tree.getroot()
             if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
-                self.log(manager.LOG_HIGH, "Ignoring file \"%s\" because it is not a test file" % (testfile,), after=2)
+                self.message("trace", "Ignoring file \"{}\" because it is not a test file".format(testfile))
                 continue
             if not len(caldavtest_node):
                 raise EX_INVALID_CONFIG_FILE
-            self.log(manager.LOG_HIGH, "Reading Test Details from \"%s\"" % testfile, after=2)
+            self.message("Reading Test Details from \"{}\"".format(testfile))
 
             # parse all the config data
             test = caldavtest(self, testfile)
@@ -142,6 +182,8 @@ class manager(object):
             # ignore if all mode and ignore-all is set
             if not all or not test.ignore_all:
                 self.tests.append(test)
+
+        print ""
 
 
     def readCommandLine(self):
@@ -155,6 +197,8 @@ class manager(object):
         pidfile = "../CalendarServer/logs/caldavd.pid"
         random_order = False
         random_seed = str(random.randint(0, 1000000))
+        observer_names = []
+
         options, args = getopt.getopt(
             sys.argv[1:],
             "s:mo:x:",
@@ -163,6 +207,7 @@ class manager(object):
                 "all",
                 "subdir=",
                 "exclude=",
+                "observer=",
                 "pid=",
                 "postgres-log=",
                 "random",
@@ -193,6 +238,8 @@ class manager(object):
                 self.logFile = open(value, "w")
             elif option == "--pid":
                 pidfile = value
+            elif option == "--observer":
+                observer_names.append(value)
             elif option == "--postgres-log":
                 self.postgresLog = value
             elif option == "--print-details-onfail":
@@ -239,6 +286,9 @@ class manager(object):
             random.shuffle(fnames)
             self.randomSeed = random_seed
 
+        # Load observers
+        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["log", ])
+
         self.readXML(sname, fnames, ssl, all)
 
         if self.memUsage:
@@ -251,8 +301,7 @@ class manager(object):
 
         startTime = time.time()
 
-        if self.randomSeed is not None:
-            self.log(manager.LOG_LOW, "Randomizing order using seed '%s'" % (self.randomSeed,))
+        self.message("start")
 
         ok = 0
         failed = 0
@@ -270,8 +319,8 @@ class manager(object):
 
         endTime = time.time()
 
-        self.log(manager.LOG_LOW, "Overall Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=2, indent=4)
-        self.log(manager.LOG_LOW, "Total time: %.3f secs" % (endTime - startTime,))
+        self.timeDiff = endTime - startTime
+        self.message("finish")
 
         if self.logFile is not None:
             self.logFile.close()

@@ -27,7 +27,7 @@ from src.request import request
 from src.request import stats
 from src.testsuite import testsuite
 from src.xmlUtils import nodeForPath, xmlPathSplit
-from xml.etree.ElementTree import ElementTree, tostring
+from xml.etree.cElementTree import ElementTree, tostring
 import commands
 import httplib
 import os
@@ -38,8 +38,6 @@ import sys
 import time
 import urllib
 import urlparse
-
-STATUSTXT_WIDTH = 60
 
 """
 Patch the HTTPConnection.send to record full request details
@@ -96,33 +94,28 @@ class caldavtest(object):
 
     def run(self):
         if len(self.missingFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
-            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(self.missingFeatures())),))
+            self.manager.testFile(self.name, "Missing features: %s" % (", ".join(sorted(self.missingFeatures()),)), manager.RESULT_IGNORED)
             return 0, 0, 1
         if len(self.excludedFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "----- Ignoring Tests from \"%s\"... -----" % self.name, before=1)
-            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(self.excludedFeatures())),))
+            self.manager.testFile(self.name, "Excluded features: %s" % (", ".join(sorted(self.excludedFeatures()),)), manager.RESULT_IGNORED)
             return 0, 0, 1
 
         self.only = any([suite.only for suite in self.suites])
         try:
-            self.manager.log(manager.LOG_HIGH, "----- Running Tests from \"%s\"... -----" % self.name, before=1)
-            result = self.dorequests("Executing Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
+            result = self.dorequests("Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
             if not result:
-                self.manager.log(manager.LOG_ERROR, "Start items failed - tests will not be run.")
-                ok = 0
-                failed = 1
-                ignored = 0
+                self.manager.testFile(self.name, "Start items failed - tests will not be run.", manager.RESULT_ERROR)
+                ok, failed, ignored = (0, 1, 0,)
             else:
                 ok, failed, ignored = self.run_tests(label=self.name)
             self.doenddelete("Deleting Requests...", label="%s | %s" % (self.name, "END_DELETE"))
-            self.dorequests("Executing End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
+            self.dorequests("End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
             return ok, failed, ignored
         except socket.error, msg:
-            self.manager.log(manager.LOG_ERROR, "SOCKET ERROR: %s" % (msg,), before=2)
+            self.manager.testFile(self.name, "SOCKET ERROR: %s" % (msg,), manager.RESULT_ERROR)
             return 0, 1, 0
         except Exception, e:
-            self.manager.log(manager.LOG_ERROR, "FATAL ERROR: %s" % (e,), before=2)
+            self.manager.testFile(self.name, "FATAL ERROR: %s" % (e,), manager.RESULT_ERROR)
             return 0, 1, 0
 
 
@@ -130,71 +123,65 @@ class caldavtest(object):
         ok = 0
         failed = 0
         ignored = 0
+        testfile = self.manager.testFile(self.name, self.description)
         for suite in self.suites:
-            o, f, i = self.run_test_suite(suite, label="%s | %s" % (label, suite.name))
+            o, f, i = self.run_test_suite(testfile, suite, label="%s | %s" % (label, suite.name))
             ok += o
             failed += f
             ignored += i
         return (ok, failed, ignored)
 
 
-    def run_test_suite(self, suite, label=""):
-        descriptor = "    Test Suite: %s" % suite.name
-        descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
-        self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
+    def run_test_suite(self, testfile, suite, label=""):
+        result_name = suite.name
         ok = 0
         failed = 0
         ignored = 0
         postgresCount = None
         if self.only and not suite.only or suite.ignore:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.testSuite(testfile, result_name, "    Deliberately ignored", manager.RESULT_IGNORED)
             ignored = len(suite.tests)
         elif len(suite.missingFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),))
+            self.manager.testSuite(testfile, result_name, "    Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),), manager.RESULT_IGNORED)
             ignored = len(suite.tests)
         elif len(suite.excludedFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(suite.excludedFeatures())),))
+            self.manager.testSuite(testfile, result_name, "    Excluded features: %s" % (", ".join(sorted(suite.excludedFeatures())),), manager.RESULT_IGNORED)
             ignored = len(suite.tests)
         else:
-            self.manager.log(manager.LOG_HIGH, "")
             postgresCount = self.postgresInit()
             if self.manager.memUsage:
                 start_usage = self.manager.getMemusage()
             etags = {}
             only_tests = any([test.only for test in suite.tests])
+            testsuite = self.manager.testSuite(testfile, result_name, "")
             for test in suite.tests:
-                result = self.run_test(test, etags, only_tests, label="%s | %s" % (label, test.name))
+                result = self.run_test(testsuite, test, etags, only_tests, label="%s | %s" % (label, test.name))
                 if result == "t":
                     ok += 1
                 elif result == "f":
                     failed += 1
                 else:
                     ignored += 1
+
             if self.manager.memUsage:
                 end_usage = self.manager.getMemusage()
-                self.manager.log(manager.LOG_HIGH, "Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100) / start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100) / start_usage[0])))
-        self.manager.log(manager.LOG_HIGH, "Suite Results: %d PASSED, %d FAILED, %d IGNORED" % (ok, failed, ignored), before=1, indent=4)
+                self.manager.message("trace", "    Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100) / start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100) / start_usage[0])))
+
+        self.manager.message("trace", "  Suite Results: %d PASSED, %d FAILED, %d IGNORED\n" % (ok, failed, ignored))
         if postgresCount is not None:
             self.postgresResult(postgresCount, indent=4)
         return (ok, failed, ignored)
 
 
-    def run_test(self, test, etags, only, label=""):
-        descriptor = "        Test: %s" % test.name
-        descriptor += " " * max(1, STATUSTXT_WIDTH - len(descriptor))
-        self.manager.log(manager.LOG_HIGH, "%s" % (descriptor,), before=1, after=0)
+    def run_test(self, testsuite, test, etags, only, label=""):
         if test.ignore or only and not test.only:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
+            self.manager.testResult(testsuite, test.name, "      Deliberately ignored", manager.RESULT_IGNORED)
             return "i"
         elif len(test.missingFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),))
+            self.manager.testResult(testsuite, test.name, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),), manager.RESULT_IGNORED)
             return "i"
         elif len(test.excludedFeatures()) != 0:
-            self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),))
+            self.manager.testResult(testsuite, test.name, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),), manager.RESULT_IGNORED)
             return "i"
         else:
             result = True
@@ -225,13 +212,12 @@ class caldavtest(object):
                     if failed:
                         break
 
-            loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
-            self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
+            self.manager.testResult(testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED)
             if len(resulttxt) > 0:
-                self.manager.log(loglevel, resulttxt)
+                self.manager.message("trace", resulttxt)
             if result and test.stats:
-                self.manager.log(manager.LOG_MEDIUM, "Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
-                self.manager.log(manager.LOG_MEDIUM, "Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8)
+                self.manager.message("trace", "    Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
+                self.manager.message("trace", "    Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8)
             self.postgresResult(postgresCount, indent=8)
             return ["f", "t"][result]
 
@@ -239,17 +225,15 @@ class caldavtest(object):
     def dorequests(self, description, list, doverify=True, forceverify=False, label="", count=1):
         if len(list) == 0:
             return True
-        description += " " * max(1, STATUSTXT_WIDTH - len(description))
-        self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
+        self.manager.message("trace", "Start: " + description)
         for req_count, req in enumerate(list):
             result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, False, doverify, forceverify, label="%s | #%s" % (label, req_count + 1), count=count)
             if not result:
                 resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (req_count + 1, len(list), str(req))
                 break
-        loglevel = [manager.LOG_ERROR, manager.LOG_HIGH][result]
-        self.manager.log(loglevel, ["[FAILED]", "[OK]"][result])
+        self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value=["[FAILED]", "[OK]"][result]))
         if len(resulttxt) > 0:
-            self.manager.log(loglevel, resulttxt)
+            self.manager.message("trace", resulttxt)
         return result
 
 
@@ -466,8 +450,7 @@ class caldavtest(object):
     def doenddelete(self, description, label=""):
         if len(self.end_deletes) == 0:
             return True
-        description += " " * max(1, STATUSTXT_WIDTH - len(description))
-        self.manager.log(manager.LOG_HIGH, description, before=1, after=0)
+        self.manager.message("trace", "Start: " + description)
         for deleter in self.end_deletes:
             req = request(self.manager)
             req.method = "DELETE"
@@ -478,7 +461,7 @@ class caldavtest(object):
             if len(deleter[2]):
                 req.pswd = deleter[2]
             self.dorequest(req, False, False, label=label)
-        self.manager.log(manager.LOG_HIGH, "[DONE]")
+        self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value="[DONE]"))
 
 
     def dorequest(self, req, details=False, doverify=True, forceverify=False, stats=None, etags=None, label="", count=1):
@@ -492,12 +475,8 @@ class caldavtest(object):
             return True, "", None, None
 
         if len(req.missingFeatures()) != 0:
-            #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            #self.manager.log(manager.LOG_HIGH, "      Missing features: %s" % (", ".join(sorted(req.missingFeatures())),))
             return True, "", None, None
         if len(req.excludedFeatures()) != 0:
-            #self.manager.log(manager.LOG_HIGH, "[IGNORED]")
-            #self.manager.log(manager.LOG_HIGH, "      Excluded features: %s" % (", ".join(sorted(req.excludedFeatures())),))
             return True, "", None, None
 
         # Special check for DELETEALL
@@ -594,19 +573,16 @@ class caldavtest(object):
             headers['User-Agent'] = label.encode("utf-8")
 
         try:
-            #self.manager.log(manager.LOG_LOW, "Sending request")
             puri = list(urlparse.urlparse(uri))
             puri[2] = urllib.quote(puri[2])
             quri = urlparse.urlunparse(puri)
 
             http.request(method, quri, data, headers)
-            #self.manager.log(manager.LOG_LOW, "Sent request")
 
             response = http.getresponse()
 
             respdata = None
             respdata = response.read()
-            #self.manager.log(manager.LOG_LOW, "Read response")
 
         finally:
             http.close()
@@ -983,4 +959,4 @@ class caldavtest(object):
                 newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
             else:
                 newCount = 0
-            self.manager.log(manager.LOG_HIGH, "Postgres Statements: %d" % (newCount - startCount,), indent=indent)
+            self.manager.message("trace", "Postgres Statements: %d" % (newCount - startCount,))

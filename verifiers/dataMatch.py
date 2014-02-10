@@ -19,7 +19,7 @@ from difflib import unified_diff
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-from xml.etree.ElementTree import ElementTree, tostring
+from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
 
 class Verifier(object):

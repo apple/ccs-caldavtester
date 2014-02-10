@@ -23,6 +23,7 @@ testcaldav.py \
 	[--always-print-request] \
 	[--always-print-response] \
 	[--exclude filename] \
+	[--observer OBSERVER] \
 	file1 file2 ...
 
 	-s : filename specifies the file to use for server information
@@ -56,6 +57,13 @@ testcaldav.py \
 	
 	--exclude FILE : when running with --all, exclude the file from the test run. 
 
+	--observer OBSEREVER : specify one or more times to change which classes are
+	used to process log and trace messages during a test. The OBSERVER name must
+	be the name of a module in the observers package. The default observer is the
+	"log" observer which produces an output similar to Python unit tests. The
+	"trace" observer produces an output similar to the original output format.
+	The "jsondump" observer prints a JSON representation of the test results.
+ 
 	file1 file2 ...: a list of test files to execute tests from.
 
 QUICKSTART

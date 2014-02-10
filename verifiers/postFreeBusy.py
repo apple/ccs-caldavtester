@@ -20,7 +20,7 @@ Verifier that checks the response of a free-busy-query.
 
 from pycalendar.icalendar.calendar import Calendar
 from pycalendar.exceptions import InvalidData
-from xml.etree.ElementTree import ElementTree
+from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import StringIO
 
