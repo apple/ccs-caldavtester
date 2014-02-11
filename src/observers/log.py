@@ -52,7 +52,7 @@ class Observer(BaseResultsObserver):
     def start(self):
         self.manager.logit("Starting tests")
         if self.manager.randomSeed is not None:
-            self.manager.logit("Randomizing order using seed '{}'".format(self.randomSeed))
+            self.manager.logit("Randomizing order using seed '{}'".format(self.manager.randomSeed))
 
 
     def testFile(self, result):
