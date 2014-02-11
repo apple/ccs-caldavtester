@@ -71,7 +71,13 @@ class Observer(BaseResultsObserver):
         result_name = "    Test: " + result["name"]
         self._logResult(result_name, result)
         if result["result"] in (manager.RESULT_FAILED, manager.RESULT_ERROR):
-            failtxt = "{}/{}/{}\n{}".format(self.currentFile, self.currentSuite, result["name"], result["details"])
+            failtxt = "{result}\n{details}\n\n{file}/{suite}/{test}".format(
+                result=self.RESULT_STRINGS[result["result"]],
+                details=result["details"],
+                file=self.currentFile,
+                suite=self.currentSuite,
+                test=result["name"],
+            )
             self.loggedFailures.append(failtxt)
 
 
@@ -89,19 +95,23 @@ class Observer(BaseResultsObserver):
         self.manager.logit("")
         if self.manager.totals[manager.RESULT_FAILED] + self.manager.totals[manager.RESULT_ERROR] != 0:
             for failed in self.loggedFailures:
-                self.manager.logit("******")
+                self.manager.logit("=" * 70)
                 self.manager.logit(failed)
-            overall = "******\n\nFAILED (ok={}, ignored={}, failed={}, errors={}) Time = {:.3f} secs".format(
+            overall = "FAILED (ok={}, ignored={}, failed={}, errors={})".format(
                 self.manager.totals[manager.RESULT_OK],
                 self.manager.totals[manager.RESULT_IGNORED],
                 self.manager.totals[manager.RESULT_FAILED],
                 self.manager.totals[manager.RESULT_ERROR],
-                self.manager.timeDiff
             )
         else:
-            overall = "PASSED (ok={}, ignored={}) Time = {:.3f} secs".format(
+            overall = "PASSED (ok={}, ignored={})".format(
                 self.manager.totals[manager.RESULT_OK],
                 self.manager.totals[manager.RESULT_IGNORED],
-                self.manager.timeDiff
             )
+        self.manager.logit("-" * 70)
+        self.manager.logit("Ran {total} tests in {time:.3f}s\n".format(
+            total=sum(self.manager.totals.values()),
+            time=self.manager.timeDiff,
+        ))
+
         self.manager.logit(overall)

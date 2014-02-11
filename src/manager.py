@@ -158,7 +158,8 @@ class manager(object):
         self.server_info.addsubs(moresubs)
 
         for ctr, testfile in enumerate(testfiles):
-            print "\rTest File {} of {}".format(ctr + 1, len(testfiles)),
+            self.message("load", testfile, ctr + 1, len(testfiles))
+
             # Open and parse the config file
             try:
                 tree = ElementTree(file=testfile)
@@ -183,7 +184,7 @@ class manager(object):
             if not all or not test.ignore_all:
                 self.tests.append(test)
 
-        print ""
+        self.message("load", None, ctr + 1, len(testfiles))
 
 
     def readCommandLine(self):
@@ -287,7 +288,7 @@ class manager(object):
             self.randomSeed = random_seed
 
         # Load observers
-        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["log", ])
+        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["loadfiles", "log", ])
 
         self.readXML(sname, fnames, ssl, all)
 
