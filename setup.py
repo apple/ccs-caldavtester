@@ -18,24 +18,24 @@
 
 from __future__ import print_function
 
-import sys
-import errno
+from itertools import chain
 from os import listdir, environ as environment
 from os.path import dirname, abspath, join as joinpath
-from itertools import chain
+import errno
 import subprocess
-from setuptools import setup, find_packages as setuptools_find_packages
+
 from pip.req import parse_requirements
+from setuptools import setup, find_packages as setuptools_find_packages
 
 
 #
 # Utilities
 #
-
 def find_packages():
     modules = []
 
     return modules + setuptools_find_packages()
+
 
 
 def version():
