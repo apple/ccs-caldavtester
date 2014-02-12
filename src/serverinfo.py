@@ -19,12 +19,17 @@ Class that encapsulates the server information for a CalDAV test run.
 """
 
 import datetime
+import re
 import src.xmlDefs
+
 
 class serverinfo(object):
     """
     Maintains information about the server being targeted.
     """
+
+    # RegEx pattern to match substitution variables
+    subspattern = re.compile("(?P<name>\\$[_a-zA-Z][_a-zA-Z0-9\\-]*\\:)")
 
     def __init__(self):
         self.host = ""
@@ -46,6 +51,25 @@ class serverinfo(object):
         # dtnow needs to be fixed to a single date at the start of the tests just in case the tests
         # run over a day boundary.
         self.dtnow = datetime.date.today()
+
+
+    def _re_subs(self, sub, mapping):
+        """
+        Do a regex substitution via the supplied mapping, only if the mapping exists.
+
+        @param sub: string to do substitution in
+        @type sub: L{str}
+        @param mapping: mapping of substitution name to value
+        @type mapping: L{dict}
+        """
+        # Helper function for .sub()
+        def convert(mo):
+            named = mo.group('name')
+            if named is not None and named in mapping:
+                return mapping[named]
+            else:
+                return named
+        return self.subspattern.sub(convert, sub)
 
 
     def subs(self, sub, db=None):
@@ -76,16 +100,11 @@ class serverinfo(object):
 
         if db is None:
             db = self.subsdict
-        count = 0
-        while count < 10:
-            do_again = False
-            for key, value in db.iteritems():
-                newstr = sub.replace(key, value)
-                do_again = do_again or (newstr != sub)
-                sub = newstr
-            if not do_again:
+        while '$' in sub:
+            newstr = self._re_subs(sub, db)
+            if newstr == sub:
                 break
-            count += 1
+            sub = newstr
         return sub
 
 
@@ -168,6 +187,13 @@ class serverinfo(object):
 
 
     def updateParams(self):
+
+        # Expand substitutions fully at this point
+        for k, v in self.subsdict.items():
+            while '$' in v:
+                v = self._re_subs(v, self.subsdict)
+            self.subsdict[k] = v
+
         # Now cache some useful substitutions
         if "$userid1:" not in self.subsdict:
             raise ValueError("Must have $userid1: substitution")
