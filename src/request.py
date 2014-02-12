@@ -319,6 +319,11 @@ class request(object):
             return False
 
 
+    def hasNextData(self):
+        dataList = sorted([path for path in os.listdir(self.data.filepath) if not path.startswith(".")])
+        return len(dataList) != 0
+
+
     def generateCalendarData(self, data):
         """
         FIXME: does not work for events with recurrence overrides.

@@ -59,12 +59,27 @@ class Observer(BaseResultsObserver):
         self.currentFile = result["name"].replace("/", ".")[:-4]
         self.manager.logit("")
         self._logResult(self.currentFile, result)
+        if result["result"] in (manager.RESULT_FAILED, manager.RESULT_ERROR):
+            failtxt = "{result}\n{details}\n\n{file}".format(
+                result=self.RESULT_STRINGS[result["result"]],
+                details=result["details"],
+                file=self.currentFile,
+            )
+            self.loggedFailures.append(failtxt)
 
 
     def testSuite(self, result):
         self.currentSuite = result["name"]
         result_name = "  Suite: " + result["name"]
         self._logResult(result_name, result)
+        if result["result"] in (manager.RESULT_FAILED, manager.RESULT_ERROR):
+            failtxt = "{result}\n{details}\n\n{file}/{suite}".format(
+                result=self.RESULT_STRINGS[result["result"]],
+                details=result["details"],
+                file=self.currentFile,
+                suite=self.currentSuite,
+            )
+            self.loggedFailures.append(failtxt)
 
 
     def testResult(self, result):

@@ -93,6 +93,8 @@ class manager(object):
             "result": result,
             "tests": []
         })
+        if result is not None:
+            self.totals[result] += 1
         self.message("testFile", self.results[-1])
         return self.results[-1]["tests"]
 
@@ -104,6 +106,8 @@ class manager(object):
             "result": result,
             "tests": []
         })
+        if result is not None:
+            self.totals[result] += 1
         self.message("testSuite", testfile[-1])
         return testfile[-1]["tests"]
 

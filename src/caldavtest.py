@@ -197,6 +197,9 @@ class caldavtest(object):
                     while t > time.time():
                         failed = False
                         if getattr(req, "iterate_data", False):
+                            if not req.hasNextData():
+                                self.manager.testResult(testsuite, test.name, "      No iteration data - ignored", manager.RESULT_IGNORED)
+                                return "i"
                             while req.getNextData():
                                 result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
                                 if not result:
