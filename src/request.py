@@ -298,6 +298,7 @@ class request(object):
                 finally:
                     fd.close()
             data = str(self.manager.server_info.subs(data))
+            self.manager.server_info.addextrasubs({"$request_count:": str(self.count)})
             data = self.manager.server_info.extrasubs(data)
             if self.data.generate:
                 if self.data.content_type.startswith("text/calendar"):

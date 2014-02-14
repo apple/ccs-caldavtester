@@ -19,6 +19,7 @@ testcaldav.py \
 	[--all] \
 	[--random] \
 	[--random-seed SEED] \
+	[--stop] \
 	[--print-details-onfail] \
 	[--always-print-request] \
 	[--always-print-response] \
@@ -47,8 +48,10 @@ testcaldav.py \
 
 	--random : randomize the order in which the tests are run.
 	
-	--random-seed SEED : a specific randon seed to use.
+	--random-seed SEED : a specific random seed to use.
 	
+	--stop : stop running all tests after one test file fails.
+
 	--print-details-onfail : print HTTP request/response when a test fails.
 	
 	--always-print-request : always print HTTP request.
@@ -60,9 +63,12 @@ testcaldav.py \
 	--observer OBSEREVER : specify one or more times to change which classes are
 	used to process log and trace messages during a test. The OBSERVER name must
 	be the name of a module in the observers package. The default observer is the
-	"log" observer which produces an output similar to Python unit tests. The
-	"trace" observer produces an output similar to the original output format.
-	The "jsondump" observer prints a JSON representation of the test results.
+	"log" observer. Available observers are:
+		
+		"log" - produces an output similar to Python unit tests.
+		"trace" - produces an output similar to the original output format.
+		"loadfiles" - prints each test file as it is loaded.
+		"jsondump" - prints a JSON representation of the test results.
  
 	file1 file2 ...: a list of test files to execute tests from.
 

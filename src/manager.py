@@ -56,6 +56,7 @@ class manager(object):
         self.logFile = None
         self.digestCache = {}
         self.postgresLog = ""
+        self.stoponfail = False
         self.print_request = False
         self.print_response = False
         self.print_request_response_on_error = False
@@ -217,6 +218,7 @@ class manager(object):
                 "postgres-log=",
                 "random",
                 "random-seed=",
+                "stop",
                 "print-details-onfail",
                 "always-print-request",
                 "always-print-response",
@@ -247,6 +249,8 @@ class manager(object):
                 observer_names.append(value)
             elif option == "--postgres-log":
                 self.postgresLog = value
+            elif option == "--stop":
+                self.stoponfail = True
             elif option == "--print-details-onfail":
                 self.print_request_response_on_error = True
             elif option == "--always-print-request":
@@ -292,7 +296,7 @@ class manager(object):
             self.randomSeed = random_seed
 
         # Load observers
-        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["loadfiles", "log", ])
+        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["log", ])
 
         self.readXML(sname, fnames, ssl, all)
 
@@ -317,6 +321,9 @@ class manager(object):
                 ok += o
                 failed += f
                 ignored += i
+
+                if failed != 0 and self.stoponfail:
+                    break
         except:
             failed += 1
             import traceback
