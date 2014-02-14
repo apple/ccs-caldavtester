@@ -1043,6 +1043,20 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>PROPPATCH remove timezone</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/json/timezone-prop/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Timezone service json'>
