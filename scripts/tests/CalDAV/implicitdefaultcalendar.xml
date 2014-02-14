@@ -393,15 +393,8 @@
 		<test name='4'>
 			<description>Attendee Inbox Item</description>
 			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
-				<method>WAITCOUNT 1</method>
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath10:/</ruri>
-			</request>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
-				<method>GETNEW</method>
-				<ruri>$inboxpath10:/</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
 			</request>
 		</test>
 		<test name='5'>
