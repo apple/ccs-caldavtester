@@ -448,18 +448,15 @@
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid10:" pswd="$pswd10:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath10:/</ruri>
 			</request>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath10:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid10:" pswd="$pswd10:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath10:/</ruri>
 			</request>
 		</test>
 	</test-suite>
