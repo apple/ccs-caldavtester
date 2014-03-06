@@ -894,6 +894,44 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Organizer SERVER->NONE, no matching ATTENDEE' ignore='no'>
+		<test name='1'>
+			<description>Attendee 2 stores event without their own ATTENDEE property</description>
+			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/scheduleagent/no-attendee/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request  user="$userid2:" pswd="$pswd2:" print-response='no'>
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/scheduleagent/no-attendee/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
