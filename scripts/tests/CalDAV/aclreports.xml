@@ -512,7 +512,7 @@
 			<feature>extended-principal-search</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -534,7 +534,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -601,7 +601,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
@@ -742,7 +742,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
 			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
