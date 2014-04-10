@@ -36,6 +36,7 @@ class Verifier(object):
             filters.append("ATTENDEE:EMAIL")
             filters.append("ORGANIZER:EMAIL")
         filters.append("ATTENDEE:X-CALENDARSERVER-DTSTAMP")
+        filters.append("ATTENDEE:X-CALENDARSERVER-AUTO")
         filters.append("CALSCALE")
         filters.append("PRODID")
         filters.append("DTSTAMP")
