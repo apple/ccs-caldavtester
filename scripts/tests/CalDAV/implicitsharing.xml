@@ -335,6 +335,42 @@
 			</request>
 		</test>
 		<test name='9'>
+			<description>Sharee tries to delete organizer event</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETE</method>
+				<ruri>$sharedcalendar3_1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>GET</method>
+				<ruri>$sharedcalendar3_1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/sharing/organizer/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/sharing/organizer/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
 			<description>Attendee -> Accepted</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -348,14 +384,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='11'>
 			<description>Organizer Inbox Item</description>
 			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='12'>
 			<description>Organizer checks data</description>
 			<request>
 				<method>GET</method>
@@ -369,7 +405,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='13'>
 			<description>Sharee checks data</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
@@ -383,7 +419,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='14'>
 			<description>Sharee adds alarm to attendee event</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
@@ -394,6 +430,42 @@
 				</data>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>GET</method>
+				<ruri>$sharedcalendar3_2:/move1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/sharing/organizer/12.ics</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarhome2:/shared/move1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/sharing/organizer/13.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='15'>
+			<description>Sharee tries to delete attendee event</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>DELETE</method>
+				<ruri>$sharedcalendar3_2:/move1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
 				</verify>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
