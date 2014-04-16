@@ -101,6 +101,7 @@
 		<feature>timezones-by-reference</feature>		<!-- Timezones by reference enabled -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension for Wiki -->
 		<feature>timezone-std-service</feature>			<!-- Timezone standard service extension -->
+		<feature>travel-time-busy</feature> 			<!-- Travel time appears as busy -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 		<!-- <feature>vpoll</feature> -->				<!-- VPOLL support for store and scheduling -->
 		<feature>webcal</feature>						<!-- Internet calendar subscription via GET on calendar collection -->
@@ -248,6 +249,12 @@
 			<value>tasks</value>
 		</substitution>
 
+		<!-- primary polls-only calendar name-->
+		<substitution>
+			<key>$polls:</key>
+			<value>polls</value>
+		</substitution>
+
 		<!-- inbox name-->
 		<substitution>
 			<key>$inbox:</key>
@@ -302,13 +309,13 @@
 			<value>$root:stdtimezones</value>
 		</substitution>
 
-		<!-- relative path to calendars collection-->
+		<!-- relative path to addressbooks collection-->
 		<substitution>
 			<key>$addressbooks:</key>
 			<value>$root:addressbooks/</value>
 		</substitution>
 
-		<!-- relative path to record type calendar collections-->
+		<!-- relative path to record type addressbook collections-->
 		<substitution>
 			<key>$addressbooks_uids:</key>
 			<value>$addressbooks:$uidstype:/</value>
@@ -464,7 +471,7 @@
 				<key>$calendarpath%%d:</key>
 				<value>$calendarhome%%d:/$calendar:</value>
 			</substitution>
-			<!-- relative path to user alternate calendar home-->
+			<!-- relative path to user alternate calendar-->
 			<substitution>
 				<key>$calendarpathalt%%d:</key>
 				<value>$calendarhomealt%%d:/$calendar:</value>
@@ -473,6 +480,11 @@
 			<substitution>
 				<key>$taskspath%%d:</key>
 				<value>$calendarhome%%d:/$tasks:</value>
+			</substitution>
+			<!-- relative path to user polls calendar-->
+			<substitution>
+				<key>$pollspath%%d:</key>
+				<value>$calendarhome%%d:/$polls:</value>
 			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>

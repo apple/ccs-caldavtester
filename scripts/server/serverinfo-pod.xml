@@ -106,6 +106,7 @@
 		<feature>timezones-by-reference</feature>		<!-- Timezones by reference enabled -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension for Wiki -->
 		<feature>timezone-std-service</feature>			<!-- Timezone standard service extension -->
+		<feature>travel-time-busy</feature> 			<!-- Travel time appears as busy -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 		<!-- <feature>vpoll</feature> -->				<!-- VPOLL support for store and scheduling -->
 		<feature>webcal</feature>						<!-- Internet calendar subscription via GET on calendar collection -->
@@ -251,6 +252,12 @@
 		<substitution>
 			<key>$tasks:</key>
 			<value>tasks</value>
+		</substitution>
+
+		<!-- primary polls-only calendar name-->
+		<substitution>
+			<key>$polls:</key>
+			<value>polls</value>
 		</substitution>
 
 		<!-- inbox name-->
@@ -443,6 +450,11 @@
 				<key>$taskspath%d:</key>
 				<value>$calendarhome%d:/$tasks:</value>
 			</substitution>
+			<!-- relative path to user polls calendar-->
+			<substitution>
+				<key>$pollspath%d:</key>
+				<value>$calendarhome%d:/$polls:</value>
+			</substitution>
 			<!-- relative path to user inbox-->
 			<substitution>
 				<key>$inboxpath%d:</key>
@@ -498,7 +510,7 @@
 			<!-- relative path to user addressbook-->
 			<substitution>
 				<key>$addressbookpath%d:</key>
-				<value>$addressbooks_uids:$userguid%d:/$addressbook:</value>
+				<value>$addressbookhome%d:/$addressbook:</value>
 			</substitution>
 		</repeat>
 
