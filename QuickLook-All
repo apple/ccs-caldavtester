@@ -19,8 +19,7 @@
 # Runs a subset of tests as a quick check that the server is functional.
 #
 
-export PYTHONPATH=/usr/share/caldavd/lib/python:/Applications/Server.app/Contents/ServerRoot/usr/share/caldavd/lib/python/
-./testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml -o cdt.txt \
+/Applications/Server.app/Contents/ServerRoot/Library/CalendarServer/bin/python testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml -o cdt.txt \
     CalDAV/caldavIOP.xml \
     CalDAV/errors.xml \
     CalDAV/get.xml \
