@@ -395,13 +395,14 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
     for x, y in subs:
         subs_str += subs_template % (x, y,)
 
-    data = data % {
-        "hostname"       : hostname,
-        "nonsslport"     : str(nonsslport),
-        "sslport"        : str(sslport),
-        "authtype"       : authtype,
-        "overrides"      : subs_str,
-    }
+    data = data.format(
+        hostname=hostname,
+        nonsslport=str(nonsslport),
+        sslport=str(sslport),
+        authtype=authtype,
+        overrides=subs_str,
+        DAV="{DAV:}",
+    )
 
     fd = open(serverinfo_default, "w")
     try:
