@@ -132,8 +132,8 @@ locationcreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
 <dict>
         <key>command</key>
         <string>createLocation</string>
-        <key>AutoSchedule</key>
-        <true/>
+        <key>AutoScheduleMode</key>
+        <string>acceptIfFreeDeclineIfBusy</string>
         <key>GeneratedUID</key>
         <string>%(guid)s</string>
         <key>RealName</key>
@@ -174,8 +174,8 @@ resourcecreatecmd = """<?xml version="1.0" encoding="UTF-8"?>
 <dict>
         <key>command</key>
         <string>createResource</string>
-        <key>AutoSchedule</key>
-        <true/>
+        <key>AutoScheduleMode</key>
+        <string>acceptIfFreeDeclineIfBusy</string>
         <key>GeneratedUID</key>
         <string>%(guid)s</string>
         <key>RealName</key>
@@ -620,18 +620,18 @@ def manageRecords(path, user):
     if path in ("/Places", "/Resources",):
         if path in ("/Places",):
             if user[0] == "delegatedroom":
-                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule=false locations:%s" % (
+                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule-mode=none locations:%s" % (
                     utility,
                     user[0],
                 ))
             else:
-                cmd("%s --add-write-proxy users:user01 --set-auto-schedule=true locations:%s" % (
+                cmd("%s --add-write-proxy users:user01 --set-auto-schedule-mode=automatic locations:%s" % (
                     utility,
                     user[0],
                 ))
         else:
             # Default options for all resources
-            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule=true resources:%s" % (
+            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule-mode=automatic resources:%s" % (
                 utility,
                 user[0],
             ))
