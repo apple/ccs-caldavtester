@@ -412,28 +412,6 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
 
 
 
-def addLargeCalendars(hostname, docroot):
-    largeCalendarUser = "user09"
-    calendars = ("calendar.10", "calendar.100", "calendar.1000",)
-    largeGuid = guids[largeCalendarUser]
-    path = os.path.join(
-        docroot,
-        "calendars",
-        "__uids__",
-        largeGuid[0:2],
-        largeGuid[2:4],
-        largeGuid,
-    )
-
-    cmd("mkdir -p \"%s\"" % (docroot))
-    cmd("chown calendar:calendar \"%s\"" % (docroot))
-    for calendar in calendars:
-        cmd("sudo -u calendar mkdir -p \"%s\"" % (path))
-        cmd("sudo -u calendar tar -C \"%s\" -zx -f data/%s.tgz" % (path, calendar,))
-        cmd("chown -R calendar:calendar \"%s\"" % (os.path.join(path, calendar) ,))
-
-
-
 def loadLists(path, records):
     if path == "/Places":
         result = cmd(cmdutility, locationlistcmd)
@@ -731,9 +709,6 @@ if __name__ == "__main__":
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
 
-            # Add large calendars to user account
-            if protocol == "caldav":
-                addLargeCalendars(hostname, docroot)
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
