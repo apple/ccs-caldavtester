@@ -331,6 +331,7 @@ def patchConfig(admin):
        * iMIP is disabled
        * SACLs are disabled
        * EnableAnonymousReadRoot is enabled
+       * WorkQueue timings are appropriate for testing (low delay)
 
     @param admin: admin principal-URL value
     @type admin: str
@@ -353,6 +354,16 @@ def patchConfig(admin):
     if "Options" not in plist["Scheduling"]:
         plist["Scheduling"]["Options"] = dict()
     plist["Scheduling"]["Options"]["AttendeeRefreshBatch"] = 0
+
+    # Lower WorkQueue timings to reduce processing delay
+    plist["Scheduling"]["Options"]["WorkQueues"] = {
+        "Enabled" : True,
+        "RequestDelaySeconds" : 0.1,
+        "ReplyDelaySeconds" : 1,
+        "AutoReplyDelaySeconds" : 0.1,
+        "AttendeeRefreshBatchDelaySeconds" : 0.1
+        "AttendeeRefreshBatchIntervalSeconds" : 0.1,
+    }
 
     writePlist(plist, conf_root + "/caldavd-user.plist")
 
