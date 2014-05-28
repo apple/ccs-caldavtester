@@ -361,7 +361,7 @@ def patchConfig(admin):
         "RequestDelaySeconds" : 0.1,
         "ReplyDelaySeconds" : 1,
         "AutoReplyDelaySeconds" : 0.1,
-        "AttendeeRefreshBatchDelaySeconds" : 0.1
+        "AttendeeRefreshBatchDelaySeconds" : 0.1,
         "AttendeeRefreshBatchIntervalSeconds" : 0.1,
     }
 
