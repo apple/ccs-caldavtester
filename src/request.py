@@ -519,7 +519,11 @@ class verify(object):
 
         verifierClass = self._importName("verifiers." + self.callback, "Verifier")
         verifier = verifierClass()
-        return verifier.verify(self.manager, uri, response, respdata, self.args)
+
+        # Always clone the args as this verifier may be called multiple times
+        args = dict((k, list(v)) for k, v in self.args.items())
+
+        return verifier.verify(self.manager, uri, response, respdata, args)
 
 
     def _importName(self, modulename, name):

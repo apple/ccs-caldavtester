@@ -50,9 +50,6 @@ class Verifier(object):
         okhrefs = [(prefix + i).rstrip("/") for i in okhrefs]
         nohrefs = [(prefix + i).rstrip("/") for i in nohrefs]
         badhrefs = [(prefix + i).rstrip("/") for i in badhrefs]
-        for k, v in args.items():
-            v = [prefix + i for i in v]
-            args[k] = v
         count = [int(eval(i)) for i in count]
         totalcount = [int(eval(i)) for i in totalcount]
         responsecount = [int(eval(i)) for i in responsecount]

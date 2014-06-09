@@ -48,6 +48,8 @@ class manager(object):
 
     def __init__(self, text=True):
         self.server_info = serverinfo()
+        self.pretest = None
+        self.posttest = None
         self.tests = []
         self.textMode = text
         self.pid = 0
@@ -162,32 +164,44 @@ class manager(object):
 
         self.server_info.addsubs(moresubs)
 
+        from src.caldavtest import caldavtest
+        def _loadFile(fname, ignore_root=True):
+            # Open and parse the config file
+            try:
+                tree = ElementTree(file=fname)
+            except ExpatError, e:
+                raise RuntimeError("Unable to parse file '%s' because: %s" % (fname, e,))
+            caldavtest_node = tree.getroot()
+            if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
+                if ignore_root:
+                    self.message("trace", "Ignoring file \"{}\" because it is not a test file".format(fname))
+                    return None
+                else:
+                    raise EX_INVALID_CONFIG_FILE
+            if not len(caldavtest_node):
+                raise EX_INVALID_CONFIG_FILE
+
+            self.message("Reading Test Details from \"{}\"".format(fname))
+            test = caldavtest(self, fname)
+            test.parseXML(caldavtest_node)
+            return test
+
         for ctr, testfile in enumerate(testfiles):
             self.message("load", testfile, ctr + 1, len(testfiles))
 
             # Open and parse the config file
-            try:
-                tree = ElementTree(file=testfile)
-            except ExpatError, e:
-                raise RuntimeError("Unable to parse file '%s' because: %s" % (testfile, e,))
-
-            # Verify that top-level element is correct
-            from src.caldavtest import caldavtest
-            caldavtest_node = tree.getroot()
-            if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
-                self.message("trace", "Ignoring file \"{}\" because it is not a test file".format(testfile))
+            test = _loadFile(testfile)
+            if test is None:
                 continue
-            if not len(caldavtest_node):
-                raise EX_INVALID_CONFIG_FILE
-            self.message("Reading Test Details from \"{}\"".format(testfile))
-
-            # parse all the config data
-            test = caldavtest(self, testfile)
-            test.parseXML(caldavtest_node)
 
             # ignore if all mode and ignore-all is set
             if not all or not test.ignore_all:
                 self.tests.append(test)
+
+        if self.pretest is not None:
+            self.pretest = _loadFile(self.pretest, False)
+        if self.posttest is not None:
+            self.posttest = _loadFile(self.posttest, False)
 
         self.message("load", None, ctr + 1, len(testfiles))
 
@@ -213,6 +227,8 @@ class manager(object):
                 "all",
                 "subdir=",
                 "exclude=",
+                "pretest=",
+                "posttest=",
                 "observer=",
                 "pid=",
                 "postgres-log=",
@@ -239,6 +255,10 @@ class manager(object):
                 subdir = value + "/"
             elif option == "--exclude":
                 excludes.add(value)
+            elif option == "--pretest":
+                self.pretest = value
+            elif option == "--posttest":
+                self.posttest = value
             elif option == "-m":
                 self.memUsage = True
             elif option == "-o":
@@ -273,8 +293,7 @@ class manager(object):
         # Remove any server info file from files enumerated by --all
         fnames[:] = [x for x in fnames if (x != sname)]
 
-        # Process any file arguments as test configs
-        for f in args:
+        def _normPath(f):
             # paths starting with . or .. or /
             if f[0] in ('.', '/'):
                 f = os.path.abspath(f)
@@ -287,7 +306,16 @@ class manager(object):
             # relative paths
             else:
                 f = os.path.join(dname, f)
-            fnames.append(f)
+            return f
+
+        # Process any file arguments as test configs
+        for f in args:
+            fnames.append(_normPath(f))
+
+        if self.pretest is not None:
+            self.pretest = _normPath(self.pretest)
+        if self.posttest is not None:
+            self.posttest = _normPath(self.posttest)
 
         # Randomize file list
         if random_order and len(fnames) > 1:
@@ -317,6 +345,16 @@ class manager(object):
         ignored = 0
         try:
             for test in self.tests:
+                if self.pretest is not None:
+                    o, f, i = self.pretest.run()
+                    ok += o
+                    failed += f
+                    ignored += i
+
+                    # Always stop the tests if the pretest fails
+                    if failed != 0:
+                        break
+
                 o, f, i = test.run()
                 ok += o
                 failed += f
@@ -324,6 +362,17 @@ class manager(object):
 
                 if failed != 0 and self.stoponfail:
                     break
+
+                if self.posttest is not None:
+                    o, f, i = self.posttest.run()
+                    ok += o
+                    failed += f
+                    ignored += i
+
+                    # Always stop the tests if the posttest fails
+                    if failed != 0:
+                        break
+
         except:
             failed += 1
             import traceback
