@@ -919,6 +919,9 @@
 
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
 	<test-suite name='one shared group'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -2234,6 +2237,9 @@
 
 	<!-- test suite below is similar to test suite in ../CalDAV/sharing-sync.xml -->
 	<test-suite name='two shared groups'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">

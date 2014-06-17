@@ -489,6 +489,9 @@
 
 
 	<test-suite name='read-write shared group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>reset user1 home and share user2 group read-write</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -721,6 +724,9 @@
 
 
 	<test-suite name='read-only shared group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>reset user1 home and share user2 group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -899,6 +905,9 @@
 	</test-suite>
 	
 	<test-suite name='overlapping read-only, read-write shared group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>reset user1 home and share user2 group g123 read-write, group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -1227,6 +1236,9 @@
 	</test-suite>
 	
 	<test-suite name='overlapping read-only, read-write shared groups, read-write addressbook' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>share user2 addressbook read-write</description>
 			<!-- user2 POSTs invitation -->
@@ -1371,6 +1383,9 @@
 	</test-suite>
 	
 	<test-suite name='overlapping read-only, read-write shared groups, read-only addressbook' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>share user2 addressbook read-only</description>
 			<!-- user2 POSTs invitation -->
@@ -1477,6 +1492,9 @@
 	</test-suite>
 	
 	<test-suite name='add to ab with two read-write shared groups' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>unshare address book, share 345 read-write</description>
 			<request>

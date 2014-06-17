@@ -431,6 +431,9 @@
 	</test-suite>
 
 	<test-suite name='reshare addressbook, sharee delete addressbook group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -1024,6 +1027,9 @@
 	</test-suite>
 
 	<test-suite name='create and share group, sharee decline' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<description>cleanup and initialize</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
@@ -1264,6 +1270,9 @@
 	</test-suite>	
 
 	<test-suite name='reshare group, sharee delete addressbook' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -1461,6 +1470,9 @@
 	</test-suite>	
 
 	<test-suite name='reshare group, sharee delete group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -1658,6 +1670,9 @@
 	</test-suite>	
 
 	<test-suite name='reshare group, sharer uninvite' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -1855,6 +1870,9 @@
 	</test-suite>	
 
 	<test-suite name='reshare group, sharer delete group' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='1' ignore='no'>
 			<description>POST invitation</description>
 			<request print-response='no'>
@@ -2053,6 +2071,9 @@
 	</test-suite>	
 
 	<test-suite name='recreate and share group, sharer delete addressbook' ignore='no'>
+		<require-feature>
+			<feature>shared-groups</feature>
+		</require-feature>
 		<test name='0' ignore='no'>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
