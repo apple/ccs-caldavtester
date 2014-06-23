@@ -347,12 +347,9 @@ class manager(object):
             for test in self.tests:
                 if self.pretest is not None:
                     o, f, i = self.pretest.run()
-                    ok += o
-                    failed += f
-                    ignored += i
 
                     # Always stop the tests if the pretest fails
-                    if failed != 0:
+                    if f != 0:
                         break
 
                 o, f, i = test.run()
@@ -365,12 +362,9 @@ class manager(object):
 
                 if self.posttest is not None:
                     o, f, i = self.posttest.run()
-                    ok += o
-                    failed += f
-                    ignored += i
 
                     # Always stop the tests if the posttest fails
-                    if failed != 0:
+                    if f != 0:
                         break
 
         except:
