@@ -74,7 +74,8 @@
 	<!ELEMENT test-suite (require-feature?, exclude-feature?, test*)>
 		<!ATTLIST test-suite name CDATA #REQUIRED
 							ignore (yes|no) "no"
-							only (yes|no) "no">
+							only (yes|no) "no"
+							change-uid (yes|no) "no">
 	
 		<!ELEMENT test (require-feature?, exclude-feature?, description?, (request|pause)+)>
 			<!ATTLIST test name CDATA #REQUIRED

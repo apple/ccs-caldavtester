@@ -32,9 +32,21 @@ class testsuite(object):
         self.name = ""
         self.ignore = False
         self.only = False
+        self.changeuid = False
         self.require_features = set()
         self.exclude_features = set()
         self.tests = []
+
+
+    def aboutToRun(self):
+        """
+        Typically we need the calendar/contact data for a test file to have a common set
+        of UIDs, and for each overall test file to have unique UIDs. Occasionally, within
+        a test file we also need test suites to have unique UIDs. The "change-uid" attribute
+        can be used to reset the active UIDs for a test suite.
+        """
+        if self.changeuid:
+            self.manager.server_info.newUIDs()
 
 
     def missingFeatures(self):
@@ -49,6 +61,7 @@ class testsuite(object):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
         self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
         self.only = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ONLY)
+        self.changeuid = getYesNoAttributeValue(node, src.xmlDefs.ATTR_CHANGE_UID)
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

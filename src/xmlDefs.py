@@ -82,6 +82,7 @@ ELEMENT_WARNINGTIME = "warningtime"
 
 ATTR_HOST2 = "host2"
 ATTR_AUTH = "auth"
+ATTR_CHANGE_UID = "change-uid"
 ATTR_COUNT = "count"
 ATTR_DETAILS = "details"
 ATTR_ENABLE = "enable"

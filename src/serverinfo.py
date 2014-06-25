@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
+from uuid import uuid4
 
 """
 Class that encapsulates the server information for a CalDAV test run.
@@ -98,6 +99,9 @@ class serverinfo(object):
             sub = "%s%s%s" % (sub[:pos], value, sub[endpos + 1:])
             pos = sub.find("$now.")
 
+        if sub.find("$uidrandom:") != -1:
+            sub = sub.replace("$uidrandom:", str(uuid4()))
+
         if db is None:
             db = self.subsdict
         while '$' in sub:
@@ -142,6 +146,12 @@ class serverinfo(object):
             processed[variable] = value
 
         self.addsubs(processed, self.extrasubsdict)
+
+
+    def newUIDs(self):
+        uidsubs = dict([("$uid{}:".format(i), str(uuid4())) for i in range(1, 21)])
+        self.subsdict.update(uidsubs)
+        self.extrasubsdict.update(uidsubs)
 
 
     def parseXML(self, node):

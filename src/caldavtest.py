@@ -100,6 +100,9 @@ class caldavtest(object):
             self.manager.testFile(self.name, "Excluded features: %s" % (", ".join(sorted(self.excludedFeatures()),)), manager.RESULT_IGNORED)
             return 0, 0, 1
 
+        # Always need a new set of UIDs for the entire test
+        self.manager.server_info.newUIDs()
+
         self.only = any([suite.only for suite in self.suites])
         try:
             result = self.dorequests("Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
@@ -154,6 +157,7 @@ class caldavtest(object):
             etags = {}
             only_tests = any([test.only for test in suite.tests])
             testsuite = self.manager.testSuite(testfile, result_name, "")
+            suite.aboutToRun()
             for test in suite.tests:
                 result = self.run_test(testsuite, test, etags, only_tests, label="%s | %s" % (label, test.name))
                 if result == "t":
