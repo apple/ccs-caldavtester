@@ -127,7 +127,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -144,7 +144,7 @@
 		</test>
 		<test name='2'>
 			<description>GET on calendar after PUT - 2nd time from cache</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -192,7 +192,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -209,7 +209,7 @@
 		</test>
 		<test name='2'>
 			<description>GET on calendar collection after DELETE - 2nd time from cache</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>

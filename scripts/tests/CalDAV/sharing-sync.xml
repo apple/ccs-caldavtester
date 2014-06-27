@@ -43,7 +43,7 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>PROPPATCH</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -54,9 +54,9 @@
 	</start>
 	
 	<test-suite name='Read-write calendar'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial sync tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -71,7 +71,7 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -86,7 +86,7 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -101,7 +101,7 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<data>
@@ -116,7 +116,7 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<data>
@@ -132,9 +132,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -148,11 +148,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -179,10 +179,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 				</data>
@@ -200,12 +200,12 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -222,10 +222,10 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -246,10 +246,10 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
 				</data>
@@ -264,10 +264,10 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
@@ -284,10 +284,10 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
@@ -299,10 +299,10 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-infinite.xml</filepath>
 				</data>
@@ -323,10 +323,10 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
 				</data>
@@ -341,7 +341,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharee creates event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/1.ics</ruri>
 				<data>
@@ -353,12 +353,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -374,10 +374,10 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -394,10 +394,10 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
 				</data>
@@ -413,10 +413,10 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
@@ -432,10 +432,10 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
@@ -452,10 +452,10 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
 				</data>
@@ -474,7 +474,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharer changes event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -486,12 +486,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -507,10 +507,10 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -527,10 +527,10 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
 				</data>
@@ -546,10 +546,10 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
@@ -565,10 +565,10 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
@@ -585,10 +585,10 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
 				</data>
@@ -607,7 +607,7 @@
 		</test>
 		<test name='10'>
 			<description>Sharee deletes event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/1.ics</ruri>
 				<verify>
@@ -615,12 +615,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -636,10 +636,10 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -659,10 +659,10 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
 				</data>
@@ -678,10 +678,10 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
@@ -697,10 +697,10 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
@@ -720,10 +720,10 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
 				</data>
@@ -742,7 +742,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharer unshares</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -754,12 +754,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Updated tokens</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -775,10 +775,10 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -794,10 +794,10 @@
 					<variable>$synctoken2:</variable>
 				</grabelement>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/shared/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token3-level-1.xml</filepath>
 				</data>
@@ -809,10 +809,10 @@
 					<variable>$synctoken3:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token4-level-1.xml</filepath>
 				</data>
@@ -832,10 +832,10 @@
 					<variable>$synctoken4:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token5-level-infinite.xml</filepath>
 				</data>
@@ -859,10 +859,10 @@
 					<variable>$synctoken5:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/$sharedcalendar:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token6-level-1.xml</filepath>
 				</data>
@@ -878,18 +878,18 @@
 	</test-suite>
 	
 
-	<test-suite name='calendar webdav property change - home depth:infinity' ignore='no'>
+	<test-suite name='calendar webdav property change - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation and accept</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -900,11 +900,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -928,10 +928,10 @@
 					<variable>$hosturl2:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 				</data>
@@ -949,9 +949,9 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -979,9 +979,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>initial query - grab token for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -1009,7 +1009,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Change a property by user 1</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -1023,16 +1023,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-infinite.xml</filepath>
 				</data>
@@ -1056,16 +1056,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -1089,7 +1089,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Remove a property by user 1</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -1103,16 +1103,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-infinite.xml</filepath>
 				</data>
@@ -1136,16 +1136,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -1169,7 +1169,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Change a property by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
@@ -1183,16 +1183,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-infinite.xml</filepath>
 				</data>
@@ -1216,16 +1216,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -1249,7 +1249,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Remove a property by user 1</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
@@ -1263,16 +1263,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-infinite.xml</filepath>
 				</data>
@@ -1296,16 +1296,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-infinite.xml</filepath>
 				</data>
@@ -1331,7 +1331,7 @@
 		</test>
 		<test name='16'>
 			<description>Sharer unshares</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -1345,18 +1345,18 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='calendar webdav property change - home depth:1' ignore='no'>
+	<test-suite name='calendar webdav property change - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation and accept</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath1:/</ruri>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -1367,11 +1367,11 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -1395,10 +1395,10 @@
 					<variable>$hosturl2:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 				</data>
@@ -1416,9 +1416,9 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1446,9 +1446,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>initial query - grab token for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -1476,7 +1476,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Change a property by user 1</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -1490,16 +1490,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -1523,16 +1523,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-1.xml</filepath>
 				</data>
@@ -1556,7 +1556,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Remove a property by user 1</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -1570,16 +1570,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -1603,16 +1603,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-1.xml</filepath>
 				</data>
@@ -1636,7 +1636,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Change a property by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
@@ -1650,16 +1650,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -1683,16 +1683,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-1.xml</filepath>
 				</data>
@@ -1716,7 +1716,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Remove a property by user 1</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
@@ -1730,16 +1730,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Sync for user 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token1-level-1.xml</filepath>
 				</data>
@@ -1763,16 +1763,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Sync for user 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/REPORT/sync-token2-level-1.xml</filepath>
 				</data>
@@ -1798,7 +1798,7 @@
 		</test>
 		<test name='16'>
 			<description>Sharer unshares</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>

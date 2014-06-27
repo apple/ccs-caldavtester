@@ -61,7 +61,7 @@
 		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>POST</method>
 			<ruri>$pcalendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 			</data>
@@ -89,7 +89,7 @@
 		<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 			<method>POST</method>
 			<ruri>$pcalendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3-pod.xml</filepath>
 			</data>
@@ -127,10 +127,10 @@
 	<test-suite name='Initial event'>
 		<test name='1'>
 			<description>User01 store to shared</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/1.ics</filepath>
 				</data>
@@ -141,7 +141,7 @@
 			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/3.ics</filepath>
 				</data>
@@ -182,10 +182,10 @@
 		</test>
 		<test name='3'>
 			<description>User02 freebusy</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$poutboxpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/4.ics</filepath>
 				</data>
@@ -226,10 +226,10 @@
 		</test>
 		<test name='4'>
 			<description>User03 freebusy</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response="no">
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>POST</method>
 				<ruri>$poutboxpath3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/5.ics</filepath>
 				</data>
@@ -273,10 +273,10 @@
 	<test-suite name='Changed event'>
 		<test name='1'>
 			<description>User02 store to shared</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/2.ics</filepath>
 				</data>
@@ -287,7 +287,7 @@
 			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/3.ics</filepath>
 				</data>
@@ -324,10 +324,10 @@
 		</test>
 		<test name='3'>
 			<description>User02 freebusy</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$poutboxpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/4.ics</filepath>
 				</data>
@@ -364,10 +364,10 @@
 		</test>
 		<test name='4'>
 			<description>User03 freebusy</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response="no">
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>POST</method>
 				<ruri>$poutboxpath3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/freebusy/5.ics</filepath>
 				</data>

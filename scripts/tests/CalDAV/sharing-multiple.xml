@@ -52,9 +52,9 @@
 	</start>
 	
 	<test-suite name='Send new invite #1'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -71,9 +71,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared1/</ruri>
 				<data>
@@ -87,11 +87,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -105,10 +105,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/2.xml</filepath>
 				</data>
@@ -121,9 +121,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One more calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -143,9 +143,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One more calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar1:/</ruri>
 				<header>
@@ -168,9 +168,9 @@
 	</test-suite>
 	
 	<test-suite name='Send new invite #2'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -187,9 +187,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
@@ -203,11 +203,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 2</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -221,10 +221,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/multiple/3.xml</filepath>
 				</data>
@@ -237,9 +237,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One more calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -259,9 +259,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One more calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -284,9 +284,9 @@
 	</test-suite>
 	
 	<test-suite name='Uninvite #2'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -303,9 +303,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
@@ -319,7 +319,7 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
@@ -339,9 +339,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One less calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -361,9 +361,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One less calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -383,9 +383,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Existing calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar1:/</ruri>
 				<header>

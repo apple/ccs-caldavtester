@@ -37,8 +37,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='Generate invite' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Generate invite'>
+		<test name='1'>
 			<description>Create</description>
 			<request end-delete="yes">
 				<method>MKCALENDAR</method>
@@ -48,9 +48,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND Home to cache it</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -70,9 +70,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -84,9 +84,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PROPFIND Home check</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -106,9 +106,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>POST uninvite</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -120,9 +120,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>PROPFIND Home check</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -145,9 +145,9 @@
 	</test-suite>
 
 	<test-suite name='Send first reply'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -161,11 +161,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -186,9 +186,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPFIND Home check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -206,10 +206,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/replies/accept/3.xml</filepath>
 				</data>
@@ -230,9 +230,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PROPFIND Home check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -252,9 +252,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete shared</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$shareecalendar:/</ruri>
 				<verify>
@@ -262,9 +262,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>PROPFIND Home check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -286,10 +286,10 @@
 		</test>
 		<test name='8'>
 			<description>Sharee replies ACCEPTED - need to do this cycle of accept/delete twice to regress properly</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/replies/accept/3.xml</filepath>
 				</data>
@@ -310,9 +310,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>PROPFIND Home check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -332,9 +332,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete shared</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$shareecalendar:/</ruri>
 				<verify>
@@ -342,9 +342,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>PROPFIND Home check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>

@@ -262,7 +262,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -280,7 +280,7 @@
 		</test>
 		<test name='7'>
 			<description>PUT with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -298,7 +298,7 @@
 		</test>
 		<test name='8' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>PUT with too many recurrence instances to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -316,7 +316,7 @@
 		</test>
 		<test name='9' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>PUT with too many recurrence instances to existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -337,7 +337,7 @@
 				<feature>timezones-by-reference</feature>
 			</exclude-feature>
 			<description>PUT without timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -355,7 +355,7 @@
 		</test>
 		<test name='11'>
 			<description>PUT invalid RRULE</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/33.ics</ruri>
 				<data>
@@ -373,7 +373,7 @@
 		</test>
 		<test name='12' ignore='yes'> <!-- PyCalendar merges similar components for now -->
 			<description>PUT duplicate RECURRENCE-ID</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/34.ics</ruri>
 				<data>
@@ -391,7 +391,7 @@
 		</test>
 		<test name='13'>
 			<description>PUT bad escape sequence</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/34.ics</ruri>
 				<data>
@@ -409,7 +409,7 @@
 		</test>
 		<test name='14' ignore="yes"> <!-- Test disabled for Leopard iCal workaround -->
 			<description>PUT invalid master/Recurrence-ID</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/37.ics</ruri>
 				<data>
@@ -427,7 +427,7 @@
 		</test>
 		<test name='15' ignore="yes"> <!-- Test disabled for Leopard iCal workaround -->
 			<description>PUT invalid master/Recurrence-ID</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/38.ics</ruri>
 				<data>
@@ -445,7 +445,7 @@
 		</test>
 		<test name='16'>
 			<description>PUT with too many attendees to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -463,7 +463,7 @@
 		</test>
 		<test name='17'>
 			<description>PUT with invalid recurrence id</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
@@ -483,7 +483,7 @@
 		     in the calendar data.
 		<test name='18'>
 			<description>PUT with bad organizer property</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
@@ -615,7 +615,7 @@
 				<feature>timezones-by-reference</feature>
 			</require-feature>
 			<description>PUT with missing timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -747,7 +747,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<description>COPY with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/6.ics</ruri>
 				<header>
@@ -768,7 +768,7 @@
 				<feature>no-duplicate-uids</feature>
 			</exclude-feature>
 			<description>COPY from calendar with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 				<header>
@@ -789,7 +789,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<description>COPY with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/7.ics</ruri>
 				<header>
@@ -807,7 +807,7 @@
 		</test>
 		<test name='9' ignore="yes">
 			<description>COPY from calendar with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/calendar2/7.ics</ruri>
 				<header>
@@ -825,7 +825,7 @@
 		</test>
 		<test name='10' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>COPY with too many recurrence instances to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/8.ics</ruri>
 				<header>
@@ -843,7 +843,7 @@
 		</test>
 		<test name='11' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>COPY with too many recurrence instances to existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/9.ics</ruri>
 				<header>
@@ -1014,7 +1014,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<description>MOVE with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/6.ics</ruri>
 				<header>
@@ -1035,7 +1035,7 @@
 				<feature>no-duplicate-uids</feature>
 			</exclude-feature>
 			<description>MOVE from calendar with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/calendar2/6.ics</ruri>
 				<header>
@@ -1056,7 +1056,7 @@
 				<feature>regular-collection</feature>
 			</require-feature>
 			<description>MOVE with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/7.ics</ruri>
 				<header>
@@ -1074,7 +1074,7 @@
 		</test>
 		<test name='9'>
 			<description>MOVE from calendar with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/calendar2/7.ics</ruri>
 				<header>
@@ -1092,7 +1092,7 @@
 		</test>
 		<test name='10' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>MOVE with too many recurrence instances to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/8.ics</ruri>
 				<header>
@@ -1110,7 +1110,7 @@
 		</test>
 		<test name='11' ignore="yes"> <!-- RRULE's now truncated -->
 			<description>MOVE with too many recurrence instances to existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/9.ics</ruri>
 				<header>
@@ -1170,7 +1170,7 @@
 	<test-suite name='REPORT/calendar-data'>
 		<test name='1'>
 			<description>query with invalid calendar-data content-type</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1245,7 +1245,7 @@
 	<test-suite name='REPORT/filter'>
 		<test name='1'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1263,7 +1263,7 @@
 		</test>
 		<test name='2'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1281,7 +1281,7 @@
 		</test>
 		<test name='3'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1299,7 +1299,7 @@
 		</test>
 		<test name='4'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1317,7 +1317,7 @@
 		</test>
 		<test name='5'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1335,7 +1335,7 @@
 		</test>
 		<test name='6'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1353,7 +1353,7 @@
 		</test>
 		<test name='7'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1371,7 +1371,7 @@
 		</test>
 		<test name='8'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1389,7 +1389,7 @@
 		</test>
 		<test name='9'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1407,7 +1407,7 @@
 		</test>
 		<test name='10'>
 			<description>query with invalid time-range (dates)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1425,7 +1425,7 @@
 		</test>
 		<test name='11'>
 			<description>query with invalid time-range (floating)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1443,7 +1443,7 @@
 		</test>
 		<test name='12'>
 			<description>free-busy with invalid time-range (dates)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1461,7 +1461,7 @@
 		</test>
 		<test name='13'>
 			<description>free-busy with invalid time-range (floating)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1482,7 +1482,7 @@
 	<test-suite name='Invalid CalDAV:timezone'>
 		<test name='1'>
 			<description>query with invalid timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1500,7 +1500,7 @@
 		</test>
 		<test name='2'>
 			<description>proppatch with invalid timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -1521,7 +1521,7 @@
 	<test-suite name='Invalid urn: calendar user address'>
 		<test name='1'>
 			<description>POST free busy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -1542,7 +1542,7 @@
 	<test-suite name='Root resource'>
 		<test name='1'>
 			<description>DELETE /</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$root:</ruri>
 				<verify>
@@ -1556,7 +1556,7 @@
 		</test>
 		<test name='2'>
 			<description>COPY /</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$root:</ruri>
 				<header>
@@ -1574,7 +1574,7 @@
 		</test>
 		<test name='3'>
 			<description>MOVE /</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$root:</ruri>
 				<header>
@@ -1592,7 +1592,7 @@
 		</test>
 		<test name='4'>
 			<description>GET //</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$root://</ruri>
 				<verify>
@@ -1605,7 +1605,7 @@
 	<test-suite name='Unauthenticated versus Forbidden'>
 		<test name='1'>
 			<description>Existing user with incorrect password</description>
-			<request user="$userid1:" pswd="bogus" print-response='no'>
+			<request user="$userid1:" pswd="bogus">
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -1619,7 +1619,7 @@
 		</test>
 		<test name='2'>
 			<description>Non-Existing user</description>
-			<request user="bogus" pswd="bogus" print-response='no'>
+			<request user="bogus" pswd="bogus">
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>

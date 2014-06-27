@@ -48,10 +48,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Proxy on node #2' ignore="no">
+	<test-suite name='Proxy on node #2'>
 		<test name='1'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -70,7 +70,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal2:</ruri>
 				<data>
@@ -89,7 +89,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify no access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -103,7 +103,7 @@
 		</test>
 		<test name='4'>
 			<description>Add other02 as read proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -118,7 +118,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -137,7 +137,7 @@
 		</test>
 		<test name='5'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -160,7 +160,7 @@
 		</test>
 		<test name='6'>
 			<description>Verify single group membership</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<header>
@@ -183,7 +183,7 @@
 		</test>
 		<test name='7'>
 			<description>Verify access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -197,7 +197,7 @@
 		</test>
 		<test name='8'>
 			<description>Verify no access for scheduling</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -223,7 +223,7 @@
 		</test>
 		<test name='9'>
 			<description>Clear other02 as read-only proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -238,7 +238,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -257,7 +257,7 @@
 		</test>
 		<test name='10'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -276,7 +276,7 @@
 		</test>
 		<test name='11'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<data>
@@ -295,7 +295,7 @@
 		</test>
 		<test name='12'>
 			<description>Verify no access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -309,7 +309,7 @@
 		</test>
 		<test name='13'>
 			<description>Add other02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -324,7 +324,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -343,7 +343,7 @@
 		</test>
 		<test name='14'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -366,7 +366,7 @@
 		</test>
 		<test name='15'>
 			<description>Verify single group membership</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<header>
@@ -389,7 +389,7 @@
 		</test>
 		<test name='16'>
 			<description>Verify access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -403,7 +403,7 @@
 		</test>
 		<test name='17'>
 			<description>Verify access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -417,7 +417,7 @@
 		</test>
 		<test name='18'>
 			<description>Verify access for scheduling</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -439,7 +439,7 @@
 		</test>
 		<test name='19'>
 			<description>Verify no access for scheduling</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -465,7 +465,7 @@
 		</test>
 		<test name='20'>
 			<description>Clear other02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -480,7 +480,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -499,7 +499,7 @@
 		</test>
 		<test name='21'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -518,7 +518,7 @@
 		</test>
 		<test name='22'>
 			<description>Verify no group memberships right now</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<data>
@@ -537,7 +537,7 @@
 		</test>
 		<test name='23'>
 			<description>Verify no access to resource</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -551,10 +551,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Proxy on node #1' ignore="no">
+	<test-suite name='Proxy on node #1'>
 		<test name='1'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<data>
@@ -573,7 +573,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principal2:</ruri>
 				<data>
@@ -592,7 +592,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify no access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<verify>
@@ -606,7 +606,7 @@
 		</test>
 		<test name='4'>
 			<description>Add user02 as read proxy for other02</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$otherprincipal2:calendar-proxy-read/</ruri>
 				<data>
@@ -621,7 +621,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:calendar-proxy-read/</ruri>
 				<data>
@@ -640,7 +640,7 @@
 		</test>
 		<test name='5'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<header>
@@ -663,7 +663,7 @@
 		</test>
 		<test name='6'>
 			<description>Verify single group membership</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principal2:</ruri>
 				<header>
@@ -686,7 +686,7 @@
 		</test>
 		<test name='7'>
 			<description>Verify access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<verify>
@@ -700,7 +700,7 @@
 		</test>
 		<test name='8'>
 			<description>Verify no access for scheduling</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
@@ -726,7 +726,7 @@
 		</test>
 		<test name='9'>
 			<description>Clear user02 as read-only proxy for other02</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$otherprincipal2:calendar-proxy-read/</ruri>
 				<data>
@@ -741,7 +741,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:calendar-proxy-read/</ruri>
 				<data>
@@ -760,7 +760,7 @@
 		</test>
 		<test name='10'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<data>
@@ -779,7 +779,7 @@
 		</test>
 		<test name='11'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -798,7 +798,7 @@
 		</test>
 		<test name='12'>
 			<description>Verify no access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<verify>
@@ -812,7 +812,7 @@
 		</test>
 		<test name='13'>
 			<description>Add user02 as read-write proxy for other02</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$otherprincipal2:calendar-proxy-write/</ruri>
 				<data>
@@ -827,7 +827,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:calendar-proxy-write/</ruri>
 				<data>
@@ -846,7 +846,7 @@
 		</test>
 		<test name='14'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<header>
@@ -869,7 +869,7 @@
 		</test>
 		<test name='15'>
 			<description>Verify single group membership</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principal2:</ruri>
 				<header>
@@ -892,7 +892,7 @@
 		</test>
 		<test name='16'>
 			<description>Verify access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<verify>
@@ -906,7 +906,7 @@
 		</test>
 		<test name='17'>
 			<description>Verify access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<data>
@@ -920,7 +920,7 @@
 		</test>
 		<test name='18'>
 			<description>Verify access for scheduling</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
@@ -942,7 +942,7 @@
 		</test>
 		<test name='19'>
 			<description>Verify no access for scheduling</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$otheroutboxpath1:/</ruri>
 				<header>
@@ -968,7 +968,7 @@
 		</test>
 		<test name='20'>
 			<description>Clear user02 as read-write proxy for other02</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$otherprincipal2:calendar-proxy-write/</ruri>
 				<data>
@@ -983,7 +983,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:calendar-proxy-write/</ruri>
 				<data>
@@ -1002,7 +1002,7 @@
 		</test>
 		<test name='21'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherprincipal2:</ruri>
 				<data>
@@ -1021,7 +1021,7 @@
 		</test>
 		<test name='22'>
 			<description>Verify no group memberships right now</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response="no">
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principal2:</ruri>
 				<data>
@@ -1040,7 +1040,7 @@
 		</test>
 		<test name='23'>
 			<description>Verify no access to resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$othercalendarpath2:/1.ics</ruri>
 				<verify>

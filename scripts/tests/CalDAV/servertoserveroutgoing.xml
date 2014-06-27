@@ -27,10 +27,10 @@
 
 	<start/>
 	
-	<test-suite name="POST free-busy" ignore='no'>
+	<test-suite name="POST free-busy">
 		<test name='1'>
 			<description>POST free busy one valid user</description>
-			<request print-response='yes'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -51,10 +51,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name="POST invite" ignore='no'>
+	<test-suite name="POST invite">
 		<test name='1'>
 			<description>POST invite one valid user</description>
-			<request print-response='yes'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>

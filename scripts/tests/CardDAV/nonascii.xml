@@ -29,9 +29,9 @@
 
 <!--
 	<test-suite name='non-ascii' ignore="yes">
-		<test name='1' ignore="no">
+		<test name='1'>
 			<description>MKCOL with high-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>MKCOL</method>
 				<ruri>$addressbookhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -45,7 +45,7 @@
 		</test>
 		<test name='2' ignore="yes">
 			<description>MKCOL with non-ascii - duplicate</description>
-			<request print-response="no">
+			<request>
 				<method>MKCOL</method>
 				<ruri>$addressbookhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -61,9 +61,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>GET with non-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/T%c3%a9st/</ruri>
 				<verify>
@@ -71,9 +71,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore="no">
+		<test name='4'>
 			<description>DELETE with non-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$addressbookhome1:/T%c3%a9st/</ruri>
 				<verify>
@@ -86,7 +86,7 @@
 	
 <!--
 	<test-suite name='double byte' ignore="yes">
-		<test name='1' ignore="no">
+		<test name='1'>
 			<description>MKCOL with double byte</description>
 			<request end-delete="no">
 				<method>MKCOL</method>
@@ -100,9 +100,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>MKCOL with non-ascii - duplicate</description>
-			<request print-response="no">
+			<request>
 				<method>MKCOL</method>
 				<ruri>$addressbookhome1:/%E5%88%9D%E6%97%A5/</ruri>
 				<data>
@@ -120,7 +120,7 @@
 		</test>
 		<test name='3'>
 			<description>GET with non-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/%E5%88%9D%E6%97%A5/</ruri>
 				<verify>
@@ -128,9 +128,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore="no">
+		<test name='4'>
 			<description>DELETE with non-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$addressbookhome1:/%E5%88%9D%E6%97%A5/</ruri>
 				<verify>
@@ -141,8 +141,8 @@
 	</test-suite>
  -->
 <!--
-	<test-suite name='Non-ascii resource URI' ignore="no">
-		<test name='1' ignore="no">
+	<test-suite name='Non-ascii resource URI'>
+		<test name='1'>
 			<description>PUT with high-ascii</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -156,7 +156,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>PUT with high-ascii</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -174,9 +174,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>GET with high-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/T%c3%a9st/te%cc%81st.vcf</ruri>
 				<verify>
@@ -184,9 +184,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore="no">
+		<test name='4'>
 			<description>GET with high-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/Te%cc%81st/t%c3%a9st.vcf</ruri>
 				<verify>
@@ -194,9 +194,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore="no">
+		<test name='5'>
 			<description>DELETE with high-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$addressbookhome1:/Te%cc%81st/t%c3%a9st.vcf</ruri>
 				<verify>
@@ -205,8 +205,8 @@
 			</request>
 		</test>
 	</test-suite>
-	<test-suite name='Multiget on-ascii resource URI' ignore="no">
-		<test name='1' ignore="no">
+	<test-suite name='Multiget on-ascii resource URI'>
+		<test name='1'>
 			<description>MKCOL with high-ascii</description>
 			<request end-delete="yes">
 				<method>MKCOL</method>
@@ -216,9 +216,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>REPORT with high-ascii - match parent and child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/Tást/</ruri>
 				<data>
@@ -234,9 +234,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>DELETE with high-ascii</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$addressbookhome1:/Tást/</ruri>
 				<verify>
@@ -244,9 +244,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>REPORT with non-ascii - match parent, different child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/Tást/</ruri>
 				<data>
@@ -262,9 +262,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore="no">
+		<test name='4'>
 			<description>REPORT with non-ascii - different parent, match child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/Te%cc%81st/</ruri>
 				<data>
@@ -280,9 +280,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore="no">
+		<test name='5'>
 			<description>REPORT with non-ascii - different parent, different child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/Te%cc%81st/</ruri>
 				<data>
@@ -298,9 +298,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore="no">
+		<test name='6'>
 			<description>REPORT with non-ascii - match parent, match child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -316,9 +316,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore="no">
+		<test name='7'>
 			<description>REPORT with non-ascii - match parent, different child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -334,9 +334,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore="no">
+		<test name='8'>
 			<description>REPORT with non-ascii - different parent, match child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -352,9 +352,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore="no">
+		<test name='9'>
 			<description>REPORT with non-ascii - different parent, different child</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/T%c3%a9st/</ruri>
 				<data>
@@ -372,8 +372,8 @@
 		</test>
 	</test-suite>
 	-->
-	<test-suite name='high-ascii addressbook data' ignore="no">
-		<test name='1' ignore="no">
+	<test-suite name='high-ascii addressbook data'>
+		<test name='1'>
 			<description>PUT with high-ascii data</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -387,9 +387,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>GET with non-ascii data</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/highascii.vcf</ruri>
 				<verify>
@@ -397,9 +397,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>Basic query with high-ascii data</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -415,9 +415,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore="no">
+		<test name='4'>
 			<description>Text query with ascii data</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -434,8 +434,8 @@
 			</request>
 		</test>
 	</test-suite>
-	<test-suite name='Non-utf-8 address data' ignore="no">
-		<test name='1' ignore="no">
+	<test-suite name='Non-utf-8 address data'>
+		<test name='1'>
 			<description>PUT with non-utf-8 data without charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -453,7 +453,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>PUT with non-utf-8 data with utf-8 charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -471,7 +471,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>PUT with non-utf-8 data with non-utf-8 charset</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -491,8 +491,8 @@
 		</test>
 	</test-suite>
 <!--
-	<test-suite name='Copy/Move Non-utf-8 calendar data' ignore="no">
-		<test name='1' ignore="no">
+	<test-suite name='Copy/Move Non-utf-8 calendar data'>
+		<test name='1'>
 			<description>PUT with non-utf-8 data to regular collection</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -506,7 +506,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>COPY non-utf-8 data to calendar collection</description>
 			<request end-delete="yes">
 				<method>COPY</method>
@@ -524,7 +524,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore="no">
+		<test name='3'>
 			<description>MOVE non-utf-8 data to calendar collection</description>
 			<request end-delete="yes">
 				<method>MOVE</method>

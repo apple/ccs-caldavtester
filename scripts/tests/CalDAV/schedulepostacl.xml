@@ -225,17 +225,17 @@
 		<request>
 			<method>PROPPATCH</method>
 			<ruri>$inboxpath1:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/scheduleacl/1.xml</filepath>
 			</data>
 		</request>
 	</start>
 	
-	<test-suite name='Schedule free-busy' ignore='no'>
+	<test-suite name='Schedule free-busy'>
 		<test name='1'>
 			<description>POST free busy</description>
-			<request user="$userid2:" pswd='$pswd2:' print-response='no'>
+			<request user="$userid2:" pswd='$pswd2:'>
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -262,7 +262,7 @@
 		<request>
 			<method>PROPPATCH</method>
 			<ruri>$inboxpath1:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
 				<filepath>Resource/CalDAV/scheduleacl/2.xml</filepath>
 			</data>

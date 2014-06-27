@@ -168,7 +168,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<verify>
@@ -194,7 +194,7 @@
 		</test>
 		<test name='5'>
 			<description>Conditional GET on addressbook collection</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -212,7 +212,7 @@
 		</test>
 		<test name='6'>
 			<description>Conditional GET on addressbook collection</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -230,7 +230,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='GET on home' ignore='no'>
+	<test-suite name='GET on home'>
 		<require-feature>
 			<feature>directory listing</feature>
 		</require-feature>
@@ -260,9 +260,9 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Conditional GET on addressbook home</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -280,7 +280,7 @@
 		</test>
 		<test name='5'>
 			<description>Conditional GET on addressbook home</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>

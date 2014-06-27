@@ -43,7 +43,7 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>PROPPATCH</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -53,10 +53,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='support-report-set' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='support-report-set'>
+		<test name='1'>
 			<description>On notification collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$notificationpath1:/</ruri>
 				<header>
@@ -78,10 +78,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='initial tokens - depth 1' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='initial tokens - depth 1'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$notificationpath1:/</ruri>
 				<header>
@@ -105,9 +105,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
@@ -133,10 +133,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Read-write calendar - depth 1' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Read-write calendar - depth 1'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -148,20 +148,20 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -184,21 +184,21 @@
 		</test>
 		<test name='3'>
 			<description>Remove notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>new resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -221,13 +221,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='initial tokens - depth infinity' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='initial tokens - depth infinity'>
+		<test name='1'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -259,12 +259,12 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - grab token</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -301,9 +301,9 @@
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -315,13 +315,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -342,14 +342,14 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -368,21 +368,21 @@
 		</test>
 		<test name='3'>
 			<description>Remove notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>deleted resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -405,10 +405,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
 				</data>
@@ -425,16 +425,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6-' ignore='no'>
+		<test name='6-'>
 			<description>bad sync token</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -447,16 +447,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
@@ -507,7 +507,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharee removes calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<verify>
@@ -515,16 +515,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>removed calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -551,9 +551,9 @@
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -565,13 +565,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -592,14 +592,14 @@
 					<variable>$inviteuid:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -618,21 +618,21 @@
 		</test>
 		<test name='3'>
 			<description>Remove notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>deleted resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -655,10 +655,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
 				</data>
@@ -675,16 +675,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6-' ignore='no'>
+		<test name='6-'>
 			<description>bad sync token</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -697,16 +697,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
@@ -755,9 +755,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -768,14 +768,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
@@ -787,21 +787,21 @@
 					<variable>$synctoken1:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>removed calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -826,16 +826,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>no calendar change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
 				</data>
@@ -848,16 +848,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>no calendar change</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/12.xml</filepath>
 				</data>
@@ -886,9 +886,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -900,13 +900,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>new resource</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<grabelement>
@@ -917,18 +917,18 @@
 		</test>
 		<test name='4'>
 			<description>Remove notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -943,10 +943,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/5.xml</filepath>
 				</data>
@@ -963,16 +963,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6-' ignore='no'>
+		<test name='6-'>
 			<description>bad sync token</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -985,16 +985,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
@@ -1045,16 +1045,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Grab sharer's sync token'</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/2.xml</filepath>
 				</data>
@@ -1081,16 +1081,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Sharer change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
 				</data>
@@ -1108,16 +1108,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Sharee change</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -1153,16 +1153,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Sharer change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
 				</data>
@@ -1180,16 +1180,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Sharee change</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -1221,16 +1221,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Sharer change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
 				</data>
@@ -1251,16 +1251,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
+		<test name='16'>
 			<description>Sharee change</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -1295,16 +1295,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='18'>
 			<description>Sharer change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/9.xml</filepath>
 				</data>
@@ -1325,16 +1325,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='19'>
 			<description>Sharee change</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -1361,7 +1361,7 @@
 		</test>
 		<test name='20'>
 			<description>Sharee removes calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<verify>
@@ -1369,16 +1369,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21' ignore='no'>
+		<test name='21'>
 			<description>removed calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/notification-sync/4.xml</filepath>
 				</data>
@@ -1401,20 +1401,20 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Response cache' ignore='no'>
+	<test-suite name='Response cache'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PROPFIND of current sync-token - direct</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1427,16 +1427,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND of home</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1449,16 +1449,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPFIND of home again - to cache it</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1471,9 +1471,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -1485,16 +1485,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PROPFIND of home - token changed</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1507,16 +1507,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>PROPFIND of new sync-token - direct</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$notificationpath2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1529,16 +1529,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>PROPFIND of home</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1555,16 +1555,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>PROPFIND of home again - to cache it</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>
@@ -1583,21 +1583,21 @@
 		</test>
 		<test name='9'>
 			<description>Remove notification</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>PROPFIND of home - token changed</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/sync-token.xml</filepath>
 				</data>

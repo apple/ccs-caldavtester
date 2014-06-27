@@ -62,10 +62,10 @@
 -->
 	</start>
 	
-	<test-suite name='acl-principal-prop-set REPORT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='acl-principal-prop-set REPORT'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -85,9 +85,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -107,9 +107,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>No DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -129,9 +129,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Too many DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -147,9 +147,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>No DAV:read-acl privilege</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -165,9 +165,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Valid report</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -190,10 +190,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='principal-match REPORT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='principal-match REPORT'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -213,9 +213,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -235,9 +235,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Too many DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<data>
@@ -253,9 +253,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid self report with DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -275,9 +275,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Valid self report without DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -299,7 +299,7 @@
 		</test>
 		<test name='6' ignore='yes'>
 			<description>Valid principal-search report with DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -317,7 +317,7 @@
 		</test>
 		<test name='7' ignore='yes'>
 			<description>Valid principal-search report without DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -333,9 +333,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>principal-search with inaccessible property</description>
-			<request print-response='no' user='$userid2:' pswd='$pswd2:'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -353,10 +353,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='principal-property-search REPORT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='principal-property-search REPORT'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -376,9 +376,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -398,9 +398,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Valid non-apply-to report with DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<data>
@@ -421,9 +421,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<data>
@@ -445,9 +445,9 @@
 			</request>
 		</test>
 	<!--
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Valid apply-to report with DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -471,9 +471,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -496,9 +496,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:</ruri>
 				<data>
@@ -518,9 +518,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -541,9 +541,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Valid ROOM displayname search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -563,9 +563,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Valid RESOURCE displayname search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -587,10 +587,10 @@
 		</test>
 	-->
 	</test-suite>
-	<test-suite name='principal-search-property-set REPORT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='principal-search-property-set REPORT'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -610,9 +610,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -632,9 +632,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Report on non-principal collection</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -651,9 +651,9 @@
 			</request>
 		</test>
 	<!--
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid report</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principalcollection:</ruri>
 				<data>
@@ -675,10 +675,10 @@
 		-->
 	</test-suite>
 	<!--
-	<test-suite name='supported-report-set property' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='supported-report-set property'>
+		<test name='1'>
 			<description>Regular resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -705,9 +705,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Regular resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principalcollection:</ruri>
 				<header>

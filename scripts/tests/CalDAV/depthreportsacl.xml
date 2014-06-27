@@ -224,17 +224,17 @@
 		</request>
 	</start>
 	
-	<test-suite name='Reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Reports'>
+		<test name='1'>
 			<description>multiget on top collection</description>
-			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/depthreportsacl/4.xml</filepath>
 				</data>
@@ -258,16 +258,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query on top collection</description>
-			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/depthreportsacl/5.xml</filepath>
 				</data>
@@ -280,9 +280,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for free busy on collection with Depth infinity</description>
-			<request user='$userid2:' pswd='$pswd2:' print-response='no'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>

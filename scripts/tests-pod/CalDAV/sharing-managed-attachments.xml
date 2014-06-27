@@ -63,7 +63,7 @@
 		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>POST</method>
 			<ruri>$pcalendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 			</data>
@@ -91,7 +91,7 @@
 		<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 			<method>POST</method>
 			<ruri>$pcalendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3-pod.xml</filepath>
 			</data>
@@ -1334,7 +1334,7 @@
 	<test-suite name='Direct share'>
 		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -1352,7 +1352,7 @@
 		</test>
 		<test name='2'>
 			<description>Add user03 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -1672,7 +1672,7 @@
 		</test>
 		<test name='16'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -1690,7 +1690,7 @@
 		</test>
 		<test name='17'>
 			<description>Clear user03 as read-only proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>

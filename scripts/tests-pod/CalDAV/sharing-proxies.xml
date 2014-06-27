@@ -53,10 +53,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Setup proxies' ignore="no">
+	<test-suite name='Setup proxies'>
 		<test name='1'>
 			<description>Add user03 as read proxy for user02</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$pprincipal2:calendar-proxy-read/</ruri>
 				<data>
@@ -74,7 +74,7 @@
 		</test>
 		<test name='2'>
 			<description>Add user04 as write proxy for user02</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$pprincipal2:calendar-proxy-write/</ruri>
 				<data>
@@ -93,9 +93,9 @@
 	</test-suite>
 
 	<test-suite name='Set up share'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -109,11 +109,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$pnotificationpath2:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<verify>
@@ -136,10 +136,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -160,9 +160,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check accept status</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -192,7 +192,7 @@
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<verify>
@@ -210,7 +210,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharer adds event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -227,7 +227,7 @@
 	<test-suite name='Proxies see calendar and contents'>
 		<test name='1'>
 			<description>Read proxy lists calendar home</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -257,7 +257,7 @@
 		</test>
 		<test name='2'>
 			<description>Write proxy lists calendar home</description>
-			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -287,7 +287,7 @@
 		</test>
 		<test name='3'>
 			<description>Read proxy lists calendar</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar:/</ruri>
 				<header>
@@ -309,7 +309,7 @@
 		</test>
 		<test name='4'>
 			<description>Write proxy lists calendar</description>
-			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar:/</ruri>
 				<header>
@@ -334,7 +334,7 @@
 	<test-suite name='Proxy data changes'>
 		<test name='1'>
 			<description>Read proxy cannot write new data</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PUT</method>
 				<ruri>$shareecalendar:/2.ics</ruri>
 				<data>
@@ -352,7 +352,7 @@
 		</test>
 		<test name='2'>
 			<description>Read proxy cannot write existing data</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PUT</method>
 				<ruri>$shareecalendar:/1.ics</ruri>
 				<data>
@@ -370,7 +370,7 @@
 		</test>
 		<test name='3'>
 			<description>Write proxy can write new data</description>
-			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PUT</method>
 				<ruri>$shareecalendar:/2.ics</ruri>
 				<data>
@@ -384,7 +384,7 @@
 		</test>
 		<test name='4'>
 			<description>Sharer sees new data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<verify>
@@ -398,7 +398,7 @@
 		</test>
 		<test name='5'>
 			<description>Sharee sees new data</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GET</method>
 				<ruri>$shareecalendar:/2.ics</ruri>
 				<verify>
@@ -412,7 +412,7 @@
 		</test>
 		<test name='6'>
 			<description>Write proxy can write existing data with per-user alarm</description>
-			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PUT</method>
 				<ruri>$shareecalendar:/1.ics</ruri>
 				<data>
@@ -426,7 +426,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharer sees new data without alarm</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -440,7 +440,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharee sees new data with alarm</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GET</method>
 				<ruri>$shareecalendar:/1.ics</ruri>
 				<verify>
@@ -457,7 +457,7 @@
 	<test-suite name='Proxy property changes'>
 		<test name='1'>
 			<description>Read proxy cannot write properties</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PROPPATCH</method>
 				<ruri>$shareecalendar:/</ruri>
 				<data>
@@ -475,7 +475,7 @@
 		</test>
 		<test name='2'>
 			<description>Write proxy can write properties</description>
-			<request host2="yes" user="$puserid4:" pswd="$ppswd4:" print-response='no'>
+			<request host2="yes" user="$puserid4:" pswd="$ppswd4:">
 				<method>PROPPATCH</method>
 				<ruri>$shareecalendar:/</ruri>
 				<data>
@@ -491,9 +491,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Sharer sees original displayname</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -513,9 +513,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Sharee sees new displayname</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar:/</ruri>
 				<header>
@@ -548,7 +548,7 @@
 			<ruri>$pnotificationpath3:/</ruri>
 			<ruri>$pnotificationpath4:/</ruri>
 		</request>
-		<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$pprincipal2:calendar-proxy-read/</ruri>
 			<data>
@@ -556,7 +556,7 @@
 				<filepath>Resource/CalDAV-pod/sharing/proxies/setupproxies/3.xml</filepath>
 			</data>
 		</request>
-		<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$pprincipal2:calendar-proxy-write/</ruri>
 			<data>

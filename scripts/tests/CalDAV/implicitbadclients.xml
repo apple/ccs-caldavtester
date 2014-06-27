@@ -37,10 +37,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Client drops an overridden instance' ignore='no'>
+	<test-suite name='Client drops an overridden instance'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -54,7 +54,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -68,14 +68,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -89,14 +89,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted with drop</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -110,7 +110,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -124,14 +124,14 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='9'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -161,10 +161,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Client drops a cancelled overridden instance' ignore='no'>
+	<test-suite name='Client drops a cancelled overridden instance'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -178,7 +178,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -192,14 +192,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -213,14 +213,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted with drop</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -234,7 +234,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -248,14 +248,14 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='9'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -285,10 +285,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='All-day freebusy floating' ignore='no'>
+	<test-suite name='All-day freebusy floating'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>

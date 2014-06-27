@@ -153,7 +153,7 @@
 	</start>
 	
 	<test-suite name='REPORT floating behaviour - calendar without timezone'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
 			<request>
 				<method>REPORT</method>
@@ -178,7 +178,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
 			<request>
 				<method>REPORT</method>
@@ -202,7 +202,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
 			<request>
 				<method>REPORT</method>
@@ -231,7 +231,7 @@
 	</test-suite>
 	
 	<test-suite name='REPORT floating behaviour - calendar with timezone'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>REPORT on non-recurring timed/floating events: no timezone</description>
 			<request>
 				<method>REPORT</method>
@@ -256,7 +256,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
 			<request>
 				<method>REPORT</method>
@@ -281,7 +281,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
 			<request>
 				<method>REPORT</method>
@@ -308,9 +308,9 @@
 	</test-suite>
 	
 	<test-suite name='REPORT floating behaviour - collection'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>REPORT on non-recurring timed/floating events: no timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -341,7 +341,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>REPORT on non-recurring timed/floating events: US/Eastern</description>
 			<request>
 				<method>REPORT</method>
@@ -374,7 +374,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>REPORT on non-recurring timed/floating events: US/Pacific</description>
 			<request>
 				<method>REPORT</method>
@@ -408,9 +408,9 @@
 	</test-suite>
 	
 	<test-suite name='REPORT floating behaviour - expand'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>REPORT on non-recurring timed/floating events: no timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -442,9 +442,9 @@
 	</test-suite>
 
 	<test-suite name='REPORT free-busy floating behaviour'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>free-busy on collection without timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar-none/</ruri>
 				<header>
@@ -470,9 +470,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>free-busy on collection with timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar-us/</ruri>
 				<data>
@@ -494,9 +494,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>free-busy on multiple collections with/without timezone</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -524,10 +524,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Floating DTSTART with RRULE:UNTIL' ignore='no'>
+	<test-suite name='Floating DTSTART with RRULE:UNTIL'>
 		<test name='1'>
 			<description>Store resource</description>
-			<request print-response='no' end-delete="yes">
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/7.ics</ruri>
 				<data>

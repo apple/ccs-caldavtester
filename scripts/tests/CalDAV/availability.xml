@@ -64,8 +64,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='Capabilities' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Capabilities'>
+		<test name='1'>
 			<description>Check for proper capability in DAV header</description>
 			<request>
 				<method>OPTIONS</method>
@@ -83,9 +83,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>VAVAILABILITY and VJOURNAL are not supported components</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -125,7 +125,7 @@
 	
 	<!--
 	<test-suite name='Verify PUT VAVAILABILITY' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT availability</description>
 			<request>
 				<method>GET</method>
@@ -142,7 +142,7 @@
 	</test-suite>
 
 	<test-suite name='basic query reports' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>query for resources with VCALENDAR &amp; VAVAILABILITY defined</description>
 			<request>
 				<method>REPORT</method>
@@ -161,7 +161,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for resources with VCALENDAR &amp; VEVENT defined</description>
 			<request>
 				<method>REPORT</method>
@@ -178,7 +178,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for resources with VCALENDAR &amp; VEVENT or VAVAILABILITY defined</description>
 			<request>
 				<method>REPORT</method>
@@ -201,7 +201,7 @@
 	</test-suite>
 	
 	<test-suite name='time-range query reports' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>query for VAVAILABILITYs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -220,7 +220,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for VAVAILABILITYs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -237,7 +237,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for VAVAILABILITYs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -254,7 +254,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for VAVAILABILITYs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -271,7 +271,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for VEVENTs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -288,7 +288,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query for VEVENTs and VAVAILABILITYs within time range</description>
 			<request>
 				<method>REPORT</method>
@@ -309,9 +309,9 @@
 	</test-suite>
 
 	<test-suite name='free-busy reports' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>query for free busy with time range</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -332,9 +332,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for free busy with time range with an overridden available component</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -351,9 +351,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for free busy with time range unbounded start availability</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -373,9 +373,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for free busy with time range unbounded end availability</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
@@ -399,7 +399,7 @@
 	-->
 
 	<test-suite name='Verify cannot PUT VAVAILABILITY'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT availability fails</description>
 			<request>
 				<method>PUT</method>
@@ -419,8 +419,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PROPPATCH VAVAILABILITY' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PROPPATCH VAVAILABILITY'>
+		<test name='1'>
 			<description>PROPFIND no availability</description>
 			<request>
 				<method>PROPFIND</method>
@@ -442,7 +442,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH invalid availability</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -460,9 +460,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPPATCH valid availability</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -480,10 +480,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='free-busy reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='free-busy reports'>
+		<test name='1'>
 			<description>query for free busy with time range</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -504,7 +504,7 @@
 	</test-suite>
 
 	<end>
-		<request print-response="no">
+		<request>
 			<method>PROPPATCH</method>
 			<ruri>$inboxpath1:/</ruri>
 			<data>

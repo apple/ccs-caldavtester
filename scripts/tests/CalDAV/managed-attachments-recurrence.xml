@@ -30,7 +30,7 @@
 	<start/>
 	
 	<test-suite name='Cannot add attachment to instance'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -59,7 +59,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (no prefer)</description>
 			<request>
 				<method>POST</method>
@@ -89,7 +89,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for no ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -103,7 +103,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -116,7 +116,7 @@
 	</test-suite>
 
 	<test-suite name='Recurring with override, update attachment'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -145,7 +145,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -205,7 +205,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -219,7 +219,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Update attachment</description>
 			<request>
 				<method>POST</method>
@@ -283,7 +283,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -297,7 +297,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -307,7 +307,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -321,7 +321,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>

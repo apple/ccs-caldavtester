@@ -27,8 +27,8 @@
 
 	<start/>
 	
-	<test-suite name='Inbox/Outbox' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Inbox/Outbox'>
+		<test name='1'>
 			<description>PROPFIND inbox/outbox URLs</description>
 			<request>
 				<method>PROPFIND</method>
@@ -54,10 +54,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='free-busy-set' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='free-busy-set'>
+		<test name='1'>
 			<description>PROPFIND inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -77,9 +77,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH valid calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -95,9 +95,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPPATCH invalid calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -113,9 +113,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PROPPATCH delete it - fails</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -131,9 +131,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PROPPATCH valid calendar - reset it</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -149,16 +149,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Setup some calendars</description>
-			<request  end-delete='yes' print-response="no">
+			<request  end-delete='yes'>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/test1/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request end-delete='yes' print-response="no">
+			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/test2/</ruri>
 				<verify>
@@ -166,9 +166,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>PROPPATCH - valid</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -184,9 +184,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Delete a calendar</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/test2/</ruri>
 				<verify>
@@ -194,9 +194,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>PROPPATCH - valid new calendar, invalid existing</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -212,9 +212,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>PROPPATCH - invalid new calendar, invalid existing</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -230,9 +230,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>PROPPATCH valid calendar - reset it</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>

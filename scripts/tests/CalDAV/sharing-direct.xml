@@ -42,7 +42,7 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>PROPPATCH</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -52,10 +52,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read-write calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Read-write calendar'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -73,7 +73,7 @@
 		</test>
 		<test name='2'>
 			<description>Sharee does direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
 				<verify>
@@ -87,7 +87,7 @@
 		</test>
 		<test name='3'>
 			<description>Shared calendar exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -120,7 +120,7 @@
 		</test>
 		<test name='4'>
 			<description>Original calendar unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -143,7 +143,7 @@
 		</test>
 		<test name='5'>
 			<description>Sharee creates event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar:/1.ics</ruri>
 				<data>
@@ -157,7 +157,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharer sees event</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -171,7 +171,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharer changes event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -185,7 +185,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharee sees changed event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar:/1.ics</ruri>
 				<verify>
@@ -199,7 +199,7 @@
 		</test>
 		<test name='9'>
 			<description>Sharer creates event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<data>
@@ -213,7 +213,7 @@
 		</test>
 		<test name='10'>
 			<description>Sharee sees new event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar:/2.ics</ruri>
 				<verify>
@@ -227,7 +227,7 @@
 		</test>
 		<test name='11'>
 			<description>Sharee changes event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar:/2.ics</ruri>
 				<data>
@@ -241,7 +241,7 @@
 		</test>
 		<test name='12'>
 			<description>Sharer sees changed event</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<verify>
@@ -255,7 +255,7 @@
 		</test>
 		<test name='13'>
 			<description>Sharee does direct share again</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
 				<verify>
@@ -269,7 +269,7 @@
 		</test>
 		<test name='14'>
 			<description>Shared calendar exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -302,10 +302,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change to read-only calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Change to read-only calendar'>
+		<test name='1'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -321,9 +321,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add user02 as read-only for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -341,7 +341,7 @@
 		</test>
 		<test name='3'>
 			<description>Shared calendar exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -373,7 +373,7 @@
 		</test>
 		<test name='4'>
 			<description>Create event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar:/3.ics</ruri>
 				<data>
@@ -391,7 +391,7 @@
 		</test>
 		<test name='5'>
 			<description>Sharer creates event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/4.ics</ruri>
 				<data>
@@ -405,7 +405,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharee sees new event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar:/4.ics</ruri>
 				<verify>
@@ -419,7 +419,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharee cannot change event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar:/4.ics</ruri>
 				<data>
@@ -437,10 +437,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Removal of direct share' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Removal of direct share'>
+		<test name='1'>
 			<description>Remove direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<verify>
@@ -450,7 +450,7 @@
 		</test>
 		<test name='2'>
 			<description>Shared calendar does not exist</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -472,7 +472,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharer calendar does exist</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -494,10 +494,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Direct share not allowed' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Direct share not allowed'>
+		<test name='1'>
 			<description>Clear user02 as read-only proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -515,7 +515,7 @@
 		</test>
 		<test name='2'>
 			<description>Sharee does direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
 				<verify>
@@ -529,10 +529,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Using non __uids__ path' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Using non __uids__ path'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -550,7 +550,7 @@
 		</test>
 		<test name='2'>
 			<description>Sharee does direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhomealt1:/shared/?action=share</ruri>
 				<verify>
@@ -564,7 +564,7 @@
 		</test>
 		<test name='3'>
 			<description>Shared calendar exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -597,7 +597,7 @@
 		</test>
 		<test name='4'>
 			<description>Sharee creates event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar2:/9.ics</ruri>
 				<data>
@@ -611,7 +611,7 @@
 		</test>
 		<test name='5'>
 			<description>Sharer sees event</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/9.ics</ruri>
 				<verify>
@@ -623,9 +623,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Remove direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<verify>
@@ -633,9 +633,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -653,10 +653,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Calendar color' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Calendar color'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -672,9 +672,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change the color</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhomealt1:/shared/</ruri>
 				<data>
@@ -692,7 +692,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharee does direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhomealt1:/shared/?action=share</ruri>
 				<verify>
@@ -706,7 +706,7 @@
 		</test>
 		<test name='4'>
 			<description>Shared calendar exists with color</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -726,9 +726,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Remove direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<verify>
@@ -736,9 +736,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>

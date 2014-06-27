@@ -27,7 +27,7 @@
 
 	<start/>
 	
-	<test-suite name='Account setup - client 1' ignore='no'>
+	<test-suite name='Account setup - client 1'>
 		<test name='1'>
 			<description>PROPFIND principal - no authentication</description>
 			<request auth="no">
@@ -74,10 +74,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Polling - client 1' ignore='no'>
+	<test-suite name='Polling - client 1'>
 		<test name='1'>
 			<description>PROPFIND calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -99,7 +99,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Account setup - client 2' ignore='no'>
+	<test-suite name='Account setup - client 2'>
 		<test name='1'>
 			<description>PROPFIND principal - no authentication</description>
 			<request auth="no">
@@ -146,10 +146,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Polling - client 2' ignore='no'>
+	<test-suite name='Polling - client 2'>
 		<test name='1'>
 			<description>PROPFIND calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>

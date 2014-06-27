@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='Default Inbox/Outbox privileges' ignore='no'>
+	<test-suite name='Default Inbox/Outbox privileges'>
 		<test name='1'>
 			<description>Look for CALDAV:schedule-send on Outbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -54,7 +54,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for CALDAV:schedule-send on Outbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -77,10 +77,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Inbox/Outbox supported-privilege-set' ignore='no'>
+	<test-suite name='Inbox/Outbox supported-privilege-set'>
 		<test name='1'>
 			<description>Look for CALDAV:schedule-send on Outbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -103,7 +103,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for CALDAV:schedule-send on Outbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>

@@ -28,7 +28,7 @@
 
 	<start/>
 	
-	<test-suite name='bulk-requests property' ignore='no'>
+	<test-suite name='bulk-requests property'>
 		<test name='1'>
 			<description>PROPFIND on address book</description>
 			<request>
@@ -77,13 +77,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple POST - one vcard' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - one vcard'>
+		<test name='1'>
 			<description>POST single new vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/1.vcf</filepath>
 				</data>
@@ -109,7 +109,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -130,12 +130,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single existing vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/2.vcf</filepath>
 				</data>
@@ -149,7 +149,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -170,12 +170,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST single new different vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/3.vcf</filepath>
 				</data>
@@ -201,7 +201,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -222,7 +222,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -234,13 +234,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple POST - multiple vcards' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - multiple vcards'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/4.vcf</filepath>
 				</data>
@@ -269,7 +269,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -290,7 +290,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -311,12 +311,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST one new, one exsting vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/7.vcf</filepath>
 				</data>
@@ -345,7 +345,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check unchanged</description>
 			<request>
 				<method>GET</method>
@@ -366,7 +366,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -387,7 +387,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -399,17 +399,17 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple POST - one vcard return data' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - one vcard return data'>
+		<test name='1'>
 			<description>POST single new vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>X-MobileMe-DAV-Options</name>
 					<value>return-changed-data</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/9.vcf</filepath>
 				</data>
@@ -434,7 +434,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -455,7 +455,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -467,17 +467,17 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple POST - group vcard with return data' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - group vcard with return data'>
+		<test name='1'>
 			<description>POST new group vcard with unordered and duplicate members</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>X-MobileMe-DAV-Options</name>
 					<value>return-changed-data</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/11.vcf</filepath>
 				</data>
@@ -511,7 +511,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -532,16 +532,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST new group vcard with ordered unique members</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
 					<name>X-MobileMe-DAV-Options</name>
 					<value>return-changed-data</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/14.vcf</filepath>
 				</data>
@@ -566,7 +566,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -587,7 +587,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -599,7 +599,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple POST - ctag condition' ignore='no'>
+	<test-suite name='Simple POST - ctag condition'>
 		<test name='1'>
 			<description>PROPFIND on address book</description>
 			<request>
@@ -622,9 +622,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST single new vcard conditional fail</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -635,7 +635,7 @@
 					<name>If</name>
 					<value><![CDATA[<http://me.com/_namespace/ctag/$ctag:123>]]></value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/9.vcf</filepath>
 				</data>
@@ -648,9 +648,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single new vcard conditional ok</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -661,7 +661,7 @@
 					<name>If</name>
 					<value><![CDATA[<http://me.com/_namespace/ctag/$ctag:>]]></value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/simple/9.vcf</filepath>
 				</data>
@@ -701,7 +701,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -713,13 +713,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - one vcard create' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - one vcard create'>
+		<test name='1'>
 			<description>POST single new vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-one/1.xml</filepath>
 				</data>
@@ -745,7 +745,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -766,12 +766,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single existing vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-one/3.xml</filepath>
 				</data>
@@ -785,7 +785,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -806,12 +806,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>POST single new different vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-one/4.xml</filepath>
 				</data>
@@ -837,7 +837,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -858,7 +858,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -870,13 +870,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - multiple' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - multiple'>
+		<test name='1'>
 			<description>POST single new vcard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-multiple/1.xml</filepath>
 				</data>
@@ -902,7 +902,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -923,12 +923,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST add new and update existing</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-multiple/3.xml</filepath>
 				</data>
@@ -956,7 +956,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -977,7 +977,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -998,12 +998,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>POST delete and update existing</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-multiple/6.xml</filepath>
 				</data>
@@ -1029,7 +1029,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -1050,7 +1050,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Data gone</description>
 			<request>
 				<method>GET</method>
@@ -1064,7 +1064,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -1076,13 +1076,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - multiple if-match' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - multiple if-match'>
+		<test name='1'>
 			<description>POST two new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-ifmatch/1.xml</filepath>
 				</data>
@@ -1111,7 +1111,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1132,7 +1132,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1153,12 +1153,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST new, update and delete existing - if-match fail</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-ifmatch/4.xml</filepath>
 				</data>
@@ -1187,7 +1187,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1208,7 +1208,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1229,7 +1229,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1250,12 +1250,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>POST update and delete existing - if-match ok</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/bulk/crud-ifmatch/6.xml</filepath>
 				</data>
@@ -1281,7 +1281,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Data gone</description>
 			<request>
 				<method>GET</method>
@@ -1295,7 +1295,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -1316,7 +1316,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1337,7 +1337,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>

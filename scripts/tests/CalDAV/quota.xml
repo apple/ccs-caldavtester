@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='Quota enabled by default on calendar home and below only' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Quota enabled by default on calendar home and below only'>
+		<test name='1'>
 			<description>props on /calendars/</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendars:</ruri>
 				<header>
@@ -56,9 +56,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>props on /calendars/users/</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendars_users:</ruri>
 				<header>
@@ -83,9 +83,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>props on home</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -107,9 +107,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>props on calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>
@@ -131,9 +131,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>props on /principals/</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principalcollection:</ruri>
 				<header>
@@ -158,9 +158,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>props on /principals/users/</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -185,9 +185,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>props on principal</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$principaluri2:</ruri>
 				<header>
@@ -214,10 +214,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Quota after collection create' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Quota after collection create'>
+		<test name='1'>
 			<description>Create new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome2:/newcalendar/</ruri>
 				<verify>
@@ -225,9 +225,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Quota check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -251,10 +251,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Quota after empty collection delete' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Quota after empty collection delete'>
+		<test name='1'>
 			<description>Create new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$calendarhome2:/newcalendar/</ruri>
 				<verify>
@@ -262,9 +262,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Quota check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -288,10 +288,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Quota after collection create, and PUT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Quota after collection create, and PUT'>
+		<test name='1'>
 			<description>Create new calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome2:/newcalendar/</ruri>
 				<verify>
@@ -299,7 +299,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/newcalendar/1.ics</ruri>
@@ -312,9 +312,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Quota check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<require-feature>
 					<feature>quota-on-resources</feature>
 				</require-feature>
@@ -338,7 +338,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -365,10 +365,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Quota after non-empty collection delete' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Quota after non-empty collection delete'>
+		<test name='1'>
 			<description>Delete the calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$calendarhome2:/newcalendar/</ruri>
 				<verify>
@@ -376,9 +376,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Quota check</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -402,11 +402,11 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Quota on dropbox' ignore='no'>
+	<test-suite name='Quota on dropbox'>
 		<require-feature>
 			<feature>dropbox</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Create event with attachment</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -434,9 +434,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<require-feature>
 					<feature>quota-on-resources</feature>
 				</require-feature>
@@ -460,7 +460,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -499,9 +499,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<require-feature>
 					<feature>quota-on-resources</feature>
 				</require-feature>
@@ -525,7 +525,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -560,9 +560,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<require-feature>
 					<feature>quota-on-resources</feature>
 				</require-feature>
@@ -586,7 +586,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>

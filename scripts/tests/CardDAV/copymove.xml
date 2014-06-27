@@ -80,7 +80,7 @@
 	<test-suite name='COPY' ignore="yes">
 		<test name='1'>
 			<description>COPY within same addressbook with different name</description>
-			<request end-delete="no" print-response="no">
+			<request end-delete="no">
 				<method>COPY</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<header>
@@ -96,9 +96,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>COPY within same addressbook to existing resource with overwrite</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<header>
@@ -118,9 +118,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>COPY within same addressbook to existing resource without overwrite</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<header>
@@ -145,7 +145,7 @@
 	<test-suite name="MOVE">
 		<test name='1'>
 			<description>MOVE within same addressbook to new resource</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookpath1:/5.vcf</ruri>
 				<header>
@@ -163,7 +163,7 @@
 		</test>
 		<test name='2'>
 			<description>MOVE within same addressbook to existing resource with overwrite</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookpath1:/6.vcf</ruri>
 				<header>
@@ -185,7 +185,7 @@
 		</test>
 		<test name='3'>
 			<description>MOVE within same addressbook to existing resource without overwrite</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookpath1:/3.vcf</ruri>
 				<header>

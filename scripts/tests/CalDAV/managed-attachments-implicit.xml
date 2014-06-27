@@ -30,7 +30,7 @@
 	<start/>
 	
 	<test-suite name='Add attachment then invite'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -44,7 +44,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -94,7 +94,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -119,7 +119,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -135,14 +135,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -154,7 +154,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -181,14 +181,14 @@
 		</test>
 		<test name='8'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -202,14 +202,14 @@
 		</test>
 		<test name='9'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -221,7 +221,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Uninvite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -237,14 +237,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -256,7 +256,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -281,7 +281,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -297,7 +297,7 @@
 	</test-suite>
 
 	<test-suite name='Add attachment then invite - attendee deletes' change-uid='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -311,7 +311,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -361,7 +361,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -386,7 +386,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -402,14 +402,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -421,7 +421,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -448,14 +448,14 @@
 		</test>
 		<test name='8'>
 			<description>Attendee deletes</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -465,14 +465,14 @@
 		</test>
 		<test name='9'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -484,7 +484,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -509,7 +509,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -525,7 +525,7 @@
 	</test-suite>
 
 	<test-suite name='Invite then add, update, remove attachment' change-uid='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -541,14 +541,14 @@
 		</test>
 		<test name='2'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -560,7 +560,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -612,14 +612,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -631,7 +631,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -656,7 +656,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Update attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -708,14 +708,14 @@
 		</test>
 		<test name='9'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -727,7 +727,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -752,7 +752,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Remove attachment</description>
 			<request>
 				<method>POST</method>
@@ -772,14 +772,14 @@
 		</test>
 		<test name='13'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='14'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -791,7 +791,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -816,7 +816,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -835,7 +835,7 @@
 	</test-suite>
 
 	<test-suite name='Attendee cannot add attachment via post' change-uid='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -851,14 +851,14 @@
 		</test>
 		<test name='2'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -871,7 +871,7 @@
 				<graburi>$attendee2_data:</graburi>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Add attachment (with prefer) - fails</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -899,7 +899,7 @@
 		</test>
 		<test name='5'>
 			<description>Attendee data unchanged</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -913,7 +913,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -925,7 +925,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -944,7 +944,7 @@
 	</test-suite>
 
 	<test-suite name='Attendee cannot update or remove attachment via post' change-uid='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -958,7 +958,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -1008,7 +1008,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1033,7 +1033,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1049,14 +1049,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1069,7 +1069,7 @@
 				<graburi>$attendee2_data:</graburi>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1094,7 +1094,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Update attachment (with prefer) - fails</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -1122,7 +1122,7 @@
 		</test>
 		<test name='9'>
 			<description>Data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1133,7 +1133,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_data:</ruri>
 				<verify>
@@ -1145,7 +1145,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1170,7 +1170,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Remove attachment (with prefer) - fails</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -1194,7 +1194,7 @@
 		</test>
 		<test name='12'>
 			<description>Data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1205,7 +1205,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_data:</ruri>
 				<verify>
@@ -1217,7 +1217,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1242,7 +1242,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
@@ -1262,7 +1262,7 @@
 
 
 	<test-suite name='Attendee cannot add, update, remove attachment via edit' change-uid='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1276,7 +1276,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -1326,7 +1326,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1351,7 +1351,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT attendee event</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete='no'>
 				<method>PUT</method>
@@ -1365,7 +1365,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Add attendee event attachment (with prefer)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -1419,7 +1419,7 @@
 				<ruri>1</ruri>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1444,7 +1444,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Invite attendee</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1460,14 +1460,14 @@
 		</test>
 		<test name='8'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='9'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1480,7 +1480,7 @@
 				<graburi>$attendee2_data:</graburi>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1505,7 +1505,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Add attachment - fails silently</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -1521,7 +1521,7 @@
 		</test>
 		<test name='12'>
 			<description>Data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1532,7 +1532,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_data:</ruri>
 				<verify>
@@ -1544,7 +1544,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Update attachment - fails silently</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -1560,7 +1560,7 @@
 		</test>
 		<test name='14'>
 			<description>Data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1571,7 +1571,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_data:</ruri>
 				<verify>
@@ -1583,7 +1583,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Remove attachment - fails silently</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -1599,7 +1599,7 @@
 		</test>
 		<test name='16'>
 			<description>Data unchanged</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1610,7 +1610,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$attendee2_data:</ruri>
 				<verify>
@@ -1622,7 +1622,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='17'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1647,7 +1647,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='18'>
 			<description>Check access to attachment</description>
 			<request>
 				<method>GET</method>
@@ -1672,7 +1672,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>

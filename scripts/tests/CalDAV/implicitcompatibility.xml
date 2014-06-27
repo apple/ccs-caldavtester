@@ -44,7 +44,7 @@
 	<test-suite name='Organizer Merge - insignificant change' ignore='yes'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -58,7 +58,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -76,14 +76,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -97,14 +97,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -118,14 +118,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -139,7 +139,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer adds VALARM to one instance</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -157,7 +157,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -171,7 +171,7 @@
 		</test>
 		<test name='12'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -210,10 +210,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee instance override as master' ignore='no'>
+	<test-suite name='Attendee instance override as master'>
 		<test name='1'>
 			<description>Organizer invites Attendee to on overridden instance only</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -227,7 +227,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -245,14 +245,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -266,14 +266,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted removing R-ID</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -287,7 +287,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$</ruri>
 				<verify>
@@ -301,14 +301,14 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='9'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -338,10 +338,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Attendee two instance override as master' ignore='no'>
+	<test-suite name='Attendee two instance override as master'>
 		<test name='1'>
 			<description>Organizer invites Attendee to on overridden instance only</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -355,7 +355,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -373,14 +373,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -394,14 +394,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted removing R-ID</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -415,7 +415,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$</ruri>
 				<verify>
@@ -429,14 +429,14 @@
 		</test>
 		<test name='8'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='9'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>

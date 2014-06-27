@@ -45,9 +45,9 @@
 	</start>
 	
 	<test-suite name='Read-write calendar'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PROPPATCH of displayname before share</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -62,7 +62,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -82,9 +82,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH of calendar-description before share</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -99,7 +99,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -119,9 +119,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -135,11 +135,11 @@
 		</test>
 		<test name='4'>
 			<description>Check Sharee notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$pnotificationpath2:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<verify>
@@ -162,10 +162,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -180,7 +180,7 @@
 		</test>
 		<test name='6'>
 			<description>Shared calendar exists</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -212,10 +212,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='prop patches - non-global' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='prop patches - non-global'>
+		<test name='1'>
 			<description>PROPFIND of shared displayname</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -235,9 +235,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH of displayname</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<data>
@@ -252,7 +252,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -272,9 +272,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPFIND of shared displayname</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -296,10 +296,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='prop patches - shadowable' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='prop patches - shadowable'>
+		<test name='1'>
 			<description>PROPFIND of shared calendar-description</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -319,9 +319,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH of calendar-description</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<data>
@@ -336,7 +336,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar:/</ruri>
 				<header>
@@ -356,9 +356,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPFIND of shared calendar-description</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>

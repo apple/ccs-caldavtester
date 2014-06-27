@@ -31,7 +31,7 @@
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>POST</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -42,11 +42,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath2:/</ruri>
 			<grabelement>
@@ -58,10 +58,10 @@
 				<variable>$hosturl2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$calendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 			</data>
@@ -70,11 +70,11 @@
 				<variable>$sharedcalendar2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath3:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath3:/</ruri>
 			<grabelement>
@@ -86,10 +86,10 @@
 				<variable>$hosturl3:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
 			</data>
@@ -98,7 +98,7 @@
 				<variable>$sharedcalendar3:</variable>
 			</grabelement>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>PROPPATCH</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -106,7 +106,7 @@
 				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$sharedcalendar2:/</ruri>
 			<data>
@@ -114,7 +114,7 @@
 				<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>PROPPATCH</method>
 			<ruri>$sharedcalendar3:/</ruri>
 			<data>
@@ -124,24 +124,24 @@
 		</request>
 	</start>
 	
-	<test-suite name='Initial event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Initial event'>
+		<test name='1'>
 			<description>User01 store to shared</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/1.ics</filepath>
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 freebusy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/3.ics</filepath>
 				</data>
@@ -180,12 +180,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 freebusy</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/4.ics</filepath>
 				</data>
@@ -224,12 +224,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User03 freebusy</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/5.ics</filepath>
 				</data>
@@ -270,24 +270,24 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Changed event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Changed event'>
+		<test name='1'>
 			<description>User02 store to shared</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/2.ics</filepath>
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 freebusy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/3.ics</filepath>
 				</data>
@@ -322,12 +322,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 freebusy</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/4.ics</filepath>
 				</data>
@@ -362,12 +362,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User03 freebusy</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/freebusy/5.ics</filepath>
 				</data>

@@ -36,10 +36,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read-write address book' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Read-write address book'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -51,13 +51,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check sharee notification collection for and get invite uid </description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -78,9 +78,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions="yes">
@@ -96,9 +96,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Shared address book exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedaddressbook:/</ruri>
 				<header>
@@ -130,9 +130,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Shared address book exists Depth:1</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<header>
@@ -167,9 +167,9 @@
 					</arg>
 				</verify>
 			</request>
-		</test><test name='6' ignore='no'>
+		</test><test name='6'>
 			<description>Sharee creates vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedaddressbook:/1.vcf</ruri>
 				<data>
@@ -181,9 +181,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Sharer sees vcard</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<verify>
@@ -195,9 +195,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Sharer changes vcard</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -209,9 +209,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Sharee sees changed vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedaddressbook:/1.vcf</ruri>
 				<verify>
@@ -223,9 +223,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Sharer creates vcard</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<data>
@@ -237,9 +237,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Sharee sees new vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedaddressbook:/2.vcf</ruri>
 				<verify>
@@ -251,9 +251,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Sharee changes vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedaddressbook:/2.vcf</ruri>
 				<data>
@@ -265,9 +265,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Sharer sees changed event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<verify>
@@ -279,9 +279,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Sharee sees group for shared address book</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedaddressbook:/addressbook.vcf</ruri>
 				<verify>
@@ -301,13 +301,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Shared address book cannot be default address' ignore='no'>
+	<test-suite name='Shared address book cannot be default address'>
 		<require-feature>
 			<feature>default-addressbook</feature>
 		</require-feature>
 		<test name='1'>
 			<description>Set property on home</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data>
@@ -325,7 +325,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on home</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<header>
@@ -347,10 +347,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change to read-only address book' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Change to read-only address book'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -364,11 +364,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -398,10 +398,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/addressbooks/read-only/3.xml</filepath>
 				</data>
@@ -416,7 +416,7 @@
 		</test>
 		<test name='4'>
 			<description>Shared address book exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedaddressbook:/</ruri>
 				<header>
@@ -450,7 +450,7 @@
 		</test>
 		<test name='5'>
 			<description>Create vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedaddressbook:/3.vcf</ruri>
 				<data>
@@ -468,7 +468,7 @@
 		</test>
 		<test name='6'>
 			<description>Sharer creates vcard</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/4.vcf</ruri>
 				<data>
@@ -482,7 +482,7 @@
 		</test>
 		<test name='7'>
 			<description>Sharee sees new vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedaddressbook:/4.vcf</ruri>
 				<verify>
@@ -496,7 +496,7 @@
 		</test>
 		<test name='8'>
 			<description>Sharee cannot change vcard</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedaddressbook:/4.vcf</ruri>
 				<data>
@@ -514,10 +514,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Reshare after sharee DELETE shared addressbook' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='Reshare after sharee DELETE shared addressbook'>
+		<test name='0'>
 			<description>Delete address book group</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$sharedaddressbook:/</ruri>
 				<verify>
@@ -529,9 +529,9 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -543,13 +543,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check sharee notification collection for and get invite uid </description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -570,9 +570,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
 				<data substitutions="yes">
@@ -588,9 +588,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Shared address book exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedaddressbook:/</ruri>
 				<header>

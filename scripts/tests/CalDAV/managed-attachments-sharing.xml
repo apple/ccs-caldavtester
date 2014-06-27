@@ -33,7 +33,7 @@
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>POST</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -44,11 +44,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath2:/</ruri>
 			<grabelement>
@@ -60,10 +60,10 @@
 				<variable>$hosturl2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$calendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 			</data>
@@ -72,11 +72,11 @@
 				<variable>$sharedcalendar2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath3:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath3:/</ruri>
 			<grabelement>
@@ -88,10 +88,10 @@
 				<variable>$hosturl3:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
 			</data>
@@ -103,7 +103,7 @@
 	</start>
 	
 	<test-suite name='Sharer add attachment'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -132,7 +132,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Sharer add attachment</description>
 			<request>
 				<method>POST</method>
@@ -188,7 +188,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -202,7 +202,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -227,7 +227,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -241,7 +241,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Remove attachment</description>
 			<request>
 				<method>POST</method>
@@ -259,7 +259,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -273,7 +273,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -298,7 +298,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -312,7 +312,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -325,7 +325,7 @@
 	</test-suite>
 
 	<test-suite name='Sharee add attachment'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -354,7 +354,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Read-only sharee cannot add attachment</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
@@ -380,7 +380,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Sharee can add attachment</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -436,7 +436,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -450,7 +450,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -475,7 +475,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -489,7 +489,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Read-only sharee cannot remove attachment</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
@@ -507,7 +507,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Sharee remove attachment</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -525,7 +525,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -539,7 +539,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -564,7 +564,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -578,7 +578,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -591,7 +591,7 @@
 	</test-suite>
 
 	<test-suite name='Sharee add attachment existing managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -620,7 +620,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Sharer add attachment</description>
 			<request>
 				<method>POST</method>
@@ -692,7 +692,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -706,7 +706,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -731,7 +731,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -745,7 +745,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>PUT another event</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete='no'>
 				<method>PUT</method>
@@ -806,7 +806,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -820,7 +820,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -845,7 +845,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -859,7 +859,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -869,7 +869,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -882,7 +882,7 @@
 	</test-suite>
 
 	<test-suite name='No access after move'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -911,7 +911,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Sharer add attachment</description>
 			<request>
 				<method>POST</method>
@@ -967,7 +967,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -981,7 +981,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1006,7 +1006,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1020,9 +1020,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Move</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<header>
@@ -1034,7 +1034,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1048,7 +1048,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1073,7 +1073,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1087,7 +1087,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1097,7 +1097,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1114,7 +1114,7 @@
 	</test-suite>
 
 	<test-suite name='No access after unshare'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1143,7 +1143,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Sharer add attachment</description>
 			<request>
 				<method>POST</method>
@@ -1199,7 +1199,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1213,7 +1213,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1238,7 +1238,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1252,9 +1252,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Unshare</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -1266,7 +1266,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1280,7 +1280,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1305,7 +1305,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1319,7 +1319,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1331,10 +1331,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Direct share' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Direct share'>
+		<test name='1'>
 			<description>Add user02 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -1350,9 +1350,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add user03 as read write for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
@@ -1370,7 +1370,7 @@
 		</test>
 		<test name='3'>
 			<description>Sharees do direct share</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
 				<verify>
@@ -1381,7 +1381,7 @@
 					<variable>$sharedcalendar2:</variable>
 				</grabelement>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
 				<verify>
@@ -1393,7 +1393,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1422,7 +1422,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Read-only sharee cannot add attachment</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
@@ -1448,7 +1448,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Sharee can add attachment</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -1504,7 +1504,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1518,7 +1518,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1543,7 +1543,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1557,7 +1557,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Read-only sharee cannot remove attachment</description>
 			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
@@ -1575,7 +1575,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Sharee remove attachment</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -1593,7 +1593,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Check for attachment - sharer</description>
 			<request>
 				<method>GET</method>
@@ -1607,7 +1607,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Check for attachment - sharees</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1632,7 +1632,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Check for attachment - non sharee</description>
 			<request user="$userid4:" pswd="$pswd4:">
 				<method>GET</method>
@@ -1646,7 +1646,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>Delete calendar data</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
@@ -1670,9 +1670,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
+		<test name='16'>
 			<description>Clear user02 as read-write proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-write/</ruri>
 				<data>
@@ -1688,9 +1688,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='17'>
 			<description>Clear user03 as read-only proxy for user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>

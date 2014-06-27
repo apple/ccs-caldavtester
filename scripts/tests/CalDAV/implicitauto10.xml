@@ -54,8 +54,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='#1 Non-recurring' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='#1 Non-recurring'>
+		<test name='1'>
 			<description>Create new blocking event - just resource</description>
 			<request>
 				<method>PUT</method>
@@ -69,16 +69,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -90,9 +90,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>No items in resource08 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>PROPFIND</method>
 				<ruri>$rinboxpath8:/</ruri>
 				<header>
@@ -112,9 +112,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath8:/</ruri>
 				<verify>
@@ -127,7 +127,7 @@
 				<graburi>$r1:</graburi>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Create new conflicting event with attendee</description>
 			<request>
 				<method>PUT</method>
@@ -141,9 +141,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>No item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -163,9 +163,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -177,16 +177,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>One item in user02 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>One item in user02 calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -198,16 +198,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>One item in resource08 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$rinboxpath8:/</ruri>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath8:/</ruri>
 				<verify>
@@ -220,7 +220,7 @@
 				<graburi>$r2:</graburi>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Cancel blocking event</description>
 			<request>
 				<method>DELETE</method>
@@ -230,9 +230,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>No items in resource08 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>PROPFIND</method>
 				<ruri>$rinboxpath8:/</ruri>
 				<header>
@@ -252,13 +252,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>No item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$rcalendarpath8:/</ruri>
 			</request>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$r1:</ruri>
 				<verify>
@@ -272,14 +272,14 @@
 		</test>
 		<test name='16'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -291,16 +291,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17' ignore='no'>
+		<test name='17'>
 			<description>One item in user01 Inbox - no reply from resource</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='18'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -312,9 +312,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19' ignore='no'>
+		<test name='19'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success="yes" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success="yes">
 				<method>GET</method>
 				<ruri>$r2:</ruri>
 				<verify>
@@ -326,7 +326,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20' ignore='no'>
+		<test name='20'>
 			<description>Update event</description>
 			<request>
 				<method>PUT</method>
@@ -340,16 +340,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21' ignore='no'>
+		<test name='21'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='22' ignore='no'>
+		<test name='22'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -361,9 +361,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='23' ignore='no'>
+		<test name='23'>
 			<description>No items in resource08 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>PROPFIND</method>
 				<ruri>$rinboxpath8:/</ruri>
 				<header>
@@ -383,9 +383,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='24' ignore='no'>
+		<test name='24'>
 			<description>One item in resource08 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath8:/</ruri>
 				<verify>
@@ -397,7 +397,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>

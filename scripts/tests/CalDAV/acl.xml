@@ -162,10 +162,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Read ACLs' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Read ACLs'>
+		<test name='1'>
 			<description>PROPFIND existing VEVENT</description>
-			<request print-response='yes' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>PROPFIND</method>
 				<ruri>$calendars:</ruri>
 				<header>
@@ -200,9 +200,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND without DAV:read-acl or DAV:read-current-user-privilege-set</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendars:</ruri>
 				<header>
@@ -237,9 +237,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for schedule privilege on iTIP Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -263,9 +263,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for schedule privilege on iTIP Outbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -289,9 +289,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for lack of schedule privilege on regular calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -320,10 +320,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PROPFIND interaction with ACL' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PROPFIND interaction with ACL'>
+		<test name='1'>
 			<description>PROPFIND all calendars</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -343,9 +343,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND: prinicpal-collection-set test</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -367,10 +367,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='ACL method preconditions' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='ACL method preconditions'>
+		<test name='1'>
 			<description>Failure when DAV:write-acl not granted</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarhome2:/</ruri>
 				<data>
@@ -386,7 +386,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
@@ -399,7 +399,7 @@
 					<filepath>Resource/CalDAV/acls/20.xml</filepath>
 				</data>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -415,12 +415,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:no-ace-conflict precondition failure - attempt to set inherited ACE</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -436,12 +436,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:no-protected-ace-conflict precondition failure - attempt to change protected ACE</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -457,12 +457,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:no-inherited-ace-conflict precondition failure - attempt to change inherited ACE</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -478,12 +478,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:deny-before-grant precondition failure - attempt to deny before grant a set of ACEs</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -499,12 +499,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:not-supported-privilege precondition failure - attempt to use unsupported privilege</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -520,12 +520,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>DAV:recognized-principal precondition failure - attempt to use unknown principal</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -541,12 +541,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>Valid command</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -562,12 +562,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>Valid command</description>
-			<request print-response='no'>
+			<request>
 				<method>ACL</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -585,10 +585,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='COPY/MOVE interaction with ACL' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='COPY/MOVE interaction with ACL'>
+		<test name='1'>
 			<description>COPY to non-writeable shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -604,9 +604,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>COPY to non-visible shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -622,9 +622,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>COPY to non-visible shared calendar with overwrite</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -644,9 +644,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>COPY to visible with no overwrite shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -662,9 +662,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>COPY to writeable shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -680,9 +680,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>MOVE to non-writeable shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -698,9 +698,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>MOVE to non-visible shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -716,9 +716,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>MOVE to non-visible shared calendar with overwrite</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -738,9 +738,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>MOVE to writeable shared calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -758,10 +758,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Principal Properties' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Principal Properties'>
+		<test name='1'>
 			<description>PROPFIND principal VEVENT</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -785,7 +785,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check for proper capability in DAV header</description>
 			<request>
 				<method>OPTIONS</method>
@@ -806,10 +806,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Directory list access' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Directory list access'>
+		<test name='1'>
 			<description>Get calendar home collection</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome2:/</ruri>
 				<verify>
@@ -822,12 +822,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>Get calendar collection</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/</ruri>
 				<verify>
@@ -845,10 +845,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='ACL calendar collection inheritance' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='ACL calendar collection inheritance'>
+		<test name='1'>
 			<description>Check that read is not set</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
@@ -868,9 +868,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check that read is not inherited</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
 				<header>
@@ -890,7 +890,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Set read on collection only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
@@ -904,9 +904,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check that read is set</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
@@ -926,9 +926,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check that read is inherited</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/1.ics</ruri>
 				<header>
@@ -950,13 +950,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='ACL regular collection no inheritance' ignore='no'>
+	<test-suite name='ACL regular collection no inheritance'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Check that read is not set</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/colreadtoauth/</ruri>
 				<header>
@@ -976,9 +976,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check that read is not inherited</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
 				<header>
@@ -998,7 +998,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Set read on collection only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
@@ -1012,9 +1012,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check that read is set</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/colreadtoauth/</ruri>
 				<header>
@@ -1034,9 +1034,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check that read is inherited</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/colreadtoauth/1.ics</ruri>
 				<header>
@@ -1058,8 +1058,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='ACL calendar home' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='ACL calendar home'>
+		<test name='1'>
 			<description>Set read/read-current-user-privilege-set on home only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
@@ -1077,9 +1077,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check for current-user-privilege-set on calendar home as user01</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -1099,9 +1099,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check that calendar privileges are still inherited for user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
@@ -1122,7 +1122,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Remove read/read-current-user-privilege-set on home only</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
@@ -1140,9 +1140,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check property access on calendar home as user01</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -1162,9 +1162,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check that calendar privileges are still inherited for user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/calreadtoauth/</ruri>
 				<header>
@@ -1187,8 +1187,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Tests on missing resources' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Tests on missing resources'>
+		<test name='1'>
 			<description>Get on non-existent inaccessible resource</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -1202,7 +1202,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Get on existing inaccessible resource</description>
 			<request>
 				<method>PUT</method>
@@ -1227,7 +1227,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Unauthenticated get on non-existent inaccessible resource</description>
 			<request auth="no">
 				<method>GET</method>
@@ -1241,7 +1241,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Unauthenticated get on existing inaccessible resource</description>
 			<request auth="no">
 				<method>GET</method>
@@ -1255,7 +1255,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Bogus authenticated get on non-existent inaccessible resource</description>
 			<request user="$useradmin:" pswd="foobar">
 				<method>GET</method>
@@ -1269,7 +1269,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Bogus authenticated get on existing inaccessible resource</description>
 			<request user="$useradmin:" pswd="foobar">
 				<method>GET</method>

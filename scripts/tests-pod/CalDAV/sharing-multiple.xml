@@ -52,9 +52,9 @@
 	</start>
 	
 	<test-suite name='Send new invite #1'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -71,9 +71,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared1/</ruri>
 				<data>
@@ -87,11 +87,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$pnotificationpath2:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<verify>
@@ -109,10 +109,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -125,9 +125,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One more calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -147,9 +147,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One more calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar1:/</ruri>
 				<header>
@@ -172,9 +172,9 @@
 	</test-suite>
 	
 	<test-suite name='Send new invite #2'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -191,9 +191,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
@@ -207,11 +207,11 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>WAITCOUNT 2</method>
 				<ruri>$pnotificationpath2:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<verify>
@@ -229,10 +229,10 @@
 		</test>
 		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -245,9 +245,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One more calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -267,9 +267,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One more calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -292,9 +292,9 @@
 	</test-suite>
 	
 	<test-suite name='Uninvite #2'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initial collection count</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -311,9 +311,9 @@
 				<grabcount>$calendarhome2count:</grabcount>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared2/</ruri>
 				<data>
@@ -327,7 +327,7 @@
 		</test>
 		<test name='3'>
 			<description>Check Sharee notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<header>
@@ -347,9 +347,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One less calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pcalendarhome2:/</ruri>
 				<header>
@@ -369,9 +369,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One less calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<header>
@@ -391,9 +391,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Existing calendar</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$sharedcalendar1:/</ruri>
 				<header>

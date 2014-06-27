@@ -27,8 +27,8 @@
 
 	<start/>
 	
-	<test-suite name='PUT VEVENT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT VEVENT'>
+		<test name='1'>
 			<description>PUT non-recurring timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -60,7 +60,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
@@ -88,7 +88,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PUT non-recurring timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -115,8 +115,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Put VTODO' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Put VTODO'>
+		<test name='1'>
 			<description>Plain VTODO with no date</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -141,7 +141,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Plain VTODO with DUE only</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -166,7 +166,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Plain VTODO with DTSTART/DUARTION only</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -191,7 +191,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Plain VTODO with DTSTART only</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -216,7 +216,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Plain VTODO with COMPLETED only</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -243,8 +243,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Problem VEVENTs - EXDATE &amp; various combinations of date-time/date values' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Problem VEVENTs - EXDATE &amp; various combinations of date-time/date values'>
+		<test name='1'>
 			<description>PUT problem event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -258,7 +258,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>DTSTART/DATE-TIME/UTC, DTEND/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -272,7 +272,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>DTSTART/DATE-TIME/TZID, DTEND/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -286,7 +286,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>DTSTART/DATE-TIME/Float, DTEND/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -300,7 +300,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>DTSTART/DATE-TIME/UTC, DTEND/DATE-TIME/TZID</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -314,7 +314,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>DTSTART/DATE-TIME/UTC, DTEND/DATE-TIME/Float</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -328,7 +328,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>DTSTART/DATE-TIME/TZID, DTEND/DATE-TIME/UTC</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -342,7 +342,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>DTSTART/DATE-TIME/TZID, DTEND/DATE-TIME/Float</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -356,7 +356,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>DTSTART/DATE-TIME/Float, DTEND/DATE-TIME/UTC</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -370,7 +370,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>DTSTART/DATE-TIME/Float, DTEND/DATE-TIME/TZID</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -384,7 +384,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>RECURRENCE-ID component before master</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -400,8 +400,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Problem VTODOs - various combinations of date-time/date values' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Problem VTODOs - various combinations of date-time/date values'>
+		<test name='1'>
 			<description>DTSTART/DATE-TIME/UTC, DUE/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -415,7 +415,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>DTSTART/DATE-TIME/TZID, DUE/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -429,7 +429,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>DTSTART/DATE-TIME/Float, DUE/DATE</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -443,7 +443,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>DTSTART/DATE, DUE/DATE-TIME/UTC</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -457,7 +457,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>DTSTART/DATE, DUE/DATE-TIME/TZID</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -471,7 +471,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>DTSTART/DATE, DUE/DATE-TIME/Float</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -485,7 +485,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>DTSTART/DATE-TIME/UTC, DUE/DATE-TIME/TZID</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -499,7 +499,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>DTSTART/DATE-TIME/UTC, DUE/DATE-TIME/Float</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -513,7 +513,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>DTSTART/DATE-TIME/TZID, DUE/DATE-TIME/UTC</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -527,7 +527,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>DTSTART/DATE-TIME/TZID, DUE/DATE-TIME/Float</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -541,7 +541,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>DTSTART/DATE-TIME/Float, DUE/DATE-TIME/UTC</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -555,7 +555,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>DTSTART/DATE-TIME/Float, DUE/DATE-TIME/TZID</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -571,8 +571,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT with Content-Type parameters' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT with Content-Type parameters'>
+		<test name='1'>
 			<description>PUT</description>
 			<request>
 				<method>PUT</method>
@@ -586,7 +586,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET</description>
 			<request>
 				<method>GET</method>
@@ -600,7 +600,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPFIND</description>
 			<request>
 				<method>PROPFIND</method>
@@ -622,7 +622,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
@@ -635,7 +635,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
@@ -652,7 +652,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
@@ -669,7 +669,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<require-feature>
 				<feature>regular-collection</feature>
 			</require-feature>
@@ -697,7 +697,7 @@
 	</test-suite>
 
 	<test-suite name='PUT with RRULE truncation' ignore='yes'> <!-- We no longer do RRULE truncation -->
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>RRULE - no truncation count</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -729,7 +729,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>RRULE - no truncation until</description>
 			<request>
 				<method>PUT</method>
@@ -761,7 +761,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>RRULE - truncation count</description>
 			<request>
 				<method>PUT</method>
@@ -793,7 +793,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>RRULE - truncation until</description>
 			<request>
 				<method>PUT</method>
@@ -825,7 +825,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>RRULE - no truncation unbounded yearly</description>
 			<request>
 				<method>PUT</method>
@@ -857,7 +857,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>RRULE - truncation unbounded daily</description>
 			<request>
 				<method>PUT</method>
@@ -892,7 +892,7 @@
 	</test-suite>
 
 	<test-suite name='PUT with relaxed parsing'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Invalid duration value</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -917,7 +917,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Decode \ in URIs</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -945,7 +945,7 @@
 	</test-suite>
 
 	<test-suite name='PUT with X- using VALUE != TEXT'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Invalid duration value</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -973,7 +973,7 @@
 	</test-suite>
 
 	<test-suite name='PUTs with ^ parameter encoding'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Roundtrip encoded CN=</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -1004,7 +1004,7 @@
 		<require-feature>
 			<feature>remove-duplicate-alarms</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Roundtrip encoded CN=</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -1029,7 +1029,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Roundtrip encoded CN=</description>
 			<request end-delete='yes'>
 				<method>PUT</method>

@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='Basic REPORT' ignore='no'>
+	<test-suite name='Basic REPORT'>
 		<test name='1'>
 			<description>OK property query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -53,7 +53,7 @@
 		</test>
 		<test name='2'>
 			<description>Missing property query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -71,7 +71,7 @@
 		</test>
 		<test name='3'>
 			<description>Two OK properties (one empty) query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -89,10 +89,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Access Control' ignore='no'>
+	<test-suite name='Access Control'>
 		<test name='1'>
 			<description>Set property to point to someone else's calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -106,7 +106,7 @@
 		</test>
 		<test name='2'>
 			<description>Try query against accessible href</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -135,7 +135,7 @@
 		</test>
 		<test name='3'>
 			<description>Try query against inaccessible href</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -164,7 +164,7 @@
 		</test>
 		<test name='4'>
 			<description>Reset property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -178,10 +178,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Invalid REPORTs' ignore='no'>
+	<test-suite name='Invalid REPORTs'>
 		<test name='1'>
 			<description>Wrong Depth 1</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -203,7 +203,7 @@
 		</test>
 		<test name='2'>
 			<description>Wrong Depth infinity</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -225,7 +225,7 @@
 		</test>
 		<test name='3'>
 			<description>Multi-expand not supported</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -243,10 +243,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Membership REPORT' ignore='no'>
+	<test-suite name='Membership REPORT'>
 		<test name='1'>
 			<description>Non-expanding group-member-set query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$gprincipaluri4:</ruri>
 				<data>
@@ -296,7 +296,7 @@
 		</test>
 		<test name='2'>
 			<description>Expanding group-member-set query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$gprincipaluri4:</ruri>
 				<data>
@@ -370,7 +370,7 @@
 				<feature>only-proxy-groups</feature>
 			</exclude-feature>
 			<description>Non-expanding group-membership query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principaluri21:</ruri>
 				<data>
@@ -409,7 +409,7 @@
 				<feature>only-proxy-groups</feature>
 			</exclude-feature>
 			<description>Expanding group-membership query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principaluri21:</ruri>
 				<data>
@@ -448,7 +448,7 @@
 				<feature>only-proxy-groups</feature>
 			</require-feature>
 			<description>Non-expanding group-membership query limited to proxy groups</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principaluri21:</ruri>
 				<data>
@@ -487,7 +487,7 @@
 				<feature>only-proxy-groups</feature>
 			</require-feature>
 			<description>Expanding group-membership query limited to proxy groups</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$principaluri21:</ruri>
 				<data>

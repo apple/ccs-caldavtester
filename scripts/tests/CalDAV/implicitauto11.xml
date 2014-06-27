@@ -54,8 +54,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='#1 Non-recurring' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='#1 Non-recurring'>
+		<test name='1'>
 			<description>Create recurring event - resource invited to two instances only</description>
 			<request>
 				<method>PUT</method>
@@ -69,16 +69,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -90,9 +90,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>No items in resource01 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>PROPFIND</method>
 				<ruri>$rinboxpath1:/</ruri>
 				<header>
@@ -112,9 +112,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -127,7 +127,7 @@
 				<graburi>$r1:</graburi>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Proxy removes first instance to decline it</description>
 			<request>
 				<method>PUT</method>
@@ -141,9 +141,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>One item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$r1:</ruri>
 				<verify>
@@ -155,16 +155,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -176,7 +176,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Organizer cancels second instance</description>
 			<request>
 				<method>PUT</method>
@@ -190,9 +190,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -204,13 +204,13 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>No item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>WAITCOUNT 0</method>
 				<ruri>$rcalendarpath1:/</ruri>
 			</request>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$r1:</ruri>
 				<verify>
@@ -222,7 +222,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>

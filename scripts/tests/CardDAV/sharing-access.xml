@@ -96,8 +96,8 @@
 	</start>
 	
 
-	<test-suite name='fully-shared read-write addressbook' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='fully-shared read-write addressbook'>
+		<test name='0'>
 			<description>reset user1 home and share user2 addressbook read-write</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -105,7 +105,7 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
@@ -114,11 +114,11 @@
 				</data>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -127,7 +127,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -140,7 +140,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Sharee shared address book is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -174,7 +174,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Group for shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -208,7 +208,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>vCard in shared address book is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -242,7 +242,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Cannot change group address book</description>
 			<request>
 				<method>PUT</method>
@@ -260,7 +260,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>add vCard</description>
 			<request>
 				<method>PUT</method>
@@ -274,7 +274,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>New vCard is member of addressbook group</description>
 			<request>
 				<method>GET</method>
@@ -294,7 +294,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETE</method>
@@ -306,8 +306,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='fully-shared read-only addressbook' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='fully-shared read-only addressbook'>
+		<test name='0'>
 			<description>reset user1 home and share user2 addressbook read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -316,7 +316,7 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
@@ -325,11 +325,11 @@
 				</data>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -338,7 +338,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -351,7 +351,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -385,7 +385,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Group for shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -419,7 +419,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>vCard in shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -453,7 +453,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>vCard in shared address book cannot be deleted</description>
 			<request>
 				<method>DELETE</method>
@@ -467,7 +467,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>vCard in shared address book cannot be modified</description>
 			<request>
 				<method>PUT</method>
@@ -488,11 +488,11 @@
 	</test-suite>
 
 
-	<test-suite name='read-write shared group' ignore='no'>
+	<test-suite name='read-write shared group'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>reset user1 home and share user2 group read-write</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -500,7 +500,7 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
 				<data>
@@ -512,11 +512,11 @@
 				</verify>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -525,7 +525,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -541,7 +541,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Sharee shared address book is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -575,7 +575,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>vCard for shared group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -606,7 +606,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>vCard in shared group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -637,7 +637,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>vCard in shared group can be deleted</description>
 			<request>
 				<method>DELETE</method>
@@ -647,7 +647,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>vCard with new UID shared read-write group can be added</description>
 			<request>
 				<method>PUT</method>
@@ -661,7 +661,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>New vCard is member of shared group</description>
 			<request>
 				<method>GET</method>
@@ -675,7 +675,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>restore group membership</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
@@ -723,11 +723,11 @@
 	</test-suite>
 
 
-	<test-suite name='read-only shared group' ignore='no'>
+	<test-suite name='read-only shared group'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>reset user1 home and share user2 group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -736,7 +736,7 @@
 				<ruri>$notificationpath2:/</ruri>
 			</request>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
 				<data>
@@ -748,11 +748,11 @@
 				</verify>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -761,7 +761,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -774,7 +774,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Sharee shared address book is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -808,7 +808,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>vCard for shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -839,7 +839,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>vCard in shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -870,7 +870,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>vCard in shared read-only group cannot be deleted</description>
 			<request>
 				<method>DELETE</method>
@@ -884,7 +884,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>vCard in shared read-only group cannot be modified</description>
 			<request>
 				<method>PUT</method>
@@ -904,11 +904,11 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='overlapping read-only, read-write shared group' ignore='no'>
+	<test-suite name='overlapping read-only, read-write shared group'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>reset user1 home and share user2 group g123 read-write, group 345 read-only</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -916,7 +916,7 @@
 				<ruri>$notificationpath1:/</ruri>
 			</request>
 			<!-- user2 POSTs read-write invitation to group -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g123.vcf</ruri>
 				<data>
@@ -928,11 +928,11 @@
 				</verify>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -941,7 +941,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -954,7 +954,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 			<!-- user2 POSTs invitation read-only to group -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
 				<data>
@@ -966,11 +966,11 @@
 				</verify>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -979,7 +979,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -992,7 +992,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Sharee shared address book is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1026,7 +1026,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>vCard for shared read-write group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1057,7 +1057,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>vCard for shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1088,7 +1088,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>vCard in read-write group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1119,7 +1119,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>vCard in read-only and read-write group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1150,7 +1150,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>vCard in shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1181,7 +1181,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>add vCard</description>
 			<request>
 				<method>PUT</method>
@@ -1195,7 +1195,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>New vCard is member of shared read-write group</description>
 			<request>
 				<method>GET</method>
@@ -1209,7 +1209,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>New vCard is not member of read-only group</description>
 			<request>
 				<method>GET</method>
@@ -1223,7 +1223,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETE</method>
@@ -1235,14 +1235,14 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='overlapping read-only, read-write shared groups, read-write addressbook' ignore='no'>
+	<test-suite name='overlapping read-only, read-write shared groups, read-write addressbook'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>share user2 addressbook read-write</description>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
@@ -1251,11 +1251,11 @@
 				</data>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -1264,7 +1264,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -1277,7 +1277,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>vCard in read-only group is read-write</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1308,7 +1308,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>add vCard</description>
 			<request>
 				<method>PUT</method>
@@ -1322,7 +1322,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>New vCard is NOT member of shared read-write group</description>
 			<request>
 				<method>GET</method>
@@ -1336,7 +1336,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>New vCard is not member of read-only group</description>
 			<request>
 				<method>GET</method>
@@ -1350,7 +1350,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>New vCard is member of addressbook group</description>
 			<request>
 				<method>GET</method>
@@ -1370,7 +1370,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETE</method>
@@ -1382,14 +1382,14 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='overlapping read-only, read-write shared groups, read-only addressbook' ignore='no'>
+	<test-suite name='overlapping read-only, read-write shared groups, read-only addressbook'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>share user2 addressbook read-only</description>
 			<!-- user2 POSTs invitation -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/</ruri>
 				<data>
@@ -1398,11 +1398,11 @@
 				</data>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -1411,7 +1411,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -1424,7 +1424,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>shared address book is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1458,7 +1458,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>vCard in shared read-only group is read-only</description>
 			<request>
 				<method>PROPFIND</method>
@@ -1491,11 +1491,11 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='add to ab with two read-write shared groups' ignore='no'>
+	<test-suite name='add to ab with two read-write shared groups'>
 		<require-feature>
 			<feature>shared-groups</feature>
 		</require-feature>
-		<test name='0' ignore='no'>
+		<test name='0'>
 			<description>unshare address book, share 345 read-write</description>
 			<request>
 				<method>DELETE</method>
@@ -1505,7 +1505,7 @@
 				</verify>
 			</request>
 			<!-- user2 POSTs invitation read-write to group 345 -->
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/g345.vcf</ruri>
 				<data>
@@ -1517,11 +1517,11 @@
 				</verify>
 			</request>
 			<!-- Check user1 notification collection and get invite uid -->
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -1530,7 +1530,7 @@
 				</grabelement>
 			</request>
 			<!-- user1 replies ACCEPTED and deletes notification -->
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -1543,7 +1543,7 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>vCard with new UID shared read-write group can be added</description>
 			<request>
 				<method>PUT</method>
@@ -1557,7 +1557,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>New vCard is member of shared group</description>
 			<request>
 				<method>GET</method>
@@ -1571,7 +1571,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>New vCard is member of shared group</description>
 			<request>
 				<method>GET</method>

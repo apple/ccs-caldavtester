@@ -54,10 +54,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='PUT UID restrictions - ORGANIZER' ignore='no'>
+	<test-suite name='PUT UID restrictions - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -71,7 +71,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -85,14 +85,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -106,7 +106,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer tries PUT of same resource to another calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar-2/2.ics</ruri>
 				<data>
@@ -124,7 +124,7 @@
 		</test>
 		<test name='7'>
 			<description>Organizer tries PUT of same resource to a collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/2.ics</ruri>
 				<data>
@@ -138,7 +138,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer tries PUT of same resource without Organizer/Attendee to another calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar-2/3.ics</ruri>
 				<data>
@@ -156,7 +156,7 @@
 		</test>
 		<test name='9'>
 			<description>Organizer tries PUT of same resource without Organizer/Attendee to a collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/3.ics</ruri>
 				<data>
@@ -170,7 +170,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer overwrites resource without Organizer/Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -184,7 +184,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -198,14 +198,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee has no data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>
@@ -262,10 +262,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='PUT no UID restrictions - ORGANIZER' ignore='no'>
+	<test-suite name='PUT no UID restrictions - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores without Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -279,7 +279,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -293,7 +293,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer stores without Attendeeinto another calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar-2/1.ics</ruri>
 				<data>
@@ -307,7 +307,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/calendar-2/1.ics</ruri>
 				<verify>
@@ -356,10 +356,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='PUT UID restrictions - ATTENDEE' ignore='no'>
+	<test-suite name='PUT UID restrictions - ATTENDEE'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -373,7 +373,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -387,13 +387,13 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -407,7 +407,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee tries PUT of same resource to another calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/calendar-2/2.ics</ruri>
 				<data>
@@ -425,7 +425,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee tries PUT of same resource to a collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/collection/2.ics</ruri>
 				<data>
@@ -439,7 +439,7 @@
 		</test>
 		<test name='8'>
 			<description>Attendee tries PUT of same resource without Organizer/Attendee to another calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/calendar-2/3.ics</ruri>
 				<data>
@@ -457,7 +457,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendee tries PUT of same resource without Organizer/Attendee to a collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/collection/3.ics</ruri>
 				<data>
@@ -471,14 +471,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee overwrites resource without Organizer/Attendee</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -496,7 +496,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer no Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -553,10 +553,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='PUT non-schedule->schedule' ignore='no'>
+	<test-suite name='PUT non-schedule->schedule'>
 		<test name='1'>
 			<description>Organizer does not invite Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -570,7 +570,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -584,7 +584,7 @@
 		</test>
 		<test name='3'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -606,7 +606,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee no data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>
@@ -628,7 +628,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -642,7 +642,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -656,14 +656,14 @@
 		</test>
 		<test name='7'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -712,10 +712,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE to other calendar - ORGANIZER' ignore='no'>
+	<test-suite name='MOVE to other calendar - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -729,7 +729,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -743,14 +743,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -764,7 +764,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer MOVES to another calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -778,7 +778,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -835,10 +835,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE to other calendar - ATTENDEE' ignore='no'>
+	<test-suite name='MOVE to other calendar - ATTENDEE'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -852,7 +852,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -866,14 +866,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -887,14 +887,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee MOVES to another calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$</ruri>
 				<header>
@@ -908,7 +908,7 @@
 		</test>
 		<test name='7'>
 			<description>Organizer no Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -965,10 +965,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE from/to collection - ORGANIZER' ignore='no'>
+	<test-suite name='MOVE from/to collection - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -982,7 +982,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1004,7 +1004,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer MOVES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -1018,7 +1018,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1032,14 +1032,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1053,7 +1053,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer MOVES to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1067,14 +1067,14 @@
 		</test>
 		<test name='9'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Attendee has no data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>
@@ -1131,10 +1131,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='MOVE to calendar with overwrite - ORGANIZER' ignore='no'>
+	<test-suite name='MOVE to calendar with overwrite - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -1148,7 +1148,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1170,7 +1170,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer stores to calendar - no Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1184,7 +1184,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1206,7 +1206,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer MOVES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -1220,7 +1220,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1234,14 +1234,14 @@
 		</test>
 		<test name='7'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1255,7 +1255,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer stores to collection without Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -1269,7 +1269,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1291,7 +1291,7 @@
 		</test>
 		<test name='12'>
 			<description>Organizer MOVES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -1305,7 +1305,7 @@
 		</test>
 		<test name='13'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1319,14 +1319,14 @@
 		</test>
 		<test name='14'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='15'>
 			<description>Attendee has no data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>
@@ -1383,10 +1383,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='COPY between calendars/collections no scheduling - ORGANIZER' ignore='no'>
+	<test-suite name='COPY between calendars/collections no scheduling - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores without Attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1400,7 +1400,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1414,7 +1414,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer COPIES to a collection</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -1428,7 +1428,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1450,7 +1450,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer COPIES to a calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -1464,7 +1464,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1486,7 +1486,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer tries to invite Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1504,7 +1504,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1561,10 +1561,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='COPY between calendars/collections with scheduling - ORGANIZER/ATTENDEE' ignore='no'>
+	<test-suite name='COPY between calendars/collections with scheduling - ORGANIZER/ATTENDEE'>
 		<test name='1'>
 			<description>Organizer stores without Attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1578,7 +1578,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -1592,14 +1592,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Organizer COPIES to a collection</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -1613,14 +1613,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Organizer COPIES to a calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -1638,14 +1638,14 @@
 		</test>
 		<test name='7'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1659,7 +1659,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendee COPIES to a collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>COPY</method>
 				<ruri>$</ruri>
 				<header>
@@ -1673,7 +1673,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer no Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -1695,7 +1695,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee COPIES to a calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>COPY</method>
 				<ruri>$</ruri>
 				<header>
@@ -1713,7 +1713,7 @@
 		</test>
 		<test name='12'>
 			<description>Organizer no Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -1770,10 +1770,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='COPY from/to collection - ORGANIZER' ignore='no'>
+	<test-suite name='COPY from/to collection - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -1787,7 +1787,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1809,7 +1809,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer COPIES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -1823,7 +1823,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1837,14 +1837,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1858,7 +1858,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer COPIES to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1872,7 +1872,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1929,10 +1929,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='COPY to calendar with overwrite - ORGANIZER' ignore='no'>
+	<test-suite name='COPY to calendar with overwrite - ORGANIZER'>
 		<test name='1'>
 			<description>Organizer stores to collection</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -1946,7 +1946,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -1968,7 +1968,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer stores to calendar - no Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -1982,7 +1982,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -2004,7 +2004,7 @@
 		</test>
 		<test name='5'>
 			<description>Organizer COPIES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -2018,7 +2018,7 @@
 		</test>
 		<test name='6'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -2032,14 +2032,14 @@
 		</test>
 		<test name='7'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2053,7 +2053,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer stores to collection without Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<data>
@@ -2067,7 +2067,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -2089,7 +2089,7 @@
 		</test>
 		<test name='12'>
 			<description>Organizer COPIES to calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/collection/1.ics</ruri>
 				<header>
@@ -2103,7 +2103,7 @@
 		</test>
 		<test name='13'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -2117,14 +2117,14 @@
 		</test>
 		<test name='14'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='15'>
 			<description>Attendee has no data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarpath2:/</ruri>
 				<header>

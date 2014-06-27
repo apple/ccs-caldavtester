@@ -67,10 +67,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='support-report-set/sync-token property' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='support-report-set/sync-token property'>
+		<test name='1'>
 			<description>Not on calendars</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendars:/</ruri>
 				<header>
@@ -101,9 +101,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>On calendar-home</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -162,7 +162,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>On calendar</description>
 			<request>
 				<method>PROPFIND</method>
@@ -193,7 +193,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>On inbox</description>
 			<request>
 				<method>PROPFIND</method>
@@ -228,7 +228,7 @@
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -242,13 +242,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='simple reports - sync-level' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - sync-level'>
+		<test name='1'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -304,12 +304,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -365,12 +365,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -426,12 +426,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -495,12 +495,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -564,12 +564,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -633,9 +633,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>sync-level:1, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -656,12 +656,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -682,12 +682,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:1, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -708,12 +708,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -734,12 +734,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -760,12 +760,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>sync-level:infinity, depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -786,9 +786,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Bad sync-level</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -810,10 +810,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - empty token - no props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - empty token - no props'>
+		<test name='1'>
 			<description>initial query - calendar collection depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -834,12 +834,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -895,12 +895,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>initial query - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -964,7 +964,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>add new resource</description>
 			<request>
 				<method>PUT</method>
@@ -978,9 +978,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>new resource - calendar collection depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -1002,12 +1002,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>new resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1063,12 +1063,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>new resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1134,7 +1134,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>remove new resource</description>
 			<request>
 				<method>DELETE</method>
@@ -1144,9 +1144,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>		
+		<test name='9'>		
 			<description>remove new resource - calendar collection depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -1167,12 +1167,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>remove new resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1228,12 +1228,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>remove new resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1297,7 +1297,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -1311,9 +1311,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>changed resource - calendar collection depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -1334,12 +1334,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>changed resource - home depth:1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1395,12 +1395,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<require-feature>
 				<feature>sync-report-home</feature>
 			</require-feature>
 			<description>changed resource - home depth:infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -1466,10 +1466,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props - calendar depth:1' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - calendar depth:1'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -1494,7 +1494,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -1507,14 +1507,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -1531,7 +1531,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -1540,14 +1540,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -1560,16 +1560,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
 				</data>
@@ -1586,7 +1586,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -1599,7 +1599,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
@@ -1623,16 +1623,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -1647,10 +1647,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - empty token - props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - empty token - props'>
+		<test name='1'>
 			<description>initial query</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1679,7 +1679,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -1692,7 +1692,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1722,7 +1722,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource new resource</description>
 			<request>
 				<method>DELETE</method>
@@ -1731,7 +1731,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1760,7 +1760,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -1773,7 +1773,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1804,10 +1804,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - diff token - props'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1840,7 +1840,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -1853,14 +1853,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -1885,7 +1885,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -1894,14 +1894,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -1914,16 +1914,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/7.xml</filepath>
 				</data>
@@ -1943,7 +1943,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -1956,7 +1956,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
@@ -1988,16 +1988,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -2020,17 +2020,17 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props - home depth:infinity' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initialize</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 			</request>
@@ -2075,9 +2075,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2145,7 +2145,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -2158,14 +2158,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -2183,7 +2183,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -2192,14 +2192,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -2216,16 +2216,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
 				</data>
@@ -2246,7 +2246,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -2259,7 +2259,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2284,16 +2284,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -2308,13 +2308,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props - home depth:infinity' ignore='no'>
+	<test-suite name='simple reports - diff token - props - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2397,7 +2397,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -2410,14 +2410,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -2443,7 +2443,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -2452,14 +2452,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -2476,16 +2476,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/7.xml</filepath>
 				</data>
@@ -2513,7 +2513,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -2526,7 +2526,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2559,16 +2559,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/6.xml</filepath>
 				</data>
@@ -2591,13 +2591,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - delete/create calendar - home depth:infinity' ignore='no'>
+	<test-suite name='simple reports - diff token - delete/create calendar - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2665,7 +2665,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>remove resource then calendar</description>
 			<request>
 				<method>DELETE</method>
@@ -2681,14 +2681,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -2705,7 +2705,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>add calendar - test last sync</description>
 			<request>
 				<method>MKCALENDAR</method>
@@ -2714,14 +2714,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/4.xml</filepath>
 				</data>
@@ -2734,16 +2734,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>add calendar - test previous sync</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -2758,17 +2758,17 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - no props - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - no props - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Initialize</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/synccalendar1/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/synccalendar2/</ruri>
 			</request>
@@ -2813,9 +2813,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -2875,7 +2875,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -2888,14 +2888,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -2912,7 +2912,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -2921,14 +2921,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -2941,16 +2941,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/13.xml</filepath>
 				</data>
@@ -2967,7 +2967,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -2980,7 +2980,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3004,16 +3004,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3028,13 +3028,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - props - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - props - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3109,7 +3109,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>new resource</description>
 			<request>
 				<method>PUT</method>
@@ -3122,14 +3122,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/15.xml</filepath>
 				</data>
@@ -3154,7 +3154,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>remove resource (treated as new)</description>
 			<request>
 				<method>DELETE</method>
@@ -3163,14 +3163,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/15.xml</filepath>
 				</data>
@@ -3183,16 +3183,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>remove resource (treated as old)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/16.xml</filepath>
 				</data>
@@ -3216,7 +3216,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>changed resource</description>
 			<request>
 				<method>PUT</method>
@@ -3229,7 +3229,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3261,16 +3261,16 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>no change</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/15.xml</filepath>
 				</data>
@@ -3293,13 +3293,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - diff token - delete/create calendar - home depth:1' ignore='no'>
+	<test-suite name='simple reports - diff token - delete/create calendar - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3359,7 +3359,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>remove resource then calendar</description>
 			<request>
 				<method>DELETE</method>
@@ -3375,14 +3375,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3399,7 +3399,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>add calendar - test last sync</description>
 			<request>
 				<method>MKCALENDAR</method>
@@ -3408,14 +3408,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/13.xml</filepath>
 				</data>
@@ -3428,16 +3428,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>add calendar - test previous sync</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>1</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3452,10 +3452,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - empty inbox' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - empty inbox'>
+		<test name='1'>
 			<description>initial query</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -3476,10 +3476,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='simple reports - valid token' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='simple reports - valid token'>
+		<test name='1'>
 			<description>initial query</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -3501,13 +3501,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='calendar webdav property change - home depth:infinity' ignore='no'>
+	<test-suite name='calendar webdav property change - home depth:infinity'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3571,7 +3571,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -3584,14 +3584,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -3615,7 +3615,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Remove a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -3628,14 +3628,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/3.xml</filepath>
 				</data>
@@ -3661,13 +3661,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='calendar webdav property change - home depth:1' ignore='no'>
+	<test-suite name='calendar webdav property change - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3727,7 +3727,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -3740,14 +3740,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3771,7 +3771,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Remove a property</description>
 			<request>
 				<method>PROPPATCH</method>
@@ -3784,14 +3784,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3818,13 +3818,13 @@
 	</test-suite>
 
 
-	<test-suite name='default calendar property change - home depth:1' ignore='no'>
+	<test-suite name='default calendar property change - home depth:1'>
 		<require-feature>
 			<feature>sync-report-home</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>initial query - grab token</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -3884,9 +3884,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Change property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -3901,14 +3901,14 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3932,9 +3932,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Reset the property</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -3949,14 +3949,14 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>infinity</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/sync/12.xml</filepath>
 				</data>
@@ -3982,13 +3982,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='limited reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='limited reports'>
+		<test name='1'>
 			<exclude-feature>
 				<feature>sync-report-limit</feature>
 			</exclude-feature>
 			<description>Limit not allowed</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>

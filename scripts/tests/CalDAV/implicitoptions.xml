@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -47,7 +47,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>

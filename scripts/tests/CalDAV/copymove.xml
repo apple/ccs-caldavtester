@@ -123,9 +123,9 @@
 			<feature>no-duplicate-uids</feature>
 		</exclude-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>COPY within same calendar to new resource</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -142,7 +142,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>COPY within same calendar to existing resource with overwrite</description>
 			<request>
 				<method>COPY</method>
@@ -165,7 +165,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>COPY within same calendar to existing resource without overwrite</description>
 			<request>
 				<method>COPY</method>
@@ -190,7 +190,7 @@
 		</test>
 		<test name='4'>
 			<description>COPY to different calendar, new resource</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -316,7 +316,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE' ignore='no'>
+	<test-suite name='MOVE'>
 
 		<require-feature>
 			<feature>MOVE Method</feature>
@@ -387,7 +387,7 @@
 		</test>
 		<test name='4'>
 			<description>MOVE to different calendar, new resource</description>
-			<request print-response='yes'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/move1.ics</ruri>
 				<header>
@@ -428,7 +428,7 @@
 				<feature>no-duplicate-uids</feature>
 			</exclude-feature>
 			<description>MOVE to different calendar, existing resource with overwrite</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
@@ -495,7 +495,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='COPY/MOVE and Properties' ignore='no'>
+	<test-suite name='COPY/MOVE and Properties'>
 
 		<require-feature>
 			<feature>COPY Method</feature>

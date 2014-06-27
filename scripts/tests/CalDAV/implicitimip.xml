@@ -37,10 +37,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Attempt to store externally organized event' ignore='no'>
+	<test-suite name='Attempt to store externally organized event'>
 		<test name='1'>
 			<description>Attendee stores organized event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -54,7 +54,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -68,7 +68,7 @@
 		</test>
 		<test name='3'>
 			<description>Attendee stores organized event with SCHEDULE-AGENT=NONE</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -82,7 +82,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -96,7 +96,7 @@
 		</test>
 		<test name='5'>
 			<description>Attendee stores organized event with SCHEDULE-AGENT=CLIENT</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -110,7 +110,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -143,10 +143,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Attempt to store local organized event with SCHEDULE-AGENT=SERVER' ignore='no'>
+	<test-suite name='Attempt to store local organized event with SCHEDULE-AGENT=SERVER'>
 		<test name='1'>
 			<description>Attendee stores organized event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<data>
@@ -164,7 +164,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -197,10 +197,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Store externally organized event without matching attendee' ignore='no'>
+	<test-suite name='Store externally organized event without matching attendee'>
 		<test name='1'>
 			<description>Attendee stores organized event (no local attendees)</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -214,7 +214,7 @@
 		</test>
 		<test name='2'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -228,7 +228,7 @@
 		</test>
 		<test name='3'>
 			<description>Attendee stores organized event (one local attendee)</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -242,7 +242,7 @@
 		</test>
 		<test name='4'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -256,7 +256,7 @@
 		</test>
 		<test name='5'>
 			<description>Attendee updates organized event (one local attendee)</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -270,7 +270,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -284,7 +284,7 @@
 		</test>
 		<test name='7'>
 			<description>Attendee deletes organized event (one local attendee)</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -294,7 +294,7 @@
 		</test>
 		<test name='8'>
 			<description>Attendee stores organized event with SCHEDULE-AGENT=CLIENT</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
@@ -308,7 +308,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<verify>
@@ -322,7 +322,7 @@
 		</test>
 		<test name='10'>
 			<description>Attendee stores organized event with SCHEDULE-AGENT=CLIENT</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
@@ -336,7 +336,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<verify>

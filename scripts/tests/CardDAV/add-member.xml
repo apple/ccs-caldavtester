@@ -27,7 +27,7 @@
 	</require-feature>
 
 	<start>
-		<request print-response='no'>
+		<request>
 			<method>DELETE</method>
 			<ruri>$addressbookpath1:/</ruri>
 		</request>
@@ -80,10 +80,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='POST VCARD' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='POST VCARD'>
+		<test name='1'>
 			<description>POST simple vCard</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/$add-member:</ruri>
 				<data>
@@ -110,7 +110,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<request>
 				<method>GET</method>
 				<ruri>$posted:</ruri>
@@ -123,9 +123,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>re-POST simple vCard - UID conflict failure</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/$add-member:</ruri>
 				<data>

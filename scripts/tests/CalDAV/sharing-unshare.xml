@@ -44,10 +44,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Set up share' ignore="no">
-		<test name='1' ignore='no'>
+	<test-suite name='Set up share'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -61,11 +61,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -88,10 +88,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/setup/3.xml</filepath>
 				</data>
@@ -112,9 +112,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check accept status</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -144,7 +144,7 @@
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<verify>
@@ -162,10 +162,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Delete' ignore="no">
+	<test-suite name='Delete'>
 		<test name='1'>
 			<description>Sharer adds event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -177,9 +177,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Sharee deletes shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$shareecalendar:/</ruri>
 				<header>
@@ -191,9 +191,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>No more shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar:/</ruri>
 				<header>
@@ -213,9 +213,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Sharer still has calendar data</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -237,10 +237,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Reshare after sharee DELETE shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Reshare after sharee DELETE shared calendar'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -254,11 +254,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -281,10 +281,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/setup/3.xml</filepath>
 				</data>
@@ -305,9 +305,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check accept status</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<header>
@@ -337,7 +337,7 @@
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<verify>
@@ -356,10 +356,10 @@
 	</test-suite>
 
 
-	<test-suite name='Invite, display name change, uninvite' ignore="no">
-		<test name='1' ignore='no'>
+	<test-suite name='Invite, display name change, uninvite'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -373,11 +373,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath3:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath3:/</ruri>
 				<verify>
@@ -400,10 +400,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$calendarhome3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/unshare/shareruninvite/3.xml</filepath>
 				</data>
@@ -426,7 +426,7 @@
 		</test>
 		<test name='4'>
 			<description>Sharee changes name</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPPATCH</method>
 				<ruri>$shareecalendar:/</ruri>
 				<data>
@@ -442,9 +442,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>POST uninvitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -458,11 +458,11 @@
 		</test>
 		<test name='6'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath3:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath3:/</ruri>
 				<verify>

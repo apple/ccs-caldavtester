@@ -36,10 +36,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='#1 refresh across nodes' ignore='no'>
+	<test-suite name='#1 refresh across nodes'>
 		<test name='1'>
 			<description>Organizer invites Attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -53,7 +53,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -67,18 +67,18 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$otherinboxpath1:/</ruri>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$otherinboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendees have data</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath1:/</ruri>
 				<verify>
@@ -89,7 +89,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath2:/</ruri>
 				<verify>
@@ -103,14 +103,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee 1 -> Accepted</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -124,14 +124,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -145,7 +145,7 @@
 		</test>
 		<test name='10'>
 			<description>Attendee 2 no Inbox Item</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PROPFIND</method>
 				<ruri>$otherinboxpath2:/</ruri>
 				<header>
@@ -167,7 +167,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee 2 data changed</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath2:/</ruri>
 				<verify>
@@ -181,14 +181,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee 2 -> Decline</description>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$otherid2:" pswd="$otherpswd2:" print-response='no'>
+			<request user="$otherid2:" pswd="$otherpswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -202,14 +202,14 @@
 		</test>
 		<test name='13'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='14'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -223,7 +223,7 @@
 		</test>
 		<test name='16'>
 			<description>Attendee 1 no Inbox Item</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>PROPFIND</method>
 				<ruri>$otherinboxpath1:/</ruri>
 				<header>
@@ -245,7 +245,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee 1 data changed</description>
-			<request user="$otherid1:" pswd="$otherpswd1:" print-response='no'>
+			<request user="$otherid1:" pswd="$otherpswd1:">
 				<method>GETNEW</method>
 				<ruri>$othercalendarpath1:/</ruri>
 				<verify>

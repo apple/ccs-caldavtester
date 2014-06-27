@@ -50,9 +50,9 @@
 	</start>
 	
 	<test-suite name='Setup two sharees'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -66,11 +66,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee 2 notification collection</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$pnotificationpath2:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath2:/</ruri>
 				<verify>
@@ -88,10 +88,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee 2 replies ACCEPTED</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response='no'>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -106,11 +106,11 @@
 		</test>
 		<test name='4'>
 			<description>Check Sharee 3 notification collection</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$pnotificationpath3:/</ruri>
 			</request>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>GETNEW</method>
 				<ruri>$pnotificationpath3:/</ruri>
 				<verify>
@@ -128,10 +128,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee 3 replies ACCEPTED</description>
-			<request host2="yes" user="$puserid3:" pswd="$ppswd3:" print-response='no'>
+			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>POST</method>
 				<ruri>$pcalendarhome3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply3-pod.xml</filepath>
 				</data>
@@ -381,7 +381,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
@@ -398,7 +398,7 @@
 		</test>
 		<test name='2'>
 			<description>GET on calendar collection after sharee PUT - 2nd time from cache</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>

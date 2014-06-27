@@ -25,10 +25,10 @@
 
 	<start/>
 	
-	<test-suite name='prop patches' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='prop patches'>
+		<test name='1'>
 			<description>PROPPATCH of details: good</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -44,7 +44,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -65,9 +65,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPPATCH of details: remove it</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -82,7 +82,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -106,9 +106,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPPATCH remove non-existant</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -124,9 +124,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PROPPATCH of resourcetype: fails</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -143,7 +143,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -169,7 +169,7 @@
 		</test>
 		<test name='5'>
 			<description>PROPPATCH of encoded value</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -184,7 +184,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -204,9 +204,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>PROPPATCH non-existent calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/bogus-calendar/</ruri>
 				<data>
@@ -225,9 +225,9 @@
 	</test-suite>
 	
 	<test-suite name='prop patch property attributes'>
-		<test name='1' ignore="no">
+		<test name='1'>
 			<description>PROPPATCH with property XML attribute</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -242,7 +242,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -269,9 +269,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>PROPPATCH of details: remove it</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -286,7 +286,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>

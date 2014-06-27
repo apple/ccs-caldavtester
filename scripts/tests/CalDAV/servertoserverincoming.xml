@@ -60,10 +60,10 @@
 		</request>
 	</start>
 	
-	<test-suite name="POST free-busy" ignore='no'>
+	<test-suite name="POST free-busy">
 		<test name='1'>
 			<description>POST free busy one valid user</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -84,7 +84,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy two valid users</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -106,14 +106,14 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="POST invite one user" ignore='no'>
+	<test-suite name="POST invite one user">
 		<test name='1'>
 			<description>POST invite to one valid user</description>
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -132,9 +132,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$inboxpath1:/</ruri>
 				<verify>
@@ -148,14 +148,14 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="POST invite two users" ignore='no'>
+	<test-suite name="POST invite two users">
 		<test name='1'>
 			<description>POST invite to two valid users</description>
 			<request>
 				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -174,9 +174,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$inboxpath1:/</ruri>
 				<verify>
@@ -188,9 +188,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user02 Inbox</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$inboxpath2:/</ruri>
 				<verify>
@@ -204,10 +204,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="POST Errors" ignore='no'>
+	<test-suite name="POST Errors">
 		<test name='1'>
 			<description>POST authenticated</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -225,7 +225,7 @@
 		</test>
 		<test name='2'>
 			<description>POST local originator</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -243,7 +243,7 @@
 		</test>
 		<test name='3'>
 			<description>POST invalid local recipient</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -264,7 +264,7 @@
 		</test>
 		<test name='4'>
 			<description>POST remote recipient</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -285,7 +285,7 @@
 		</test>
 		<test name='5'>
 			<description>POST local organizer</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>
@@ -303,7 +303,7 @@
 		</test>
 		<test name='6'>
 			<description>POST local attendee reply</description>
-			<request auth='no' print-response='no'>
+			<request auth='no'>
 				<method>POST</method>
 				<ruri>$servertoserver:</ruri>
 				<data>

@@ -103,7 +103,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -132,7 +132,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -192,7 +192,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -208,7 +208,7 @@
 		</test>
 		<test name='5'>
 			<description>One dropbox</description>
-			<request print-response="yes">
+			<request>
 				<method>FINDNEW</method>
 				<ruri>$dropboxpath1:/</ruri>
 				<graburi>$dropboxchild1:</graburi>
@@ -292,7 +292,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore="no">
+		<test name='2'>
 			<description>Try to create a resource</description>
 			<request end-delete="yes">
 				<method>PUT</method>

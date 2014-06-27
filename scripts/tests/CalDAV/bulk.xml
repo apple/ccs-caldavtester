@@ -77,13 +77,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple POST - one event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - one event'>
+		<test name='1'>
 			<description>POST single new event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/1.ics</filepath>
 				</data>
@@ -109,7 +109,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -130,12 +130,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single existing event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/2.ics</filepath>
 				</data>
@@ -149,7 +149,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -170,12 +170,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST single new different event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/3.ics</filepath>
 				</data>
@@ -201,7 +201,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -222,7 +222,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -234,13 +234,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple POST - multiple events' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - multiple events'>
+		<test name='1'>
 			<description>POST multiple new events</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/4.ics</filepath>
 				</data>
@@ -269,7 +269,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -290,7 +290,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -311,12 +311,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST one new, one exsting events</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/7.ics</filepath>
 				</data>
@@ -345,7 +345,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check unchanged</description>
 			<request>
 				<method>GET</method>
@@ -366,7 +366,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -387,7 +387,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -399,17 +399,17 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Simple POST - one event return data' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Simple POST - one event return data'>
+		<test name='1'>
 			<description>POST single new event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
 					<name>X-MobileMe-DAV-Options</name>
 					<value>return-changed-data</value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/9.ics</filepath>
 				</data>
@@ -434,7 +434,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -455,7 +455,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -467,7 +467,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple POST - ctag condition' ignore='no'>
+	<test-suite name='Simple POST - ctag condition'>
 		<test name='1'>
 			<description>PROPFIND on calendar</description>
 			<request>
@@ -490,9 +490,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST single new event conditional fail</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -503,7 +503,7 @@
 					<name>If</name>
 					<value><![CDATA[<http://me.com/_namespace/ctag/$ctag:123>]]></value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/9.ics</filepath>
 				</data>
@@ -516,9 +516,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single new event conditional ok</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -529,7 +529,7 @@
 					<name>If</name>
 					<value><![CDATA[<http://me.com/_namespace/ctag/$ctag:>]]></value>
 				</header>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/simple/9.ics</filepath>
 				</data>
@@ -569,7 +569,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -581,13 +581,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - one event create' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - one event create'>
+		<test name='1'>
 			<description>POST single new event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-one/1.xml</filepath>
 				</data>
@@ -613,7 +613,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -634,12 +634,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST single existing event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-one/3.xml</filepath>
 				</data>
@@ -653,7 +653,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -674,12 +674,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>POST single new different event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-one/4.xml</filepath>
 				</data>
@@ -705,7 +705,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -726,7 +726,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -738,13 +738,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - multiple' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - multiple'>
+		<test name='1'>
 			<description>POST single new event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-multiple/1.xml</filepath>
 				</data>
@@ -770,7 +770,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -791,12 +791,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST add new and update existing</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-multiple/3.xml</filepath>
 				</data>
@@ -824,7 +824,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -845,7 +845,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -866,12 +866,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>POST delete and update existing</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-multiple/6.xml</filepath>
 				</data>
@@ -897,7 +897,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -918,7 +918,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Data gone</description>
 			<request>
 				<method>GET</method>
@@ -932,7 +932,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>
@@ -944,13 +944,13 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST - multiple if-match' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='CRUD POST - multiple if-match'>
+		<test name='1'>
 			<description>POST two new events</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-ifmatch/1.xml</filepath>
 				</data>
@@ -979,7 +979,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1000,7 +1000,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1021,12 +1021,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST new, update and delete existing - if-match fail</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-ifmatch/4.xml</filepath>
 				</data>
@@ -1055,7 +1055,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1076,7 +1076,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1097,7 +1097,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1118,12 +1118,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>POST update and delete existing - if-match ok</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/bulk/crud-ifmatch/6.xml</filepath>
 				</data>
@@ -1149,7 +1149,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Data gone</description>
 			<request>
 				<method>GET</method>
@@ -1163,7 +1163,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Data changed</description>
 			<request>
 				<method>GET</method>
@@ -1184,7 +1184,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Data unchanged</description>
 			<request>
 				<method>GET</method>
@@ -1205,7 +1205,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
 			<request>
 				<method>DELETEALL</method>

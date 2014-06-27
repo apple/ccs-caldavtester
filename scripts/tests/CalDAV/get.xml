@@ -96,7 +96,7 @@
 				<feature>directory listing</feature>
 			</require-feature>
 			<description>GET on calendar collection with listing</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -196,7 +196,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -232,7 +232,7 @@
 				<feature>directory listing</feature>
 			</require-feature>
 			<description>GET on calendar collection with listing</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -253,7 +253,7 @@
 		</test>
 		<test name='6'>
 			<description>Conditional GET on calendar collection</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -271,7 +271,7 @@
 		</test>
 		<test name='7'>
 			<description>Conditional GET on calendar collection</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -292,7 +292,7 @@
                 <feature>directory listing</feature>
             </require-feature>
             <description>Update of displayname property</description>
-            <request print-response="no">
+            <request>
                 <method>PROPPATCH</method>
                 <ruri>$calendarpath1:/</ruri>
                 <data>
@@ -307,7 +307,7 @@
                     </arg>
                 </verify>
             </request>
-            <request print-response="no">
+            <request>
                 <method>PROPFIND</method>
                 <ruri>$calendarpath1:/</ruri>
                 <header>
@@ -326,7 +326,7 @@
                     </arg>
                 </verify>
             </request>
-            <request print-response="no">
+            <request>
                 <method>GET</method>
                 <ruri>$calendarpath1:/</ruri>
                 <verify>
@@ -346,7 +346,7 @@
                 <feature>directory listing</feature>
             </require-feature>
             <description>Another update of displayname property</description>
-            <request print-response="no">
+            <request>
                 <method>PROPPATCH</method>
                 <ruri>$calendarpath1:/</ruri>
                 <data>
@@ -361,7 +361,7 @@
                     </arg>
                 </verify>
             </request>
-            <request print-response="no">
+            <request>
                 <method>PROPFIND</method>
                 <ruri>$calendarpath1:/</ruri>
                 <header>
@@ -380,7 +380,7 @@
                     </arg>
                 </verify>
             </request>
-            <request print-response="no">
+            <request>
                 <method>GET</method>
                 <ruri>$calendarpath1:/</ruri>
                 <verify>
@@ -469,7 +469,7 @@
 		</test>
 		<test name='4'>
 			<description>Conditional GET on calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -487,7 +487,7 @@
 		</test>
 		<test name='5'>
 			<description>Conditional GET on calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>

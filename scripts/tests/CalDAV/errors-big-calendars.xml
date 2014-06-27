@@ -27,10 +27,10 @@
 
 	<start/>
 	
-	<test-suite name='REPORT/too big' ignore='no'>
+	<test-suite name='REPORT/too big'>
 		<test name='1'>
 			<description>add one event to make it a 1001 event calendar</description>
-			<request user="$userid9:" pswd="$pswd9:" end-delete="yes" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarhome9:/calendar.1000/abc.ics</ruri>
 				<data>
@@ -41,7 +41,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:">
 				<method>REPORT</method>
 				<ruri>$calendarhome9:/calendar.1000/</ruri>
 				<data>
@@ -59,7 +59,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget with too many results</description>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:">
 				<method>REPORT</method>
 				<ruri>$calendarhome9:/calendar.1000/</ruri>
 				<data>
@@ -77,7 +77,7 @@
 		</test>
 		<test name='3'>
 			<description>free-busy with too many results</description>
-			<request user="$userid9:" pswd="$pswd9:" print-response='no'>
+			<request user="$userid9:" pswd="$pswd9:">
 				<method>REPORT</method>
 				<ruri>$calendarhome9:/calendar.1000/</ruri>
 				<data>

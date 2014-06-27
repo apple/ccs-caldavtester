@@ -40,7 +40,7 @@
 			<method>GET</method>
 			<ruri>$calendarpath3:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$principal2:calendar-proxy-write/</ruri>
 			<data>
@@ -48,7 +48,7 @@
 				<filepath>Resource/CalDAV/implicit/proxy/1.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>PROPPATCH</method>
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>
@@ -58,8 +58,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='Proxy as Organizer' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Proxy as Organizer'>
+		<test name='1'>
 			<description>Proxy creates new event</description>
 			<request>
 				<method>PUT</method>
@@ -73,9 +73,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>No items in user02 Inbox</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -95,9 +95,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user02 Calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<verify>
@@ -109,16 +109,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One item in user03 Inbox</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>One item in user03 calendar</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -132,17 +132,17 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Proxy as Attendee' ignore='no'>
-		<test name='2' ignore='no'>
+	<test-suite name='Proxy as Attendee'>
+		<test name='2'>
 			<description>Proxy updates event</description>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -154,16 +154,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user02 Inbox</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One item in user02 Calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<verify>
@@ -175,9 +175,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>No item in user03 Inbox</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath3:/</ruri>
 				<header>
@@ -197,9 +197,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One item in user03 calendar</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -215,7 +215,7 @@
 	
 	<test-suite name="Undo proxy, set ACL">
 		<test name="Undo proxy setting">
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$principal2:calendar-proxy-write/</ruri>
 				<data>
@@ -226,7 +226,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPPATCH</method>
 				<ruri>$principal3:calendar-proxy-write/</ruri>
 				<data>
@@ -239,7 +239,7 @@
 			</request>
 		</test>
 		<test name="Set ACLs" ignore="yes">
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>ACL</method>
 				<ruri>$calendarpath2:/</ruri>
 				<data>
@@ -250,7 +250,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>ACL</method>
 				<ruri>$calendarpath3:/</ruri>
 				<data>
@@ -265,9 +265,9 @@
 	</test-suite>
 
 	<test-suite name='Writer as organizer - no scheduling' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Writer can read existing event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<verify>
@@ -279,7 +279,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Writer creates non schedule new event</description>
 			<request>
 				<method>PUT</method>
@@ -293,9 +293,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Writer tries to create new event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath2:/3.ics</ruri>
 				<data>
@@ -322,9 +322,9 @@
 	</test-suite>
 
 	<test-suite name='Writer as attendee - no scheduling' ignore='yes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Writer can read existing item</description>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -336,7 +336,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Writer creates non schedule new event</description>
 			<request>
 				<method>PUT</method>
@@ -350,9 +350,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Writer updates event</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -393,7 +393,7 @@
 			<ruri>$calendarpath3:/</ruri>
 		</request>
 
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$principal2:calendar-proxy-write/</ruri>
 			<data>
@@ -401,7 +401,7 @@
 				<filepath>Resource/CalDAV/implicit/proxy/2.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>PROPPATCH</method>
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>
@@ -409,7 +409,7 @@
 				<filepath>Resource/CalDAV/implicit/proxy/2.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>ACL</method>
 			<ruri>$calendarpath2:/</ruri>
 			<data>
@@ -417,7 +417,7 @@
 				<filepath>Resource/CalDAV/implicit/proxy/11.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>ACL</method>
 			<ruri>$calendarpath3:/</ruri>
 			<data>

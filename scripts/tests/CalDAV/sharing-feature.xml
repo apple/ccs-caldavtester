@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -46,7 +46,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -62,9 +62,9 @@
 	</test-suite>
 
 	<test-suite name='Allowed modes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Check mode</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -84,9 +84,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>No mode on inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -119,9 +119,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Not shared</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/shared1/</ruri>
 				<header>
@@ -143,7 +143,7 @@
 		</test>
 		<test name='3'>
 			<description>Upgrade via PROPPATCH</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/shared1/</ruri>
 				<data>

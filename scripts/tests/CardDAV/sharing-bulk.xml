@@ -31,8 +31,8 @@
 	<start>
 	</start>
 	
-	<test-suite name='POST with circular groups' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='POST with circular groups'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -50,7 +50,7 @@
 				</data>
 			</request>
 			<description>user2 POSTs invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
 				<data>
@@ -59,11 +59,11 @@
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -72,7 +72,7 @@
 				</grabelement>
 			</request>
 			<description>user1 replies ACCEPTED and deletes notification</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -85,12 +85,12 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/7.vcf</filepath>
 				</data>
@@ -115,7 +115,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -136,7 +136,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -157,7 +157,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -178,7 +178,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -199,7 +199,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -220,9 +220,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='-1' ignore='no'>
+		<test name='-1'>
 			<description>Clean up</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$href1:</ruri>
 				<ruri>$href2:</ruri>
@@ -236,8 +236,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='POST with circular groups and one bad reference' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='POST with circular groups and one bad reference'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -255,7 +255,7 @@
 				</data>
 			</request>
 			<description>user2 POSTs invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
 				<data>
@@ -264,11 +264,11 @@
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -277,7 +277,7 @@
 				</grabelement>
 			</request>
 			<description>user1 replies ACCEPTED and deletes notification</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -290,12 +290,12 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/vcard; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/8.vcf</filepath>
 				</data>
@@ -362,7 +362,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -383,7 +383,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -404,7 +404,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -427,8 +427,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='CRUD POST with circular groups' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='CRUD POST with circular groups'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -446,7 +446,7 @@
 				</data>
 			</request>
 			<description>user2 POSTs invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
 				<data>
@@ -455,11 +455,11 @@
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -468,7 +468,7 @@
 				</grabelement>
 			</request>
 			<description>user1 replies ACCEPTED and deletes notification</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -481,12 +481,12 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/11.xml</filepath>
 				</data>
@@ -511,7 +511,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -532,7 +532,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -553,7 +553,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -574,7 +574,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -595,7 +595,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -618,8 +618,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='crud POST with circular groups and one bad reference' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='crud POST with circular groups and one bad reference'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -637,7 +637,7 @@
 				</data>
 			</request>
 			<description>user2 POSTs invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
 				<data>
@@ -646,11 +646,11 @@
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -659,7 +659,7 @@
 				</grabelement>
 			</request>
 			<description>user1 replies ACCEPTED and deletes notification</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -672,12 +672,12 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/12.xml</filepath>
 				</data>
@@ -743,7 +743,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -764,7 +764,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check valid data</description>
 			<request>
 				<method>GET</method>
@@ -787,8 +787,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='crud POST delete cannot delete (unshare) read-write shared group' ignore='no'>
-		<test name='0' ignore='no'>
+	<test-suite name='crud POST delete cannot delete (unshare) read-write shared group'>
+		<test name='0'>
 			<description>clean up old data</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
@@ -806,7 +806,7 @@
 				</data>
 			</request>
 			<description>user2 POSTs invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookpath2:/1.vcf</ruri>
 				<data>
@@ -815,11 +815,11 @@
 				</data>
 			</request>
 			<description>Check user1 notification collection and get invite uid</description>
-			<request print-response="no">
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<grabelement>
@@ -828,7 +828,7 @@
 				</grabelement>
 			</request>
 			<description>user1 replies ACCEPTED and deletes notification</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data substitutions="yes">
@@ -841,12 +841,12 @@
 				<ruri>$notificationpath1:/$inviteuid:</ruri>
 			</request>
 		</test>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST multiple new vcards</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/11.xml</filepath>
 				</data>
@@ -871,12 +871,12 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Delete shared group and other group</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookhome1:/$userguid2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/bulk/13.xml</filepath>
 				</data>
@@ -894,7 +894,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>group still here</description>
 			<request>
 				<method>GET</method>
@@ -904,7 +904,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Data gone</description>
 			<request>
 				<method>GET</method>

@@ -34,8 +34,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='#1 Non-recurring' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='#1 Non-recurring'>
+		<test name='1'>
 			<description>Create new event</description>
 			<request>
 				<method>PUT</method>
@@ -49,16 +49,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -70,9 +70,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -84,7 +84,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Create new event that immediately precedes the other</description>
 			<request>
 				<method>PUT</method>
@@ -98,16 +98,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -119,9 +119,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -133,7 +133,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>
@@ -146,8 +146,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='#1 Recurring' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='#1 Recurring'>
+		<test name='1'>
 			<description>Create new event</description>
 			<request>
 				<method>PUT</method>
@@ -161,16 +161,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>One item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<verify>
@@ -182,9 +182,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>One item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -196,7 +196,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Create new event that immediately precedes the other</description>
 			<request>
 				<method>PUT</method>
@@ -210,16 +210,16 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>One item in user01 Inbox</description>
-			<request print-response="no">
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Item in user01 Calendar</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<verify>
@@ -231,9 +231,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Item in resource01 Calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GETNEW</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
@@ -245,7 +245,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Clean-up inboxes</description>
 			<request>
 				<method>DELETEALL</method>

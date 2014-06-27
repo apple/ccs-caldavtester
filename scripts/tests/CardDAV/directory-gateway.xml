@@ -31,7 +31,7 @@
 	<test-suite name='Find the gateway'>
 		<test name='1'>
 			<description>PROPFIND of principal for gateway</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:/</ruri>
 				<header>
@@ -57,7 +57,7 @@
 		</test>
 		<test name='2'>
 			<description>PROPFIND of gateway</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$gateway1:</ruri>
 				<header>
@@ -81,7 +81,7 @@
 		</test>
 		<test name='3'>
 			<description>PROPFIND of gateway: DAV:resource-id</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$gateway1:</ruri>
 				<header>
@@ -103,7 +103,7 @@
 		</test>
 		<test name='4'>
 			<description>PROPFIND of gateway: no sync report</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$gateway1:</ruri>
 				<header>
@@ -125,7 +125,7 @@
 		</test>
 		<test name='5'>
 			<description>GET of gateway</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$directory:</ruri>
 				<verify>

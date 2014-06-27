@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='Limits in properties' ignore='no'>
+	<test-suite name='Limits in properties'>
 		<test name='1'>
 			<description>max-collections property</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<header>
@@ -53,7 +53,7 @@
 		</test>
 		<test name='2'>
 			<description>max-resources property</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -77,9 +77,9 @@
 
 <!--
 	<test-suite name='Collection limit' ignore='yes'>
-		<test name='1' count='49' ignore='no'>
+		<test name='1' count='49'>
 			<description>Create collections to one below the limit</description>
-			<request end-delete='yes' print-response='no'>
+			<request end-delete='yes'>
 				<method>MKCOL</method>
 				<ruri>$addressbookhome1:/adbktest-##/</ruri>
 				<data>
@@ -95,9 +95,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Create collections to one below the limit</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$addressbookhome1:/adbktest-50/</ruri>
 				<data>

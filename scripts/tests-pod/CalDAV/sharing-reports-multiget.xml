@@ -272,7 +272,7 @@
 	</start>
 	
 	<test-suite name='Set up share'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
 			<request>
 				<method>POST</method>
@@ -309,7 +309,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -326,7 +326,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>POST invitation</description>
 			<request>
 				<method>POST</method>
@@ -363,7 +363,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -382,13 +382,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='multiget reports' ignore='no'>
-		<test name='1a' ignore='no'>
+	<test-suite name='multiget reports'>
+		<test name='1a'>
 			<description>basic multiget of 4 resources returning etag and entire ics data</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/1.xml</filepath>
 				</data>
@@ -427,7 +427,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1b' ignore='no'>
+		<test name='1b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -435,7 +435,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareetaskspath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/1b.xml</filepath>
 				</data>
@@ -456,12 +456,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>basic multiget of 4 resources returning etag and only VCALENDAR property data (no embedded components)</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/2.xml</filepath>
 				</data>
@@ -477,12 +477,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>basic multiget of 4 resources returning etag and only VTIMEZONE components</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/3.xml</filepath>
 				</data>
@@ -498,12 +498,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4a' ignore='no'>
+		<test name='4a'>
 			<description>basic multiget of 4 resources returning etag and only SUMMARY/UID properties inside VEVENT components and VALARMs</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/4.xml</filepath>
 				</data>
@@ -542,7 +542,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b' ignore='no'>
+		<test name='4b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -550,7 +550,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareetaskspath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/4b.xml</filepath>
 				</data>
@@ -571,12 +571,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5a' ignore='no'>
+		<test name='5a'>
 			<description>as 4.xml except that the SUMMARY property value is not returned</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/5.xml</filepath>
 				</data>
@@ -615,7 +615,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5b' ignore='no'>
+		<test name='5b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -623,7 +623,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareetaskspath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/5b.xml</filepath>
 				</data>
@@ -644,12 +644,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Does allprop</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/6.xml</filepath>
 				</data>
@@ -665,12 +665,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Does propname</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/7.xml</filepath>
 				</data>
@@ -686,12 +686,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Single non-existent query</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV-pod/sharing/multiget/8.xml</filepath>
 				</data>

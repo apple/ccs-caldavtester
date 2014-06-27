@@ -28,8 +28,8 @@
 
 	<start/>
 	
-	<test-suite name='Check for the property on /' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Check for the property on /'>
+		<test name='1'>
 			<description>Check for authenticated property on /</description>
 			<request>
 				<method>PROPFIND</method>
@@ -51,7 +51,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check for unauthenticated property on /</description>
 			<request auth="no">
 				<method>PROPFIND</method>
@@ -86,7 +86,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for authenticated property on / (user02)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
@@ -110,8 +110,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Check for the property on /principals/' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Check for the property on /principals/'>
+		<test name='1'>
 			<description>Check for authenticated property on /</description>
 			<request>
 				<method>PROPFIND</method>
@@ -133,7 +133,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Check for unauthenticated property on /</description>
 			<request auth="no">
 				<method>PROPFIND</method>
@@ -155,7 +155,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for authenticated property on / (user02)</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>

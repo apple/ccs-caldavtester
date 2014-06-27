@@ -44,7 +44,7 @@
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection 1/</ruri>
 			</request>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<data>
@@ -69,7 +69,7 @@
 				<feature>COPY Method</feature>
 			</require-feature>
 			<description>COPY</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<header>
@@ -87,7 +87,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/collection 1/2_2 a.ics</ruri>
 				<header>
@@ -119,7 +119,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>MOVE</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/collection 1/2 a.ics</ruri>
 				<header>
@@ -137,7 +137,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/collection 1/2_2 a.ics</ruri>
 				<header>
@@ -169,7 +169,7 @@
 	<test-suite name='calendar resource'>
 		<test name='1'>
 			<description>PUT</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<data>
@@ -190,7 +190,7 @@
 		</test>
 		<test name='2'>
 			<description>PROPFIND</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -216,7 +216,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget REPORT</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -243,7 +243,7 @@
 				<feature>no-duplicate-uids</feature>
 			</exclude-feature>
 			<description>COPY</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<header>
@@ -261,7 +261,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/calendar 2/2_2 a.ics</ruri>
 				<header>
@@ -293,7 +293,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>MOVE</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/2 a.ics</ruri>
 				<header>
@@ -311,7 +311,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/calendar 3/2_3 a.ics</ruri>
 				<header>
@@ -343,7 +343,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded calendar collection path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
@@ -367,7 +367,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded calendar resource path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/2_3 a.ics</ruri>
 				<data>
@@ -391,7 +391,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded collection path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -415,7 +415,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>query REPORT on encoded calendar path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
@@ -439,7 +439,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>free-busy REPORT on encoded calendar path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
@@ -456,7 +456,7 @@
 	<test-suite name='calendar resource double-encoded'>
 		<test name='1'>
 			<description>PUT</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<data>
@@ -477,7 +477,7 @@
 		</test>
 		<test name='2'>
 			<description>PROPFIND</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -503,7 +503,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget REPORT</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -530,7 +530,7 @@
 				<feature>no-duplicate-uids</feature>
 			</exclude-feature>
 			<description>COPY</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>COPY</method>
 				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<header>
@@ -548,7 +548,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/calendar 2/3_2%20a.ics</ruri>
 				<header>
@@ -580,7 +580,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>MOVE</description>
-			<request print-response='no' end-delete='yes'>
+			<request end-delete='yes'>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/3%20a.ics</ruri>
 				<header>
@@ -598,7 +598,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/calendar 3/3_3%20a.ics</ruri>
 				<header>
@@ -630,7 +630,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded calendar collection path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
@@ -654,7 +654,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded calendar resource path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/3_3%20a.ics</ruri>
 				<data>
@@ -678,7 +678,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>multiget REPORT on encoded collection path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -702,7 +702,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>query REPORT on encoded calendar path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>
@@ -727,7 +727,7 @@
 				<feature>MOVE Method</feature>
 			</require-feature>
 			<description>free-busy REPORT on encoded calendar path</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/calendar 3/</ruri>
 				<data>

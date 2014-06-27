@@ -31,7 +31,7 @@
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>POST</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -42,11 +42,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath2:/</ruri>
 			<grabelement>
@@ -58,10 +58,10 @@
 				<variable>$hosturl2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$calendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 			</data>
@@ -70,11 +70,11 @@
 				<variable>$sharedcalendar2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath3:/</ruri>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath3:/</ruri>
 			<grabelement>
@@ -86,10 +86,10 @@
 				<variable>$hosturl3:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
 			</data>
@@ -100,10 +100,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Initial event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Initial event'>
+		<test name='1'>
 			<description>User01 store to shared</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -112,9 +112,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
 				<verify>
@@ -126,9 +126,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 sees event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3:/1.ics</ruri>
 				<verify>
@@ -142,10 +142,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User01 changed event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='User01 changed event'>
+		<test name='1'>
 			<description>User01 store to shared</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
@@ -154,9 +154,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
 				<verify>
@@ -168,9 +168,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 sees event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3:/1.ics</ruri>
 				<verify>
@@ -184,10 +184,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User02 changed event' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='User02 changed event'>
+		<test name='1'>
 			<description>User02 store to shared</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
 				<data>
@@ -196,9 +196,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 sees event</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -210,9 +210,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 sees event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3:/1.ics</ruri>
 				<verify>
@@ -226,10 +226,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Different freebusy' ignore='no'>
+	<test-suite name='Different freebusy'>
 		<test name='1'>
 			<description>Set properties on new calendars</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -244,7 +244,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$sharedcalendar2:/</ruri>
 				<data>
@@ -259,7 +259,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPPATCH</method>
 				<ruri>$sharedcalendar3:/</ruri>
 				<data>
@@ -275,9 +275,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 freebusy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -315,9 +315,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 freebusy</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -355,9 +355,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User03 freebusy</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -397,10 +397,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User01 complex recurring store' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='User01 complex recurring store'>
+		<test name='1'>
 			<description>User01 store to shared</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<data>
@@ -409,9 +409,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/2.ics</ruri>
 				<verify>
@@ -423,9 +423,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 sees event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3:/2.ics</ruri>
 				<verify>
@@ -439,10 +439,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='User02 complex recurring store' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='User02 complex recurring store'>
+		<test name='1'>
 			<description>User02 store to shared</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$sharedcalendar2:/2.ics</ruri>
 				<data>
@@ -451,9 +451,9 @@
 				</data>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 sees event</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<verify>
@@ -465,9 +465,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 sees event</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$sharedcalendar3:/2.ics</ruri>
 				<verify>
@@ -481,10 +481,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Complex freebusy' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Complex freebusy'>
+		<test name='1'>
 			<description>User01 freebusy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -535,9 +535,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 freebusy</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -588,9 +588,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User03 freebusy</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -643,10 +643,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Prevent per-user data injection' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Prevent per-user data injection'>
+		<test name='1'>
 			<description>User01 new event with injected per-user data</description>
-			<request user="$userid1:" pswd="$pswd1:" end-delete="yes" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -662,9 +662,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 new event with valid data</description>
-			<request user="$userid1:" pswd="$pswd1:" end-delete="yes" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -676,9 +676,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User01 existing event with injected per-user data</description>
-			<request user="$userid1:" pswd="$pswd1:" print-response="no">
+			<request user="$userid1:" pswd="$pswd1:">
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>

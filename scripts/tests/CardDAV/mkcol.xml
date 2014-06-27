@@ -25,10 +25,10 @@
 
 	<start/>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1' ignore='yes'>
 			<description>OPTIONS DAV: header does not contain extended-mkcol</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<verify>
@@ -42,7 +42,7 @@
 		</test>
 		<test name='2'>
 			<description>OPTIONS Allow: header does not contain MKCOL</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<verify>
@@ -56,7 +56,7 @@
 		</test>
 		<test name='3'>
 			<description>OPTIONS Allow: header does not contain MKCALENDAR</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<verify>

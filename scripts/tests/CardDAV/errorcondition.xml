@@ -110,7 +110,7 @@
 		-->
 	</start>
 	
-	<test-suite name='PUT' ignore='no'>
+	<test-suite name='PUT'>
 		<test name='1'>
 			<description>PUT non-addressbook data</description>
 			<request>
@@ -203,7 +203,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/2.vcf</ruri>
 				<data>
@@ -221,7 +221,7 @@
 		</test>
 		<test name='7'>
 			<description>PUT with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -239,7 +239,7 @@
 		</test>
 		<test name='8'>
 			<description>PUT with bad PHOTO property</description>
-			<request  end-delete='yes' print-response='no'>
+			<request  end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/17.vcf</ruri>
 				<data>
@@ -250,7 +250,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$addressbookpath1:/17.vcf</ruri>
 				<verify>
@@ -264,7 +264,7 @@
 		</test>
 	</test-suite>
 	<!--
-	<test-suite name='COPY' ignore='no'>
+	<test-suite name='COPY'>
 		<test name='1'>
 			<description>COPY non-addressboook data</description>
 			<request>
@@ -357,7 +357,7 @@
 		</test>
 		<test name='6'>
 			<description>COPY with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookhome1:/6.vcf</ruri>
 				<header>
@@ -375,7 +375,7 @@
 		</test>
 		<test name='7'>
 			<description>COPY from addressbook with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookpath1:/6.vcf</ruri>
 				<header>
@@ -393,7 +393,7 @@
 		</test>
 		<test name='8'>
 			<description>COPY with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookhome1:/7.vcf</ruri>
 				<header>
@@ -411,7 +411,7 @@
 		</test>
 		<test name='9'>
 			<description>COPY from addressbook with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$addressbookhome1:/addressbook2/7.vcf</ruri>
 				<header>
@@ -429,7 +429,7 @@
 		</test>
 		<test name='10'>
 			<description>COPY with too many recurrence instances to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/8.vcf</ruri>
 				<header>
@@ -447,7 +447,7 @@
 		</test>
 		<test name='11'>
 			<description>COPY with too many recurrence instances to existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/9.vcf</ruri>
 				<header>
@@ -501,7 +501,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='MOVE' ignore='no'>
+	<test-suite name='MOVE'>
 		<test name='1'>
 			<description>MOVE non-addressbook data</description>
 			<request>
@@ -594,7 +594,7 @@
 		</test>
 		<test name='6'>
 			<description>MOVE with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookhome1:/6.vcf</ruri>
 				<header>
@@ -612,7 +612,7 @@
 		</test>
 		<test name='7'>
 			<description>MOVE from calendar with duplicate uids</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookpath1:/6.vcf</ruri>
 				<header>
@@ -630,7 +630,7 @@
 		</test>
 		<test name='8'>
 			<description>MOVE with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookhome1:/7.vcf</ruri>
 				<header>
@@ -648,7 +648,7 @@
 		</test>
 		<test name='9'>
 			<description>MOVE from calendar with different uid onto existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookpath1:/7.vcf</ruri>
 				<header>
@@ -666,7 +666,7 @@
 		</test>
 		<test name='10'>
 			<description>MOVE with too many recurrence instances to new resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookhome1:/8.vcf</ruri>
 				<header>
@@ -684,7 +684,7 @@
 		</test>
 		<test name='11'>
 			<description>MOVE with too many recurrence instances to existing resource</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$addressbookhome1:/9.vcf</ruri>
 				<header>
@@ -739,10 +739,10 @@
 	</test-suite>
 	-->
 	
-	<test-suite name='REPORT/addressbook-data' ignore='no'>
+	<test-suite name='REPORT/addressbook-data'>
 		<test name='1'>
 			<description>query with invalid address-data content-type</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -814,10 +814,10 @@
 		</test>
 	</test-suite>
 <!--
-	<test-suite name='REPORT/filter' ignore='no'>
+	<test-suite name='REPORT/filter'>
 		<test name='1'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -835,7 +835,7 @@
 		</test>
 		<test name='2'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -853,7 +853,7 @@
 		</test>
 		<test name='3'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -871,7 +871,7 @@
 		</test>
 		<test name='4'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -889,7 +889,7 @@
 		</test>
 		<test name='5'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -907,7 +907,7 @@
 		</test>
 		<test name='6'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -925,7 +925,7 @@
 		</test>
 		<test name='7'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -943,7 +943,7 @@
 		</test>
 		<test name='8'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -961,7 +961,7 @@
 		</test>
 		<test name='9'>
 			<description>query with invalid filter</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -979,7 +979,7 @@
 		</test>
 		<test name='10'>
 			<description>query with invalid time-range (dates)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -997,7 +997,7 @@
 		</test>
 		<test name='11'>
 			<description>query with invalid time-range (floating)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -1015,7 +1015,7 @@
 		</test>
 		<test name='12'>
 			<description>free-busy with invalid time-range (dates)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -1033,7 +1033,7 @@
 		</test>
 		<test name='13'>
 			<description>free-busy with invalid time-range (floating)</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -1050,10 +1050,10 @@
 			</request>
 		</test>
 	</test-suite>
-	<test-suite name='REPORT/too big' ignore='no'>
+	<test-suite name='REPORT/too big'>
 		<test name='1'>
 			<description>add one event to make it a 1001 event calendar</description>
-			<request end-delete="yes" print-response='no'>
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$addressbookhome1:/abc.vcf</ruri>
 				<data>
@@ -1064,7 +1064,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -1082,7 +1082,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget with too many results</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookhome1:</ruri>
 				<data>
@@ -1100,10 +1100,10 @@
 		</test>
 	</test-suite>
 	-->
-	<test-suite name='Root resource' ignore='no'>
+	<test-suite name='Root resource'>
 		<test name='1'>
 			<description>DELETE /</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$root:</ruri>
 				<verify>
@@ -1117,7 +1117,7 @@
 		</test>
 		<test name='2'>
 			<description>COPY /</description>
-			<request print-response='no'>
+			<request>
 				<method>COPY</method>
 				<ruri>$root:</ruri>
 				<header>
@@ -1135,7 +1135,7 @@
 		</test>
 		<test name='3'>
 			<description>MOVE /</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$root:</ruri>
 				<header>

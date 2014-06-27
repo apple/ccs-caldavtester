@@ -32,7 +32,7 @@
 	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -46,7 +46,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -64,9 +64,9 @@
 		<require-feature>
 			<feature>attachments-collection</feature>
 		</require-feature>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Check for schedule privilege on iTIP Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/$attachments:/</ruri>
 				<header>
@@ -95,7 +95,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment no prefer'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -124,7 +124,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (no prefer)</description>
 			<request>
 				<method>POST</method>
@@ -157,7 +157,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -202,7 +202,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -216,7 +216,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>No access for anyone else</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -230,7 +230,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>No access for anyone else</description>
 			<request auth="no">
 				<method>GET</method>
@@ -244,7 +244,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Remove attachment (no prefer)</description>
 			<request>
 				<method>POST</method>
@@ -254,7 +254,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for no ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -275,7 +275,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -289,7 +289,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -302,7 +302,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment with prefer'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -331,7 +331,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -391,7 +391,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -436,7 +436,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -450,7 +450,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Remove attachment (with prefer)</description>
 			<request>
 				<method>POST</method>
@@ -468,7 +468,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check for no ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -489,7 +489,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -503,7 +503,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -516,7 +516,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled resource with attachment removal'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -545,7 +545,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -605,7 +605,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -619,7 +619,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -629,7 +629,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -646,7 +646,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled remove attachment'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -675,7 +675,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -735,7 +735,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -749,7 +749,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Remove attachment</description>
 			<request>
 				<method>POST</method>
@@ -778,7 +778,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -792,7 +792,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -802,7 +802,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -819,7 +819,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled remove attachment invalid'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -848,7 +848,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -912,7 +912,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -926,7 +926,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Remove attachment fails</description>
 			<request>
 				<method>POST</method>
@@ -948,7 +948,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for unchanged ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -989,7 +989,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1003,7 +1003,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1013,7 +1013,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1030,7 +1030,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled update attachment'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1059,7 +1059,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -1119,7 +1119,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1133,7 +1133,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Update attachment</description>
 			<request>
 				<method>POST</method>
@@ -1197,7 +1197,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1211,7 +1211,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1221,7 +1221,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1235,7 +1235,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1252,7 +1252,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled update attachment invalid'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1281,7 +1281,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -1345,7 +1345,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1359,7 +1359,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Update attachment fails</description>
 			<request>
 				<method>POST</method>
@@ -1385,7 +1385,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for unchanged ATTACH property</description>
 			<request>
 				<method>GET</method>
@@ -1426,7 +1426,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1440,7 +1440,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1450,7 +1450,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1467,7 +1467,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment - invalid managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1488,7 +1488,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment - someone elses managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1514,7 +1514,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -1590,7 +1590,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1604,7 +1604,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT event by other user</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete='no'>
 				<method>PUT</method>
@@ -1626,7 +1626,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1651,7 +1651,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete calendar data</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
@@ -1661,7 +1661,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1686,7 +1686,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Delete original calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1696,7 +1696,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1713,7 +1713,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment existing managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1739,7 +1739,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -1815,7 +1815,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1829,7 +1829,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT another event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -1890,7 +1890,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1904,7 +1904,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Update original attachment</description>
 			<request>
 				<method>POST</method>
@@ -1956,7 +1956,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1970,7 +1970,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -1984,7 +1984,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Delete original calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -1994,7 +1994,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2008,7 +2008,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -2018,7 +2018,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2032,7 +2032,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2049,7 +2049,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment on update - invalid managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2063,7 +2063,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2084,7 +2084,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment update existing managed-id'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2110,7 +2110,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -2186,7 +2186,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2200,7 +2200,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT event another event without attachment</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2226,7 +2226,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PUT update other event to add attachment</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2287,7 +2287,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2301,7 +2301,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>PUT to remove original attachment</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2323,7 +2323,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2337,7 +2337,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2351,7 +2351,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Delete original calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -2361,7 +2361,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2375,7 +2375,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -2385,7 +2385,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2402,7 +2402,7 @@
 	</test-suite>
 
 	<test-suite name='Simple non-recurring, non-scheduled add attachment update trying to change property'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2428,7 +2428,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -2504,7 +2504,7 @@
 				</grabcalparameter>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2518,7 +2518,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT update other event to change attachment</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -2540,7 +2540,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>
@@ -2554,7 +2554,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Delete original calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -2564,7 +2564,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Check for attachment</description>
 			<request>
 				<method>GET</method>

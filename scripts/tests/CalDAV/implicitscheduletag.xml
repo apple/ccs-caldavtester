@@ -44,7 +44,7 @@
 	<test-suite name='No schedule-tag'>
 		<test name='1'>
 			<description>Create new event - no header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -65,7 +65,7 @@
 		</test>
 		<test name='2'>
 			<description>No property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -90,7 +90,7 @@
 	<test-suite name='Update to resource with schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -115,7 +115,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -137,14 +137,14 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>New attendee event has schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -165,7 +165,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -190,7 +190,7 @@
 	<test-suite name='Change to resource with schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -215,7 +215,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -237,14 +237,14 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>New attendee event has schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -265,7 +265,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -290,7 +290,7 @@
 	<test-suite name='Organizer change to resource with valid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -319,7 +319,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -341,14 +341,14 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>Attendee event has new schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -369,7 +369,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -394,7 +394,7 @@
 	<test-suite name='Organizer change to resource with invalid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -416,7 +416,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -438,7 +438,7 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee No Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -460,7 +460,7 @@
 		</test>
 		<test name='3b'>
 			<description>Attendee event has same schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -477,7 +477,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -502,14 +502,14 @@
 	<test-suite name='Attendee non-PARTSTAT change to resource with valid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -538,7 +538,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -560,7 +560,7 @@
 		</test>
 		<test name='3a'>
 			<description>Organizer No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -582,7 +582,7 @@
 		</test>
 		<test name='3b'>
 			<description>Organizer event has same schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -599,7 +599,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -624,7 +624,7 @@
 	<test-suite name='Attendee change to resource with invalid If-Schedule-Tag-Match'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -646,7 +646,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -668,7 +668,7 @@
 		</test>
 		<test name='3a'>
 			<description>Organizer No Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -690,7 +690,7 @@
 		</test>
 		<test name='3b'>
 			<description>Organizer event has same schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -707,7 +707,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -732,7 +732,7 @@
 	<test-suite name='Remove resource schedule-tag behavior'>
 		<test name='1'>
 			<description>Updated event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -750,14 +750,14 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -792,7 +792,7 @@
 	<test-suite name='New resource schedule-tag behavior'>
 		<test name='1'>
 			<description>New event has schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -817,7 +817,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -839,14 +839,14 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>New attendee event has schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -867,7 +867,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -889,14 +889,14 @@
 		</test>
 		<test name='5a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='5b'>
 			<description>New attendee event has schedule tag header</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -917,7 +917,7 @@
 		</test>
 		<test name='6'>
 			<description>Matching property</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -942,7 +942,7 @@
 	<test-suite name='Organizer change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -971,7 +971,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -998,14 +998,14 @@
 		</test>
 		<test name='3a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>Attendee event has changed schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1026,7 +1026,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1053,14 +1053,14 @@
 		</test>
 		<test name='5a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='5b'>
 			<description>New attendee event has changed schedule tag header</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1081,7 +1081,7 @@
 		</test>
 		<test name='6'>
 			<description>Matching property</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1111,14 +1111,14 @@
 	<test-suite name='Attendee 02 change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -1147,7 +1147,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1174,14 +1174,14 @@
 		</test>
 		<test name='3a'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>Organizer has same schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1198,7 +1198,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1225,7 +1225,7 @@
 		</test>
 		<test name='5'>
 			<description>Attendee has same schedule tag header</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1242,7 +1242,7 @@
 		</test>
 		<test name='6'>
 			<description>Matching property</description>
-			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1272,14 +1272,14 @@
 	<test-suite name='Attendee 03 change'>
 		<test name='1'>
 			<description>Updated event has changed schedule tag header</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -1308,7 +1308,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1335,14 +1335,14 @@
 		</test>
 		<test name='3a'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='3b'>
 			<description>Organizer has same schedule tag header</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1359,7 +1359,7 @@
 		</test>
 		<test name='4'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1386,7 +1386,7 @@
 		</test>
 		<test name='5'>
 			<description>Attendee has same schedule tag header</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1403,7 +1403,7 @@
 		</test>
 		<test name='6'>
 			<description>Matching property</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$</ruri>
 				<header>
@@ -1433,7 +1433,7 @@
 	<test-suite name='Organizer Merge'>
 		<test name='1'>
 			<description>Updated event that has changed on disk</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1462,7 +1462,7 @@
 		</test>
 		<test name='2'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1489,7 +1489,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1503,14 +1503,14 @@
 		</test>
 		<test name='4a'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4b'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1524,14 +1524,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -1545,14 +1545,14 @@
 		</test>
 		<test name='6a'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='6b'>
 			<description>Updated event that has changed on disk</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1581,7 +1581,7 @@
 		</test>
 		<test name='7'>
 			<description>Matching property</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<header>
@@ -1608,7 +1608,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1625,7 +1625,7 @@
 	<test-suite name='Attendee Merge'>
 		<test name='1'>
 			<description>Get current schedule tag header values</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -1643,7 +1643,7 @@
 					<variable>$schedule-tag-organizer:</variable>
 				</grabheader>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1661,7 +1661,7 @@
 					<variable>$schedule-tag-attendee02:</variable>
 				</grabheader>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1682,14 +1682,14 @@
 		</test>
 		<test name='2a'>
 			<description>Attendee 02 -> Declined</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -1718,21 +1718,21 @@
 		</test>
 		<test name='2b'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='3a'>
 			<description>Attendee 03 -> Accepted</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -1761,14 +1761,14 @@
 		</test>
 		<test name='3b'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -1814,7 +1814,7 @@
 	<test-suite name='Organizer Delete with ETag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
@@ -1828,7 +1828,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<verify>
@@ -1846,14 +1846,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1867,14 +1867,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -1888,14 +1888,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<verify>
@@ -1909,7 +1909,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer deletes data with invalid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
@@ -1927,7 +1927,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer deletes data with valid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<header>
@@ -1945,14 +1945,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -1966,7 +1966,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -1992,7 +1992,7 @@
 	<test-suite name='Organizer Delete with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
@@ -2006,7 +2006,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<verify>
@@ -2024,14 +2024,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2045,14 +2045,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -2066,14 +2066,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<verify>
@@ -2087,7 +2087,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer deletes data with invalid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
@@ -2105,7 +2105,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer deletes data with valid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<header>
@@ -2123,14 +2123,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2144,7 +2144,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -2170,7 +2170,7 @@
 	<test-suite name='Organizer MOVE with ETag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
@@ -2184,7 +2184,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2202,14 +2202,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2223,14 +2223,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -2244,14 +2244,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2265,7 +2265,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer moves data with invalid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<header>
@@ -2287,7 +2287,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer deletes data with valid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<header>
@@ -2309,7 +2309,7 @@
 		</test>
 		<test name='12'>
 			<description>Attendee no Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -2350,7 +2350,7 @@
 	<test-suite name='Organizer MOVE with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<data>
@@ -2364,7 +2364,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<verify>
@@ -2382,14 +2382,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2403,14 +2403,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -2424,14 +2424,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<verify>
@@ -2445,7 +2445,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer moves data with invalid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<header>
@@ -2467,7 +2467,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer moves data with valid ETag match</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<header>
@@ -2489,7 +2489,7 @@
 		</test>
 		<test name='12'>
 			<description>Attendee No Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -2530,7 +2530,7 @@
 	<test-suite name='Organizer Re-invite with Schedule-Tag'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
@@ -2544,7 +2544,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2562,14 +2562,14 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2583,14 +2583,14 @@
 		</test>
 		<test name='6'>
 			<description>Attendee -> Accepted</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -2604,14 +2604,14 @@
 		</test>
 		<test name='7'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='8'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2625,7 +2625,7 @@
 		</test>
 		<test name='10'>
 			<description>Organizer changes data with valid Schedule-Tag match</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<header>
@@ -2647,7 +2647,7 @@
 		</test>
 		<test name='11'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2665,14 +2665,14 @@
 		</test>
 		<test name='12'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='13'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2705,7 +2705,7 @@
 	<test-suite name='Attendee change with Schedule-Tag after other Attendee change'>
 		<test name='1'>
 			<description>Organizer invites Attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
@@ -2719,7 +2719,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2737,18 +2737,18 @@
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Items</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendees have data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2763,7 +2763,7 @@
 					<variable>$schedule-tag-attendee2:</variable>
 				</grabheader>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -2777,14 +2777,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee 3 -> Accepted/Declined one instance</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>
@@ -2798,14 +2798,14 @@
 		</test>
 		<test name='6'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='7'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2819,14 +2819,14 @@
 		</test>
 		<test name='8'>
 			<description>Attendee 2 -> Accepted all instances with If-Schedule-Tag-Match</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<header>
@@ -2844,7 +2844,7 @@
 		</test>
 		<test name='9'>
 			<description>Attendees checks data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -2858,14 +2858,14 @@
 		</test>
 		<test name='10'>
 			<description>Organizer Inbox Item</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Organizer data changed</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<verify>
@@ -2906,7 +2906,7 @@
 	<test-suite name='ETag change with Schedule-tag'>
 		<test name='1'>
 			<description>New event</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -2917,18 +2917,18 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='2'>
 			<description>Get event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -2946,7 +2946,7 @@
 		</test>
 		<test name='3'>
 			<description>Add alarm</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -2960,7 +2960,7 @@
 		</test>
 		<test name='4'>
 			<description>Get event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>
@@ -2992,7 +2992,7 @@
 		</test>
 		<test name='5'>
 			<description>Remove alarm</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
@@ -3006,7 +3006,7 @@
 		</test>
 		<test name='6'>
 			<description>Get event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<verify>

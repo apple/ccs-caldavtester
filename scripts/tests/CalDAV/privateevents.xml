@@ -177,10 +177,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<data>
@@ -198,10 +198,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='DAV:owner' ignore='no'>
+	<test-suite name='DAV:owner'>
 		<test name='1'>
 			<description>Check for no DAV:owner on root</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$root:</ruri>
 				<header>
@@ -223,7 +223,7 @@
 		</test>
 		<test name='2'>
 			<description>Check for no DAV:owner on user calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendars_uids:</ruri>
 				<header>
@@ -245,7 +245,7 @@
 		</test>
 		<test name='3'>
 			<description>Check for no DAV:owner on principal</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
 				<header>
@@ -267,7 +267,7 @@
 		</test>
 		<test name='4'>
 			<description>Check for DAV:owner on calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -289,7 +289,7 @@
 		</test>
 		<test name='5'>
 			<description>Check for DAV:owner on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -311,7 +311,7 @@
 		</test>
 		<test name='6'>
 			<description>Check for DAV:owner on calendar resource</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -333,7 +333,7 @@
 		</test>
 		<test name='7'>
 			<description>Check for DAV:owner on other user's calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome2:/</ruri>
 				<header>
@@ -355,10 +355,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='No X-CALENDARSERVER-ACCESS on Outbox' ignore='no'>
+	<test-suite name='No X-CALENDARSERVER-ACCESS on Outbox'>
 		<test name='1'>
 			<description>Do POST on Outbox with wrong data</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -376,10 +376,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT behavior without access' ignore='no'>
+	<test-suite name='PUT behavior without access'>
 		<test name='1'>
 			<description>PUT without access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<data>
@@ -393,7 +393,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<verify>
@@ -403,7 +403,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<verify>
@@ -413,7 +413,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<verify>
@@ -423,7 +423,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<data>
@@ -437,7 +437,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<data>
@@ -455,7 +455,7 @@
 		</test>
 		<test name='7'>
 			<description>PROPFIND by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -478,7 +478,7 @@
 		</test>
 		<test name='8'>
 			<description>PROPFIND by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -501,7 +501,7 @@
 		</test>
 		<test name='9'>
 			<description>PROPFIND by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -524,10 +524,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT behavior with PUBLIC access' ignore='no'>
+	<test-suite name='PUT behavior with PUBLIC access'>
 		<test name='1'>
 			<description>PUT with access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<data>
@@ -541,7 +541,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -566,7 +566,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -591,7 +591,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -616,7 +616,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<data>
@@ -630,7 +630,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<data>
@@ -648,7 +648,7 @@
 		</test>
 		<test name='7'>
 			<description>PROPFIND by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -672,7 +672,7 @@
 		</test>
 		<test name='8'>
 			<description>PROPFIND by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -696,7 +696,7 @@
 		</test>
 		<test name='9'>
 			<description>PROPFIND by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -720,10 +720,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT re-write behavior with PUBLIC access' ignore='no'>
+	<test-suite name='PUT re-write behavior with PUBLIC access'>
 		<test name='1'>
 			<description>Overwrite PUT with no access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<data>
@@ -737,7 +737,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -762,7 +762,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -787,7 +787,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -812,7 +812,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<data>
@@ -826,7 +826,7 @@
 		</test>
 		<test name='6'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -851,7 +851,7 @@
 		</test>
 		<test name='7'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -876,10 +876,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT behavior with PRIVATE access' ignore='no'>
+	<test-suite name='PUT behavior with PRIVATE access'>
 		<test name='1'>
 			<description>PUT with access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<data>
@@ -893,7 +893,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -918,7 +918,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -932,7 +932,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -946,7 +946,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<data>
@@ -964,7 +964,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<data>
@@ -982,7 +982,7 @@
 		</test>
 		<test name='7'>
 			<description>PROPFIND by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1007,7 +1007,7 @@
 		</test>
 		<test name='8'>
 			<description>PROPFIND by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1035,7 +1035,7 @@
 		</test>
 		<test name='9'>
 			<description>PROPFIND by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1063,10 +1063,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT re-write behavior with PRIVATE access' ignore='no'>
+	<test-suite name='PUT re-write behavior with PRIVATE access'>
 		<test name='1'>
 			<description>Overwrite PUT with no access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<data>
@@ -1080,7 +1080,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -1105,7 +1105,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -1119,7 +1119,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -1133,7 +1133,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<data>
@@ -1151,10 +1151,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT behavior with CONFIDENTIAL access' ignore='no'>
+	<test-suite name='PUT behavior with CONFIDENTIAL access'>
 		<test name='1'>
 			<description>PUT with access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<data>
@@ -1168,7 +1168,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1195,7 +1195,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1226,7 +1226,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1257,7 +1257,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<data>
@@ -1275,7 +1275,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<data>
@@ -1293,7 +1293,7 @@
 		</test>
 		<test name='7'>
 			<description>PROPFIND by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1319,7 +1319,7 @@
 		</test>
 		<test name='8'>
 			<description>PROPFIND by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1348,7 +1348,7 @@
 		</test>
 		<test name='9'>
 			<description>PROPFIND by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1377,10 +1377,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT re-write behavior with CONFIDENTIAL access' ignore='no'>
+	<test-suite name='PUT re-write behavior with CONFIDENTIAL access'>
 		<test name='1'>
 			<description>Overwrite PUT with no access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<data>
@@ -1394,7 +1394,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1421,7 +1421,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1452,7 +1452,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -1483,7 +1483,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<data>
@@ -1501,10 +1501,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT behavior with RESTRICTED access' ignore='no'>
+	<test-suite name='PUT behavior with RESTRICTED access'>
 		<test name='1'>
 			<description>PUT with access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<data>
@@ -1518,7 +1518,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1545,7 +1545,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1576,7 +1576,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1607,7 +1607,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<data>
@@ -1625,7 +1625,7 @@
 		</test>
 		<test name='6'>
 			<description>PUT by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<data>
@@ -1643,7 +1643,7 @@
 		</test>
 		<test name='7'>
 			<description>PROPFIND by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1670,7 +1670,7 @@
 		</test>
 		<test name='8'>
 			<description>PROPFIND by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1700,7 +1700,7 @@
 		</test>
 		<test name='9'>
 			<description>PROPFIND by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<header>
@@ -1730,10 +1730,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT re-write behavior with RESTRICTED access' ignore='no'>
+	<test-suite name='PUT re-write behavior with RESTRICTED access'>
 		<test name='1'>
 			<description>Overwrite PUT with no access by user01</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<data>
@@ -1747,7 +1747,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1774,7 +1774,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1805,7 +1805,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -1836,7 +1836,7 @@
 		</test>
 		<test name='5'>
 			<description>PUT by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<data>
@@ -1854,10 +1854,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='multiget href tests' ignore='no'>
+	<test-suite name='multiget href tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -1879,32 +1879,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/sharedcalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/14.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>okhrefs</name>
-						<value>1.ics</value>
-						<value>2.ics</value>
-						<value>4.ics</value>
-						<value>5.ics</value>
-					</arg>
-					<arg>
-						<name>badhrefs</name>
-						<value>3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -1927,12 +1902,37 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/14.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>1.ics</value>
+						<value>2.ics</value>
+						<value>4.ics</value>
+						<value>5.ics</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='multiget PUBLIC tests' ignore='no'>
+	<test-suite name='multiget PUBLIC tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -1958,7 +1958,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -1984,7 +1984,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2010,10 +2010,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='multiget CONFIDENTIAL all data tests' ignore='no'>
+	<test-suite name='multiget CONFIDENTIAL all data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2041,39 +2041,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/sharedcalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/16.xml</filepath>
-				</data>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>unwrap</name>
-						<value></value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
-						<value>VERSION:2.0</value>
-						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
-					</arg>
-					<arg>
-						<name>notcontains</name>
-						<value>SUMMARY:event confidential access 2</value>
-						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
-						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
-						<value>BEGIN:VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2103,12 +2071,44 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/16.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='multiget RESTRICTED all data tests' ignore='no'>
+	<test-suite name='multiget RESTRICTED all data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2136,7 +2136,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2168,7 +2168,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2200,10 +2200,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='multiget CONFIDENTIAL partial data tests' ignore='no'>
+	<test-suite name='multiget CONFIDENTIAL partial data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2234,7 +2234,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2266,7 +2266,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2298,10 +2298,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='multiget RESTRICTED partial data tests' ignore='no'>
+	<test-suite name='multiget RESTRICTED partial data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2332,7 +2332,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2364,7 +2364,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2396,10 +2396,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query href tests' ignore='no'>
+	<test-suite name='query href tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2421,7 +2421,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2442,7 +2442,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2463,10 +2463,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query PUBLIC tests' ignore='no'>
+	<test-suite name='query PUBLIC tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2492,7 +2492,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2518,7 +2518,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2544,10 +2544,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query CONFIDENTIAL all data tests' ignore='no'>
+	<test-suite name='query CONFIDENTIAL all data tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2575,39 +2575,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/sharedcalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/22.xml</filepath>
-				</data>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>unwrap</name>
-						<value></value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
-						<value>VERSION:2.0</value>
-						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
-					</arg>
-					<arg>
-						<name>notcontains</name>
-						<value>SUMMARY:event confidential access 2</value>
-						<value>LOCATION:confidential 2</value>
-						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
-						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
-						<value>BEGIN:VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2637,12 +2605,44 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='query RESTRICTED all data tests' ignore='no'>
+	<test-suite name='query RESTRICTED all data tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2670,7 +2670,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2702,7 +2702,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2734,10 +2734,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query CONFIDENTIAL partial data tests' ignore='no'>
+	<test-suite name='query CONFIDENTIAL partial data tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2768,7 +2768,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2800,7 +2800,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2832,10 +2832,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query RESTRICTED partial data tests' ignore='no'>
+	<test-suite name='query RESTRICTED partial data tests'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2866,39 +2866,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/sharedcalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/25.xml</filepath>
-				</data>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>unwrap</name>
-						<value></value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
-						<value>VERSION:2.0</value>
-						<value>SUMMARY:event restricted access 2</value>
-						<value>LOCATION:restricted 2</value>
-					</arg>
-					<arg>
-						<name>notcontains</name>
-						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
-						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
-						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
-						<value>BEGIN:VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2928,12 +2896,44 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>query by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/sharedcalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/25.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:RESTRICTED</value>
+						<value>VERSION:2.0</value>
+						<value>SUMMARY:event restricted access 2</value>
+						<value>LOCATION:restricted 2</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
+						<value>ORGANIZER;CN=$username1:;EMAIL=$email1::$cuaddrurn1:</value>
+						<value>ATTENDEE;CN=$username2:;EMAIL=$email2::$cuaddrurn2:</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='query no match SUMMARY' ignore='no'>
+	<test-suite name='query no match SUMMARY'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2955,7 +2955,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2975,7 +2975,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -2995,10 +2995,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query no match LOCATION' ignore='no'>
+	<test-suite name='query no match LOCATION'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3017,7 +3017,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3035,7 +3035,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3053,10 +3053,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query no match ORGANIZER' ignore='no'>
+	<test-suite name='query no match ORGANIZER'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3075,7 +3075,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3089,7 +3089,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3103,10 +3103,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='query no match VALARM' ignore='no'>
+	<test-suite name='query no match VALARM'>
 		<test name='1'>
 			<description>query by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3127,7 +3127,7 @@
 		</test>
 		<test name='2'>
 			<description>query by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3145,7 +3145,7 @@
 		</test>
 		<test name='3'>
 			<description>query by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -3163,13 +3163,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='COPY tests' ignore='no'>
+	<test-suite name='COPY tests'>
 		<exclude-feature>
 			<feature>no-duplicate-uids</feature>
 		</exclude-feature>
 		<test name='1'>
 			<description>copy to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/fromcalendar/1.ics</ruri>
 				<header>
@@ -3183,7 +3183,7 @@
 		</test>
 		<test name='2'>
 			<description>copy to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/fromcalendar/2.ics</ruri>
 				<header>
@@ -3197,7 +3197,7 @@
 		</test>
 		<test name='3'>
 			<description>copy to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/fromcalendar/3.ics</ruri>
 				<header>
@@ -3211,7 +3211,7 @@
 		</test>
 		<test name='4'>
 			<description>copy to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/fromcalendar/4.ics</ruri>
 				<header>
@@ -3225,7 +3225,7 @@
 		</test>
 		<test name='5'>
 			<description>copy to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>COPY</method>
 				<ruri>$calendarhome1:/fromcalendar/5.ics</ruri>
 				<header>
@@ -3239,7 +3239,7 @@
 		</test>
 		<test name='6'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3261,7 +3261,7 @@
 		</test>
 		<test name='7'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3286,7 +3286,7 @@
 		</test>
 		<test name='8'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3311,13 +3311,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='COPY PUBLIC tests' ignore='no'>
+	<test-suite name='COPY PUBLIC tests'>
 		<exclude-feature>
 			<feature>no-duplicate-uids</feature>
 		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3343,7 +3343,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3369,7 +3369,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3395,13 +3395,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='COPY CONFIDENTIAL all data tests' ignore='no'>
+	<test-suite name='COPY CONFIDENTIAL all data tests'>
 		<exclude-feature>
 			<feature>no-duplicate-uids</feature>
 		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3428,37 +3428,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/copycalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/32.xml</filepath>
-				</data>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>unwrap</name>
-						<value></value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
-						<value>VERSION:2.0</value>
-						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
-					</arg>
-					<arg>
-						<name>notcontains</name>
-						<value>SUMMARY:event confidential access 2</value>
-						<value>LOCATION:confidential 2</value>
-						<value>BEGIN:VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3486,15 +3456,45 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/copycalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/32.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='COPY RESTRICTED all data tests' ignore='no'>
+	<test-suite name='COPY RESTRICTED all data tests'>
 		<exclude-feature>
 			<feature>no-duplicate-uids</feature>
 		</exclude-feature>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3521,7 +3521,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3551,7 +3551,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/copycalendar/</ruri>
 				<data>
@@ -3581,10 +3581,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='MOVE tests' ignore='no'>
+	<test-suite name='MOVE tests'>
 		<test name='1'>
 			<description>move to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/fromcalendar/1.ics</ruri>
 				<header>
@@ -3598,7 +3598,7 @@
 		</test>
 		<test name='2'>
 			<description>move to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/fromcalendar/2.ics</ruri>
 				<header>
@@ -3612,7 +3612,7 @@
 		</test>
 		<test name='3'>
 			<description>move to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/fromcalendar/3.ics</ruri>
 				<header>
@@ -3626,7 +3626,7 @@
 		</test>
 		<test name='4'>
 			<description>move to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/fromcalendar/4.ics</ruri>
 				<header>
@@ -3640,7 +3640,7 @@
 		</test>
 		<test name='5'>
 			<description>move to calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/fromcalendar/5.ics</ruri>
 				<header>
@@ -3654,7 +3654,7 @@
 		</test>
 		<test name='6'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3676,7 +3676,7 @@
 		</test>
 		<test name='7'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3701,7 +3701,7 @@
 		</test>
 		<test name='8'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3726,10 +3726,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='MOVE PUBLIC tests' ignore='no'>
+	<test-suite name='MOVE PUBLIC tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3755,7 +3755,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3781,7 +3781,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3807,10 +3807,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='MOVE CONFIDENTIAL all data tests' ignore='no'>
+	<test-suite name='MOVE CONFIDENTIAL all data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3837,37 +3837,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
-				<method>REPORT</method>
-				<ruri>$calendarhome1:/movecalendar/</ruri>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/privateevents/36.xml</filepath>
-				</data>
-				<verify>
-					<callback>dataString</callback>
-					<arg>
-						<name>unwrap</name>
-						<value></value>
-					</arg>
-					<arg>
-						<name>contains</name>
-						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
-						<value>VERSION:2.0</value>
-						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
-					</arg>
-					<arg>
-						<name>notcontains</name>
-						<value>SUMMARY:event confidential access 2</value>
-						<value>LOCATION:confidential 2</value>
-						<value>BEGIN:VALARM</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3895,12 +3865,42 @@
 				</verify>
 			</request>
 		</test>
+		<test name='3'>
+			<description>multiget by user03</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/movecalendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/privateevents/36.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value></value>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>X-CALENDARSERVER-ACCESS:CONFIDENTIAL</value>
+						<value>VERSION:2.0</value>
+						<value>DTSTART;TZID=US/Eastern:$now.year.1:0101T100000</value>
+					</arg>
+					<arg>
+						<name>notcontains</name>
+						<value>SUMMARY:event confidential access 2</value>
+						<value>LOCATION:confidential 2</value>
+						<value>BEGIN:VALARM</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
-	<test-suite name='MOVE RESTRICTED all data tests' ignore='no'>
+	<test-suite name='MOVE RESTRICTED all data tests'>
 		<test name='1'>
 			<description>multiget by user01</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3927,7 +3927,7 @@
 		</test>
 		<test name='2'>
 			<description>multiget by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3957,7 +3957,7 @@
 		</test>
 		<test name='3'>
 			<description>multiget by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/movecalendar/</ruri>
 				<data>
@@ -3987,10 +3987,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Rolled up data tests' ignore='no'>
+	<test-suite name='Rolled up data tests'>
 		<test name='1'>
 			<description>get by user01</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/rolledcalendar/</ruri>
 				<verify>
@@ -4004,7 +4004,7 @@
 		</test>
 		<test name='2'>
 			<description>get by user02</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/rolledcalendar/</ruri>
 				<verify>
@@ -4018,7 +4018,7 @@
 		</test>
 		<test name='3'>
 			<description>get by user03</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response="no">
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/rolledcalendar/</ruri>
 				<verify>
@@ -4032,10 +4032,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Admin access' ignore='no'>
+	<test-suite name='Admin access'>
 		<test name='1'>
 			<description>GET by admin normal</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/1.ics</ruri>
 				<verify>
@@ -4049,7 +4049,7 @@
 		</test>
 		<test name='2'>
 			<description>GET by admin PUBLIC</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/2.ics</ruri>
 				<verify>
@@ -4063,7 +4063,7 @@
 		</test>
 		<test name='3'>
 			<description>GET by admin PRIVATE</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/3.ics</ruri>
 				<verify>
@@ -4077,7 +4077,7 @@
 		</test>
 		<test name='4'>
 			<description>GET by admin RESTRICTED</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/4.ics</ruri>
 				<verify>
@@ -4091,7 +4091,7 @@
 		</test>
 		<test name='5'>
 			<description>GET by admin CONFIDENTIAL</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/sharedcalendar/5.ics</ruri>
 				<verify>
@@ -4105,7 +4105,7 @@
 		</test>
 		<test name='6'>
 			<description>multiget by admin PUBLIC</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4131,7 +4131,7 @@
 		</test>
 		<test name='7'>
 			<description>multiget by admin PRIVATE</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4153,7 +4153,7 @@
 		</test>
 		<test name='8'>
 			<description>multiget by admin CONFIDENTIAL</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4181,7 +4181,7 @@
 		</test>
 		<test name='9'>
 			<description>multiget by admin RESTRICTED</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4212,7 +4212,7 @@
 		</test>
 		<test name='10'>
 			<description>query by admin PUBLIC</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4238,7 +4238,7 @@
 		</test>
 		<test name='11'>
 			<description>query by admin PRIVATE</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4260,7 +4260,7 @@
 		</test>
 		<test name='12'>
 			<description>query by admin CONFIDENTIAL</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4288,7 +4288,7 @@
 		</test>
 		<test name='13'>
 			<description>multiget by admin RESTRICTED</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/sharedcalendar/</ruri>
 				<data>
@@ -4316,7 +4316,7 @@
 		</test>
 		<test name='14'>
 			<description>Rolled-up get by admin</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response="no">
+			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/rolledcalendar/</ruri>
 				<verify>

@@ -85,10 +85,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Valid Proxy User' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Valid Proxy User'>
+		<test name='1'>
 			<description>GET user01 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -100,9 +100,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>GET user02 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/visible2.ics</ruri>
 				<header>
@@ -114,7 +114,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
@@ -127,7 +127,7 @@
 					<filepath>Resource/CalDAV/acls/20.xml</filepath>
 				</data>
 			</request>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/hidden1.ics</ruri>
 				<header>
@@ -143,9 +143,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>GET user02 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/notvisibletouser01/hidden1.ics</ruri>
 				<header>
@@ -163,10 +163,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Wrong Proxy User' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Wrong Proxy User'>
+		<test name='1'>
 			<description>GET user01 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<header>
@@ -182,12 +182,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>GET user02 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/visible2.ics</ruri>
 				<header>
@@ -203,12 +203,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>GET user02 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/hidden1.ics</ruri>
 				<header>
@@ -220,12 +220,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<require-feature>
 				<feature>per-object-ACLs</feature>
 			</require-feature>
 			<description>GET user02 resource</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/notvisibletouser01/hidden1.ics</ruri>
 				<header>
@@ -243,10 +243,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Invalid Proxy User' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Invalid Proxy User'>
+		<test name='1'>
 			<description>Valid proxy without header</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -258,9 +258,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Valid proxy proxying as another proxy</description>
-			<request user="$userproxy:" pswd="$pswdproxy:" print-response='no'>
+			<request user="$userproxy:" pswd="$pswdproxy:">
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/visible2.ics</ruri>
 				<header>
@@ -276,9 +276,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Regular user trying to proxy</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome2:/visibletouser01/visible2.ics</ruri>
 				<header>

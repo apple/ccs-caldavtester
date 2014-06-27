@@ -31,9 +31,9 @@
 	<start/>
 	
 	<test-suite name='Simple non-recurring, non-scheduled add attachment no prefer'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -62,7 +62,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT event</description>
 			<request end-delete='no'>
 				<method>PUT</method>
@@ -76,9 +76,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -103,7 +103,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Add attachment</description>
 			<request>
 				<method>POST</method>
@@ -137,9 +137,9 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -168,7 +168,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Update attachment</description>
 			<request>
 				<method>POST</method>
@@ -202,9 +202,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>
@@ -233,7 +233,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Delete calendar data</description>
 			<request>
 				<method>DELETE</method>
@@ -243,9 +243,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Quota check</description>
-			<request print-response='no'>
+			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>
 				</exclude-feature>

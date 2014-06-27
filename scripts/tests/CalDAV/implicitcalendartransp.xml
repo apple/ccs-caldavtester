@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='New Calendar' ignore='no'>
+	<test-suite name='New Calendar'>
 		<test name='1'>
 			<description>Create new calendar</description>
-			<request print-response="no" end-delete="yes">
+			<request end-delete="yes">
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<verify>
@@ -41,7 +41,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<header>
@@ -63,7 +63,7 @@
 		</test>
 		<test name='3'>
 			<description>Set property on new calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<data>
@@ -81,7 +81,7 @@
 		</test>
 		<test name='4'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar/</ruri>
 				<header>
@@ -103,10 +103,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Default Calendar' ignore='no'>
+	<test-suite name='Default Calendar'>
 		<test name='1'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -128,10 +128,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='New Calendar - free-busy-set compatibility' ignore='no'>
+	<test-suite name='New Calendar - free-busy-set compatibility'>
 		<test name='1'>
 			<description>Create new calendar</description>
-			<request print-response="no" end-delete="yes">
+			<request end-delete="yes">
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<verify>
@@ -141,7 +141,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
@@ -163,7 +163,7 @@
 		</test>
 		<test name='3'>
 			<description>Look for free-busy-set</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -185,7 +185,7 @@
 		</test>
 		<test name='4'>
 			<description>Set property on new calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
@@ -203,7 +203,7 @@
 		</test>
 		<test name='5'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
@@ -225,7 +225,7 @@
 		</test>
 		<test name='6'>
 			<description>Look for free-busy-set</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -247,7 +247,7 @@
 		</test>
 		<test name='7'>
 			<description>Set property on new calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
@@ -265,7 +265,7 @@
 		</test>
 		<test name='8'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
@@ -287,7 +287,7 @@
 		</test>
 		<test name='9'>
 			<description>Look for free-busy-set</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -309,7 +309,7 @@
 		</test>
 		<test name='10'>
 			<description>Set property on new calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<data>
@@ -327,7 +327,7 @@
 		</test>
 		<test name='11'>
 			<description>Look for property on new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
@@ -349,7 +349,7 @@
 		</test>
 		<test name='12'>
 			<description>Move new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/testcalendar2/</ruri>
 				<header>
@@ -363,7 +363,7 @@
 		</test>
 		<test name='13'>
 			<description>Look for free-busy-set</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -389,7 +389,7 @@
 		</test>
 		<test name='14'>
 			<description>Delete new calendar</description>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/testcalendar3/</ruri>
 				<verify>
@@ -403,7 +403,7 @@
 		</test>
 		<test name='15'>
 			<description>Look for free-busy-set</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -426,7 +426,7 @@
 		</test>
 		<test name='16'>
 			<description>Look for free-busy-set fro default calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>

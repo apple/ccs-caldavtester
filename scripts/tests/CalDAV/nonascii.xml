@@ -308,7 +308,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Non-ascii calendar data' ignore="no">
+	<test-suite name='Non-ascii calendar data'>
 		<test name='1'>
 			<description>PUT with non-ascii data</description>
 			<request end-delete="yes">
@@ -389,7 +389,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Non-utf-8 calendar data' ignore="no">
+	<test-suite name='Non-utf-8 calendar data'>
 		<test name='1'>
 			<description>PUT with non-utf-8 data without charset</description>
 			<request end-delete="yes">
@@ -446,7 +446,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Copy/Move Non-utf-8 calendar data' ignore="no">
+	<test-suite name='Copy/Move Non-utf-8 calendar data'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
@@ -502,7 +502,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="POSTs" ignore='no'>
+	<test-suite name="POSTs">
 		<test name='1'>
 			<description>POST with utf-8 data</description>
 			<request>
@@ -545,13 +545,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="PUT with CN re-write" ignore='no'>
+	<test-suite name="PUT with CN re-write">
 		<test name='1'>
 			<description>PUT without CN</description>
 			<request user="$i18nid:" pswd="$i18npswd:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$i18ncalendarpath:/cntest.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/nonascii/13.ics</filepath>
 				</data>

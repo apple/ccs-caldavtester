@@ -79,7 +79,7 @@
 		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>POST</method>
 			<ruri>$pcalendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 			</data>
@@ -124,7 +124,7 @@
 		<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 			<method>POST</method>
 			<ruri>$pcalendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 			</data>
@@ -361,8 +361,8 @@
 		</request>
 	</start>
 	
-	<test-suite name='basic query reports' ignore='no'>
-		<test name='1a' ignore='no'>
+	<test-suite name='basic query reports'>
+		<test name='1a'>
 			<description>query for resources with VCALENDAR &amp; VEVENT defined</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -399,7 +399,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1b' ignore='no'>
+		<test name='1b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -419,7 +419,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2a' ignore='no'>
+		<test name='2a'>
 			<description>query for resources with VCALENDAR &amp; VEVENT not defined</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -455,7 +455,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2b' ignore='no'>
+		<test name='2b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -481,7 +481,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for resources where the SUMMARY in a VEVENT contains the character '1'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -507,7 +507,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for resources where the SUMMARY in a VEVENT does not contain the character '1'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -535,7 +535,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for resources where the DESCRIPTION property exists in a VEVENT</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -555,7 +555,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query for resources where the DESCRIPTION property does not exist in a VEVENT</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -591,7 +591,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -609,7 +609,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter not containing the text 'Paci'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -643,7 +643,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>query for resources that have a DTSTART in a VEVENT that contains a TZID parameter containing the text 'Paci' and 'Moun'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -660,7 +660,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -682,7 +682,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>query for resources where the SUMMARY in a VEVENT contains the character '4' and has a DTSTART in a VEVENT that contains a TZID parameter containing the text 'East'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -701,7 +701,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -739,7 +739,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>query for resources where the RECURRENCE-ID in a VEVENT does not contain a RANGE parameter</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -758,7 +758,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14a' ignore='no'>
+		<test name='14a'>
 			<description>query for resources with VCALENDAR &amp; VTODO defined</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -793,7 +793,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14b' ignore='no'>
+		<test name='14b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -819,7 +819,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>query for resources where the SUMMARY in a VTODO contains the character '1'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -837,7 +837,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
+		<test name='16'>
 			<description>query for resources that have a DUE in a VTODO that contains a TZID parameter containing the text 'East'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -857,7 +857,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17a' ignore='no'>
+		<test name='17a'>
 			<description>query for resources with VCALENDAR &amp; VEVENT and VTODO defined</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -874,7 +874,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='17b' ignore='no'>
+		<test name='17b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -894,7 +894,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18a' ignore='no'>
+		<test name='18a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -971,7 +971,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18b' ignore='no'>
+		<test name='18b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -998,7 +998,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19a' ignore='no'>
+		<test name='19a'>
 			<description>query for resources where the SUMMARY in a VEVENT and VTODO contains the character '1'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1015,7 +1015,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19b' ignore='no'>
+		<test name='19b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -1035,7 +1035,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20a' ignore='no'>
+		<test name='20a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1086,7 +1086,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20b' ignore='no'>
+		<test name='20b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -1108,7 +1108,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21' ignore='no'>
+		<test name='21'>
 			<description>query for resources that have a DTSTART in a VEVENT with TZID containg 'Paci' and a DUE in a VTODO with TZID containing 'East'</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1125,7 +1125,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22a' ignore='no'>
+		<test name='22a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1162,7 +1162,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22b' ignore='no'>
+		<test name='22b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -1186,7 +1186,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='23' ignore='no'>
+		<test name='23'>
 			<description>query for VEVENTs that do not contain VALARMs</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1220,7 +1220,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='24' ignore='no'>
+		<test name='24'>
 			<description>query for VEVENTs that contain a CATEGORY and filter by CATEGORY</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1242,7 +1242,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='25' ignore='no'>
+		<test name='25'>
 			<description>query for VEVENTs that contain a CATEGORY but test with uppercase string</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1264,7 +1264,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='26' ignore='no'>
+		<test name='26'>
 			<description>empty query</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1278,7 +1278,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='27' ignore='no'>
+		<test name='27'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1299,7 +1299,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='28' ignore='no'>
+		<test name='28'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1320,7 +1320,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='29' ignore='no'>
+		<test name='29'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1341,7 +1341,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='30' ignore='no'>
+		<test name='30'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1368,7 +1368,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='31' ignore='no'>
+		<test name='31'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1397,7 +1397,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='32' ignore='no'>
+		<test name='32'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1420,7 +1420,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='33' ignore='no'>
+		<test name='33'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1441,7 +1441,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='34' ignore='no'>
+		<test name='34'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1466,8 +1466,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='query reports with filtered data' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='query reports with filtered data'>
+		<test name='1'>
 			<description>query for resources with VCALENDAR &amp; VEVENT defined - return filtered data</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1492,7 +1492,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for resources with VCALENDAR &amp; VEVENT defined - return filtered data</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1519,8 +1519,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='time-range query reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='time-range query reports'>
+		<test name='1'>
 			<description>query for VEVENTs within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1541,7 +1541,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for VEVENT and VFREEBUSYs that have a CREATED/DTSTAMP within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1558,7 +1558,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1613,7 +1613,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for VEVENTs within time range with specific SUMMARY text</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1631,7 +1631,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for VEVENT recurrence instance within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1649,7 +1649,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query for overridden VEVENT instance within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1667,7 +1667,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query for overridden VEVENT not within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1681,7 +1681,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>query for overridden this-and-future VEVENT within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1699,7 +1699,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>query for VTODOs within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1719,7 +1719,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>query for VTODOs within time range with specific SUMMARY text</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1737,7 +1737,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>query for VTODO recurrence instance within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1757,7 +1757,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>Invalid VTIMEZONE check</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1775,7 +1775,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>query for VEVENTs within time range in distant future</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1796,7 +1796,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>query for VEVENTs within time range - no end</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1829,7 +1829,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='15' ignore='no'>
+		<test name='15'>
 			<description>query for VEVENTs within time range - no start</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1854,7 +1854,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='16' ignore='no'>
+		<test name='16'>
 			<description>query for VEVENTs within time range - no start and no end</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1890,7 +1890,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='18' ignore='no'>
+		<test name='18'>
 			<description>query for free busy with overlapping and consecutive events</description>
 			<request end-delete="yes">
 				<method>PUT</method>
@@ -1919,7 +1919,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19a' ignore='no'>
+		<test name='19a'>
 			<description>query for VEVENTS and VTODOs within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -1936,7 +1936,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='19b' ignore='no'>
+		<test name='19b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -1956,7 +1956,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20a' ignore='no'>
+		<test name='20a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -1999,7 +1999,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='20b' ignore='no'>
+		<test name='20b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -2023,7 +2023,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21a' ignore='no'>
+		<test name='21a'>
 			<description>query for VEVENTS and VTODOs with start only</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2040,7 +2040,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='21b' ignore='no'>
+		<test name='21b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -2060,7 +2060,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22a' ignore='no'>
+		<test name='22a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -2130,7 +2130,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='22b' ignore='no'>
+		<test name='22b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -2155,7 +2155,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='23a' ignore='no'>
+		<test name='23a'>
 			<description>query for VEVENTS with start only and all VTODOs</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2172,7 +2172,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='23b' ignore='no'>
+		<test name='23b'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
@@ -2192,7 +2192,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='24a' ignore='no'>
+		<test name='24a'>
 			<require-feature>
 				<feature>query-extended</feature>
 			</require-feature>
@@ -2264,7 +2264,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='24b' ignore='no'>
+		<test name='24b'>
 			<require-feature>
 				<feature>query-extended</feature>
 				<feature>split-calendars</feature>
@@ -2291,7 +2291,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='25' ignore='no'>
+		<test name='25'>
 			<require-feature>
 				<feature>timerange-low-limit</feature>
 			</require-feature>
@@ -2312,7 +2312,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='26' ignore='no'>
+		<test name='26'>
 			<require-feature>
 				<feature>timerange-low-limit</feature>
 			</require-feature>
@@ -2333,7 +2333,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='27' ignore='no'>
+		<test name='27'>
 			<require-feature>
 				<feature>timerange-low-limit</feature>
 			</require-feature>
@@ -2354,7 +2354,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='28' ignore='no'>
+		<test name='28'>
 			<require-feature>
 				<feature>timerange-high-limit</feature>
 			</require-feature>
@@ -2375,7 +2375,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='29' ignore='no'>
+		<test name='29'>
 			<require-feature>
 				<feature>timerange-high-limit</feature>
 			</require-feature>
@@ -2396,7 +2396,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='30' ignore='no'>
+		<test name='30'>
 			<require-feature>
 				<feature>timerange-high-limit</feature>
 			</require-feature>
@@ -2417,7 +2417,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='31' ignore='no'>
+		<test name='31'>
 			<require-feature>
 				<feature>timerange-high-limit</feature>
 			</require-feature>
@@ -2440,8 +2440,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='alarm time-range query reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='alarm time-range query reports'>
+		<test name='1'>
 			<description>query for VALARMS within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2459,7 +2459,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for repeating VALARMS within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2477,7 +2477,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for recurring VALARMS within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2496,7 +2496,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for recurring/overridden VALARMS within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2515,7 +2515,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for VALARMS on VTODO within time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2535,8 +2535,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='free-busy reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='free-busy reports'>
+		<test name='1'>
 			<description>query for free busy with time range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2572,7 +2572,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for free busy with overlapping and consecutive events</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2623,10 +2623,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='limit/expand recurrence in reports' ignore='no'>
+	<test-suite name='limit/expand recurrence in reports'>
 		<test name='1' ignore='yes'>
 			<description>time-range query with limit over same range</description>
-			<request print-response='yes'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
 				<data>
@@ -2646,7 +2646,7 @@
 		</test>
 		<test name='2' ignore='yes'>
 			<description>time-range query with limit over different range</description>
-			<request print-response='yes'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$shareecalendarpath2:/</ruri>
 				<data>
@@ -2664,7 +2664,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>time-range query with expand over same range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2685,7 +2685,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>time-range query with expand over different range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2706,7 +2706,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query with limit-freebusy-set</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2736,7 +2736,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query with expand all-day - no timezone no match</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2750,7 +2750,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query with expand all-day non-recurring - no timezone match</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2776,7 +2776,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>query with expand all-day recurring - no timezone match</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2802,7 +2802,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>query with expand all-day - timezone</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2828,7 +2828,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>query with expand all-day - recurrence</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2856,7 +2856,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>time-range query with expand for one event - DURATION test</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>REPORT</method>
@@ -2891,7 +2891,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12' ignore='no'>
+		<test name='12'>
 			<description>time-range query with expand for one recurring event skipping cancelled first instance</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" end-delete="yes">
 				<method>PUT</method>
@@ -2949,7 +2949,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>time-range query with expand for one recurring event shifted into time-range</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" end-delete="yes">
 				<method>PUT</method>

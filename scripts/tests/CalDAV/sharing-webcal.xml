@@ -46,9 +46,9 @@
 	</start>
 	
 	<test-suite name='Setup two sharees'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
@@ -62,11 +62,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee 2 notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -84,10 +84,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee 2 replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 				</data>
@@ -102,11 +102,11 @@
 		</test>
 		<test name='4'>
 			<description>Check Sharee 3 notification collection</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath3:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath3:/</ruri>
 				<verify>
@@ -124,10 +124,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee 3 replies ACCEPTED</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$calendarhome3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
 				</data>
@@ -377,7 +377,7 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>
@@ -394,7 +394,7 @@
 		</test>
 		<test name='2'>
 			<description>GET on calendar collection after sharee PUT - 2nd time from cache</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/</ruri>
 				<verify>

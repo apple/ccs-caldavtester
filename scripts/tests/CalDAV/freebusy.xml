@@ -38,13 +38,13 @@
 		</request>
 	</start>
 	
-	<test-suite name='Freebusy - mixed timed and all-day' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Freebusy - mixed timed and all-day'>
+		<test name='1'>
 			<description>PUT timed event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/freebusy/1.ics</filepath>
 				</data>
@@ -53,12 +53,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT all-day event</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/2.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/freebusy/2.ics</filepath>
 				</data>
@@ -69,10 +69,10 @@
 		</test>
 		<test name='3'>
 			<description>POST free busy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/freebusy/3.ics</filepath>
 				</data>
@@ -91,10 +91,10 @@
 		</test>
 		<test name='4'>
 			<description>POST free busy - again from cache</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/freebusy/3.ics</filepath>
 				</data>

@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='Limits in properties' ignore='no'>
+	<test-suite name='Limits in properties'>
 		<test name='1'>
 			<description>max-collections property</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarhome1:/</ruri>
 				<header>
@@ -53,7 +53,7 @@
 		</test>
 		<test name='2'>
 			<description>max-resources property</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -75,13 +75,13 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Collection limit' ignore='no'>
-		<test name='1a' count='48' ignore='no'>
+	<test-suite name='Collection limit'>
+		<test name='1a' count='48'>
 			<exclude-feature>
 				<feature>split-calendars</feature>
 			</exclude-feature>
 			<description>Create collections to one below the limit</description>
-			<request end-delete='yes' print-response='no'>
+			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/caltest-##/</ruri>
 				<verify>
@@ -93,12 +93,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='1b' count='47' ignore='no'>
+		<test name='1b' count='47'>
 			<require-feature>
 				<feature>split-calendars</feature>
 			</require-feature>
 			<description>Create collections to one below the limit</description>
-			<request end-delete='yes' print-response='no'>
+			<request end-delete='yes'>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/caltest-##/</ruri>
 				<verify>
@@ -110,9 +110,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Create collections to the limit</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/caltest-49/</ruri>
 				<verify>

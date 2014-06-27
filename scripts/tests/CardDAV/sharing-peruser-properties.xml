@@ -36,10 +36,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Set up share' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Set up share'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -53,11 +53,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath2:/</ruri>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath2:/</ruri>
 				<verify>
@@ -80,10 +80,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee replies ACCEPTED</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$addressbookhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/sharing/setup/3.xml</filepath>
 				</data>
@@ -104,9 +104,9 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Check accept status</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -136,7 +136,7 @@
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<verify>
@@ -154,10 +154,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='prop patches - non-global' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='prop patches - non-global'>
+		<test name='1'>
 			<description>PROPPATCH of displayname</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -172,7 +172,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -192,9 +192,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND of shared displayname</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<header>
@@ -214,9 +214,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPPATCH of displayname</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<data>
@@ -231,7 +231,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<header>
@@ -251,9 +251,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PROPFIND of shared displayname</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -275,10 +275,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='prop patches - shadowable' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='prop patches - shadowable'>
+		<test name='1'>
 			<description>PROPPATCH of addressbook-description</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -293,7 +293,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -313,9 +313,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PROPFIND of shared addressbook-description</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<header>
@@ -335,9 +335,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PROPPATCH of addressbook-description</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<data>
@@ -352,7 +352,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$shareeaddressbook:/</ruri>
 				<header>
@@ -372,9 +372,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PROPFIND of shared addressbook-description</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>

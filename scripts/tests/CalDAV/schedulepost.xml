@@ -116,10 +116,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='POST Errors' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='POST Errors'>
+		<test name='1'>
 			<description>POST on invalid outbox</description>
-			<request print-response="no">
+			<request>
 				<method>POST</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -135,7 +135,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>POST with invalid content</description>
 			<request>
 				<method>POST</method>
@@ -153,9 +153,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST with invalid calendar data</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -173,7 +173,7 @@
 		</test>
 		<test name='4'>
 			<description>POST without METHOD property</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -191,7 +191,7 @@
 		</test>
 		<test name='5'>
 			<description>POST with invalid iTIP object</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -207,9 +207,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>POST without Recipient:</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -225,7 +225,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>POST with non-authorized Organizer:</description>
 			<request>
 				<method>POST</method>
@@ -243,7 +243,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>POST reply with too many Attendees:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -261,7 +261,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>POST reply with non-authorized Attendee:</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
@@ -279,7 +279,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>POST reply with disabled Attendee:</description>
 			<request>
 				<method>POST</method>
@@ -300,7 +300,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>POST reply with disabled Organizer:</description>
 			<request>
 				<method>POST</method>
@@ -320,10 +320,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name="POSTs" ignore='no'>
+	<test-suite name="POSTs">
 		<test name='1'>
 			<description>POST which should work</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -337,7 +337,7 @@
 		</test>
 		<test name='2'>
 			<description>Make sure no resource exists</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -363,7 +363,7 @@
 		</test>
 		<test name='3'>
 			<description>Make sure resource exists and properties are set</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -390,7 +390,7 @@
 		</test>
 		<test name='4'>
 			<description>Make sure resource exists and properties are set</description>
-			<request  user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request  user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath3:/</ruri>
 				<header>
@@ -417,7 +417,7 @@
 		</test>
 		<test name='5'>
 			<description>POST which should work (using relative principal addressing)</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -429,9 +429,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore="no">
+		<test name='6'>
 			<description>POST which should work (using absolute principal addressing)</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -445,10 +445,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name="Reports on Inbox/Outbox" ignore='no'>
+	<test-suite name="Reports on Inbox/Outbox">
 		<test name='1'>
 			<description>Simple calendar-query for VEVENTs</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -466,7 +466,7 @@
 		</test>
 		<test name='2'>
 			<description>Simple calendar-query for VEVENTs</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$inboxpath2:/</ruri>
 				<data>
@@ -484,10 +484,10 @@
 		</test>
 		<test name='3'>
 			<description>Simple calendar-multiget for VEVENTs</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$outboxpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/schedule/14.xml</filepath>
 				</data>
@@ -502,7 +502,7 @@
 		</test>
 		<test name='4'>
 			<description>Simple calendar-multiget for VEVENTs</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$inboxpath2:/</ruri>
 				<data>
@@ -524,7 +524,7 @@
 		</test>
 		<test name='5'>
 			<description>free-busy-query failure</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -542,7 +542,7 @@
 		</test>
 		<test name='6'>
 			<description>free-busy-query failure</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>REPORT</method>
 				<ruri>$inboxpath2:/</ruri>
 				<data>
@@ -560,10 +560,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name="POSTs free busy" ignore='no'>
+	<test-suite name="POSTs free busy">
 		<test name='1'>
 			<description>POST free busy</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -590,7 +590,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy - recipients with failure</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -616,7 +616,7 @@
 		</test>
 		<test name='3'>
 			<description>POST free busy - check ATTENDEE presence</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -641,7 +641,7 @@
 		</test>
 		<test name='4'>
 			<description>POST free busy - check ATTENDEE limit</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>

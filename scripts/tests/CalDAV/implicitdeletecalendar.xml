@@ -41,14 +41,14 @@
 		</request>
 	</start>
 	
-	<test-suite name='Empty Collection Delete' ignore='no'>
+	<test-suite name='Empty Collection Delete'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
 
 		<test name='1'>
 			<description>Organizer creates collection</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -58,7 +58,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer deletes collection</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
@@ -72,7 +72,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer collection is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -86,14 +86,14 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple Collection Delete' ignore='no'>
+	<test-suite name='Simple Collection Delete'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
 
 		<test name='1'>
 			<description>Organizer creates collection</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -103,7 +103,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer writes some data</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/1.txt</ruri>
 				<data>
@@ -117,7 +117,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer deletes collection</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
@@ -131,7 +131,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer collection is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -145,10 +145,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Empty Calendar Delete' ignore='no'>
+	<test-suite name='Empty Calendar Delete'>
 		<test name='1'>
 			<description>Organizer creates calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -158,7 +158,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer deletes calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
@@ -172,7 +172,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer calendar is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -186,10 +186,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Simple Calendar Delete' ignore='no'>
+	<test-suite name='Simple Calendar Delete'>
 		<test name='1'>
 			<description>Organizer creates calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -199,7 +199,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer writes some data</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar2/1.ics</ruri>
 				<data>
@@ -213,7 +213,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer deletes calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
@@ -227,7 +227,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer calendar is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -241,10 +241,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Invite Calendar Delete' ignore='no'>
+	<test-suite name='Invite Calendar Delete'>
 		<test name='1'>
 			<description>Organizer creates calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -254,7 +254,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer writes some data - no attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar2/1.ics</ruri>
 				<data>
@@ -268,7 +268,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer writes some data - one attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/calendar2/2.ics</ruri>
 				<data>
@@ -282,14 +282,14 @@
 		</test>
 		<test name='4'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='5'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -303,7 +303,7 @@
 		</test>
 		<test name='7'>
 			<description>Organizer deletes calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<header>
@@ -317,7 +317,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer calendar is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/calendar2/</ruri>
 				<verify>
@@ -331,14 +331,14 @@
 		</test>
 		<test name='9'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='10'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -352,7 +352,7 @@
 		</test>
 		<test name='11'>
 			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -362,14 +362,14 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Invite Nested Calendar Delete' ignore='no'>
+	<test-suite name='Invite Nested Calendar Delete'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
 
 		<test name='1'>
 			<description>Organizer creates collection</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -379,7 +379,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer creates calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/collection/calendar2/</ruri>
 				<verify>
@@ -389,7 +389,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer writes some data - no attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/calendar2/1.ics</ruri>
 				<data>
@@ -403,7 +403,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer writes some data - one attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/calendar2/2.ics</ruri>
 				<data>
@@ -417,14 +417,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -438,7 +438,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer deletes calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
@@ -452,7 +452,7 @@
 		</test>
 		<test name='9'>
 			<description>Organizer collection is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -466,14 +466,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -487,7 +487,7 @@
 		</test>
 		<test name='12'>
 			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -497,21 +497,21 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Multiple Nested Calendars Delete' ignore='no'>
+	<test-suite name='Multiple Nested Calendars Delete'>
 		<require-feature>
 			<feature>regular-collection</feature>
 		</require-feature>
 
 		<test name='1'>
 			<description>Organizer creates collections</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>MKCOL</method>
 				<ruri>$calendarhome1:/collection/collection2</ruri>
 				<verify>
@@ -521,14 +521,14 @@
 		</test>
 		<test name='2'>
 			<description>Organizer creates calendars</description>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/collection/calendar2/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>MKCALENDAR</method>
 				<ruri>$calendarhome1:/collection/collection2/calendar3/</ruri>
 				<verify>
@@ -538,7 +538,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer writes some data - no attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/calendar2/1.ics</ruri>
 				<data>
@@ -552,7 +552,7 @@
 		</test>
 		<test name='4'>
 			<description>Organizer writes some data - one attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/calendar2/2.ics</ruri>
 				<data>
@@ -566,14 +566,14 @@
 		</test>
 		<test name='5'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -587,7 +587,7 @@
 		</test>
 		<test name='8'>
 			<description>Organizer writes some more data - no attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/collection2/calendar3/1.ics</ruri>
 				<data>
@@ -601,7 +601,7 @@
 		</test>
 		<test name='9'>
 			<description>Organizer writes some more data - a different attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/collection/collection2/calendar3/2.ics</ruri>
 				<data>
@@ -615,14 +615,14 @@
 		</test>
 		<test name='10'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='11'>
 			<description>Attendee has data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -636,7 +636,7 @@
 		</test>
 		<test name='13'>
 			<description>Organizer deletes calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<header>
@@ -650,7 +650,7 @@
 		</test>
 		<test name='14'>
 			<description>Organizer collection is gone</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/collection/</ruri>
 				<verify>
@@ -664,18 +664,18 @@
 		</test>
 		<test name='15'>
 			<description>Attendee Inbox Items</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath3:/</ruri>
 			</request>
 		</test>
 		<test name='16'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -689,7 +689,7 @@
 		</test>
 		<test name='17'>
 			<description>Attendee deletes data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>
@@ -699,7 +699,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee has cancelled data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
@@ -713,7 +713,7 @@
 		</test>
 		<test name='19'>
 			<description>Attendee deletes data</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>DELETE</method>
 				<ruri>$</ruri>
 				<verify>

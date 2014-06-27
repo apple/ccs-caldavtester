@@ -28,10 +28,10 @@
 
 	<start/>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on calendar home</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarhome1:/</ruri>
 				<verify>
@@ -45,7 +45,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -355,8 +355,8 @@ END:VALARM
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT'>
+		<test name='1'>
 			<description>PUT non-recurring timed event - alarm added from home</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -388,7 +388,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT non-recurring all-day event - no alarm added</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -420,7 +420,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PUT non-recurring timed todo - alarm added from calendar</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -452,7 +452,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT recurring timed event - alarms added from home</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -484,7 +484,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PUT non-recurring timed event with alarm</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -518,7 +518,7 @@ END:VALARM
 		</test>
 	</test-suite>
 
-	<test-suite name='Shared calendars - initially empty default' ignore='no'>
+	<test-suite name='Shared calendars - initially empty default'>
 		<test name='1'>
 			<description>Good property on home</description>
 			<request user="$userid2:" pswd="$pswd2:">
@@ -541,7 +541,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 creates calendar for sharing</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 				<method>MKCALENDAR</method>
@@ -551,9 +551,9 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>POST invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/shared/</ruri>
 				<data>
@@ -567,11 +567,11 @@ END:VALARM
 		</test>
 		<test name='4'>
 			<description>Check Sharee notification collection</description>
-			<request print-response='no'>
+			<request>
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath1:/</ruri>
 			</request>
-			<request print-response='no'>
+			<request>
 				<method>GETNEW</method>
 				<ruri>$notificationpath1:/</ruri>
 				<verify>
@@ -585,10 +585,10 @@ END:VALARM
 		</test>
 		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/default-alarms/sharing/3.xml</filepath>
 				</data>
@@ -648,9 +648,9 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>PUT sharer alarm added, none for sharee</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarhome2:/shared/1.ics</ruri>
 				<data>
@@ -691,9 +691,9 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>PUT sharee no alarm, none for sharer</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$sharedcalendar:/2.ics</ruri>
 				<data>
@@ -758,10 +758,10 @@ END:VALARM
 		</test>
 	</test-suite>
 
-	<test-suite name='Scheduling' ignore='no'>
+	<test-suite name='Scheduling'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<data>
@@ -775,7 +775,7 @@ END:VALARM
 		</test>
 		<test name='2'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<verify>
@@ -789,14 +789,14 @@ END:VALARM
 		</test>
 		<test name='3'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='4'>
 			<description>Attendee has data</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -826,7 +826,7 @@ END:VALARM
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT with ACTION:NONE' ignore='no'>
+	<test-suite name='PUT with ACTION:NONE'>
 		<test name='1'>
 			<description>Set ACTION:NONE on home</description>
 			<request>
@@ -849,7 +849,7 @@ END:VALARM
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT non-recurring timed event - no alarm added from home</description>
 			<request end-delete='yes'>
 				<method>PUT</method>

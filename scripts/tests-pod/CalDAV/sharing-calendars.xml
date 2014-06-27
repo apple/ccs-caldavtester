@@ -53,7 +53,7 @@
 	</start>
 	
 	<test-suite name='Read-write calendar'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
 			<request>
 				<method>POST</method>
@@ -99,7 +99,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>
@@ -359,7 +359,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Default calendar cannot be shared calendar' ignore='no'>
+	<test-suite name='Default calendar cannot be shared calendar'>
 		<test name='1'>
 			<description>Set property on Inbox</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
@@ -380,7 +380,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on inbox</description>
-			<request host2="yes" user="$puserid2:" pswd="$ppswd2:" print-response="no">
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPFIND</method>
 				<ruri>$pinboxpath2:/</ruri>
 				<header>
@@ -402,8 +402,8 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change to read-only calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Change to read-only calendar'>
+		<test name='1'>
 			<description>POST invitation</description>
 			<request>
 				<method>POST</method>
@@ -449,7 +449,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>

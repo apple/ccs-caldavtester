@@ -135,14 +135,14 @@
 	<test-suite name='Proxy as Attendee'>
 		<test name='2'>
 			<description>Proxy updates event</description>
-			<request host2='yes' user='$puserid1:' pswd='$ppswd1:' print-response='no'>
+			<request host2='yes' user='$puserid1:' pswd='$ppswd1:'>
 				<method>GETNEW</method>
 				<ruri>$calendarpath3:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request host2='yes' user='$puserid1:' pswd='$ppswd1:' print-response='no'>
+			<request host2='yes' user='$puserid1:' pswd='$ppswd1:'>
 				<method>PUT</method>
 				<ruri>$</ruri>
 				<data>

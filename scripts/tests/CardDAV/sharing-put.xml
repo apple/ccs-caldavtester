@@ -63,7 +63,7 @@
 			</data>
 		</request>
 		<!-- user2 POSTs invitation -->
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$addressbookpath2:/2.vcf</ruri>
 			<data>
@@ -75,11 +75,11 @@
 			</verify>
 		</request>
 		<!-- Check user1 notification collection and get invite uid -->
-		<request print-response="no">
+		<request>
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath1:/</ruri>
 		</request>
-		<request print-response="no">
+		<request>
 			<method>GETNEW</method>
 			<ruri>$notificationpath1:/</ruri>
 			<grabelement>
@@ -88,7 +88,7 @@
 			</grabelement>
 		</request>
 		<!-- user1 replies ACCEPTED and deletes notification -->
-		<request print-response="no">
+		<request>
 			<method>POST</method>
 			<ruri>$addressbookhome1:/</ruri>
 			<data substitutions="yes">
@@ -106,8 +106,8 @@
 	</start>
 
 
-	<test-suite name='add users to sharee address book' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='add users to sharee address book'>
+		<test name='1'>
 			<description>cannot add vcard with UID in sharer address book</description>
 			<request>
 				<method>PUT</method>
@@ -125,7 +125,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>cannot add group with member in sharer address book</description>
 			<request>
 				<method>PUT</method>
@@ -143,7 +143,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>cannot add vCard with name in sharer address book</description>
 			<request>
 				<method>PUT</method>
@@ -161,7 +161,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>can add group with member in shared group</description>
 			<request>
 				<method>PUT</method>
@@ -175,7 +175,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>can delete user</description>
 			<request>
 				<method>DELETE</method>
@@ -185,7 +185,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>user is removed from sharee group</description>
 			<request>
 				<method>GET</method>
@@ -199,7 +199,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>user is deleted from sharer address book</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
@@ -213,7 +213,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>member is removed from sharee group</description>
 			<request>
 				<method>GET</method>
@@ -227,7 +227,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>member is removed from shared group</description>
 			<request>
 				<method>GET</method>
@@ -241,7 +241,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>member is NOT removed from 2nd sharer group</description>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>

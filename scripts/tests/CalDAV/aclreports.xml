@@ -52,15 +52,15 @@
 		</request>
 	</start>
 	
-	<test-suite name='acl-principal-prop-set REPORT' ignore='no'>
+	<test-suite name='acl-principal-prop-set REPORT'>
 
 		<require-feature>
 			<feature>acl-principal-prop-set REPORT</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -80,9 +80,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -102,9 +102,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>No DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -124,9 +124,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Too many DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -142,9 +142,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>No DAV:read-acl privilege</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome2:/</ruri>
 				<data>
@@ -160,9 +160,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Valid report</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -187,15 +187,15 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='principal-match REPORT' ignore='no'>
+	<test-suite name='principal-match REPORT'>
 
 		<require-feature>
 			<feature>principal-match REPORT</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -215,9 +215,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -237,9 +237,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Too many DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -256,9 +256,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid self report with DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -278,9 +278,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Valid self report without DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -300,9 +300,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Valid principal-search report with DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -318,9 +318,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Valid principal-search report without DAV:prop</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -336,9 +336,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>principal-search with inaccessible property</description>
-			<request print-response='no' user='$userid2:' pswd='$pswd2:'>
+			<request user='$userid2:' pswd='$pswd2:'>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -356,15 +356,15 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='principal-property-search REPORT' ignore='no'>
+	<test-suite name='principal-property-search REPORT'>
 
 		<require-feature>
 			<feature>principal-property-search REPORT</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -384,9 +384,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -406,9 +406,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Valid non-apply-to report with DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -429,9 +429,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -452,9 +452,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Valid apply-to report with DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -478,9 +478,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Valid non-apply-to report without DAV:prop</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -506,7 +506,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Extended principal-property-search REPORT' ignore='no'>
+	<test-suite name='Extended principal-property-search REPORT'>
 
 		<require-feature>
 			<feature>extended-principal-search</feature>
@@ -514,7 +514,7 @@
 
 		<test name='1' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name AND last-name search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -536,7 +536,7 @@
 		</test>
 		<test name='2' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name OR last-name search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -557,9 +557,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Valid ROOM displayname search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -579,9 +579,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid RESOURCE displayname search report</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -603,7 +603,7 @@
 		</test>
 		<test name='5' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name OR last-name search report - limit 1</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -634,9 +634,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -652,9 +652,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>Invalid INDIVIDUAL first-name OR last-name search report - limit bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -670,9 +670,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>Invalid search report - test attribute bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -688,9 +688,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>Invalid search report - type attribute bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -706,9 +706,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>Invalid search report - caseless attribute bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -724,9 +724,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>Invalid search report - match-type attribute bogus</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -744,7 +744,7 @@
 		</test>
 		<test name='12' ignore='yes'> <!-- No more first/last name -->
 			<description>Valid INDIVIDUAL first-name search report - limit 5</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -767,9 +767,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13' ignore='no'>
+		<test name='13'>
 			<description>"equals" calendar-user-address-set REPORT</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -789,9 +789,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='14' ignore='no'>
+		<test name='14'>
 			<description>Invalid CUA in calendar-user-address-set REPORT</description>
-			<request print-response='no' user='$useradmin:' pswd='$pswdadmin:'>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
 				<method>REPORT</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -809,15 +809,15 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='principal-search-property-set REPORT' ignore='no'>
+	<test-suite name='principal-search-property-set REPORT'>
 
 		<require-feature>
 			<feature>principal-search-property-set REPORT</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -837,9 +837,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Wrong Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<header>
@@ -859,9 +859,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Report on non-principal collection</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/</ruri>
 				<data>
@@ -877,9 +877,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Valid report</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$principals_users:</ruri>
 				<data>
@@ -900,11 +900,11 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='supported-report-set property' ignore='no'>
+	<test-suite name='supported-report-set property'>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Regular resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -966,9 +966,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Regular resource</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$principals_users:</ruri>
 				<header>

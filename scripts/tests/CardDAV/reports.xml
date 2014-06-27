@@ -146,8 +146,8 @@
 		</request>
 	</start>
 	
-	<test-suite name="basic query reports" ignore="no">
-		<test name="1" ignore="no">
+	<test-suite name="basic query reports">
+		<test name="1">
 			<description>query for resources with no filter defined</description>
 			<request>
 				<method>REPORT</method>
@@ -179,9 +179,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="2" ignore="no">
+		<test name="2">
 			<description>query for resources with "is not defined"></description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -211,9 +211,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="3" ignore="no">
+		<test name="3">
 			<description>query for resources where the FN contains the character 'Pict'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -229,9 +229,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="4" ignore="no">
+		<test name="4">
 			<description>query for resources where EMAIL does not contain the character 'apple@'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -255,9 +255,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="5" ignore="no">
+		<test name="5">
 			<description>query for resources where EMAIL equals testinc_sf@testinc.com</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -273,9 +273,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="6" ignore="no">
+		<test name="6">
 			<description>query for resources where PHOTO property exists</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -296,9 +296,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="7" ignore="no">
+		<test name="7">
 			<description>query for resources where PHOTO property does not exist</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -322,9 +322,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="8" ignore="no">
+		<test name="8">
 			<description>query for resources where FN contains 'Pict'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -340,9 +340,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="9" ignore="no">
+		<test name="9">
 			<description>query for resources containing high ascii in FN</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -358,9 +358,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="10" ignore="no">
+		<test name="10">
 			<description>query for resources containing double bytes in FN</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -376,9 +376,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="11" ignore="no">
+		<test name="11">
 			<description>query for resources that contain 'Nd' in FN or 'john' in EMAIL</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -394,9 +394,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="12" ignore="no">
+		<test name="12">
 			<description>query for resources where NOTE property exists</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -416,9 +416,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="13" ignore="no">
+		<test name="13">
 			<description>query for resources where NOTE property contains 'contact'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -435,9 +435,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="14" ignore="no">
+		<test name="14">
 			<description>query for resources where FN property starts with 'Jo'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -454,9 +454,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="15" ignore="no">
+		<test name="15">
 			<description>query for resources where NICKNAME property end with 'ry'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -472,9 +472,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="16" ignore="no">
+		<test name="16">
 			<description>query for resources where NOTE property contains uppercase 'CONTACT'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -491,9 +491,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="17" ignore="no">
+		<test name="17">
 			<description>query on vCard for resources where EMAIL does not contain the character '@apple.com'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -509,9 +509,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="18" ignore="no">
+		<test name="18">
 			<description>query on vCard for resources where EMAIL does not contain the character '@example.com'</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/3.vcf</ruri>
 				<data>
@@ -526,9 +526,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="19" ignore="no">
+		<test name="19">
 			<description>query for resources with no filter defined. limited to 8 results</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -555,9 +555,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="20" ignore="no">
+		<test name="20">
 			<description>query for resources with "is not defined", limited to 5 results></description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -581,9 +581,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="21" ignore="no">
+		<test name="21">
 			<description>query for resources with EMAIL contains '.com' and 'apple" with parameter TYPE = "WORK") limited to 4 responses</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -606,9 +606,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="22" ignore="no">
+		<test name="22">
 			<description>query for resources with (FN contains 'John' and 'And") or (EMAIL  contains 'apple' and 'ank')" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -625,9 +625,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="23" ignore="no">
+		<test name="23">
 			<description>query for resources with EMAIL with TYPE parameter = "work" and "pref" limited to 4 results</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -650,9 +650,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="24" ignore="no">
+		<test name="24">
 			<description>query for resources with (FN contains 'John' and 'And") AND (EMAIL  contains 'apple' and 'john') limited to 4 results"" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -668,9 +668,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="25" ignore="no">
+		<test name="25">
 			<description>query for resources with (FN contains 'John') AND (FN contains 'Anderson") AND (EMAIL  contains 'apple') AND (EMAIL  contains 'ank') limited to 4 results"" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -685,9 +685,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="26" ignore="no">
+		<test name="26">
 			<description>query for resources where (FN contains 'John') OR (FN contains 'Anderson") OR (EMAIL  contains 'apple') OR (EMAIL  contains 'ank') limited to 4 results" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -710,9 +710,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="27" ignore="no">
+		<test name="27">
 			<description>query for resources with (FN contains 'John' AND 'Anderson") OR (EMAIL  contains 'ank' with TYPE parameter = "work") limited to 4 results" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -729,9 +729,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="28" ignore="no">
+		<test name="28">
 			<description>query for resources with (URL contains "jp") OR (ADR  contains 'Japan') [group properties]" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -749,9 +749,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="29" ignore="no">
+		<test name="29">
 			<description>query for resources with (X-JABBER  contains 'apple') OR (ADR contains "Laguna" [group properties]" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -772,9 +772,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="30" ignore="no">
+		<test name="30">
 			<description>query for resources with UID starts with" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -791,9 +791,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="31" ignore="no">
+		<test name="31">
 			<description>query for resources with UID ends with" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -810,9 +810,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="32" ignore="no">
+		<test name="32">
 			<description>query for resources with UID equals" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -828,9 +828,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="33" ignore="no">
+		<test name="33">
 			<description>query for resources with UID contains" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>
@@ -848,13 +848,13 @@
 			</request>
 		</test>
 	</test-suite>
-	<test-suite name='multiget reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='multiget reports'>
+		<test name='1'>
 			<description>basic multiget of 6 resources returning etag and entire vcf data</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/1.xml</filepath>
 				</data>
@@ -872,12 +872,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>basic multiget of 4 resources returning etag</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/2.xml</filepath>
 				</data>
@@ -893,12 +893,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Does allprop</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/3.xml</filepath>
 				</data>
@@ -914,12 +914,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Does propname</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/4.xml</filepath>
 				</data>
@@ -935,12 +935,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>Single non-existent query</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/5.xml</filepath>
 				</data>
@@ -953,12 +953,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>basic multiget of 3 resources returning and named properties and no etag</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$addressbookpath1:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/multiget/6.xml</filepath>
 				</data>
@@ -975,17 +975,17 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='directory gateway query reports' ignore='no'>
+	<test-suite name='directory gateway query reports'>
 		<require-feature>
 			<feature>directory-gateway</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>query for FN starts with "pub"</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/1.xml</filepath>
 				</data>
@@ -1007,12 +1007,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for FN starts with "sim" in a unmatching vCard</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:$publicuserguid1:.vcf</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/2.xml</filepath>
 				</data>
@@ -1024,12 +1024,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for EMAIL does not contain "b"</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/3.xml</filepath>
 				</data>
@@ -1068,12 +1068,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for ADR is-not-defined</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/4.xml</filepath>
 				</data>
@@ -1099,12 +1099,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for VERSION is end-with ".0" limited to 10 results</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/5.xml</filepath>
 				</data>
@@ -1117,12 +1117,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query EMAIL contains "@example" with parameter "HOME"</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/6.xml</filepath>
 				</data>
@@ -1135,12 +1135,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query FN contains "ic 01" and EMAIL contains "@example"</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchquery/7.xml</filepath>
 				</data>
@@ -1153,9 +1153,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="8" ignore="no">
+		<test name="8">
 			<description>query for resources with EMAIL contains '.com' and '01' with parameter TYPE = "WORK") limited to 4 responses</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1175,9 +1175,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="9" ignore="no">
+		<test name="9">
 			<description>query for resources with (FN contains 'Public' and '03") or (EMAIL  contains 'User' and '02')" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1194,9 +1194,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="10" ignore="no">
+		<test name="10">
 			<description>query for resources with EMAIL with TYPE parameter = "work" and "pref" limited to 4 results</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1216,9 +1216,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="11" ignore="no">
+		<test name="11">
 			<description>query for resources with (FN contains 'Public' and '03") AND (EMAIL  contains 'example' and 'public') limited to 4 results"" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1234,9 +1234,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="12" ignore="no">
+		<test name="12">
 			<description>query for resources with (FN contains 'Public' and '03") AND (EMAIL  contains 'example' and 'user') limited to 4 results"" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1251,9 +1251,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="13" ignore="no">
+		<test name="13">
 			<description>query for resources where (FN contains '02') OR (FN contains '03") OR (EMAIL  contains '04') OR (EMAIL  contains 'user')" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1288,9 +1288,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="14" ignore="no">
+		<test name="14">
 			<description>query for resources with (FN contains 'Public' or '03") AND (EMAIL  contains 'bogus' with TYPE parameter = "work") limited to 4 results" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1306,9 +1306,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="15" ignore="no">
+		<test name="15">
 			<description>query for resources with (KIND equal "group") and (FN contains "0"), no eTag " </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1346,9 +1346,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="16" ignore="no">
+		<test name="16">
 			<description>query for resources with (KIND equal "group") and (X-ADDRESSBOOKSERVER-MEMBER contains $groupguid3:), no eTag, no props " </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1368,9 +1368,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name="17" ignore="no">
+		<test name="17">
 			<description>query for resources with ((KIND equal "individual") or (KIND is-not-defined)) and (FN contains "03")" </description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
 				<data>
@@ -1393,17 +1393,17 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='directory gateway multiget reports' ignore='no'>
+	<test-suite name='directory gateway multiget reports'>
 		<require-feature>
 			<feature>directory-gateway</feature>
 		</require-feature>
 
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>basic multiget of 8 resources in search node returning etag and entire vcf data</description>
-			<request print-response="no">
+			<request>
 				<method>REPORT</method>
 				<ruri>$directory:</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CardDAV/vreports/searchmultiget/1.xml</filepath>
 				</data>

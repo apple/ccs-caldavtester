@@ -74,7 +74,7 @@
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply3.xml</filepath>
 			</data>
@@ -121,7 +121,7 @@
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>POST</method>
 			<ruri>$calendarhome3:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply23.xml</filepath>
 			</data>
@@ -132,7 +132,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Organizer shared calendar' ignore='no'>
+	<test-suite name='Organizer shared calendar'>
 		<test name='1'>
 			<description>Organizer invites Attendee</description>
 			<request>

@@ -223,13 +223,13 @@
 		</request>
 	</start>
 	
-	<test-suite name='multiget reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='multiget reports'>
+		<test name='1'>
 			<description>multiget on calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/depth1.txt</filepath>
 				</data>
@@ -245,12 +245,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>multiget on collection</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/depth2.txt</filepath>
 				</data>
@@ -273,12 +273,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>multiget on calendar resource</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/depth3.txt</filepath>
 				</data>
@@ -299,12 +299,12 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>multiget on non calendar resource</description>
 			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/1.ics</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/multiget/depth4.txt</filepath>
 				</data>
@@ -319,8 +319,8 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='basic query reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='basic query reports'>
+		<test name='1'>
 			<description>query on calendar with no Depth</description>
 			<request>
 				<method>REPORT</method>
@@ -343,7 +343,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query on calendar with Depth 0</description>
 			<request>
 				<method>REPORT</method>
@@ -370,7 +370,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query on calendar with Depth 1</description>
 			<request>
 				<method>REPORT</method>
@@ -397,7 +397,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query on calendar with Depth infinity</description>
 			<request>
 				<method>REPORT</method>
@@ -424,7 +424,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query on collection with no Depth</description>
 			<request>
 				<method>REPORT</method>
@@ -438,7 +438,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query on collection with Depth 0</description>
 			<request>
 				<method>REPORT</method>
@@ -456,9 +456,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query on collection with Depth 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
@@ -484,7 +484,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>query on collection with Depth infinity</description>
 			<request>
 				<method>REPORT</method>
@@ -513,9 +513,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>query on matching calendar resource with no Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/1.ics</ruri>
 				<data>
@@ -535,7 +535,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>query on non-matching calendar resource with no Depth</description>
 			<request>
 				<method>REPORT</method>
@@ -549,7 +549,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11' ignore='no'>
+		<test name='11'>
 			<description>query on non calendar resource with no Depth</description>
 			<request>
 				<method>REPORT</method>
@@ -569,10 +569,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='free-busy reports' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='free-busy reports'>
+		<test name='1'>
 			<description>query for free busy on calendar with no Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/</ruri>
 				<data>
@@ -600,9 +600,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>query for free busy on calendar with Depth 0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/</ruri>
 				<header>
@@ -634,9 +634,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>query for free busy on calendar with Depth 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/</ruri>
 				<header>
@@ -668,9 +668,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>query for free busy on calendar with Depth infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/</ruri>
 				<header>
@@ -702,9 +702,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>query for free busy on collection with no Depth</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<data>
@@ -716,9 +716,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>query for free busy on collection with Depth 0</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
@@ -734,9 +734,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>query for free busy on collection with Depth 1</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
@@ -769,9 +769,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>query for free busy on collection with Depth infinity</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/</ruri>
 				<header>
@@ -805,9 +805,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>query for free busy on resource</description>
-			<request print-response='no'>
+			<request>
 				<method>REPORT</method>
 				<ruri>$calendarhome1:/top-collection/calendar/1.ics</ruri>
 				<data>

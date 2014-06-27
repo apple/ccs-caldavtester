@@ -42,10 +42,10 @@
 	</start>
 	
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -61,7 +61,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on calendar</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$calendarpath1:/</ruri>
 				<verify>
@@ -77,10 +77,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name="POSTs ignored" ignore='no'>
+	<test-suite name="POSTs ignored">
 		<test name='1'>
 			<description>Initial REQUEST</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -94,7 +94,7 @@
 		</test>
 		<test name='2'>
 			<description>Make sure no resource exists</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$outboxpath1:/</ruri>
 				<header>
@@ -116,7 +116,7 @@
 		</test>
 		<test name='3'>
 			<description>Make sure no resource exists</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath2:/</ruri>
 				<header>
@@ -138,7 +138,7 @@
 		</test>
 		<test name='4'>
 			<description>Make sure no resource exists</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath3:/</ruri>
 				<header>

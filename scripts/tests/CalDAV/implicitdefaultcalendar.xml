@@ -33,10 +33,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Default Property' ignore='no'>
+	<test-suite name='Default Property'>
 		<test name='1'>
 			<description>Look for property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -58,10 +58,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Set empty Property' ignore='no'>
+	<test-suite name='Set empty Property'>
 		<test name='1'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -79,7 +79,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -101,10 +101,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Set valid Property' ignore='no'>
+	<test-suite name='Set valid Property'>
 		<test name='1'>
 			<description>Look for existing property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -126,7 +126,7 @@
 		</test>
 		<test name='2'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -144,7 +144,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -166,10 +166,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Set invalid Property' ignore='no'>
+	<test-suite name='Set invalid Property'>
 		<test name='1'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -187,7 +187,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -209,10 +209,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Move default calendar' ignore='no'>
+	<test-suite name='Move default calendar'>
 		<test name='1'>
 			<description>Move calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/calendar-test/</ruri>
 				<header>
@@ -226,7 +226,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -248,10 +248,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Delete previously default calendar' ignore='no'>
+	<test-suite name='Delete previously default calendar'>
 		<test name='1'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -269,7 +269,7 @@
 		</test>
 		<test name='2'>
 			<description>Delete calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/calendar-moved/</ruri>
 				<verify>
@@ -279,7 +279,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -301,10 +301,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Delete default calendar' ignore='no'>
+	<test-suite name='Delete default calendar'>
 		<test name='1'>
 			<description>Delete calendar</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>DELETE</method>
 				<ruri>$calendarpath10:/</ruri>
 				<verify>
@@ -314,7 +314,7 @@
 		</test>
 		<test name='2'>
 			<description>Verify property on inbox</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response="no">
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
 				<ruri>$inboxpath10:/</ruri>
 				<header>
@@ -336,10 +336,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Auto-create default calendar on scheduling' ignore='no'>
+	<test-suite name='Auto-create default calendar on scheduling'>
 		<test name='1'>
 			<description>Attendee has no calendar</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome10:/</ruri>
 				<header>
@@ -364,7 +364,7 @@
 		</test>
 		<test name='2'>
 			<description>Organizer invites Attendee</description>
-			<request print-response='no'>
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
@@ -378,7 +378,7 @@
 		</test>
 		<test name='3'>
 			<description>Organizer checks data</description>
-			<request print-response='no'>
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<verify>
@@ -392,14 +392,14 @@
 		</test>
 		<test name='4'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath10:/</ruri>
 			</request>
 		</test>
 		<test name='5'>
 			<description>Attendee has calendar</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome10:/</ruri>
 				<header>
@@ -424,7 +424,7 @@
 		</test>
 		<test name='6'>
 			<description>Attendee has data</description>
-			<request user="$userid10:" pswd="$pswd10:" print-response='no'>
+			<request user="$userid10:" pswd="$pswd10:">
 				<method>GETNEW</method>
 				<ruri>$calendarpath10:/</ruri>
 				<verify>
@@ -457,7 +457,7 @@
 	<test-suite name='Set valid Property' ignore='yes'>
 		<test name='1'>
 			<description>Look for existing property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -486,7 +486,7 @@
 		</test>
 		<test name='2'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -504,7 +504,7 @@
 		</test>
 		<test name='3'>
 			<description>Verify property on inbox</description>
-			<request print-response="no">
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath1:/</ruri>
 				<header>
@@ -526,7 +526,7 @@
 		</test>
 		<test name='4'>
 			<description>Set property on Inbox</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$inboxpath1:/</ruri>
 				<data>
@@ -544,7 +544,7 @@
 		</test>
 		<test name='5'>
 			<description>Delete calendar</description>
-			<request print-response='no'>
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/calendar-test/</ruri>
 				<verify>

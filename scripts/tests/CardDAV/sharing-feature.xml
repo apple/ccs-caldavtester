@@ -34,10 +34,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='OPTIONS header' ignore='no'>
+	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$principal1:</ruri>
 				<verify>
@@ -51,7 +51,7 @@
 		</test>
 		<test name='2'>
 			<description>Look for options header tag on addressbook</description>
-			<request print-response="no">
+			<request>
 				<method>OPTIONS</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<verify>
@@ -66,9 +66,9 @@
 	</test-suite>
 
 	<test-suite name='Allowed modes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Check mode</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -90,7 +90,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Upgrade addressbook to shared' ignore='no'>
+	<test-suite name='Upgrade addressbook to shared'>
 		<test name='1'>
 			<description>clear addressbook</description>
 			<request>
@@ -101,9 +101,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>Not shared</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPFIND</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<header>
@@ -125,7 +125,7 @@
 		</test>
 		<test name='3'>
 			<description>Upgrade via PROPPATCH</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookpath1:/</ruri>
 				<data>

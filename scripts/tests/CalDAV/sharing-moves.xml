@@ -31,7 +31,7 @@
 			<method>MKCALENDAR</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 		</request>
-		<request print-response='no'>
+		<request>
 			<method>POST</method>
 			<ruri>$calendarhome1:/shared/</ruri>
 			<data>
@@ -42,11 +42,11 @@
 				<callback>statusCode</callback>
 			</verify>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>WAITCOUNT 1</method>
 			<ruri>$notificationpath2:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>GETNEW</method>
 			<ruri>$notificationpath2:/</ruri>
 			<grabelement>
@@ -58,10 +58,10 @@
 				<variable>$hosturl2:</variable>
 			</grabelement>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>POST</method>
 			<ruri>$calendarhome2:/</ruri>
-			<data substitutions='yes'>
+			<data>
 				<content-type>application/xml; charset=utf-8</content-type>
 				<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
 			</data>
@@ -72,10 +72,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='OK event to shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK event to shared calendar'>
+		<test name='1'>
 			<description>User02 store to personal calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<data>
@@ -87,9 +87,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 moves event to shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<header>
@@ -101,9 +101,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/1.ics</ruri>
 				<verify>
@@ -115,9 +115,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<verify>
@@ -132,10 +132,10 @@
 	</test-suite>
 
 	
-	<test-suite name='Bad event to shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Bad event to shared calendar'>
+		<test name='1'>
 			<description>User02 store to personal calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" end-delete="yes" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarpath2:/2.ics</ruri>
 				<data>
@@ -147,9 +147,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 moves event to shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$calendarpath2:/2.ics</ruri>
 				<header>
@@ -167,10 +167,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='OK event from shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK event from shared calendar'>
+		<test name='1'>
 			<description>User01 store to shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/3.ics</ruri>
 				<data>
@@ -182,9 +182,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 moves event from shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$sharedcalendar2:/3.ics</ruri>
 				<header>
@@ -196,9 +196,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$calendarpath2:/3.ics</ruri>
 				<verify>
@@ -209,7 +209,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETE</method>
 				<ruri>$calendarpath2:/3.ics</ruri>
 				<verify>
@@ -217,9 +217,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees no event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/3.ics</ruri>
 				<verify>
@@ -234,10 +234,10 @@
 	</test-suite>
 
 	
-	<test-suite name='Bad event to shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='Bad event to shared calendar'>
+		<test name='1'>
 			<description>User01 store to shared calendar</description>
-			<request end-delete="yes" print-response="no">
+			<request end-delete="yes">
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/4.ics</ruri>
 				<data>
@@ -249,9 +249,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User02 moves event from shared calendar</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>MOVE</method>
 				<ruri>$sharedcalendar2:/4.ics</ruri>
 				<header>
@@ -269,10 +269,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='OK owner event to shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK owner event to shared calendar'>
+		<test name='1'>
 			<description>User01 store to personal calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<data>
@@ -284,9 +284,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 moves event to shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/5.ics</ruri>
 				<header>
@@ -298,9 +298,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/5.ics</ruri>
 				<verify>
@@ -312,9 +312,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/5.ics</ruri>
 				<verify>
@@ -325,7 +325,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/shared/5.ics</ruri>
 				<verify>
@@ -336,10 +336,10 @@
 	</test-suite>
 
 	
-	<test-suite name='OK owner event with organizer to shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK owner event with organizer to shared calendar'>
+		<test name='1'>
 			<description>User01 store to personal calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<data>
@@ -351,9 +351,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 moves event to shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarpath1:/6.ics</ruri>
 				<header>
@@ -365,9 +365,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 sees event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/6.ics</ruri>
 				<verify>
@@ -379,9 +379,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/6.ics</ruri>
 				<verify>
@@ -392,7 +392,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarhome1:/shared/6.ics</ruri>
 				<verify>
@@ -402,10 +402,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='OK owner event from shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK owner event from shared calendar'>
+		<test name='1'>
 			<description>User01 store to shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/7.ics</ruri>
 				<data>
@@ -417,9 +417,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 moves event from shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/shared/7.ics</ruri>
 				<header>
@@ -431,9 +431,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 does not see event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/7.ics</ruri>
 				<verify>
@@ -445,9 +445,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/7.ics</ruri>
 				<verify>
@@ -458,7 +458,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/7.ics</ruri>
 				<verify>
@@ -469,10 +469,10 @@
 	</test-suite>
 
 	
-	<test-suite name='OK owner event with organizer from shared calendar' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='OK owner event with organizer from shared calendar'>
+		<test name='1'>
 			<description>User01 store to shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/8.ics</ruri>
 				<data>
@@ -484,9 +484,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>User01 moves event from shared calendar</description>
-			<request print-response="no">
+			<request>
 				<method>MOVE</method>
 				<ruri>$calendarhome1:/shared/8.ics</ruri>
 				<header>
@@ -498,9 +498,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>User02 does not see event</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response="no">
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>GET</method>
 				<ruri>$sharedcalendar2:/8.ics</ruri>
 				<verify>
@@ -512,9 +512,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>User01 sees event</description>
-			<request print-response="no">
+			<request>
 				<method>GET</method>
 				<ruri>$calendarpath1:/8.ics</ruri>
 				<verify>
@@ -525,7 +525,7 @@
 					</arg>
 				</verify>
 			</request>
-			<request print-response="no">
+			<request>
 				<method>DELETE</method>
 				<ruri>$calendarpath1:/8.ics</ruri>
 				<verify>

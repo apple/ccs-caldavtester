@@ -358,7 +358,7 @@
 		</require-feature>
 		<test name='1'>
 			<description>PROPPATCH no prefer</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<data>
@@ -377,7 +377,7 @@
 		</test>
 		<test name='2'>
 			<description>PROPPATCH with Prefer=x-foo</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>
@@ -400,7 +400,7 @@
 		</test>
 		<test name='3'>
 			<description>PROPPATCH with Prefer:return=minimal</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$calendarpath1:/</ruri>
 				<header>

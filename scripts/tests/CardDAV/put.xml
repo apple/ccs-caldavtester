@@ -33,10 +33,10 @@
 		</request>
 	</start>
 
-	<test-suite name='PUT VCARD' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='PUT VCARD'>
+		<test name='1'>
 			<description>PUT simple person contact</description>
-			<request end-delete='yes' print-response='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/1.vcf</ruri>
 				<data>
@@ -66,7 +66,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT contact created by Mulberry</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -98,7 +98,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PUT company contact</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -130,7 +130,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT contact with note</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -162,7 +162,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5' ignore='no'>
+		<test name='5'>
 			<description>PUT contact with all default fields filled in</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -194,7 +194,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>PUT contact with picture</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -226,7 +226,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7' ignore='no'>
+		<test name='7'>
 			<description>PUT company contact with picture</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -258,7 +258,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8' ignore='no'>
+		<test name='8'>
 			<description>PUT contact with high ascii contents</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -290,7 +290,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9' ignore='no'>
+		<test name='9'>
 			<description>PUT contact with double bytes contents</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -322,7 +322,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10' ignore='no'>
+		<test name='10'>
 			<description>PUT contact with all custom fields</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -357,9 +357,9 @@
 	</test-suite>
 
 	<test-suite name='Test \ escapes'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT simple person contact</description>
-			<request end-delete='yes' print-response='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/11.vcf</ruri>
 				<data>
@@ -389,9 +389,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT with \n in ADR</description>
-			<request end-delete='yes' print-response='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/12.vcf</ruri>
 				<data>
@@ -424,9 +424,9 @@
 	</test-suite>
 
 	<test-suite name='PUT with X- using VALUE != TEXT'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT simple person contact</description>
-			<request end-delete='yes' print-response='yes'>
+			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$addressbookpath1:/13.vcf</ruri>
 				<data>
@@ -460,7 +460,7 @@
 
 
 	<test-suite name='PUTs with ^ parameter encoding'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>Roundtrip encoded CN=</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -488,7 +488,7 @@
 	</test-suite>
 
 	<test-suite name='PUT groups'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>PUT group with circular reference, unknown members, group data changed</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -520,7 +520,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>PUT user over group</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -538,7 +538,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>PUT group over user</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
@@ -556,7 +556,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>PUT group over group, no data change</description>
 			<request end-delete='yes'>
 				<method>PUT</method>

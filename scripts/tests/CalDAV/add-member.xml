@@ -75,10 +75,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='POST VEVENT' ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name='POST VEVENT'>
+		<test name='1'>
 			<description>POST non-recurring timed event</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/$add-member:</ruri>
 				<data>
@@ -105,7 +105,7 @@
 				</grabheader>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<request>
 				<method>GET</method>
 				<ruri>$posted:</ruri>

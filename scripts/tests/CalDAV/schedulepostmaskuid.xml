@@ -28,7 +28,7 @@
 
 	<start/>
 	
-	<test-suite name="Initialize state" ignore='no'>
+	<test-suite name="Initialize state">
 		<test name="1">
 			<description>Blocking event user 2</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete="yes">
@@ -192,10 +192,10 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name="POSTs free busy" ignore='no'>
+	<test-suite name="POSTs free busy">
 		<test name='1'>
 			<description>POST free busy - no mask</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -217,7 +217,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy - ok mask</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -239,7 +239,7 @@
 		</test>
 		<test name='3'>
 			<description>POST free busy - bad mask - no organizer</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -261,7 +261,7 @@
 		</test>
 		<test name='4'>
 			<description>POST free busy - bad mask - wrong organizer</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -283,10 +283,10 @@
 		</test>
 	</test-suite>
 		
-	<test-suite name="POSTs free busy - mask no ORGANIZER" ignore='no'>
-		<test name='1' ignore='no'>
+	<test-suite name="POSTs free busy - mask no ORGANIZER">
+		<test name='1'>
 			<description>POST free busy - ok mask bad organizer</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -308,7 +308,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy - ok mask no organizer</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>

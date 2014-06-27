@@ -50,9 +50,9 @@
 	</start>
 	
 	<test-suite name='Setup two sharees'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$calendarhome2:/shared/</ruri>
 				<data>
@@ -66,11 +66,11 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee 2 notification collection</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath3:/</ruri>
 			</request>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath3:/</ruri>
 				<verify>
@@ -88,10 +88,10 @@
 		</test>
 		<test name='3'>
 			<description>Sharee 2 replies ACCEPTED</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>POST</method>
 				<ruri>$calendarhome3:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply23.xml</filepath>
 				</data>
@@ -106,11 +106,11 @@
 		</test>
 		<test name='4'>
 			<description>Check Sharee 3 notification collection</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath4:/</ruri>
 			</request>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:">
 				<method>GETNEW</method>
 				<ruri>$notificationpath4:/</ruri>
 				<verify>
@@ -128,10 +128,10 @@
 		</test>
 		<test name='5'>
 			<description>Sharee 3 replies ACCEPTED</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:">
 				<method>POST</method>
 				<ruri>$calendarhome4:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply24.xml</filepath>
 				</data>
@@ -161,7 +161,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PUT by User 2' ignore='no'>
+	<test-suite name='PUT by User 2'>
 		<test name='1'>
 			<description>PUT event by user 2</description>
 			<request user="$userid2:" pswd="$pswd2:">
@@ -190,9 +190,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3' ignore='no'>
+		<test name='3'>
 			<description>Attachment exists for User 2</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/</ruri>
 				<header>
@@ -212,9 +212,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4' ignore='no'>
+		<test name='4'>
 			<description>Attachment exists for User 3</description>
-			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+			<request user="$userid3:" pswd="$pswd3:">
 				<method>PROPFIND</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/</ruri>
 				<header>
@@ -248,9 +248,9 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6' ignore='no'>
+		<test name='6'>
 			<description>Attachments exists for User 4</description>
-			<request user="$userid4:" pswd="$pswd4:" print-response='no'>
+			<request user="$userid4:" pswd="$pswd4:">
 				<method>PROPFIND</method>
 				<ruri>$dropboxpath2:/54E181BC7CCC373042B28842/</ruri>
 				<header>

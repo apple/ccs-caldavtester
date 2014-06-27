@@ -29,7 +29,7 @@
 
 	<start>
 		<!-- Add user01 as read delegate for user02 -->
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$principal2:calendar-proxy-read/</ruri>
 			<data>
@@ -38,7 +38,7 @@
 			</data>
 		</request>
 		<!-- Add user01 as read-write delegate for user03 -->
-		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>PROPPATCH</method>
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>
@@ -88,10 +88,10 @@
 		</request>
 	</start>
 	
-	<test-suite name='Freebusy by organizer as a delegate' ignore="no">
+	<test-suite name='Freebusy by organizer as a delegate'>
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -159,7 +159,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -230,7 +230,7 @@
 	<test-suite name='Freebusy by delegate as an organizer'>
 		<test name='1'>
 			<description>POST free busy by delegate for all attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -298,7 +298,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -366,10 +366,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Freebusy by non-delegate' ignore="no">
+	<test-suite name='Freebusy by non-delegate'>
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -438,7 +438,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -507,10 +507,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Freebusy by delegate after change' ignore="no">
+	<test-suite name='Freebusy by delegate after change'>
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -576,7 +576,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2' ignore='no'>
+		<test name='2'>
 			<description>New event</description>
 			<request user="$userid2:" pswd="$pswd2:" end-delete='yes'>
 				<method>PUT</method>
@@ -592,7 +592,7 @@
 		</test>
 		<test name='3'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -660,10 +660,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Freebusy on location by delegate' ignore="no">
+	<test-suite name='Freebusy on location by delegate'>
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -710,7 +710,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath1:/</ruri>
 				<data>
@@ -757,10 +757,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Freebusy on location by non-delegate' ignore="no">
+	<test-suite name='Freebusy on location by non-delegate'>
 		<test name='1'>
 			<description>POST free busy for all attendees</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -807,7 +807,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>POST</method>
 				<ruri>$outboxpath2:/</ruri>
 				<data>
@@ -857,7 +857,7 @@
 	<test-suite name='Freebusy by delegate as an organizer - private event'>
 		<test name='1'>
 			<description>PUT private event</description>
-			<request user="$userid2:" pswd="$pswd2:" end-delete = 'yes' print-response='no'>
+			<request user="$userid2:" pswd="$pswd2:" end-delete = 'yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath2:/3.ics</ruri>
 				<data>
@@ -871,7 +871,7 @@
 		</test>
 		<test name='2'>
 			<description>POST free busy by delegate for all attendees</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -905,7 +905,7 @@
 		</test>
 		<test name='3'>
 			<description>POST free busy for all attendees - repeat to check on any caching</description>
-			<request print-response='no'>
+			<request>
 				<method>POST</method>
 				<ruri>$outboxpath3:/</ruri>
 				<data>
@@ -940,7 +940,7 @@
 	</test-suite>
 
 	<end>
-		<request user="$userid2:" pswd="$pswd2:" print-response="no">
+		<request user="$userid2:" pswd="$pswd2:">
 			<method>PROPPATCH</method>
 			<ruri>$principal2:calendar-proxy-read/</ruri>
 			<data>
@@ -948,7 +948,7 @@
 				<filepath>Resource/CalDAV/extended-freebusy/9.xml</filepath>
 			</data>
 		</request>
-		<request user="$userid3:" pswd="$pswd3:" print-response="no">
+		<request user="$userid3:" pswd="$pswd3:">
 			<method>PROPPATCH</method>
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>

@@ -83,7 +83,7 @@
 	</start>
 	
 	<test-suite name='Set up share'>
-		<test name='1' ignore='no'>
+		<test name='1'>
 			<description>POST invitation</description>
 			<request>
 				<method>POST</method>
@@ -120,7 +120,7 @@
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>POST</method>
 				<ruri>$pcalendarhome2:/</ruri>
-				<data substitutions='yes'>
+				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/sharingreply2-pod.xml</filepath>
 				</data>

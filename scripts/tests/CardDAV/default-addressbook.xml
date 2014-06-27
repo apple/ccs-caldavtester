@@ -51,10 +51,10 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change property' ignore='no'>
+	<test-suite name='Change property'>
 		<test name='2'>
 			<description>Set invalid property on home</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -72,7 +72,7 @@
 		</test>
 		<test name='3'>
 			<description>Set property on home</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>
@@ -131,7 +131,7 @@
 -->
 		<test name='2'>
 			<description>Set property on home</description>
-			<request print-response='no'>
+			<request>
 				<method>PROPPATCH</method>
 				<ruri>$addressbookhome1:/</ruri>
 				<data>

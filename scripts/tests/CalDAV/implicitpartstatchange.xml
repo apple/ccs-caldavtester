@@ -41,7 +41,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Simple Changes' ignore='no'>
+	<test-suite name='Simple Changes'>
 		<test name='1'>
 			<description>Organizer invites Attendee with PARTSTAT=ACCEPTED</description>
 			<request>
@@ -305,7 +305,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurrence' ignore='no'>
+	<test-suite name='Recurrence'>
 		<test name='1'>
 			<description>Organizer invites Attendee with PARTSTAT=ACCEPTED recurring</description>
 			<request>
@@ -476,7 +476,7 @@
 		</test>
 		<test name='14'>
 			<description>Attendee One Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='yes'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
@@ -525,7 +525,7 @@
 		</test>
 		<test name='18'>
 			<description>Attendee Inbox Item</description>
-			<request user="$userid2:" pswd="$pswd2:" print-response='yes'>
+			<request user="$userid2:" pswd="$pswd2:">
 				<method>WAITDELETEALL 2</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
