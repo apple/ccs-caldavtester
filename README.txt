@@ -301,6 +301,9 @@ caldavtest.dtd:
 				4) WAITCOUNT - wait until at least a certain number of resources appear in a collection.
 				5) WAITDELETEALL - wait until at least a certain number of resources appear in a collection, then delete all child
 								   resources in that collection.
+				6) GETCHANGED - the tool tracks the Etags on resources retrieved via GET. This special method will poll the specified
+								resource until the Etag returned in the response is different from the one found in the most recent
+								test.  
 	
 		ELEMENT <ruri>
 			the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.

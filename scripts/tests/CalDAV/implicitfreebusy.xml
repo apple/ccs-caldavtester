@@ -379,8 +379,8 @@
 		</test>
 		<test name='7'>
 			<description>Resource has data</description>
-			<request user="$useradmin:" pswd="$pswdadmin:">
-				<method>GETCHANGED</method>
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success='yes'>
+				<method>GET</method>
 				<ruri>$rresource:</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
