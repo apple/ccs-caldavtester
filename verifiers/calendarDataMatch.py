@@ -116,11 +116,11 @@ class Verifier(object):
         try:
             resp_calendar = Calendar.parseText(respdata) if not is_json else Calendar.parseJSONData(respdata)
             removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.getText() if not is_json else resp_calendar.getTextJSON()
+            respdata = resp_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES) if not is_json else resp_calendar.getTextJSON()
 
             data_calendar = Calendar.parseText(data) if not is_json else Calendar.parseJSONData(data)
             removePropertiesParameters(data_calendar)
-            data = data_calendar.getText() if not is_json else data_calendar.getTextJSON()
+            data = data_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES) if not is_json else data_calendar.getTextJSON()
 
             result = respdata == data
 
