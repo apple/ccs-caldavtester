@@ -44,7 +44,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/1.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -60,7 +60,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/2.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -85,7 +85,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/3.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -96,7 +96,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/3.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -115,7 +115,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/4.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/4.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -138,7 +138,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/5.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -174,7 +174,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/6.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/6.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -193,7 +193,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/7.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -216,7 +216,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/8.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/8.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -252,21 +252,30 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/9.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/9.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
 				<ruri>$inboxpath1:/</ruri>
-				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<ruri>$pcalendarpath1:/</ruri>
+			</request>
+			<request user="$puserid1:" pswd="$ppswd1:">
+				<method>WAITDELETEALL 1</method>
 				<ruri>$pinboxpath1:/</ruri>
+			</request>
+			<request user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$pcalendarpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -279,7 +288,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/1.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -295,7 +304,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/2.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -320,7 +329,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/3.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -331,7 +340,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/3.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -350,7 +359,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/4.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/4.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -373,7 +382,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/5.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -409,7 +418,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/6.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/6.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -428,7 +437,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitschedule/suite1/7.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitschedule/suite1/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -451,7 +460,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/8.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/8.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -487,35 +496,34 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitschedule/suite1/9.ics</value>
+						<value>Resource/CalDAV-pod/implicitschedule/suite1/9.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='18'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request host2='yes' user="$useradmin:" pswd="$pswdadmin:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
 				<ruri>$inboxpath1:/</ruri>
-				<ruri>$calendarpath2:/</ruri>
+			</request>
+			<request host2='yes' user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
 				<ruri>$inboxpath2:/</ruri>
-				<ruri>$pcalendarpath1:/</ruri>
+			</request>
+			<request host2='yes' user="$puserid1:" pswd="$ppswd1:">
+				<method>WAITDELETEALL 1</method>
 				<ruri>$pinboxpath1:/</ruri>
+			</request>
+			<request host2='yes' user="$useradmin:" pswd="$pswdadmin:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+				<ruri>$pcalendarpath1:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 
-	<end>
-		<request user="$useradmin:" pswd="$pswdadmin:">
-			<method>DELETEALL</method>
-			<ruri>$calendarpath1:/</ruri>
-			<ruri>$inboxpath1:/</ruri>
-			<ruri>$calendarpath2:/</ruri>
-			<ruri>$inboxpath2:/</ruri>
-			<ruri>$pcalendarpath1:/</ruri>
-			<ruri>$pinboxpath1:/</ruri>
-		</request>
-	</end>
+	<end/>
 	
 </caldavtest>

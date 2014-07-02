@@ -45,7 +45,7 @@
 			<ruri>$principal2:calendar-proxy-write/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/1.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/1.xml</filepath>
 			</data>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
@@ -53,11 +53,28 @@
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/1.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/1.xml</filepath>
 			</data>
 		</request>
 	</start>
 	
+	<test-suite name='Proxy free busy as Organizer'>
+		<test name='1'>
+			<description>Proxy does freebusy request</description>
+			<request host2='yes' user='$puserid1:' pswd='$ppswd1:'>
+				<method>POST</method>
+				<ruri>$outboxpath2:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV-pod/implicitproxy/16.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Proxy as Organizer'>
 		<test name='1'>
 			<description>Proxy creates new event</description>
@@ -66,7 +83,7 @@
 				<ruri>$calendarpath2:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/3.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/3.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -84,7 +101,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/4.xml</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -104,7 +121,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitproxy/5.ics</value>
+						<value>Resource/CalDAV-pod/implicitproxy/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -125,13 +142,45 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitproxy/6.ics</value>
+						<value>Resource/CalDAV-pod/implicitproxy/6.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 	</test-suite>
 	
+	<test-suite name='Proxy free busy as Organizer'>
+		<test name='1'>
+			<description>Proxy does freebusy request</description>
+			<request host2='yes' user='$puserid1:' pswd='$ppswd1:'>
+				<method>POST</method>
+				<ruri>$outboxpath2:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV-pod/implicitproxy/16.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddralt2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0208T200000Z/$now.year.1:0208T210000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddralt3:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Proxy as Attendee'>
 		<test name='2'>
 			<description>Proxy updates event</description>
@@ -147,7 +196,7 @@
 				<ruri>$</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/7.ics</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -170,7 +219,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitproxy/8.ics</value>
+						<value>Resource/CalDAV-pod/implicitproxy/8.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -186,7 +235,7 @@
 				</header>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/4.xml</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
@@ -206,13 +255,49 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/podding/implicitproxy/9.ics</value>
+						<value>Resource/CalDAV-pod/implicitproxy/9.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 	</test-suite>
 	
+	<test-suite name='Proxy free busy as Organizer'>
+		<test name='1'>
+			<description>Proxy does freebusy request</description>
+			<request host2='yes' user='$puserid1:' pswd='$ppswd1:'>
+				<method>POST</method>
+				<ruri>$outboxpath2:/</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV-pod/implicitproxy/16.ics</filepath>
+				</data>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddralt2:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0208T200000Z/$now.year.1:0208T210000Z</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>postFreeBusy</callback>
+					<arg>
+						<name>attendee</name>
+						<value>$cuaddralt3:</value>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>$now.year.1:0208T200000Z/$now.year.1:0208T210000Z</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name="Undo proxy">
 		<test name='1'>
 			<description>Remove proxy</description>
@@ -221,7 +306,7 @@
 				<ruri>$principal2:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/2.xml</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/2.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -232,7 +317,7 @@
 				<ruri>$principal3:calendar-proxy-write/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/podding/implicitproxy/2.xml</filepath>
+					<filepath>Resource/CalDAV-pod/implicitproxy/2.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -288,7 +373,7 @@
 			<ruri>$principal2:calendar-proxy-write/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/2.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/2.xml</filepath>
 			</data>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
@@ -296,7 +381,7 @@
 			<ruri>$principal3:calendar-proxy-write/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/2.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/2.xml</filepath>
 			</data>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
@@ -304,7 +389,7 @@
 			<ruri>$calendarpath2:/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/11.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/11.xml</filepath>
 			</data>
 		</request>
 		<request user="$userid3:" pswd="$pswd3:">
@@ -312,7 +397,7 @@
 			<ruri>$calendarpath3:/</ruri>
 			<data>
 				<content-type>text/xml; charset=utf-8</content-type>
-				<filepath>Resource/CalDAV/podding/implicitproxy/11.xml</filepath>
+				<filepath>Resource/CalDAV-pod/implicitproxy/11.xml</filepath>
 			</data>
 		</request>
 	</end>
