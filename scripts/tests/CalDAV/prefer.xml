@@ -704,6 +704,10 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
 		</test>
 		<test name='2'>
 			<description>PUT with Prefer=x-foo</description>
@@ -732,6 +736,10 @@
 						<value/>
 					</arg>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='3'>
@@ -769,6 +777,10 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
 		</test>
 		<test name='4'>
 			<description>PUT with Prefer=return=representation</description>
@@ -804,6 +816,10 @@
 						<value>$calendarpath1:/4.ics</value>
 					</arg>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 		<test name='5'>
@@ -1013,10 +1029,13 @@
 			<ruri>$calendarpath1:/</ruri>
 			<ruri>$inboxpath1:/</ruri>
 		</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 3</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath2:/</ruri>
-			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</end>
 	
