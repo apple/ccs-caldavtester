@@ -297,6 +297,28 @@
 				</verify>
 			</request>
 		</test>
+		<test name='18'>
+			<description>Organizer Inbox Item has no timestamp</description>
+			<request>
+				<method>WAITCOUNT 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request>
+				<method>GETNEW</method>
+				<ruri>$inboxpath1:/</ruri>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>X-CALENDARSERVER-DTSTAMP</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+		</test>
 		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
