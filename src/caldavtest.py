@@ -414,13 +414,13 @@ class caldavtest(object):
                     ctr += 1
 
                 if ctr - 1 == count:
-                    return True
+                    return None
             delay = self.manager.server_info.waitdelay
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
         else:
-            return False
+            return ctr - 1
 
 
     def dowaitchanged(self, uri, etag, user, pswd, label=""):
@@ -525,8 +525,9 @@ class caldavtest(object):
             count = int(req.method[10:])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                if not self.dowaitcount(collection, count, label=label):
-                    return False, "Count did not change", None, None
+                waitcount = self.dowaitcount(collection, count, label=label)
+                if waitcount is not None:
+                    return False, "Count did not change: {}".format(waitcount), None, None
             else:
                 return True, "", None, None
 
@@ -535,11 +536,12 @@ class caldavtest(object):
             count = int(req.method[len("WAITDELETEALL"):])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                if self.dowaitcount(collection, count, label=label):
+                waitcount = self.dowaitcount(collection, count, label=label)
+                if waitcount is None:
                     hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
                     self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
                 else:
-                    return False, "Count did not change", None, None
+                    return False, "Count did not change: {}".format(waitcount), None, None
             else:
                 return True, "", None, None
 
