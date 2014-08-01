@@ -265,13 +265,19 @@ class request(object):
             )
 
             if details.get('qop'):
-                response = ('Digest username="%s", realm="%s", '
-                        'nonce="%s", uri="%s", '
-                        'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'),))
+                response = (
+                    'Digest username="%s", realm="%s", '
+                    'nonce="%s", uri="%s", '
+                    'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' %
+                    (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'),)
+                )
             else:
-                response = ('Digest username="%s", realm="%s", '
-                        'nonce="%s", uri="%s", '
-                        'response=%s, algorithm=%s' % (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'),))
+                response = (
+                    'Digest username="%s", realm="%s", '
+                    'nonce="%s", uri="%s", '
+                    'response=%s, algorithm=%s' %
+                    (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'),)
+                )
 
             return response
         else:

@@ -80,12 +80,12 @@ class Verifier(object):
         for i in range(len(okprops)):
             p = okprops[i]
             if (p.find("$") != -1):
-                if  p.find("$") != len(p) - 1:
+                if p.find("$") != len(p) - 1:
                     ok_props_match.append((p.split("$")[0], normalizeXML(p.split("$")[1])))
                 else:
                     ok_props_match.append((p.split("$")[0], None))
             elif (p.find("!") != -1):
-                if  p.find("!") != len(p) - 1:
+                if p.find("!") != len(p) - 1:
                     okprops_nomatch[p.split("!")[0]] = normalizeXML(p.split("!")[1])
                 else:
                     okprops_nomatch[p.split("!")[0]] = None

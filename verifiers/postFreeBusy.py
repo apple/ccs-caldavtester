@@ -61,7 +61,7 @@ class Verifier(object):
                 # Must be VFREEBUSY
                 fb = comps[0]
 
-                    # Check for attendee value
+                # Check for attendee value
                 for attendee in fb.getProperties("ATTENDEE"):
                     if attendee.getValue().getValue() in users:
                         users.remove(attendee.getValue().getValue())
@@ -92,9 +92,11 @@ class Verifier(object):
                         raise ValueError("Unknown FBTYPE: %s" % (fbtype,))
 
                 # Set sizes must match
-                if ((len(busy) != len(busyp)) or
+                if (
+                    (len(busy) != len(busyp)) or
                     (len(unavailable) != len(unavailablep)) or
-                    (len(tentative) != len(tentativep))):
+                    (len(tentative) != len(tentativep))
+                ):
                     raise ValueError("Period list sizes do not match.")
 
                 # Convert to string sets

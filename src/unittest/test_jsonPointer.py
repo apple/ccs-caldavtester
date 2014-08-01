@@ -206,7 +206,7 @@ class TestJSONMatcher(unittest.TestCase):
             (
                 "/",
                 '{"1":"foo", "2": "bar"}',
-                [{"1":"foo", "2": "bar"}, ],
+                [{"1": "foo", "2": "bar"}, ],
             ),
             (
                 "/.",

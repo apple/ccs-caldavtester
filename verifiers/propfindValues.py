@@ -52,7 +52,7 @@ class Verifier(object):
                 else:
                     props_match.append((p.split("$")[0], "", True))
             elif (p.find("!") != -1):
-                if  p.find("!") != len(p) - 1:
+                if p.find("!") != len(p) - 1:
                     props_match.append((p.split("!")[0], normalizeXML(p.split("!")[1]), False))
                 else:
                     props_match.append((p.split("!")[0], "", False))

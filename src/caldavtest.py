@@ -566,8 +566,10 @@ class caldavtest(object):
 
         # Special for GETCHANGED
         if req.method == "GETCHANGED":
-            if not self.dowaitchanged(uri, etags[uri], req.user, req.pswd,
-                label=label):
+            if not self.dowaitchanged(
+                uri, etags[uri], req.user, req.pswd,
+                label=label
+            ):
                 return False, "Resource did not change", None, None
             method = "GET"
 
@@ -578,7 +580,7 @@ class caldavtest(object):
         # Do the http request
         http = SmartHTTPConnection(req.host, req.port, self.manager.server_info.ssl)
 
-        if not 'User-Agent' in headers and label is not None:
+        if 'User-Agent' not in headers and label is not None:
             headers['User-Agent'] = label.encode("utf-8")
 
         try:

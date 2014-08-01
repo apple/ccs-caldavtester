@@ -227,7 +227,7 @@ resourceattrs = {
 }
 
 groupattrs = {
-        "dsAttrTypeStandard:RealName": "Group %02d",
+    "dsAttrTypeStandard:RealName": "Group %02d",
 }
 
 records = (
@@ -542,7 +542,8 @@ def createUserViaGateway(path, user):
     if user[0] in guids:
         guids[user[0]] = guid
     if path == "/Places":
-        cmd(cmdutility,
+        cmd(
+            cmdutility,
             locationcreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
@@ -550,7 +551,8 @@ def createUserViaGateway(path, user):
             }
         )
     elif path == "/Resources":
-        cmd(cmdutility,
+        cmd(
+            cmdutility,
             resourcecreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
@@ -585,14 +587,16 @@ def removeUserViaGateway(path, user):
         if user[0] not in locations:
             return
         guid = locations[user[0]]
-        cmd(cmdutility,
+        cmd(
+            cmdutility,
             locationremovecmd % {"guid": guid, }
         )
     elif path == "/Resources":
         if user[0] not in resources:
             return
         guid = resources[user[0]]
-        cmd(cmdutility,
+        cmd(
+            cmdutility,
             resourceremovecmd % {"guid": guid, }
         )
     else:
