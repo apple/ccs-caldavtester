@@ -379,12 +379,30 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>DELAY</method>
-				<ruri>4</ruri>
-			</request>
 		</test>
 		<test name='2'>
+			<description>One item in resource01 calendar</description>
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success="yes">
+				<method>PROPFIND</method>
+				<ruri>$rcalendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/auto6/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>count</name>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
 			<description>No item in user01 Inbox</description>
 			<request>
 				<method>PROPFIND</method>
@@ -406,7 +424,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='4'>
 			<description>No item in user01 Calendar</description>
 			<request>
 				<method>GET</method>
@@ -420,7 +438,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4'>
+		<test name='5'>
 			<description>No items in resource01 Inbox</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
 				<method>PROPFIND</method>
@@ -438,28 +456,6 @@
 					<arg>
 						<name>count</name>
 						<value>0</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>One item in resource01 calendar</description>
-			<request user="$useradmin:" pswd="$pswdadmin:">
-				<method>PROPFIND</method>
-				<ruri>$rcalendarpath1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>1</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/auto6/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>multistatusItems</callback>
-					<arg>
-						<name>count</name>
-						<value>1</value>
 					</arg>
 				</verify>
 			</request>
