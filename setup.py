@@ -35,7 +35,7 @@ def find_packages():
         lambda p: os.path.isdir(p) and os.path.isfile(os.path.join(p, "__init__.py")),
         os.listdir(".")
     ):
-        modules.extend([
+        modules.extend([pkg, ] + [
             "{}.{}".format(pkg, subpkg)
             for subpkg in setuptools_find_packages(pkg)
         ])
@@ -52,7 +52,7 @@ def version():
 
     branches = tuple(
         branch.format(
-            project="twext",
+            project="CalDAVTester",
             version=base_version,
         )
         for branch in (
@@ -104,7 +104,7 @@ def version():
 # Options
 #
 
-name = "CalDAVTester",
+name = "CalDAVTester"
 
 description = "CalDAV/CardDAV protocol test suite"
 
