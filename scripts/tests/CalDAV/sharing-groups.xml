@@ -138,7 +138,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar6:</variable>
+					<variable>$shareecalendar6:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -156,7 +156,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar7:</variable>
+					<variable>$shareecalendar7:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -164,7 +164,7 @@
 			<description>user06 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -212,7 +212,7 @@
 					<callback>xmlElementMatch</callback>
 					<arg>
 						<name>parent</name>
-						<value>$multistatus-response-prefix:[^{DAV:}href=$sharedcalendar6:/]</value>
+						<value>$multistatus-response-prefix:[^{DAV:}href=$shareecalendar6:/]</value>
 					</arg>
 					<arg>
 						<name>exists</name>
@@ -238,7 +238,7 @@
 			<description>user07 shared calendar exists read-write</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -286,7 +286,7 @@
 					<callback>xmlElementMatch</callback>
 					<arg>
 						<name>parent</name>
-						<value>$multistatus-response-prefix:[^{DAV:}href=$sharedcalendar7:/]</value>
+						<value>$multistatus-response-prefix:[^{DAV:}href=$shareecalendar7:/]</value>
 					</arg>
 					<arg>
 						<name>exists</name>
@@ -335,7 +335,7 @@
 			<description>Sharee creates event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar6:/1.ics</ruri>
+				<ruri>$shareecalendar6:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-write/5.ics</filepath>
@@ -363,7 +363,7 @@
 			<description>Sharee 2 sees changed event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/1.ics</ruri>
+				<ruri>$shareecalendar7:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -391,7 +391,7 @@
 			<description>Sharee sees changed event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
-				<ruri>$sharedcalendar6:/1.ics</ruri>
+				<ruri>$shareecalendar6:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -405,7 +405,7 @@
 			<description>Sharee 2 sees changed event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/1.ics</ruri>
+				<ruri>$shareecalendar7:/1.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -433,7 +433,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
-				<ruri>$sharedcalendar6:/2.ics</ruri>
+				<ruri>$shareecalendar6:/2.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -447,7 +447,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/2.ics</ruri>
+				<ruri>$shareecalendar7:/2.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -461,7 +461,7 @@
 			<description>Sharee changes event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar7:/2.ics</ruri>
+				<ruri>$shareecalendar7:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-write/8.ics</filepath>
@@ -487,7 +487,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Change calendar group access to read-write' ignore="no">
+	<test-suite name='Change calendar group access to read-only' ignore="no">
 		<test name='1'>
 			<description>POST invitation</description>
 			<request>
@@ -570,7 +570,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar6:</variable>
+					<variable>$shareecalendar6:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -588,7 +588,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar7:</variable>
+					<variable>$shareecalendar7:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -596,7 +596,7 @@
 			<description>user06 shared calendar exists read-only</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -628,7 +628,7 @@
 			<description>user07 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -660,7 +660,7 @@
 			<description>Create event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar6:/3.ics</ruri>
+				<ruri>$shareecalendar6:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-only/5.ics</filepath>
@@ -678,7 +678,7 @@
 			<description>Create event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar7:/3.ics</ruri>
+				<ruri>$shareecalendar7:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-only/5.ics</filepath>
@@ -710,7 +710,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
-				<ruri>$sharedcalendar6:/4.ics</ruri>
+				<ruri>$shareecalendar6:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -724,7 +724,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/4.ics</ruri>
+				<ruri>$shareecalendar7:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -738,7 +738,7 @@
 			<description>Sharee cannot change event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar6:/4.ics</ruri>
+				<ruri>$shareecalendar6:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-only/7.ics</filepath>
@@ -756,7 +756,7 @@
 			<description>Sharee cannot change event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar7:/4.ics</ruri>
+				<ruri>$shareecalendar7:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-only/7.ics</filepath>
@@ -828,7 +828,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar6:</variable>
+					<variable>$shareecalendar6:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -836,7 +836,7 @@
 			<description>user06 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -870,7 +870,7 @@
 			<description>user07 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -902,7 +902,7 @@
 			<description>Create event fails</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar7:/3.ics</ruri>
+				<ruri>$shareecalendar7:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/5.ics</filepath>
@@ -920,7 +920,7 @@
 			<description>Create event allowed</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar6:/3.ics</ruri>
+				<ruri>$shareecalendar6:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/5.ics</filepath>
@@ -948,7 +948,7 @@
 			<description>Sharee 2 sees changed event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/3.ics</ruri>
+				<ruri>$shareecalendar7:/3.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -976,7 +976,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
-				<ruri>$sharedcalendar6:/4.ics</ruri>
+				<ruri>$shareecalendar6:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -990,7 +990,7 @@
 			<description>Sharee sees new event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$sharedcalendar7:/4.ics</ruri>
+				<ruri>$shareecalendar7:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -1004,7 +1004,7 @@
 			<description>Sharee changes event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar6:/2.ics</ruri>
+				<ruri>$shareecalendar6:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/8.ics</filepath>
@@ -1018,7 +1018,7 @@
 			<description>Sharee cannot change event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
-				<ruri>$sharedcalendar7:/2.ics</ruri>
+				<ruri>$shareecalendar7:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/8.ics</filepath>
@@ -1144,7 +1144,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar8:</variable>
+					<variable>$shareecalendar8:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1162,7 +1162,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar9:</variable>
+					<variable>$shareecalendar9:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1180,7 +1180,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar10:</variable>
+					<variable>$shareecalendar10:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1188,7 +1188,7 @@
 			<description>user06 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1222,7 +1222,7 @@
 			<description>user07 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1254,7 +1254,7 @@
 			<description>user08 shared calendar exists read-write read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar8:/</ruri>
+				<ruri>$shareecalendar8:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1286,7 +1286,7 @@
 			<description>user09 shared calendar exists read-write read-only</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar9:/</ruri>
+				<ruri>$shareecalendar9:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1318,7 +1318,7 @@
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar10:/</ruri>
+				<ruri>$shareecalendar10:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1431,7 +1431,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar8:</variable>
+					<variable>$shareecalendar8:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1449,7 +1449,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar9:</variable>
+					<variable>$shareecalendar9:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1457,7 +1457,7 @@
 			<description>user06 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1491,7 +1491,7 @@
 			<description>user07 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1523,7 +1523,7 @@
 			<description>user08 shared calendar exists read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar8:/</ruri>
+				<ruri>$shareecalendar8:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1557,7 +1557,7 @@
 			<description>user09 shared calendar exists read-write</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar9:/</ruri>
+				<ruri>$shareecalendar9:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1591,7 +1591,7 @@
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar10:/</ruri>
+				<ruri>$shareecalendar10:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1650,7 +1650,7 @@
 				</verify>
 				<grabelement>
 					<name>{DAV:}href</name>
-					<variable>$sharedcalendar8:</variable>
+					<variable>$shareecalendar8:</variable>
 				</grabelement>
 			</request>
 		</test>
@@ -1658,7 +1658,7 @@
 			<description>user06 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar6:/</ruri>
+				<ruri>$shareecalendar6:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1692,7 +1692,7 @@
 			<description>user07 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar7:/</ruri>
+				<ruri>$shareecalendar7:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1724,7 +1724,7 @@
 			<description>user08 shared calendar exists read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar8:/</ruri>
+				<ruri>$shareecalendar8:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1756,7 +1756,7 @@
 			<description>user09 shared calendar exists read-write</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar9:/</ruri>
+				<ruri>$shareecalendar9:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -1790,7 +1790,7 @@
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
-				<ruri>$sharedcalendar10:/</ruri>
+				<ruri>$shareecalendar10:/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
