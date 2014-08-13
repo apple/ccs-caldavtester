@@ -36,7 +36,6 @@
 			<ruri>$notificationpath8:/</ruri>
 			<ruri>$notificationpath9:/</ruri>
 			<ruri>$notificationpath10:/</ruri>
-			<ruri>$calendarhome1:/shared</ruri>
 		</request>
 		<request end-delete="yes">
 			<method>MKCALENDAR</method>
@@ -1034,7 +1033,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Add share to supergroup readonly' ignore="no">
+	<test-suite name='Add share to super readonly' ignore="no">
 		<test name='1'>
 			<description>POST invitation</description>
 			<request>
@@ -1042,7 +1041,7 @@
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/1.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1062,7 +1061,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2a.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1089,7 +1088,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2b.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1116,7 +1115,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/2c.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2c.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1137,7 +1136,7 @@
 				<ruri>$calendarhome8:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3a.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1155,7 +1154,7 @@
 				<ruri>$calendarhome9:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3b.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1173,7 +1172,7 @@
 				<ruri>$calendarhome10:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/3c.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3c.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1195,7 +1194,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1229,7 +1228,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1261,7 +1260,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1293,7 +1292,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1325,7 +1324,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1348,7 +1347,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Add share to subgroup read-write' ignore="no">
+	<test-suite name='Add share to sub read-write' ignore="no">
 		<test name='1'>
 			<description>POST invitation</description>
 			<request>
@@ -1356,7 +1355,7 @@
 				<ruri>$calendarhome1:/shared/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/1.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1376,7 +1375,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/2a.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1403,7 +1402,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/2b.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1424,7 +1423,7 @@
 				<ruri>$calendarhome8:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/3a.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1442,7 +1441,7 @@
 				<ruri>$calendarhome9:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/3b.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1464,7 +1463,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1498,7 +1497,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1530,7 +1529,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1564,7 +1563,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1598,7 +1597,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1629,7 +1628,7 @@
 				<ruri>$principal1:calendar-proxy-read/</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member-ro-direct-member/1.xml</filepath>
+					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
@@ -1665,7 +1664,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1699,7 +1698,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1731,7 +1730,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1763,7 +1762,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1797,7 +1796,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-supergroup-rw-subgroup-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1814,6 +1813,24 @@
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
 						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Clear user08 as read-write proxy for user01</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
 					</arg>
 				</verify>
 			</request>
