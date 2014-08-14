@@ -69,8 +69,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2a'>
-			<description>Check Sharee notification collection</description>
+		<test name='2'>
+			<description>Check user6 notification collection</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath6:/</ruri>
@@ -82,7 +82,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/read-write/2.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -96,8 +96,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2b'>
-			<description>Check Sharee notification collection</description>
+		<test name='3'>
+			<description>Check user7 notification collection</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath7:/</ruri>
@@ -109,7 +109,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/read-write/3.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -123,14 +123,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3a'>
-			<description>Sharee replies ACCEPTED</description>
+		<test name='4'>
+			<description>user6 replies ACCEPTED</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>POST</method>
 				<ruri>$calendarhome6:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -141,14 +141,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3b'>
-			<description>Sharee replies ACCEPTED</description>
+		<test name='5'>
+			<description>user7 replies ACCEPTED</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>POST</method>
 				<ruri>$calendarhome7:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/5.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -159,8 +159,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a'>
-			<description>user06 shared calendar exists read-write</description>
+		<test name='6'>
+			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -170,7 +170,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -194,8 +194,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4aa'>
-			<description>user06 shared calendar exists read-write Depth:1</description>
+		<test name='7'>
+			<description>user6 shared calendar exists read-write Depth:1</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome6:/</ruri>
@@ -205,7 +205,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -233,8 +233,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-write</description>
+		<test name='8'>
+			<description>user7 shared calendar exists read-write</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -244,7 +244,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -268,8 +268,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4ab'>
-			<description>user07 shared calendar exists read-write Depth:1</description>
+		<test name='9'>
+			<description>user7 shared calendar exists read-write Depth:1</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$calendarhome7:/</ruri>
@@ -279,7 +279,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -307,7 +307,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='10'>
 			<description>Original calendar unchanged</description>
 			<request>
 				<method>PROPFIND</method>
@@ -318,7 +318,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -330,95 +330,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
-			<description>Sharee creates event</description>
+		<test name='11'>
+			<description>user6 creates event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
 				<ruri>$shareecalendar6:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/5.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='7a'>
-			<description>Sharer sees event</description>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarhome1:/shared/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/5.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='7b'>
-			<description>Sharee 2 sees changed event</description>
-			<request user="$userid7:" pswd="$pswd7:">
-				<method>GET</method>
-				<ruri>$shareecalendar7:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/5.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8'>
-			<description>Sharer changes event</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$calendarhome1:/shared/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-write/6.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='9a'>
-			<description>Sharee sees changed event</description>
-			<request user="$userid6:" pswd="$pswd6:">
-				<method>GET</method>
-				<ruri>$shareecalendar6:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9b'>
-			<description>Sharee 2 sees changed event</description>
-			<request user="$userid7:" pswd="$pswd7:">
-				<method>GET</method>
-				<ruri>$shareecalendar7:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='10'>
-			<description>Sharer creates event</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$calendarhome1:/shared/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-write/7.ics</filepath>
@@ -428,39 +344,39 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11a'>
-			<description>Sharee sees new event</description>
-			<request user="$userid6:" pswd="$pswd6:">
-				<method>GET</method>
-				<ruri>$shareecalendar6:/2.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='11b'>
-			<description>Sharee sees new event</description>
-			<request user="$userid7:" pswd="$pswd7:">
-				<method>GET</method>
-				<ruri>$shareecalendar7:/2.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/7.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
 		<test name='12'>
-			<description>Sharee changes event</description>
+			<description>Sharer sees event</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13'>
+			<description>user7 sees changed event</description>
 			<request user="$userid7:" pswd="$pswd7:">
+				<method>GET</method>
+				<ruri>$shareecalendar7:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/7.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Sharer changes event</description>
+			<request>
 				<method>PUT</method>
-				<ruri>$shareecalendar7:/2.ics</ruri>
+				<ruri>$calendarhome1:/shared/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/read-write/8.ics</filepath>
@@ -470,7 +386,91 @@
 				</verify>
 			</request>
 		</test>
-		<test name='13'>
+		<test name='15'>
+			<description>user6 sees changed event</description>
+			<request user="$userid6:" pswd="$pswd6:">
+				<method>GET</method>
+				<ruri>$shareecalendar6:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16'>
+			<description>user7 sees changed event</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>GET</method>
+				<ruri>$shareecalendar7:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='17'>
+			<description>Sharer creates event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarhome1:/shared/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/9.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='18'>
+			<description>user6 sees new event</description>
+			<request user="$userid6:" pswd="$pswd6:">
+				<method>GET</method>
+				<ruri>$shareecalendar6:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='19'>
+			<description>user7 sees new event</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>GET</method>
+				<ruri>$shareecalendar7:/2.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-write/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='20'>
+			<description>user7 changes event</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>PUT</method>
+				<ruri>$shareecalendar7:/2.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/read-write/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='21'>
 			<description>Sharer sees changed event</description>
 			<request>
 				<method>GET</method>
@@ -479,7 +479,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-write/8.ics</value>
+						<value>Resource/CalDAV/sharing/groups/read-write/10.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -501,7 +501,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2a'>
+		<test name='2'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>WAITCOUNT 1</method>
@@ -514,7 +514,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-only/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/read-only/2.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -528,7 +528,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2b'>
+		<test name='3'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>WAITCOUNT 1</method>
@@ -541,7 +541,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-only/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/read-only/3.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -555,14 +555,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3a'>
+		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>POST</method>
 				<ruri>$calendarhome6:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -573,14 +573,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3b'>
+		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>POST</method>
 				<ruri>$calendarhome7:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/5.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -591,8 +591,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a'>
-			<description>user06 shared calendar exists read-only</description>
+		<test name='6'>
+			<description>user6 shared calendar exists read-only</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -602,7 +602,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -623,8 +623,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-only</description>
+		<test name='7'>
+			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -634,7 +634,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -655,14 +655,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5a'>
+		<test name='8'>
 			<description>Create event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
 				<ruri>$shareecalendar6:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/5.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/6.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -673,14 +673,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5b'>
+		<test name='9'>
 			<description>Create event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
 				<ruri>$shareecalendar7:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/5.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/6.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -691,21 +691,21 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='10'>
 			<description>Sharer creates event</description>
 			<request>
 				<method>PUT</method>
 				<ruri>$calendarhome1:/shared/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/6.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
 			</request>
 		</test>
-		<test name='7a'>
+		<test name='11'>
 			<description>Sharee sees new event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
@@ -714,12 +714,12 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-only/6.ics</value>
+						<value>Resource/CalDAV/sharing/groups/read-only/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='7a'>
+		<test name='12'>
 			<description>Sharee sees new event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
@@ -728,19 +728,19 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/read-only/6.ics</value>
+						<value>Resource/CalDAV/sharing/groups/read-only/7.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='8a'>
+		<test name='13'>
 			<description>Sharee cannot change event</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
 				<ruri>$shareecalendar6:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/7.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/8.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -751,14 +751,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8b'>
+		<test name='14'>
 			<description>Sharee cannot change event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
 				<ruri>$shareecalendar7:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/read-only/7.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/8.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -831,8 +831,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a' ignore="no">
-			<description>user06 shared calendar exists read-write</description>
+		<test name='4' ignore="no">
+			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -842,7 +842,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -865,8 +865,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-only</description>
+		<test name='5'>
+			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -876,7 +876,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -897,14 +897,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5b'>
+		<test name='6'>
 			<description>Create event fails</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
 				<ruri>$shareecalendar7:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/5.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -915,11 +915,53 @@
 				</verify>
 			</request>
 		</test>
-		<test name='5a'>
+		<test name='7'>
 			<description>Create event allowed</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
 				<ruri>$shareecalendar6:/3.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Sharer sees event</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarhome1:/shared/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Sharee 2 sees changed event</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>GET</method>
+				<ruri>$shareecalendar7:/3.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/ro-group-rw-member/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='10'>
+			<description>Sharer creates event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarhome1:/shared/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/5.ics</filepath>
@@ -929,11 +971,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6a'>
-			<description>Sharer sees event</description>
-			<request>
+		<test name='11'>
+			<description>Sharee sees new event</description>
+			<request user="$userid6:" pswd="$pswd6:">
 				<method>GET</method>
-				<ruri>$calendarhome1:/shared/3.ics</ruri>
+				<ruri>$shareecalendar6:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -943,11 +985,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6b'>
-			<description>Sharee 2 sees changed event</description>
+		<test name='12'>
+			<description>Sharee sees new event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>GET</method>
-				<ruri>$shareecalendar7:/3.ics</ruri>
+				<ruri>$shareecalendar7:/4.ics</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
@@ -957,11 +999,11 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
-			<description>Sharer creates event</description>
-			<request>
+		<test name='13'>
+			<description>Sharee changes event</description>
+			<request user="$userid6:" pswd="$pswd6:">
 				<method>PUT</method>
-				<ruri>$calendarhome1:/shared/4.ics</ruri>
+				<ruri>$shareecalendar6:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/6.ics</filepath>
@@ -971,56 +1013,14 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8a'>
-			<description>Sharee sees new event</description>
-			<request user="$userid6:" pswd="$pswd6:">
-				<method>GET</method>
-				<ruri>$shareecalendar6:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-group-rw-member/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='8a'>
-			<description>Sharee sees new event</description>
-			<request user="$userid7:" pswd="$pswd7:">
-				<method>GET</method>
-				<ruri>$shareecalendar7:/4.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-group-rw-member/6.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='9a'>
-			<description>Sharee changes event</description>
-			<request user="$userid6:" pswd="$pswd6:">
-				<method>PUT</method>
-				<ruri>$shareecalendar6:/2.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/8.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-		<test name='9b'>
+		<test name='14'>
 			<description>Sharee cannot change event</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PUT</method>
 				<ruri>$shareecalendar7:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/8.ics</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-group-rw-member/6.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1033,7 +1033,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Add share to super readonly' ignore="no">
+	<test-suite name='Add share to supergroup readonly' ignore="no">
 		<test name='1'>
 			<description>POST invitation</description>
 			<request>
@@ -1048,7 +1048,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2a'>
+		<test name='2'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>WAITCOUNT 1</method>
@@ -1061,7 +1061,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1075,7 +1075,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2b'>
+		<test name='3'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>WAITCOUNT 1</method>
@@ -1088,7 +1088,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/3.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1102,7 +1102,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2c'>
+		<test name='4'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>WAITCOUNT 1</method>
@@ -1115,7 +1115,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/2c.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1129,14 +1129,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3a'>
+		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>POST</method>
 				<ruri>$calendarhome8:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/5.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1147,14 +1147,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3b'>
+		<test name='6'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>POST</method>
 				<ruri>$calendarhome9:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/6.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1165,14 +1165,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3c'>
+		<test name='7'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>POST</method>
 				<ruri>$calendarhome10:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/3c.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/7.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1183,8 +1183,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a' ignore="no">
-			<description>user06 shared calendar exists read-write</description>
+		<test name='8' ignore="no">
+			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -1194,7 +1194,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1217,8 +1217,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-only</description>
+		<test name='9'>
+			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -1228,7 +1228,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1249,8 +1249,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4c'>
-			<description>user08 shared calendar exists read-write read-only</description>
+		<test name='10'>
+			<description>user8 shared calendar exists read-write read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar8:/</ruri>
@@ -1260,7 +1260,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1281,8 +1281,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4d'>
-			<description>user09 shared calendar exists read-write read-only</description>
+		<test name='11'>
+			<description>user9 shared calendar exists read-write read-only</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar9:/</ruri>
@@ -1292,7 +1292,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1313,7 +1313,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4e'>
+		<test name='12'>
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
@@ -1324,7 +1324,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1362,7 +1362,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='2a' ignore="no">
+		<test name='2' ignore="no">
 			<description>Check Sharee notification collection</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>WAITCOUNT 1</method>
@@ -1375,7 +1375,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/2a.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/2.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1389,7 +1389,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='2b' ignore="no">
+		<test name='3' ignore="no">
 			<description>Check Sharee notification collection</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>WAITCOUNT 1</method>
@@ -1402,7 +1402,7 @@
 					<callback>xmlDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/2b.xml</value>
+						<value>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/3.xml</value>
 					</arg>
 					<arg>
 						<name>filter</name>
@@ -1416,14 +1416,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3a'>
+		<test name='4'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>POST</method>
 				<ruri>$calendarhome8:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/3a.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1434,14 +1434,14 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3b'>
+		<test name='5'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>POST</method>
 				<ruri>$calendarhome9:/</ruri>
 				<data>
 					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/3b.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/5.xml</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -1452,8 +1452,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a' ignore="no">
-			<description>user06 shared calendar exists read-write</description>
+		<test name='6' ignore="no">
+			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -1463,7 +1463,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1486,8 +1486,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-only</description>
+		<test name='7'>
+			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -1497,7 +1497,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1518,8 +1518,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4c'>
-			<description>user08 shared calendar exists read-only</description>
+		<test name='8'>
+			<description>user8 shared calendar exists read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar8:/</ruri>
@@ -1529,7 +1529,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1552,8 +1552,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4d'>
-			<description>user09 shared calendar exists read-write</description>
+		<test name='9'>
+			<description>user9 shared calendar exists read-write</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar9:/</ruri>
@@ -1563,7 +1563,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1586,7 +1586,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4e'>
+		<test name='10'>
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
@@ -1597,7 +1597,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1622,7 +1622,7 @@
 
 	<test-suite name='Add direct share to subgroup' ignore="no">
 		<test name='1'>
-			<description>Add user08 as read for user01</description>
+			<description>Add user8 as read for user1</description>
 			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
@@ -1640,7 +1640,7 @@
 			</request>
 		</test>
 		<test name='2'>
-			<description>user08 does direct share</description>
+			<description>user8 does direct share</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>GET</method>
 				<ruri>$calendarhome1:/shared/?action=share</ruri>
@@ -1653,8 +1653,8 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4a' ignore="no">
-			<description>user06 shared calendar exists read-write</description>
+		<test name='3' ignore="no">
+			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar6:/</ruri>
@@ -1664,7 +1664,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1687,8 +1687,8 @@
 				</verify>
 			</request>
 		</test>
-		<test name='4b'>
-			<description>user07 shared calendar exists read-only</description>
+		<test name='4'>
+			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
 				<ruri>$shareecalendar7:/</ruri>
@@ -1698,105 +1698,7 @@
 				</header>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
-						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
-					</arg>
-					<arg>
-						<name>notexists</name>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4c'>
-			<description>user08 shared calendar exists read-only</description>
-			<request user="$userid8:" pswd="$pswd8:">
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar8:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
-						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
-					</arg>
-					<arg>
-						<name>notexists</name>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4d'>
-			<description>user09 shared calendar exists read-write</description>
-			<request user="$userid9:" pswd="$pswd9:">
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar9:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
-						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
-						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
-						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
-					</arg>
-					<arg>
-						<name>notexists</name>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
-						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4e'>
-			<description>user10 shared calendar exists read-only</description>
-			<request user="$userid10:" pswd="$pswd10:">
-				<method>PROPFIND</method>
-				<ruri>$shareecalendar10:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>text/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/groups/ro-super-rw-sub-rw-member-ro-direct-member/4.xml</filepath>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
 				</data>
 				<verify>
 					<callback>xmlElementMatch</callback>
@@ -1818,7 +1720,105 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Clear user08 as read-write proxy for user01</description>
+			<description>user8 shared calendar exists read-only</description>
+			<request user="$userid8:" pswd="$pswd8:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar8:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>user9 shared calendar exists read-write</description>
+			<request user="$userid9:" pswd="$pswd9:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar9:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{DAV:}collection</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{urn:ietf:params:xml:ns:caldav}calendar</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>user10 shared calendar exists read-only</description>
+			<request user="$userid10:" pswd="$pswd10:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar10:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/common/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}owner/{DAV:}href[=$principaluri1:]</value>
+						<value>$verify-property-prefix:/{DAV:}resourcetype/{http://calendarserver.org/ns/}shared</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}read</value>
+					</arg>
+					<arg>
+						<name>notexists</name>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}write</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}bind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}unbind</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}admin</value>
+						<value>$verify-property-prefix:/{DAV:}current-user-privilege-set/{DAV:}privilege/{DAV:}all</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clear user8 as read-write proxy for user1</description>
 			<request>
 				<method>PROPPATCH</method>
 				<ruri>$principal1:calendar-proxy-read/</ruri>
