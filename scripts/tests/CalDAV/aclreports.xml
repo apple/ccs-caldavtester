@@ -51,7 +51,7 @@
 			<ruri>$calendarhome1:/calendar3/</ruri>
 		</request>
 	</start>
-	
+
 	<test-suite name='acl-principal-prop-set REPORT'>
 
 		<require-feature>
@@ -186,7 +186,7 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
 	<test-suite name='principal-match REPORT'>
 
 		<require-feature>
@@ -808,7 +808,7 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
 	<test-suite name='principal-search-property-set REPORT'>
 
 		<require-feature>
@@ -899,7 +899,7 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
 	<test-suite name='supported-report-set property'>
 
 		<test name='1'>
@@ -1045,7 +1045,59 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
+	<test-suite name='calendarserver-principal-search REPORT'>
+
+		<require-feature>
+			<feature>calendarserver-principal-search REPORT</feature>
+		</require-feature>
+
+		<test name='1'>
+			<description>Valid ROOM displayname search report</description>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/aclreports/35.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$lprincipaluri3:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Valid RESOURCE displayname search report</description>
+			<request user='$useradmin:' pswd='$pswdadmin:'>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/aclreports/36.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>prefix</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$rprincipaluri3:</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
-	
+
 </caldavtest>
