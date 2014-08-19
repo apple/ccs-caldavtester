@@ -301,6 +301,7 @@ class caldavtest(object):
 
     def dofindnew(self, collection, label=""):
         hresult = ""
+        possible_matches = set()
         req = request(self.manager)
         req.method = "PROPFIND"
         req.ruris.append(collection[0])
@@ -327,7 +328,6 @@ class caldavtest(object):
             except Exception:
                 return hresult
 
-            possible_matches = set()
             latest = 0
             request_uri = req.getURI(self.manager.server_info)
             for response in tree.findall("{DAV:}response"):

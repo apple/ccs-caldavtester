@@ -1050,6 +1050,60 @@
 		</test>
 		<test name='2'>
 			<description>Check Sharee notification collection</description>
+			<request user="$userid6:" pswd="$pswd6:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath6:/</ruri>
+			</request>
+			<request user="$userid6:" pswd="$pswd6:">
+				<method>GETNEW</method>
+				<ruri>$notificationpath6:/</ruri>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/ro-group-rw-member/2.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{http://calendarserver.org/ns/}dtstamp</value>
+						<value>{http://calendarserver.org/ns/}uid</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid6:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Check Sharee notification collection</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath7:/</ruri>
+			</request>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>GETNEW</method>
+				<ruri>$notificationpath7:/</ruri>
+				<verify>
+					<callback>xmlDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/sharing/groups/read-only/3.xml</value>
+					</arg>
+					<arg>
+						<name>filter</name>
+						<value>{http://calendarserver.org/ns/}dtstamp</value>
+						<value>{http://calendarserver.org/ns/}uid</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+					<variable>$inviteuid7:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Check Sharee notification collection</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>WAITCOUNT 1</method>
 				<ruri>$notificationpath8:/</ruri>
@@ -1075,7 +1129,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='3'>
+		<test name='5'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>WAITCOUNT 1</method>
@@ -1102,7 +1156,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='4'>
+		<test name='6'>
 			<description>Check Sharee notification collection</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>WAITCOUNT 1</method>
@@ -1129,7 +1183,43 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='5'>
+		<test name='7'>
+			<description>Sharee replies ACCEPTED</description>
+			<request user="$userid6:" pswd="$pswd6:">
+				<method>POST</method>
+				<ruri>$calendarhome6:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/4.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$shareecalendar6:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Sharee replies ACCEPTED</description>
+			<request user="$userid7:" pswd="$pswd7:">
+				<method>POST</method>
+				<ruri>$calendarhome7:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/groups/read-only/5.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$shareecalendar7:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='9'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>POST</method>
@@ -1147,7 +1237,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='10'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>POST</method>
@@ -1165,7 +1255,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='11'>
 			<description>Sharee replies ACCEPTED</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>POST</method>
@@ -1183,7 +1273,7 @@
 				</grabelement>
 			</request>
 		</test>
-		<test name='8' ignore="no">
+		<test name='12' ignore="no">
 			<description>user6 shared calendar exists read-write</description>
 			<request user="$userid6:" pswd="$pswd6:">
 				<method>PROPFIND</method>
@@ -1217,7 +1307,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='13'>
 			<description>user7 shared calendar exists read-only</description>
 			<request user="$userid7:" pswd="$pswd7:">
 				<method>PROPFIND</method>
@@ -1249,7 +1339,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='10'>
+		<test name='14'>
 			<description>user8 shared calendar exists read-write read-only</description>
 			<request user="$userid8:" pswd="$pswd8:">
 				<method>PROPFIND</method>
@@ -1281,7 +1371,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='11'>
+		<test name='15'>
 			<description>user9 shared calendar exists read-write read-only</description>
 			<request user="$userid9:" pswd="$pswd9:">
 				<method>PROPFIND</method>
@@ -1313,7 +1403,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='16'>
 			<description>user10 shared calendar exists read-only</description>
 			<request user="$userid10:" pswd="$pswd10:">
 				<method>PROPFIND</method>
@@ -1347,7 +1437,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Add share to sub read-write' ignore="no">
+	<test-suite name='Share to subgroup read-write' ignore="no">
 		<test name='1'>
 			<description>POST invitation</description>
 			<request>
@@ -1620,7 +1710,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='Add direct share to subgroup' ignore="no">
+	<test-suite name='Share direct to subgroup member' ignore="no">
 		<test name='1'>
 			<description>Add user8 as read for user1</description>
 			<request>
