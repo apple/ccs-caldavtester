@@ -215,7 +215,7 @@ resourcelistcmd = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 locationattrs = {
-    "dsAttrTypeStandard:RealName": "Room %02d",
+    "dsAttrTypeStandard:RealName": "Location %02d",
 }
 
 delegatedroomattrs = {
