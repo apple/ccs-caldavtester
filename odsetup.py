@@ -228,6 +228,7 @@ resourceattrs = {
 
 groupattrs = {
     "dsAttrTypeStandard:RealName": "Group %02d",
+    "dsAttrTypeStandard:EMailAddress": "group%02d@example.com",
 }
 
 records = (
