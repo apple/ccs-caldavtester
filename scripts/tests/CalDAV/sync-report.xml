@@ -3933,6 +3933,244 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='schedule-calendar-transp in response - home depth:1'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1'>
+			<description>initial query - grab token</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/22.xml</filepath>
+				</data>
+				<verify>
+					<exclude-feature>
+						<feature>split-calendars</feature>
+					</exclude-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>ignoremissing</name>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<require-feature>
+						<feature>split-calendars</feature>
+					</require-feature>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>ignoremissing</name>
+					</arg>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+						<value>$tasks:/</value>
+						<value>$inbox:/</value>
+						<value>$outbox:/</value>
+					</arg>
+					<arg>
+						<name>badhrefs</name>
+						<value>$dropbox:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>opaque</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Change property on calendar</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPPATCH/calendar-transp-transparent.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/23.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>transparent</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Reset the property</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPPATCH/calendar-transp-opaque.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}schedule-calendar-transp</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/23.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>$calendar:/</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{DAV:}multistatus/{DAV:}sync-token[!$synctoken1:]</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>opaque</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}multistatus/{DAV:}sync-token</name>
+					<variable>$synctoken1:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+
+
+	<test-suite name='Prefer:return=minimal - home depth:1'>
+		<require-feature>
+			<feature>sync-report-home</feature>
+		</require-feature>
+		<test name='1'>
+			<description>initial query - no minimal</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>foobar</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>initial query - with minimal</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>infinity</value>
+				</header>
+				<header>
+					<name>Prefer</name>
+					<value>return=minimal</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/sync/24.xml</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>foobar</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+
 	<test-suite name='limited reports' ignore='no'>
 		<test name='1' ignore='no'>
 			<exclude-feature>
