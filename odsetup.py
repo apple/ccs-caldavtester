@@ -354,7 +354,6 @@ def patchConfig(admin):
     plist["EnableAnonymousReadRoot"] = True
     if "Options" not in plist["Scheduling"]:
         plist["Scheduling"]["Options"] = dict()
-    plist["Scheduling"]["Options"]["AttendeeRefreshBatch"] = 0
 
     # Lower WorkQueue timings to reduce processing delay
     plist["Scheduling"]["Options"]["WorkQueues"] = {
@@ -364,6 +363,10 @@ def patchConfig(admin):
         "AutoReplyDelaySeconds" : 0.1,
         "AttendeeRefreshBatchDelaySeconds" : 0.1,
         "AttendeeRefreshBatchIntervalSeconds" : 0.1,
+    }
+    plist["WorkQueue"] = {
+        "failureRescheduleInterval": 1,
+        "lockRescheduleInterval": 1,
     }
 
     writePlist(plist, conf_root + "/caldavd-user.plist")
