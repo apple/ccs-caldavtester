@@ -23,7 +23,7 @@ Verifier that checks the response body for a semantic match to data in a file.
 
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args, is_json=False): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         carddata = args.get("data", [])
@@ -80,15 +80,17 @@ class Verifier(object):
                             component.removeProperty(property)
 
         try:
-            resp_adbk = Card.parseText(respdata)
+            format = Card.sFormatJSON if is_json else Card.sFormatText
+
+            resp_adbk = Card.parseData(respdata, format=format)
             removePropertiesParameters(resp_adbk)
-            respdata = resp_adbk.getText()
+            respdata = resp_adbk.getText(format=format)
 
-            data_adbk = Card.parseText(data)
+            data_adbk = Card.parseData(data, format=format)
             removePropertiesParameters(data_adbk)
-            data = data_adbk.getText()
+            data = data_adbk.getText(format=format)
 
-            result = respdata == data
+            result = resp_adbk == data_adbk
 
             if result:
                 return True, ""

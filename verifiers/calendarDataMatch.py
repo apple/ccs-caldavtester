@@ -114,15 +114,17 @@ class Verifier(object):
                             component.removeProperty(property)
 
         try:
-            resp_calendar = Calendar.parseText(respdata) if not is_json else Calendar.parseJSONData(respdata)
+            format = Calendar.sFormatJSON if is_json else Calendar.sFormatText
+
+            resp_calendar = Calendar.parseData(respdata, format=format)
             removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES) if not is_json else resp_calendar.getTextJSON()
+            respdata = resp_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
 
-            data_calendar = Calendar.parseText(data) if not is_json else Calendar.parseJSONData(data)
+            data_calendar = Calendar.parseData(data, format=format)
             removePropertiesParameters(data_calendar)
-            data = data_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES) if not is_json else data_calendar.getTextJSON()
+            data = data_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
 
-            result = respdata == data
+            result = resp_calendar == data_calendar
 
             if result:
                 return True, ""
