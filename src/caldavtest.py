@@ -296,7 +296,11 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            self.dorequest(req, False, False, label=label)
+            _ignore_result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(req, False, False, label=label)
+            if response.status / 100 != 2:
+                return False
+
+        return True
 
 
     def dofindnew(self, collection, label=""):
@@ -491,7 +495,8 @@ class caldavtest(object):
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
                 hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
-                self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
+                if not self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL")):
+                    return False, "DELETEALL failed for: {}".format(ruri), None, None
             return True, "", None, None
 
         # Special for delay
