@@ -255,7 +255,7 @@ class caldavtest(object):
             req.user = collection[1]
         if len(collection[2]):
             req.pswd = collection[2]
-        req.data = data()
+        req.data = data(self.manager)
         req.data.value = """<?xml version="1.0" encoding="utf-8" ?>
 <D:propfind xmlns:D="DAV:">
 <D:prop>
@@ -303,19 +303,27 @@ class caldavtest(object):
         return True
 
 
-    def dofindnew(self, collection, label=""):
+    def dofindnew(self, collection, label="", other=False):
         hresult = ""
+
+        uri = collection[0]
+        if other:
+            uri = self.manager.server_info.extrasubs(uri)
+            skip = uri
+            uri = "/".join(uri.split("/")[:-1]) + "/"
+        else:
+            skip = None
         possible_matches = set()
         req = request(self.manager)
         req.method = "PROPFIND"
-        req.ruris.append(collection[0])
-        req.ruri = collection[0]
+        req.ruris.append(uri)
+        req.ruri = uri
         req.headers["Depth"] = "1"
         if len(collection[1]):
             req.user = collection[1]
         if len(collection[2]):
             req.pswd = collection[2]
-        req.data = data()
+        req.data = data(self.manager)
         req.data.value = """<?xml version="1.0" encoding="utf-8" ?>
 <D:propfind xmlns:D="DAV:">
 <D:prop>
@@ -341,7 +349,7 @@ class caldavtest(object):
                 if len(href) != 1:
                     return False, "           Wrong number of DAV:href elements\n"
                 href = href[0].text
-                if href != request_uri:
+                if href != request_uri and (not other or href != skip):
 
                     # Get all property status
                     propstatus = response.findall("{DAV:}propstat")
@@ -400,7 +408,7 @@ class caldavtest(object):
                 req.user = collection[1]
             if len(collection[2]):
                 req.pswd = collection[2]
-            req.data = data()
+            req.data = data(self.manager)
             req.data.value = """<?xml version="1.0" encoding="utf-8" ?>
 <D:propfind xmlns:D="DAV:">
 <D:prop>
@@ -524,6 +532,15 @@ class caldavtest(object):
             if req.graburi:
                 self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             return True, "", None, None
+
+        # Special for GETOTHER
+        elif req.method == "GETOTHER":
+            collection = (req.ruri, req.user, req.pswd)
+            self.grabbedlocation = self.dofindnew(collection, label=label, other=True)
+            if req.graburi:
+                self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
+            req.method = "GET"
+            req.ruri = "$"
 
         # Special check for WAITCOUNT
         elif req.method.startswith("WAITCOUNT"):

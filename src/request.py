@@ -306,6 +306,8 @@ class request(object):
             data = str(self.manager.server_info.subs(data))
             self.manager.server_info.addextrasubs({"$request_count:": str(self.count)})
             data = self.manager.server_info.extrasubs(data)
+            if self.data.substitutions:
+                data = self.manager.server_info.subs(data, self.data.substitutions)
             if self.data.generate:
                 if self.data.content_type.startswith("text/calendar"):
                     data = self.generateCalendarData(data)
@@ -377,7 +379,7 @@ class request(object):
                 if len(self.ruris) == 1:
                     self.ruri = self.ruris[0]
             elif child.tag == src.xmlDefs.ELEMENT_DATA:
-                self.data = data()
+                self.data = data(self.manager)
                 self.data.parseXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_VERIFY:
                 self.verifiers.append(verify(self.manager))
@@ -470,10 +472,12 @@ class data(object):
     Represents the data/body portion of an HTTP request.
     """
 
-    def __init__(self):
+    def __init__(self, manager):
+        self.manager = manager
         self.content_type = ""
         self.filepath = ""
         self.value = ""
+        self.substitutions = {}
         self.substitute = False
         self.generate = False
 
@@ -488,6 +492,20 @@ class data(object):
                 self.content_type = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
                 self.filepath = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTE:
+                self.parseSubstituteXML(child)
+
+
+    def parseSubstituteXML(self, node):
+        name = None
+        value = None
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                name = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_VALUE:
+                value = self.manager.server_info.subs(child.text.encode("utf-8"))
+        if name and value:
+            self.substitutions[name] = value
 
 
 

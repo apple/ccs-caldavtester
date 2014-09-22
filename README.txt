@@ -304,6 +304,7 @@ caldavtest.dtd:
 				6) GETCHANGED - the tool tracks the Etags on resources retrieved via GET. This special method will poll the specified
 								resource until the Etag returned in the response is different from the one found in the most recent
 								test.  
+				6) GETOTHER - the tool finds the newest sibling resource to the one specified in the <ruri> element.  
 	
 		ELEMENT <ruri>
 			the URI of the request. Multiple <ruri>'s are allowed with DELETEALL only.
@@ -337,6 +338,15 @@ caldavtest.dtd:
 			ELEMENT <filepath>
 				the relative path for the file containing the request body
 				data.
+	
+			ELEMENT <substitute>
+				a set of substitution variables to use on this data only.
+			
+				ELEMENT <name>
+					the variable name.
+		
+				ELEMENT <value>
+					the variable value.
 
 		ELEMENT <verify>
 			if present, used to specify a procedures for verifying that the
