@@ -56,7 +56,7 @@ details = {
 base_dir = "../CalendarServer/"
 
 number_of_users = 40
-number_of_groups = 10
+number_of_groups = 40
 number_of_publics = 10
 number_of_resources = 20
 number_of_locations = 10
