@@ -22,6 +22,7 @@ Verifier that checks the response body for an exact match to data in a file.
 from pycalendar.icalendar.calendar import Calendar
 from xml.etree.cElementTree import ElementTree
 import json
+import re
 import StringIO
 
 class Verifier(object):
@@ -89,8 +90,10 @@ class Verifier(object):
         # Handle absolute root element
         if actual_path[0] == '/':
             actual_path = actual_path[1:]
-        if '/' in actual_path:
-            root_path, child_path = actual_path.split('/', 1)
+        r = re.search("(\{[^\}]+\}[^/]+)(.*)", actual_path)
+        if r.group(2):
+            root_path = r.group(1)
+            child_path = r.group(2)[1:]
             if root.tag != root_path:
                 return None
             nodes = root.findall(child_path)
@@ -164,10 +167,14 @@ class Verifier(object):
         # Handle absolute root element
         if actual_path[0] == '/':
             actual_path = actual_path[1:]
-        if '/' in actual_path:
-            root_path, child_path = actual_path.split('/', 1)
+        r = re.search("(\{[^\}]+\}[^/]+)(.*)", actual_path)
+        if r.group(2):
+            root_path = r.group(1)
+            child_path = r.group(2)[1:]
             if root.tag != root_path:
                 resulttxt += "        Items not returned in XML for %s\n" % (path,)
+                result = False
+                return result, resulttxt
             nodes = root.findall(child_path)
         else:
             nodes = (root,)

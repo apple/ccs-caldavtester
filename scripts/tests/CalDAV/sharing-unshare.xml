@@ -484,6 +484,187 @@
 			</request>
 		</test>
 	</test-suite>
+	
+	<test-suite name='Self uninvite error'>
+		<test name='1'>
+			<description>POST invitation</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-invite1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$cuaddr2:</value>
+					</substitute>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Check Sharee notification collection</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$notificationpath2:/</ruri>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{$CS:}notification/{$CS:}invite-notification/{DAV:}href[=$cuaddrurn2:]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>{$CS:}invite-notification/{$CS:}uid</name>
+					<variable>$inviteuid2:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Sharee replies ACCEPTED</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>POST</method>
+				<ruri>$calendarhome2:/</ruri>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharingreply2.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{$CS:}shared-as/{DAV:}href</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>{DAV:}href</name>
+					<variable>$shareecalendar:</variable>
+				</grabelement>
+			</request>
+		</test>
+		<test name='4'>
+			<description>POST removal of owner</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/unshare/self-error/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Owner calendar still present</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Sharee calendar still present</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}resourcetype</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>POST uninvitation</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$cuaddr2:</value>
+					</substitute>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Check Sharee notification collection</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 1</method>
+				<ruri>$notificationpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$notificationpath2:/</ruri>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>/{$CS:}notification/{$CS:}invite-notification/{DAV:}href[=$cuaddrurn2:]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
+			<description>Sharee calendar still present</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendar:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/resourcetype.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">

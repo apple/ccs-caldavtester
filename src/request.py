@@ -439,7 +439,7 @@ class request(object):
         variable = None
         for child in node.getchildren():
             if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
-                name = child.text.encode("utf-8")
+                name = self.manager.server_info.subs(child.text.encode("utf-8"))
             elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
                 variable = self.manager.server_info.subs(child.text.encode("utf-8"))
 
