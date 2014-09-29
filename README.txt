@@ -830,6 +830,12 @@ xmlElementMatch:
 	[json] - node contains valid JSON data.
 	[icalendar] - node contains valid iCalendare data.
 	
+	Each path segment can now have its own test and "../" can be used to move up to
+	the parent. This allows testing for an element matching specific content plus
+	its sibling matching other specific content. e.g., "/{D}A/{D}B[=b]/../{D}C[=c]
+	which checks for an element {D}A with two child elements {D}B and {D}C each
+	with a specific value.
+	
 	Argument: 'parent'
 		ElementTree style path for an XML element to use as the root for any
 		subsequent "exists" or "notexists" tests. This is useful for targeting
