@@ -185,9 +185,11 @@ class request(object):
     def getURI(self, si):
         uri = si.extrasubs(self.ruri)
         if "**" in uri:
-            uri = uri.replace("**", str(uuid.uuid4()))
+            if "?" not in uri or uri.find("?") > uri.find("**"):
+                uri = uri.replace("**", str(uuid.uuid4()))
         elif "##" in uri:
-            uri = uri.replace("##", str(self.count))
+            if "?" not in uri or uri.find("?") > uri.find("##"):
+                uri = uri.replace("##", str(self.count))
         return uri
 
 
