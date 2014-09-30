@@ -207,7 +207,9 @@
 					<callback>jsonPointerMatch</callback>
 					<arg>
 						<name>exists</name>
-						<value>/info/version~$1</value>
+						<value>/version~$1</value>
+						<value>/info</value>
+						<value>/actions</value>
 						<value>/actions/./name~$capabilities</value>
 						<value>/actions/./name~$list</value>
 						<value>/actions/./name~$get</value>
@@ -403,7 +405,7 @@
 			<description>GET on resource - invalid tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Pittsburgh</ruri>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Pittsburgh;start=2008-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -436,6 +438,24 @@
 			</request>
 		</test>
 		<test name='5'>
+			<description>GET on resource - no start</description>
+			<request>
+				<method>GET</method>
+				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York</ruri>
+				<verify>
+					<callback>jsonPointerMatch</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+					<arg>
+						<name>exists</name>
+						<value>/error~$invalid-start</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
 			<description>GET on resource - invalid start</description>
 			<request>
 				<method>GET</method>
@@ -453,7 +473,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='6'>
+		<test name='7'>
 			<description>GET on resource - too many end</description>
 			<request>
 				<method>GET</method>
@@ -471,7 +491,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='8'>
 			<description>GET on resource - invalid end</description>
 			<request>
 				<method>GET</method>
@@ -489,7 +509,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='9'>
 			<description>GET on resource - start > end</description>
 			<request>
 				<method>GET</method>
@@ -507,7 +527,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='10'>
 			<description>GET on resource - start == end</description>
 			<request>
 				<method>GET</method>
