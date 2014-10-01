@@ -135,7 +135,7 @@
 	
 	<test-suite name='Group membership'>
 		<test name='1'>
-			<description>Verify no group memberships right now</description>
+			<description>Verify some group memberships right now</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
@@ -152,7 +152,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
-						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -233,7 +233,7 @@
 			</request>
 		</test>
 		<test name='5'>
-			<description>Verify no group memberships right now</description>
+			<description>Verify some group memberships right now</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
@@ -250,7 +250,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
-						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -348,7 +348,7 @@
 			</request>
 		</test>
 		<test name='10'>
-			<description>Verify no group memberships right now</description>
+			<description>Verify some group memberships right now</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
@@ -365,7 +365,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
-						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -446,7 +446,7 @@
 			</request>
 		</test>
 		<test name='14'>
-			<description>Verify no group memberships right now</description>
+			<description>Verify some group memberships right now</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
@@ -463,7 +463,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
-						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -590,7 +590,7 @@
 			</request>
 		</test>
 		<test name='21'>
-			<description>Verify no group memberships right now</description>
+			<description>Verify some group memberships right now</description>
 			<request>
 				<method>PROPFIND</method>
 				<ruri>$principal1:</ruri>
@@ -607,7 +607,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{DAV:}group-member-set[|]</value>
-						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -879,7 +879,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-read-for[|]</value>
-						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[|]</value>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[||]</value>
 					</arg>
 				</verify>
 			</request>
@@ -985,7 +985,7 @@
 					<arg>
 						<name>exists</name>
 						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-read-for[|]</value>
-						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[|]</value>
+						<value>$verify-property-prefix:/{http://calendarserver.org/ns/}calendar-proxy-write-for[||]</value>
 					</arg>
 				</verify>
 			</request>

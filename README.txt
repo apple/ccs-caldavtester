@@ -827,6 +827,7 @@ xmlElementMatch:
 	[^tag] - node has child element "tag".
 	[^tag=text] - node has child element "tag" with text "text".
 	[|] - node is empty.
+	[||] - node is not empty.
 	[json] - node contains valid JSON data.
 	[icalendar] - node contains valid iCalendare data.
 	

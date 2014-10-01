@@ -111,42 +111,9 @@ class Verifier(object):
             tests = [item[:-1] for item in tests.split('[')]
             for test in tests:
                 for node in nodes:
-                    if test[0] == '@':
-                        if '=' in test:
-                            attr, value = test[1:].split('=')
-                            value = value[1:-1]
-                        else:
-                            attr = test[1:]
-                            value = None
-                        if attr in node.keys() and (value is None or node.get(attr) == value):
-                            results.append(node)
-                    elif test[0] == '=':
-                        if node.text == test[1:]:
-                            results.append(node)
-                    elif test[0] == '!':
-                        if node.text != test[1:]:
-                            results.append(node)
-                    elif test[0] == '*':
-                        if node.text is not None and node.text.find(test[1:]) != -1:
-                            results.append(node)
-                    elif test[0] == '$':
-                        if node.text is not None and node.text.find(test[1:]) == -1:
-                            results.append(node)
-                    elif test[0] == '+':
-                        if node.text is not None and node.text.startswith(test[1:]):
-                            results.append(node)
-                    elif test[0] == '^':
-                        if "=" in test:
-                            element, value = test[1:].split("=", 1)
-                        else:
-                            element = test[1:]
-                            value = None
-                        for child in node.getchildren():
-                            if child.tag == element and (value is None or child.text == value):
-                                results.append(node)
-                    elif test[0] == '|':
-                        if node.text is None and len(node.getchildren()) == 0:
-                            results.append(node)
+                    testresult = self.testNode(node, path, test)
+                    if testresult is None:
+                        results.append(node)
         else:
             results = nodes
 
@@ -193,6 +160,13 @@ class Verifier(object):
                     break
             else:
                 result = "        Missing child returned in XML for %s\n" % (node_path,)
+        elif test[0] == '|':
+            if len(test) == 2 and test[1] == "|":
+                if node.text is None and len(node.getchildren()) == 0:
+                    result = "        Empty element returned in XML for %s\n" % (node_path,)
+            else:
+                if node.text is not None or len(node.getchildren()) != 0:
+                    result = "        Non-empty element returned in XML for %s\n" % (node_path,)
 
         # Try to parse as iCalendar
         elif test == 'icalendar':
@@ -234,11 +208,11 @@ class Verifier(object):
             actual_xpath = "./" + actual_xpath[3:]
 
         # Handle absolute root element and find all matching nodes
-        r = re.search("(/\{[^\}]+\}[^/]+|\.)(.*)", actual_xpath)
+        r = re.search("(/?\{[^\}]+\}[^/]+|\.)(.*)", actual_xpath)
         if r.group(2):
             root_path = r.group(1)
             child_path = r.group(2)[1:]
-            if root_path != "." and root.tag != root_path[1:]:
+            if root_path != "." and root.tag != root_path.lstrip("/"):
                 resulttxt += "        Items not returned in XML for %s\n" % (title,)
                 result = False
                 return result, resulttxt
