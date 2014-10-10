@@ -62,6 +62,7 @@ class manager(object):
         self.print_request = False
         self.print_response = False
         self.print_request_response_on_error = False
+        self.debug = False
 
         self.results = []
         self.totals = {
@@ -238,6 +239,7 @@ class manager(object):
                 "print-details-onfail",
                 "always-print-request",
                 "always-print-response",
+                "debug"
             ],
         )
 
@@ -281,6 +283,8 @@ class manager(object):
                 random_order = True
             elif option == "--random-seed":
                 random_seed = value
+            elif option == "--debug":
+                self.debug = True
 
         if all:
             files = []

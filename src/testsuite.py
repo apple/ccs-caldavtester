@@ -45,8 +45,7 @@ class testsuite(object):
         a test file we also need test suites to have unique UIDs. The "change-uid" attribute
         can be used to reset the active UIDs for a test suite.
         """
-        if self.changeuid:
-            self.manager.server_info.newUIDs()
+        return self.manager.server_info.newUIDs() if self.changeuid else set()
 
 
     def missingFeatures(self):

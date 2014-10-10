@@ -82,6 +82,7 @@ class caldavtest(object):
         self.suites = []
         self.grabbedlocation = None
         self.previously_found = set()
+        self.uidmaps = {}
 
 
     def missingFeatures(self):
@@ -101,7 +102,9 @@ class caldavtest(object):
             return 0, 0, 1
 
         # Always need a new set of UIDs for the entire test
-        self.manager.server_info.newUIDs()
+        uids = self.manager.server_info.newUIDs()
+        for uid, uidname in uids:
+            self.uidmaps[uid] = "{} - {}".format(uidname, self.name)
 
         self.only = any([suite.only for suite in self.suites])
         try:
@@ -157,7 +160,9 @@ class caldavtest(object):
             etags = {}
             only_tests = any([test.only for test in suite.tests])
             testsuite = self.manager.testSuite(testfile, result_name, "")
-            suite.aboutToRun()
+            uids = suite.aboutToRun()
+            for uid, uidname in uids:
+                self.uidmaps[uid] = "{} - {}".format(uidname, label)
             for test in suite.tests:
                 result = self.run_test(testsuite, test, etags, only_tests, label="%s | %s" % (label, test.name))
                 if result == "t":
@@ -242,6 +247,22 @@ class caldavtest(object):
         if len(resulttxt) > 0:
             self.manager.message("trace", resulttxt)
         return result
+
+
+    def doget(self, resource, label=""):
+        req = request(self.manager)
+        req.method = "GET"
+        req.ruris.append(resource[0])
+        req.ruri = resource[0]
+        if len(resource[1]):
+            req.user = resource[1]
+        if len(resource[2]):
+            req.pswd = resource[2]
+        _ignore_result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label=label)
+        if response.status / 100 != 2:
+            return False, None
+
+        return True, respdata
 
 
     def dofindall(self, collection, label=""):
@@ -398,6 +419,7 @@ class caldavtest(object):
 
     def dowaitcount(self, collection, count, label=""):
 
+        hrefs = []
         for _ignore in range(self.manager.server_info.waitcount):
             req = request(self.manager)
             req.method = "PROPFIND"
@@ -418,21 +440,39 @@ class caldavtest(object):
 """
             req.data.content_type = "text/xml"
             result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count))
-            ctr = 0
+            hrefs = []
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
                 tree = ElementTree(file=StringIO(respdata))
 
                 for response in tree.findall("{DAV:}response"):
-                    ctr += 1
+                    href = response.findall("{DAV:}href")[0]
+                    if href.text.rstrip("/") != collection[0].rstrip("/"):
+                        hrefs.append(href.text)
 
-                if ctr - 1 == count:
-                    return None
+                if len(hrefs) == count:
+                    return True, None
             delay = self.manager.server_info.waitdelay
             starttime = time.time()
             while (time.time() < starttime + delay):
                 pass
+
+        if self.manager.debug:
+            # Get the content of each resource
+            rdata = ""
+            for href in hrefs:
+                result, respdata = self.doget((href, collection[1], collection[2],), label)
+                if respdata.startswith("BEGIN:VCALENDAR"):
+                    uid = respdata.find("UID:")
+                    if uid != -1:
+                        uid = respdata[uid + 4:uid + respdata[uid:].find("\r\n")]
+                        test = self.uidmaps.get(uid, "unknown")
+                    else:
+                        test = "unknown"
+                rdata += "\n\nhref: {}\ntest: {}\n\n{}\n".format(href, test, respdata)
+
+            return False, rdata
         else:
-            return ctr - 1
+            return False, len(hrefs)
 
 
     def dowaitchanged(self, uri, etag, user, pswd, label=""):
@@ -547,9 +587,9 @@ class caldavtest(object):
             count = int(req.method[10:])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                waitcount = self.dowaitcount(collection, count, label=label)
-                if waitcount is not None:
-                    return False, "Count did not change: {}".format(waitcount), None, None
+                waitresult, waitdetails = self.dowaitcount(collection, count, label=label)
+                if not waitresult:
+                    return False, "Count did not change: {}".format(waitdetails), None, None
             else:
                 return True, "", None, None
 
@@ -558,12 +598,12 @@ class caldavtest(object):
             count = int(req.method[len("WAITDELETEALL"):])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                waitcount = self.dowaitcount(collection, count, label=label)
-                if waitcount is None:
+                waitresult, waitdetails = self.dowaitcount(collection, count, label=label)
+                if waitresult:
                     hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
                     self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
                 else:
-                    return False, "Count did not change: {}".format(waitcount), None, None
+                    return False, "Count did not change: {}".format(waitdetails), None, None
             else:
                 return True, "", None, None
 
