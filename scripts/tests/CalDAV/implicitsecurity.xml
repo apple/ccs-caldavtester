@@ -100,10 +100,6 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
-			<request>
-				<method>DELAY</method>
-				<ruri>2</ruri>
-			</request>
 		</test>
 		<test name='7'>
 			<description>Organizer checks same data</description>
@@ -135,7 +131,7 @@
 		</test>
 		<test name='9'>
 			<description>Malicious user has error data</description>
-			<request user="$userid3:" pswd="$pswd3:">
+			<request user="$userid3:" pswd="$pswd3:" wait-for-success="yes">
 				<method>GET</method>
 				<ruri>$calendarpath3:/1.ics</ruri>
 				<verify>
