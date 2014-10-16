@@ -55,7 +55,7 @@
 	
 	<test-suite name='Setup proxies'>
 		<test name='1'>
-			<description>Add user03 as read proxy for user02</description>
+			<description>Add puser03 as read proxy for puser02</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$pprincipal2:calendar-proxy-read/</ruri>
@@ -73,7 +73,7 @@
 			</request>
 		</test>
 		<test name='2'>
-			<description>Add user04 as write proxy for user02</description>
+			<description>Add puser04 as write proxy for puser02</description>
 			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
 				<method>PROPPATCH</method>
 				<ruri>$pprincipal2:calendar-proxy-write/</ruri>
@@ -417,7 +417,7 @@
 				<ruri>$shareecalendar:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/sharing/proxies/put/2.ics</filepath>
+					<filepath>Resource/CalDAV-pod/sharing/proxies/setupproxies/6.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -433,7 +433,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/proxies/put/3.ics</value>
+						<value>Resource/CalDAV-pod/sharing/proxies/setupproxies/5.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -447,7 +447,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/sharing/proxies/put/2.ics</value>
+						<value>Resource/CalDAV-pod/sharing/proxies/setupproxies/6.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -456,7 +456,7 @@
 
 	<test-suite name='Proxy property changes'>
 		<test name='1'>
-			<description>Read proxy cannot write properties</description>
+			<description>Read proxy can write properties</description>
 			<request host2="yes" user="$puserid3:" pswd="$ppswd3:">
 				<method>PROPPATCH</method>
 				<ruri>$shareecalendar:/</ruri>
@@ -465,10 +465,10 @@
 					<filepath>Resource/CalDAV/sharing/proxies/properties/1.xml</filepath>
 				</data>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>propfindItems</callback>
 					<arg>
-						<name>status</name>
-						<value>403</value>
+						<name>okprops</name>
+						<value>{DAV:}displayname</value>
 					</arg>
 				</verify>
 			</request>
