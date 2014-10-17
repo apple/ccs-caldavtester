@@ -167,7 +167,7 @@
 		</test>
 		<test name='11'>
 			<description>PodB data changed</description>
-			<request user="$puserid1:" pswd="$ppswd1:">
+			<request user="$puserid1:" pswd="$ppswd1:" wait-for-success="yes">
 				<method>GETNEW</method>
 				<ruri>$pcalendarpath1:/</ruri>
 				<verify>
@@ -245,7 +245,7 @@
 		</test>
 		<test name='17'>
 			<description>PodA data changed</description>
-			<request user="$userid2:" pswd="$pswd2:">
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
@@ -411,7 +411,7 @@
 		</test>
 		<test name='11'>
 			<description>PodB data changed</description>
-			<request host2='yes' user="$puserid1:" pswd="$ppswd1:">
+			<request host2='yes' user="$puserid1:" pswd="$ppswd1:" wait-for-success="yes">
 				<method>GETNEW</method>
 				<ruri>$pcalendarpath1:/</ruri>
 				<verify>
@@ -489,7 +489,7 @@
 		</test>
 		<test name='17'>
 			<description>PodA data changed</description>
-			<request host2='yes' user="$userid2:" pswd="$pswd2:">
+			<request host2='yes' user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
 				<method>GETNEW</method>
 				<ruri>$calendarpath2:/</ruri>
 				<verify>
