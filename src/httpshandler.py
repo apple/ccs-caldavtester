@@ -16,60 +16,52 @@
 
 import httplib
 import socket
-_haveSSL = False
-try:
-    import ssl as sslmodule
-    _haveSSL = True
-except ImportError:
-    pass
+import ssl as sslmodule
 
-if _haveSSL:
-    class HTTPSConnection_SSLv3(httplib.HTTPSConnection):
-        "This class allows communication via SSL."
+class HTTPSVersionConnection(httplib.HTTPSConnection):
+    "This class allows communication via SSL."
 
-        def connect(self):
-            "Connect to a host on a given (SSL) port."
+    def __init__(self, host, port, ssl_version=sslmodule.PROTOCOL_TLSv1):
+        httplib.HTTPSConnection.__init__(self, host, port)
+        self._ssl_version = ssl_version
 
-            sock = socket.create_connection((self.host, self.port), self.timeout)
-            self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=sslmodule.PROTOCOL_SSLv3)
-else:
-    HTTPSConnection_SSLv3 = httplib.HTTPSConnection
 
-https_v23_connects = set()
-https_v3_connects = set()
+    def connect(self):
+        "Connect to a host on a given (SSL) port."
+
+        sock = socket.create_connection((self.host, self.port), self.timeout)
+        self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=self._ssl_version)
+
+
+cached_types = (
+    (set(), sslmodule.PROTOCOL_TLSv1),
+    (set(), sslmodule.PROTOCOL_SSLv3),
+    (set(), sslmodule.PROTOCOL_SSLv23),
+)
 
 def SmartHTTPConnection(host, port, ssl):
 
-    def trySSL(cls,):
-        connect = cls(host, port)
+    def trySSL(version):
+        connect = HTTPSVersionConnection(host, port, ssl_version=version)
         connect.connect()
         return connect
 
     if ssl:
-        if (host, port) in https_v3_connects:
+        for cached, connection_type in cached_types:
+            if (host, port) in cached:
+                try:
+                    return trySSL(connection_type)
+                except:
+                    cached.remove((host, port))
+
+        for cached, connection_type in cached_types:
             try:
-                return trySSL(HTTPSConnection_SSLv3)
+                cached.add((host, port))
+                return trySSL(connection_type)
             except:
-                https_v3_connects.remove((host, port))
-        elif (host, port) in https_v23_connects:
-            try:
-                return trySSL(httplib.HTTPSConnection)
-            except:
-                https_v23_connects.remove((host, port))
+                cached.remove((host, port))
 
-        try:
-            https_v3_connects.add((host, port))
-            return trySSL(HTTPSConnection_SSLv3)
-        except:
-            https_v3_connects.remove((host, port))
-
-        try:
-            https_v23_connects.add((host, port))
-            return trySSL(httplib.HTTPSConnection)
-        except:
-            https_v23_connects.remove((host, port))
-
-        raise RuntimeError("Cannot connect via with SSLv23 or SSLv3")
+        raise RuntimeError("Cannot connect via with TLSv1, SSLv3 or SSLv23")
     else:
         connect = httplib.HTTPConnection(host, port)
         connect.connect()
