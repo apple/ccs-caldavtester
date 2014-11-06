@@ -375,8 +375,8 @@
 		</test>
 		<test name='7'>
 			<description>Resource has data</description>
-			<request user="$useradmin:" pswd="$pswdadmin:" print-response='no'>
-				<method>GETNEW</method>
+			<request user="$useradmin:" pswd="$pswdadmin:" wait-for-success='yes'>
+				<method>GET</method>
 				<ruri>$rcalendarpath1:/</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
