@@ -654,5 +654,44 @@
 			</substitution>
 		</repeat>
 
+		<!--  Forty Group accounts -->
+		<repeat count="40">
+			<substitution>
+				<key>$groupid%d:</key>
+				<value>group%02d</value>
+			</substitution>
+			<!-- group guid-->
+			<substitution>
+				<key>$groupguid%d:</key>
+				<value>20000000-0000-0000-0000-000000000%03d</value>
+			</substitution>
+			<!-- group name-->
+			<substitution>
+				<key>$groupname%d:</key>
+				<value>Group %02d</value>
+			</substitution>
+			<!-- relative path to first group principal resource-->
+			<substitution>
+				<key>$gprincipal%d:</key>
+				<value>$principals_resources:$groupid%d:/</value>
+			</substitution>
+			<substitution>
+				<key>$gprincipaluri%d:</key>
+				<value>$principals_uids:$groupguid%d:/</value>
+			</substitution>
+			<substitution>
+				<key>$gemail%d:</key>
+				<value>$groupid%d:@example.com</value>
+			</substitution>
+			<substitution>
+				<key>$gcuaddralt%d:</key>
+				<value>$gprincipaluri%d:</value>
+			</substitution>
+			<substitution>
+				<key>$gcuaddrurn%d:</key>
+				<value>urn:x-uid:$groupguid%d:</value>
+			</substitution>
+		</repeat>
+
 	</substitutions>
 </serverinfo>
