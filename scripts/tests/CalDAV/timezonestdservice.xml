@@ -154,16 +154,16 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-action</value>
+						<value>/error-code~$invalid-action</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>GET on resource - invalid action</description>
+			<description>GET on resource - invalid child URI</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=true</ruri>
+				<ruri>$timezonestdservice:/foobar</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -172,25 +172,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-action</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>GET on resource - multiple actions</description>
-			<request>
-				<method>GET</method>
-				<ruri>$timezonestdservice:?action=list&amp;action=list</ruri>
-				<verify>
-					<callback>jsonPointerMatch</callback>
-					<arg>
-						<name>status</name>
-						<value>400</value>
-					</arg>
-					<arg>
-						<name>exists</name>
-						<value>/error~$invalid-action</value>
+						<value>/error-code~$invalid-action</value>
 					</arg>
 				</verify>
 			</request>
@@ -202,7 +184,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=capabilities</ruri>
+				<ruri>$timezonestdservice:/capabilities</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -226,7 +208,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=list</ruri>
+				<ruri>$timezonestdservice:/zones</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -243,10 +225,10 @@
 	
 	<test-suite name='Invalid query action=get'>
 		<test name='1'>
-			<description>GET on resource - no tzid</description>
+			<description>GET on resource - multiple tzid paths</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get</ruri>
+				<ruri quote="no">$timezonestdservice:/zones/America%2FNew_York/America%2FLos_Angeles</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -255,34 +237,16 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-tzid</value>
+						<value>/error-code~$invalid-action</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>GET on resource - multiple tzid</description>
+			<description>GET on resource - missing tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
-				<verify>
-					<callback>jsonPointerMatch</callback>
-					<arg>
-						<name>status</name>
-						<value>400</value>
-					</arg>
-					<arg>
-						<name>exists</name>
-						<value>/error~$invalid-tzid</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>GET on resource - invalid tzid</description>
-			<request>
-				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get&amp;tzid=America/Pittsburgh</ruri>
+				<ruri quote="no">$timezonestdservice:/zones/America%2FPittsburgh</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -291,7 +255,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$tzid-not-found</value>
+						<value>/error-code~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
@@ -303,7 +267,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get&amp;tzid=America/New_York</ruri>
+				<ruri quote="no">$timezonestdservice:/zones/America%2FNew_York</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -324,7 +288,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get&amp;tzid=Europe/London</ruri>
+				<ruri quote="no">$timezonestdservice:/zones/Europe%2FLondon/</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -345,7 +309,7 @@
 			<description>GET on resource</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=get&amp;tzid=GB</ruri>
+				<ruri quote="no">$timezonestdservice:/zones/GB</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -369,7 +333,7 @@
 			<description>GET on resource - no tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand</ruri>
+				<ruri>$timezonestdservice:/observances</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -378,7 +342,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-tzid</value>
+						<value>/error-code~$invalid-action</value>
 					</arg>
 				</verify>
 			</request>
@@ -387,7 +351,7 @@
 			<description>GET on resource - multiple tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;tzid=America/Los_Angeles</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York/America%2FLos_Angeles</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -396,16 +360,16 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-tzid</value>
+						<value>/error-code~$invalid-action</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='3'>
-			<description>GET on resource - invalid tzid</description>
+			<description>GET on resource - missing tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Pittsburgh;start=2008-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FPittsburgh?start=2008-01-01T00:00:00Z&amp;end=2020-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -414,7 +378,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$tzid-not-found</value>
+						<value>/error-code~$tzid-not-found</value>
 					</arg>
 				</verify>
 			</request>
@@ -423,7 +387,7 @@
 			<description>GET on resource - too many start</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;start=2009-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2008-01-01T00:00:00Z&amp;start=2009-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -432,7 +396,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-start</value>
+						<value>/error-code~$invalid-start</value>
 					</arg>
 				</verify>
 			</request>
@@ -441,7 +405,7 @@
 			<description>GET on resource - no start</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -450,7 +414,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-start</value>
+						<value>/error-code~$invalid-start</value>
 					</arg>
 				</verify>
 			</request>
@@ -459,7 +423,7 @@
 			<description>GET on resource - invalid start</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=20070101</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=20070101</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -468,7 +432,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-start</value>
+						<value>/error-code~$invalid-start</value>
 					</arg>
 				</verify>
 			</request>
@@ -477,7 +441,7 @@
 			<description>GET on resource - too many end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z&amp;end=2009</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -486,7 +450,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-end</value>
+						<value>/error-code~$invalid-end</value>
 					</arg>
 				</verify>
 			</request>
@@ -495,7 +459,7 @@
 			<description>GET on resource - invalid end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;end=2009</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2008-01-01T00:00:00Z&amp;end=2009</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -504,7 +468,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-end</value>
+						<value>/error-code~$invalid-end</value>
 					</arg>
 				</verify>
 			</request>
@@ -513,7 +477,7 @@
 			<description>GET on resource - start > end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2009-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2009-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -522,7 +486,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-end</value>
+						<value>/error-code~$invalid-end</value>
 					</arg>
 				</verify>
 			</request>
@@ -531,7 +495,7 @@
 			<description>GET on resource - start == end</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2008-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -540,7 +504,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-end</value>
+						<value>/error-code~$invalid-end</value>
 					</arg>
 				</verify>
 			</request>
@@ -552,7 +516,7 @@
 			<description>GET on resource - simple range</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -574,7 +538,7 @@
 			<description>GET on resource - complex range</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/New_York&amp;start=2006-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York?start=2006-01-01T00:00:00Z&amp;end=2008-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -598,7 +562,7 @@
 			<description>GET on resource - no DST</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=expand&amp;tzid=America/Phoenix&amp;start=2006-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FPhoenix?start=2006-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
@@ -621,7 +585,7 @@
 			<description>GET on resource trailing slash - simple range</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:/?action=expand&amp;tzid=America/New_York&amp;start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
+				<ruri quote="no">$timezonestdservice:/observances/America%2FNew_York/?start=2008-01-01T00:00:00Z&amp;end=2009-01-01T00:00:00Z</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -644,10 +608,10 @@
 	
 	<test-suite name='Invalid query action=find'>
 		<test name='1'>
-			<description>GET on resource - no pattern</description>
+			<description>GET on resource - multiple pattern</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=America/New_York&amp;pattern=America/Los_Angeles</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -656,16 +620,16 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-pattern</value>
+						<value>/error-code~$invalid-pattern</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='2'>
-			<description>GET on resource - multiple pattern</description>
+			<description>GET on resource - empty pattern</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=America/New_York&amp;pattern=America/Los_Angeles</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -674,7 +638,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-pattern</value>
+						<value>/error-code~$invalid-pattern</value>
 					</arg>
 				</verify>
 			</request>
@@ -683,7 +647,7 @@
 			<description>GET on resource - empty pattern</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=**</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -692,25 +656,7 @@
 					</arg>
 					<arg>
 						<name>exists</name>
-						<value>/error~$invalid-pattern</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>GET on resource - empty pattern</description>
-			<request>
-				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=**</ruri>
-				<verify>
-					<callback>jsonPointerMatch</callback>
-					<arg>
-						<name>status</name>
-						<value>400</value>
-					</arg>
-					<arg>
-						<name>exists</name>
-						<value>/error~$invalid-pattern</value>
+						<value>/error-code~$invalid-pattern</value>
 					</arg>
 				</verify>
 			</request>
@@ -722,7 +668,7 @@
 			<description>GET on resource - exact tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=America/New_York</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=America/New_York</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -737,7 +683,7 @@
 			<description>GET on resource - starts tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=America/New_*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=America/New_*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -752,7 +698,7 @@
 			<description>GET on resource - end tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=*/New_York</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=*/New_York</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -767,7 +713,7 @@
 			<description>GET on resource - contains tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=*/New_*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=*/New_*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -782,7 +728,7 @@
 			<description>GET on resource - starts tzid multiple</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=America/N*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=America/N*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -797,7 +743,7 @@
 			<description>GET on resource - one alias</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=US/Eastern</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=US/Eastern</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -812,7 +758,7 @@
 			<description>GET on resource - alias and tzid</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=Africa/L*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=Africa/L*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -833,7 +779,7 @@
 			<description>GET on resource - contains text underscore</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=*New%20York*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=*New%20York*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>
@@ -848,7 +794,7 @@
 			<description>GET on resource - contains text lowercase</description>
 			<request>
 				<method>GET</method>
-				<ruri>$timezonestdservice:?action=find&amp;pattern=*new%20york*</ruri>
+				<ruri>$timezonestdservice:/zones?pattern=*new%20york*</ruri>
 				<verify>
 					<callback>jsonPointerMatch</callback>
 					<arg>

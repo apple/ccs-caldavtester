@@ -647,7 +647,8 @@ class caldavtest(object):
 
         try:
             puri = list(urlparse.urlparse(uri))
-            puri[2] = urllib.quote(puri[2])
+            if req.ruri_quote:
+                puri[2] = urllib.quote(puri[2])
             quri = urlparse.urlunparse(puri)
 
             http.request(method, quri, data, headers)

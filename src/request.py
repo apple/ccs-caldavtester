@@ -157,6 +157,7 @@ class request(object):
         self.headers = {}
         self.ruris = []
         self.ruri = ""
+        self.ruri_quote = True
         self.data = None
         self.iterate_data = False
         self.count = 1
@@ -377,6 +378,7 @@ class request(object):
             elif child.tag == src.xmlDefs.ELEMENT_HEADER:
                 self.parseHeader(child)
             elif child.tag == src.xmlDefs.ELEMENT_RURI:
+                self.ruri_quote = child.get(src.xmlDefs.ATTR_QUOTE, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
                 self.ruris.append(self.manager.server_info.subs(child.text.encode("utf-8")))
                 if len(self.ruris) == 1:
                     self.ruri = self.ruris[0]
