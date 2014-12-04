@@ -86,18 +86,23 @@ class Verifier(object):
                     resulttxt += "        Items not returned in JSON for %s\n" % (path,)
 
         for jpath in notexists:
+            if jpath.find("~$") != -1:
+                path, value = jpath.split("~$")
+            else:
+                path, value = jpath, None
             try:
-                jp = JSONMatcher(jpath)
+                jp = JSONMatcher(path)
             except Exception:
                 result = False
                 resulttxt += "        Invalid JSON pointer for %s\n" % (jpath,)
             else:
                 try:
-                    jp.match(j)
+                    jobjs = jp.match(j)
                 except JSONPointerMatchError:
                     pass
                 else:
-                    resulttxt += "        Items returned in JSON for %s\n" % (jpath,)
-                    result = False
+                    if len(jobjs):
+                        resulttxt += "        Items returned in JSON for %s\n" % (jpath,)
+                        result = False
 
         return result, resulttxt

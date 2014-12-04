@@ -30,7 +30,7 @@
 	<!ELEMENT pause EMPTY>
 
 	<!ELEMENT request (require-feature?, exclude-feature?, method, ruri*, header*, data?, verify*,
-						graburi?, grabcount?, grabheader*, grabproperty*, grabelement*, grabcalproperty*, grabcalparameter*)>
+						graburi?, grabcount?, grabheader*, grabproperty*, grabelement*, grabjson*, grabcalproperty*, grabcalparameter*)>
 		<!ATTLIST request host2 (yes|no) "no"
 						 auth (yes|no) "yes"
 						 user CDATA ""
@@ -69,6 +69,8 @@
 			<!ELEMENT variable (#PCDATA)>
 
 		<!ELEMENT grabelement (name, parent*, variable+)>
+
+		<!ELEMENT grabjson (pointer, variable+)>
 
 		<!ELEMENT grabcalproperty (name, variable)>
 		<!ELEMENT grabcalparameter (name, variable)>

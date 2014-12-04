@@ -15,6 +15,7 @@ COMMAND LINE OPTIONS
 testcaldav.py \
 	[-s filename] \
 	[-x dirpath] \
+	[--basedir dirpath] \
 	[--ssl] \
 	[--all] \
 	[--random] \
@@ -32,6 +33,9 @@ testcaldav.py \
 
 	-x : directory path for test scripts
 	(default is 'scripts/tests').
+
+	--basedir : directory path for serverinfo.xml, test/ and data/,
+		overrides -s and -x values
 
 	-p : filename specifies the file to use to populate the server with
 	data. Server data population only occurs when this option is

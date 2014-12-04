@@ -167,6 +167,7 @@ class request(object):
         self.grabheader = []
         self.grabproperty = []
         self.grabelement = []
+        self.grabjson = []
         self.grabcalprop = []
         self.grabcalparam = []
 
@@ -289,7 +290,7 @@ class request(object):
 
     def getFilePath(self):
         if self.data != None:
-            return self.data.filepath
+            return os.path.join(self.manager.data_dir, self.data.filepath) if self.manager.data_dir else self.data.filepath
         else:
             return ""
 
@@ -301,7 +302,7 @@ class request(object):
                 data = self.data.value
             else:
                 # read in the file data
-                fd = open(self.data.nextpath if hasattr(self.data, "nextpath") else self.data.filepath, "r")
+                fd = open(self.data.nextpath if hasattr(self.data, "nextpath") else self.getFilePath(), "r")
                 try:
                     data = fd.read()
                 finally:
@@ -319,9 +320,9 @@ class request(object):
 
     def getNextData(self):
         if not hasattr(self, "dataList"):
-            self.dataList = sorted([path for path in os.listdir(self.data.filepath) if not path.startswith(".")])
+            self.dataList = sorted([path for path in os.listdir(self.getFilePath()) if not path.startswith(".")])
         if len(self.dataList):
-            self.data.nextpath = os.path.join(self.data.filepath, self.dataList.pop(0))
+            self.data.nextpath = os.path.join(self.getFilePath(), self.dataList.pop(0))
             return True
         else:
             if hasattr(self.data, "nextpath"):
@@ -332,7 +333,7 @@ class request(object):
 
 
     def hasNextData(self):
-        dataList = sorted([path for path in os.listdir(self.data.filepath) if not path.startswith(".")])
+        dataList = sorted([path for path in os.listdir(self.getFilePath()) if not path.startswith(".")])
         return len(dataList) != 0
 
 
@@ -398,6 +399,8 @@ class request(object):
                 self.parseGrab(child, self.grabproperty)
             elif child.tag == src.xmlDefs.ELEMENT_GRABELEMENT:
                 self.parseMultiGrab(child, self.grabelement)
+            elif child.tag == src.xmlDefs.ELEMENT_GRABJSON:
+                self.parseMultiGrab(child, self.grabjson)
             elif child.tag == src.xmlDefs.ELEMENT_GRABCALPROP:
                 self.parseGrab(child, self.grabcalprop)
             elif child.tag == src.xmlDefs.ELEMENT_GRABCALPARAM:
@@ -457,7 +460,7 @@ class request(object):
         parent = None
         variable = None
         for child in node.getchildren():
-            if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
+            if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY, src.xmlDefs.ELEMENT_POINTER):
                 name = self.manager.server_info.subs(child.text.encode("utf-8"))
             elif child.tag == src.xmlDefs.ELEMENT_PARENT:
                 parent = self.manager.server_info.subs(child.text.encode("utf-8"))

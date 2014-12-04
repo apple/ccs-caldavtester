@@ -13,20 +13,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-from difflib import unified_diff
 
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
+from difflib import unified_diff
+from xml.etree.cElementTree import ElementTree, tostring
+import os
 
 class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
+        if manager.data_dir:
+            files = map(lambda x: os.path.join(manager.data_dir, x), files)
 
         # status code must be 200, 207
         if response.status not in (200, 207):

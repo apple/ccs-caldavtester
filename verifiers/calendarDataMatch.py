@@ -17,6 +17,7 @@
 from difflib import unified_diff
 from pycalendar.icalendar.calendar import Calendar
 from pycalendar.parameter import Parameter
+import os
 
 """
 Verifier that checks the response body for a semantic match to data in a file.
@@ -27,6 +28,8 @@ class Verifier(object):
     def verify(self, manager, uri, response, respdata, args, is_json=False): #@UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
+        if manager.data_dir:
+            files = map(lambda x: os.path.join(manager.data_dir, x), files)
         caldata = args.get("data", [])
         filters = args.get("filter", [])
         statusCode = args.get("status", ["200", "201", "207"])

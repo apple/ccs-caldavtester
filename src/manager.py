@@ -48,6 +48,7 @@ class manager(object):
 
     def __init__(self, text=True):
         self.server_info = serverinfo()
+        self.data_dir = None
         self.pretest = None
         self.posttest = None
         self.tests = []
@@ -210,6 +211,7 @@ class manager(object):
     def readCommandLine(self):
         sname = "scripts/server/serverinfo.xml"
         dname = "scripts/tests"
+        basedir = None
         fnames = []
         ssl = False
         all = False
@@ -226,6 +228,7 @@ class manager(object):
             [
                 "ssl",
                 "all",
+                "basedir=",
                 "subdir=",
                 "exclude=",
                 "pretest=",
@@ -253,6 +256,11 @@ class manager(object):
                 ssl = True
             elif option == "--all":
                 all = True
+            elif option == "--basedir":
+                basedir = value
+                sname = os.path.join(basedir, "serverinfo.xml")
+                dname = os.path.join(basedir, "tests")
+                self.data_dir = os.path.join(basedir, "data")
             elif option == "--subdir":
                 subdir = value + "/"
             elif option == "--exclude":

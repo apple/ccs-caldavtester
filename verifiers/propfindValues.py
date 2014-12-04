@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-import urllib
 
 """
 Verifier that checks a propfind response for regex matches to property values.
@@ -22,6 +21,7 @@ Verifier that checks a propfind response for regex matches to property values.
 from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
 import re
+import urllib
 
 class Verifier(object):
 

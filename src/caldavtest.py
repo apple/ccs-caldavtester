@@ -21,6 +21,7 @@ Class to encapsulate a single caldav test run.
 from cStringIO import StringIO
 from pycalendar.icalendar.calendar import Calendar
 from src.httpshandler import SmartHTTPConnection
+from src.jsonPointer import JSONMatcher
 from src.manager import manager
 from src.request import data, pause
 from src.request import request
@@ -30,6 +31,7 @@ from src.xmlUtils import nodeForPath, xmlPathSplit
 from xml.etree.cElementTree import ElementTree, tostring
 import commands
 import httplib
+import json
 import os
 import rfc822
 import socket
@@ -744,6 +746,20 @@ class caldavtest(object):
                     for variable, elementvalue in zip(variables, elementvalues):
                         self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8") if elementvalue else ""})
 
+        if req.grabjson:
+            for pointer, variables in req.grabjson:
+                # grab the JSON value here
+                pointervalues = self.extractPointer(pointer, respdata)
+                if pointervalues == None:
+                    result = False
+                    resulttxt += "\Pointer %s was not extracted from response\n" % (pointer,)
+                elif len(variables) != len(pointervalues):
+                    result = False
+                    resulttxt += "\n%d found but expecting %d for pointer %s from response\n" % (len(pointervalues), len(variables), pointer,)
+                else:
+                    for variable, pointervalue in zip(variables, pointervalues):
+                        self.manager.server_info.addextrasubs({variable: pointervalue.encode("utf-8") if pointervalue else ""})
+
         if req.grabcalprop:
             for propname, variable in req.grabcalprop:
                 # grab the property here
@@ -948,6 +964,18 @@ class caldavtest(object):
             return [item.text for item in e]
         else:
             return None
+
+
+    def extractPointer(self, pointer, respdata):
+
+        jp = JSONMatcher(pointer)
+
+        try:
+            j = json.loads(respdata)
+        except:
+            return None
+
+        return jp.match(j)
 
 
     def extractCalProperty(self, propertyname, respdata):

@@ -206,12 +206,14 @@ class serverinfo(object):
             self.subsdict[k] = v
 
         # Now cache some useful substitutions
-        if "$userid1:" not in self.subsdict:
-            raise ValueError("Must have $userid1: substitution")
-        self.user = self.subsdict["$userid1:"]
-        if "$pswd1:" not in self.subsdict:
-            raise ValueError("Must have $pswd1: substitution")
-        self.pswd = self.subsdict["$pswd1:"]
+        user = "$userid1:" if "$userid1:" in self.subsdict else "$userid01:"
+        pswd = "$pswd1:" if "$pswd1:" in self.subsdict else "$pswd01:"
+        if user not in self.subsdict:
+            raise ValueError("Must have userid substitution")
+        self.user = self.subsdict[user]
+        if pswd not in self.subsdict:
+            raise ValueError("Must have pswd substitution")
+        self.pswd = self.subsdict[pswd]
 
 
     def parseRepeatXML(self, node):
