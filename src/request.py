@@ -300,7 +300,7 @@ class request(object):
         if self.data != None:
             if len(self.data.value) != 0:
                 data = self.data.value
-            else:
+            elif self.data.filepath:
                 # read in the file data
                 fd = open(self.data.nextpath if hasattr(self.data, "nextpath") else self.getFilePath(), "r")
                 try:
@@ -315,6 +315,8 @@ class request(object):
             if self.data.generate:
                 if self.data.content_type.startswith("text/calendar"):
                     data = self.generateCalendarData(data)
+            elif self.data.generator:
+                data = self.data.generator.doGenerate()
         return data
 
 
@@ -483,6 +485,7 @@ class data(object):
         self.manager = manager
         self.content_type = ""
         self.filepath = ""
+        self.generator = None
         self.value = ""
         self.substitutions = {}
         self.substitute = False
@@ -499,6 +502,9 @@ class data(object):
                 self.content_type = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
                 self.filepath = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_GENERATOR:
+                self.generator = generator(self.manager)
+                self.generator.parseXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTE:
                 self.parseSubstituteXML(child)
 
@@ -513,6 +519,67 @@ class data(object):
                 value = self.manager.server_info.subs(child.text.encode("utf-8"))
         if name and value:
             self.substitutions[name] = value
+
+
+
+class generator(object):
+    """
+    Defines a dynamically generated request body.
+    """
+
+    def __init__(self, manager):
+        self.manager = manager
+        self.callback = None
+        self.args = {}
+
+
+    def doGenerate(self):
+
+        # Re-do substitutions from values generated during the current test run
+        if self.manager.server_info.hasextrasubs():
+            for name, values in self.args.iteritems():
+                newvalues = [self.manager.server_info.extrasubs(value) for value in values]
+                self.args[name] = newvalues
+
+        generatorClass = self._importName(self.callback, "Generator")
+        gen = generatorClass()
+
+        # Always clone the args as this verifier may be called multiple times
+        args = dict((k, list(v)) for k, v in self.args.items())
+
+        return gen.generate(self.manager, args)
+
+
+    def _importName(self, modulename, name):
+        """
+        Import a named object from a module in the context of this function.
+        """
+        module = __import__(modulename, globals(), locals(), [name])
+        return getattr(module, name)
+
+
+    def parseXML(self, node):
+
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_CALLBACK:
+                self.callback = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_ARG:
+                self.parseArgXML(child)
+
+
+    def parseArgXML(self, node):
+        name = None
+        values = []
+        for child in node.getchildren():
+            if child.tag == src.xmlDefs.ELEMENT_NAME:
+                name = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_VALUE:
+                if child.text is not None:
+                    values.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+                else:
+                    values.append("")
+        if name:
+            self.args[name] = values
 
 
 

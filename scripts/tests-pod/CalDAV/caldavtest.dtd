@@ -46,11 +46,12 @@
 		<!ELEMENT header (name, value)>
 			<!ELEMENT name (#PCDATA)>
 			<!ELEMENT value (#PCDATA)>
-		<!ELEMENT data (content-type, filepath, substitute*)>
+		<!ELEMENT data (content-type, (filepath | generator), substitute*)>
 			<!ATTLIST data substitutions (yes|no) "yes"
 			               generate      (yes|no) "no">
 			<!ELEMENT content-type (#PCDATA)>
 			<!ELEMENT filepath (#PCDATA)>
+			<!ELEMENT generator (callback, arg*)>
 			<!ELEMENT substitute (name, value)>
 
 		<!ELEMENT verify (require-feature?, exclude-feature?, callback, arg*)>

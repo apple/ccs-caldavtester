@@ -261,6 +261,10 @@ class manager(object):
                 sname = os.path.join(basedir, "serverinfo.xml")
                 dname = os.path.join(basedir, "tests")
                 self.data_dir = os.path.join(basedir, "data")
+
+                # Also add parent to PYTHON path
+                sys.path.append(os.path.dirname(basedir))
+
             elif option == "--subdir":
                 subdir = value + "/"
             elif option == "--exclude":
@@ -425,3 +429,7 @@ class manager(object):
         lines = data.split("\n")
         procdata = lines[1].split()
         return int(procdata[6]), int(procdata[7])
+
+
+    def getDataPath(self, fpath):
+        return os.path.join(self.data_dir, fpath) if self.data_dir else fpath
