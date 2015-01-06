@@ -16,6 +16,7 @@
 
 from difflib import unified_diff
 from pycalendar.icalendar.calendar import Calendar
+from pycalendar.icalendar.componentrecur import ComponentRecur
 from pycalendar.parameter import Parameter
 import os
 
@@ -40,6 +41,7 @@ class Verifier(object):
             filters.append("ORGANIZER:EMAIL")
         filters.append("ATTENDEE:X-CALENDARSERVER-DTSTAMP")
         filters.append("ATTENDEE:X-CALENDARSERVER-AUTO")
+        filters.append("ATTENDEE:X-CALENDARSERVER-RESET-PARTSTAT")
         filters.append("CALSCALE")
         filters.append("PRODID")
         filters.append("DTSTAMP")
@@ -116,15 +118,55 @@ class Verifier(object):
                         if property.getName() == filter:
                             component.removeProperty(property)
 
+        def reconcileRecurrenceOverrides(calendar1, calendar2):
+            """
+            Make sure that the same set of overridden components appears in both calendar objects.
+            """
+            def _getRids(calendar):
+                """
+                Get all the recurrence ids of the specified calendar.
+                """
+                results = set()
+                master = None
+                for subcomponent in calendar.getComponents():
+                    if isinstance(subcomponent, ComponentRecur):
+                        rid = subcomponent.getRecurrenceID()
+                        if rid:
+                            results.add(rid.duplicateAsUTC())
+                        else:
+                            master = subcomponent
+                return results, master
+
+            def _addOverrides(calendar, master, missing_rids):
+                """
+                Derive instances for the missing overrides in the specified calendar object.
+                """
+                if master is None or not missing_rids:
+                    return
+                for rid in missing_rids:
+                    # If we were fed an already derived component, use that, otherwise make a new one
+                    newcomp = calendar.deriveComponent(rid)
+                    if newcomp is not None:
+                        calendar.addComponent(newcomp)
+
+            rids1, master1 = _getRids(calendar1)
+            rids2, master2 = _getRids(calendar2)
+
+            _addOverrides(calendar1, master1, rids2 - rids1)
+            _addOverrides(calendar2, master2, rids1 - rids2)
+
         try:
             format = Calendar.sFormatJSON if is_json else Calendar.sFormatText
 
             resp_calendar = Calendar.parseData(respdata, format=format)
             removePropertiesParameters(resp_calendar)
-            respdata = resp_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
 
             data_calendar = Calendar.parseData(data, format=format)
             removePropertiesParameters(data_calendar)
+
+            reconcileRecurrenceOverrides(resp_calendar, data_calendar)
+
+            respdata = resp_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
             data = data_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
 
             result = resp_calendar == data_calendar

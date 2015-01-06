@@ -343,6 +343,21 @@ caldavtest.dtd:
 				the relative path for the file containing the request body
 				data.
 	
+			ELEMENT <generator>
+				a callback and set of arguments used to generate the data.
+				
+				ELEMENT <callback>
+					the name of the generator method to execute.
+		
+				ELEMENT <arg>
+					arguments sent to the generator method.
+		
+					ELEMENT <name>
+						the name of the argument.
+		
+					ELEMENT <value>
+						values for the argument.
+	
 			ELEMENT <substitute>
 				a set of substitution variables to use on this data only.
 			
