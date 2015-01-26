@@ -298,7 +298,7 @@ class manager(object):
             elif option == "--debug":
                 self.debug = True
 
-        if all:
+        if all or not args:
             files = []
             os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]) if not dir.startswith("test") else None, None)
             for file in files:
