@@ -140,6 +140,8 @@ class request(object):
     be used to determine a satisfactory output or not.
     """
 
+    nc = {} # Keep track of nonce count
+
     def __init__(self, manager):
         self.manager = manager
         self.host = self.manager.server_info.host
@@ -245,7 +247,7 @@ class request(object):
 
                 wwwauthorize = response.msg.getheaders("WWW-Authenticate")
                 for item in wwwauthorize:
-                    if not item.startswith("digest "):
+                    if not item.lower().startswith("digest "):
                         continue
                     wwwauthorize = item[7:]
                     def unq(s):
@@ -263,9 +265,18 @@ class request(object):
                     break
 
         if details:
+            if details.get('qop'):
+                if self.nc.get(details.get('nonce')) is None:
+                    self.nc[details.get('nonce')] = 1
+                else:
+                    self.nc[details.get('nonce')] += 1
+                details['nc'] = "%08x" % self.nc[details.get('nonce')]
+                if details.get('cnonce') is None:
+                    details['cnonce'] = "D4AAE4FF-ADA1-4149-BFE2-B506F9264318"
+
             digest = calcResponse(
-                calcHA1(details.get('algorithm'), user, details.get('realm'), pswd, details.get('nonce'), details.get('cnonce')),
-                details.get('algorithm'), details.get('nonce'), details.get('nc'), details.get('cnonce'), details.get('qop'), self.method, self.getURI(si), None
+                calcHA1(details.get('algorithm', 'md5'), user, details.get('realm'), pswd, details.get('nonce'), details.get('cnonce')),
+                details.get('algorithm', 'md5'), details.get('nonce'), details.get('nc'), details.get('cnonce'), details.get('qop'), self.method, self.getURI(si), None
             )
 
             if details.get('qop'):
@@ -273,7 +284,7 @@ class request(object):
                     'Digest username="%s", realm="%s", '
                     'nonce="%s", uri="%s", '
                     'response=%s, algorithm=%s, cnonce="%s", qop=%s, nc=%s' %
-                    (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm'), details.get('cnonce'), details.get('qop'), details.get('nc'),)
+                    (user, details.get('realm'), details.get('nonce'), self.getURI(si), digest, details.get('algorithm', 'md5'), details.get('cnonce'), details.get('qop'), details.get('nc'),)
                 )
             else:
                 response = (
