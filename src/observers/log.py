@@ -52,7 +52,7 @@ class Observer(BaseResultsObserver):
     def start(self):
         self.manager.logit("Starting tests")
         if self.manager.randomSeed is not None:
-            self.manager.logit("Randomizing order using seed '{}'".format(self.manager.randomSeed))
+            self.manager.logit("Randomizing order using seed '{rs}'".format(rs=self.manager.randomSeed))
 
 
     def testFile(self, result):
@@ -112,16 +112,16 @@ class Observer(BaseResultsObserver):
             for failed in self.loggedFailures:
                 self.manager.logit("=" * 70)
                 self.manager.logit(failed)
-            overall = "FAILED (ok={}, ignored={}, failed={}, errors={})".format(
-                self.manager.totals[manager.RESULT_OK],
-                self.manager.totals[manager.RESULT_IGNORED],
-                self.manager.totals[manager.RESULT_FAILED],
-                self.manager.totals[manager.RESULT_ERROR],
+            overall = "FAILED (ok={o}, ignored={i}, failed={f}, errors={e})".format(
+                o=self.manager.totals[manager.RESULT_OK],
+                i=self.manager.totals[manager.RESULT_IGNORED],
+                f=self.manager.totals[manager.RESULT_FAILED],
+                e=self.manager.totals[manager.RESULT_ERROR],
             )
         else:
-            overall = "PASSED (ok={}, ignored={})".format(
-                self.manager.totals[manager.RESULT_OK],
-                self.manager.totals[manager.RESULT_IGNORED],
+            overall = "PASSED (ok={o}, ignored={i})".format(
+                o=self.manager.totals[manager.RESULT_OK],
+                i=self.manager.totals[manager.RESULT_IGNORED],
             )
         self.manager.logit("-" * 70)
         self.manager.logit("Ran {total} tests in {time:.3f}s\n".format(

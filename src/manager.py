@@ -129,7 +129,7 @@ class manager(object):
 
     def readXML(self, serverfile, testfiles, ssl, all, moresubs={}):
 
-        self.message("trace", "Reading Server Info from \"{}\"".format(serverfile))
+        self.message("trace", "Reading Server Info from \"{s}\"".format(s=serverfile))
 
         # Open and parse the server config file
         try:
@@ -176,14 +176,14 @@ class manager(object):
             caldavtest_node = tree.getroot()
             if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
                 if ignore_root:
-                    self.message("trace", "Ignoring file \"{}\" because it is not a test file".format(fname))
+                    self.message("trace", "Ignoring file \"{f}\" because it is not a test file".format(f=fname))
                     return None
                 else:
                     raise EX_INVALID_CONFIG_FILE
             if not len(caldavtest_node):
                 raise EX_INVALID_CONFIG_FILE
 
-            self.message("Reading Test Details from \"{}\"".format(fname))
+            self.message("Reading Test Details from \"{f}\"".format(f=fname))
             test = caldavtest(self, fname)
             test.parseXML(caldavtest_node)
             return test

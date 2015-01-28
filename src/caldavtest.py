@@ -106,7 +106,7 @@ class caldavtest(object):
         # Always need a new set of UIDs for the entire test
         uids = self.manager.server_info.newUIDs()
         for uid, uidname in uids:
-            self.uidmaps[uid] = "{} - {}".format(uidname, self.name)
+            self.uidmaps[uid] = "{u} - {n}".format(u=uidname, n=self.name)
 
         self.only = any([suite.only for suite in self.suites])
         try:
@@ -164,7 +164,7 @@ class caldavtest(object):
             testsuite = self.manager.testSuite(testfile, result_name, "")
             uids = suite.aboutToRun()
             for uid, uidname in uids:
-                self.uidmaps[uid] = "{} - {}".format(uidname, label)
+                self.uidmaps[uid] = "{u} - {l}".format(u=uidname, l=label)
             for test in suite.tests:
                 result = self.run_test(testsuite, test, etags, only_tests, label="%s | %s" % (label, test.name))
                 if result == "t":
@@ -470,7 +470,7 @@ class caldavtest(object):
                         test = self.uidmaps.get(uid, "unknown")
                     else:
                         test = "unknown"
-                rdata += "\n\nhref: {}\ntest: {}\n\n{}\n".format(href, test, respdata)
+                rdata += "\n\nhref: {h}\ntest: {t}\n\n{r}\n".format(h=href, t=test, r=respdata)
 
             return False, rdata
         else:
@@ -546,7 +546,7 @@ class caldavtest(object):
                 collection = (ruri, req.user, req.pswd)
                 hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
                 if not self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL")):
-                    return False, "DELETEALL failed for: {}".format(ruri), None, None
+                    return False, "DELETEALL failed for: {r}".format(r=ruri), None, None
             return True, "", None, None
 
         # Special for delay
@@ -591,7 +591,7 @@ class caldavtest(object):
                 collection = (ruri, req.user, req.pswd)
                 waitresult, waitdetails = self.dowaitcount(collection, count, label=label)
                 if not waitresult:
-                    return False, "Count did not change: {}".format(waitdetails), None, None
+                    return False, "Count did not change: {w}".format(w=waitdetails), None, None
             else:
                 return True, "", None, None
 
@@ -605,7 +605,7 @@ class caldavtest(object):
                     hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
                     self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
                 else:
-                    return False, "Count did not change: {}".format(waitdetails), None, None
+                    return False, "Count did not change: {w}".format(w=waitdetails), None, None
             else:
                 return True, "", None, None
 

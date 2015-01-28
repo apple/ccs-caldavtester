@@ -149,7 +149,7 @@ class serverinfo(object):
 
 
     def newUIDs(self):
-        uidsubs = dict([("$uid{}:".format(i), str(uuid4())) for i in range(1, 21)])
+        uidsubs = dict([("$uid{u}:".format(u=i), str(uuid4())) for i in range(1, 21)])
         self.subsdict.update(uidsubs)
         self.extrasubsdict.update(uidsubs)
         return set([(v, k) for k, v in uidsubs.items()])
