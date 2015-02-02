@@ -352,6 +352,7 @@ def patchConfig(admin):
 
     # Needed for CDT
     plist["EnableAnonymousReadRoot"] = True
+    plist["EnableControlAPI"] = True
     if "Options" not in plist["Scheduling"]:
         plist["Scheduling"]["Options"] = dict()
 
