@@ -47,7 +47,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/freebusy/1.ics</filepath>
+					<filepath>Resource/CalDAV/freebusy-url/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -61,7 +61,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/freebusy/2.ics</filepath>
+					<filepath>Resource/CalDAV/freebusy-url/2.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -77,7 +77,7 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>$now.0:T000000Z/$now.1:T000000Z</value>
+						<value>$now.1:T000000Z/$now.2:T000000Z</value>
 					</arg>
 				</verify>
 			</request>
@@ -91,7 +91,7 @@
 					<callback>freeBusy</callback>
 					<arg>
 						<name>busy</name>
-						<value>$now.0:T000000Z/$now.1:T000000Z</value>
+						<value>$now.1:T000000Z/$now.2:T000000Z</value>
 					</arg>
 				</verify>
 			</request>
