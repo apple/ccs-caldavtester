@@ -212,6 +212,13 @@
 						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</value>
 					</arg>
 				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>notcontains</name>
+						<value>X-CALENDARSERVER-PERUSER</value>
+					</arg>
+				</verify>
 				<grabelement>
 					<name>$multistatus-href-prefix:</name>
 					<variable>$href1:</variable>
