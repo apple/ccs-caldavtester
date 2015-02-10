@@ -79,12 +79,12 @@ if __name__ == "__main__":
         error("Could not copy server info file: '%s' to '%s'" % (server_path, archive_path,), e)
 
     # Get server logs
-    server_path = "/var/log/caldavd"
+    logs_path = os.path.join(library_root, "Logs")
     archive_path = os.path.join(dirname, "logs")
     try:
-        shutil.copytree(server_path, archive_path)
+        shutil.copytree(logs_path, archive_path)
     except Exception as e:
-        error("Could not copy server logs: '%s' to '%s'" % (server_path, archive_path,), e)
+        error("Could not copy server logs: '%s' to '%s'" % (logs_path, archive_path,), e)
 
     # Get server config files
     server_path = os.path.join(server_root, "etc", "caldavd")
