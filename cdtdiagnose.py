@@ -20,6 +20,7 @@ import os
 import datetime
 import shutil
 import sys
+import argparse
 from subprocess import Popen, PIPE
 
 server_root = "/Applications/Server.app/Contents/ServerRoot"
@@ -45,6 +46,13 @@ def cmd(args, input=None, raiseOnFail=True):
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser(
+        description='Gather CalDAVTester diagnostics.',
+    )
+    parser.add_argument('-d', '--directory', action='store',
+              help='Destination directory for diagnostics archive')
+    args = parser.parse_args()
+
     print "Running CDT diagnostics due to test failure."
     log = []
 
@@ -57,6 +65,14 @@ if __name__ == "__main__":
     now = datetime.datetime.now()
     now = now.replace(microsecond=0)
     dirname = "cdtdiagnose-%s" % (now.strftime("%Y%m%d-%H%M%S"),)
+
+    if args.directory is not None:
+        if not os.path.isdir(args.directory):
+            print "Specified target directory path is invalid, using default."
+        else:
+            dirname = os.path.join(args.directory, dirname)
+
+    print "Saving diagnostic archive to: {}".format(dirname,)
     try:
         os.mkdir(dirname)
     except Exception as e:
