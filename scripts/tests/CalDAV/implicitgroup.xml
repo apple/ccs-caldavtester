@@ -148,6 +148,9 @@
 	</test-suite>
 	
 	<test-suite name='Invite empty group, then add member'>
+		<require-feature>
+			<feature>control-api</feature>
+		</require-feature>
 		<test name='1'>
 			<description>Organizer invites Group Attendee</description>
 			<request>
@@ -263,6 +266,9 @@
 	</test-suite>
 	
 	<test-suite name='Invite group, then remove member'>
+		<require-feature>
+			<feature>control-api</feature>
+		</require-feature>
 		<test name='1'>
 			<description>Organizer invites Group Attendee</description>
 			<request>
@@ -396,6 +402,9 @@
 	</test-suite>
 
 	<test-suite name='Recurring invite empty group, then add member to split'>
+		<require-feature>
+			<feature>control-api</feature>
+		</require-feature>
 		<test name='1'>
 			<description>Organizer invites Group Attendee</description>
 			<request>
@@ -562,6 +571,9 @@
 	</test-suite>
 
 	<test-suite name='Recurring invite two members group, then remove member to split'>
+		<require-feature>
+			<feature>control-api</feature>
+		</require-feature>
 		<test name='1'>
 			<description>Add group members</description>
 			<request user="$useradmin:" pswd="$pswdadmin:">
