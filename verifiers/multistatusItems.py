@@ -19,6 +19,7 @@ Verifier that checks a multistatus response to make sure that the specified href
 are returned with appropriate status codes.
 """
 
+from src.utils import processHrefSubstitutions
 from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 import urllib
@@ -47,9 +48,9 @@ class Verifier(object):
             prefix = prefix[0] if prefix[0] != "-" else ""
         else:
             prefix = uri
-        okhrefs = [(prefix + i).rstrip("/") for i in okhrefs]
-        nohrefs = [(prefix + i).rstrip("/") for i in nohrefs]
-        badhrefs = [(prefix + i).rstrip("/") for i in badhrefs]
+        okhrefs = processHrefSubstitutions(okhrefs, prefix)
+        nohrefs = processHrefSubstitutions(nohrefs, prefix)
+        badhrefs = processHrefSubstitutions(badhrefs, prefix)
         count = [int(eval(i)) for i in count]
         totalcount = [int(eval(i)) for i in totalcount]
         responsecount = [int(eval(i)) for i in responsecount]
