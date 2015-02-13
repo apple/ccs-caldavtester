@@ -128,7 +128,10 @@ class Verifier(object):
             return result, resulttxt
 
         # Check for total count
-        if len(totalcount) == 1:
+        if len(totalcount) > 0:
+            # Add the 2nd value to the 1st if it exists
+            if len(totalcount) == 2:
+                totalcount[0] += totalcount[1]
             if len(ok_result_set) != totalcount[0]:
                 result = False
                 resulttxt += "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0],)
