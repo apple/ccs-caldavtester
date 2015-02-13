@@ -31,5 +31,5 @@ class Observer(LogObserver):
         })
 
 
-    def trace(self, text):
+    def trace(self, text, indent=0):
         self.manager.logit(text)

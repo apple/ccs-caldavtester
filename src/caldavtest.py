@@ -226,13 +226,18 @@ class caldavtest(object):
                     if failed:
                         break
 
-            self.manager.testResult(testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED)
+            addons = {}
             if len(resulttxt) > 0:
                 self.manager.message("trace", resulttxt)
             if result and test.stats:
                 self.manager.message("trace", "    Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
                 self.manager.message("trace", "    Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8)
+                addons["timing"] = {
+                    "total": reqstats.totaltime,
+                    "average": reqstats.totaltime / reqstats.count,
+                }
             self.postgresResult(postgresCount, indent=8)
+            self.manager.testResult(testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED, addons)
             return ["f", "t"][result]
 
 

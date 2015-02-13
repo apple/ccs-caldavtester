@@ -117,12 +117,15 @@ class manager(object):
         return testfile[-1]["tests"]
 
 
-    def testResult(self, testsuite, name, details, result,):
-        testsuite.append({
+    def testResult(self, testsuite, name, details, result, addons=None):
+        result = {
             "name": name,
             "result": result,
             "details": details
-        })
+        }
+        if addons:
+            result.update(addons)
+        testsuite.append(result)
         self.totals[result] += 1
         self.message("testResult", testsuite[-1])
 
