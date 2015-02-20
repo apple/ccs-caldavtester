@@ -38,6 +38,7 @@ import socket
 import src.xmlDefs
 import sys
 import time
+import traceback
 import urllib
 import urlparse
 
@@ -124,6 +125,8 @@ class caldavtest(object):
             return 0, 1, 0
         except Exception, e:
             self.manager.testFile(self.name, "FATAL ERROR: %s" % (e,), manager.RESULT_ERROR)
+            if self.manager.debug:
+                traceback.print_exc()
             return 0, 1, 0
 
 

@@ -118,14 +118,14 @@ class manager(object):
 
 
     def testResult(self, testsuite, name, details, result, addons=None):
-        result = {
+        result_details = {
             "name": name,
             "result": result,
             "details": details
         }
         if addons:
-            result.update(addons)
-        testsuite.append(result)
+            result_details.update(addons)
+        testsuite.append(result_details)
         self.totals[result] += 1
         self.message("testResult", testsuite[-1])
 
