@@ -49,8 +49,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='Gather CalDAVTester diagnostics.',
     )
-    parser.add_argument('-d', '--directory', action='store',
-              help='Destination directory for diagnostics archive')
+    parser.add_argument(
+        '-d', '--directory', action='store',
+        help='Destination directory for diagnostics archive'
+    )
     args = parser.parse_args()
 
     print "Running CDT diagnostics due to test failure."
