@@ -384,6 +384,10 @@
 						<name>filepath</name>
 						<value>Resource/CalDAV/implicit/attendeedelete/non-recurring/11.ics</value>
 					</arg>
+					<arg>
+						<name>filter</name>
+						<value>ORGANIZER:SCHEDULE-STATUS</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -413,7 +417,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring with master'>
+	<test-suite name='Recurring with master' change-uid='yes'>
 		<test name='1'>
 			<description>Organizer stores event</description>
 			<request>
@@ -803,6 +807,10 @@
 						<name>filepath</name>
 						<value>Resource/CalDAV/implicit/attendeedelete/recurring-master/17.ics</value>
 					</arg>
+					<arg>
+						<name>filter</name>
+						<value>ORGANIZER:SCHEDULE-STATUS</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
@@ -832,7 +840,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring without master'>
+	<test-suite name='Recurring without master' change-uid='yes'>
 		<test name='1'>
 			<description>Organizer stores event</description>
 			<request>
@@ -1247,7 +1255,7 @@
 		</test>
 	</test-suite>
 	
-	<test-suite name='Recurring without master - delete of undeclined instance'>
+	<test-suite name='Recurring without master - delete of undeclined instance' change-uid='yes'>
 		<test name='1'>
 			<description>Organizer stores event</description>
 			<request>

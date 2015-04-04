@@ -1048,6 +1048,13 @@
 			</request>
 		</test>
 		<test name='10'>
+			<description>Organizer Inbox Item</description>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+		</test>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
