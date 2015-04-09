@@ -1518,6 +1518,48 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Invalid CalDAV:timezone-id'>
+		<require-feature>
+			<feature>timezones-by-reference</feature>
+		</require-feature>
+		<test name='1'>
+			<description>query with invalid timezone id</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/errors/50.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}valid-timezone</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>proppatch with invalid timezone id</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/errors/51.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>badprops</name>
+						<value>{urn:ietf:params:xml:ns:caldav}calendar-timezone-id</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Invalid urn: calendar user address'>
 		<test name='1'>
 			<description>POST free busy</description>

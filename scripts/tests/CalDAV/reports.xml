@@ -1992,7 +1992,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='12'>
+		<test name='12a'>
 			<description>Invalid VTIMEZONE check</description>
 			<request>
 				<method>REPORT</method>
@@ -2006,6 +2006,27 @@
 					<arg>
 						<name>error</name>
 						<value>{urn:ietf:params:xml:ns:caldav}valid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='12b'>
+			<require-feature>
+				<feature>timezones-by-reference</feature>
+			</require-feature>
+			<description>Invalid TZID check</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/timerangequery/105.xml</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}valid-timezone</value>
 					</arg>
 				</verify>
 			</request>
@@ -3037,7 +3058,7 @@
 				</verify>
 			</request>
 		</test>
-		<test name='9'>
+		<test name='9a'>
 			<description>query with expand all-day - timezone</description>
 			<request>
 				<method>REPORT</method>
@@ -3045,6 +3066,35 @@
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/CalDAV/reports/limitexpand/7.xml</filepath>
+				</data>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>okhrefs</name>
+						<value>18.ics</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>contains</name>
+						<value>VEVENT</value>
+						<value>DTSTART;VALUE=DATE:$now.year.2:1017</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9b'>
+			<require-feature>
+				<feature>timezones-by-reference</feature>
+			</require-feature>
+			<description>query with expand all-day - timezone-id</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/reports/limitexpand/14.xml</filepath>
 				</data>
 				<verify>
 					<callback>multistatusItems</callback>
