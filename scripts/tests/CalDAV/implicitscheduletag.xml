@@ -2758,9 +2758,14 @@
 						<value>Resource/CalDAV/implicit/scheduletag/otherattendee/3.ics</value>
 					</arg>
 				</verify>
+				<graburi>$uri-attendee2:</graburi>
 				<grabheader>
 					<name>Schedule-Tag</name>
 					<variable>$schedule-tag-attendee2:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Etag</name>
+					<variable>$etag-attendee2:</variable>
 				</grabheader>
 			</request>
 			<request user="$userid3:" pswd="$pswd3:">
@@ -2819,16 +2824,20 @@
 		</test>
 		<test name='8'>
 			<description>Attendee 2 -> Accepted all instances with If-Schedule-Tag-Match</description>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+			<request user="$userid2:" pswd="$pswd2:" wait-for-success="yes">
+				<method>HEAD</method>
+				<ruri>$uri-attendee2:</ruri>
 				<verify>
-					<callback>statusCode</callback>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>ETag!$etag-attendee2:</value>
+					</arg>
 				</verify>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PUT</method>
-				<ruri>$</ruri>
+				<ruri>$uri-attendee2:</ruri>
 				<header>
 					<name>If-Schedule-Tag-Match</name>
 					<value>$schedule-tag-attendee2:</value>
@@ -2845,8 +2854,8 @@
 		<test name='9'>
 			<description>Attendees checks data</description>
 			<request user="$userid2:" pswd="$pswd2:">
-				<method>GETNEW</method>
-				<ruri>$calendarpath2:/</ruri>
+				<method>GET</method>
+				<ruri>$uri-attendee2:</ruri>
 				<verify>
 					<callback>calendarDataMatch</callback>
 					<arg>
