@@ -28,8 +28,16 @@
 		<feature>quota</feature>
 	</require-feature>
 
-	<start/>
-	
+	<start>
+		<request user="$userid1:" pswd="$pswd1:">
+			<require-feature>
+				<feature>trash-collection</feature>
+			</require-feature>
+			<method>POST</method>
+			<ruri>$calendarhome1:/?action=emptytrash</ruri>
+		</request>
+	</start>
+
 	<test-suite name='Simple non-recurring, non-scheduled add attachment no prefer'>
 		<test name='1'>
 			<description>Quota check</description>
@@ -245,6 +253,13 @@
 		</test>
 		<test name='9'>
 			<description>Quota check</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<require-feature>
+					<feature>trash-collection</feature>
+				</require-feature>
+				<method>POST</method>
+				<ruri>$calendarhome1:/?action=emptytrash</ruri>
+			</request>
 			<request>
 				<exclude-feature>
 					<feature>quota-on-resources</feature>

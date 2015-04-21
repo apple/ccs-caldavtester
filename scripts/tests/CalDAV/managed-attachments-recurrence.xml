@@ -28,7 +28,7 @@
 	</require-feature>
 
 	<start/>
-	
+
 	<test-suite name='Cannot add attachment to instance'>
 		<test name='1'>
 			<description>PUT event</description>
@@ -309,6 +309,9 @@
 		</test>
 		<test name='7'>
 			<description>Check for attachment</description>
+			<exclude-feature>
+				<feature>trash-collection</feature>
+			</exclude-feature>
 			<request>
 				<method>GET</method>
 				<ruri>$location:</ruri>
@@ -323,6 +326,9 @@
 		</test>
 		<test name='8'>
 			<description>Check for attachment</description>
+			<exclude-feature>
+				<feature>trash-collection</feature>
+			</exclude-feature>
 			<request>
 				<method>GET</method>
 				<ruri>$location2:</ruri>

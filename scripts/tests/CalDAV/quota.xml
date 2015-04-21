@@ -27,10 +27,17 @@
 	</require-feature>
 
 	<start/>
-	
+
 	<test-suite name='Quota enabled by default on calendar home and below only'>
 		<test name='1'>
 			<description>props on /calendars/</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<require-feature>
+					<feature>trash-collection</feature>
+				</require-feature>
+				<method>POST</method>
+				<ruri>$calendarhome2:/?action=emptytrash</ruri>
+			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>PROPFIND</method>
 				<ruri>$calendars:</ruri>
@@ -630,5 +637,5 @@
 			<ruri>$inboxpath3:/</ruri>
 		</request>
 	</end>
-	
+
 </caldavtest>
