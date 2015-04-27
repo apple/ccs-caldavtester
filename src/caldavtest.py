@@ -259,9 +259,11 @@ class caldavtest(object):
         return result
 
 
-    def doget(self, resource, label=""):
+    def doget(self, original_request, resource, label=""):
         req = request(self.manager)
         req.method = "GET"
+        req.host = original_request.host
+        req.port = original_request.port
         req.ruris.append(resource[0])
         req.ruri = resource[0]
         if len(resource[1]):
@@ -275,10 +277,12 @@ class caldavtest(object):
         return True, respdata
 
 
-    def dofindall(self, collection, label=""):
+    def dofindall(self, original_request, collection, label=""):
         hrefs = []
         req = request(self.manager)
         req.method = "PROPFIND"
+        req.host = original_request.host
+        req.port = original_request.port
         req.ruris.append(collection[0])
         req.ruri = collection[0]
         req.headers["Depth"] = "1"
@@ -315,12 +319,14 @@ class caldavtest(object):
         return hrefs
 
 
-    def dodeleteall(self, deletes, label=""):
+    def dodeleteall(self, original_request, deletes, label=""):
         if len(deletes) == 0:
             return True
         for deleter in deletes:
             req = request(self.manager)
             req.method = "DELETE"
+            req.host = original_request.host
+            req.port = original_request.port
             req.ruris.append(deleter[0])
             req.ruri = deleter[0]
             if len(deleter[1]):
@@ -334,7 +340,7 @@ class caldavtest(object):
         return True
 
 
-    def dofindnew(self, collection, label="", other=False):
+    def dofindnew(self, original_request, collection, label="", other=False):
         hresult = ""
 
         uri = collection[0]
@@ -347,6 +353,8 @@ class caldavtest(object):
         possible_matches = set()
         req = request(self.manager)
         req.method = "PROPFIND"
+        req.host = original_request.host
+        req.port = original_request.port
         req.ruris.append(uri)
         req.ruri = uri
         req.headers["Depth"] = "1"
@@ -427,12 +435,14 @@ class caldavtest(object):
         return hresult
 
 
-    def dowaitcount(self, collection, count, label=""):
+    def dowaitcount(self, original_request, collection, count, label=""):
 
         hrefs = []
         for _ignore in range(self.manager.server_info.waitcount):
             req = request(self.manager)
             req.method = "PROPFIND"
+            req.host = original_request.host
+            req.port = original_request.port
             req.ruris.append(collection[0])
             req.ruri = collection[0]
             req.headers["Depth"] = "1"
@@ -470,7 +480,7 @@ class caldavtest(object):
             # Get the content of each resource
             rdata = ""
             for href in hrefs:
-                result, respdata = self.doget((href, collection[1], collection[2],), label)
+                result, respdata = self.doget(req, (href, collection[1], collection[2],), label)
                 test = "unknown"
                 if respdata.startswith("BEGIN:VCALENDAR"):
                     uid = respdata.find("UID:")
@@ -484,11 +494,13 @@ class caldavtest(object):
             return False, len(hrefs)
 
 
-    def dowaitchanged(self, uri, etag, user, pswd, label=""):
+    def dowaitchanged(self, original_request, uri, etag, user, pswd, label=""):
 
         for _ignore in range(self.manager.server_info.waitcount):
             req = request(self.manager)
             req.method = "HEAD"
+            req.host = original_request.host
+            req.port = original_request.port
             req.ruris.append(uri)
             req.ruri = uri
             if user:
@@ -522,6 +534,8 @@ class caldavtest(object):
         for deleter in self.end_deletes:
             req = request(self.manager)
             req.method = "DELETE"
+            req.host = deleter[3]
+            req.port = deleter[4]
             req.ruris.append(deleter[0])
             req.ruri = deleter[0]
             if len(deleter[1]):
@@ -551,8 +565,8 @@ class caldavtest(object):
         if req.method == "DELETEALL":
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
-                if not self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL")):
+                hrefs = self.dofindall(req, collection, label="%s | %s" % (label, "DELETEALL"))
+                if not self.dodeleteall(req, hrefs, label="%s | %s" % (label, "DELETEALL")):
                     return False, "DELETEALL failed for: {r}".format(r=ruri), None, None
             return True, "", None, None
 
@@ -568,7 +582,7 @@ class caldavtest(object):
         # Special for GETNEW
         elif req.method == "GETNEW":
             collection = (req.ruri, req.user, req.pswd)
-            self.grabbedlocation = self.dofindnew(collection, label=label)
+            self.grabbedlocation = self.dofindnew(req, collection, label=label)
             if req.graburi:
                 self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             req.method = "GET"
@@ -577,7 +591,7 @@ class caldavtest(object):
         # Special for FINDNEW
         elif req.method == "FINDNEW":
             collection = (req.ruri, req.user, req.pswd)
-            self.grabbedlocation = self.dofindnew(collection, label=label)
+            self.grabbedlocation = self.dofindnew(req, collection, label=label)
             if req.graburi:
                 self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             return True, "", None, None
@@ -585,7 +599,7 @@ class caldavtest(object):
         # Special for GETOTHER
         elif req.method == "GETOTHER":
             collection = (req.ruri, req.user, req.pswd)
-            self.grabbedlocation = self.dofindnew(collection, label=label, other=True)
+            self.grabbedlocation = self.dofindnew(req, collection, label=label, other=True)
             if req.graburi:
                 self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             req.method = "GET"
@@ -596,7 +610,7 @@ class caldavtest(object):
             count = int(req.method[10:])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                waitresult, waitdetails = self.dowaitcount(collection, count, label=label)
+                waitresult, waitdetails = self.dowaitcount(req, collection, count, label=label)
                 if not waitresult:
                     return False, "Count did not change: {w}".format(w=waitdetails), None, None
             else:
@@ -607,10 +621,10 @@ class caldavtest(object):
             count = int(req.method[len("WAITDELETEALL"):])
             for ruri in req.ruris:
                 collection = (ruri, req.user, req.pswd)
-                waitresult, waitdetails = self.dowaitcount(collection, count, label=label)
+                waitresult, waitdetails = self.dowaitcount(req, collection, count, label=label)
                 if waitresult:
-                    hrefs = self.dofindall(collection, label="%s | %s" % (label, "DELETEALL"))
-                    self.dodeleteall(hrefs, label="%s | %s" % (label, "DELETEALL"))
+                    hrefs = self.dofindall(req, collection, label="%s | %s" % (label, "DELETEALL"))
+                    self.dodeleteall(req, hrefs, label="%s | %s" % (label, "DELETEALL"))
                 else:
                     return False, "Count did not change: {w}".format(w=waitdetails), None, None
             else:
@@ -630,7 +644,7 @@ class caldavtest(object):
 
         # Cache delayed delete
         if req.end_delete:
-            self.end_deletes.append((uri, req.user, req.pswd))
+            self.end_deletes.append((uri, req.user, req.pswd, req.host, req.port,))
 
         if details:
             resulttxt += "        %s: %s\n" % (method, uri)
@@ -638,6 +652,7 @@ class caldavtest(object):
         # Special for GETCHANGED
         if req.method == "GETCHANGED":
             if not self.dowaitchanged(
+                req,
                 uri, etags[uri], req.user, req.pswd,
                 label=label
             ):

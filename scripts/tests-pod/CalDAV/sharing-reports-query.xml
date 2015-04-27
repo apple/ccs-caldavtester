@@ -2984,6 +2984,15 @@
 		</test>
 	</test-suite>
 	
-	<end/>
+	<end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$notificationpath1:/</ruri>
+		</request>
+		<request host2="yes" user="$useradmin:" pswd="$pswdadmin:">
+			<method>DELETEALL</method>
+			<ruri>$pnotificationpath2:/</ruri>
+		</request>
+	</end>
 	
 </caldavtest>
