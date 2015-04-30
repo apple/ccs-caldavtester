@@ -2218,6 +2218,30 @@
 					</arg>
 				</verify>
 			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='6'>
 			<description>Properties are set for one proxy</description>
@@ -2241,6 +2265,30 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='7'>
 			<description>Properties are set for one proxy</description>
@@ -2257,6 +2305,30 @@
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
 					<arg>
 						<name>okprops</name>
 						<value>{http://calendarserver.org/ns/}details$User01</value>
@@ -2306,6 +2378,30 @@
 					</arg>
 				</verify>
 			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User03</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='10'>
 			<description>Properties are set for one proxy</description>
@@ -2322,6 +2418,30 @@
 				</data>
 				<verify>
 					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User03</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
 					<arg>
 						<name>okprops</name>
 						<value>{http://calendarserver.org/ns/}details$User03</value>
@@ -2352,8 +2472,331 @@
 					</arg>
 				</verify>
 			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User03</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000003</value>
+					</arg>
+				</verify>
+			</request>
 		</test>
 		<test name='12'>
+			<description>Reset proxies</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+
+	<test-suite name='Per-proxy properties - with no delegator property'>
+		<test name='1'>
+			<description>Add user02 as read proxy for user01</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/3.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri2:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Add user03 as write proxy for user01</description>
+			<request>
+				<method>PROPPATCH</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/17.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{DAV:}group-member-set</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/2.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set/{DAV:}href[=$principaluri3:]</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership[|]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Simple MKCALENDAR</description>
+			<request end-delete='yes'>
+				<method>MKCALENDAR</method>
+				<ruri>$calendarhome1:/proxytest2/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Change some properties for one proxy only</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPPATCH</method>
+				<ruri>$calendarhome1:/proxytest2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/18.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details</value>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Properties are not set for owner</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/proxytest2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest2/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Properties are set for one proxy</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/proxytest2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest2/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+						<value>{http://apple.com/ns/ical/}calendar-color$#000001</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Properties are not set for one proxy</description>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/proxytest2/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/19.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>only</name>
+						<value>$calendarhome1:/proxytest2/</value>
+					</arg>
+					<arg>
+						<name>okprops</name>
+						<value>{http://calendarserver.org/ns/}details$User01</value>
+					</arg>
+					<arg>
+						<name>badprops</name>
+						<value>{http://apple.com/ns/ical/}calendar-color</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
 			<description>Reset proxies</description>
 			<request>
 				<method>PROPPATCH</method>
