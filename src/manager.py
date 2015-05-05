@@ -22,7 +22,6 @@ from src.serverinfo import serverinfo
 from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import getopt
-import httplib
 import os
 import random
 import src.xmlDefs
@@ -400,23 +399,6 @@ class manager(object):
             self.logFile.close()
 
         return failed, endTime - startTime
-
-
-    def httpRequest(self, method, uri, headers, data):
-
-        # Do the http request
-        http = httplib.HTTPConnection(self.server_info.host, self.server_info.port)
-        try:
-            http.request(method, uri, data, headers)
-
-            response = http.getresponse()
-
-            respdata = response.read()
-
-        finally:
-            http.close()
-
-        return response.status, respdata
 
 
     def getMemusage(self):

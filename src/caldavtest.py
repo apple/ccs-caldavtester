@@ -664,7 +664,7 @@ class caldavtest(object):
             stats.startTimer()
 
         # Do the http request
-        http = SmartHTTPConnection(req.host, req.port, self.manager.server_info.ssl)
+        http = SmartHTTPConnection(req.host, req.port, self.manager.server_info.ssl, afunix=req.afunix)
 
         if 'User-Agent' not in headers and label is not None:
             headers['User-Agent'] = label.encode("utf-8")

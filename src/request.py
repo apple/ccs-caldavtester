@@ -146,6 +146,7 @@ class request(object):
         self.manager = manager
         self.host = self.manager.server_info.host
         self.port = self.manager.server_info.port
+        self.afunix = self.manager.server_info.afunix
         self.auth = True
         self.user = ""
         self.pswd = ""
@@ -234,7 +235,7 @@ class request(object):
         if user in self.manager.digestCache:
             details = self.manager.digestCache[user]
         else:
-            http = SmartHTTPConnection(si.host, si.port, si.ssl)
+            http = SmartHTTPConnection(si.host, si.port, si.ssl, si.afunix)
             try:
                 http.request("OPTIONS", self.getURI(si))
 
@@ -381,6 +382,7 @@ class request(object):
         if node.get(src.xmlDefs.ATTR_HOST2, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES:
             self.host = self.manager.server_info.host2
             self.port = self.manager.server_info.port2
+            self.afunix = self.manager.server_info.afunix2
 
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:

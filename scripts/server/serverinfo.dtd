@@ -14,15 +14,19 @@
  limitations under the License.
  -->
 
-<!ELEMENT serverinfo (host, nonsslport, sslport, host2?, nonsslport2?, sslport2?, authtype?,
-						waitcount?, waitdelay?, waitsuccess?, features?, substitutions)? >
+<!ELEMENT serverinfo (host, nonsslport, sslport, unix?,
+						host2?, nonsslport2?, sslport2?, unix2?,
+						authtype?, waitcount?, waitdelay?, waitsuccess?,
+						features?, substitutions)? >
 
 	<!ELEMENT host			(#PCDATA)>
 	<!ELEMENT nonsslport	(#PCDATA)>
 	<!ELEMENT sslport		(#PCDATA)>
+	<!ELEMENT unix			(#PCDATA)>
 	<!ELEMENT host2			(#PCDATA)>
 	<!ELEMENT nonsslport2	(#PCDATA)>
 	<!ELEMENT sslport2		(#PCDATA)>
+	<!ELEMENT unix2			(#PCDATA)>
 	<!ELEMENT authtype		(#PCDATA)>
 	<!ELEMENT waitdelay     (#PCDATA)>
 	<!ELEMENT waitcount     (#PCDATA)>

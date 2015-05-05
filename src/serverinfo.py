@@ -36,9 +36,11 @@ class serverinfo(object):
         self.host = ""
         self.nonsslport = 80
         self.sslport = 443
+        self.afunix = None
         self.host2 = ""
         self.nonsslport2 = 80
         self.sslport2 = 443
+        self.afunix2 = None
         self.authtype = "basic"
         self.features = set()
         self.user = ""
@@ -166,6 +168,8 @@ class serverinfo(object):
                 self.nonsslport = int(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_SSLPORT:
                 self.sslport = int(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_UNIX:
+                self.afunix = child.text
             elif child.tag == src.xmlDefs.ELEMENT_HOST2:
                 try:
                     self.host2 = child.text.encode("utf-8")
@@ -175,6 +179,8 @@ class serverinfo(object):
                 self.nonsslport2 = int(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_SSLPORT2:
                 self.sslport2 = int(child.text)
+            elif child.tag == src.xmlDefs.ELEMENT_UNIX2:
+                self.afunix2 = child.text
             elif child.tag == src.xmlDefs.ELEMENT_AUTHTYPE:
                 self.authtype = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_WAITCOUNT:
