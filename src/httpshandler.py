@@ -46,8 +46,8 @@ class UnixSocketHTTPConnection(httplib.HTTPConnection):
     An L{httplib.HTTPConnection} class that uses a unix socket rather than TCP.
     """
 
-    def __init__(self, path):
-        httplib.HTTPConnection.__init__(self, "http.sock", port=None)
+    def __init__(self, path, host, port):
+        httplib.HTTPConnection.__init__(self, host, port)
         self.path = path
 
 
@@ -80,7 +80,7 @@ def SmartHTTPConnection(host, port, ssl, afunix):
         return connect
 
     if afunix:
-        connect = UnixSocketHTTPConnection(afunix)
+        connect = UnixSocketHTTPConnection(afunix, host, port)
     elif ssl:
         # Iterate over the TL:S versions and find one that works and cache it for future use.
         for cached, connection_type in cached_types:
