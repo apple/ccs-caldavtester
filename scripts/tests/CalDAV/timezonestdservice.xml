@@ -807,6 +807,31 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='PROPFIND timezone-service-set'>
+		<test name='1'>
+			<description>PROPFIND on home resource</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/timezonestdservice/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}timezone-service-set/{DAV:}href[=$timezonestdservice:]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end/>
 	
 </caldavtest>
