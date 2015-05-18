@@ -200,6 +200,42 @@
 				</verify>
 			</request>
 		</test>
+		<test name='25'>
+			<description>PUT to home</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookhome1:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcarderrors/8.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='26'>
+			<description>PUT to collection</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/vcarderrors/8.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
 
 	</test-suite>
 
