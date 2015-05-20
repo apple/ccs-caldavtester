@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE caldavtest SYSTEM "caldavtest.dtd">
+
+<!--
+ Copyright (c) 2006-2015 Apple Inc. All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<caldavtest ignore-all="no">
+	<description>Test trash-collection support on the server</description>
+
+	<require-feature>
+		<feature>caldav</feature>
+		<feature>trash-collection</feature>
+	</require-feature>
+
+	<start/>
+
+	<test-suite name='Trash recovery'>
+		<test name='1'>
+			<description>PUT an event</description>
+	        <request>
+	            <method>MKCALENDAR</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+	        <request>
+	            <method>PUT</method>
+	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+	            <data>
+	                <content-type>text/calendar; charset=utf-8</content-type>
+	                <filepath>Resource/CalDAV/trash/1.txt</filepath>
+	            </data>
+	        </request>
+	        <request>
+	            <method>DELETE</method>
+	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+	        </request>
+	        <request>
+	            <method>GET</method>
+	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+                <verify>
+			        <callback>statusCode</callback>
+			        <arg>
+			            <name>status</name>
+			            <value>404</value>
+			        </arg>
+                </verify>
+	        </request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+			</request>
+	        <request>
+	            <method>GETNEW</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/trash/1.txt</value>
+                    </arg>
+                </verify>
+	        </request>
+	        <request>
+	            <method>DELETEALL</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+	        <request>
+	            <method>DELETE</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+		</test>
+	</test-suite>
+
+	<end/>
+
+</caldavtest>
