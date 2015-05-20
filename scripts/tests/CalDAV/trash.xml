@@ -28,7 +28,7 @@
 
 	<start/>
 
-	<test-suite name='Trash recovery'>
+	<test-suite name='Simple trashed event recovery'>
 		<test name='1'>
 			<description>PUT an event</description>
 	        <request>
@@ -81,6 +81,166 @@
 	            <method>DELETE</method>
 	            <ruri>$calendarhome1:/tobedeleted/</ruri>
 	        </request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/?action=emptytrash</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+
+	<test-suite name='Trashed events do not show up in freebusy'>
+		<test name='1'>
+			<description>PUT an event</description>
+	        <request>
+	            <method>MKCALENDAR</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+	    </test>
+	    <test name='2'>
+            <description>PUT timed event</description>
+            <request>
+                <method>PUT</method>
+                <ruri>$calendarhome1:/tobedeleted/timed.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/timed.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+ 	    </test>
+ 	    <test name='3'>
+            <description>Freebusy matches timed event</description>
+            <request print-response="yes">
+                <method>POST</method>
+                <ruri>$outboxpath1:/</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/fb.ics</filepath>
+                </data>
+                <verify>
+                    <callback>postFreeBusy</callback>
+                    <arg>
+                        <name>attendee</name>
+                        <value>$cuaddr1:</value>
+                    </arg>
+                    <arg>
+                        <name>busy</name>
+                        <value>$now.0:T130000Z/$now.0:T140000Z</value>
+                    </arg>
+                </verify>
+            </request>
+ 	    </test>
+	    <test name='4'>
+            <description>PUT all-day event</description>
+            <request>
+                <method>PUT</method>
+                <ruri>$calendarhome1:/tobedeleted/allday.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/allday.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+ 	    </test>
+	    <test name='5'>
+            <description>Freebusy matches all-day event</description>
+            <request print-response="yes">
+                <method>POST</method>
+                <ruri>$outboxpath1:/</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/fb.ics</filepath>
+                </data>
+                <verify>
+                    <callback>postFreeBusy</callback>
+                    <arg>
+                        <name>attendee</name>
+                        <value>$cuaddr1:</value>
+                    </arg>
+                    <arg>
+                        <name>busy</name>
+                        <value>$now.0:T000000Z/$now.1:T000000Z</value>
+                    </arg>
+                </verify>
+            </request>
+ 	    </test>
+	    <test name='6'>
+            <description>Delete all-day event</description>
+	        <request>
+	            <method>DELETE</method>
+	            <ruri>$calendarhome1:/tobedeleted/allday.ics</ruri>
+	        </request>
+ 	    </test>
+	    <test name='7'>
+            <description>Freebusy matches timed event</description>
+             <request print-response="yes">
+                <method>POST</method>
+                <ruri>$outboxpath1:/</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/fb.ics</filepath>
+                </data>
+                <verify>
+                    <callback>postFreeBusy</callback>
+                    <arg>
+                        <name>attendee</name>
+                        <value>$cuaddr1:</value>
+                    </arg>
+                    <arg>
+                        <name>busy</name>
+                        <value>$now.0:T130000Z/$now.0:T140000Z</value>
+                    </arg>
+                </verify>
+            </request>
+ 	    </test>
+	    <test name='8'>
+            <description>Recover trashed all-day event</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+			</request>
+ 	    </test>
+	    <test name='9'>
+            <description>Freebusy matches all-day event once more</description>
+             <request print-response="yes">
+                <method>POST</method>
+                <ruri>$outboxpath1:/</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/fb.ics</filepath>
+                </data>
+                <verify>
+                    <callback>postFreeBusy</callback>
+                    <arg>
+                        <name>attendee</name>
+                        <value>$cuaddr1:</value>
+                    </arg>
+                    <arg>
+                        <name>busy</name>
+                        <value>$now.0:T000000Z/$now.1:T000000Z</value>
+                    </arg>
+                </verify>
+            </request>
+  	    </test>
+	    <test name='10'>
+            <description>Clean up</description>
+            <request>
+	            <method>DELETEALL</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+	        <request>
+	            <method>DELETE</method>
+	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+	        </request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/?action=emptytrash</ruri>
+			</request>
 		</test>
 	</test-suite>
 
