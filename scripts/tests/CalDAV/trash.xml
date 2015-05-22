@@ -26,7 +26,12 @@
 		<feature>trash-collection</feature>
 	</require-feature>
 
-	<start/>
+	<start>
+		<request>
+			<method>POST</method>
+			<ruri>$calendarhome1:/?action=emptytrash</ruri>
+		</request>
+	</start>
 
 	<test-suite name='Simple trashed event recovery'>
 		<test name='1'>
@@ -377,6 +382,14 @@
             <request>
                 <method>DELETE</method>
                 <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>WAITDELETEALL 1</method>
+                <ruri>$inboxpath2:/</ruri>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>DELETEALL</method>
+                <ruri>$calendarpath2:/</ruri>
             </request>
             <request>
                 <method>POST</method>
