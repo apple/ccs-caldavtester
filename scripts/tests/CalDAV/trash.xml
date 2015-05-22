@@ -91,7 +91,7 @@
 
 	<test-suite name='Trashed events do not show up in freebusy'>
 		<test name='1'>
-			<description>PUT an event</description>
+			<description>Create a calendar</description>
 	        <request>
 	            <method>MKCALENDAR</method>
 	            <ruri>$calendarhome1:/tobedeleted/</ruri>
@@ -243,6 +243,147 @@
 			</request>
 		</test>
 	</test-suite>
+
+    <test-suite name='Organizer trashes event'>
+        <test name='1'>
+            <description>Create a calendar</description>
+            <request>
+                <method>MKCALENDAR</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+        </test>
+        <test name='2'>
+            <description>PUT scheduled event</description>
+            <request>
+                <method>PUT</method>
+                <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/organizertrash/invite.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+        <test name='3'>
+            <description>One item in user02 Inbox</description>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>WAITDELETEALL 1</method>
+                <ruri>$inboxpath2:/</ruri>
+            </request>
+        </test>
+        <test name='4'>
+            <description>Attendee -> Accepted</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$calendarpath2:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>PUT</method>
+                <ruri>$</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/organizertrash/reply.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+        <test name='5'>
+            <description>One item in user01 Inbox</description>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>WAITDELETEALL 1</method>
+                <ruri>$inboxpath1:/</ruri>
+            </request>
+        </test>
+        <test name='6'>
+            <description>Organizer trashes event</description>
+            <request>
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+            </request>
+        </test>
+        <test name='7'>
+            <description>One item in user02 Inbox</description>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>WAITDELETEALL 1</method>
+                <ruri>$inboxpath2:/</ruri>
+            </request>
+        </test>
+        <test name='8'>
+            <description>Attendee sees cancellation</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$calendarpath2:/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/trash/organizertrash/cancelled.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+        <test name='9'>
+            <description>Attendee deletes cancellation</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>DELETE</method>
+                <ruri>$</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='10'>
+            <description>Recover trash</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+            </request>
+        </test>
+        <test name='11'>
+            <description>One item in user02 Inbox</description>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>WAITDELETEALL 1</method>
+                <ruri>$inboxpath2:/</ruri>
+            </request>
+        </test>
+        <test name='12'>
+            <description>Attendee sees re-invite</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$calendarpath2:/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/trash/organizertrash/recovered.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+        <test name='13'>
+            <description>Clean up</description>
+            <request>
+                <method>DELETEALL</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=emptytrash</ruri>
+            </request>
+        </test>
+    </test-suite>
 
 	<end/>
 
