@@ -68,6 +68,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
 		</test>
 		<test name='1.4'>
 			<description>Create new single-instance meeting titled "Meeting 1.4" with an alarm set to trigger 15 minutes prior to the schedule time of the meeting.</description>
@@ -141,6 +149,10 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
 		</test>
 		<test name='2.5'>
 			<description>Add an alarm to "Meeting 1.1bis".</description>
@@ -183,6 +195,14 @@
 					<callback>statusCode</callback>
 				</verify>
 			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath3:/</ruri>
+			</request>
 		</test>
 		<test name='2.8'>
 			<description>Cancel the 4th instance of the recurring meeting created in 1.2.</description>
@@ -210,6 +230,10 @@
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
@@ -334,26 +358,23 @@
 		<request user="$userid1:" pswd="$pswd1:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath1:/</ruri>
-		</request>
-		<request user="$userid1:" pswd="$pswd1:">
-			<method>DELETEALL</method>
 			<ruri>$inboxpath1:/</ruri>
+		</request>
+		<request user="$userid2:" pswd="$pswd2:">
+			<method>WAITDELETEALL 2</method>
+			<ruri>$inboxpath2:/</ruri>
+		</request>
+		<request user="$userid3:" pswd="$pswd3:">
+			<method>WAITDELETEALL 1</method>
+			<ruri>$inboxpath3:/</ruri>
 		</request>
 		<request user="$userid2:" pswd="$pswd2:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath2:/</ruri>
 		</request>
-		<request user="$userid2:" pswd="$pswd2:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath2:/</ruri>
-		</request>
 		<request user="$userid3:" pswd="$pswd3:">
 			<method>DELETEALL</method>
 			<ruri>$calendarpath3:/</ruri>
-		</request>
-		<request user="$userid3:" pswd="$pswd3:">
-			<method>DELETEALL</method>
-			<ruri>$inboxpath3:/</ruri>
 		</request>
 	</end>
 	
