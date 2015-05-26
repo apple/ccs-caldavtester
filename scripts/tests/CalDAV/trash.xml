@@ -31,6 +31,10 @@
 			<method>POST</method>
 			<ruri>$calendarhome1:/?action=emptytrash</ruri>
 		</request>
+        <request user="$userid2:" pswd="$pswd2:">
+            <method>POST</method>
+            <ruri>$calendarhome2:/?action=emptytrash</ruri>
+        </request>
 	</start>
 
 	<test-suite name='Simple trashed event recovery'>
@@ -78,19 +82,21 @@
                     </arg>
                 </verify>
 	        </request>
-	        <request>
-	            <method>DELETEALL</method>
-	            <ruri>$calendarhome1:/tobedeleted/</ruri>
-	        </request>
-	        <request>
-	            <method>DELETE</method>
-	            <ruri>$calendarhome1:/tobedeleted/</ruri>
-	        </request>
-			<request>
-				<method>POST</method>
-				<ruri>$calendarhome1:/?action=emptytrash</ruri>
-			</request>
 		</test>
+        <test name='clean up'>
+            <request>
+                <method>DELETEALL</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=emptytrash</ruri>
+            </request>
+        </test>
 	</test-suite>
 
 
@@ -232,21 +238,20 @@
                 </verify>
             </request>
   	    </test>
-	    <test name='10'>
-            <description>Clean up</description>
+        <test name='clean up'>
             <request>
-	            <method>DELETEALL</method>
-	            <ruri>$calendarhome1:/tobedeleted/</ruri>
-	        </request>
-	        <request>
-	            <method>DELETE</method>
-	            <ruri>$calendarhome1:/tobedeleted/</ruri>
-	        </request>
-			<request>
-				<method>POST</method>
-				<ruri>$calendarhome1:/?action=emptytrash</ruri>
-			</request>
-		</test>
+                <method>DELETEALL</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/tobedeleted/</ruri>
+            </request>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=emptytrash</ruri>
+            </request>
+        </test>
 	</test-suite>
 
     <test-suite name='Organizer trashes event'>
@@ -373,8 +378,7 @@
                 </verify>
             </request>
         </test>
-        <test name='13'>
-            <description>Clean up</description>
+        <test name='clean up'>
             <request>
                 <method>DELETEALL</method>
                 <ruri>$calendarhome1:/tobedeleted/</ruri>
@@ -394,6 +398,10 @@
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=emptytrash</ruri>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>POST</method>
+                <ruri>$calendarhome2:/?action=emptytrash</ruri>
             </request>
         </test>
     </test-suite>
@@ -483,7 +491,6 @@
                 </verify>
             </request>
         </test>
-
         <test name='9'>
             <description>Attendee recovers trash</description>
             <request>
@@ -512,8 +519,7 @@
                 </verify>
             </request>
         </test>
-        <test name='12'>
-            <description>Clean up</description>
+        <test name='clean up'>
             <request>
                 <method>DELETEALL</method>
                 <ruri>$calendarhome1:/tobedeleted/</ruri>
@@ -534,9 +540,14 @@
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=emptytrash</ruri>
             </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>POST</method>
+                <ruri>$calendarhome2:/?action=emptytrash</ruri>
+            </request>
         </test>
+
     </test-suite>
 
-	<end/>
+    <end/>
 
 </caldavtest>
