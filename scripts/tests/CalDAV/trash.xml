@@ -498,11 +498,11 @@
                 <ruri>$inboxpath1:/</ruri>
             </request>
         </test>
-        <test name='12'>
+        <test name='11'>
             <description>Organizer sees tentative</description>
-            <request user="$userid2:" pswd="$pswd2:">
-                <method>GETNEW</method>
-                <ruri>$calendarpath2:/</ruri>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>GET</method>
+                <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
                 <verify>
                     <callback>calendarDataMatch</callback>
                     <arg>
@@ -512,7 +512,7 @@
                 </verify>
             </request>
         </test>
-        <test name='13'>
+        <test name='12'>
             <description>Clean up</description>
             <request>
                 <method>DELETEALL</method>
