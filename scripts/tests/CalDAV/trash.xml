@@ -599,10 +599,189 @@
     </test-suite>
 
 
+    <test-suite name='Sharer trashes event'>
+
+        <test name='Setup'>
+            <request>
+                <method>MKCALENDAR</method>
+                <ruri>$calendarhome1:/shared/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/shared/</ruri>
+                <data>
+                    <content-type>text/xml; charset=utf-8</content-type>
+                    <filepath>Resource/Common/POST/sharinginvite23.xml</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>WAITCOUNT 1</method>
+                <ruri>$notificationpath2:/</ruri>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$notificationpath2:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <grabelement>
+                    <name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
+                    <variable>$inviteuid2:</variable>
+                </grabelement>
+                <grabelement>
+                    <name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}hosturl/{DAV:}href</name>
+                    <variable>$hosturl2:</variable>
+                </grabelement>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>POST</method>
+                <ruri>$calendarhome2:/</ruri>
+                <data>
+                    <content-type>application/xml; charset=utf-8</content-type>
+                    <filepath>Resource/Common/POST/sharingreply2.xml</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <grabelement>
+                    <name>{DAV:}href</name>
+                    <variable>$sharedcalendar2:</variable>
+                </grabelement>
+            </request>
+        </test>
+
+        <test name='1'>
+            <description>User01 adds event</description>
+            <request user="$userid1:" pswd="$pswd1:">
+                <method>PUT</method>
+                <ruri>$calendarhome1:/shared/1.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/sharing/peruser-data/simple-put/1.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='2'>
+            <description>User02 sees event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GET</method>
+                <ruri>$sharedcalendar2:/1.ics</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/sharing/peruser-data/simple-put/2.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='3'>
+            <description>User01 trashes event</description>
+            <request user="$userid1:" pswd="$pswd1:">
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/shared/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='4'>
+            <description>User02 no longer sees event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GET</method>
+                <ruri>$sharedcalendar2:/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                    <arg>
+                        <name>status</name>
+                        <value>404</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='5'>
+            <description>User01 recovers trash</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='6'>
+            <description>User01 sees event</description>
+            <request user="$userid1:" pswd="$pswd1:">
+                <method>GETNEW</method>
+                <ruri>$calendarhome1:/shared/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/sharing/peruser-data/simple-put/1.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='7'>
+            <description>User02 sees event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$sharedcalendar2:/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/sharing/peruser-data/simple-put/2.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='clean up'>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETEALL</method>
+                <ruri>$notificationpath1:/</ruri>
+                <ruri>$notificationpath2:/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETEALL</method>
+                <ruri>$sharedcalendar2:/</ruri>
+                <ruri>$calendarhome1:/shared/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETE</method>
+                <ruri>$sharedcalendar2:/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/shared/</ruri>
+            </request>
+        </test>
+
+
+    </test-suite>
+
+
     <test-suite name='Sharee trashes event'>
 
         <test name='Setup'>
-            <request end-delete="yes">
+            <request>
                 <method>MKCALENDAR</method>
                 <ruri>$calendarhome1:/shared/</ruri>
                 <verify>
@@ -713,7 +892,7 @@
         </test>
 
         <test name='5'>
-            <description>User01 no recovers trash</description>
+            <description>User01 recovers trash</description>
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
@@ -758,6 +937,19 @@
                 <method>DELETEALL</method>
                 <ruri>$notificationpath1:/</ruri>
                 <ruri>$notificationpath2:/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETEALL</method>
+                <ruri>$sharedcalendar2:/</ruri>
+                <ruri>$calendarhome1:/shared/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETE</method>
+                <ruri>$sharedcalendar2:/</ruri>
+            </request>
+            <request user="$useradmin:" pswd="$pswdadmin:">
+                <method>DELETE</method>
+                <ruri>$calendarhome1:/shared/</ruri>
             </request>
         </test>
 
