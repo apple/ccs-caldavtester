@@ -44,7 +44,12 @@
 	        <request>
 	            <method>MKCALENDAR</method>
 	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 	        </request>
+	    </test>
+		<test name='2'>
 	        <request>
 	            <method>PUT</method>
 	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
@@ -52,11 +57,21 @@
 	                <content-type>text/calendar; charset=utf-8</content-type>
 	                <filepath>Resource/CalDAV/trash/1.txt</filepath>
 	            </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 	        </request>
+	    </test>
+		<test name='3'>
 	        <request>
 	            <method>DELETE</method>
 	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 	        </request>
+	    </test>
+		<test name='4'>
 	        <request>
 	            <method>GET</method>
 	            <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
@@ -68,10 +83,17 @@
 			        </arg>
                 </verify>
 	        </request>
+	    </test>
+		<test name='5'>
 			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 			</request>
+	    </test>
+		<test name='6'>
 	        <request>
 	            <method>GETNEW</method>
 	            <ruri>$calendarhome1:/tobedeleted/</ruri>
@@ -107,6 +129,9 @@
 	        <request>
 	            <method>MKCALENDAR</method>
 	            <ruri>$calendarhome1:/tobedeleted/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 	        </request>
 	    </test>
 	    <test name='2'>
@@ -186,6 +211,9 @@
 	        <request>
 	            <method>DELETE</method>
 	            <ruri>$calendarhome1:/tobedeleted/allday.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 	        </request>
  	    </test>
 	    <test name='7'>
@@ -215,6 +243,9 @@
 			<request>
 				<method>POST</method>
 				<ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
 			</request>
  	    </test>
 	    <test name='9'>
@@ -261,6 +292,9 @@
             <request>
                 <method>MKCALENDAR</method>
                 <ruri>$calendarhome1:/tobedeleted/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='2'>
@@ -317,6 +351,9 @@
             <request>
                 <method>DELETE</method>
                 <ruri>$calendarhome1:/tobedeleted/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='7'>
@@ -356,6 +393,9 @@
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='11'>
@@ -413,6 +453,9 @@
             <request>
                 <method>MKCALENDAR</method>
                 <ruri>$calendarhome1:/tobedeleted/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='2'>
@@ -469,6 +512,9 @@
             <request user="$userid2:" pswd="$pswd2:">
                 <method>DELETE</method>
                 <ruri>$</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='7'>
@@ -497,6 +543,9 @@
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome2:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
         <test name='10'>
@@ -556,6 +605,9 @@
             <request end-delete="yes">
                 <method>MKCALENDAR</method>
                 <ruri>$calendarhome1:/shared/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
             <request>
                 <method>POST</method>
@@ -575,6 +627,9 @@
             <request user="$userid2:" pswd="$pswd2:">
                 <method>GETNEW</method>
                 <ruri>$notificationpath2:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
                 <grabelement>
                     <name>{http://calendarserver.org/ns/}invite-notification/{http://calendarserver.org/ns/}uid</name>
                     <variable>$inviteuid2:</variable>
@@ -591,6 +646,9 @@
                     <content-type>application/xml; charset=utf-8</content-type>
                     <filepath>Resource/Common/POST/sharingreply2.xml</filepath>
                 </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
                 <grabelement>
                     <name>{DAV:}href</name>
                     <variable>$sharedcalendar2:</variable>
@@ -607,6 +665,9 @@
                     <content-type>text/calendar; charset=utf-8</content-type>
                     <filepath>Resource/CalDAV/sharing/peruser-data/simple-put/1.ics</filepath>
                 </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
 
@@ -655,6 +716,9 @@
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
             </request>
         </test>
 
@@ -698,6 +762,76 @@
 
     </test-suite>
 
-    <end/>
+
+    <test-suite name='Attendee trashes SCHEDULE-AGENT=NONE event'>
+        <test name='1'>
+            <description>PUT scheduled event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>PUT</method>
+                <ruri>$calendarpath2:/1.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/trash/attendeenone/invite.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+        <test name='2'>
+            <description>Attendee trashes event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>DELETE</method>
+                <ruri>$calendarpath2:/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+        <test name='3'>
+            <description>Attendee recovers trash</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome2:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+        <test name='4'>
+            <description>Attendee has event</description>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>GETNEW</method>
+                <ruri>$calendarpath2:/</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/trash/attendeenone/recovered.ics</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+        <test name='clean up'>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>DELETEALL</method>
+                <ruri>$calendarpath2:/</ruri>
+            </request>
+            <request user="$userid2:" pswd="$pswd2:">
+                <method>POST</method>
+                <ruri>$calendarhome2:/?action=emptytrash</ruri>
+            </request>
+        </test>
+
+    </test-suite>
+
+
+    <end>
+		<request user="$useradmin:" pswd="$pswdadmin:">
+		    <method>DELETEALL</method>
+		    <ruri>$notificationpath1:/</ruri>
+		    <ruri>$notificationpath2:/</ruri>
+		</request>
+	</end>
 
 </caldavtest>
