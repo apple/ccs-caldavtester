@@ -656,8 +656,8 @@
             </request>
         </test>
 
-        <test name='User01 adds event'>
-            <description>User01 store to shared</description>
+        <test name='1'>
+            <description>User01 adds event</description>
             <request user="$userid1:" pswd="$pswd1:">
                 <method>PUT</method>
                 <ruri>$calendarhome1:/shared/1.ics</ruri>
@@ -671,7 +671,7 @@
             </request>
         </test>
 
-        <test name='User02 sees event'>
+        <test name='2'>
             <description>User02 sees event</description>
             <request user="$userid2:" pswd="$pswd2:">
                 <method>GET</method>
@@ -686,7 +686,7 @@
             </request>
         </test>
 
-        <test name='User02 trashes event'>
+        <test name='3'>
             <description>User02 trashes event</description>
             <request user="$userid2:" pswd="$pswd2:">
                 <method>DELETE</method>
@@ -697,7 +697,7 @@
             </request>
         </test>
 
-        <test name='User01 no longer sees event'>
+        <test name='4'>
             <description>User01 no longer sees event</description>
             <request user="$userid1:" pswd="$pswd1:">
                 <method>GET</method>
@@ -712,7 +712,8 @@
             </request>
         </test>
 
-        <test name='User01 recovers trash'>
+        <test name='5'>
+            <description>User01 no recovers trash</description>
             <request>
                 <method>POST</method>
                 <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
@@ -722,7 +723,8 @@
             </request>
         </test>
 
-        <test name='User01 sees event'>
+        <test name='6'>
+            <description>User01 sees event</description>
             <request user="$userid1:" pswd="$pswd1:">
                 <method>GETNEW</method>
                 <ruri>$calendarhome1:/shared/</ruri>
@@ -736,7 +738,7 @@
             </request>
         </test>
 
-        <test name='User02 sees event'>
+        <test name='7'>
             <description>User02 sees event</description>
             <request user="$userid2:" pswd="$pswd2:">
                 <method>GETNEW</method>
