@@ -25,6 +25,7 @@
 		<feature>caldav</feature>
 		<feature>trash-collection</feature>
 		<feature>shared-calendars</feature>
+        <feature>managed-attachments</feature>
 	</require-feature>
 
 	<start>
@@ -1332,6 +1333,191 @@
 			</request>
 		</test>
 	</test-suite>
+
+
+    <test-suite name='Attachments and trash'>
+
+        <test name='1'>
+            <description>PUT event</description>
+            <request end-delete='no'>
+                <method>PUT</method>
+                <ruri>$calendarpath1:/1.ics</ruri>
+                <data>
+                    <content-type>text/calendar; charset=utf-8</content-type>
+                    <filepath>Resource/CalDAV/managedattachments/simple/1.ics</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+            <request>
+                <method>GET</method>
+                <ruri>$calendarpath1:/1.ics</ruri>
+                <verify>
+                    <callback>calendarDataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/managedattachments/simple/1.ics</value>
+                    </arg>
+                </verify>
+                <grabheader>
+                    <name>ETag</name>
+                    <variable>$etag:</variable>
+                </grabheader>
+            </request>
+        </test>
+
+        <test name='2'>
+            <description>Add attachment (no prefer)</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+                <header>
+                    <name>Content-Disposition</name>
+                    <value>attachment;filename=test.txt</value>
+                </header>
+                <data>
+                    <content-type>text/plain</content-type>
+                    <filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+                </data>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <verify>
+                    <callback>header</callback>
+                    <arg>
+                        <name>header</name>
+                        <value>Cal-Managed-ID</value>
+                    </arg>
+                </verify>
+                <grabheader>
+                    <name>Location</name>
+                    <variable>$location:</variable>
+                </grabheader>
+                <grabheader>
+                    <name>Cal-Managed-ID</name>
+                    <variable>$managed-id:</variable>
+                </grabheader>
+            </request>
+        </test>
+
+        <test name='3'>
+            <description>Check for attachment</description>
+            <request>
+                <method>GET</method>
+                <ruri>$location:</ruri>
+                <verify>
+                    <callback>dataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='4'>
+            <request>
+                <method>DELETE</method>
+                <ruri>$calendarpath1:/1.ics</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='5'>
+            <description>Check for attachment -- still there because they're not currently hidden</description>
+            <request>
+                <method>GET</method>
+                <ruri>$location:</ruri>
+                <verify>
+                    <callback>dataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='6'>
+            <description>Recover trash</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=recovertrash&amp;mode=event&amp;id=all</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='7'>
+            <description>Get recovered event uri</description>
+            <request user="$userid1:" pswd="$pswd1:">
+                <method>GETNEW</method>
+                <ruri>$calendarpath1:/</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+                <graburi>$recovered:</graburi>
+                <grabcalproperty>
+                    <name>VEVENT/ATTACH</name>
+                    <variable>$attach:</variable>
+                </grabcalproperty>
+            </request>
+        </test>
+
+        <test name='8'>
+            <description>Check that ATTACH still points to valid attachment</description>
+            <request>
+                <method>GET</method>
+                <ruri>$attach:</ruri>
+                <verify>
+                    <callback>dataMatch</callback>
+                    <arg>
+                        <name>filepath</name>
+                        <value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+        <test name='9'>
+            <description>Delete event</description>
+            <request>
+                <method>DELETE</method>
+                <ruri>$recovered:</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                </verify>
+            </request>
+        </test>
+
+        <test name='10'>
+            <description>Empty trash</description>
+            <request>
+                <method>POST</method>
+                <ruri>$calendarhome1:/?action=emptytrash</ruri>
+            </request>
+        </test>
+
+        <test name='11'>
+            <description>Verify the attachment is gone</description>
+            <request>
+                <method>GET</method>
+                <ruri>$attach:</ruri>
+                <verify>
+                    <callback>statusCode</callback>
+                    <arg>
+                        <name>status</name>
+                        <value>403</value>
+                    </arg>
+                </verify>
+            </request>
+        </test>
+
+    </test-suite>
 
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
