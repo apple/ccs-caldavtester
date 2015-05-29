@@ -447,10 +447,13 @@
 	
 	<test-suite name='Depth:infinity disabled'>
 		<test name='1'>
+			<require-feature>
+				<feature>own-root</feature>
+			</require-feature>
 			<description>PROPFIND on /</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>/</ruri>
+				<ruri>$root:</ruri>
 				<data>
 					<content-type>text/xml; charset=utf-8</content-type>
 					<filepath>Resource/Common/PROPFIND/resourcetype.xml</filepath>
