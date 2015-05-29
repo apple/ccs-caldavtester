@@ -200,6 +200,9 @@
 
 	<test-suite name='DAV:owner'>
 		<test name='1'>
+			<require-feature>
+				<feature>own-root</feature>
+			</require-feature>
 			<description>Check for no DAV:owner on root</description>
 			<request>
 				<method>PROPFIND</method>

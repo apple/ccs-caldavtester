@@ -58,6 +58,7 @@
 		<feature>expand-property</feature>				<!-- Expand property REPORT -->
 		<feature>only-proxy-groups</feature>			<!-- Group-membership only includes delegated-to groups -->
 		<feature>limits</feature>						<!-- max-collections and max-resources limits -->
+		<feature>own-root</feature>						<!-- / is owned by this service -->
 		<feature>prefer</feature>						<!-- Prefer header overall support -->
 		<feature>prefer-minimal</feature>				<!-- Prefer header return=minimal -->
 		<feature>prefer-representation</feature>		<!-- Prefer header return=representation -->
@@ -68,12 +69,16 @@
 		<feature>sync-report</feature>					<!-- WebDAV collection sync REPORT -->
 		<!-- <feature>sync-report-limit</feature> -->	<!-- WebDAV collection sync REPORT DAV:limit support -->
 		<feature>sync-report-home</feature>				<!-- WebDAV collection sync REPORT on Homes -->
+		<feature>sync-report-config-token</feature>		<!-- Sync REPORT token includes configuration component -->
 		<feature>well-known</feature>					<!-- well-known feature -->
 
 		<!-- <feature>per-object-ACLs</feature> -->		<!-- ACL for objects in calendar/address books -->
 		<!-- <feature>regular-collection</feature> -->  <!-- Regular collections allowed in calendar/address book homes -->
 
 		<feature>json-data</feature>					<!-- jCal and jCard support -->
+
+		<!--  CalendarServer specific extensions -->
+		<feature>control-api</feature>					<!-- Control API support -->
 
 		<!-- CalDAV specific extension -->
 		<feature>caldav</feature>					    <!-- Basic CalDAV feature enabler -->
@@ -112,6 +117,7 @@
 		<feature>timezones-by-reference</feature>		<!-- Timezones by reference enabled -->
 		<feature>timezone-service</feature>				<!-- Timezone service extension for Wiki -->
 		<feature>timezone-std-service</feature>			<!-- Timezone standard service extension -->
+		<feature>trash-collection</feature> 			<!-- Trash collection enabled -->
 		<feature>travel-time-busy</feature> 			<!-- Travel time appears as busy -->
 		<feature>vavailability</feature>				<!-- VAVAILABILITY on inbox -->
 		<!-- <feature>vpoll</feature> -->				<!-- VPOLL support for store and scheduling -->
