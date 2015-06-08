@@ -282,6 +282,24 @@ def cmd(args, input=None, raiseOnFail=True):
 
 
 
+def checkDataSource(node):
+    """
+    Verify that the specified node is the only node this host is bound to.
+
+    @param node: the node to verify
+    @type node: L{str}
+    """
+
+    result = cmd("dscl localhost -list /LDAPv3")
+    result = ["/LDAPv3/{}".format(subnode) for subnode in result[0].splitlines()]
+    if len(result) > 1 or result[0] != node:
+        print "Error: Host is bound to other directory nodes: {}".format(result)
+        print "CalDAVTester will likely fail with other nodes present."
+        print "Please remove all nodes except the one being used for odsetup."
+        sys.exit(1)
+
+
+
 def readConfig():
     """
     Read useful information from calendarserver_config
@@ -709,6 +727,8 @@ if __name__ == "__main__":
             print "Wrong arguments given: %s" % (args[0],)
             usage()
             raise ValueError
+
+        checkDataSource(directory_node)
 
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
