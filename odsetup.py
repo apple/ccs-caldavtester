@@ -31,9 +31,35 @@ import traceback
 import uuid
 import xml.parsers.expat
 
+"""
+OpenDirectory.framework
+"""
+
+import objc as _objc
+
+__bundle__ = _objc.initFrameworkWrapper(
+    "OpenDirectory",
+    frameworkIdentifier="com.apple.OpenDirectory",
+    frameworkPath=_objc.pathForFramework(
+        "/System/Library/Frameworks/OpenDirectory.framework"
+    ),
+    globals=globals()
+)
+
+# DS attributes we need
+kDSStdRecordTypeUsers = "dsRecTypeStandard:Users"
+kDSStdRecordTypeGroups = "dsRecTypeStandard:Groups"
+kDSStdRecordTypePlaces = "dsRecTypeStandard:Places"
+kDSStdRecordTypeResources = "dsRecTypeStandard:Resources"
+
+kDS1AttrGeneratedUID = "dsAttrTypeStandard:GeneratedUID"
+kDSNAttrRecordName = "dsAttrTypeStandard:RecordName"
+
+eDSExact = 0x2001
+
+
 sys_root = "/Applications/Server.app/Contents/ServerRoot"
 os.environ["PATH"] = "%s/usr/bin:%s" % (sys_root, os.environ["PATH"])
-conf_root = "/Library/Server/Calendar and Contacts/Config"
 
 diradmin_user = "admin"
 diradmin_pswd = ""
@@ -120,9 +146,9 @@ publicattrs = {
 }
 
 i18nattrs = {
-    "dsAttrTypeStandard:RealName": "まだ",
-    "dsAttrTypeStandard:FirstName": "ま",
-    "dsAttrTypeStandard:LastName": "だ",
+    "dsAttrTypeStandard:RealName": u"まだ",
+    "dsAttrTypeStandard:FirstName": u"ま",
+    "dsAttrTypeStandard:LastName": u"だ",
     "dsAttrTypeStandard:EMailAddress": "i18nuser@example.com",
 }
 
@@ -232,15 +258,15 @@ groupattrs = {
 }
 
 records = (
-    ("/Users", "testadmin", "testadmin", adminattrs, 1),
-    ("/Users", "apprentice", "apprentice", apprenticeattrs, 1),
-    ("/Users", "i18nuser", "i18nuser", i18nattrs, 1),
-    ("/Users", "user%02d", "user%02d", userattrs, None),
-    ("/Users", "public%02d", "public%02d", publicattrs, number_of_publics),
-    ("/Places", "location%02d", "location%02d", locationattrs, number_of_locations),
-    ("/Places", "delegatedroom", "delegatedroom", delegatedroomattrs, 1),
-    ("/Resources", "resource%02d", "resource%02d", resourceattrs, number_of_resources),
-    ("/Groups", "group%02d", "group%02d", groupattrs, number_of_groups),
+    (kDSStdRecordTypeUsers, "testadmin", "testadmin", adminattrs, 1),
+    (kDSStdRecordTypeUsers, "apprentice", "apprentice", apprenticeattrs, 1),
+    (kDSStdRecordTypeUsers, "i18nuser", "i18nuser", i18nattrs, 1),
+    (kDSStdRecordTypeUsers, "user%02d", "user%02d", userattrs, None),
+    (kDSStdRecordTypeUsers, "public%02d", "public%02d", publicattrs, number_of_publics),
+    (kDSStdRecordTypePlaces, "location%02d", "location%02d", locationattrs, number_of_locations),
+    (kDSStdRecordTypePlaces, "delegatedroom", "delegatedroom", delegatedroomattrs, 1),
+    (kDSStdRecordTypeResources, "resource%02d", "resource%02d", resourceattrs, number_of_resources),
+    (kDSStdRecordTypeGroups, "group%02d", "group%02d", groupattrs, number_of_groups),
 )
 
 def usage():
@@ -251,6 +277,7 @@ Options:
     -u uid    OpenDirectory Admin user id
     -p pswd   OpenDirectory Admin user password
     -c users  number of user accounts to create (default: 10)
+    -x        disable OD node checks
     -v        verbose logging
     -V        very verbose logging
 """
@@ -300,6 +327,83 @@ def checkDataSource(node):
 
 
 
+class ODError(Exception):
+    pass
+
+
+
+class ODFamework(object):
+
+    def __init__(self, nodeName, user, pswd):
+        self.session = ODSession.defaultSession()
+        self.node, error = ODNode.nodeWithSession_name_error_(self.session, nodeName, None)
+        if error:
+            print(error)
+            raise ODError(error)
+
+        _ignore_result, error = self.node.setCredentialsWithRecordType_recordName_password_error_(
+            kDSStdRecordTypeUsers,
+            user,
+            pswd,
+            None
+        )
+        if error:
+            print("Unable to authenticate with directory %s: %s" % (nodeName, error))
+            raise ODError(error)
+
+        print("Successfully authenticated with directory %s" % (nodeName,))
+
+
+    def lookupRecordName(self, recordType, name):
+        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(
+            self.node,
+            recordType,
+            kDSNAttrRecordName,
+            eDSExact,
+            name,
+            [kDS1AttrGeneratedUID],
+            0,
+            None)
+        if error:
+            raise ODError(error)
+        records, error = query.resultsAllowingPartial_error_(False, None)
+        if error:
+            raise ODError(error)
+
+        if len(records) < 1:
+            return None
+        if len(records) > 1:
+            raise ODError("Multiple records for '%s' were found" % (name,))
+
+        return records[0]
+
+
+    def createRecord(self, recordType, recordName, password, attrs):
+        record, error = self.node.createRecordWithRecordType_name_attributes_error_(
+            recordType,
+            recordName,
+            attrs,
+            None)
+        if error:
+            print(error)
+            raise ODError(error)
+        if recordType == kDSStdRecordTypeUsers:
+            _ignore_result, error = record.changePassword_toPassword_error_(None, password, None)
+            if error:
+                print(error)
+                raise ODError(error)
+        return record
+
+
+    def recordDetails(self, record):
+        details, error = record.recordDetailsForAttributes_error_(None, None)
+        if error:
+            print(error)
+            raise ODError(error)
+        return details
+
+
+
 def readConfig():
     """
     Read useful information from calendarserver_config
@@ -308,6 +412,7 @@ def readConfig():
     args = [
         configutility,
         "ServerHostName",
+        "ConfigRoot",
         "DocumentRoot",
         "HTTPPort",
         "SSLPort",
@@ -339,11 +444,12 @@ def readConfig():
         int(currentConfig["SSLPort"]),
         authtype,
         currentConfig["DocumentRoot"],
+        currentConfig["ConfigRoot"],
     )
 
 
 
-def patchConfig(admin):
+def patchConfig(confroot, admin):
     """
     Patch the caldavd-user.plist file to make sure:
        * the proper admin principal is configured
@@ -388,7 +494,7 @@ def patchConfig(admin):
         "lockRescheduleInterval": 1,
     }
 
-    writePlist(plist, conf_root + "/caldavd-user.plist")
+    writePlist(plist, confroot + "/caldavd-user.plist")
 
 
 
@@ -447,9 +553,9 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
 
 
 def loadLists(path, records):
-    if path == "/Places":
+    if path == kDSStdRecordTypePlaces:
         result = cmd(cmdutility, locationlistcmd)
-    elif path == "/Resources":
+    elif path == kDSStdRecordTypeResources:
         result = cmd(cmdutility, resourcelistcmd)
     else:
         raise ValueError()
@@ -465,10 +571,10 @@ def loadLists(path, records):
 
 
 
-def doToAccounts(protocol, f, users_only=False):
+def doToAccounts(odf, protocol, f, users_only=False):
 
     for record in records:
-        if protocol == "carddav" and record[0] in ("/Places", "/Resources"):
+        if protocol == "carddav" and record[0] in (kDSStdRecordTypePlaces, kDSStdRecordTypeResources):
             continue
         if record[4] is None:
             count = number_of_users
@@ -484,13 +590,13 @@ def doToAccounts(protocol, f, users_only=False):
                         value = value % (ctr,)
                     attrs[key] = value
                 ruser = (record[1] % (ctr,), record[2] % (ctr,), attrs, 1)
-                f(record[0], ruser)
+                f(odf, record[0], ruser)
         else:
-            f(record[0], record[1:])
+            f(odf, record[0], record[1:])
 
 
 
-def doGroupMemberships():
+def doGroupMemberships(odf):
 
     memberships = (
         ("group01", ("user01",), (),),
@@ -503,60 +609,72 @@ def doGroupMemberships():
     )
 
     for groupname, users, nestedgroups in memberships:
+        if verbose:
+            print "Group membership: {}".format(groupname)
 
-        memberGUIDs = [guids[user] for user in users]
-        nestedGUIDs = [guids[group] for group in nestedgroups]
+        # Get group record
+        group = odf.lookupRecordName(kDSStdRecordTypeGroups, groupname)
+        if group is not None:
+            for user in users:
+                member = odf.lookupRecordName(kDSStdRecordTypeUsers, user)
+                if member is not None:
+                    _ignore_result, error = group.addMemberRecord_error_(member, None)
+                    if error:
+                        raise ODError(error)
+            for nested in nestedgroups:
+                member = odf.lookupRecordName(kDSStdRecordTypeGroups, nested)
+                if member is not None:
+                    _ignore_result, error = group.addMemberRecord_error_(member, None)
+                    if error:
+                        raise ODError(error)
 
-        cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:GroupMembers\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in memberGUIDs])), raiseOnFail=False)
-        cmd("dscl -u %s -P %s %s -append /Groups/%s \"dsAttrTypeStandard:NestedGroups\"%s" % (diradmin_user, diradmin_pswd, directory_node, groupname, "".join([" \"%s\"" % (guid,) for guid in nestedGUIDs])), raiseOnFail=False)
 
 
+def createUser(odf, path, user):
 
-def createUser(path, user):
+    if verbose:
+        print "Create user: {}/{}".format(path, user[0])
 
-    if path in ("/Users", "/Groups",):
-        createUserViaDS(path, user)
+    if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
+        createUserViaDS(odf, path, user)
     elif protocol == "caldav":
         createUserViaGateway(path, user)
 
 
 
-def createUserViaDS(path, user):
+def createUserViaDS(odf, path, user):
     # Do dscl command line operations to create a calendar user
 
     # Only create if it does not exist
-    if cmd("dscl %s -list %s/%s" % (directory_node, path, user[0]), raiseOnFail=False)[1] != 0:
+    record = odf.lookupRecordName(path, user[0])
+
+    if record is None:
         # Create the user
-        cmd("dscl -u %s -P %s %s -create %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]))
+        if kDS1AttrGeneratedUID in user[2]:
+            user[2][kDS1AttrGeneratedUID] = str(uuid.uuid4()).upper()
 
-        # Set the password (only for /Users)
-        if path == "/Users":
-            cmd("dscl -u %s -P %s %s -passwd %s/%s %s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], user[1]))
-
-        # Other attributes
-        for key, value in user[2].iteritems():
-            if key == "dsAttrTypeStandard:GeneratedUID":
-                value = str(uuid.uuid4()).upper()
-            cmd("dscl -u %s -P %s %s -create %s/%s \"%s\" \"%s\"" % (diradmin_user, diradmin_pswd, directory_node, path, user[0], key, value))
+        user = (user[0], user[1], dict([(k, [v],) for k, v in user[2].items()]),)
+        record = odf.createRecord(path, user[0], user[1], user[2])
     else:
-        print "%s/%s already exists" % (path, user[0],)
+        if verbose:
+            print "%s/%s already exists" % (path, user[0],)
 
     # Now read the guid for this record
     if user[0] in guids:
-        result = cmd("dscl %s -read %s/%s GeneratedUID" % (directory_node, path, user[0]))
-        guid = result[0].split()[1]
-        guids[user[0]] = guid
+        record = odf.lookupRecordName(path, user[0])
+        details = odf.recordDetails(record)
+        guids[user[0]] = details[kDS1AttrGeneratedUID][0]
 
 
 
 def createUserViaGateway(path, user):
 
     # Check for existing
-    if path == "/Places":
+    if path == kDSStdRecordTypePlaces:
         if user[0] in locations:
             guids[user[0]] = locations[user[0]]
             return
-    elif path == "/Resources":
+    elif path == kDSStdRecordTypeResources:
         if user[0] in resources:
             guids[user[0]] = resources[user[0]]
             return
@@ -564,7 +682,7 @@ def createUserViaGateway(path, user):
     guid = str(uuid.uuid4()).upper()
     if user[0] in guids:
         guids[user[0]] = guid
-    if path == "/Places":
+    if path == kDSStdRecordTypePlaces:
         cmd(
             cmdutility,
             locationcreatecmd % {
@@ -573,7 +691,7 @@ def createUserViaGateway(path, user):
                 "recordname": user[0]
             }
         )
-    elif path == "/Resources":
+    elif path == kDSStdRecordTypeResources:
         cmd(
             cmdutility,
             resourcecreatecmd % {
@@ -587,26 +705,32 @@ def createUserViaGateway(path, user):
 
 
 
-def removeUser(path, user):
+def removeUser(odf, path, user):
 
-    if path in ("/Users", "/Groups",):
-        removeUserViaDS(path, user)
+    if verbose:
+        print "Remove user: {}/{}".format(path, user[0])
+
+    if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
+        removeUserViaDS(odf, path, user)
     else:
         removeUserViaGateway(path, user)
 
 
 
-def removeUserViaDS(path, user):
+def removeUserViaDS(odf, path, user):
     # Do dscl command line operations to remove a calendar user
 
-    # Create the user
-    cmd("dscl -u %s -P %s %s -delete %s/%s" % (diradmin_user, diradmin_pswd, directory_node, path, user[0]), raiseOnFail=False)
+    record = odf.lookupRecordName(path, user[0])
+    if record is not None:
+        _ignore_result, error = record.deleteRecordAndReturnError_(None)
+        if error:
+            raise ODError(error)
 
 
 
 def removeUserViaGateway(path, user):
 
-    if path == "/Places":
+    if path == kDSStdRecordTypePlaces:
         if user[0] not in locations:
             return
         guid = locations[user[0]]
@@ -614,7 +738,7 @@ def removeUserViaGateway(path, user):
             cmdutility,
             locationremovecmd % {"guid": guid, }
         )
-    elif path == "/Resources":
+    elif path == kDSStdRecordTypeResources:
         if user[0] not in resources:
             return
         guid = resources[user[0]]
@@ -627,14 +751,14 @@ def removeUserViaGateway(path, user):
 
 
 
-def manageRecords(path, user):
+def manageRecords(odf, path, user):
     """
     Set proxies and auto-schedule for locations and resources
     """
 
     # Do caldav_utility setup
-    if path in ("/Places", "/Resources",):
-        if path in ("/Places",):
+    if path in (kDSStdRecordTypePlaces, kDSStdRecordTypeResources,):
+        if path in (kDSStdRecordTypePlaces,):
             if user[0] == "delegatedroom":
                 cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule-mode=none locations:%s" % (
                     utility,
@@ -686,8 +810,9 @@ if __name__ == "__main__":
 
     protocol = "caldav"
     serverinfo_default = details[protocol]["serverinfo"]
+    node_check = True
     try:
-        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vV")
+        options, args = getopt.getopt(sys.argv[1:], "hn:p:u:f:c:vVx")
 
         for option, value in options:
             if option == "-h":
@@ -706,6 +831,8 @@ if __name__ == "__main__":
             elif option == "-V":
                 verbose = True
                 veryverbose = True
+            elif option == "-x":
+                node_check = False
             else:
                 print "Unrecognized option: %s" % (option,)
                 usage()
@@ -728,23 +855,26 @@ if __name__ == "__main__":
             usage()
             raise ValueError
 
-        checkDataSource(directory_node)
+        odf = ODFamework(directory_node, diradmin_user, diradmin_pswd)
+
+        if node_check:
+            checkDataSource(directory_node)
 
         if args[0] == "create":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, port, sslport, authtype, docroot = readConfig()
+            hostname, port, sslport, authtype, docroot, confroot = readConfig()
 
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
-                loadLists("/Places", locations)
-                loadLists("/Resources", resources)
+                loadLists(kDSStdRecordTypePlaces, locations)
+                loadLists(kDSStdRecordTypeResources, resources)
 
-            doToAccounts(protocol, createUser)
-            doGroupMemberships()
-            doToAccounts(protocol, manageRecords)
+            doToAccounts(odf, protocol, createUser)
+            doGroupMemberships(odf)
+            doToAccounts(odf, protocol, manageRecords)
 
             # Patch the caldavd.plist file with the testadmin user's guid-based principal-URL
-            patchConfig("/principals/__uids__/%s/" % (guids["testadmin"],))
+            patchConfig(confroot, "/principals/__uids__/%s/" % (guids["testadmin"],))
 
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
@@ -752,23 +882,23 @@ if __name__ == "__main__":
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.
-            hostname, port, sslport, authtype, docroot = readConfig()
+            hostname, port, sslport, authtype, docroot, confroot = readConfig()
 
             # Now generate the OD accounts (caching guids as we go).
             if protocol == "caldav":
-                loadLists("/Places", locations)
-                loadLists("/Resources", resources)
+                loadLists(kDSStdRecordTypePlaces, locations)
+                loadLists(kDSStdRecordTypeResources, resources)
 
-            doToAccounts(protocol, createUser, users_only=True)
+            doToAccounts(odf, protocol, createUser, users_only=True)
 
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
 
         elif args[0] == "remove":
             if protocol == "caldav":
-                loadLists("/Places", locations)
-                loadLists("/Resources", resources)
-            doToAccounts(protocol, removeUser)
+                loadLists(kDSStdRecordTypePlaces, locations)
+                loadLists(kDSStdRecordTypeResources, resources)
+            doToAccounts(odf, protocol, removeUser)
 
     except Exception, e:
         traceback.print_exc()
