@@ -428,15 +428,15 @@ def readConfig():
     try:
         basic_ok = currentConfig["Authentication.Basic.Enabled"]
     except KeyError:
-        pass
+        basic_ok = False
     try:
         digest_ok = currentConfig["Authentication.Digest.Enabled"]
     except KeyError:
-        pass
-    if basic_ok:
-        authtype = "basic"
-    elif digest_ok:
+        digest_ok = False
+    if digest_ok:
         authtype = "digest"
+    elif basic_ok:
+        authtype = "basic"
 
     return (
         currentConfig["ServerHostName"],
