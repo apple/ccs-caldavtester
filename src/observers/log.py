@@ -42,6 +42,7 @@ class Observer(BaseResultsObserver):
         super(Observer, self).updateCalls()
         self._calls.update({
             "start": self.start,
+            "testProgress": self.testProgress,
             "testFile": self.testFile,
             "testSuite": self.testSuite,
             "testResult": self.testResult,
@@ -53,6 +54,11 @@ class Observer(BaseResultsObserver):
         self.manager.logit("Starting tests")
         if self.manager.randomSeed is not None:
             self.manager.logit("Randomizing order using seed '{rs}'".format(rs=self.manager.randomSeed))
+
+
+    def testProgress(self, result):
+        self.manager.logit("")
+        self.manager.logit("File {count} of {total}".format(**result))
 
 
     def testFile(self, result):

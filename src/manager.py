@@ -90,6 +90,14 @@ class manager(object):
         map(lambda x: x.message(message, *args, **kwargs), self.observers)
 
 
+    def testProgress(self, count, total):
+        results = {
+            "count": count,
+            "total": total,
+        }
+        self.message("testProgress", results)
+
+
     def testFile(self, name, details, result=None):
         self.results.append({
             "name": name,
@@ -367,7 +375,9 @@ class manager(object):
         failed = 0
         ignored = 0
         try:
-            for test in self.tests:
+            for ctr, test in enumerate(self.tests):
+                if len(self.tests) > 1:
+                    self.testProgress(ctr + 1, len(self.tests))
                 if self.pretest is not None:
                     o, f, i = self.pretest.run()
 
