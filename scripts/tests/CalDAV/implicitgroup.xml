@@ -50,6 +50,37 @@
 		</request>
 	</start>
 	
+	<test-suite name='OPTIONS header'>
+		<test name='1'>
+			<description>Look for options header tag on principal</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$principal1:</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendarserver-group-attendee.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Look for options header tag on calendar</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>*DAV$.*calendarserver-group-attendee.*</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='Invite group with existing membership'>
 		<test name='1'>
 			<description>Organizer invites Group Attendee</description>
