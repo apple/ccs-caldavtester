@@ -46,8 +46,7 @@
 			<ruri>$inboxpath2:/</ruri>
 		</request>
 	</start>
-	
-	
+
 	<test-suite name='OPTIONS header'>
 		<test name='1'>
 			<description>Look for options header tag on principal</description>
@@ -172,7 +171,7 @@
 			</request>
 		</test>
 	</test-suite>
-	
+
 	<test-suite name='No Organizer, no overrides, prefer'>
 		<test name='1'>
 			<description>Create event</description>
@@ -287,7 +286,6 @@
 		</test>
 	</test-suite>
 
-	
 	<test-suite name='Bad POSTs'>
 		<test name='1'>
 			<description>Create event</description>
@@ -390,6 +388,42 @@
 			</request>
 		</test>
 		<test name='7'>
+			<description>POST rid wrong: floating</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=split&amp;rid=$now.1:T000000</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>POST rid wrong: all-day</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=split&amp;rid=$now.1:</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='9'>
 			<description>Event non-recurring</description>
 			<request>
 				<method>PUT</method>
@@ -403,11 +437,111 @@
 				</verify>
 			</request>
 		</test>
-		<test name='8'>
+		<test name='10'>
 			<description>POST non-recurring</description>
 			<request>
 				<method>POST</method>
 				<ruri>$calendarpath1:/1.ics?action=split&amp;rid=$now.-10:T000000Z</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='11'>
+			<description>Event all-day</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/7.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrence-splitting/simple/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='12' ignore="yes">
+			<description>POST rid wrong: floating</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/7.ics?action=split&amp;rid=$now.1:T000000</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='13' ignore="yes">
+			<description>POST rid wrong: utc</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/7.ics?action=split&amp;rid=$now.1:T000000Z</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='14'>
+			<description>Event floating</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/10.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrence-splitting/simple/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='15'>
+			<description>POST rid wrong: utc</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/10.ics?action=split&amp;rid=$now.1:T000000Z</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{http://calendarserver.org/ns/}valid-split</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='16'>
+			<description>POST rid wrong: all-day</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/10.ics?action=split&amp;rid=$now.1:</ruri>
 				<header>
 					<name>Prefer</name>
 					<value>return=representation</value>
@@ -742,6 +876,220 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/recurrence-splitting/simple/3.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Client set past UID - all-day'>
+		<test name='1'>
+			<description>Create event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrence-splitting/simple/7.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST to split</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=split&amp;rid=$now.0:&amp;uid=$uid2:</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>totalcount</name>
+						<value>2</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}getetag</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>$multistatus-href-prefix:</name>
+					<variable>$href1:</variable>
+					<variable>$href2:</variable>
+				</grabelement>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$href2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabcalproperty>
+					<name>VEVENT/UID</name>
+					<variable>$olduid:</variable>
+				</grabcalproperty>
+				<grabcalproperty>
+					<name>VEVENT/RELATED-TO</name>
+					<variable>$relid:</variable>
+				</grabcalproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET new-part split (original) resource</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href1:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/recurrence-splitting/simple/8.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>GET old-part split (new resource)</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/recurrence-splitting/simple/9.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Client set past UID - floating'>
+		<test name='1'>
+			<description>Create event</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/recurrence-splitting/simple/10.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>POST to split</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=split&amp;rid=$now.0:T130000&amp;uid=$uid2:</ruri>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<verify>
+					<callback>multistatusItems</callback>
+					<arg>
+						<name>totalcount</name>
+						<value>2</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}getetag</value>
+						<value>$verify-property-prefix:/{urn:ietf:params:xml:ns:caldav}calendar-data</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>$multistatus-href-prefix:</name>
+					<variable>$href1:</variable>
+					<variable>$href2:</variable>
+				</grabelement>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$href2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<grabcalproperty>
+					<name>VEVENT/UID</name>
+					<variable>$olduid:</variable>
+				</grabcalproperty>
+				<grabcalproperty>
+					<name>VEVENT/RELATED-TO</name>
+					<variable>$relid:</variable>
+				</grabcalproperty>
+			</request>
+		</test>
+		<test name='3'>
+			<description>GET new-part split (original) resource</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href1:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/recurrence-splitting/simple/11.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>GET old-part split (new resource)</description>
+			<request>
+				<method>GET</method>
+				<ruri>$href2:</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/recurrence-splitting/simple/12.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -1381,6 +1729,6 @@
 		</test>
 	</test-suite>
 
-	<end/>
-	
+	<end />
+
 </caldavtest>
