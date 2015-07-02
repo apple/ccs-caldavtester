@@ -234,7 +234,7 @@ class request(object):
         user = [self.user, si.user][self.user == ""]
         pswd = [self.pswd, si.pswd][self.pswd == ""]
         details = None
-        if user in self.manager.digestCache and self.manager.digestCache[user]["max-nonce-time"] < time.time():
+        if user in self.manager.digestCache and self.manager.digestCache[user]["max-nonce-time"] > time.time():
             details = self.manager.digestCache[user]
         else:
             # Redo digest auth from scratch to get a new nonce etc
