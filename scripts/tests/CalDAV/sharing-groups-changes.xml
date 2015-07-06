@@ -18,7 +18,7 @@
  limitations under the License.
  -->
 
-<caldavtest ignore-all="yes">
+<caldavtest>
 	<description>Test calendar sharing to groups which change</description>
 
 	<require-feature>
@@ -225,6 +225,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='7'>
+			<description>Clean-up</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$gcuaddrurn20:</value>
+					</substitute>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='Share calendar to two groups with same member'>
@@ -427,6 +445,36 @@
 				<data>
 					<content-type>application/json; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/controlgrouprefresh.json</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$gcuaddrurn20:</value>
+					</substitute>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$gcuaddrurn21:</value>
+					</substitute>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -643,7 +691,7 @@
 			<description>Calendar changed</description>
 			<request>
 				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/shared/</ruri>
+				<ruri>$calendarhome1:/shared2/</ruri>
 				<header>
 					<name>Depth</name>
 					<value>0</value>
@@ -694,6 +742,36 @@
 				<data>
 					<content-type>application/json; charset=utf-8</content-type>
 					<filepath>Resource/Common/POST/controlgrouprefresh.json</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$gcuaddrurn20:</value>
+					</substitute>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/shared2/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/POST/sharing-remove1.xml</filepath>
+					<substitute>
+						<name>$sharee:</name>
+						<value>$gcuaddrurn21:</value>
+					</substitute>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
