@@ -435,6 +435,56 @@ class caldavtest(object):
         return hresult
 
 
+    def dofindcontains(self, original_request, collection, match, label=""):
+        hresult = ""
+
+        uri = collection[0]
+        req = request(self.manager)
+        req.method = "PROPFIND"
+        req.host = original_request.host
+        req.port = original_request.port
+        req.ruris.append(uri)
+        req.ruri = uri
+        req.headers["Depth"] = "1"
+        if len(collection[1]):
+            req.user = collection[1]
+        if len(collection[2]):
+            req.pswd = collection[2]
+        req.data = data(self.manager)
+        req.data.value = """<?xml version="1.0" encoding="utf-8" ?>
+<D:propfind xmlns:D="DAV:">
+<D:prop>
+<D:getetag/>
+</D:prop>
+</D:propfind>
+"""
+        req.data.content_type = "text/xml"
+        result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
+        if result and (response is not None) and (response.status == 207) and (respdata is not None):
+            try:
+                tree = ElementTree(file=StringIO(respdata))
+            except Exception:
+                return hresult
+
+            request_uri = req.getURI(self.manager.server_info)
+            for response in tree.findall("{DAV:}response"):
+
+                # Get href for this response
+                href = response.findall("{DAV:}href")
+                if len(href) != 1:
+                    return False, "           Wrong number of DAV:href elements\n"
+                href = href[0].text
+                if href != request_uri:
+
+                    _ignore_result, respdata = self.doget(req, (href, collection[1], collection[2],), label)
+                    if respdata.find(match) != -1:
+                        break
+            else:
+                href = None
+
+        return href
+
+
     def dowaitcount(self, original_request, collection, count, label=""):
 
         hrefs = []
@@ -600,6 +650,18 @@ class caldavtest(object):
         elif req.method == "GETOTHER":
             collection = (req.ruri, req.user, req.pswd)
             self.grabbedlocation = self.dofindnew(req, collection, label=label, other=True)
+            if req.graburi:
+                self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
+            req.method = "GET"
+            req.ruri = "$"
+
+        # Special for GETCONTAINS
+        elif req.method.startswith("GETCONTAINS"):
+            match = req.method[12:]
+            collection = (req.ruri, req.user, req.pswd)
+            self.grabbedlocation = self.dofindcontains(req, collection, match, label=label)
+            if not self.grabbedlocation:
+                return False, "No matching resource", None, None
             if req.graburi:
                 self.manager.server_info.addextrasubs({req.graburi: self.grabbedlocation})
             req.method = "GET"
