@@ -535,6 +535,10 @@ freeBusy:
 		A set of iCalendar PERIOD values for FBTYPE=BUSY-UNAVAILABLE
 		periods expected in the response.
 	
+	Argument: 'duration'
+		If present the period values being checked use duration rather then
+		end time.
+	
 	Example:
 	
 	<verify>

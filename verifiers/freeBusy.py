@@ -33,6 +33,7 @@ class Verifier(object):
         busy = args.get("busy", [])
         tentative = args.get("tentative", [])
         unavailable = args.get("unavailable", [])
+        duration = args.get("duration") is not None
 
         # Parse data as calendar object
         try:
@@ -58,7 +59,7 @@ class Verifier(object):
                 periods = fp.getValue().getValues()
                 # Convert start/duration to start/end
                 for i in range(len(periods)):
-                    periods[i].getValue().setUseDuration(False)
+                    periods[i].getValue().setUseDuration(duration)
                 # Check param
                 fbtype = "BUSY"
                 if fp.hasParameter("FBTYPE"):
@@ -93,7 +94,7 @@ class Verifier(object):
 
             # Compare all periods
             if len(busyp.symmetric_difference(busy)):
-                raise ValueError("Busy periods do not match")
+                raise ValueError("Busy periods do not match: {}".format(busyp.symmetric_difference(busy)))
             elif len(tentativep.symmetric_difference(tentative)):
                 raise ValueError("Busy-tentative periods do not match")
             elif len(unavailablep.symmetric_difference(unavailable)):

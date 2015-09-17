@@ -23,25 +23,780 @@
 
 	<require-feature>
 		<feature>caldav</feature>
+		<feature>rscale</feature>
 	</require-feature>
 
 	<start/>
 	
-	<test-suite name='PUT VEVENT'>
+	<test-suite name='PROPFIND supported-rscale-set'>
 		<test name='1'>
-			<description>PUT event with RSCALE</description>
+			<description>PROPFIND on home resource</description>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/supported/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=GREGORIAN]</value>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=CHINESE]</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$calendarpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/supported/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=GREGORIAN]</value>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=CHINESE]</value>
+					</arg>
+				</verify>
+			</request>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$inboxpath1:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/supported/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=GREGORIAN]</value>
+						<value>$verify-property-prefix:/{$CALDAV:}supported-rscale-set/{$CALDAV:}supported-rscale[=CHINESE]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Bad data'>
+		<test name='1'>
+			<description>PUT event with invalid RSCALE value</description>
 			<request end-delete='yes'>
 				<method>PUT</method>
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/rscale/1.ics</filepath>
+					<filepath>Resource/CalDAV/rscale/bad/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}supported-rscale</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT event with invalid SKIP value</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/bad/2.ics</filepath>
 				</data>
 				<verify>
 					<callback>prepostcondition</callback>
 					<arg>
 						<name>error</name>
 						<value>{urn:ietf:params:xml:ns:caldav}valid-calendar-data</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Gregorian Monthly Skip'>
+		<test name='1'>
+			<description>PUT event Gregorian;Monthly;SKIP=OMIT</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160131T000000Z/P1D</value>
+						<value>20160331T000000Z/P1D</value>
+						<value>20160531T000000Z/P1D</value>
+						<value>20160731T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20161031T000000Z/P1D</value>
+						<value>20161231T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT event Gregorian;Monthly;SKIP=FORWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160131T000000Z/P1D</value>
+						<value>20160301T000000Z/P1D</value>
+						<value>20160331T000000Z/P1D</value>
+						<value>20160501T000000Z/P1D</value>
+						<value>20160531T000000Z/P1D</value>
+						<value>20160701T000000Z/P1D</value>
+						<value>20160731T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20161001T000000Z/P1D</value>
+						<value>20161031T000000Z/P1D</value>
+						<value>20161201T000000Z/P1D</value>
+						<value>20161231T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT event Gregorian;Monthly;SKIP=BACKWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160131T000000Z/P1D</value>
+						<value>20160229T000000Z/P1D</value>
+						<value>20160331T000000Z/P1D</value>
+						<value>20160430T000000Z/P1D</value>
+						<value>20160531T000000Z/P1D</value>
+						<value>20160630T000000Z/P1D</value>
+						<value>20160731T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161031T000000Z/P1D</value>
+						<value>20161130T000000Z/P1D</value>
+						<value>20161231T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>PUT event Gregorian;Monthly;SKIP default</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160131T000000Z/P1D</value>
+						<value>20160331T000000Z/P1D</value>
+						<value>20160531T000000Z/P1D</value>
+						<value>20160731T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20161031T000000Z/P1D</value>
+						<value>20161231T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Gregorian Yearly Skip'>
+		<test name='1'>
+			<description>PUT event Gregorian;Yearly;SKIP=OMIT</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160229T000000Z/P1D</value>
+						<value>20200229T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT event Gregorian;Yearly;SKIP=FORWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160229T000000Z/P1D</value>
+						<value>20170301T000000Z/P1D</value>
+						<value>20180301T000000Z/P1D</value>
+						<value>20190301T000000Z/P1D</value>
+						<value>20200229T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT event Gregorian;Yearly;SKIP=BACKWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160229T000000Z/P1D</value>
+						<value>20170228T000000Z/P1D</value>
+						<value>20180228T000000Z/P1D</value>
+						<value>20190228T000000Z/P1D</value>
+						<value>20200229T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>PUT event Gregorian;Yearly;SKIP default</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/gregorian/yearly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160229T000000Z/P1D</value>
+						<value>20200229T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Chinese Monthly Skip'>
+		<test name='1'>
+			<description>PUT event Chinese;Monthly;SKIP=OMIT</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160109T000000Z/P1D</value>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT event Chinese;Monthly;SKIP=FORWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160109T000000Z/P1D</value>
+						<value>20160208T000000Z/P1D</value>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160407T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160605T000000Z/P1D</value>
+						<value>20160704T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160901T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161129T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT event Chinese;Monthly;SKIP=BACKWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160109T000000Z/P1D</value>
+						<value>20160207T000000Z/P1D</value>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160406T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160604T000000Z/P1D</value>
+						<value>20160703T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161128T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>PUT event Chinese;Monthly;SKIP default</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthly/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160109T000000Z/P1D</value>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Chinese MonthDay Skip'>
+		<test name='1'>
+			<description>PUT event Chinese;MonthDay;SKIP=OMIT</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT event Chinese;MonthDay;SKIP=FORWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160407T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160605T000000Z/P1D</value>
+						<value>20160704T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160901T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161129T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>PUT event Chinese;MonthDay;SKIP=BACKWARD</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/4.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160406T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160604T000000Z/P1D</value>
+						<value>20160703T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160831T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161128T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>PUT event Chinese;MonthDay;SKIP default</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/5.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/chinese/monthday/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20160308T000000Z/P1D</value>
+						<value>20160506T000000Z/P1D</value>
+						<value>20160802T000000Z/P1D</value>
+						<value>20160930T000000Z/P1D</value>
+						<value>20161030T000000Z/P1D</value>
+						<value>20161228T000000Z/P1D</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Ethiopic, Last Day Of Year'>
+		<test name='1'>
+			<description>PUT event Ethipoic;Yearly;Month=13</description>
+			<request end-delete='yes'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/ethiopic/2.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/rscale/ethiopic/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>freeBusy</callback>
+					<arg>
+						<name>duration</name>
+					</arg>
+					<arg>
+						<name>busy</name>
+						<value>20150911T000000Z/P1D</value>
+						<value>20160910T000000Z/P1D</value>
 					</arg>
 				</verify>
 			</request>
