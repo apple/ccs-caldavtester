@@ -526,7 +526,7 @@ class caldavtest(object):
             while (time.time() < starttime + delay):
                 pass
 
-        if self.manager.debug:
+        if self.manager.debug and hrefs:
             # Get the content of each resource
             rdata = ""
             for href in hrefs:
