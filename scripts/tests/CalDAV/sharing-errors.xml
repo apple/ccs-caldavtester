@@ -177,6 +177,27 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='POST on non-existent calendar' only='yes'>
+		<test name='1'>
+			<description>POST invitation to non-existent calendar</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarhome1:/bogus-calendar/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/sharing/invites/new/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
