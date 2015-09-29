@@ -33,8 +33,7 @@ class Verifier(object):
         filters = args.get("filter", [])
 
         # Always remove these
-        filters.append("PRODID")
-        filters.append("REV")
+        filters.extend(manager.server_info.addressdatafilters)
 
         # status code must be 200, 201, 207
         if response.status not in (200, 201, 207):
@@ -79,8 +78,13 @@ class Verifier(object):
                             if property.hasParameter(parameter):
                                 property.removeParameters(parameter)
                     else:
-                        if property.getName() == filter:
-                            component.removeProperty(property)
+                        if "=" in filter:
+                            filter_name, filter_value = filter.split("=")
+                            if property.getName() == filter_name and property.getValue().getValue() == filter_value:
+                                component.removeProperty(property)
+                        else:
+                            if property.getName() == filter:
+                                component.removeProperty(property)
 
         try:
             format = Card.sFormatJSON if is_json else Card.sFormatText

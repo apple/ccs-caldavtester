@@ -50,6 +50,8 @@ class serverinfo(object):
         self.waitsuccess = 10
         self.subsdict = {}
         self.extrasubsdict = {}
+        self.calendardatafilters = []
+        self.addressdatafilters = []
 
         # dtnow needs to be fixed to a single date at the start of the tests just in case the tests
         # run over a day boundary.
@@ -193,6 +195,10 @@ class serverinfo(object):
                 self.parseFeatures(child)
             elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTIONS:
                 self.parseSubstitutionsXML(child)
+            elif child.tag == src.xmlDefs.ELEMENT_CALENDARDATAFILTER:
+                self.calendardatafilters.append(child.text.encode("utf-8"))
+            elif child.tag == src.xmlDefs.ELEMENT_ADDRESSDATAFILTER:
+                self.addressdatafilters.append(child.text.encode("utf-8"))
 
         self.updateParams()
 

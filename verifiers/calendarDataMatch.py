@@ -39,15 +39,7 @@ class Verifier(object):
         if "EMAIL parameter" not in manager.server_info.features:
             filters.append("ATTENDEE:EMAIL")
             filters.append("ORGANIZER:EMAIL")
-        filters.append("ATTENDEE:X-CALENDARSERVER-DTSTAMP")
-        filters.append("ATTENDEE:X-CALENDARSERVER-AUTO")
-        filters.append("ATTENDEE:X-CALENDARSERVER-RESET-PARTSTAT")
-        filters.append("CALSCALE")
-        filters.append("PRODID")
-        filters.append("DTSTAMP")
-        filters.append("CREATED")
-        filters.append("LAST-MODIFIED")
-        filters.append("X-WR-CALNAME")
+        filters.extend(manager.server_info.calendardatafilters)
 
         for afilter in tuple(filters):
             if afilter[0] == "!" and afilter[1:] in filters:
@@ -99,6 +91,10 @@ class Verifier(object):
             for subcomponent in component.getComponents():
                 removePropertiesParameters(subcomponent)
 
+            if component.getType() == "VEVENT":
+                if component.hasEnd():
+                    component.editTimingStartDuration(component.getStart(), component.getEnd() - component.getStart())
+
             allProps = []
             for properties in component.getProperties().itervalues():
                 allProps.extend(properties)
@@ -115,8 +111,13 @@ class Verifier(object):
                             if property.hasParameter(parameter):
                                 property.removeParameters(parameter)
                     else:
-                        if property.getName() == filter:
-                            component.removeProperty(property)
+                        if "=" in filter:
+                            filter_name, filter_value = filter.split("=")
+                            if property.getName() == filter_name and property.getValue().getValue() == filter_value:
+                                component.removeProperty(property)
+                        else:
+                            if property.getName() == filter:
+                                component.removeProperty(property)
 
         def reconcileRecurrenceOverrides(calendar1, calendar2):
             """

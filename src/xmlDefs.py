@@ -16,10 +16,12 @@
 
 # XML Elements/Attributes
 
+ELEMENT_ADDRESSDATAFILTER = "addressdatafilter"
 ELEMENT_ARG = "arg"
 ELEMENT_AUTHTYPE = "authtype"
 ELEMENT_BODY = "body"
 ELEMENT_CALDAVTEST = "caldavtest"
+ELEMENT_CALENDARDATAFILTER = "calendardatafilter"
 ELEMENT_CALLBACK = "callback"
 ELEMENT_CLIENTS = "clients"
 ELEMENT_CONTENTTYPE = "content-type"

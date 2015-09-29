@@ -17,7 +17,8 @@
 <!ELEMENT serverinfo (host, nonsslport, sslport, unix?,
 						host2?, nonsslport2?, sslport2?, unix2?,
 						authtype?, waitcount?, waitdelay?, waitsuccess?,
-						features?, substitutions)? >
+						features?, substitutions,
+						calendardatafilter*, addressdatafilter*)? >
 
 	<!ELEMENT host			(#PCDATA)>
 	<!ELEMENT nonsslport	(#PCDATA)>
@@ -39,4 +40,6 @@
 		<!ELEMENT substitution	(key, value)>
 			<!ELEMENT key			(#PCDATA)>
 			<!ELEMENT value			(#PCDATA)>
+	<!ELEMENT calendardatafilter   (#PCDATA)>
+	<!ELEMENT addressdatafilter   (#PCDATA)>
 	
