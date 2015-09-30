@@ -38,7 +38,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>server-info-token</value>
+						<value>server-info-url</value>
 					</arg>
 				</verify>
 			</request>
@@ -52,7 +52,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>server-info-token</value>
+						<value>server-info-url</value>
 					</arg>
 				</verify>
 			</request>
@@ -66,7 +66,7 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>server-info-token</value>
+						<value>server-info-url</value>
 					</arg>
 				</verify>
 			</request>
@@ -80,104 +80,31 @@
 					<callback>header</callback>
 					<arg>
 						<name>header</name>
-						<value>server-info-token</value>
+						<value>server-info-url</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-	</test-suite>
-
-	<test-suite name='PROPFINDs'>
-		<test name='1'>
-			<description>PROPFIND on principal collection resourc</description>
+		<test name='5'>
+			<description>OPTIONS on root resource with header</description>
 			<request>
-				<method>PROPFIND</method>
-				<ruri>$principalcollection:</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/serverinfo/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}server-info-href</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>PROPFIND on principal resource</description>
-			<request>
-				<method>PROPFIND</method>
-				<ruri>$principal1:</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/serverinfo/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}server-info-href</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>PROPFIND on home resource</description>
-			<request>
-				<method>PROPFIND</method>
-				<ruri>$calendarhome1:/</ruri>
-				<header>
-					<name>Depth</name>
-					<value>0</value>
-				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/serverinfo/1.xml</filepath>
-				</data>
-				<verify>
-					<callback>xmlElementMatch</callback>
-					<arg>
-						<name>exists</name>
-						<value>$verify-property-prefix:/{DAV:}server-info-href</value>
-					</arg>
-				</verify>
-				<grabelement>
-					<name>$verify-property-prefix:/{DAV:}server-info-href/{DAV:}href</name>
-					<variable>$serverinfo_href:</variable>
-				</grabelement>
-			</request>
-		</test>
-		<test name='4' ignore='yes'>
-			<description>PROPFIND on root resource</description>
-			<request>
-				<method>PROPFIND</method>
+				<method>OPTIONS</method>
 				<ruri>$root:</ruri>
 				<header>
-					<name>Depth</name>
-					<value>0</value>
+					<name>server-info-token</name>
+					<value>*</value>
 				</header>
-				<data>
-					<content-type>application/xml; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/serverinfo/1.xml</filepath>
-				</data>
 				<verify>
-					<callback>xmlElementMatch</callback>
+					<callback>header</callback>
 					<arg>
-						<name>notexists</name>
-						<value>$verify-property-prefix:/{DAV:}server-info-href</value>
+						<name>header</name>
+						<value>server-info-url</value>
 					</arg>
 				</verify>
+				<grabheader>
+					<name>server-info-url</name>
+					<variable>$serverinfo_href:</variable>
+				</grabheader>
 			</request>
 		</test>
 	</test-suite>
@@ -196,6 +123,114 @@
 						<value>/{DAV:}server-info/{DAV:}features</value>
 						<value>/{DAV:}server-info/{DAV:}features/{DAV:}class-1</value>
 						<value>/{DAV:}server-info/{DAV:}applications/{DAV:}application/{DAV:}name[=caldav]</value>
+					</arg>
+				</verify>
+				<grabelement>
+					<name>/{DAV:}server-info/{DAV:}token</name>
+					<variable>$server-info-token:</variable>
+				</grabelement>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Conditional OPTIONS'>
+		<test name='1'>
+			<description>OPTIONS on root resource with correct header</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$root:</ruri>
+				<header>
+					<name>Server-Info-Token</name>
+					<value>$server-info-token:</value>
+				</header>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!server-info-url</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>OPTIONS on root resource with incorrect header</description>
+			<request>
+				<method>OPTIONS</method>
+				<ruri>$root:</ruri>
+				<header>
+					<name>Server-Info-Token</name>
+					<value>foobar</value>
+				</header>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>server-info-url</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Conditional REPORT'>
+		<test name='1'>
+			<description>Calendar home sync with correct header</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Server-Info-Token</name>
+					<value>$server-info-token:</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!server-info-url</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Calendar home sync with incorrect header</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<header>
+					<name>Server-Info-Token</name>
+					<value>foobar</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>server-info-url</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Calendar home sync with no header</description>
+			<request>
+				<method>REPORT</method>
+				<ruri>$calendarhome1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/REPORT/sync-init-level-1.xml</filepath>
+				</data>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>!server-info-url</value>
 					</arg>
 				</verify>
 			</request>
