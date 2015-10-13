@@ -1711,6 +1711,177 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Sharer as attendee'>
+		<test name='1' ignore='no'>
+			<description>New calendar created after shared calendar</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>MKCALENDAR</method>
+				<ruri>$calendarhome2:/newcalendar/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>PUT invite</description>
+			<request user="$userid2:" pswd="$pswd2:" end-delete='no'>
+				<method>PUT</method>
+				<ruri>$calendarhome2:/newcalendar/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/managedattachments/sharer_attendee/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Sharer MOVE to shared calendar</description>
+			<request>
+				<method>GETNEW</method>
+				<ruri>$calendarpath1:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>MOVE</method>
+				<ruri>$</ruri>
+				<header>
+					<name>Destination</name>
+					<value>$host:$calendarhome1:/shared/move1.ics</value>
+				</header>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4' ignore='no'>
+			<description>Owner add attachment</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>POST</method>
+				<ruri>$calendarhome2:/newcalendar/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test.txt</value>
+				</header>
+				<header>
+					<name>Prefer</name>
+					<value>return=representation</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/sharer_attendee/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>dataString</callback>
+					<arg>
+						<name>unwrap</name>
+						<value/>
+					</arg>
+					<arg>
+						<name>contains</name>
+						<value>ATTACH</value>
+					</arg>
+				</verify>
+				<verify>
+					<callback>header</callback>
+					<arg>
+						<name>header</name>
+						<value>Cal-Managed-ID</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>Location</name>
+					<variable>$location:</variable>
+				</grabheader>
+				<grabheader>
+					<name>Cal-Managed-ID</name>
+					<variable>$managed-id:</variable>
+				</grabheader>
+			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Only one dropbox item</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PROPFIND</method>
+				<ruri>$dropboxpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>1</value>
+				</header>
+				<data>
+					<content-type>application/xml; charset=utf-8</content-type>
+					<filepath>Resource/Common/PROPFIND/count.xml</filepath>
+				</data>
+				<verify>
+					<callback>propfindItems</callback>
+					<arg>
+						<name>count</name>
+						<value>2</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Check for attachment - owner</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$location:</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Check for attachment - attendee</description>
+			<request>
+				<method>GET</method>
+				<ruri>$location:</ruri>
+				<verify>
+					<callback>dataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1' ignore='no'>
+			<description>Clean-up</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarhome2:/newcalendar/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETE</method>
+				<ruri>$calendarhome2:/newcalendar/</ruri>
+			</request>
+			<request>
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request>
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
 	<end>
 		<request user="$useradmin:" pswd="$pswdadmin:">
 			<method>DELETEALL</method>
