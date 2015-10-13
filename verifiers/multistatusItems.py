@@ -13,15 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-import urllib
 
 """
 Verifier that checks a multistatus response to make sure that the specified hrefs
 are returned with appropriate status codes.
 """
 
+from src.utils import processHrefSubstitutions
 from xml.etree.ElementTree import ElementTree
 from StringIO import StringIO
+import urllib
 
 class Verifier(object):
 
@@ -47,12 +48,9 @@ class Verifier(object):
             prefix = prefix[0] if prefix[0] != "-" else ""
         else:
             prefix = uri
-        okhrefs = [prefix + i for i in okhrefs]
-        nohrefs = [prefix + i for i in nohrefs]
-        badhrefs = [prefix + i for i in badhrefs]
-        for k, v in args.items():
-            v = [prefix + i for i in v]
-            args[k] = v
+        okhrefs = processHrefSubstitutions(okhrefs, prefix)
+        nohrefs = processHrefSubstitutions(nohrefs, prefix)
+        badhrefs = processHrefSubstitutions(badhrefs, prefix)
         count = [int(eval(i)) for i in count]
         totalcount = [int(eval(i)) for i in totalcount]
         responsecount = [int(eval(i)) for i in responsecount]
@@ -86,7 +84,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if href is None or len(href) != 1:
                 return False, "        Incorrect/missing DAV:Href element in response"
-            href = urllib.unquote(href[0].text)
+            href = urllib.unquote(href[0].text).rstrip("/")
 
             # Verify status
             status = response.findall("{DAV:}status")
@@ -130,7 +128,10 @@ class Verifier(object):
             return result, resulttxt
 
         # Check for total count
-        if len(totalcount) == 1:
+        if len(totalcount) > 0:
+            # Add the 2nd value to the 1st if it exists
+            if len(totalcount) == 2:
+                totalcount[0] += totalcount[1]
             if len(ok_result_set) != totalcount[0]:
                 result = False
                 resulttxt += "        %d items returned, but %d items expected" % (len(ok_result_set), totalcount[0],)

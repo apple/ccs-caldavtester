@@ -286,6 +286,24 @@
 			<value>freebusy</value>
 		</substitution>
 
+		<!-- Sync home collection items - use "-" to include the home resource-->
+		<substitution>
+			<key>$calendar_home_items_initial_sync:</key>
+			<value>[-,$calendar:/,$tasks:/,$inbox:/,$outbox:/,$freebusy:,$notification:/]</value>
+		</substitution>
+
+		<!-- Sync collection extra items - use "-" to include the collection-->
+		<substitution>
+			<key>$calendar_sync_extra_items:</key>
+			<value>[-]</value>
+		</substitution>
+
+		<!-- Sync collection extra count - gets added to the totalcount value-->
+		<substitution>
+			<key>$calendar_sync_extra_count:</key>
+			<value>1</value> <!-- the request-uri resource is returned when no token passed-->
+		</substitution>
+
 		<!-- server-to-server inbox-->
 		<substitution>
 			<key>$servertoserver:</key>
