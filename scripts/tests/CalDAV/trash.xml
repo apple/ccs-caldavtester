@@ -1427,15 +1427,15 @@
         </test>
 
         <test name='5'>
-            <description>Check for attachment -- still there because they're not currently hidden</description>
+            <description>Check for attachment -- currently hidden</description>
             <request>
                 <method>GET</method>
                 <ruri>$location:</ruri>
                 <verify>
-                    <callback>dataMatch</callback>
+                    <callback>statusCode</callback>
                     <arg>
-                        <name>filepath</name>
-                        <value>Resource/CalDAV/managedattachments/simple/2.txt</value>
+                        <name>status</name>
+                        <value>403</value>
                     </arg>
                 </verify>
             </request>
