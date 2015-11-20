@@ -37,7 +37,7 @@
 		</request>
 	</start>
 	
-	<test-suite name='Attempt to store externally organized event'>
+	<test-suite name='Attempt to store externally organized event' change-uid='yes'>
 		<test name='1'>
 			<description>Attendee stores organized event</description>
 			<request>
@@ -45,7 +45,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/1.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-with-attendee/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -61,7 +61,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/2.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-with-attendee/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -73,7 +73,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/3.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-with-attendee/3.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -89,7 +89,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/4.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-with-attendee/4.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -101,7 +101,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/5.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-with-attendee/5.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -117,87 +117,27 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/6.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-with-attendee/6.ics</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
-		<test name='7'>
+		<test name='-1'>
 			<description>Clean-up</description>
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>
 	
-	<test-suite name='Attempt to store local organized event with SCHEDULE-AGENT=SERVER'>
-		<test name='1'>
-			<description>Attendee stores organized event</description>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>PUT</method>
-				<ruri>$calendarpath2:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/7.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>403</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>Attendee checks data</description>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-					<arg>
-						<name>status</name>
-						<value>404</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>Clean-up</description>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath1:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$calendarpath2:/</ruri>
-			</request>
-			<request user="$userid2:" pswd="$pswd2:">
-				<method>DELETEALL</method>
-				<ruri>$inboxpath2:/</ruri>
-			</request>
-		</test>
-	</test-suite>
-
-	<test-suite name='Store externally organized event without matching attendee'>
+	<test-suite name='Store externally organized event without matching attendee' change-uid='yes'>
 		<test name='1'>
 			<description>Attendee stores organized event (no local attendees)</description>
 			<request>
@@ -205,11 +145,12 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/8.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-no-attendee/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
 				</verify>
+				
 			</request>
 		</test>
 		<test name='2'>
@@ -221,7 +162,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/9.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-no-attendee/2.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -233,7 +174,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/10.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-no-attendee/3.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -249,7 +190,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/11.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-no-attendee/4.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -261,7 +202,7 @@
 				<ruri>$calendarpath1:/2.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/12.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-no-attendee/5.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -277,7 +218,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/13.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-no-attendee/6.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -299,7 +240,7 @@
 				<ruri>$calendarpath1:/3.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/14.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-no-attendee/7.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -315,7 +256,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/14.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-no-attendee/7.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -327,7 +268,7 @@
 				<ruri>$calendarpath1:/4.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/implicit/imip/15.ics</filepath>
+					<filepath>Resource/CalDAV/implicit/imip/external-no-attendee/8.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -343,7 +284,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/implicit/imip/15.ics</value>
+						<value>Resource/CalDAV/implicit/imip/external-no-attendee/8.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -353,18 +294,485 @@
 			<request user="$userid1:" pswd="$pswd1:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath1:/</ruri>
-			</request>
-			<request user="$userid1:" pswd="$pswd1:">
-				<method>DELETEALL</method>
 				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
 				<ruri>$calendarpath2:/</ruri>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Attempt to store local organized event with SCHEDULE-AGENT=SERVER and attendee' change-uid='yes'>
+		<test name='1'>
+			<description>Attendee stores organized event - includes them</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-server/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>403</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>404</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
 			</request>
 			<request user="$userid2:" pswd="$pswd2:">
 				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
 				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Store local organized event without attendee then get invite from local organizer' change-uid='yes'>
+		<test name='1'>
+			<description>Attendee stores organized event - excludes them</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-server-upgrade/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-server-upgrade/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer invites Attendee</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-server-upgrade/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-server-upgrade/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-server-upgrade/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Store unorganized event then get invite from local organizer' change-uid='yes'>
+		<test name='1'>
+			<description>Attendee stores organized event - excludes them</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/no-organizer/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/no-organizer/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer invites Attendee</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/no-organizer/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/no-organizer/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee two Items</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITCOUNT 2</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Attendee has original data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETCONTAINS SUMMARY:attendee</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filter</name>
+						<value>UID</value>
+					</arg>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/no-organizer/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Attendee has new data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETCONTAINS SUMMARY:organizer</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/no-organizer/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Store local organized event S-A=NONE with attendee then get invite from local organizer' change-uid='yes'>
+		<test name='1'>
+			<description>Attendee stores organized event - excludes them</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-none/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer invites Attendee</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-none/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
+			</request>
+		</test>
+	</test-suite>
+
+	<test-suite name='Store local organized event S-A=NONE without attendee then get invite from local organizer' change-uid='yes'>
+		<test name='1'>
+			<description>Attendee stores organized event - excludes them</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>PUT</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-none-upgrade/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>201</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Attendee checks data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GET</method>
+				<ruri>$calendarpath2:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none-upgrade/2.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Organizer invites Attendee</description>
+			<request>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/implicit/imip/local-sa-none-upgrade/3.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Organizer checks data</description>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none-upgrade/4.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Attendee Inbox Item</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Attendee has data</description>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>GETNEW</method>
+				<ruri>$calendarpath2:/</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/implicit/imip/local-sa-none-upgrade/5.ics</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='-1'>
+			<description>Clean-up</description>
+			<request user="$userid1:" pswd="$pswd1:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath1:/</ruri>
+				<ruri>$inboxpath1:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>WAITDELETEALL 1</method>
+				<ruri>$inboxpath2:/</ruri>
+			</request>
+			<request user="$userid2:" pswd="$pswd2:">
+				<method>DELETEALL</method>
+				<ruri>$calendarpath2:/</ruri>
 			</request>
 		</test>
 	</test-suite>

@@ -172,9 +172,9 @@ class Verifier(object):
 
             result = resp_calendar == data_calendar
             if not result:
-                respdata = respdata.replace("\r\n ", "")
-                data = respdata.replace("\r\n ", "").replace("urn:x-uid:", "urn:uuid:")
-                result = respdata == data
+                respdata2 = respdata.replace("\r\n ", "")
+                data2 = data.replace("\r\n ", "").replace("urn:x-uid:", "urn:uuid:")
+                result = respdata2 == data2
 
             if result:
                 return True, ""
