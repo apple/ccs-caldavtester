@@ -171,6 +171,10 @@ class Verifier(object):
             data = data_calendar.getText(includeTimezones=Calendar.NO_TIMEZONES, format=format)
 
             result = resp_calendar == data_calendar
+            if not result:
+                respdata = respdata.replace("\r\n ", "")
+                data = respdata.replace("\r\n ", "").replace("urn:x-uid:", "urn:uuid:")
+                result = respdata == data
 
             if result:
                 return True, ""
