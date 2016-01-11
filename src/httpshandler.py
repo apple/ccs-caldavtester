@@ -25,12 +25,9 @@ cached_types = ()
 
 # ssl module may be missing some of these attributes depending on how
 # the backend ssl library is configured.
-if hasattr(sslmodule, "PROTOCOL_TLSv1"):
-    cached_types += ((set(), sslmodule.PROTOCOL_TLSv1),)
-if hasattr(sslmodule, "PROTOCOL_SSLv3"):
-    cached_types += ((set(), sslmodule.PROTOCOL_SSLv3),)
-if hasattr(sslmodule, "PROTOCOL_SSLv23"):
-    cached_types += ((set(), sslmodule.PROTOCOL_SSLv23),)
+for attrname in ("PROTOCOL_TLSv1", "PROTOCOL_SSLv3", "PROTOCOL_SSLv23"):
+    if hasattr(sslmodule, attrname):
+        cached_types += ((set(), getattr(sslmodule, attrname)),)
 if len(cached_types) == 0:
     raise RuntimeError("Unable to find suitable SSL protocol to use")
 
