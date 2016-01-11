@@ -18,12 +18,30 @@ import httplib
 import socket
 import ssl as sslmodule
 
+# Used to track what type of connection was previously used to connect to a
+# specific server so we don't need to keep iterate over all types to see what
+# works).
+cached_types = ()
+
+# ssl module may be missing some of these attributes depending on how
+# the backend ssl library is configured.
+if hasattr(sslmodule, "PROTOCOL_TLSv1"):
+    cached_types += ((set(), sslmodule.PROTOCOL_TLSv1),)
+if hasattr(sslmodule, "PROTOCOL_SSLv3"):
+    cached_types += ((set(), sslmodule.PROTOCOL_SSLv3),)
+if hasattr(sslmodule, "PROTOCOL_SSLv23"):
+    cached_types += ((set(), sslmodule.PROTOCOL_SSLv23),)
+if len(cached_types) == 0:
+    raise RuntimeError("Unable to find suitable SSL protocol to use")
+
+
+
 class HTTPSVersionConnection(httplib.HTTPSConnection):
     """
     An L{httplib.HTTPSConnection} class that allows the TLS protocol version to be set.
     """
 
-    def __init__(self, host, port, ssl_version=sslmodule.PROTOCOL_TLSv1):
+    def __init__(self, host, port, ssl_version=cached_types[0][1]):
         httplib.HTTPSConnection.__init__(self, host, port)
         self._ssl_version = ssl_version
 
@@ -35,11 +53,6 @@ class HTTPSVersionConnection(httplib.HTTPSConnection):
         self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=self._ssl_version)
 
 
-cached_types = (
-    (set(), sslmodule.PROTOCOL_TLSv1),
-    (set(), sslmodule.PROTOCOL_SSLv3),
-    (set(), sslmodule.PROTOCOL_SSLv23),
-)
 
 class UnixSocketHTTPConnection(httplib.HTTPConnection):
     """
@@ -63,6 +76,9 @@ class UnixSocketHTTPConnection(httplib.HTTPConnection):
 def SmartHTTPConnection(host, port, ssl, afunix):
     """
     Create the appropriate L{httplib.HTTPConnection} derived class for the supplied arguments.
+    This attempts to connect to a server using the available SSL protocol types (as per
+    L{cached_types} and if that succeeds it records the host/port in L{cached_types} for
+    use with subsequent connections.
 
     @param host: TCP host name
     @type host: L{str}
