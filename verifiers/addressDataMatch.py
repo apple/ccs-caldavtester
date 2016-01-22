@@ -15,7 +15,11 @@
 ##
 
 from difflib import unified_diff
-from pycalendar.vcard.card import Card
+try:
+    # pycalendar is optional
+    from pycalendar.vcard.card import Card
+except ImportError:
+    pass
 import os
 
 """

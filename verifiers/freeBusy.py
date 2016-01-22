@@ -18,8 +18,14 @@
 Verifier that checks the response of a free-busy-query.
 """
 
-from pycalendar.icalendar.calendar import Calendar
-from pycalendar.exceptions import InvalidData
+try:
+    # pycalendar is optional
+    from pycalendar.icalendar.calendar import Calendar
+    from pycalendar.exceptions import InvalidData
+except ImportError:
+    pass
+
+
 
 class Verifier(object):
 
@@ -104,5 +110,7 @@ class Verifier(object):
             return False, "        HTTP response data is not a calendar"
         except ValueError, txt:
             return False, "        HTTP response data is invalid: %s" % (txt,)
+        except Exception, e:
+            return False, "        Response data is not calendar data: %s" % (e,)
 
         return True, ""

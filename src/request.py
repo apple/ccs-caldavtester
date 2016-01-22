@@ -206,7 +206,7 @@ class request(object):
             hdrs[key] = si.extrasubs(value)
 
         # Content type
-        if self.data != None:
+        if self.data is not None:
             hdrs["Content-Type"] = self.data.content_type
 
         # Auth
@@ -308,7 +308,7 @@ class request(object):
 
 
     def getFilePath(self):
-        if self.data != None:
+        if self.data is not None:
             return os.path.join(self.manager.data_dir, self.data.filepath) if self.manager.data_dir else self.data.filepath
         else:
             return ""
@@ -316,7 +316,7 @@ class request(object):
 
     def getData(self):
         data = ""
-        if self.data != None:
+        if self.data is not None:
             if len(self.data.value) != 0:
                 data = self.data.value
             elif self.data.filepath:

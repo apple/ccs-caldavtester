@@ -19,7 +19,11 @@ Class to encapsulate a single caldav test run.
 """
 
 from cStringIO import StringIO
-from pycalendar.icalendar.calendar import Calendar
+try:
+    # Treat pycalendar as optional
+    from pycalendar.icalendar.calendar import Calendar
+except ImportError:
+    pass
 from src.httpshandler import SmartHTTPConnection
 from src.jsonPointer import JSONMatcher
 from src.manager import manager
@@ -751,7 +755,7 @@ class caldavtest(object):
             if stats:
                 stats.endTimer()
 
-        if doverify and (respdata != None):
+        if doverify and (respdata is not None):
             result, txt = self.verifyrequest(req, uri, response, respdata)
             resulttxt += txt
         elif forceverify:
@@ -784,7 +788,7 @@ class caldavtest(object):
                 tree = ElementTree(file=StringIO(respdata))
                 ctr = len(tree.findall("{DAV:}response")) - 1
 
-            if ctr == None or ctr == -1:
+            if ctr is None or ctr == -1:
                 result = False
                 resulttxt += "\nCould not count resources in response\n"
             else:
@@ -804,7 +808,7 @@ class caldavtest(object):
                 for propname, variable in req.grabproperty:
                     # grab the property here
                     propvalue = self.extractProperty(propname, respdata)
-                    if propvalue == None:
+                    if propvalue is None:
                         result = False
                         resulttxt += "\nProperty %s was not extracted from multistatus response\n" % (propname,)
                     else:
@@ -820,7 +824,7 @@ class caldavtest(object):
                     parent = self.manager.server_info.extrasubs(parent)
                 # grab the property here
                 elementvalues = self.extractElements(elementpath, parent, respdata)
-                if elementvalues == None:
+                if elementvalues is None:
                     result = False
                     resulttxt += "\nElement %s was not extracted from response\n" % (elementpath,)
                 elif len(variables) != len(elementvalues):
@@ -834,7 +838,7 @@ class caldavtest(object):
             for pointer, variables in req.grabjson:
                 # grab the JSON value here
                 pointervalues = self.extractPointer(pointer, respdata)
-                if pointervalues == None:
+                if pointervalues is None:
                     result = False
                     resulttxt += "\Pointer %s was not extracted from response\n" % (pointer,)
                 elif len(variables) != len(pointervalues):
@@ -850,7 +854,7 @@ class caldavtest(object):
                 propname = self.manager.server_info.subs(propname)
                 propname = self.manager.server_info.extrasubs(propname)
                 propvalue = self.extractCalProperty(propname, respdata)
-                if propvalue == None:
+                if propvalue is None:
                     result = False
                     resulttxt += "\nCalendar property %s was not extracted from response\n" % (propname,)
                 else:
@@ -862,7 +866,7 @@ class caldavtest(object):
                 paramname = self.manager.server_info.subs(paramname)
                 paramname = self.manager.server_info.extrasubs(paramname)
                 paramvalue = self.extractCalParameter(paramname, respdata)
-                if paramvalue == None:
+                if paramvalue is None:
                     result = False
                     resulttxt += "\nCalendar Parameter %s was not extracted from response\n" % (paramname,)
                 else:

@@ -15,9 +15,13 @@
 ##
 
 from difflib import unified_diff
-from pycalendar.icalendar.calendar import Calendar
-from pycalendar.icalendar.componentrecur import ComponentRecur
-from pycalendar.parameter import Parameter
+try:
+    # pycalendar is optional
+    from pycalendar.icalendar.calendar import Calendar
+    from pycalendar.icalendar.componentrecur import ComponentRecur
+    from pycalendar.parameter import Parameter
+except ImportError:
+    pass
 import os
 
 """

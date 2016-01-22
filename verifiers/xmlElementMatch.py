@@ -19,7 +19,11 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-from pycalendar.icalendar.calendar import Calendar
+try:
+    # pycalendar is optional
+    from pycalendar.icalendar.calendar import Calendar
+except ImportError:
+    pass
 from xml.etree.cElementTree import ElementTree
 import json
 import re
