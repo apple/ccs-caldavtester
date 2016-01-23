@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-from uuid import uuid4
 
 """
 Class that encapsulates the server information for a CalDAV test run.
@@ -22,6 +21,8 @@ Class that encapsulates the server information for a CalDAV test run.
 import datetime
 import re
 import src.xmlDefs
+from uuid import uuid4
+from urlparse import urlparse
 
 
 class serverinfo(object):
@@ -147,6 +148,12 @@ class serverinfo(object):
             if variable.startswith("basename("):
                 variable = variable[len("basename("):-1]
                 value = value.rstrip("/").split("/")[-1]
+
+            # urlpath() - extract just the URL path segment from the value
+            elif variable.startswith("urlpath("):
+                variable = variable[len("urlpath("):-1]
+                value = urlparse(value).path
+
             processed[variable] = value
 
         self.addsubs(processed, self.extrasubsdict)

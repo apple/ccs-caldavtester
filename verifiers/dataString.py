@@ -22,6 +22,7 @@ class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
+        equals = args.get("equals", [])
         contains = args.get("contains", [])
         notcontains = args.get("notcontains", [])
         unwrap = args.get("unwrap")
@@ -44,6 +45,10 @@ class Verifier(object):
         else:
             newrespdata = respdata
         # Check each contains and not-contains (AND operation)
+        for item in equals:
+            item = manager.server_info.subs(item)
+            if newrespdata != item:
+                return False, "        Response data does not equal \"%s\"" % (item,)
         for item in contains:
             item = manager.server_info.subs(item)
             if newrespdata.find(item.replace("\n", "\r\n")) == -1 and newrespdata.find(item) == -1:

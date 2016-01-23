@@ -398,11 +398,18 @@ caldavtest.dtd:
 				ELEMENT <value>
 					values for the argument.
 	
-		ELEMENT <graburi>
-			if present, this stores the value of the actual request URI
-			used in a named variable which can be used in subsequent requests.
-			Useful for capturing URIs when the GETNEW method is used.
-			
+        ELEMENT <graburi>
+            if present, this stores the value of the actual request URI
+            used in a named variable which can be used in subsequent requests.
+            Useful for capturing URIs when the GETNEW method is used.
+            
+        ELEMENT <grabcount>
+            if present, this stores the number of child responses in a
+            {DAV:}multistatus response into the named variable which
+            can be used in subsequent requests. This is useful for
+            capturing the current count so that a change in the count
+            can be tested for later.
+            
 		ELEMENT <grabheader>
 			if present, this stores the value of the specified header
 			returned in the response in a named variable which can be used
@@ -413,11 +420,16 @@ caldavtest.dtd:
 			returned in a PROPFIND response in a named variable which can
 			be used in subsequent requests.
 			
-		ELEMENT <grabelement>
-			if present, this stores the text representation of an XML
-			element extracted from the response body in a named variable
-			which can be used in subsequent requests.
-			
+        ELEMENT <grabelement>
+            if present, this stores the text representation of an XML
+            element extracted from the response body in a named variable
+            which can be used in subsequent requests.
+            
+        ELEMENT <grabjson>
+            if present, this stores the text representation of a JSON
+            object extracted from the response body in a named variable
+            which can be used in subsequent requests.
+            
 		ELEMENT <grabcalproperty>
 			if present, this stores a calendar property value in a named
 			variable which can be used in subsequent request. The syntax for
@@ -498,9 +510,12 @@ dataString:
 	Performs a check of response body tries to find occurrences of the specified strings or the
 	absence of specified strings.
 
-	Argument: 'contains'
-		One or more strings that must be contained in the data (case-sensitive).
-	
+    Argument: 'equals'
+        One or more strings that must match exactly in the data (case-sensitive).
+    
+    Argument: 'contains'
+        One or more strings that must be contained in the data (case-sensitive).
+    
 	Argument: 'notcontains'
 		One or more strings that must not be contained in the data (case-sensitive).
 	
@@ -598,7 +613,7 @@ jsonPointerMatch:
 	string value can be checked by append "~$" and the string value to test
 	to the JSON pointer value. A single "." can be used as a reference-token
 	in the JSON pointer to match against any member or array item at that
-	poisition in the document.
+	position in the document.
 	
 	Argument: 'exists'
 		JSON pointer for a JSON item to check the presence of
@@ -711,8 +726,8 @@ propfindItems:
 	whether the returned properties (and optionally their values) are good (2xx) or bad
 	(non-2xx) response code. The overall response status must be 207.
 
-	Argument: 'roor-element'
-		Exepected root element for the XML response. Normally this is DAV:multistatus
+	Argument: 'root-element'
+		Expected root element for the XML response. Normally this is DAV:multistatus
 		but, e.g., MKCOL ext uses a different root, but mostly looks like multistatus
 		otherwise.
 
@@ -819,7 +834,7 @@ xmlDataMatch:
 		Any specified XML elements will have their content removed from the
 		response XML data before the comparison with the file data is done.
 		This can be used to ignore element values that change in each request,
-		e.g., a timestamp.
+		e.g., a time stamp.
 	
 	Example:
 	

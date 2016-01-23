@@ -47,6 +47,7 @@ class manager(object):
 
     def __init__(self, text=True):
         self.server_info = serverinfo()
+        self.base_dir = ""
         self.data_dir = None
         self.pretest = None
         self.posttest = None
@@ -199,6 +200,8 @@ class manager(object):
                 raise EX_INVALID_CONFIG_FILE
 
             self.message("Reading Test Details from \"{f}\"".format(f=fname))
+            if self.base_dir:
+                fname = fname[len(self.base_dir) + 1:]
             test = caldavtest(self, fname)
             test.parseXML(caldavtest_node)
             return test
@@ -226,7 +229,6 @@ class manager(object):
     def readCommandLine(self):
         sname = "scripts/server/serverinfo.xml"
         dname = "scripts/tests"
-        basedir = None
         fnames = []
         ssl = False
         all = False
@@ -272,13 +274,13 @@ class manager(object):
             elif option == "--all":
                 all = True
             elif option == "--basedir":
-                basedir = value
-                sname = os.path.join(basedir, "serverinfo.xml")
-                dname = os.path.join(basedir, "tests")
-                self.data_dir = os.path.join(basedir, "data")
+                self.base_dir = value
+                sname = os.path.join(self.base_dir, "serverinfo.xml")
+                dname = os.path.join(self.base_dir, "tests")
+                self.data_dir = os.path.join(self.base_dir, "data")
 
                 # Also add parent to PYTHON path
-                sys.path.append(os.path.dirname(basedir))
+                sys.path.append(os.path.dirname(self.base_dir))
 
             elif option == "--subdir":
                 subdir = value + "/"
