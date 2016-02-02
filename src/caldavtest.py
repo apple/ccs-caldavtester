@@ -585,17 +585,16 @@ class caldavtest(object):
         if len(self.end_deletes) == 0:
             return True
         self.manager.message("trace", "Start: " + description)
-        for deleter in self.end_deletes:
+        for uri, delete_request in self.end_deletes:
             req = request(self.manager)
             req.method = "DELETE"
-            req.host = deleter[3]
-            req.port = deleter[4]
-            req.ruris.append(deleter[0])
-            req.ruri = deleter[0]
-            if len(deleter[1]):
-                req.user = deleter[1]
-            if len(deleter[2]):
-                req.pswd = deleter[2]
+            req.host = delete_request.host
+            req.port = delete_request.port
+            req.ruris.append(uri)
+            req.ruri = uri
+            req.user = delete_request.user
+            req.pswd = delete_request.pswd
+            req.cert = delete_request.cert
             self.dorequest(req, False, False, label=label)
         self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value="[DONE]"))
 
@@ -710,7 +709,7 @@ class caldavtest(object):
 
         # Cache delayed delete
         if req.end_delete:
-            self.end_deletes.append((uri, req.user, req.pswd, req.host, req.port,))
+            self.end_deletes.append((uri, req,))
 
         if details:
             resulttxt += "        %s: %s\n" % (method, uri)
@@ -730,7 +729,13 @@ class caldavtest(object):
             stats.startTimer()
 
         # Do the http request
-        http = SmartHTTPConnection(req.host, req.port, self.manager.server_info.ssl, afunix=req.afunix)
+        http = SmartHTTPConnection(
+            req.host,
+            req.port,
+            self.manager.server_info.ssl,
+            afunix=req.afunix,
+            cert=os.path.join(self.manager.server_info.certdir, req.cert) if req.cert else None
+        )
 
         if 'User-Agent' not in headers and label is not None:
             headers['User-Agent'] = label.encode("utf-8")

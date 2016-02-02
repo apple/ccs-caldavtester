@@ -160,6 +160,7 @@ class manager(object):
         self.server_info.ssl = ssl
         self.server_info.port = self.server_info.sslport if ssl else self.server_info.nonsslport
         self.server_info.port2 = self.server_info.sslport2 if ssl else self.server_info.nonsslport2
+        self.server_info.certdir = os.path.join(self.base_dir, self.server_info.certdir) if self.server_info.certdir else ""
 
         moresubs["$host:"] = "%s://%s" % (
             "https" if ssl else "http", self.server_info.host,

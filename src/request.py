@@ -152,6 +152,7 @@ class request(object):
         self.auth = True
         self.user = ""
         self.pswd = ""
+        self.cert = ""
         self.end_delete = False
         self.print_request = False
         self.print_response = False
@@ -211,10 +212,10 @@ class request(object):
 
         # Auth
         if self.auth:
-            if si.authtype.lower() == "digest":
-                hdrs["Authorization"] = self.gethttpdigestauth(si)
-            else:
+            if si.authtype.lower() == "basic":
                 hdrs["Authorization"] = self.gethttpbasicauth(si)
+            elif si.authtype.lower() == "digest":
+                hdrs["Authorization"] = self.gethttpdigestauth(si)
 
         return hdrs
 
@@ -380,6 +381,7 @@ class request(object):
         self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
         self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
         self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, "").encode("utf-8"))
+        self.cert = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_CERT, "").encode("utf-8"))
         self.end_delete = getYesNoAttributeValue(node, src.xmlDefs.ATTR_END_DELETE)
         self.print_request = self.manager.print_request or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_REQUEST)
         self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)

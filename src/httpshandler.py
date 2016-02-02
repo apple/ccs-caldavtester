@@ -38,8 +38,9 @@ class HTTPSVersionConnection(httplib.HTTPSConnection):
     An L{httplib.HTTPSConnection} class that allows the TLS protocol version to be set.
     """
 
-    def __init__(self, host, port, ssl_version=cached_types[0][1]):
-        httplib.HTTPSConnection.__init__(self, host, port)
+    def __init__(self, host, port, ssl_version=cached_types[0][1], cert_file=None):
+
+        httplib.HTTPSConnection.__init__(self, host, port, cert_file=cert_file)
         self._ssl_version = ssl_version
 
 
@@ -70,7 +71,7 @@ class UnixSocketHTTPConnection(httplib.HTTPConnection):
 
 
 
-def SmartHTTPConnection(host, port, ssl, afunix):
+def SmartHTTPConnection(host, port, ssl, afunix, cert=None):
     """
     Create the appropriate L{httplib.HTTPConnection} derived class for the supplied arguments.
     This attempts to connect to a server using the available SSL protocol types (as per
@@ -85,10 +86,12 @@ def SmartHTTPConnection(host, port, ssl, afunix):
     @type ssl: L{bool}
     @param afunix: unix socket to use or L{None}
     @type afunix: L{str}
+    @param cert: SSL client cert path to use or L{None}
+    @type cert: L{str}
     """
 
-    def trySSL(version):
-        connect = HTTPSVersionConnection(host, port, ssl_version=version)
+    def trySSL(version, cert=None):
+        connect = HTTPSVersionConnection(host, port, ssl_version=version, cert_file=cert)
         connect.connect()
         return connect
 
@@ -99,14 +102,14 @@ def SmartHTTPConnection(host, port, ssl, afunix):
         for cached, connection_type in cached_types:
             if (host, port) in cached:
                 try:
-                    return trySSL(connection_type)
+                    return trySSL(connection_type, cert)
                 except:
                     cached.remove((host, port))
 
         for cached, connection_type in cached_types:
             try:
                 cached.add((host, port))
-                return trySSL(connection_type)
+                return trySSL(connection_type, cert)
             except:
                 cached.remove((host, port))
 

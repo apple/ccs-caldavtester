@@ -35,6 +35,7 @@
 						 auth (yes|no) "yes"
 						 user CDATA ""
 						 pswd CDATA ""
+						 cert CDATA ""
 						 end-delete (yes|no) "no"
 						 print-response (yes|no) "no"
 						 iterate-data (yes|no) "no"
@@ -48,7 +49,7 @@
 			<!ELEMENT value (#PCDATA)>
 		<!ELEMENT data (content-type, (filepath | generator), substitute*)>
 			<!ATTLIST data substitutions (yes|no) "yes"
-			               generate      (yes|no) "no">
+						   generate      (yes|no) "no">
 			<!ELEMENT content-type (#PCDATA)>
 			<!ELEMENT filepath (#PCDATA)>
 			<!ELEMENT generator (callback, arg*)>

@@ -110,6 +110,9 @@ serverinfo.dtd
 	ELEMENT <authtype>
 		HTTP authentication method to use.
 
+	ELEMENT <certdir>
+		Base directory for TLS client certs.
+
 	ELEMENT <waitcount>
 		For requests that wait, defines how many iterations to wait for
 		[Default: 120].
@@ -267,6 +270,9 @@ caldavtest.dtd:
 			if provided this value is used as the password for HTTP
 			Basic authentication instead of the one in the serverinfo
 			file.
+		ATTRIBUTE cert
+			if provided this value is used as the file name for a TLS
+			client certificate to be used with the request.
 		ATTRIBUTE end-delete
 			if set to 'yes', then the resource targeted by the request
 			is deleted after testing is complete, but before the

@@ -43,6 +43,7 @@ class serverinfo(object):
         self.sslport2 = 443
         self.afunix2 = None
         self.authtype = "basic"
+        self.certdir = ""
         self.features = set()
         self.user = ""
         self.pswd = ""
@@ -192,6 +193,8 @@ class serverinfo(object):
                 self.afunix2 = child.text
             elif child.tag == src.xmlDefs.ELEMENT_AUTHTYPE:
                 self.authtype = child.text.encode("utf-8")
+            elif child.tag == src.xmlDefs.ELEMENT_CERTDIR:
+                self.certdir = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_WAITCOUNT:
                 self.waitcount = int(child.text.encode("utf-8"))
             elif child.tag == src.xmlDefs.ELEMENT_WAITDELAY:
