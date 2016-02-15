@@ -713,6 +713,27 @@
 		</test>
 	</test-suite>
 	
+	<test-suite name='Simple POST - bad vcard'>
+		<test name='1'>
+			<description>POST single bad vcard</description>
+			<request>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/vcard; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/bulk/simple/15.vcf</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>400</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+
 	<test-suite name='CRUD POST - one vcard create'>
 		<test name='1'>
 			<description>POST single new vcard</description>
@@ -1506,6 +1527,27 @@
 				<ruri>$addressbookpath1:/</ruri>
 				<verify>
 					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
+	
+	<test-suite name='CRUD POST - bad vcard'>
+		<test name='1'>
+			<description>POST single new vcard</description>
+			<request>
+				<method>POST</method>
+				<ruri>$addressbookpath1:/</ruri>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CardDAV/bulk/crud-one/8.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-bad-response:[*400]</value>
+					</arg>
 				</verify>
 			</request>
 		</test>
