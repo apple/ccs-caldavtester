@@ -276,6 +276,24 @@
 				</verify>
 			</request>
 		</test>
+		<test name='4'>
+			<description>PROPFIND of push-token properties depth=0</description>
+			<request host2="yes" user="$puserid2:" pswd="$ppswd2:">
+				<method>PROPFIND</method>
+				<ruri>$shareecalendarpath2:/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV-pod/sharing/propfind/1.xml</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
 	</test-suite>
 
 	<test-suite name='regular calendar resource prop finds'>
