@@ -2831,6 +2831,54 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Expected proxy properties'>
+		<test name='1'>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal1:calendar-proxy-read/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership</value>
+						<value>$verify-property-prefix:/{$CS:}record-type[=read-delegate-group]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='2'>
+			<request>
+				<method>PROPFIND</method>
+				<ruri>$principal1:calendar-proxy-write/</ruri>
+				<header>
+					<name>Depth</name>
+					<value>0</value>
+				</header>
+				<data>
+					<content-type>text/xml; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/calendaruserproxy/22.xml</filepath>
+				</data>
+				<verify>
+					<callback>xmlElementMatch</callback>
+					<arg>
+						<name>exists</name>
+						<value>$verify-property-prefix:/{DAV:}group-member-set</value>
+						<value>$verify-property-prefix:/{DAV:}group-membership</value>
+						<value>$verify-property-prefix:/{$CS:}record-type[=write-delegate-group]</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 
 	<end>
 		<request>
