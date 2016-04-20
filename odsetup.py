@@ -335,8 +335,8 @@ class ODError(Exception):
 class ODFamework(object):
 
     def __init__(self, nodeName, user, pswd):
-        self.session = ODSession.defaultSession()
-        self.node, error = ODNode.nodeWithSession_name_error_(self.session, nodeName, None)
+        self.session = ODSession.defaultSession() #@UndefinedVariable
+        self.node, error = ODNode.nodeWithSession_name_error_(self.session, nodeName, None) #@UndefinedVariable
         if error:
             print(error)
             raise ODError(error)
@@ -355,7 +355,7 @@ class ODFamework(object):
 
 
     def lookupRecordName(self, recordType, name):
-        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(
+        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(#@UndefinedVariable
             self.node,
             recordType,
             kDSNAttrRecordName,
