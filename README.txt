@@ -617,9 +617,9 @@ jsonPointerMatch:
 	is a match, otherwise False.
 	The pointer is the absolute pointer from the root down. A JSON object's
 	string value can be checked by append "~$" and the string value to test
-	to the JSON pointer value. A single "." can be used as a reference-token
-	in the JSON pointer to match against any member or array item at that
-	position in the document.
+	to the JSON pointer value. To test for a null value append "~~". A single
+	"." can be used as a reference-token in the JSON pointer to match against
+	any member or array item at that position in the document.
 	
 	Argument: 'exists'
 		JSON pointer for a JSON item to check the presence of

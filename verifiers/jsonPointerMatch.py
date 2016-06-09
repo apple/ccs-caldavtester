@@ -29,6 +29,13 @@ from src.jsonPointer import JSONMatcher, JSONPointerMatchError
 
 class Verifier(object):
 
+    class JsonNull(object):
+        pass
+
+
+    null = JsonNull()
+
+
     def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
         # Get arguments
         statusCodes = args.get("status", ["200", ])
@@ -65,6 +72,8 @@ class Verifier(object):
         for jpath in exists:
             if jpath.find("~$") != -1:
                 path, value = jpath.split("~$")
+            elif jpath.find("~~") != -1:
+                path, value = jpath.split("~~")[0], self.null
             else:
                 path, value = jpath, None
             try:
@@ -78,7 +87,7 @@ class Verifier(object):
                     if not jobjs:
                         result = False
                         resulttxt += "        Items not returned in JSON for %s\n" % (path,)
-                    if value and value not in map(str, jobjs):
+                    if value and value not in map(lambda x: self.null if x is None else str(x), jobjs):
                         result = False
                         resulttxt += "        Item values not returned in JSON for %s\n" % (jpath,)
                 except JSONPointerMatchError:

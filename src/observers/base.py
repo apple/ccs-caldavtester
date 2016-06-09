@@ -28,6 +28,7 @@ class BaseResultsObserver(object):
     testFile - add a test file
     testSuite - add a test suite
     testResult - add a test result
+    protocol - protocol log
     finish - tests completed
     """
 

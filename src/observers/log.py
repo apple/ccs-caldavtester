@@ -36,6 +36,7 @@ class Observer(BaseResultsObserver):
         self.loggedFailures = []
         self.currentFile = None
         self.currentSuite = None
+        self.currentProtocol = []
 
 
     def updateCalls(self):
@@ -46,6 +47,7 @@ class Observer(BaseResultsObserver):
             "testFile": self.testFile,
             "testSuite": self.testSuite,
             "testResult": self.testResult,
+            "protocol": self.protocol,
             "finish": self.finish,
         })
 
@@ -101,6 +103,10 @@ class Observer(BaseResultsObserver):
             )
             self.loggedFailures.append(failtxt)
 
+        if self.currentProtocol:
+            self.manager.logit("\n".join(self.currentProtocol))
+            self.currentProtocol = []
+
 
     def _logResult(self, name, result):
         if result["result"] is not None:
@@ -110,6 +116,10 @@ class Observer(BaseResultsObserver):
             self.manager.logit("{name:<60}".format(name=name))
         if self._print_details and result["details"]:
             self.manager.logit(result["details"])
+
+
+    def protocol(self, result):
+        self.currentProtocol.append(result)
 
 
     def finish(self):

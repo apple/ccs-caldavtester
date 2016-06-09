@@ -769,15 +769,17 @@ class caldavtest(object):
                 resulttxt += "Status Code Error: %d" % response.status
 
         if req.print_request or (self.manager.print_request_response_on_error and not result):
-            resulttxt += "\n-------BEGIN:REQUEST-------\n"
-            resulttxt += http.requestData
-            resulttxt += "\n--------END:REQUEST--------\n"
+            requesttxt = "\n-------BEGIN:REQUEST-------\n"
+            requesttxt += http.requestData
+            requesttxt += "\n--------END:REQUEST--------\n"
+            self.manager.message("protocol", requesttxt)
 
         if req.print_response or (self.manager.print_request_response_on_error and not result):
-            resulttxt += "\n-------BEGIN:RESPONSE-------\n"
-            resulttxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
-            resulttxt += str(response.msg) + "\n" + respdata
-            resulttxt += "\n--------END:RESPONSE--------\n"
+            responsetxt = "\n-------BEGIN:RESPONSE-------\n"
+            responsetxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
+            responsetxt += str(response.msg) + "\n" + respdata
+            responsetxt += "\n--------END:RESPONSE--------\n"
+            self.manager.message("protocol", responsetxt)
 
         if etags is not None and req.method == "GET":
             hdrs = response.msg.getheaders("Etag")
