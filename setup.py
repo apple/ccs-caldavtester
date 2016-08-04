@@ -24,6 +24,8 @@ import errno
 import os
 import subprocess
 
+base_version = "0.2"
+base_project = "ccs-caldavtester"
 
 #
 # Utilities
@@ -43,74 +45,130 @@ def find_packages():
 
 
 
+def git_info(wc_path):
+    """
+    Look up info on a GIT working copy.
+    """
+    try:
+        branch = subprocess.check_output(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            stderr=subprocess.STDOUT,
+        )
+    except OSError as e:
+        if e.errno == errno.ENOENT:
+            return None
+        raise
+    except subprocess.CalledProcessError:
+        return None
+
+    branch = branch.strip()
+
+    try:
+        revision = subprocess.check_output(
+            ["git", "rev-parse", "--verify", "HEAD"],
+            stderr=subprocess.STDOUT,
+        )
+    except OSError as e:
+        if e.errno == errno.ENOENT:
+            return None
+        raise
+    except subprocess.CalledProcessError:
+        return None
+
+    revision = revision.strip()
+
+    try:
+        tag = subprocess.check_output(
+            ["git", "describe", "--candidates=0", "HEAD"],
+            stderr=subprocess.STDOUT,
+        )
+    except OSError as e:
+        if e.errno == errno.ENOENT:
+            return None
+        raise
+    except subprocess.CalledProcessError:
+        tag = None
+    else:
+        tag = tag.strip()
+
+    return dict(
+        project=base_project,
+        branch=branch,
+        revision=revision,
+        tag=tag,
+    )
+
+
+
 def version():
     """
     Compute the version number.
     """
-
-    base_version = "0.1"
-
-    branches = tuple(
-        branch.format(
-            project="CalDAVTester",
-            version=base_version,
-        )
-        for branch in (
-            "tags/release/{project}-{version}",
-            "branches/release/{project}-{version}-dev",
-            "trunk",
-        )
-    )
-
     source_root = dirname(abspath(__file__))
 
-    for branch in branches:
-        cmd = ["svnversion", "-n", source_root, branch]
+    info = git_info(source_root)
 
-        try:
-            svn_revision = subprocess.check_output(cmd)
+    if info is None:
+        # We don't have GIT info...
+        return "{}a1+unknown".format(base_version)
 
-        except OSError as e:
-            if e.errno == errno.ENOENT:
-                full_version = base_version + "-unknown"
-                break
-            raise
+    assert info["project"] == base_project, (
+        "GIT project {!r} != {!r}"
+        .format(info["project"], base_project)
+    )
 
-        if "S" in svn_revision:
-            continue
+    if info["tag"]:
+        project_version = info["tag"]
+        project, version = project_version.split("-")
+        assert project == project_name, (
+            "Tagged project {!r} != {!r}".format(project, project_name)
+        )
+        assert version == base_version, (
+            "Tagged version {!r} != {!r}".format(version, base_version)
+        )
+        # This is a correctly tagged release of this project.
+        return base_version
 
-        full_version = base_version
+    if info["branch"].startswith("release/"):
+        project_version = info["branch"][len("release/"):]
+        project, version, dev = project_version.split("-")
+        assert project == project_name, (
+            "Branched project {!r} != {!r}".format(project, project_name)
+        )
+        assert version == base_version, (
+            "Branched version {!r} != {!r}".format(version, base_version)
+        )
+        assert dev == "dev", (
+            "Branch name doesn't end in -dev: {!r}".format(info["branch"])
+        )
+        # This is a release branch of this project.
+        # Designate this as beta2, dev version based on git revision.
+        return "{}b2.dev-{}".format(base_version, info["revision"])
 
-        if branch == "trunk":
-            full_version += "b.trunk"
-        elif branch.endswith("-dev"):
-            full_version += "c.dev"
+    if info["branch"] == "master":
+        # This is master.
+        # Designate this as beta1, dev version based on git revision.
+        return "{}b1.dev-{}".format(base_version, info["revision"])
 
-        if svn_revision in ("exported", "Unversioned directory"):
-            full_version += "-unknown"
-        else:
-            full_version += "-r{revision}".format(revision=svn_revision)
-
-        break
-    else:
-        full_version = base_version
-        full_version += "a.unknown"
-        full_version += "-r{revision}".format(revision=svn_revision)
-
-    return full_version
+    # This is some unknown branch or tag...
+    return "{}a1.dev-{}+{}".format(
+        base_version,
+        info["revision"],
+        info["branch"].replace("/", ".").replace("-", "."),
+    )
 
 
 #
 # Options
 #
 
-name = "CalDAVTester"
+project_name = "CalDAVTester"
 
 description = "CalDAV/CardDAV protocol test suite"
 
 long_description = file(joinpath(dirname(__file__), "README.txt")).read()
 
-url = "http://trac.calendarserver.org/wiki/CalDAVTester"
+url = "https://github.com/apple/ccs-caldavtester"
 
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -160,7 +218,7 @@ def doSetup():
     version_string = version()
 
     setup(
-        name=name,
+        name=project_name,
         version=version_string,
         description=description,
         long_description=long_description,
