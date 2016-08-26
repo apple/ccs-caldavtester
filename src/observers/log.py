@@ -38,7 +38,6 @@ class Observer(BaseResultsObserver):
         self.currentSuite = None
         self.currentProtocol = []
 
-
     def updateCalls(self):
         super(Observer, self).updateCalls()
         self._calls.update({
@@ -51,17 +50,14 @@ class Observer(BaseResultsObserver):
             "finish": self.finish,
         })
 
-
     def start(self):
         self.manager.logit("Starting tests")
         if self.manager.randomSeed is not None:
             self.manager.logit("Randomizing order using seed '{rs}'".format(rs=self.manager.randomSeed))
 
-
     def testProgress(self, result):
         self.manager.logit("")
         self.manager.logit("File {count} of {total}".format(**result))
-
 
     def testFile(self, result):
         self.currentFile = result["name"].replace("/", ".")[:-4]
@@ -75,7 +71,6 @@ class Observer(BaseResultsObserver):
             )
             self.loggedFailures.append(failtxt)
 
-
     def testSuite(self, result):
         self.currentSuite = result["name"]
         result_name = "  Suite: " + result["name"]
@@ -88,7 +83,6 @@ class Observer(BaseResultsObserver):
                 suite=self.currentSuite,
             )
             self.loggedFailures.append(failtxt)
-
 
     def testResult(self, result):
         result_name = "    Test: " + result["name"]
@@ -107,7 +101,6 @@ class Observer(BaseResultsObserver):
             self.manager.logit("\n".join(self.currentProtocol))
             self.currentProtocol = []
 
-
     def _logResult(self, name, result):
         if result["result"] is not None:
             result_value = self.RESULT_STRINGS[result["result"]]
@@ -117,10 +110,8 @@ class Observer(BaseResultsObserver):
         if self._print_details and result["details"]:
             self.manager.logit(result["details"])
 
-
     def protocol(self, result):
         self.currentProtocol.append(result)
-
 
     def finish(self):
         self.manager.logit("")

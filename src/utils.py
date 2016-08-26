@@ -14,6 +14,7 @@
 # limitations under the License.
 ##
 
+
 def processHrefSubstitutions(hrefs, prefix):
     """
     Process the list of hrefs by prepending the supplied prefix. If the href is a

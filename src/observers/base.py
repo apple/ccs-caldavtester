@@ -36,10 +36,8 @@ class BaseResultsObserver(object):
         self.updateCalls()
         self.manager = manager
 
-
     def updateCalls(self):
         self._calls = {}
-
 
     def message(self, message, *args, **kwargs):
 

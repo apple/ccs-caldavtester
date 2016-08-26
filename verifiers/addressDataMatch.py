@@ -26,9 +26,10 @@ import os
 Verifier that checks the response body for a semantic match to data in a file.
 """
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args, is_json=False): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args, is_json=False):  # @UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         if manager.data_dir:

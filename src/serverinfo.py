@@ -59,7 +59,6 @@ class serverinfo(object):
         # run over a day boundary.
         self.dtnow = datetime.date.today()
 
-
     def _re_subs(self, sub, mapping):
         """
         Do a regex substitution via the supplied mapping, only if the mapping exists.
@@ -77,7 +76,6 @@ class serverinfo(object):
             else:
                 return named
         return self.subspattern.sub(convert, sub)
-
 
     def subs(self, sub, db=None):
 
@@ -117,7 +115,6 @@ class serverinfo(object):
             sub = newstr
         return sub
 
-
     def addsubs(self, items, db=None):
         if db is None:
             db_actual = self.subsdict
@@ -129,14 +126,11 @@ class serverinfo(object):
         if db is None:
             self.updateParams()
 
-
     def hasextrasubs(self):
         return len(self.extrasubsdict) > 0
 
-
     def extrasubs(self, str):
         return self.subs(str, self.extrasubsdict)
-
 
     def addextrasubs(self, items):
         processed = {}
@@ -159,13 +153,11 @@ class serverinfo(object):
 
         self.addsubs(processed, self.extrasubsdict)
 
-
     def newUIDs(self):
         uidsubs = dict([("$uid{u}:".format(u=i), str(uuid4())) for i in range(1, 21)])
         self.subsdict.update(uidsubs)
         self.extrasubsdict.update(uidsubs)
         return set([(v, k) for k, v in uidsubs.items()])
-
 
     def parseXML(self, node):
         for child in node.getchildren():
@@ -212,12 +204,10 @@ class serverinfo(object):
 
         self.updateParams()
 
-
     def parseFeatures(self, node):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 self.features.add(child.text.encode("utf-8"))
-
 
     def updateParams(self):
 
@@ -237,7 +227,6 @@ class serverinfo(object):
             raise ValueError("Must have pswd substitution")
         self.pswd = self.subsdict[pswd]
 
-
     def parseRepeatXML(self, node):
         # Look for count
         count = node.get(src.xmlDefs.ATTR_COUNT)
@@ -245,14 +234,12 @@ class serverinfo(object):
         for child in node.getchildren():
             self.parseSubstitutionXML(child, count)
 
-
     def parseSubstitutionsXML(self, node):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_SUBSTITUTION:
                 self.parseSubstitutionXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_REPEAT:
                 self.parseRepeatXML(child)
-
 
     def parseSubstitutionXML(self, node, repeat=None):
         if node.tag == src.xmlDefs.ELEMENT_SUBSTITUTION:

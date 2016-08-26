@@ -88,9 +88,9 @@ number_of_resources = 20
 number_of_locations = 10
 
 guids = {
-    "testadmin"  : "",
-    "apprentice" : "",
-    "i18nuser"   : "",
+    "testadmin": "",
+    "apprentice": "",
+    "i18nuser": "",
 }
 
 for i in range(1, number_of_users + 1):
@@ -269,6 +269,7 @@ records = (
     (kDSStdRecordTypeGroups, "group%02d", "group%02d", groupattrs, number_of_groups),
 )
 
+
 def usage():
     print """Usage: odsetup [options] create|create-users|remove
 Options:
@@ -281,7 +282,6 @@ Options:
     -v        verbose logging
     -V        very verbose logging
 """
-
 
 
 def cmd(args, input=None, raiseOnFail=True):
@@ -308,7 +308,6 @@ def cmd(args, input=None, raiseOnFail=True):
     return result[0], p.returncode
 
 
-
 def checkDataSource(node):
     """
     Verify that the specified node is the only node this host is bound to.
@@ -326,17 +325,15 @@ def checkDataSource(node):
         sys.exit(1)
 
 
-
 class ODError(Exception):
     pass
-
 
 
 class ODFamework(object):
 
     def __init__(self, nodeName, user, pswd):
-        self.session = ODSession.defaultSession() #@UndefinedVariable
-        self.node, error = ODNode.nodeWithSession_name_error_(self.session, nodeName, None) #@UndefinedVariable
+        self.session = ODSession.defaultSession()  # @UndefinedVariable
+        self.node, error = ODNode.nodeWithSession_name_error_(self.session, nodeName, None)  # @UndefinedVariable
         if error:
             print(error)
             raise ODError(error)
@@ -353,9 +350,8 @@ class ODFamework(object):
 
         print("Successfully authenticated with directory %s" % (nodeName,))
 
-
     def lookupRecordName(self, recordType, name):
-        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(#@UndefinedVariable
+        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(  # @UndefinedVariable
             self.node,
             recordType,
             kDSNAttrRecordName,
@@ -377,7 +373,6 @@ class ODFamework(object):
 
         return records[0]
 
-
     def createRecord(self, recordType, recordName, password, attrs):
         record, error = self.node.createRecordWithRecordType_name_attributes_error_(
             recordType,
@@ -394,14 +389,12 @@ class ODFamework(object):
                 raise ODError(error)
         return record
 
-
     def recordDetails(self, record):
         details, error = record.recordDetailsForAttributes_error_(None, None)
         if error:
             print(error)
             raise ODError(error)
         return details
-
 
 
 def readConfig():
@@ -448,7 +441,6 @@ def readConfig():
     )
 
 
-
 def patchConfig(confroot, admin):
     """
     Patch the caldavd-user.plist file to make sure:
@@ -466,8 +458,8 @@ def patchConfig(confroot, admin):
 
     # For testing do not send iMIP messages!
     plist["Scheduling"] = {
-        "iMIP" : {
-            "Enabled" : False,
+        "iMIP": {
+            "Enabled": False,
         },
     }
 
@@ -482,12 +474,12 @@ def patchConfig(confroot, admin):
 
     # Lower WorkQueue timings to reduce processing delay
     plist["Scheduling"]["Options"]["WorkQueues"] = {
-        "Enabled" : True,
-        "RequestDelaySeconds" : 0.1,
-        "ReplyDelaySeconds" : 1,
-        "AutoReplyDelaySeconds" : 0.1,
-        "AttendeeRefreshBatchDelaySeconds" : 0.1,
-        "AttendeeRefreshBatchIntervalSeconds" : 0.1,
+        "Enabled": True,
+        "RequestDelaySeconds": 0.1,
+        "ReplyDelaySeconds": 1,
+        "AutoReplyDelaySeconds": 0.1,
+        "AttendeeRefreshBatchDelaySeconds": 0.1,
+        "AttendeeRefreshBatchIntervalSeconds": 0.1,
     }
     plist["WorkQueue"] = {
         "failureRescheduleInterval": 1,
@@ -495,7 +487,6 @@ def patchConfig(confroot, admin):
     }
 
     writePlist(plist, confroot + "/caldavd-user.plist")
-
 
 
 def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype, docroot):
@@ -551,7 +542,6 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
         fd.close()
 
 
-
 def loadLists(path, records):
     if path == kDSStdRecordTypePlaces:
         result = cmd(cmdutility, locationlistcmd)
@@ -568,7 +558,6 @@ def loadLists(path, records):
 
     for record in plist["result"]:
         records[record["RecordName"][0]] = record["GeneratedUID"]
-
 
 
 def doToAccounts(odf, protocol, f, users_only=False):
@@ -593,7 +582,6 @@ def doToAccounts(odf, protocol, f, users_only=False):
                 f(odf, record[0], ruser)
         else:
             f(odf, record[0], record[1:])
-
 
 
 def doGroupMemberships(odf):
@@ -629,7 +617,6 @@ def doGroupMemberships(odf):
                         raise ODError(error)
 
 
-
 def createUser(odf, path, user):
 
     if verbose:
@@ -639,7 +626,6 @@ def createUser(odf, path, user):
         createUserViaDS(odf, path, user)
     elif protocol == "caldav":
         createUserViaGateway(path, user)
-
 
 
 def createUserViaDS(odf, path, user):
@@ -664,7 +650,6 @@ def createUserViaDS(odf, path, user):
         record = odf.lookupRecordName(path, user[0])
         details = odf.recordDetails(record)
         guids[user[0]] = details[kDS1AttrGeneratedUID][0]
-
 
 
 def createUserViaGateway(path, user):
@@ -704,7 +689,6 @@ def createUserViaGateway(path, user):
         raise ValueError()
 
 
-
 def removeUser(odf, path, user):
 
     if verbose:
@@ -716,7 +700,6 @@ def removeUser(odf, path, user):
         removeUserViaGateway(path, user)
 
 
-
 def removeUserViaDS(odf, path, user):
     # Do dscl command line operations to remove a calendar user
 
@@ -725,7 +708,6 @@ def removeUserViaDS(odf, path, user):
         _ignore_result, error = record.deleteRecordAndReturnError_(None)
         if error:
             raise ODError(error)
-
 
 
 def removeUserViaGateway(path, user):
@@ -748,7 +730,6 @@ def removeUserViaGateway(path, user):
         )
     else:
         raise ValueError()
-
 
 
 def manageRecords(odf, path, user):
@@ -778,13 +759,13 @@ def manageRecords(odf, path, user):
 
             # Some resources have unique auto-schedule mode set
             automodes = {
-                "resource05" : "none",
-                "resource06" : "accept-always",
-                "resource07" : "decline-always",
-                "resource08" : "accept-if-free",
-                "resource09" : "decline-if-busy",
-                "resource10" : "automatic",
-                "resource11" : "decline-always",
+                "resource05": "none",
+                "resource06": "accept-always",
+                "resource07": "decline-always",
+                "resource08": "accept-if-free",
+                "resource09": "decline-if-busy",
+                "resource10": "automatic",
+                "resource11": "decline-always",
             }
 
             if user[0] in automodes:
@@ -796,7 +777,7 @@ def manageRecords(odf, path, user):
 
             # Some resources have unique auto-accept-groups assigned
             autoAcceptGroups = {
-                "resource11" : "group01",
+                "resource11": "group01",
             }
             if user[0] in autoAcceptGroups:
                 cmd("%s --set-auto-accept-group=groups:%s resources:%s" % (
@@ -878,7 +859,6 @@ if __name__ == "__main__":
 
             # Create an appropriate serverinfo.xml file from the template
             buildServerinfo(serverinfo_default, hostname, port, sslport, authtype, docroot)
-
 
         elif args[0] == "create-users":
             # Read the caldavd.plist file and extract some information we will need.

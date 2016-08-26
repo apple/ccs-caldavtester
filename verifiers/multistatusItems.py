@@ -24,6 +24,7 @@ from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 import urllib
 
+
 class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args):

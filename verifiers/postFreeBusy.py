@@ -28,9 +28,10 @@ from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import StringIO
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
 
         # Must have status 200
         if response.status != 200:

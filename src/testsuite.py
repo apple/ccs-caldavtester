@@ -22,6 +22,7 @@ from src.test import test
 from src.xmlUtils import getYesNoAttributeValue
 import src.xmlDefs
 
+
 class testsuite(object):
     """
     Maintains a list of tests to run as part of a 'suite'.
@@ -37,7 +38,6 @@ class testsuite(object):
         self.exclude_features = set()
         self.tests = []
 
-
     def aboutToRun(self):
         """
         Typically we need the calendar/contact data for a test file to have a common set
@@ -47,14 +47,11 @@ class testsuite(object):
         """
         return self.manager.server_info.newUIDs() if self.changeuid else set()
 
-
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
-
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
-
 
     def parseXML(self, node):
         self.name = node.get(src.xmlDefs.ATTR_NAME, "")
@@ -72,12 +69,10 @@ class testsuite(object):
                 t.parseXML(child)
                 self.tests.append(t)
 
-
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
-
 
     def dump(self):
         print "\nTest Suite:"

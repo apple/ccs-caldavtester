@@ -20,9 +20,10 @@ Verifier that checks the response headers for a specific value.
 
 import re
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # Split into header/value tuples
         testheader = args.get("header", [])[:]
         for i in range(len(testheader)):

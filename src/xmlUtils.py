@@ -20,6 +20,7 @@ XML processing utilities.
 
 import src.xmlDefs
 
+
 def readStringElementList(node, ename):
 
     results = []
@@ -29,10 +30,8 @@ def readStringElementList(node, ename):
     return results
 
 
-
 def getYesNoAttributeValue(node, attr):
     return node.get(attr, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
-
 
 
 def getDefaultAttributeValue(node, attr, default):
@@ -43,14 +42,12 @@ def getDefaultAttributeValue(node, attr, default):
         return default
 
 
-
 def readOneStringElement(node, ename):
 
     for child in node.getchildren():
         if child.tag == ename:
             return child.text.decode("utf-8")
     return ""
-
 
 
 def nodeForPath(root, path):
@@ -116,7 +113,6 @@ def nodeForPath(root, path):
         results = nodes
 
     return results
-
 
 
 def xmlPathSplit(xpath):

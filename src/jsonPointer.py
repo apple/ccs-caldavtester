@@ -24,7 +24,6 @@ class JSONPointerMatchError(Exception):
     pass
 
 
-
 class JSONPointer(object):
     """
     Represents a JSON Pointer that can match a specific JSON object.
@@ -35,7 +34,6 @@ class JSONPointer(object):
         if not pointer or pointer[0] != "/":
             raise ValueError("Invalid JSON pointer: %s" % (pointer,))
         self.segments = self._splitSegments(pointer)
-
 
     def _splitSegments(self, pointer):
         """
@@ -54,7 +52,6 @@ class JSONPointer(object):
             raise TypeError("Pointer segment is empty: %s" % (pointer,))
         return map(self._unescape, splits)
 
-
     def _unescape(self, segment):
         """
         Unescape ~0 and ~1 in a path segment.
@@ -67,7 +64,6 @@ class JSONPointer(object):
         """
         return segment.replace("~1", "/").replace("~0", "~")
 
-
     def matchs(self, s):
         """
         Match this pointer against the string representation of a JSON object.
@@ -77,7 +73,6 @@ class JSONPointer(object):
         """
 
         return self.match(json.loads(s))
-
 
     def match(self, j):
         """
@@ -91,7 +86,6 @@ class JSONPointer(object):
             return self.walk(j, self.segments)
         except Exception:
             raise JSONPointerMatchError
-
 
     def walk(self, j, segments):
         """
@@ -115,7 +109,6 @@ class JSONPointer(object):
             raise JSONPointerMatchError
 
 
-
 class JSONMatcher(JSONPointer):
     """
     Represents a JSON pointer with syntax allowing a match against multiple JSON objects. If any
@@ -128,7 +121,6 @@ class JSONMatcher(JSONPointer):
         if not pointer or pointer[0] != "/":
             raise ValueError("Invalid JSON pointer: %s" % (pointer,))
         self.segments = self._splitSegments(pointer)
-
 
     def walk(self, j, segments):
         """

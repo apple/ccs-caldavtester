@@ -16,6 +16,7 @@
 
 from src.observers.base import BaseResultsObserver
 
+
 class Observer(BaseResultsObserver):
     """
     A results observer that prints when a test file is loaded.
@@ -26,7 +27,6 @@ class Observer(BaseResultsObserver):
         self._calls.update({
             "load": self.load,
         })
-
 
     def load(self, name, current, total):
         """

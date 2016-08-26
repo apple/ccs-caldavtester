@@ -32,7 +32,6 @@ if len(cached_types) == 0:
     raise RuntimeError("Unable to find suitable SSL protocol to use")
 
 
-
 class HTTPSVersionConnection(httplib.HTTPSConnection):
     """
     An L{httplib.HTTPSConnection} class that allows the TLS protocol version to be set.
@@ -43,13 +42,11 @@ class HTTPSVersionConnection(httplib.HTTPSConnection):
         httplib.HTTPSConnection.__init__(self, host, port, cert_file=cert_file)
         self._ssl_version = ssl_version
 
-
     def connect(self):
         "Connect to a host on a given (SSL) port."
 
         sock = socket.create_connection((self.host, self.port), self.timeout)
         self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=self._ssl_version)
-
 
 
 class UnixSocketHTTPConnection(httplib.HTTPConnection):
@@ -61,14 +58,12 @@ class UnixSocketHTTPConnection(httplib.HTTPConnection):
         httplib.HTTPConnection.__init__(self, host, port)
         self.path = path
 
-
     def connect(self):
         """
         Connect using the supplied unix socket file path
         """
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.sock.connect(self.path)
-
 
 
 def SmartHTTPConnection(host, port, ssl, afunix, cert=None):

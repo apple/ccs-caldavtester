@@ -17,6 +17,7 @@
 import unittest
 from src.jsonPointer import JSONPointer, JSONPointerMatchError, JSONMatcher
 
+
 class TestJSONPointer(unittest.TestCase):
 
     def testValidPointers(self):
@@ -38,7 +39,6 @@ class TestJSONPointer(unittest.TestCase):
                 ok = False
             self.assertEqual(ok, result, "Failed test: %s" % (pointer,))
 
-
     def testUnescape(self):
         data = (
             ("/", None),
@@ -51,7 +51,6 @@ class TestJSONPointer(unittest.TestCase):
         for pointer, result in data:
             j = JSONPointer(pointer)
             self.assertEqual(j.segments, result, "Failed test: %s" % (pointer,))
-
 
     def testMatchOK(self):
         data = (
@@ -91,7 +90,6 @@ class TestJSONPointer(unittest.TestCase):
             j = JSONPointer(pointer)
             self.assertEqual(j.matchs(jobj), result, "Failed test: %s" % (pointer,))
 
-
     def testMatchBad(self):
         data = (
             # Objects
@@ -122,7 +120,6 @@ class TestJSONPointer(unittest.TestCase):
         for pointer, jobj in data:
             j = JSONPointer(pointer)
             self.assertRaises(JSONPointerMatchError, j.matchs, jobj)
-
 
 
 class TestJSONMatcher(unittest.TestCase):
@@ -165,7 +162,6 @@ class TestJSONMatcher(unittest.TestCase):
             j = JSONMatcher(pointer)
             self.assertEqual(j.matchs(jobj), result, "Failed test: %s" % (pointer,))
 
-
     def testMatchBad(self):
         data = (
             # Objects
@@ -199,7 +195,6 @@ class TestJSONMatcher(unittest.TestCase):
                 self.assertRaises(JSONPointerMatchError, j.matchs, jobj)
             else:
                 self.assertEqual(j.matchs(jobj), [], "Failed test: %s" % (pointer,))
-
 
     def testMatchingOK(self):
         data = (

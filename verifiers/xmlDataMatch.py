@@ -23,9 +23,10 @@ from xml.etree.cElementTree import ElementTree, tostring
 import StringIO
 import os
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # Get arguments
         files = args.get("filepath", [])
         if manager.data_dir:

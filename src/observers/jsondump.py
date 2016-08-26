@@ -29,6 +29,5 @@ class Observer(BaseResultsObserver):
             "finish": self.finish,
         })
 
-
     def finish(self):
         print json.dumps(self.manager.results)

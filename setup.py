@@ -30,6 +30,8 @@ base_project = "ccs-caldavtester"
 #
 # Utilities
 #
+
+
 def find_packages():
     modules = []
 
@@ -42,7 +44,6 @@ def find_packages():
             for subpkg in setuptools_find_packages(pkg)
         ])
     return modules
-
 
 
 def git_info(wc_path):
@@ -97,7 +98,6 @@ def git_info(wc_path):
         revision=revision,
         tag=tag,
     )
-
 
 
 def version():
@@ -207,7 +207,6 @@ extras_requirements = {}
 # from distutils.core import Extension
 
 extensions = []
-
 
 
 #

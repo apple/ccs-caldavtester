@@ -18,9 +18,10 @@
 Example generator api.
 """
 
+
 class Generator(object):
 
-    def generate(self, manager, args): #@UnusedVariable
+    def generate(self, manager, args):  # @UnusedVariable
 
         # Extract args needed by the generator: args = {name: [values]}
 

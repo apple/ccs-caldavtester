@@ -29,9 +29,10 @@ import json
 import re
 import StringIO
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # Get arguments
         parent = args.get("parent", [])
         exists = args.get("exists", [])
@@ -83,7 +84,6 @@ class Verifier(object):
 
         return result, resulttxt
 
-
     def nodeForPath(self, root, path):
         if '[' in path:
             actual_path, tests = path.split('[', 1)
@@ -122,7 +122,6 @@ class Verifier(object):
             results = nodes
 
         return results
-
 
     @classmethod
     def testNode(cls, node, node_path, test):
@@ -187,7 +186,6 @@ class Verifier(object):
                 result = "        Incorrect value returned in XML for %s\n" % (node_path,)
         return result
 
-
     @classmethod
     def matchNode(cls, root, xpath, parent_map=None, title=None):
 
@@ -228,7 +226,6 @@ class Verifier(object):
             resulttxt += "        Items not returned in XML for %s\n" % (title,)
             result = False
             return result, resulttxt
-
 
         if tests:
             # Split the tests into tests plus additional path

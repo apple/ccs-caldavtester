@@ -20,6 +20,7 @@ from verifiers.calendarDataMatch import Verifier as CalVerifier
 Verifier that checks the response body for a semantic match to data in a file.
 """
 
+
 class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args):

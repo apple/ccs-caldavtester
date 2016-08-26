@@ -33,6 +33,7 @@ import time
 EX_INVALID_CONFIG_FILE = "Invalid Config File"
 EX_FAILED_REQUEST = "HTTP Request Failed"
 
+
 class manager(object):
 
     """
@@ -43,7 +44,6 @@ class manager(object):
     RESULT_FAILED = 1
     RESULT_ERROR = 2
     RESULT_IGNORED = 3
-
 
     def __init__(self, text=True):
         self.server_info = serverinfo()
@@ -74,22 +74,18 @@ class manager(object):
         }
         self.observers = []
 
-
     def logit(self, str):
         if self.logFile:
             self.logFile.write(str + "\n")
         print str
-
 
     def loadObserver(self, observer_name):
         module = __import__("observers." + observer_name, globals(), locals(), ["Observer", ])
         cl = getattr(module, "Observer")
         self.observers.append(cl(self))
 
-
     def message(self, message, *args, **kwargs):
         map(lambda x: x.message(message, *args, **kwargs), self.observers)
-
 
     def testProgress(self, count, total):
         results = {
@@ -97,7 +93,6 @@ class manager(object):
             "total": total,
         }
         self.message("testProgress", results)
-
 
     def testFile(self, name, details, result=None):
         self.results.append({
@@ -111,7 +106,6 @@ class manager(object):
         self.message("testFile", self.results[-1])
         return self.results[-1]["tests"]
 
-
     def testSuite(self, testfile, name, details, result=None):
         testfile.append({
             "name": name,
@@ -124,7 +118,6 @@ class manager(object):
         self.message("testSuite", testfile[-1])
         return testfile[-1]["tests"]
 
-
     def testResult(self, testsuite, name, details, result, addons=None):
         result_details = {
             "name": name,
@@ -136,7 +129,6 @@ class manager(object):
         testsuite.append(result_details)
         self.totals[result] += 1
         self.message("testResult", testsuite[-1])
-
 
     def readXML(self, serverfile, testfiles, ssl, all, moresubs={}):
 
@@ -184,6 +176,7 @@ class manager(object):
         self.server_info.addsubs(moresubs)
 
         from src.caldavtest import caldavtest
+
         def _loadFile(fname, ignore_root=True):
             # Open and parse the config file
             try:
@@ -225,7 +218,6 @@ class manager(object):
             self.posttest = _loadFile(self.posttest, False)
 
         self.message("load", None, ctr + 1, len(testfiles))
-
 
     def readCommandLine(self):
         sname = "scripts/server/serverinfo.xml"
@@ -367,7 +359,6 @@ class manager(object):
             s = fd.read()
             self.pid = int(s)
 
-
     def runAll(self):
 
         startTime = time.time()
@@ -418,7 +409,6 @@ class manager(object):
 
         return failed, endTime - startTime
 
-
     def getMemusage(self):
         """
 
@@ -432,7 +422,6 @@ class manager(object):
         lines = data.split("\n")
         procdata = lines[1].split()
         return int(procdata[6]), int(procdata[7])
-
 
     def getDataPath(self, fpath):
         return os.path.join(self.data_dir, fpath) if self.data_dir else fpath

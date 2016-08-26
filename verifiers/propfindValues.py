@@ -23,9 +23,10 @@ from StringIO import StringIO
 import re
 import urllib
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
 
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])

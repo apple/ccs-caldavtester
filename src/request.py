@@ -38,6 +38,8 @@ algorithms = {
 }
 
 # DigestCalcHA1
+
+
 def calcHA1(
     pszAlg,
     pszUserName,
@@ -91,7 +93,6 @@ def calcHA1(
     return HA1.encode('hex')
 
 
-
 # DigestCalcResponse
 def calcResponse(
     HA1,
@@ -130,10 +131,8 @@ def calcResponse(
     return respHash
 
 
-
 class pause (object):
     pass
-
 
 
 class request(object):
@@ -142,7 +141,7 @@ class request(object):
     be used to determine a satisfactory output or not.
     """
 
-    nc = {} # Keep track of nonce count
+    nc = {}  # Keep track of nonce count
 
     def __init__(self, manager):
         self.manager = manager
@@ -177,18 +176,14 @@ class request(object):
         self.grabcalprop = []
         self.grabcalparam = []
 
-
     def __str__(self):
         return "Method: %s; uris: %s" % (self.method, self.ruris if len(self.ruris) > 1 else self.ruri,)
-
 
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
-
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
-
 
     def getURI(self, si):
         uri = si.extrasubs(self.ruri)
@@ -199,7 +194,6 @@ class request(object):
             if "?" not in uri or uri.find("?") > uri.find("##"):
                 uri = uri.replace("##", str(self.count))
         return uri
-
 
     def getHeaders(self, si):
         hdrs = self.headers
@@ -219,7 +213,6 @@ class request(object):
 
         return hdrs
 
-
     def gethttpbasicauth(self, si):
         basicauth = [self.user, si.user][self.user == ""]
         basicauth += ":"
@@ -227,7 +220,6 @@ class request(object):
         basicauth = "Basic " + base64.encodestring(basicauth)
         basicauth = basicauth.replace("\n", "")
         return basicauth
-
 
     def gethttpdigestauth(self, si, wwwauthorize=None):
 
@@ -258,6 +250,7 @@ class request(object):
                     if not item.lower().startswith("digest "):
                         continue
                     wwwauthorize = item[7:]
+
                     def unq(s):
                         if s[0] == s[-1] == '"':
                             return s[1:-1]
@@ -307,13 +300,11 @@ class request(object):
         else:
             return ""
 
-
     def getFilePath(self):
         if self.data is not None:
             return os.path.join(self.manager.data_dir, self.data.filepath) if self.manager.data_dir else self.data.filepath
         else:
             return ""
-
 
     def getData(self):
         data = ""
@@ -339,7 +330,6 @@ class request(object):
                 data = self.data.generator.doGenerate()
         return data
 
-
     def getNextData(self):
         if not hasattr(self, "dataList"):
             self.dataList = sorted([path for path in os.listdir(self.getFilePath()) if not path.startswith(".")])
@@ -353,11 +343,9 @@ class request(object):
                 delattr(self, "dataList")
             return False
 
-
     def hasNextData(self):
         dataList = sorted([path for path in os.listdir(self.getFilePath()) if not path.startswith(".")])
         return len(dataList) != 0
-
 
     def generateCalendarData(self, data):
         """
@@ -375,7 +363,6 @@ class request(object):
         data = re.sub("(DTEND;[^:]*):[0-9]{8,8}", "\\1:%04d%02d%02d" % (now.year, now.month, now.day,), data)
 
         return data
-
 
     def parseXML(self, node):
         self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
@@ -430,12 +417,10 @@ class request(object):
             elif child.tag == src.xmlDefs.ELEMENT_GRABCALPARAM:
                 self.parseGrab(child, self.grabcalparam)
 
-
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
-
 
     def parseHeader(self, node):
 
@@ -449,7 +434,6 @@ class request(object):
 
         if (name is not None) and (value is not None):
             self.headers[name] = value
-
 
     def parseList(manager, node):
         requests = []
@@ -477,7 +461,6 @@ class request(object):
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
 
-
     def parseMultiGrab(self, node, appendto):
 
         name = None
@@ -497,7 +480,6 @@ class request(object):
             appendto.append((name, variable,) if parent is None else (name, parent, variable,))
 
 
-
 class data(object):
     """
     Represents the data/body portion of an HTTP request.
@@ -512,7 +494,6 @@ class data(object):
         self.substitutions = {}
         self.substitute = False
         self.generate = False
-
 
     def parseXML(self, node):
 
@@ -530,7 +511,6 @@ class data(object):
             elif child.tag == src.xmlDefs.ELEMENT_SUBSTITUTE:
                 self.parseSubstituteXML(child)
 
-
     def parseSubstituteXML(self, node):
         name = None
         value = None
@@ -543,7 +523,6 @@ class data(object):
             self.substitutions[name] = value
 
 
-
 class generator(object):
     """
     Defines a dynamically generated request body.
@@ -553,7 +532,6 @@ class generator(object):
         self.manager = manager
         self.callback = None
         self.args = {}
-
 
     def doGenerate(self):
 
@@ -571,14 +549,12 @@ class generator(object):
 
         return gen.generate(self.manager, args)
 
-
     def _importName(self, modulename, name):
         """
         Import a named object from a module in the context of this function.
         """
         module = __import__(modulename, globals(), locals(), [name])
         return getattr(module, name)
-
 
     def parseXML(self, node):
 
@@ -587,7 +563,6 @@ class generator(object):
                 self.callback = child.text.encode("utf-8")
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
-
 
     def parseArgXML(self, node):
         name = None
@@ -602,7 +577,6 @@ class generator(object):
                     values.append("")
         if name:
             self.args[name] = values
-
 
 
 class verify(object):
@@ -620,14 +594,11 @@ class verify(object):
         self.callback = None
         self.args = {}
 
-
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
-
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
-
 
     def doVerify(self, uri, response, respdata):
 
@@ -645,14 +616,12 @@ class verify(object):
 
         return verifier.verify(self.manager, uri, response, respdata, args)
 
-
     def _importName(self, modulename, name):
         """
         Import a named object from a module in the context of this function.
         """
         module = __import__(modulename, globals(), locals(), [name])
         return getattr(module, name)
-
 
     def parseXML(self, node):
 
@@ -666,12 +635,10 @@ class verify(object):
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
 
-
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
-
 
     def parseArgXML(self, node):
         name = None
@@ -688,7 +655,6 @@ class verify(object):
             self.args[name] = values
 
 
-
 class stats(object):
     """
     Maintains stats about the current test.
@@ -699,10 +665,8 @@ class stats(object):
         self.totaltime = 0.0
         self.currenttime = 0.0
 
-
     def startTimer(self):
         self.currenttime = time.time()
-
 
     def endTimer(self):
         self.count += 1

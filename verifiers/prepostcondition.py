@@ -21,9 +21,10 @@ Verifier that checks the response for a pre/post-condition <DAV:error> result.
 from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # If no status verification requested, then assume all 2xx codes are OK
         teststatus = args.get("error", [])
         statusCode = args.get("status", ["403", "409", "507"])

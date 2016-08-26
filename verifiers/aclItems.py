@@ -23,9 +23,10 @@ from xml.etree.cElementTree import ElementTree
 from StringIO import StringIO
 import urllib
 
+
 class Verifier(object):
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
 
         granted = args.get("granted", [])
         denied = args.get("denied", [])

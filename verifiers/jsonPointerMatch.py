@@ -27,16 +27,15 @@ JSON pointer syntax is extended as follows:
 import json
 from src.jsonPointer import JSONMatcher, JSONPointerMatchError
 
+
 class Verifier(object):
 
     class JsonNull(object):
         pass
 
-
     null = JsonNull()
 
-
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # Get arguments
         statusCodes = args.get("status", ["200", ])
         exists = args.get("exists", [])

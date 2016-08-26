@@ -52,13 +52,15 @@ Patch the HTTPConnection.send to record full request details
 
 httplib.HTTPConnection._send = httplib.HTTPConnection.send
 
+
 def recordRequestHeaders(self, str):
     if not hasattr(self, "requestData"):
         self.requestData = ""
     self.requestData += str
-    httplib.HTTPConnection._send(self, str) #@UndefinedVariable
+    httplib.HTTPConnection._send(self, str)  # @UndefinedVariable
 
 httplib.HTTPConnection.send = recordRequestHeaders
+
 
 def getVersionStringFromResponse(response):
 
@@ -70,7 +72,6 @@ def getVersionStringFromResponse(response):
         return "HTTP/1.1"
     else:
         return "HTTP/?.?"
-
 
 
 class caldavtest(object):
@@ -91,14 +92,11 @@ class caldavtest(object):
         self.previously_found = set()
         self.uidmaps = {}
 
-
     def missingFeatures(self):
         return self.require_features - self.manager.server_info.features
 
-
     def excludedFeatures(self):
         return self.exclude_features & self.manager.server_info.features
-
 
     def run(self):
         if len(self.missingFeatures()) != 0:
@@ -133,7 +131,6 @@ class caldavtest(object):
                 traceback.print_exc()
             return 0, 1, 0
 
-
     def run_tests(self, label=""):
         ok = 0
         failed = 0
@@ -145,7 +142,6 @@ class caldavtest(object):
             failed += f
             ignored += i
         return (ok, failed, ignored)
-
 
     def run_test_suite(self, testfile, suite, label=""):
         result_name = suite.name
@@ -189,7 +185,6 @@ class caldavtest(object):
         if postgresCount is not None:
             self.postgresResult(postgresCount, indent=4)
         return (ok, failed, ignored)
-
 
     def run_test(self, testsuite, test, etags, only, label=""):
         if test.ignore or only and not test.only:
@@ -247,7 +242,6 @@ class caldavtest(object):
             self.manager.testResult(testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED, addons)
             return ["f", "t"][result]
 
-
     def dorequests(self, description, list, doverify=True, forceverify=False, label="", count=1):
         if len(list) == 0:
             return True
@@ -261,7 +255,6 @@ class caldavtest(object):
         if len(resulttxt) > 0:
             self.manager.message("trace", resulttxt)
         return result
-
 
     def doget(self, original_request, resource, label=""):
         req = request(self.manager)
@@ -279,7 +272,6 @@ class caldavtest(object):
             return False, None
 
         return True, respdata
-
 
     def dofindall(self, original_request, collection, label=""):
         hrefs = []
@@ -322,7 +314,6 @@ class caldavtest(object):
                     hrefs.append((href, collection[1], collection[2]))
         return hrefs
 
-
     def dodeleteall(self, original_request, deletes, label=""):
         if len(deletes) == 0:
             return True
@@ -342,7 +333,6 @@ class caldavtest(object):
                 return False
 
         return True
-
 
     def dofindnew(self, original_request, collection, label="", other=False):
         hresult = ""
@@ -438,7 +428,6 @@ class caldavtest(object):
             self.previously_found.add(hresult)
         return hresult
 
-
     def dofindcontains(self, original_request, collection, match, label=""):
         hresult = ""
 
@@ -487,7 +476,6 @@ class caldavtest(object):
                 href = None
 
         return href
-
 
     def dowaitcount(self, original_request, collection, count, label=""):
 
@@ -547,7 +535,6 @@ class caldavtest(object):
         else:
             return False, len(hrefs)
 
-
     def dowaitchanged(self, original_request, uri, etag, user, pswd, label=""):
 
         for _ignore in range(self.manager.server_info.waitcount):
@@ -580,7 +567,6 @@ class caldavtest(object):
 
         return True
 
-
     def doenddelete(self, description, label=""):
         if len(self.end_deletes) == 0:
             return True
@@ -597,7 +583,6 @@ class caldavtest(object):
             req.cert = delete_request.cert
             self.dorequest(req, False, False, label=label)
         self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value="[DONE]"))
-
 
     def dorequest(self, req, details=False, doverify=True, forceverify=False, stats=None, etags=None, label="", count=1):
 
@@ -881,7 +866,6 @@ class caldavtest(object):
 
         return result, resulttxt, response, respdata
 
-
     def verifyrequest(self, req, uri, response, respdata):
 
         result = True
@@ -914,7 +898,6 @@ class caldavtest(object):
                 resulttxt = ""
             return result, resulttxt
 
-
     def parseXML(self, node):
         self.ignore_all = node.get(src.xmlDefs.ATTR_IGNORE_ALL, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
@@ -934,12 +917,10 @@ class caldavtest(object):
             elif child.tag == src.xmlDefs.ELEMENT_END:
                 self.end_requests = request.parseList(self.manager, child)
 
-
     def parseFeatures(self, node, require=True):
         for child in node.getchildren():
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
                 (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
-
 
     def extractProperty(self, propertyname, respdata):
 
@@ -987,7 +968,6 @@ class caldavtest(object):
 
         return None
 
-
     def extractElement(self, elementpath, respdata):
 
         try:
@@ -1013,7 +993,6 @@ class caldavtest(object):
             return e.text
         else:
             return None
-
 
     def extractElements(self, elementpath, parent, respdata):
 
@@ -1060,7 +1039,6 @@ class caldavtest(object):
         else:
             return None
 
-
     def extractPointer(self, pointer, respdata):
 
         jp = JSONMatcher(pointer)
@@ -1072,12 +1050,10 @@ class caldavtest(object):
 
         return jp.match(j)
 
-
     def extractCalProperty(self, propertyname, respdata):
 
         prop = self._calProperty(propertyname, respdata)
         return prop.getValue().getValue() if prop else None
-
 
     def extractCalParameter(self, parametername, respdata):
 
@@ -1097,7 +1073,6 @@ class caldavtest(object):
             return prop.getParameterValue(pname) if prop else None
         except KeyError:
             return None
-
 
     def _calProperty(self, propertyname, respdata):
 
@@ -1137,7 +1112,6 @@ class caldavtest(object):
         else:
             return props[0] if props else None
 
-
     def postgresInit(self):
         """
         Initialize postgres statement counter
@@ -1147,7 +1121,6 @@ class caldavtest(object):
                 return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
 
         return 0
-
 
     def postgresResult(self, startCount, indent):
 

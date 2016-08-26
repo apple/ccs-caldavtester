@@ -23,6 +23,7 @@ from xml.etree.cElementTree import ElementTree, tostring
 from StringIO import StringIO
 import urllib
 
+
 class Verifier(object):
     """
     Arguments for verifier:
@@ -36,7 +37,7 @@ class Verifier(object):
     badprops: list of properties with propstat status of 4xx to test
     """
 
-    def verify(self, manager, uri, response, respdata, args): #@UnusedVariable
+    def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
 
         # If no status verification requested, then assume all 2xx codes are OK
         ignores = args.get("ignore", [])
