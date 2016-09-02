@@ -165,7 +165,7 @@
 		</test>
 	</test-suite>
 
-	<test-suite name='PATCH - component update no match'>
+	<test-suite name='PATCH - component update'>
 		<test name='1'>
 			<description>PUT event</description>
 			<request>
@@ -173,7 +173,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/component-update-nomatch/1.ics</filepath>
+					<filepath>Resource/CalDAV/patch/component-update/1.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -186,7 +186,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-nomatch/1.ics</value>
+						<value>Resource/CalDAV/patch/component-update/1.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -198,7 +198,7 @@
 				<ruri>$calendarpath1:/1.ics</ruri>
 				<data>
 					<content-type>application/calendar-patch; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/component-update-nomatch/2.ics</filepath>
+					<filepath>Resource/CalDAV/patch/component-update/2.ics</filepath>
 				</data>
 				<verify>
 					<callback>statusCode</callback>
@@ -211,7 +211,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-nomatch/3.ics</value>
+						<value>Resource/CalDAV/patch/component-update/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -228,87 +228,7 @@
 					<callback>calendarDataMatch</callback>
 					<arg>
 						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-nomatch/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='-1'>
-			<description>DELETE event</description>
-			<request>
-				<method>DELETE</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-
-	<test-suite name='PATCH - component update match'>
-		<test name='1'>
-			<description>PUT event</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/component-update-match/1.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-match/1.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>PATCH update components</description>
-			<request>
-				<method>PATCH</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<data>
-					<content-type>application/calendar-patch; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/component-update-match/2.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-match/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>GET event</description>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/component-update-match/3.ics</value>
+						<value>Resource/CalDAV/patch/component-update/3.ics</value>
 					</arg>
 				</verify>
 			</request>
@@ -550,128 +470,6 @@
 					<arg>
 						<name>filepath</name>
 						<value>Resource/CalDAV/patch/property-create/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='-1'>
-			<description>DELETE event</description>
-			<request>
-				<method>DELETE</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-		</test>
-	</test-suite>
-
-	<test-suite name='PATCH - property update (no name)'>
-		<test name='1'>
-			<description>PUT event</description>
-			<request>
-				<method>PUT</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<data>
-					<content-type>text/calendar; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/property-update-noname/1.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/property-update-noname/1.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='2'>
-			<description>PATCH change summary</description>
-			<request>
-				<method>PATCH</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<data>
-					<content-type>application/calendar-patch; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/property-update-noname/2.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/property-update-noname/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='3'>
-			<description>GET event</description>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/property-update-noname/3.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='4'>
-			<description>PATCH change summary and start</description>
-			<request>
-				<method>PATCH</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<data>
-					<content-type>application/calendar-patch; charset=utf-8</content-type>
-					<filepath>Resource/CalDAV/patch/property-update-noname/4.ics</filepath>
-				</data>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-			</request>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/property-update-noname/5.ics</value>
-					</arg>
-				</verify>
-			</request>
-		</test>
-		<test name='5'>
-			<description>GET event</description>
-			<request>
-				<method>GET</method>
-				<ruri>$calendarpath1:/1.ics</ruri>
-				<verify>
-					<callback>statusCode</callback>
-				</verify>
-				<verify>
-					<callback>calendarDataMatch</callback>
-					<arg>
-						<name>filepath</name>
-						<value>Resource/CalDAV/patch/property-update-noname/5.ics</value>
 					</arg>
 				</verify>
 			</request>
