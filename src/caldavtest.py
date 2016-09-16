@@ -753,13 +753,13 @@ class caldavtest(object):
             if not result:
                 resulttxt += "Status Code Error: %d" % response.status
 
-        if req.print_request or (self.manager.print_request_response_on_error and not result):
+        if req.print_request or (self.manager.print_request_response_on_error and not result and not req.wait_for_success):
             requesttxt = "\n-------BEGIN:REQUEST-------\n"
             requesttxt += http.requestData
             requesttxt += "\n--------END:REQUEST--------\n"
             self.manager.message("protocol", requesttxt)
 
-        if req.print_response or (self.manager.print_request_response_on_error and not result):
+        if req.print_response or (self.manager.print_request_response_on_error and not result and not req.wait_for_success):
             responsetxt = "\n-------BEGIN:RESPONSE-------\n"
             responsetxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
             responsetxt += str(response.msg) + "\n" + respdata
