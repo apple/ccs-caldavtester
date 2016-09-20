@@ -166,7 +166,7 @@ project_name = "CalDAVTester"
 
 description = "CalDAV/CardDAV protocol test suite"
 
-long_description = file(joinpath(dirname(__file__), "README.txt")).read()
+long_description = file(joinpath(dirname(__file__), "README.md")).read()
 
 url = "https://github.com/apple/ccs-caldavtester"
 
