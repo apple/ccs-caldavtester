@@ -195,7 +195,9 @@ platforms = ["all"]
 
 setup_requirements = []
 
-install_requirements = []
+install_requirements = [
+    "pycalendar",
+]
 
 extras_requirements = {}
 
