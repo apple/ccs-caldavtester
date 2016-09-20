@@ -16,6 +16,7 @@
 
 from src.observers.base import BaseResultsObserver
 import json
+import time
 
 
 class Observer(BaseResultsObserver):
@@ -23,11 +24,30 @@ class Observer(BaseResultsObserver):
     A results observer that prints results to standard output.
     """
 
+    def __init__(self, manager):
+        super(Observer, self).__init__(manager)
+        self.currentProtocol = []
+
     def updateCalls(self):
         super(Observer, self).updateCalls()
         self._calls.update({
             "finish": self.finish,
+            "protocol": self.protocol,
+            "testSuite": self.testSuite,
+            "testResult": self.testResult,
         })
+
+    def protocol(self, result):
+        self.currentProtocol.append(result)
+
+    def testResult(self, result):
+        result["time"] = time.time()
+        if self.currentProtocol:
+            result["protocol"] = self.currentProtocol
+            self.currentProtocol = []
+
+    def testSuite(self, result):
+        result["time"] = time.time()
 
     def finish(self):
         print json.dumps(self.manager.results)
