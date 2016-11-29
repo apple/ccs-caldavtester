@@ -712,6 +712,9 @@ Looks for specific FREEBUSY periods for a particular ATTENDEE.
 	
 	Argument: 'unavailable'
 		Period for FBTYPE=BUSY-UNAVAILABLE to match.
+	
+	Argument: 'events'
+		Number of VEVENTs (in extended free-busy request) to match.
 
 	Example:
 	

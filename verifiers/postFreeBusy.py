@@ -42,6 +42,11 @@ class Verifier(object):
         busy = args.get("busy", [])
         tentative = args.get("tentative", [])
         unavailable = args.get("unavailable", [])
+        events = args.get("events", [])
+        if len(events) == 1:
+            events = int(eval(events[0]))
+        else:
+            events = None
 
         # Extract each calendar-data object
         try:
@@ -122,6 +127,11 @@ class Verifier(object):
                     raise ValueError("Busy-tentative periods do not match")
                 elif len(unavailablep.symmetric_difference(unavailable)):
                     raise ValueError("Busy-unavailable periods do not match")
+
+                # Check event count
+                if events is not None:
+                    if len(calendar.getComponents("VEVENT")) != events:
+                        raise ValueError("Number of VEVENTs does not match")
 
                 break
 
