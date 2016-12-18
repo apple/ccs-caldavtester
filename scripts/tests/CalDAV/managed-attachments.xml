@@ -2792,6 +2792,159 @@
 		</test>
 	</test-suite>
 
+	<test-suite name='Too many'>
+		<test name='1'>
+			<description>PUT event</description>
+			<request end-delete='no'>
+				<method>PUT</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<data>
+					<content-type>text/calendar; charset=utf-8</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/1.ics</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request>
+				<method>GET</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>calendarDataMatch</callback>
+					<arg>
+						<name>filepath</name>
+						<value>Resource/CalDAV/managedattachments/simple/1.ics</value>
+					</arg>
+				</verify>
+				<grabheader>
+					<name>ETag</name>
+					<variable>$etag:</variable>
+				</grabheader>
+			</request>
+		</test>
+		<test name='2'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test1.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='3'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test2.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='4'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test3.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='5'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test4.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='6'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test5.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+		<test name='7'>
+			<description>Add attachment (no prefer)</description>
+			<request>
+				<method>POST</method>
+				<ruri>$calendarpath1:/1.ics?action=attachment-add</ruri>
+				<header>
+					<name>Content-Disposition</name>
+					<value>attachment;filename=test6.txt</value>
+				</header>
+				<data>
+					<content-type>text/plain</content-type>
+					<filepath>Resource/CalDAV/managedattachments/simple/2.txt</filepath>
+				</data>
+				<verify>
+					<callback>prepostcondition</callback>
+					<arg>
+						<name>error</name>
+						<value>{urn:ietf:params:xml:ns:caldav}max-attachments</value>
+					</arg>
+				</verify>
+			</request>
+		</test>
+		<test name='8'>
+			<description>Delete original calendar data</description>
+			<request>
+				<method>DELETE</method>
+				<ruri>$calendarpath1:/1.ics</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+		</test>
+	</test-suite>
 
 	<end/>
 
