@@ -18,7 +18,7 @@ protocol by simply defining a new set of XML files.
 Get CalDAVTester from github, create a virtualenv to run it in and install
 into the virtualenv:
 
-	git clone https://github.com/apple/ccs-pycalendar.git
+	git clone https://github.com/apple/ccs-caldavtester.git
 	virtualenv venv
 	source venv/bin/activate
 	pip install -r requirements.txt
