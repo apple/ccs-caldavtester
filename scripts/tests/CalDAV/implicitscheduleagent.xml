@@ -132,7 +132,7 @@
 			</request>
 		</test>
 		<test name='6'>
-			<description>Attendee 3 no Inbox Item</description>
+			<description>Attendee 3 has Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath3:/</ruri>
@@ -148,13 +148,31 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>0</value>
+						<value>1</value>
+					</arg>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>GETNEW</method>
+				<ruri>$inboxpath3:/</ruri>
+				<verify>
+					<callback>statusCode</callback>
+				</verify>
+			</request>
+			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
+				<method>DELETE</method>
+				<ruri>$</ruri>
+				<verify>
+					<callback>statusCode</callback>
+					<arg>
+						<name>status</name>
+						<value>204</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='7'>
-			<description>Attendee 3 no data</description>
+			<description>Attendee 3 has data</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath3:/</ruri>
@@ -170,7 +188,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>0</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
@@ -1088,7 +1106,7 @@
 			</request>
 		</test>
 		<test name='9'>
-			<description>Attendee 3 no Inbox Item</description>
+			<description>Attendee 3 Inbox Item</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$inboxpath3:/</ruri>
@@ -1104,13 +1122,13 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>0</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
 		</test>
 		<test name='10'>
-			<description>Attendee 3 no data</description>
+			<description>Attendee 3 data</description>
 			<request user="$userid3:" pswd="$pswd3:" print-response='no'>
 				<method>PROPFIND</method>
 				<ruri>$calendarpath3:/</ruri>
@@ -1126,7 +1144,7 @@
 					<callback>multistatusItems</callback>
 					<arg>
 						<name>count</name>
-						<value>0</value>
+						<value>1</value>
 					</arg>
 				</verify>
 			</request>
