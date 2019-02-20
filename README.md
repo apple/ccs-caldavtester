@@ -19,6 +19,7 @@ Get CalDAVTester from github, create a virtualenv to run it in and install
 into the virtualenv:
 
 	git clone https://github.com/apple/ccs-caldavtester.git
+	cd ccs-caldevtester
 	virtualenv venv
 	source venv/bin/activate
 	pip install -r requirements.txt
