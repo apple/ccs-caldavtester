@@ -50,4 +50,4 @@ class Observer(BaseResultsObserver):
         result["time"] = time.time()
 
     def finish(self):
-        print json.dumps(self.manager.results)
+        print(json.dumps(self.manager.results))

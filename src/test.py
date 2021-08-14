@@ -57,7 +57,7 @@ class test(object):
         self.ignore = getYesNoAttributeValue(node, src.xmlDefs.ATTR_IGNORE)
         self.only = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ONLY)
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
@@ -69,12 +69,12 @@ class test(object):
         self.requests = request.parseList(self.manager, node)
 
     def parseFeatures(self, node, require=True):
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text)
 
     def dump(self):
-        print "\nTEST: %s" % self.name
-        print "    description: %s" % self.description
+        print("\nTEST: %s" % self.name)
+        print("    description: %s" % self.description)
         for req in self.requests:
             req.dump()

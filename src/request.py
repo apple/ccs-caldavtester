@@ -21,6 +21,7 @@ Defines the 'request' class which encapsulates an HTTP request and verification.
 from hashlib import md5, sha1
 from src.httpshandler import SmartHTTPConnection
 from src.xmlUtils import getYesNoAttributeValue
+from urllib.parse import urlparse
 import base64
 import datetime
 import os
@@ -28,7 +29,6 @@ import re
 import src.xmlDefs
 import time
 import urllib
-import urlparse
 import uuid
 
 algorithms = {
@@ -217,8 +217,8 @@ class request(object):
         basicauth = [self.user, si.user][self.user == ""]
         basicauth += ":"
         basicauth += [self.pswd, si.pswd][self.pswd == ""]
-        basicauth = "Basic " + base64.encodestring(basicauth)
-        basicauth = basicauth.replace("\n", "")
+        basicauth = b"Basic " + base64.encodebytes(basicauth.encode('utf-8'))
+        basicauth = basicauth.replace(b"\n", b"")
         return basicauth
 
     def gethttpdigestauth(self, si, wwwauthorize=None):
@@ -366,9 +366,9 @@ class request(object):
 
     def parseXML(self, node):
         self.auth = node.get(src.xmlDefs.ATTR_AUTH, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
-        self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, "").encode("utf-8"))
-        self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, "").encode("utf-8"))
-        self.cert = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_CERT, "").encode("utf-8"))
+        self.user = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_USER, ""))
+        self.pswd = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_PSWD, ""))
+        self.cert = self.manager.server_info.subs(node.get(src.xmlDefs.ATTR_CERT, ""))
         self.end_delete = getYesNoAttributeValue(node, src.xmlDefs.ATTR_END_DELETE)
         self.print_request = self.manager.print_request or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_REQUEST)
         self.print_response = self.manager.print_response or getYesNoAttributeValue(node, src.xmlDefs.ATTR_PRINT_RESPONSE)
@@ -380,18 +380,18 @@ class request(object):
             self.port = self.manager.server_info.port2
             self.afunix = self.manager.server_info.afunix2
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
                 self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_METHOD:
-                self.method = child.text.encode("utf-8")
+                self.method = child.text
             elif child.tag == src.xmlDefs.ELEMENT_HEADER:
                 self.parseHeader(child)
             elif child.tag == src.xmlDefs.ELEMENT_RURI:
                 self.ruri_quote = child.get(src.xmlDefs.ATTR_QUOTE, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
-                self.ruris.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+                self.ruris.append(self.manager.server_info.subs(child.text))
                 if len(self.ruris) == 1:
                     self.ruri = self.ruris[0]
             elif child.tag == src.xmlDefs.ELEMENT_DATA:
@@ -401,9 +401,9 @@ class request(object):
                 self.verifiers.append(verify(self.manager))
                 self.verifiers[-1].parseXML(child)
             elif child.tag == src.xmlDefs.ELEMENT_GRABURI:
-                self.graburi = child.text.encode("utf-8")
+                self.graburi = child.text
             elif child.tag == src.xmlDefs.ELEMENT_GRABCOUNT:
-                self.grabcount = child.text.encode("utf-8")
+                self.grabcount = child.text
             elif child.tag == src.xmlDefs.ELEMENT_GRABHEADER:
                 self.parseGrab(child, self.grabheader)
             elif child.tag == src.xmlDefs.ELEMENT_GRABPROPERTY:
@@ -418,26 +418,26 @@ class request(object):
                 self.parseGrab(child, self.grabcalparam)
 
     def parseFeatures(self, node, require=True):
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text)
 
     def parseHeader(self, node):
 
         name = None
         value = None
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_NAME:
-                name = child.text.encode("utf-8")
+                name = child.text
             elif child.tag == src.xmlDefs.ELEMENT_VALUE:
-                value = self.manager.server_info.subs(child.text.encode("utf-8"))
+                value = self.manager.server_info.subs(child.text)
 
         if (name is not None) and (value is not None):
             self.headers[name] = value
 
     def parseList(manager, node):
         requests = []
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_REQUEST:
                 req = request(manager)
                 req.parseXML(child)
@@ -452,11 +452,11 @@ class request(object):
 
         name = None
         variable = None
-        for child in node.getchildren():
+        for child in node:
             if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY):
-                name = self.manager.server_info.subs(child.text.encode("utf-8"))
+                name = self.manager.server_info.subs(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
-                variable = self.manager.server_info.subs(child.text.encode("utf-8"))
+                variable = self.manager.server_info.subs(child.text)
 
         if (name is not None) and (variable is not None):
             appendto.append((name, variable))
@@ -466,15 +466,15 @@ class request(object):
         name = None
         parent = None
         variable = None
-        for child in node.getchildren():
+        for child in node:
             if child.tag in (src.xmlDefs.ELEMENT_NAME, src.xmlDefs.ELEMENT_PROPERTY, src.xmlDefs.ELEMENT_POINTER):
-                name = self.manager.server_info.subs(child.text.encode("utf-8"))
+                name = self.manager.server_info.subs(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_PARENT:
-                parent = self.manager.server_info.subs(child.text.encode("utf-8"))
+                parent = self.manager.server_info.subs(child.text)
             elif child.tag == src.xmlDefs.ELEMENT_VARIABLE:
                 if variable is None:
                     variable = []
-                variable.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+                variable.append(self.manager.server_info.subs(child.text))
 
         if (name is not None) and (variable is not None):
             appendto.append((name, variable,) if parent is None else (name, parent, variable,))
@@ -500,11 +500,11 @@ class data(object):
         self.substitute = node.get(src.xmlDefs.ATTR_SUBSTITUTIONS, src.xmlDefs.ATTR_VALUE_YES) == src.xmlDefs.ATTR_VALUE_YES
         self.generate = node.get(src.xmlDefs.ATTR_GENERATE, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_CONTENTTYPE:
-                self.content_type = child.text.encode("utf-8")
+                self.content_type = child.text
             elif child.tag == src.xmlDefs.ELEMENT_FILEPATH:
-                self.filepath = child.text.encode("utf-8")
+                self.filepath = child.text
             elif child.tag == src.xmlDefs.ELEMENT_GENERATOR:
                 self.generator = generator(self.manager)
                 self.generator.parseXML(child)
@@ -514,11 +514,11 @@ class data(object):
     def parseSubstituteXML(self, node):
         name = None
         value = None
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_NAME:
-                name = child.text.encode("utf-8")
+                name = child.text
             elif child.tag == src.xmlDefs.ELEMENT_VALUE:
-                value = self.manager.server_info.subs(child.text.encode("utf-8"))
+                value = self.manager.server_info.subs(child.text)
         if name and value:
             self.substitutions[name] = value
 
@@ -537,7 +537,7 @@ class generator(object):
 
         # Re-do substitutions from values generated during the current test run
         if self.manager.server_info.hasextrasubs():
-            for name, values in self.args.iteritems():
+            for name, values in self.args.items():
                 newvalues = [self.manager.server_info.extrasubs(value) for value in values]
                 self.args[name] = newvalues
 
@@ -558,21 +558,21 @@ class generator(object):
 
     def parseXML(self, node):
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_CALLBACK:
-                self.callback = child.text.encode("utf-8")
+                self.callback = child.text
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
 
     def parseArgXML(self, node):
         name = None
         values = []
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_NAME:
-                name = child.text.encode("utf-8")
+                name = child.text
             elif child.tag == src.xmlDefs.ELEMENT_VALUE:
                 if child.text is not None:
-                    values.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+                    values.append(self.manager.server_info.subs(child.text))
                 else:
                     values.append("")
         if name:
@@ -604,7 +604,7 @@ class verify(object):
 
         # Re-do substitutions from values generated during the current test run
         if self.manager.server_info.hasextrasubs():
-            for name, values in self.args.iteritems():
+            for name, values in self.args.items():
                 newvalues = [self.manager.server_info.extrasubs(value) for value in values]
                 self.args[name] = newvalues
 
@@ -625,37 +625,37 @@ class verify(object):
 
     def parseXML(self, node):
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
                 self.parseFeatures(child, require=False)
             elif child.tag == src.xmlDefs.ELEMENT_CALLBACK:
-                self.callback = child.text.encode("utf-8")
+                self.callback = child.text
             elif child.tag == src.xmlDefs.ELEMENT_ARG:
                 self.parseArgXML(child)
 
     def parseFeatures(self, node, require=True):
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text)
 
     def parseArgXML(self, node):
         name = None
         values = []
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_NAME:
-                name = child.text.encode("utf-8")
+                name = child.text
             elif child.tag == src.xmlDefs.ELEMENT_VALUE:
                 if child.text is not None:
-                    values.append(self.manager.server_info.subs(child.text.encode("utf-8")))
+                    values.append(self.manager.server_info.subs(child.text))
                 else:
                     values.append("")
         if name:
             self.args[name] = values
 
 
-class stats(object):
+class stats:
     """
     Maintains stats about the current test.
     """

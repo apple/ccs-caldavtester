@@ -57,7 +57,7 @@ class Verifier(object):
         # Read in json
         try:
             j = json.loads(respdata)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not JSON data: %s" % (e,)
 
         def _splitPathTests(path):

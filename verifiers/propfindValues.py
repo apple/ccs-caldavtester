@@ -106,7 +106,7 @@ class Verifier(object):
 
                 def _removeWhitespace(node):
 
-                    for child in node.getchildren():
+                    for child in node:
                         child.text = child.text.strip() if child.text else child.text
                         child.tail = child.tail.strip() if child.tail else child.tail
                         _removeWhitespace(child)

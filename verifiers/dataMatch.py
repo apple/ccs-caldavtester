@@ -30,7 +30,7 @@ class Verifier(object):
         # Get arguments
         files = args.get("filepath", [])
         if manager.data_dir:
-            files = map(lambda x: os.path.join(manager.data_dir, x), files)
+            files = [os.path.join(manager.data_dir, f) for f in files]
 
         # status code must be 200, 207
         if response.status not in (200, 207):

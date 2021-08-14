@@ -19,6 +19,8 @@ Class to manage the testing process.
 """
 
 from src.serverinfo import serverinfo
+
+from importlib import import_module
 from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
 import getopt
@@ -34,7 +36,7 @@ EX_INVALID_CONFIG_FILE = "Invalid Config File"
 EX_FAILED_REQUEST = "HTTP Request Failed"
 
 
-class manager(object):
+class manager:
 
     """
     Main class that runs test suites defined in an XML config file.
@@ -74,18 +76,19 @@ class manager(object):
         }
         self.observers = []
 
-    def logit(self, str):
+    def logit(self, string):
         if self.logFile:
-            self.logFile.write(str + "\n")
-        print str
+            self.logFile.write(string + "\n")
+        print(string)
 
     def loadObserver(self, observer_name):
-        module = __import__("observers." + observer_name, globals(), locals(), ["Observer", ])
+        module = import_module("src.observers." + observer_name)
         cl = getattr(module, "Observer")
         self.observers.append(cl(self))
 
     def message(self, message, *args, **kwargs):
-        map(lambda x: x.message(message, *args, **kwargs), self.observers)
+        for observer in self.observers:
+            observer.message(message, *args, **kwargs)
 
     def testProgress(self, count, total):
         results = {
@@ -137,7 +140,7 @@ class manager(object):
         # Open and parse the server config file
         try:
             tree = ElementTree(file=serverfile)
-        except ExpatError, e:
+        except ExpatError as e:
             raise RuntimeError("Unable to parse file '%s' because: %s" % (serverfile, e,))
 
         # Verify that top-level element is correct
@@ -181,7 +184,7 @@ class manager(object):
             # Open and parse the config file
             try:
                 tree = ElementTree(file=fname)
-            except ExpatError, e:
+            except ExpatError as e:
                 raise RuntimeError("Unable to parse file '%s' because: %s" % (fname, e,))
             caldavtest_node = tree.getroot()
             if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
@@ -309,12 +312,14 @@ class manager(object):
                 self.debug = True
 
         if all or not args:
-            files = []
-            os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]) if not dir.startswith("test") else None, None)
-            for file in files:
-                if file.endswith(".xml") and file[len(dname) + 1:] not in excludes:
-                    if subdir is None or file[len(dname) + 1:].startswith(subdir):
-                        fnames.append(file)
+            all_files = []
+            for root, dirs, files in os.walk(dname):
+                if not root.startswith("test"):
+                    all_files.extend([os.path.join(root, name) for name in files])
+            for file_ in all_files:
+                if file_.endswith(".xml") and file_[len(dname) + 1:] not in excludes:
+                    if subdir is None or file_[len(dname) + 1:].startswith(subdir):
+                        fnames.append(file_)
 
         # Remove any server info file from files enumerated by --all
         fnames[:] = [x for x in fnames if (x != sname)]
@@ -350,7 +355,8 @@ class manager(object):
             self.randomSeed = random_seed
 
         # Load observers
-        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["log", ])
+        for name in observer_names or ["log"]:
+            self.loadObserver(name)
 
         self.readXML(sname, fnames, ssl, all)
 

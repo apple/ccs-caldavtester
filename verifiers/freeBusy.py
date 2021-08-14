@@ -107,9 +107,9 @@ class Verifier(object):
 
         except InvalidData:
             return False, "        HTTP response data is not a calendar"
-        except ValueError, txt:
+        except ValueError as txt:
             return False, "        HTTP response data is invalid: %s" % (txt,)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not calendar data: %s" % (e,)
 
         return True, ""

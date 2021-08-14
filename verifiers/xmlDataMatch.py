@@ -30,7 +30,7 @@ class Verifier(object):
         # Get arguments
         files = args.get("filepath", [])
         if manager.data_dir:
-            files = map(lambda x: os.path.join(manager.data_dir, x), files)
+            files = [os.path.join(manager.data_dir, f) for f in files]
         filters = args.get("filter", [])
 
         # status code must be 200, 207
@@ -85,5 +85,5 @@ class Verifier(object):
             else:
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data %s" % (error_diff,)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)

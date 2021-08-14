@@ -59,7 +59,7 @@ class testsuite(object):
         self.only = getYesNoAttributeValue(node, src.xmlDefs.ATTR_ONLY)
         self.changeuid = getYesNoAttributeValue(node, src.xmlDefs.ATTR_CHANGE_UID)
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
                 self.parseFeatures(child, require=True)
             elif child.tag == src.xmlDefs.ELEMENT_EXCLUDE_FEATURE:
@@ -70,12 +70,12 @@ class testsuite(object):
                 self.tests.append(t)
 
     def parseFeatures(self, node, require=True):
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text)
 
     def dump(self):
-        print "\nTest Suite:"
-        print "    name: %s" % self.name
+        print("\nTest Suite:")
+        print("    name: %s" % self.name)
         for iter in self.tests:
             iter.dump()

@@ -49,7 +49,7 @@ class Verifier(object):
         # Read in XML
         try:
             tree = ElementTree(file=StringIO.StringIO(respdata))
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)
 
         def _splitPathTests(path):
@@ -158,7 +158,7 @@ class Verifier(object):
             else:
                 element = test[1:]
                 value = None
-            for child in node.getchildren():
+            for child in node:
                 if child.tag == element and (value is None or child.text == value):
                     break
             else:
