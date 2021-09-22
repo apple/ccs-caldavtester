@@ -18,8 +18,8 @@
 Verifier that checks the response for a pre/post-condition <DAV:error> result.
 """
 
+from io import BytesIO
 from xml.etree.cElementTree import ElementTree
-from StringIO import StringIO
 
 
 class Verifier(object):
@@ -39,7 +39,7 @@ class Verifier(object):
             return False, "        No pre/post condition response body"
 
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception as ex:
             return False, "        Could not parse XML: %s" % (ex,)
 

@@ -24,9 +24,9 @@ try:
     from pycalendar.exceptions import InvalidData
 except ImportError:
     pass
+from io import BytesIO
 from xml.etree.cElementTree import ElementTree
 from xml.parsers.expat import ExpatError
-import StringIO
 
 
 class Verifier(object):
@@ -50,7 +50,7 @@ class Verifier(object):
 
         # Extract each calendar-data object
         try:
-            tree = ElementTree(file=StringIO.StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except ExpatError:
             return False, "           Could not parse proper XML response\n"
 

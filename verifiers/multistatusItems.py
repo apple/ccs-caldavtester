@@ -19,9 +19,9 @@ Verifier that checks a multistatus response to make sure that the specified href
 are returned with appropriate status codes.
 """
 
+from io import BytesIO
 from src.utils import processHrefSubstitutions
 from xml.etree.cElementTree import ElementTree
-from StringIO import StringIO
 import urllib
 
 
@@ -72,7 +72,7 @@ class Verifier(object):
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
 
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return False, "           HTTP response is not valid XML: %s\n" % (respdata,)
 

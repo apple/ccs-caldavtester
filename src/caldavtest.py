@@ -43,6 +43,7 @@ import time
 import traceback
 from email.utils import parsedate
 from http.client import HTTPConnection
+from io import BytesIO
 from urllib.parse import quote, urlparse, urlunparse
 
 """
@@ -368,7 +369,7 @@ class caldavtest(object):
         result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
             except Exception:
                 return hresult
 
@@ -454,7 +455,7 @@ class caldavtest(object):
         result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
             except Exception:
                 return hresult
 
@@ -503,7 +504,7 @@ class caldavtest(object):
             result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count))
             hrefs = []
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
 
                 for response in tree.findall("{DAV:}response"):
                     href = response.findall("{DAV:}href")[0]
@@ -996,7 +997,7 @@ class caldavtest(object):
 
         try:
             tree = ElementTree()
-            tree.parse(StringIO(respdata))
+            tree.parse(BytesIO(respdata))
         except:
             return None
 

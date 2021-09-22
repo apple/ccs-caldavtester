@@ -24,10 +24,10 @@ try:
     from pycalendar.icalendar.calendar import Calendar
 except ImportError:
     pass
+from io import BytesIO, StringIO
 from xml.etree.cElementTree import ElementTree
 import json
 import re
-import StringIO
 
 
 class Verifier(object):
@@ -48,7 +48,7 @@ class Verifier(object):
 
         # Read in XML
         try:
-            tree = ElementTree(file=StringIO.StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)
 
@@ -273,7 +273,7 @@ if __name__ == '__main__':
 </D:test>
 """
 
-    node = ElementTree(file=StringIO.StringIO(xmldata)).getroot()
+    node = ElementTree(file=StringIO(xmldata)).getroot()
 
     assert Verifier.matchNode(node, "/{DAV:}test/{DAV:}b/{DAV:}c[=C]/../{DAV:}d[=D]")[0]
     assert not Verifier.matchNode(node, "/{DAV:}test/{DAV:}b/{DAV:}c[=C]/../{DAV:}d[=E]")[0]
