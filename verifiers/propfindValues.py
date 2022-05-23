@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks a propfind response for regex matches to property values.
 """
@@ -129,15 +128,22 @@ class Verifier(object):
             # Look at each property we want to test and see if present
             for propname, value, match in props_match:
                 if propname not in ok_status_props:
-                    resulttxt += "        Items not returned in report (OK) for %s: %s\n" % (href, propname,)
+                    resulttxt += "        Items not returned in report (OK) for %s: %s\n" % (
+                        href,
+                        propname,
+                    )
                     result = False
                     continue
                 matched = re.match(value, ok_status_props[propname])
                 if match and not matched:
-                    resulttxt += "        Items not matching for %s: %s %s\n" % (href, propname, ok_status_props[propname])
+                    resulttxt += "        Items not matching for %s: %s %s\n" % (
+                        href, propname, ok_status_props[propname]
+                    )
                     result = False
                 elif not match and matched:
-                    resulttxt += "        Items incorrectly match for %s: %s %s\n" % (href, propname, ok_status_props[propname])
+                    resulttxt += "        Items incorrectly match for %s: %s %s\n" % (
+                        href, propname, ok_status_props[propname]
+                    )
                     result = False
 
         return result, resulttxt

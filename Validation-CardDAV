@@ -19,6 +19,6 @@
 # Runs a full set of tests to verify that the server is functional.
 #
 
-/Applications/Server.app/Contents/ServerRoot/Library/CalendarServer/bin/python testcaldav.py $@ --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all -o cdt.txt \
+/Applications/Server.app/Contents/ServerRoot/Library/CalendarServer/bin/python testcaldav.py "$@" --ssl --print-details-onfail -s scripts/server/serverinfo-caldav.xml --all -o cdt.txt \
 	--subdir CardDAV \
 	--exclude CardDAV/directory.xml

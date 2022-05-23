@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
@@ -52,7 +51,7 @@ class Verifier(object):
                 data = fd.read()
             finally:
                 fd.close()
-        except:
+        except:  # noqa
             data = None
 
         if data is None:
@@ -85,5 +84,5 @@ class Verifier(object):
             else:
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data %s" % (error_diff,)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)

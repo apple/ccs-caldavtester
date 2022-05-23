@@ -98,14 +98,14 @@ def SmartHTTPConnection(host, port, ssl, afunix, cert=None):
             if (host, port) in cached:
                 try:
                     return trySSL(connection_type, cert)
-                except:
+                except:  # noqa
                     cached.remove((host, port))
 
         for cached, connection_type in cached_types:
             try:
                 cached.add((host, port))
                 return trySSL(connection_type, cert)
-            except:
+            except:  # noqa
                 cached.remove((host, port))
 
         raise RuntimeError("Cannot connect via with TLSv1, SSLv3 or SSLv23")

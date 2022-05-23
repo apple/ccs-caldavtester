@@ -30,7 +30,6 @@ import sys
 import traceback
 import uuid
 import xml.parsers.expat
-
 """
 OpenDirectory.framework
 """
@@ -40,9 +39,7 @@ import objc as _objc
 __bundle__ = _objc.initFrameworkWrapper(
     "OpenDirectory",
     frameworkIdentifier="com.apple.OpenDirectory",
-    frameworkPath=_objc.pathForFramework(
-        "/System/Library/Frameworks/OpenDirectory.framework"
-    ),
+    frameworkPath=_objc.pathForFramework("/System/Library/Frameworks/OpenDirectory.framework"),
     globals=globals()
 )
 
@@ -56,7 +53,6 @@ kDS1AttrGeneratedUID = "dsAttrTypeStandard:GeneratedUID"
 kDSNAttrRecordName = "dsAttrTypeStandard:RecordName"
 
 eDSExact = 0x2001
-
 
 sys_root = "/Applications/Server.app/Contents/ServerRoot"
 os.environ["PATH"] = "%s/usr/bin:%s" % (sys_root, os.environ["PATH"])
@@ -271,9 +267,10 @@ records = (
 
 
 def usage():
-    print """Usage: odsetup [options] create|create-users|remove
+    print(
+        """Usage: odsetup [options] create|create-users|remove
 Options:
-    -h        Print this help and exit
+    -h        print(this help and exit)
     -n node   OpenDirectory node to target
     -u uid    OpenDirectory Admin user id
     -p pswd   OpenDirectory Admin user password
@@ -282,17 +279,18 @@ Options:
     -v        verbose logging
     -V        very verbose logging
 """
+    )
 
 
 def cmd(args, input=None, raiseOnFail=True):
 
     if veryverbose:
-        print "-----"
+        print("-----")
     if verbose:
-        print args.replace(diradmin_pswd, "xxxx")
+        print(args.replace(diradmin_pswd, "xxxx"))
     if veryverbose and input:
-        print input
-        print "*****"
+        print(input)
+        print("*****")
     if input:
         p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         result = p.communicate(input)
@@ -301,8 +299,8 @@ def cmd(args, input=None, raiseOnFail=True):
         result = p.communicate()
 
     if veryverbose:
-        print "Output: %s" % (result[0],)
-        print "Code: %s" % (p.returncode,)
+        print("Output: %s" % (result[0],))
+        print("Code: %s" % (p.returncode,))
     if raiseOnFail and p.returncode:
         raise RuntimeError(result[1])
     return result[0], p.returncode
@@ -319,9 +317,9 @@ def checkDataSource(node):
     result = cmd("dscl localhost -list /LDAPv3")
     result = ["/LDAPv3/{}".format(subnode) for subnode in result[0].splitlines()]
     if len(result) > 1 or result[0] != node:
-        print "Error: Host is bound to other directory nodes: {}".format(result)
-        print "CalDAVTester will likely fail with other nodes present."
-        print "Please remove all nodes except the one being used for odsetup."
+        print("Error: Host is bound to other directory nodes: {}".format(result))
+        print("CalDAVTester will likely fail with other nodes present.")
+        print("Please remove all nodes except the one being used for odsetup.")
         sys.exit(1)
 
 
@@ -339,10 +337,7 @@ class ODFamework(object):
             raise ODError(error)
 
         _ignore_result, error = self.node.setCredentialsWithRecordType_recordName_password_error_(
-            kDSStdRecordTypeUsers,
-            user,
-            pswd,
-            None
+            kDSStdRecordTypeUsers, user, pswd, None
         )
         if error:
             print("Unable to authenticate with directory %s: %s" % (nodeName, error))
@@ -351,15 +346,9 @@ class ODFamework(object):
         print("Successfully authenticated with directory %s" % (nodeName,))
 
     def lookupRecordName(self, recordType, name):
-        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(  # @UndefinedVariable
-            self.node,
-            recordType,
-            kDSNAttrRecordName,
-            eDSExact,
-            name,
-            [kDS1AttrGeneratedUID],
-            0,
-            None)
+        query, error = ODQuery.queryWithNode_forRecordTypes_attribute_matchType_queryValues_returnAttributes_maximumResults_error_(  # noqa # @UndefinedVariable
+            self.node, recordType, kDSNAttrRecordName, eDSExact, name,
+            [kDS1AttrGeneratedUID], 0, None)
         if error:
             raise ODError(error)
         records, error = query.resultsAllowingPartial_error_(False, None)
@@ -374,11 +363,7 @@ class ODFamework(object):
         return records[0]
 
     def createRecord(self, recordType, recordName, password, attrs):
-        record, error = self.node.createRecordWithRecordType_name_attributes_error_(
-            recordType,
-            recordName,
-            attrs,
-            None)
+        record, error = self.node.createRecordWithRecordType_name_attributes_error_(recordType, recordName, attrs, None)
         if error:
             print(error)
             raise ODError(error)
@@ -524,7 +509,10 @@ def buildServerinfo(serverinfo_default, hostname, nonsslport, sslport, authtype,
 
     subs_str = ""
     for x, y in subs:
-        subs_str += subs_template % (x, y,)
+        subs_str += subs_template % (
+            x,
+            y,
+        )
 
     data = data.format(
         hostname=hostname,
@@ -552,8 +540,8 @@ def loadLists(path, records):
 
     try:
         plist = readPlistFromString(result[0])
-    except xml.parsers.expat.ExpatError, e:
-        print "Error (%s) parsing (%s)" % (e, result[0])
+    except xml.parsers.expat.ExpatError as e:
+        print("Error (%s) parsing (%s)" % (e, result[0]))
         raise
 
     for record in plist["result"]:
@@ -587,18 +575,59 @@ def doToAccounts(odf, protocol, f, users_only=False):
 def doGroupMemberships(odf):
 
     memberships = (
-        ("group01", ("user01",), (),),
-        ("group02", ("user06", "user07",), (),),
-        ("group03", ("user08", "user09",), (),),
-        ("group04", ("user10",), ("group02", "group03",),),
-        ("group05", ("user20",), ("group06",),),
-        ("group06", ("user21",), (),),
-        ("group07", ("user22", "user23", "user24",), (),),
+        (
+            "group01",
+            ("user01",),
+            (),
+        ),
+        (
+            "group02",
+            (
+                "user06",
+                "user07",
+            ),
+            (),
+        ),
+        (
+            "group03",
+            (
+                "user08",
+                "user09",
+            ),
+            (),
+        ),
+        (
+            "group04",
+            ("user10",),
+            (
+                "group02",
+                "group03",
+            ),
+        ),
+        (
+            "group05",
+            ("user20",),
+            ("group06",),
+        ),
+        (
+            "group06",
+            ("user21",),
+            (),
+        ),
+        (
+            "group07",
+            (
+                "user22",
+                "user23",
+                "user24",
+            ),
+            (),
+        ),
     )
 
     for groupname, users, nestedgroups in memberships:
         if verbose:
-            print "Group membership: {}".format(groupname)
+            print("Group membership: {}".format(groupname))
 
         # Get group record
         group = odf.lookupRecordName(kDSStdRecordTypeGroups, groupname)
@@ -620,9 +649,12 @@ def doGroupMemberships(odf):
 def createUser(odf, path, user):
 
     if verbose:
-        print "Create user: {}/{}".format(path, user[0])
+        print("Create user: {}/{}".format(path, user[0]))
 
-    if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
+    if path in (
+        kDSStdRecordTypeUsers,
+        kDSStdRecordTypeGroups,
+    ):
         createUserViaDS(odf, path, user)
     elif protocol == "caldav":
         createUserViaGateway(path, user)
@@ -639,11 +671,21 @@ def createUserViaDS(odf, path, user):
         if kDS1AttrGeneratedUID in user[2]:
             user[2][kDS1AttrGeneratedUID] = str(uuid.uuid4()).upper()
 
-        user = (user[0], user[1], dict([(k, [v],) for k, v in user[2].items()]),)
+        user = (
+            user[0],
+            user[1],
+            dict([(
+                k,
+                [v],
+            ) for k, v in user[2].items()]),
+        )
         record = odf.createRecord(path, user[0], user[1], user[2])
     else:
         if verbose:
-            print "%s/%s already exists" % (path, user[0],)
+            print("%s/%s already exists" % (
+                path,
+                user[0],
+            ))
 
     # Now read the guid for this record
     if user[0] in guids:
@@ -669,8 +711,7 @@ def createUserViaGateway(path, user):
         guids[user[0]] = guid
     if path == kDSStdRecordTypePlaces:
         cmd(
-            cmdutility,
-            locationcreatecmd % {
+            cmdutility, locationcreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
                 "recordname": user[0]
@@ -678,8 +719,7 @@ def createUserViaGateway(path, user):
         )
     elif path == kDSStdRecordTypeResources:
         cmd(
-            cmdutility,
-            resourcecreatecmd % {
+            cmdutility, resourcecreatecmd % {
                 "guid": guid,
                 "realname": user[2]["dsAttrTypeStandard:RealName"],
                 "recordname": user[0]
@@ -692,9 +732,12 @@ def createUserViaGateway(path, user):
 def removeUser(odf, path, user):
 
     if verbose:
-        print "Remove user: {}/{}".format(path, user[0])
+        print("Remove user: {}/{}".format(path, user[0]))
 
-    if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
+    if path in (
+        kDSStdRecordTypeUsers,
+        kDSStdRecordTypeGroups,
+    ):
         removeUserViaDS(odf, path, user)
     else:
         removeUserViaGateway(path, user)
@@ -716,18 +759,16 @@ def removeUserViaGateway(path, user):
         if user[0] not in locations:
             return
         guid = locations[user[0]]
-        cmd(
-            cmdutility,
-            locationremovecmd % {"guid": guid, }
-        )
+        cmd(cmdutility, locationremovecmd % {
+            "guid": guid,
+        })
     elif path == kDSStdRecordTypeResources:
         if user[0] not in resources:
             return
         guid = resources[user[0]]
-        cmd(
-            cmdutility,
-            resourceremovecmd % {"guid": guid, }
-        )
+        cmd(cmdutility, resourceremovecmd % {
+            "guid": guid,
+        })
     else:
         raise ValueError()
 
@@ -738,21 +779,35 @@ def manageRecords(odf, path, user):
     """
 
     # Do caldav_utility setup
-    if path in (kDSStdRecordTypePlaces, kDSStdRecordTypeResources,):
+    if path in (
+        kDSStdRecordTypePlaces,
+        kDSStdRecordTypeResources,
+    ):
         if path in (kDSStdRecordTypePlaces,):
             if user[0] == "delegatedroom":
-                cmd("%s --add-write-proxy groups:group05 --add-read-proxy groups:group07 --set-auto-schedule-mode=none locations:%s" % (
+                cmd((
+                    "%s --add-write-proxy groups:group05 \
+                        --add-read-proxy groups:group07 \
+                        --set-auto-schedule-mode=none locations:%s"
+                ) % (
                     utility,
                     user[0],
                 ))
             else:
-                cmd("%s --add-write-proxy users:user01 --set-auto-schedule-mode=automatic locations:%s" % (
+                cmd((
+                    "%s --add-write-proxy users:user01 \
+                    --set-auto-schedule-mode=automatic locations:%s"
+                ) % (
                     utility,
                     user[0],
                 ))
         else:
             # Default options for all resources
-            cmd("%s --add-write-proxy users:user01 --add-read-proxy users:user03 --set-auto-schedule-mode=automatic resources:%s" % (
+            cmd((
+                "%s --add-write-proxy users:user01 \
+                    --add-read-proxy users:user03 \
+                    --set-auto-schedule-mode=automatic resources:%s"
+            ) % (
                 utility,
                 user[0],
             ))
@@ -780,11 +835,13 @@ def manageRecords(odf, path, user):
                 "resource11": "group01",
             }
             if user[0] in autoAcceptGroups:
-                cmd("%s --set-auto-accept-group=groups:%s resources:%s" % (
-                    utility,
-                    autoAcceptGroups[user[0]],
-                    user[0],
-                ))
+                cmd(
+                    "%s --set-auto-accept-group=groups:%s resources:%s" % (
+                        utility,
+                        autoAcceptGroups[user[0]],
+                        user[0],
+                    )
+                )
 
 
 if __name__ == "__main__":
@@ -815,7 +872,7 @@ if __name__ == "__main__":
             elif option == "-x":
                 node_check = False
             else:
-                print "Unrecognized option: %s" % (option,)
+                print("Unrecognized option: %s" % (option,))
                 usage()
                 raise ValueError
 
@@ -824,15 +881,15 @@ if __name__ == "__main__":
 
         # Process arguments
         if len(args) == 0:
-            print "No arguments given. One of 'create' or 'remove' must be present."
+            print("No arguments given. One of 'create' or 'remove' must be present.")
             usage()
             raise ValueError
         elif len(args) > 1:
-            print "Too many arguments given. Only one of 'create' or 'remove' must be present."
+            print("Too many arguments given. Only one of 'create' or 'remove' must be present.")
             usage()
             raise ValueError
         elif args[0] not in ("create", "create-users", "remove"):
-            print "Wrong arguments given: %s" % (args[0],)
+            print("Wrong arguments given: %s" % (args[0],))
             usage()
             raise ValueError
 
@@ -880,6 +937,6 @@ if __name__ == "__main__":
                 loadLists(kDSStdRecordTypeResources, resources)
             doToAccounts(odf, protocol, removeUser)
 
-    except Exception, e:
+    except Exception:
         traceback.print_exc()
         sys.exit(1)

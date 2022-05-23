@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Class to manage the testing process.
 """
@@ -35,7 +34,6 @@ EX_FAILED_REQUEST = "HTTP Request Failed"
 
 
 class manager(object):
-
     """
     Main class that runs test suites defined in an XML config file.
     """
@@ -66,21 +64,18 @@ class manager(object):
         self.debug = False
 
         self.results = []
-        self.totals = {
-            self.RESULT_OK: 0,
-            self.RESULT_FAILED: 0,
-            self.RESULT_ERROR: 0,
-            self.RESULT_IGNORED: 0
-        }
+        self.totals = {self.RESULT_OK: 0, self.RESULT_FAILED: 0, self.RESULT_ERROR: 0, self.RESULT_IGNORED: 0}
         self.observers = []
 
     def logit(self, str):
         if self.logFile:
             self.logFile.write(str + "\n")
-        print str
+        print(str)
 
     def loadObserver(self, observer_name):
-        module = __import__("observers." + observer_name, globals(), locals(), ["Observer", ])
+        module = __import__("observers." + observer_name, globals(), locals(), [
+            "Observer",
+        ])
         cl = getattr(module, "Observer")
         self.observers.append(cl(self))
 
@@ -95,35 +90,21 @@ class manager(object):
         self.message("testProgress", results)
 
     def testFile(self, name, details, result=None):
-        self.results.append({
-            "name": name,
-            "details": details,
-            "result": result,
-            "tests": []
-        })
+        self.results.append({"name": name, "details": details, "result": result, "tests": []})
         if result is not None:
             self.totals[result] += 1
         self.message("testFile", self.results[-1])
         return self.results[-1]["tests"]
 
     def testSuite(self, testfile, name, details, result=None):
-        testfile.append({
-            "name": name,
-            "details": details,
-            "result": result,
-            "tests": []
-        })
+        testfile.append({"name": name, "details": details, "result": result, "tests": []})
         if result is not None:
             self.totals[result] += 1
         self.message("testSuite", testfile[-1])
         return testfile[-1]["tests"]
 
     def testResult(self, testsuite, name, details, result, addons=None):
-        result_details = {
-            "name": name,
-            "result": result,
-            "details": details
-        }
+        result_details = {"name": name, "result": result, "details": details}
         if addons:
             result_details.update(addons)
         testsuite.append(result_details)
@@ -137,8 +118,11 @@ class manager(object):
         # Open and parse the server config file
         try:
             tree = ElementTree(file=serverfile)
-        except ExpatError, e:
-            raise RuntimeError("Unable to parse file '%s' because: %s" % (serverfile, e,))
+        except ExpatError as e:
+            raise RuntimeError("Unable to parse file '%s' because: %s" % (
+                serverfile,
+                e,
+            ))
 
         # Verify that top-level element is correct
         serverinfo_node = tree.getroot()
@@ -152,10 +136,13 @@ class manager(object):
         self.server_info.ssl = ssl
         self.server_info.port = self.server_info.sslport if ssl else self.server_info.nonsslport
         self.server_info.port2 = self.server_info.sslport2 if ssl else self.server_info.nonsslport2
-        self.server_info.certdir = os.path.join(self.base_dir, self.server_info.certdir) if self.server_info.certdir else ""
+        self.server_info.certdir = os.path.join(
+            self.base_dir, self.server_info.certdir
+        ) if self.server_info.certdir else ""
 
         moresubs["$host:"] = "%s://%s" % (
-            "https" if ssl else "http", self.server_info.host,
+            "https" if ssl else "http",
+            self.server_info.host,
         )
         if (ssl and self.server_info.port != 443) or (not ssl and self.server_info.port != 80):
             moresubs["$host:"] += ":%d" % (self.server_info.port,)
@@ -181,8 +168,11 @@ class manager(object):
             # Open and parse the config file
             try:
                 tree = ElementTree(file=fname)
-            except ExpatError, e:
-                raise RuntimeError("Unable to parse file '%s' because: %s" % (fname, e,))
+            except ExpatError as e:
+                raise RuntimeError("Unable to parse file '%s' because: %s" % (
+                    fname,
+                    e,
+                ))
             caldavtest_node = tree.getroot()
             if caldavtest_node.tag != src.xmlDefs.ELEMENT_CALDAVTEST:
                 if ignore_root:
@@ -236,23 +226,9 @@ class manager(object):
             sys.argv[1:],
             "s:mo:x:",
             [
-                "ssl",
-                "all",
-                "basedir=",
-                "subdir=",
-                "exclude=",
-                "pretest=",
-                "posttest=",
-                "observer=",
-                "pid=",
-                "postgres-log=",
-                "random",
-                "random-seed=",
-                "stop",
-                "print-details-onfail",
-                "always-print-request",
-                "always-print-response",
-                "debug"
+                "ssl", "all", "basedir=", "subdir=", "exclude=", "pretest=", "posttest=", "observer=", "pid=",
+                "postgres-log=", "random", "random-seed=", "stop", "print-details-onfail", "always-print-request",
+                "always-print-response", "debug"
             ],
         )
 
@@ -310,7 +286,10 @@ class manager(object):
 
         if all or not args:
             files = []
-            os.path.walk(dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names]) if not dir.startswith("test") else None, None)
+            os.path.walk(
+                dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names])
+                if not dir.startswith("test") else None, None
+            )
             for file in files:
                 if file.endswith(".xml") and file[len(dname) + 1:] not in excludes:
                     if subdir is None or file[len(dname) + 1:].startswith(subdir):
@@ -350,7 +329,9 @@ class manager(object):
             self.randomSeed = random_seed
 
         # Load observers
-        map(lambda name: self.loadObserver(name), observer_names if observer_names else ["log", ])
+        map(lambda name: self.loadObserver(name), observer_names if observer_names else [
+            "log",
+        ])
 
         self.readXML(sname, fnames, ssl, all)
 
@@ -394,7 +375,7 @@ class manager(object):
                     if f != 0:
                         break
 
-        except:
+        except:  # noqa
             failed += 1
             import traceback
             traceback.print_exc()

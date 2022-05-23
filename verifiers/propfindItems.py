@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks a propfind response to make sure that the specified properties
 are returned with appropriate status codes.
@@ -168,26 +167,44 @@ class Verifier(object):
                             temp = temp.strip()
                             value += temp
                         if status:
-                            if (fqname, None,) in ok_test_set:
+                            if (
+                                fqname,
+                                None,
+                            ) in ok_test_set:
                                 value = None
                         else:
-                            if (fqname, None,) in bad_test_set:
+                            if (
+                                fqname,
+                                None,
+                            ) in bad_test_set:
                                 value = None
                     elif child.text:
                         value = child.text
                         if status:
-                            if (fqname, None,) in ok_test_set:
+                            if (
+                                fqname,
+                                None,
+                            ) in ok_test_set:
                                 value = None
                         else:
-                            if (fqname, None,) in bad_test_set:
+                            if (
+                                fqname,
+                                None,
+                            ) in bad_test_set:
                                 value = None
                     else:
                         value = None
 
                     if status:
-                        ok_status_props.append((fqname, value,))
+                        ok_status_props.append((
+                            fqname,
+                            value,
+                        ))
                     else:
-                        bad_status_props.append((fqname, value,))
+                        bad_status_props.append((
+                            fqname,
+                            value,
+                        ))
 
             ok_result_set = set(ok_status_props)
             bad_result_set = set(bad_status_props)
@@ -205,33 +222,36 @@ class Verifier(object):
 
             if len(ok_missing) + len(ok_extras) + len(bad_missing) + len(bad_extras) != 0:
                 if len(ok_missing) != 0:
-                    l = list(ok_missing)
+                    lmissing = list(ok_missing)
                     resulttxt += "        Items not returned in report (OK) for %s:" % href
-                    for i in l:
+                    for i in lmissing:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 if len(ok_extras) != 0:
-                    l = list(ok_extras)
+                    lextras = list(ok_extras)
                     resulttxt += "        Unexpected items returned in report (OK) for %s:" % href
-                    for i in l:
+                    for i in lextras:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 if len(bad_missing) != 0:
-                    l = list(bad_missing)
+                    lbadmissing = list(bad_missing)
                     resulttxt += "        Items not returned in report (BAD) for %s:" % href
-                    for i in l:
+                    for i in lbadmissing:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 if len(bad_extras) != 0:
-                    l = list(bad_extras)
+                    lbadextras = list(bad_extras)
                     resulttxt += "        Unexpected items returned in report (BAD) for %s:" % href
-                    for i in l:
+                    for i in lbadextras:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 result = False
 
         if count is not None and count != ctr:
             result = False
-            resulttxt = "        Expected %d response items but got %d." % (count, ctr,)
+            resulttxt = "        Expected %d response items but got %d." % (
+                count,
+                ctr,
+            )
 
         return result, resulttxt

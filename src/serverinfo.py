@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Class that encapsulates the server information for a CalDAV test run.
 """
@@ -68,6 +67,7 @@ class serverinfo(object):
         @param mapping: mapping of substitution name to value
         @type mapping: L{dict}
         """
+
         # Helper function for .sub()
         def convert(mo):
             named = mo.group('name')
@@ -75,6 +75,7 @@ class serverinfo(object):
                 return mapping[named]
             else:
                 return named
+
         return self.subspattern.sub(convert, sub)
 
     def subs(self, sub, db=None):
@@ -91,15 +92,26 @@ class serverinfo(object):
                 month = self.dtnow.month + monthoffset
                 year = self.dtnow.year + divmod(month - 1, 12)[0]
                 month = divmod(month - 1, 12)[1] + 1
-                value = "%d%02d" % (year, month,)
+                value = "%d%02d" % (
+                    year,
+                    month,
+                )
             elif sub[pos:].startswith("$now.week."):
                 weekoffset = int(sub[pos + 10:endpos])
                 dtoffset = self.dtnow + datetime.timedelta(days=7 * weekoffset)
-                value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+                value = "%d%02d%02d" % (
+                    dtoffset.year,
+                    dtoffset.month,
+                    dtoffset.day,
+                )
             else:
                 dayoffset = int(sub[pos + 5:endpos])
                 dtoffset = self.dtnow + datetime.timedelta(days=dayoffset)
-                value = "%d%02d%02d" % (dtoffset.year, dtoffset.month, dtoffset.day,)
+                value = "%d%02d%02d" % (
+                    dtoffset.year,
+                    dtoffset.month,
+                    dtoffset.day,
+                )
             sub = "%s%s%s" % (sub[:pos], value, sub[endpos + 1:])
             pos = sub.find("$now.")
 
@@ -164,7 +176,7 @@ class serverinfo(object):
             if child.tag == src.xmlDefs.ELEMENT_HOST:
                 try:
                     self.host = child.text.encode("utf-8")
-                except:
+                except:  # noqa
                     self.host = "localhost"
             elif child.tag == src.xmlDefs.ELEMENT_NONSSLPORT:
                 self.nonsslport = int(child.text)
@@ -175,7 +187,7 @@ class serverinfo(object):
             elif child.tag == src.xmlDefs.ELEMENT_HOST2:
                 try:
                     self.host2 = child.text.encode("utf-8")
-                except:
+                except:  # noqa
                     self.host2 = "localhost"
             elif child.tag == src.xmlDefs.ELEMENT_NONSSLPORT2:
                 self.nonsslport2 = int(child.text)

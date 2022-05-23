@@ -131,9 +131,11 @@ class Observer(BaseResultsObserver):
                 i=self.manager.totals[manager.RESULT_IGNORED],
             )
         self.manager.logit("-" * 70)
-        self.manager.logit("Ran {total} tests in {time:.3f}s\n".format(
-            total=sum(self.manager.totals.values()),
-            time=self.manager.timeDiff,
-        ))
+        self.manager.logit(
+            "Ran {total} tests in {time:.3f}s\n".format(
+                total=sum(self.manager.totals.values()),
+                time=self.manager.timeDiff,
+            )
+        )
 
         self.manager.logit(overall)

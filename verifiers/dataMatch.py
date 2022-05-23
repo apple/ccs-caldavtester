@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
@@ -51,7 +50,7 @@ class Verifier(object):
                 data = fd.read()
             finally:
                 fd.close()
-        except:
+        except:  # noqa
             data = None
 
         if data is None:

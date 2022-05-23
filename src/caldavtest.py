@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Class to encapsulate a single caldav test run.
 """
@@ -45,7 +44,6 @@ import time
 import traceback
 import urllib
 import urlparse
-
 """
 Patch the HTTPConnection.send to record full request details
 """
@@ -58,6 +56,7 @@ def recordRequestHeaders(self, str):
         self.requestData = ""
     self.requestData += str
     httplib.HTTPConnection._send(self, str)  # @UndefinedVariable
+
 
 httplib.HTTPConnection.send = recordRequestHeaders
 
@@ -100,10 +99,15 @@ class caldavtest(object):
 
     def run(self):
         if len(self.missingFeatures()) != 0:
-            self.manager.testFile(self.name, "Missing features: %s" % (", ".join(sorted(self.missingFeatures()),)), manager.RESULT_IGNORED)
+            self.manager.testFile(
+                self.name, "Missing features: %s" % (", ".join(sorted(self.missingFeatures()),)), manager.RESULT_IGNORED
+            )
             return 0, 0, 1
         if len(self.excludedFeatures()) != 0:
-            self.manager.testFile(self.name, "Excluded features: %s" % (", ".join(sorted(self.excludedFeatures()),)), manager.RESULT_IGNORED)
+            self.manager.testFile(
+                self.name, "Excluded features: %s" % (", ".join(sorted(self.excludedFeatures()),)),
+                manager.RESULT_IGNORED
+            )
             return 0, 0, 1
 
         # Always need a new set of UIDs for the entire test
@@ -113,19 +117,25 @@ class caldavtest(object):
 
         self.only = any([suite.only for suite in self.suites])
         try:
-            result = self.dorequests("Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS"))
+            result = self.dorequests(
+                "Start Requests...", self.start_requests, False, True, label="%s | %s" % (self.name, "START_REQUESTS")
+            )
             if not result:
                 self.manager.testFile(self.name, "Start items failed - tests will not be run.", manager.RESULT_ERROR)
-                ok, failed, ignored = (0, 1, 0,)
+                ok, failed, ignored = (
+                    0,
+                    1,
+                    0,
+                )
             else:
                 ok, failed, ignored = self.run_tests(label=self.name)
             self.doenddelete("Deleting Requests...", label="%s | %s" % (self.name, "END_DELETE"))
             self.dorequests("End Requests...", self.end_requests, False, label="%s | %s" % (self.name, "END_REQUESTS"))
             return ok, failed, ignored
-        except socket.error, msg:
+        except socket.error as msg:
             self.manager.testFile(self.name, "SOCKET ERROR: %s" % (msg,), manager.RESULT_ERROR)
             return 0, 1, 0
-        except Exception, e:
+        except Exception as e:
             self.manager.testFile(self.name, "FATAL ERROR: %s" % (e,), manager.RESULT_ERROR)
             if self.manager.debug:
                 traceback.print_exc()
@@ -153,10 +163,16 @@ class caldavtest(object):
             self.manager.testSuite(testfile, result_name, "    Deliberately ignored", manager.RESULT_IGNORED)
             ignored = len(suite.tests)
         elif len(suite.missingFeatures()) != 0:
-            self.manager.testSuite(testfile, result_name, "    Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),), manager.RESULT_IGNORED)
+            self.manager.testSuite(
+                testfile, result_name, "    Missing features: %s" % (", ".join(sorted(suite.missingFeatures())),),
+                manager.RESULT_IGNORED
+            )
             ignored = len(suite.tests)
         elif len(suite.excludedFeatures()) != 0:
-            self.manager.testSuite(testfile, result_name, "    Excluded features: %s" % (", ".join(sorted(suite.excludedFeatures())),), manager.RESULT_IGNORED)
+            self.manager.testSuite(
+                testfile, result_name, "    Excluded features: %s" % (", ".join(sorted(suite.excludedFeatures())),),
+                manager.RESULT_IGNORED
+            )
             ignored = len(suite.tests)
         else:
             postgresCount = self.postgresInit()
@@ -179,7 +195,9 @@ class caldavtest(object):
 
             if self.manager.memUsage:
                 end_usage = self.manager.getMemusage()
-                self.manager.message("trace", "    Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(((end_usage[1] - start_usage[1]) * 100) / start_usage[1]), str(((end_usage[0] - start_usage[0]) * 100) / start_usage[0])))
+                usage0 = ((end_usage[0] - start_usage[0]) * 100) / start_usage[0]
+                usage1 = ((end_usage[1] - start_usage[1]) * 100) / start_usage[1]
+                self.manager.message("trace", "    Mem. Usage: RSS=%s%% VSZ=%s%%" % (str(usage1), str(usage0)))
 
         self.manager.message("trace", "  Suite Results: %d PASSED, %d FAILED, %d IGNORED\n" % (ok, failed, ignored))
         if postgresCount is not None:
@@ -191,10 +209,16 @@ class caldavtest(object):
             self.manager.testResult(testsuite, test.name, "      Deliberately ignored", manager.RESULT_IGNORED)
             return "i"
         elif len(test.missingFeatures()) != 0:
-            self.manager.testResult(testsuite, test.name, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),), manager.RESULT_IGNORED)
+            self.manager.testResult(
+                testsuite, test.name, "      Missing features: %s" % (", ".join(sorted(test.missingFeatures())),),
+                manager.RESULT_IGNORED
+            )
             return "i"
         elif len(test.excludedFeatures()) != 0:
-            self.manager.testResult(testsuite, test.name, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),), manager.RESULT_IGNORED)
+            self.manager.testResult(
+                testsuite, test.name, "      Excluded features: %s" % (", ".join(sorted(test.excludedFeatures())),),
+                manager.RESULT_IGNORED
+            )
             return "i"
         else:
             result = True
@@ -206,20 +230,47 @@ class caldavtest(object):
                 reqstats = None
             for ctr in range(test.count):
                 for req_count, req in enumerate(test.requests):
-                    t = time.time() + (self.manager.server_info.waitsuccess if getattr(req, "wait_for_success", False) else 100)
+                    t = time.time(
+                    ) + (self.manager.server_info.waitsuccess if getattr(req, "wait_for_success", False) else 100)
                     while t > time.time():
                         failed = False
                         if getattr(req, "iterate_data", False):
                             if not req.hasNextData():
-                                self.manager.testResult(testsuite, test.name, "      No iteration data - ignored", manager.RESULT_IGNORED)
+                                self.manager.testResult(
+                                    testsuite, test.name, "      No iteration data - ignored", manager.RESULT_IGNORED
+                                )
                                 return "i"
                             while req.getNextData():
-                                result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
+                                result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(
+                                    req,
+                                    test.details,
+                                    True,
+                                    False,
+                                    reqstats,
+                                    etags=etags,
+                                    label="%s | #%s" % (
+                                        label,
+                                        req_count + 1,
+                                    ),
+                                    count=ctr + 1
+                                )
                                 if not result:
                                     failed = True
                                     break
                         else:
-                            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, test.details, True, False, reqstats, etags=etags, label="%s | #%s" % (label, req_count + 1,), count=ctr + 1)
+                            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(
+                                req,
+                                test.details,
+                                True,
+                                False,
+                                reqstats,
+                                etags=etags,
+                                label="%s | #%s" % (
+                                    label,
+                                    req_count + 1,
+                                ),
+                                count=ctr + 1
+                            )
                             if not result:
                                 failed = True
 
@@ -233,13 +284,17 @@ class caldavtest(object):
                 self.manager.message("trace", resulttxt)
             if result and test.stats:
                 self.manager.message("trace", "    Total Time: %.3f secs" % (reqstats.totaltime,), indent=8)
-                self.manager.message("trace", "    Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8)
+                self.manager.message(
+                    "trace", "    Average Time: %.3f secs" % (reqstats.totaltime / reqstats.count,), indent=8
+                )
                 addons["timing"] = {
                     "total": reqstats.totaltime,
                     "average": reqstats.totaltime / reqstats.count,
                 }
             self.postgresResult(postgresCount, indent=8)
-            self.manager.testResult(testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED, addons)
+            self.manager.testResult(
+                testsuite, test.name, resulttxt, manager.RESULT_OK if result else manager.RESULT_FAILED, addons
+            )
             return ["f", "t"][result]
 
     def dorequests(self, description, list, doverify=True, forceverify=False, label="", count=1):
@@ -247,11 +302,17 @@ class caldavtest(object):
             return True
         self.manager.message("trace", "Start: " + description)
         for req_count, req in enumerate(list):
-            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(req, False, doverify, forceverify, label="%s | #%s" % (label, req_count + 1), count=count)
+            result, resulttxt, _ignore_response, _ignore_respdata = self.dorequest(
+                req, False, doverify, forceverify, label="%s | #%s" % (label, req_count + 1), count=count
+            )
             if not result:
-                resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (req_count + 1, len(list), str(req))
+                resulttxt += "\nFailure during multiple requests #%d out of %d, request=%s" % (
+                    req_count + 1, len(list), str(req)
+                )
                 break
-        self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value=["[FAILED]", "[OK]"][result]))
+        self.manager.message(
+            "trace", "{name:<60}{value:>10}".format(name="End: " + description, value=["[FAILED]", "[OK]"][result])
+        )
         if len(resulttxt) > 0:
             self.manager.message("trace", resulttxt)
         return result
@@ -328,7 +389,9 @@ class caldavtest(object):
                 req.user = deleter[1]
             if len(deleter[2]):
                 req.pswd = deleter[2]
-            _ignore_result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(req, False, False, label=label)
+            _ignore_result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(
+                req, False, False, label=label
+            )
             if response.status / 100 != 2:
                 return False
 
@@ -366,7 +429,9 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
+        result, _ignore_resulttxt, response, respdata = self.dorequest(
+            req, False, False, label="%s | %s" % (label, "FINDNEW")
+        )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
                 tree = ElementTree(file=StringIO(respdata))
@@ -452,7 +517,9 @@ class caldavtest(object):
 </D:propfind>
 """
         req.data.content_type = "text/xml"
-        result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "FINDNEW"))
+        result, _ignore_resulttxt, response, respdata = self.dorequest(
+            req, False, False, label="%s | %s" % (label, "FINDNEW")
+        )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
                 tree = ElementTree(file=StringIO(respdata))
@@ -469,7 +536,11 @@ class caldavtest(object):
                 href = href[0].text
                 if href != request_uri:
 
-                    _ignore_result, respdata = self.doget(req, (href, collection[1], collection[2],), label)
+                    _ignore_result, respdata = self.doget(req, (
+                        href,
+                        collection[1],
+                        collection[2],
+                    ), label)
                     if respdata.find(match) != -1:
                         break
             else:
@@ -501,7 +572,9 @@ class caldavtest(object):
 </D:propfind>
 """
             req.data.content_type = "text/xml"
-            result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count))
+            result, _ignore_resulttxt, response, respdata = self.dorequest(
+                req, False, False, label="%s | %s %d" % (label, "WAITCOUNT", count)
+            )
             hrefs = []
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
                 tree = ElementTree(file=StringIO(respdata))
@@ -522,7 +595,11 @@ class caldavtest(object):
             # Get the content of each resource
             rdata = ""
             for href in hrefs:
-                result, respdata = self.doget(req, (href, collection[1], collection[2],), label)
+                result, respdata = self.doget(req, (
+                    href,
+                    collection[1],
+                    collection[2],
+                ), label)
                 test = "unknown"
                 if respdata.startswith("BEGIN:VCALENDAR"):
                     uid = respdata.find("UID:")
@@ -548,7 +625,9 @@ class caldavtest(object):
                 req.user = user
             if pswd:
                 req.pswd = pswd
-            result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(req, False, False, label="%s | %s" % (label, "WAITCHANGED"))
+            result, _ignore_resulttxt, response, _ignore_respdata = self.dorequest(
+                req, False, False, label="%s | %s" % (label, "WAITCHANGED")
+            )
             if result and (response is not None):
                 if response.status / 100 == 2:
                     hdrs = response.msg.getheaders("Etag")
@@ -584,13 +663,15 @@ class caldavtest(object):
             self.dorequest(req, False, False, label=label)
         self.manager.message("trace", "{name:<60}{value:>10}".format(name="End: " + description, value="[DONE]"))
 
-    def dorequest(self, req, details=False, doverify=True, forceverify=False, stats=None, etags=None, label="", count=1):
+    def dorequest(
+        self, req, details=False, doverify=True, forceverify=False, stats=None, etags=None, label="", count=1
+    ):
 
         req.count = count
 
         if isinstance(req, pause):
             # Useful for pausing at a particular point
-            print "Paused"
+            print("Paused")
             sys.stdin.readline()
             return True, "", None, None
 
@@ -694,18 +775,17 @@ class caldavtest(object):
 
         # Cache delayed delete
         if req.end_delete:
-            self.end_deletes.append((uri, req,))
+            self.end_deletes.append((
+                uri,
+                req,
+            ))
 
         if details:
             resulttxt += "        %s: %s\n" % (method, uri)
 
         # Special for GETCHANGED
         if req.method == "GETCHANGED":
-            if not self.dowaitchanged(
-                req,
-                uri, etags[uri], req.user, req.pswd,
-                label=label
-            ):
+            if not self.dowaitchanged(req, uri, etags[uri], req.user, req.pswd, label=label):
                 return False, "Resource did not change", None, None
             method = "GET"
 
@@ -753,15 +833,23 @@ class caldavtest(object):
             if not result:
                 resulttxt += "Status Code Error: %d" % response.status
 
-        if req.print_request or (self.manager.print_request_response_on_error and not result and not req.wait_for_success):
+        if req.print_request or (
+            self.manager.print_request_response_on_error and not result and not req.wait_for_success
+        ):
             requesttxt = "\n-------BEGIN:REQUEST-------\n"
             requesttxt += http.requestData
             requesttxt += "\n--------END:REQUEST--------\n"
             self.manager.message("protocol", requesttxt)
 
-        if req.print_response or (self.manager.print_request_response_on_error and not result and not req.wait_for_success):
+        if req.print_response or (
+            self.manager.print_request_response_on_error and not result and not req.wait_for_success
+        ):
             responsetxt = "\n-------BEGIN:RESPONSE-------\n"
-            responsetxt += "%s %s %s\n" % (getVersionStringFromResponse(response), response.status, response.reason,)
+            responsetxt += "%s %s %s\n" % (
+                getVersionStringFromResponse(response),
+                response.status,
+                response.reason,
+            )
             responsetxt += str(response.msg) + "\n" + respdata
             responsetxt += "\n--------END:RESPONSE--------\n"
             self.manager.message("protocol", responsetxt)
@@ -821,10 +909,16 @@ class caldavtest(object):
                     resulttxt += "\nElement %s was not extracted from response\n" % (elementpath,)
                 elif len(variables) != len(elementvalues):
                     result = False
-                    resulttxt += "\n%d found but expecting %d for element %s from response\n" % (len(elementvalues), len(variables), elementpath,)
+                    resulttxt += "\n%d found but expecting %d for element %s from response\n" % (
+                        len(elementvalues),
+                        len(variables),
+                        elementpath,
+                    )
                 else:
                     for variable, elementvalue in zip(variables, elementvalues):
-                        self.manager.server_info.addextrasubs({variable: elementvalue.encode("utf-8") if elementvalue else ""})
+                        self.manager.server_info.addextrasubs({
+                            variable: elementvalue.encode("utf-8") if elementvalue else ""
+                        })
 
         if req.grabjson:
             for pointer, variables in req.grabjson:
@@ -832,13 +926,19 @@ class caldavtest(object):
                 pointervalues = self.extractPointer(pointer, respdata)
                 if pointervalues is None:
                     result = False
-                    resulttxt += "\Pointer %s was not extracted from response\n" % (pointer,)
+                    resulttxt += "\nPointer %s was not extracted from response\n" % (pointer,)
                 elif len(variables) != len(pointervalues):
                     result = False
-                    resulttxt += "\n%d found but expecting %d for pointer %s from response\n" % (len(pointervalues), len(variables), pointer,)
+                    resulttxt += "\n%d found but expecting %d for pointer %s from response\n" % (
+                        len(pointervalues),
+                        len(variables),
+                        pointer,
+                    )
                 else:
                     for variable, pointervalue in zip(variables, pointervalues):
-                        self.manager.server_info.addextrasubs({variable: pointervalue.encode("utf-8") if pointervalue else ""})
+                        self.manager.server_info.addextrasubs({
+                            variable: pointervalue.encode("utf-8") if pointervalue else ""
+                        })
 
         if req.grabcalprop:
             for propname, variable in req.grabcalprop:
@@ -973,7 +1073,7 @@ class caldavtest(object):
         try:
             tree = ElementTree()
             tree.parse(StringIO(respdata))
-        except:
+        except:  # noqa
             return None
 
         # Strip off the top-level item
@@ -999,7 +1099,7 @@ class caldavtest(object):
         try:
             tree = ElementTree()
             tree.parse(StringIO(respdata))
-        except:
+        except:  # noqa
             return None
 
         if parent:
@@ -1045,7 +1145,7 @@ class caldavtest(object):
 
         try:
             j = json.loads(respdata)
-        except:
+        except:  # noqa
             return None
 
         return jp.match(j)

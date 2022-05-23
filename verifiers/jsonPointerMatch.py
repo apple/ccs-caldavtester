@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
-
 """
 Verifier that matches JSON content using extended JSON pointer syntax.
 
@@ -37,7 +35,9 @@ class Verifier(object):
 
     def verify(self, manager, uri, response, respdata, args):  # @UnusedVariable
         # Get arguments
-        statusCodes = args.get("status", ["200", ])
+        statusCodes = args.get("status", [
+            "200",
+        ])
         exists = args.get("exists", [])
         notexists = args.get("notexists", [])
 
@@ -57,7 +57,7 @@ class Verifier(object):
         # Read in json
         try:
             j = json.loads(respdata)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not JSON data: %s" % (e,)
 
         def _splitPathTests(path):

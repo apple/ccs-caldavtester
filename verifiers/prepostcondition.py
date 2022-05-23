@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks the response for a pre/post-condition <DAV:error> result.
 """
@@ -40,7 +39,7 @@ class Verifier(object):
 
         try:
             tree = ElementTree(file=StringIO(respdata))
-        except Exception, ex:
+        except Exception as ex:
             return False, "        Could not parse XML: %s" % (ex,)
 
         if tree.getroot().tag != "{DAV:}error":

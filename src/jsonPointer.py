@@ -134,7 +134,9 @@ class JSONMatcher(JSONPointer):
         """
 
         if not segments:
-            return [j, ]
+            return [
+                j,
+            ]
 
         results = []
         if isinstance(j, dict):

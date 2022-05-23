@@ -23,7 +23,6 @@ try:
 except ImportError:
     pass
 import os
-
 """
 Verifier that checks the response body for a semantic match to data in a file.
 """
@@ -76,7 +75,7 @@ class Verifier(object):
                     data = fd.read()
                 finally:
                     fd.close()
-            except:
+            except:  # noqa
                 data = None
         else:
             data = caldata[0] if len(caldata) else None
@@ -128,6 +127,7 @@ class Verifier(object):
             """
             Make sure that the same set of overridden components appears in both calendar objects.
             """
+
             def _getRids(calendar):
                 """
                 Get all the recurrence ids of the specified calendar.
@@ -186,5 +186,5 @@ class Verifier(object):
             else:
                 error_diff = "\n".join([line for line in unified_diff(data.split("\n"), respdata.split("\n"))])
                 return False, "        Response data does not exactly match file data%s" % (error_diff,)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not calendar data: %s" % (e,)

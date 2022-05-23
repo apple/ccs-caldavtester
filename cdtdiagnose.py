@@ -46,22 +46,17 @@ def cmd(args, input=None, raiseOnFail=True):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(
-        description='Gather CalDAVTester diagnostics.',
-    )
-    parser.add_argument(
-        '-d', '--directory', action='store',
-        help='Destination directory for diagnostics archive'
-    )
+    parser = argparse.ArgumentParser(description='Gather CalDAVTester diagnostics.',)
+    parser.add_argument('-d', '--directory', action='store', help='Destination directory for diagnostics archive')
     args = parser.parse_args()
 
-    print "Running CDT diagnostics due to test failure."
+    print("Running CDT diagnostics due to test failure.")
     log = []
 
     def error(message, e):
         log.append("CDT diagnostic: %s" % (message,))
         log.append(str(e))
-        print "\n".join(log)
+        print("\n".join(log))
         sys.exit(1)
 
     now = datetime.datetime.now()
@@ -70,11 +65,11 @@ if __name__ == "__main__":
 
     if args.directory is not None:
         if not os.path.isdir(args.directory):
-            print "Specified target directory path is invalid, using default."
+            print("Specified target directory path is invalid, using default.")
         else:
             dirname = os.path.join(args.directory, dirname)
 
-    print "Saving diagnostic archive to: {}".format(dirname,)
+    print("Saving diagnostic archive to: {}".format(dirname,))
     try:
         os.mkdir(dirname)
     except Exception as e:
@@ -86,7 +81,10 @@ if __name__ == "__main__":
     try:
         shutil.copy(server_path, archive_path)
     except Exception as e:
-        error("Could not copy cdt results file: '%s' to '%s'" % (server_path, archive_path,), e)
+        error("Could not copy cdt results file: '%s' to '%s'" % (
+            server_path,
+            archive_path,
+        ), e)
 
     # Copy serverinfo file
     server_path = "scripts/server/serverinfo-caldav.xml"
@@ -94,7 +92,10 @@ if __name__ == "__main__":
     try:
         shutil.copy(server_path, archive_path)
     except Exception as e:
-        error("Could not copy server info file: '%s' to '%s'" % (server_path, archive_path,), e)
+        error("Could not copy server info file: '%s' to '%s'" % (
+            server_path,
+            archive_path,
+        ), e)
 
     # Get server logs
     logs_path = os.path.join(library_root, "Logs")
@@ -102,7 +103,10 @@ if __name__ == "__main__":
     try:
         shutil.copytree(logs_path, archive_path)
     except Exception as e:
-        error("Could not copy server logs: '%s' to '%s'" % (logs_path, archive_path,), e)
+        error("Could not copy server logs: '%s' to '%s'" % (
+            logs_path,
+            archive_path,
+        ), e)
 
     # Get server config files
     server_path = os.path.join(server_root, "etc", "caldavd")
@@ -110,14 +114,20 @@ if __name__ == "__main__":
     try:
         shutil.copytree(server_path, archive_path)
     except Exception as e:
-        error("Could not copy server conf: '%s' to '%s'" % (server_path, archive_path,), e)
+        error("Could not copy server conf: '%s' to '%s'" % (
+            server_path,
+            archive_path,
+        ), e)
 
     server_path = library_root
     archive_path = os.path.join(dirname, "Library")
     try:
         shutil.copytree(server_path, archive_path)
     except Exception as e:
-        error("Could not copy library items: '%s' to '%s'" % (server_path, archive_path,), e)
+        error("Could not copy library items: '%s' to '%s'" % (
+            server_path,
+            archive_path,
+        ), e)
 
     # Dump OD data
     try:
@@ -138,4 +148,4 @@ if __name__ == "__main__":
     except Exception as e:
         error("Could not make diagnostics archive.", e)
 
-    print "Saved diagnostics to '%s'" % (archive_name,)
+    print("Saved diagnostics to '%s'" % (archive_name,))

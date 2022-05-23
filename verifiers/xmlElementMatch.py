@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
-
 """
 Verifier that checks the response body for an exact match to data in a file.
 """
@@ -49,7 +47,7 @@ class Verifier(object):
         # Read in XML
         try:
             tree = ElementTree(file=StringIO.StringIO(respdata))
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)
 
         def _splitPathTests(path):
@@ -94,7 +92,7 @@ class Verifier(object):
         # Handle absolute root element
         if actual_path[0] == '/':
             actual_path = actual_path[1:]
-        r = re.search("(\{[^\}]+\}[^/]+)(.*)", actual_path)
+        r = re.search(r"(\{[^\}]+\}[^/]+)(.*)", actual_path)
         if r.group(2):
             root_path = r.group(1)
             child_path = r.group(2)[1:]
@@ -175,14 +173,14 @@ class Verifier(object):
         elif test == 'icalendar':
             try:
                 Calendar.parseText(node.text)
-            except:
+            except:  # noqa
                 result = "        Incorrect value returned in iCalendar for %s\n" % (node_path,)
 
         # Try to parse as JSON
         elif test == 'json':
             try:
                 json.loads(node.text)
-            except:
+            except:  # noqa
                 result = "        Incorrect value returned in XML for %s\n" % (node_path,)
         return result
 
@@ -210,7 +208,7 @@ class Verifier(object):
             actual_xpath = "./" + actual_xpath[3:]
 
         # Handle absolute root element and find all matching nodes
-        r = re.search("(/?\{[^\}]+\}[^/]+|\.)(.*)", actual_xpath)
+        r = re.search(r"(/?\{[^\}]+\}[^/]+|\.)(.*)", actual_xpath)
         if r.group(2):
             root_path = r.group(1)
             child_path = r.group(2)[1:]

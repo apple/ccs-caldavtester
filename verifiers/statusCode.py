@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that chec ks the response status code for a specific value.
 """
@@ -37,4 +36,7 @@ class Verifier(object):
             if result:
                 return True, ""
 
-        return False, "        HTTP Status Code Wrong (expected %s): %d" % (", ".join(teststatus), response.status,)
+        return False, "        HTTP Status Code Wrong (expected %s): %d" % (
+            ", ".join(teststatus),
+            response.status,
+        )

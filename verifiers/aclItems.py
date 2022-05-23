@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks a propfind response to make sure that the specified ACL privileges
 are available for the currently authenticated user.
@@ -73,15 +72,15 @@ class Verifier(object):
 
             if len(granted_missing) + len(denied_present) != 0:
                 if len(granted_missing) != 0:
-                    l = list(granted_missing)
+                    lmissing = list(granted_missing)
                     resulttxt += "        Missing privileges not granted for %s:" % href
-                    for i in l:
+                    for i in lmissing:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 if len(denied_present) != 0:
-                    l = list(denied_present)
+                    ldenied = list(denied_present)
                     resulttxt += "        Available privileges that should be denied for %s:" % href
-                    for i in l:
+                    for i in ldenied:
                         resulttxt += " " + str(i)
                     resulttxt += "\n"
                 result = False

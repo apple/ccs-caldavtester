@@ -15,7 +15,6 @@
 ##
 
 from verifiers.calendarDataMatch import Verifier as CalVerifier
-
 """
 Verifier that checks the response body for a semantic match to data in a file.
 """

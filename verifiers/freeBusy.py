@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks the response of a free-busy-query.
 """
@@ -79,11 +78,8 @@ class Verifier(object):
                     raise ValueError("Unknown FBTYPE: %s" % (fbtype,))
 
             # Set sizes must match
-            if (
-                (len(busy) != len(busyp)) or
-                (len(unavailable) != len(unavailablep)) or
-                (len(tentative) != len(tentativep))
-            ):
+            if (((len(busy) != len(busyp)) or (len(unavailable) != len(unavailablep))
+                 or (len(tentative) != len(tentativep)))):
                 raise ValueError("Period list sizes do not match.")
 
             # Convert to string sets
@@ -107,9 +103,9 @@ class Verifier(object):
 
         except InvalidData:
             return False, "        HTTP response data is not a calendar"
-        except ValueError, txt:
+        except ValueError as txt:
             return False, "        HTTP response data is invalid: %s" % (txt,)
-        except Exception, e:
+        except Exception as e:
             return False, "        Response data is not calendar data: %s" % (e,)
 
         return True, ""

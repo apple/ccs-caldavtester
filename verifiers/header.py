@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##
-
 """
 Verifier that checks the response headers for a specific value.
 """
@@ -36,11 +35,26 @@ class Verifier(object):
                 p = p[1:]
                 present = "multiple"
             if p.find("$") != -1:
-                testheader[i] = (p.split("$", 1)[0], p.split("$", 1)[1], present, True,)
+                testheader[i] = (
+                    p.split("$", 1)[0],
+                    p.split("$", 1)[1],
+                    present,
+                    True,
+                )
             elif p.find("!") != -1:
-                testheader[i] = (p.split("!", 1)[0], p.split("!", 1)[1], present, False,)
+                testheader[i] = (
+                    p.split("!", 1)[0],
+                    p.split("!", 1)[1],
+                    present,
+                    False,
+                )
             else:
-                testheader[i] = (p, None, present, True,)
+                testheader[i] = (
+                    p,
+                    None,
+                    present,
+                    True,
+                )
 
         result = True
         resulttxt = ""

@@ -15,7 +15,6 @@
 ##
 
 from verifiers.addressDataMatch import Verifier as CardVerifier
-
 """
 Verifier that checks the response body for a semantic match to data in a file.
 """
