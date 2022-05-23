@@ -19,7 +19,7 @@ Verifier that checks the response body for an exact match to data in a file.
 
 from difflib import unified_diff
 from xml.etree.cElementTree import ElementTree, tostring
-import StringIO
+from io import BytesIO
 import os
 
 
@@ -63,7 +63,7 @@ class Verifier(object):
         def normalizeXMLData(data):
             # Read in XML
             try:
-                tree = ElementTree(file=StringIO.StringIO(data))
+                tree = ElementTree(file=BytesIO(data))
             except Exception:
                 raise ValueError("Could not parse XML data")
 

@@ -25,7 +25,7 @@ except ImportError:
 from xml.etree.cElementTree import ElementTree
 import json
 import re
-import StringIO
+from io import BytesIO
 
 
 class Verifier(object):
@@ -46,7 +46,7 @@ class Verifier(object):
 
         # Read in XML
         try:
-            tree = ElementTree(file=StringIO.StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception as e:
             return False, "        Response data is not xml data: %s" % (e,)
 
@@ -156,7 +156,7 @@ class Verifier(object):
             else:
                 element = test[1:]
                 value = None
-            for child in node.getchildren():
+            for child in node:
                 if child.tag == element and (value is None or child.text == value):
                     break
             else:
@@ -271,7 +271,7 @@ if __name__ == '__main__':
 </D:test>
 """
 
-    node = ElementTree(file=StringIO.StringIO(xmldata)).getroot()
+    node = ElementTree(file=BytesIO(xmldata)).getroot()
 
     assert Verifier.matchNode(node, "/{DAV:}test/{DAV:}b/{DAV:}c[=C]/../{DAV:}d[=D]")[0]
     assert not Verifier.matchNode(node, "/{DAV:}test/{DAV:}b/{DAV:}c[=C]/../{DAV:}d[=E]")[0]

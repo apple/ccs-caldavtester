@@ -18,9 +18,9 @@ Verifier that checks a propfind response for regex matches to property values.
 """
 
 from xml.etree.cElementTree import ElementTree, tostring
-from StringIO import StringIO
+from io import BytesIO
 import re
-import urllib
+from urllib.parse import unquote
 
 
 class Verifier(object):
@@ -35,7 +35,7 @@ class Verifier(object):
 
             if value[0] == '<':
                 try:
-                    tree = ElementTree(file=StringIO(value))
+                    tree = ElementTree(file=BytesIO(value))
                 except Exception:
                     return False, "           Could not parse XML value: %s\n" % (value,)
                 value = tostring(tree.getroot())
@@ -66,7 +66,7 @@ class Verifier(object):
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
 
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
 
@@ -78,7 +78,7 @@ class Verifier(object):
             href = response.findall("{DAV:}href")
             if len(href) != 1:
                 return False, "           Wrong number of DAV:href elements\n"
-            href = urllib.unquote(href[0].text)
+            href = unquote(href[0].text)
             if href in ignores:
                 continue
             if only and href not in only:
@@ -105,7 +105,7 @@ class Verifier(object):
 
                 def _removeWhitespace(node):
 
-                    for child in node.getchildren():
+                    for child in node:
                         child.text = child.text.strip() if child.text else child.text
                         child.tail = child.tail.strip() if child.tail else child.tail
                         _removeWhitespace(child)

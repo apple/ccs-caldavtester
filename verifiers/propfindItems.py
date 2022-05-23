@@ -19,8 +19,8 @@ are returned with appropriate status codes.
 """
 
 from xml.etree.cElementTree import ElementTree, tostring
-from StringIO import StringIO
-import urllib
+from io import BytesIO
+from urllib.parse import unquote
 
 
 class Verifier(object):
@@ -67,7 +67,7 @@ class Verifier(object):
 
             if value[0] == '<':
                 try:
-                    tree = ElementTree(file=StringIO(value))
+                    tree = ElementTree(file=BytesIO(value))
                 except Exception:
                     return False, "           Could not parse XML value: %s\n" % (value,)
                 value = tostring(tree.getroot())
@@ -112,7 +112,7 @@ class Verifier(object):
 
         # Read in XML
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
 
@@ -129,7 +129,7 @@ class Verifier(object):
             href = response.find("{DAV:}href")
             if href is None:
                 return False, "           Wrong number of DAV:href elements\n"
-            href = urllib.unquote(href.text)
+            href = unquote(href.text)
             if href in ignores:
                 continue
             if only and href not in only:

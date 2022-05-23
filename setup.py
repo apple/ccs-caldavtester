@@ -16,9 +16,9 @@
 # limitations under the License.
 ##
 
-from __future__ import print_function
+from pathlib import Path
 
-from os.path import dirname, abspath, join as joinpath
+from os.path import dirname, abspath
 from setuptools import setup, find_packages as setuptools_find_packages
 import errno
 import os
@@ -50,6 +50,7 @@ def git_info(wc_path):
         branch = subprocess.check_output(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
             stderr=subprocess.STDOUT,
+            encoding='UTF-8',
         )
     except OSError as e:
         if e.errno == errno.ENOENT:
@@ -64,6 +65,7 @@ def git_info(wc_path):
         revision = subprocess.check_output(
             ["git", "rev-parse", "--verify", "HEAD"],
             stderr=subprocess.STDOUT,
+            encoding='UTF-8',
         )
     except OSError as e:
         if e.errno == errno.ENOENT:
@@ -78,6 +80,7 @@ def git_info(wc_path):
         tag = subprocess.check_output(
             ["git", "describe", "--candidates=0", "HEAD"],
             stderr=subprocess.STDOUT,
+            encoding='UTF-8',
         )
     except OSError as e:
         if e.errno == errno.ENOENT:
@@ -126,7 +129,7 @@ def version():
         assert dev == "dev", ("Branch name doesn't end in -dev: {!r}".format(info["branch"]))
         # This is a release branch of this project.
         # Designate this as beta2, dev version based on git revision.
-        return "{}b2.dev-{}".format(base_version, info["revision"])
+        return "{}b2.dev-{}".format(base_version, info["revisionpyth"])
 
     if info["branch"] == "master":
         # This is master.
@@ -149,7 +152,7 @@ project_name = "CalDAVTester"
 
 description = "CalDAV/CardDAV protocol test suite"
 
-long_description = file(joinpath(dirname(__file__), "README.md")).read()
+long_description = (Path(__file__).parent / "README.md").read_text()
 
 url = "https://github.com/apple/ccs-caldavtester"
 

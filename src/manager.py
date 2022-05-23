@@ -190,6 +190,7 @@ class manager(object):
             test.parseXML(caldavtest_node)
             return test
 
+        ctr = 0
         for ctr, testfile in enumerate(testfiles):
             self.message("load", testfile, ctr + 1, len(testfiles))
 
@@ -286,7 +287,7 @@ class manager(object):
 
         if all or not args:
             files = []
-            os.path.walk(
+            os.walk(
                 dname, lambda arg, dir, names: files.extend([os.path.join(dir, name) for name in names])
                 if not dir.startswith("test") else None, None
             )

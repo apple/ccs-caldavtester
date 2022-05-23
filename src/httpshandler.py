@@ -14,7 +14,7 @@
 # limitations under the License.
 ##
 
-import httplib
+from http.client import HTTPConnection, HTTPSConnection
 import socket
 import ssl as sslmodule
 
@@ -32,14 +32,14 @@ if len(cached_types) == 0:
     raise RuntimeError("Unable to find suitable SSL protocol to use")
 
 
-class HTTPSVersionConnection(httplib.HTTPSConnection):
+class HTTPSVersionConnection(HTTPSConnection):
     """
-    An L{httplib.HTTPSConnection} class that allows the TLS protocol version to be set.
+    An L{HTTPSConnection} class that allows the TLS protocol version to be set.
     """
 
     def __init__(self, host, port, ssl_version=cached_types[0][1], cert_file=None):
 
-        httplib.HTTPSConnection.__init__(self, host, port, cert_file=cert_file)
+        HTTPSConnection.__init__(self, host, port, cert_file=cert_file)
         self._ssl_version = ssl_version
 
     def connect(self):
@@ -49,13 +49,13 @@ class HTTPSVersionConnection(httplib.HTTPSConnection):
         self.sock = sslmodule.wrap_socket(sock, self.key_file, self.cert_file, ssl_version=self._ssl_version)
 
 
-class UnixSocketHTTPConnection(httplib.HTTPConnection):
+class UnixSocketHTTPConnection(HTTPConnection):
     """
-    An L{httplib.HTTPConnection} class that uses a unix socket rather than TCP.
+    An L{HTTPConnection} class that uses a unix socket rather than TCP.
     """
 
     def __init__(self, path, host, port):
-        httplib.HTTPConnection.__init__(self, host, port)
+        HTTPConnection.__init__(self, host, port)
         self.path = path
 
     def connect(self):
@@ -68,7 +68,7 @@ class UnixSocketHTTPConnection(httplib.HTTPConnection):
 
 def SmartHTTPConnection(host, port, ssl, afunix, cert=None):
     """
-    Create the appropriate L{httplib.HTTPConnection} derived class for the supplied arguments.
+    Create the appropriate L{HTTPConnection} derived class for the supplied arguments.
     This attempts to connect to a server using the available SSL protocol types (as per
     L{cached_types} and if that succeeds it records the host/port in L{cached_types} for
     use with subsequent connections.
@@ -110,6 +110,6 @@ def SmartHTTPConnection(host, port, ssl, afunix, cert=None):
 
         raise RuntimeError("Cannot connect via with TLSv1, SSLv3 or SSLv23")
     else:
-        connect = httplib.HTTPConnection(host, port)
+        connect = HTTPConnection(host, port)
     connect.connect()
     return connect

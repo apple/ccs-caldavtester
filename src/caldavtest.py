@@ -17,7 +17,7 @@
 Class to encapsulate a single caldav test run.
 """
 
-from cStringIO import StringIO
+from io import BytesIO
 try:
     # Treat pycalendar as optional
     from pycalendar.icalendar.calendar import Calendar
@@ -32,33 +32,32 @@ from src.request import stats
 from src.testsuite import testsuite
 from src.xmlUtils import nodeForPath, xmlPathSplit
 from xml.etree.cElementTree import ElementTree, tostring
-import commands
-import httplib
+import subprocess
+from http.client import HTTPConnection
 import json
 import os
-import rfc822
+from email.utils import parsedate
 import socket
 import src.xmlDefs
 import sys
 import time
 import traceback
-import urllib
-import urlparse
+from urllib.parse import quote, urlparse, urlunparse
 """
 Patch the HTTPConnection.send to record full request details
 """
 
-httplib.HTTPConnection._send = httplib.HTTPConnection.send
+HTTPConnection._send = HTTPConnection.send
 
 
-def recordRequestHeaders(self, str):
+def recordRequestHeaders(self, data):
     if not hasattr(self, "requestData"):
         self.requestData = ""
     self.requestData += str
-    httplib.HTTPConnection._send(self, str)  # @UndefinedVariable
+    HTTPConnection._send(self, data)
 
 
-httplib.HTTPConnection.send = recordRequestHeaders
+HTTPConnection.send = recordRequestHeaders
 
 
 def getVersionStringFromResponse(response):
@@ -359,7 +358,7 @@ class caldavtest(object):
         result, _ignore_resulttxt, response, respdata = self.dorequest(req, False, False, label=label)
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
             except Exception:
                 return ()
 
@@ -434,7 +433,7 @@ class caldavtest(object):
         )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
             except Exception:
                 return hresult
 
@@ -472,7 +471,7 @@ class caldavtest(object):
                                 if len(glm) != 1:
                                     continue
                                 value = glm[0].text
-                                value = rfc822.parsedate(value)
+                                value = parsedate(value)
                                 value = time.mktime(value)
                                 if value > latest:
                                     possible_matches.clear()
@@ -522,7 +521,7 @@ class caldavtest(object):
         )
         if result and (response is not None) and (response.status == 207) and (respdata is not None):
             try:
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
             except Exception:
                 return hresult
 
@@ -577,7 +576,7 @@ class caldavtest(object):
             )
             hrefs = []
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
 
                 for response in tree.findall("{DAV:}response"):
                     href = response.findall("{DAV:}href")[0]
@@ -806,10 +805,10 @@ class caldavtest(object):
             headers['User-Agent'] = label.encode("utf-8")
 
         try:
-            puri = list(urlparse.urlparse(uri))
+            puri = list(urlparse(uri))
             if req.ruri_quote:
-                puri[2] = urllib.quote(puri[2])
-            quri = urlparse.urlunparse(puri)
+                puri[2] = quote(puri[2])
+            quri = urlunparse(puri)
 
             http.request(method, quri, data, headers)
 
@@ -865,7 +864,7 @@ class caldavtest(object):
         if req.grabcount:
             ctr = None
             if result and (response is not None) and (response.status == 207) and (respdata is not None):
-                tree = ElementTree(file=StringIO(respdata))
+                tree = ElementTree(file=BytesIO(respdata))
                 ctr = len(tree.findall("{DAV:}response")) - 1
 
             if ctr is None or ctr == -1:
@@ -1001,7 +1000,7 @@ class caldavtest(object):
     def parseXML(self, node):
         self.ignore_all = node.get(src.xmlDefs.ATTR_IGNORE_ALL, src.xmlDefs.ATTR_VALUE_NO) == src.xmlDefs.ATTR_VALUE_YES
 
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_DESCRIPTION:
                 self.description = child.text
             elif child.tag == src.xmlDefs.ELEMENT_REQUIRE_FEATURE:
@@ -1018,14 +1017,14 @@ class caldavtest(object):
                 self.end_requests = request.parseList(self.manager, child)
 
     def parseFeatures(self, node, require=True):
-        for child in node.getchildren():
+        for child in node:
             if child.tag == src.xmlDefs.ELEMENT_FEATURE:
-                (self.require_features if require else self.exclude_features).add(child.text.encode("utf-8"))
+                (self.require_features if require else self.exclude_features).add(child.text)
 
     def extractProperty(self, propertyname, respdata):
 
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return None
 
@@ -1072,7 +1071,7 @@ class caldavtest(object):
 
         try:
             tree = ElementTree()
-            tree.parse(StringIO(respdata))
+            tree.parse(BytesIO(respdata))
         except:  # noqa
             return None
 
@@ -1098,7 +1097,7 @@ class caldavtest(object):
 
         try:
             tree = ElementTree()
-            tree.parse(StringIO(respdata))
+            tree.parse(BytesIO(respdata))
         except:  # noqa
             return None
 
@@ -1218,7 +1217,7 @@ class caldavtest(object):
         """
         if self.manager.postgresLog:
             if os.path.exists(self.manager.postgresLog):
-                return int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+                return int(subprocess.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
 
         return 0
 
@@ -1226,7 +1225,9 @@ class caldavtest(object):
 
         if self.manager.postgresLog:
             if os.path.exists(self.manager.postgresLog):
-                newCount = int(commands.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,)))
+                newCount = int(
+                    subprocess.getoutput("grep \"LOG:  statement:\" %s | wc -l" % (self.manager.postgresLog,))
+                )
             else:
                 newCount = 0
             self.manager.message("trace", "Postgres Statements: %d" % (newCount - startCount,))

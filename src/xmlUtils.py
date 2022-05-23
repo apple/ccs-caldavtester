@@ -23,7 +23,7 @@ import src.xmlDefs
 def readStringElementList(node, ename):
 
     results = []
-    for child in node.getchildren():
+    for child in node:
         if child.tag == ename:
             results.append(child.text.decode("utf-8"))
     return results
@@ -43,7 +43,7 @@ def getDefaultAttributeValue(node, attr, default):
 
 def readOneStringElement(node, ename):
 
-    for child in node.getchildren():
+    for child in node:
         if child.tag == ename:
             return child.text.decode("utf-8")
     return ""
@@ -105,7 +105,7 @@ def nodeForPath(root, path):
                     else:
                         element = test[1:]
                         value = None
-                    for child in node.getchildren():
+                    for child in node:
                         if child.tag == element and (value is None or child.text == value):
                             results.append(node)
     else:
