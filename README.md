@@ -1,6 +1,14 @@
 CALDAVTESTER
 ============
 
+# Notice of Archival
+
+The developers of the Calendar and Contacts Server and its related
+projects have each moved on to other things. The time has come to
+officially archive the project. Thank you to all the users and
+contributors. Feel free to fork this project if you wish to continue
+to maintain it.
+
 # INTRODUCTION
 
 CalDAVTester is a Python app that will run a series of scripted tests
