@@ -18,8 +18,8 @@
 Verifier that checks the response body for an exact match to data in a file.
 """
 
-from StringIO import StringIO
 from difflib import unified_diff
+from io import BytesIO
 from xml.etree.cElementTree import ElementTree, tostring
 import os
 
@@ -30,7 +30,7 @@ class Verifier(object):
         # Get arguments
         files = args.get("filepath", [])
         if manager.data_dir:
-            files = map(lambda x: os.path.join(manager.data_dir, x), files)
+            files = [os.path.join(manager.data_dir, f) for f in files]
 
         # status code must be 200, 207
         if response.status not in (200, 207):
@@ -71,11 +71,11 @@ class Verifier(object):
                         result = False
                 elif files[0].endswith(".xml"):
                     try:
-                        respdata = tostring(ElementTree(file=StringIO(respdata)).getroot())
+                        respdata = tostring(ElementTree(file=BytesIO(respdata)).getroot())
                     except Exception:
                         return False, "        Could not parse XML response: %s" % (respdata,)
                     try:
-                        data = tostring(ElementTree(file=StringIO(data)).getroot())
+                        data = tostring(ElementTree(file=BytesIO(data)).getroot())
                     except Exception:
                         return False, "        Could not parse XML data: %s" % (data,)
                     if data != respdata:

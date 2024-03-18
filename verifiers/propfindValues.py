@@ -18,8 +18,8 @@
 Verifier that checks a propfind response for regex matches to property values.
 """
 
+from io import BytesIO, StringIO
 from xml.etree.cElementTree import ElementTree, tostring
-from StringIO import StringIO
 import re
 import urllib
 
@@ -67,7 +67,7 @@ class Verifier(object):
             return False, "           HTTP Status for Request: %d\n" % (response.status,)
 
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
 
@@ -106,7 +106,7 @@ class Verifier(object):
 
                 def _removeWhitespace(node):
 
-                    for child in node.getchildren():
+                    for child in node:
                         child.text = child.text.strip() if child.text else child.text
                         child.tail = child.tail.strip() if child.tail else child.tail
                         _removeWhitespace(child)

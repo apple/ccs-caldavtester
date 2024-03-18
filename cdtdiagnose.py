@@ -55,13 +55,13 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    print "Running CDT diagnostics due to test failure."
+    print("Running CDT diagnostics due to test failure.")
     log = []
 
     def error(message, e):
         log.append("CDT diagnostic: %s" % (message,))
         log.append(str(e))
-        print "\n".join(log)
+        print("\n".join(log))
         sys.exit(1)
 
     now = datetime.datetime.now()
@@ -70,11 +70,11 @@ if __name__ == "__main__":
 
     if args.directory is not None:
         if not os.path.isdir(args.directory):
-            print "Specified target directory path is invalid, using default."
+            print("Specified target directory path is invalid, using default.")
         else:
             dirname = os.path.join(args.directory, dirname)
 
-    print "Saving diagnostic archive to: {}".format(dirname,)
+    print("Saving diagnostic archive to: {}".format(dirname,))
     try:
         os.mkdir(dirname)
     except Exception as e:
@@ -138,4 +138,4 @@ if __name__ == "__main__":
     except Exception as e:
         error("Could not make diagnostics archive.", e)
 
-    print "Saved diagnostics to '%s'" % (archive_name,)
+    print("Saved diagnostics to '%s'" % (archive_name,))

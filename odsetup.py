@@ -271,7 +271,7 @@ records = (
 
 
 def usage():
-    print """Usage: odsetup [options] create|create-users|remove
+    print("""Usage: odsetup [options] create|create-users|remove
 Options:
     -h        Print this help and exit
     -n node   OpenDirectory node to target
@@ -281,18 +281,18 @@ Options:
     -x        disable OD node checks
     -v        verbose logging
     -V        very verbose logging
-"""
+""")
 
 
 def cmd(args, input=None, raiseOnFail=True):
 
     if veryverbose:
-        print "-----"
+        print("-----")
     if verbose:
-        print args.replace(diradmin_pswd, "xxxx")
+        print(args.replace(diradmin_pswd, "xxxx"))
     if veryverbose and input:
-        print input
-        print "*****"
+        print(input)
+        print("*****")
     if input:
         p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE, shell=True)
         result = p.communicate(input)
@@ -301,8 +301,8 @@ def cmd(args, input=None, raiseOnFail=True):
         result = p.communicate()
 
     if veryverbose:
-        print "Output: %s" % (result[0],)
-        print "Code: %s" % (p.returncode,)
+        print("Output: %s" % result[0])
+        print("Code: %s" % p.returncode)
     if raiseOnFail and p.returncode:
         raise RuntimeError(result[1])
     return result[0], p.returncode
@@ -319,9 +319,9 @@ def checkDataSource(node):
     result = cmd("dscl localhost -list /LDAPv3")
     result = ["/LDAPv3/{}".format(subnode) for subnode in result[0].splitlines()]
     if len(result) > 1 or result[0] != node:
-        print "Error: Host is bound to other directory nodes: {}".format(result)
-        print "CalDAVTester will likely fail with other nodes present."
-        print "Please remove all nodes except the one being used for odsetup."
+        print("Error: Host is bound to other directory nodes: {}".format(result))
+        print("CalDAVTester will likely fail with other nodes present.")
+        print("Please remove all nodes except the one being used for odsetup.")
         sys.exit(1)
 
 
@@ -552,8 +552,8 @@ def loadLists(path, records):
 
     try:
         plist = readPlistFromString(result[0])
-    except xml.parsers.expat.ExpatError, e:
-        print "Error (%s) parsing (%s)" % (e, result[0])
+    except xml.parsers.expat.ExpatError as e:
+        print("Error (%s) parsing (%s)" % (e, result[0]))
         raise
 
     for record in plist["result"]:
@@ -574,7 +574,7 @@ def doToAccounts(odf, protocol, f, users_only=False):
         if count > 1:
             for ctr in range(1, count + 1):
                 attrs = {}
-                for key, value in record[3].iteritems():
+                for key, value in record[3].items():
                     if value.find("%02d") != -1:
                         value = value % (ctr,)
                     attrs[key] = value
@@ -598,7 +598,7 @@ def doGroupMemberships(odf):
 
     for groupname, users, nestedgroups in memberships:
         if verbose:
-            print "Group membership: {}".format(groupname)
+            print("Group membership: {}".format(groupname))
 
         # Get group record
         group = odf.lookupRecordName(kDSStdRecordTypeGroups, groupname)
@@ -620,7 +620,7 @@ def doGroupMemberships(odf):
 def createUser(odf, path, user):
 
     if verbose:
-        print "Create user: {}/{}".format(path, user[0])
+        print("Create user: {}/{}".format(path, user[0]))
 
     if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
         createUserViaDS(odf, path, user)
@@ -643,7 +643,7 @@ def createUserViaDS(odf, path, user):
         record = odf.createRecord(path, user[0], user[1], user[2])
     else:
         if verbose:
-            print "%s/%s already exists" % (path, user[0],)
+            print("%s/%s already exists" % (path, user[0],))
 
     # Now read the guid for this record
     if user[0] in guids:
@@ -692,7 +692,7 @@ def createUserViaGateway(path, user):
 def removeUser(odf, path, user):
 
     if verbose:
-        print "Remove user: {}/{}".format(path, user[0])
+        print("Remove user: {}/{}".format(path, user[0]))
 
     if path in (kDSStdRecordTypeUsers, kDSStdRecordTypeGroups,):
         removeUserViaDS(odf, path, user)
@@ -815,7 +815,7 @@ if __name__ == "__main__":
             elif option == "-x":
                 node_check = False
             else:
-                print "Unrecognized option: %s" % (option,)
+                print("Unrecognized option: %s" % option)
                 usage()
                 raise ValueError
 
@@ -824,15 +824,15 @@ if __name__ == "__main__":
 
         # Process arguments
         if len(args) == 0:
-            print "No arguments given. One of 'create' or 'remove' must be present."
+            print("No arguments given. One of 'create' or 'remove' must be present.")
             usage()
             raise ValueError
         elif len(args) > 1:
-            print "Too many arguments given. Only one of 'create' or 'remove' must be present."
+            print("Too many arguments given. Only one of 'create' or 'remove' must be present.")
             usage()
             raise ValueError
         elif args[0] not in ("create", "create-users", "remove"):
-            print "Wrong arguments given: %s" % (args[0],)
+            print("Wrong arguments given: %s" % args[0])
             usage()
             raise ValueError
 
@@ -880,6 +880,6 @@ if __name__ == "__main__":
                 loadLists(kDSStdRecordTypeResources, resources)
             doToAccounts(odf, protocol, removeUser)
 
-    except Exception, e:
+    except Exception:
         traceback.print_exc()
         sys.exit(1)

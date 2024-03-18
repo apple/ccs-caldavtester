@@ -19,8 +19,8 @@ Verifier that checks a propfind response to make sure that the specified propert
 are returned with appropriate status codes.
 """
 
+from io import BytesIO
 from xml.etree.cElementTree import ElementTree, tostring
-from StringIO import StringIO
 import urllib
 
 
@@ -68,7 +68,7 @@ class Verifier(object):
 
             if value[0] == '<':
                 try:
-                    tree = ElementTree(file=StringIO(value))
+                    tree = ElementTree(file=BytesIO(value))
                 except Exception:
                     return False, "           Could not parse XML value: %s\n" % (value,)
                 value = tostring(tree.getroot())
@@ -113,7 +113,7 @@ class Verifier(object):
 
         # Read in XML
         try:
-            tree = ElementTree(file=StringIO(respdata))
+            tree = ElementTree(file=BytesIO(respdata))
         except Exception:
             return False, "           Could not parse proper XML response\n"
 

@@ -16,8 +16,6 @@
 # limitations under the License.
 ##
 
-from __future__ import print_function
-
 from os.path import dirname, abspath, join as joinpath
 from setuptools import setup, find_packages as setuptools_find_packages
 import errno
@@ -62,7 +60,7 @@ def git_info(wc_path):
     except subprocess.CalledProcessError:
         return None
 
-    branch = branch.strip()
+    branch = branch.decode().strip()
 
     try:
         revision = subprocess.check_output(
@@ -76,7 +74,7 @@ def git_info(wc_path):
     except subprocess.CalledProcessError:
         return None
 
-    revision = revision.strip()
+    revision = revision.decode().strip()
 
     try:
         tag = subprocess.check_output(
@@ -90,7 +88,7 @@ def git_info(wc_path):
     except subprocess.CalledProcessError:
         tag = None
     else:
-        tag = tag.strip()
+        tag = tag.decode().strip()
 
     return dict(
         project=base_project,
@@ -166,7 +164,7 @@ project_name = "CalDAVTester"
 
 description = "CalDAV/CardDAV protocol test suite"
 
-long_description = file(joinpath(dirname(__file__), "README.md")).read()
+long_description = open(joinpath(dirname(__file__), "README.md")).read()
 
 url = "https://github.com/apple/ccs-caldavtester"
 
